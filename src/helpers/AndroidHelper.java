@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.shkschneider.skeleton.helper;
+package me.shkschneider.skeleton.helpers;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -27,6 +28,9 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
+
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 public abstract class AndroidHelper {
 
@@ -64,6 +68,24 @@ public abstract class AndroidHelper {
     public static void toastLong(final Context context, final String text) {
         if (context != null && ! TextUtils.isEmpty(text)) {
             Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public static void croutonInfo(final Context context, final String text) {
+        if (context != null && ! TextUtils.isEmpty(text)) {
+            Crouton.makeText((Activity) context, text, Style.INFO).show();
+        }
+    }
+
+    public static void croutonConfirm(final Context context, final String text) {
+        if (context != null && ! TextUtils.isEmpty(text)) {
+            Crouton.makeText((Activity) context, text, Style.CONFIRM).show();
+        }
+    }
+
+    public static void croutonAlert(final Context context, final String text) {
+        if (context != null && ! TextUtils.isEmpty(text)) {
+            Crouton.makeText((Activity) context, text, Style.ALERT).show();
         }
     }
 

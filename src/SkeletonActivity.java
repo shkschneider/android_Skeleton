@@ -26,17 +26,14 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.Window;
 
-import me.shkschneider.skeleton.helper.AndroidHelper;
-import me.shkschneider.skeleton.helper.FileHelper;
-import me.shkschneider.skeleton.helper.NetworkHelper;
-import me.shkschneider.skeleton.helper.WebViewHelper;
+import me.shkschneider.skeleton.helpers.AndroidHelper;
+import me.shkschneider.skeleton.helpers.NetworkHelper;
 import me.shkschneider.skeleton.net.ImageDownloader;
 import me.shkschneider.skeleton.net.WebService;
 
-public class MainActivity extends SherlockActivity {
+public class SkeletonActivity extends SherlockActivity {
 
 	@Override
 	protected void onCreate(final Bundle savedInstanceState) {
@@ -69,7 +66,7 @@ public class MainActivity extends SherlockActivity {
                 public void WebServiceCallback(final Integer id, final WebService.Response response) {
                     setSupportProgressBarIndeterminateVisibility(false);
 
-                    new AlertDialog.Builder(MainActivity.this)
+                    new AlertDialog.Builder(SkeletonActivity.this)
                             .setMessage(response.content)
                             .setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 
@@ -88,30 +85,10 @@ public class MainActivity extends SherlockActivity {
 	}
 
 	@Override
-	public boolean onCreateOptionsMenu(final Menu menu) {
-        getSupportMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
 	public boolean onMenuItemSelected(final int featureId, final MenuItem item) {
 		switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
-                return true;
-            case R.id.menu_about:
-                new AlertDialog.Builder(MainActivity.this)
-                        .setView(WebViewHelper.loadHtml(getApplicationContext(), FileHelper.read(FileHelper.openRaw(getApplicationContext(), R.raw.about))))
-                        .setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(final DialogInterface dialogInterface, final int i) {
-                                dialogInterface.dismiss();
-                            }
-
-                        })
-                        .create()
-                        .show();
                 return true;
 		}
 		return super.onMenuItemSelected(featureId, item);

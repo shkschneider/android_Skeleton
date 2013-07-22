@@ -24,9 +24,9 @@ import com.androidquery.callback.AjaxStatus;
 
 import org.apache.http.HttpStatus;
 
-import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.helper.NetworkHelper;
-import me.shkschneider.skeleton.helper.StringHelper;
+import me.shkschneider.skeleton.helpers.LogHelper;
+import me.shkschneider.skeleton.helpers.NetworkHelper;
+import me.shkschneider.skeleton.helpers.StringHelper;
 
 public class WebService {
 

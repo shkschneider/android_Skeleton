@@ -24,14 +24,15 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 
-import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.helper.NetworkHelper;
+import me.shkschneider.skeleton.helpers.LogHelper;
+import me.shkschneider.skeleton.helpers.NetworkHelper;
 
 public class ImageDownloader {
 
     private Context mContext;
     private ImageView mImageView;
     private String mUrl;
+    private Boolean[] mCache = { false, false };
 
     private Boolean check() {
         if (mContext == null) {
@@ -53,6 +54,12 @@ public class ImageDownloader {
         mContext = context;
         mImageView = imageView;
         mUrl = url;
+    }
+
+    public ImageDownloader cache(final Boolean file, final Boolean memory) {
+        mCache[0] = file;
+        mCache[1] = memory;
+        return this;
     }
 
     public void run(final Callback callback) {
@@ -79,6 +86,8 @@ public class ImageDownloader {
                         }
 
                     }
+                    .fileCache(mCache[0])
+                    .memCache(mCache[1])
                     .url(mUrl)
                     .type(Bitmap.class)
                     .header("User-Agent", NetworkHelper.userAgent(mContext));

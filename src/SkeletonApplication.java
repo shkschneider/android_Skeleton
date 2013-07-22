@@ -19,15 +19,15 @@ import android.app.Application;
 
 import com.androidquery.util.AQUtility;
 
-import me.shkschneider.skeleton.helper.AndroidHelper;
-import me.shkschneider.skeleton.helper.ApplicationHelper;
-import me.shkschneider.skeleton.helper.DirHelper;
-import me.shkschneider.skeleton.helper.FileHelper;
-import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.helper.PreferencesHelper;
-import me.shkschneider.skeleton.helper.RuntimeHelper;
+import me.shkschneider.skeleton.helpers.AndroidHelper;
+import me.shkschneider.skeleton.helpers.ApplicationHelper;
+import me.shkschneider.skeleton.helpers.DirHelper;
+import me.shkschneider.skeleton.helpers.FileHelper;
+import me.shkschneider.skeleton.helpers.LogHelper;
+import me.shkschneider.skeleton.helpers.PreferencesHelper;
+import me.shkschneider.skeleton.helpers.RuntimeHelper;
 
-public class MainApplication extends Application {
+public class SkeletonApplication extends Application {
 
 	public static Boolean DEBUG = false;
     public static String TAG = null;

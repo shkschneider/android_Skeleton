@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="ApplicationTheme" parent="Theme.Sherlock.Light.DarkActionBar">
+    <style name="SkeletonTheme" parent="Theme.Sherlock.Light.DarkActionBar">
         <!-- ... -->
     </style>
 
