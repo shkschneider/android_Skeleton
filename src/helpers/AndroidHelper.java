@@ -17,10 +17,10 @@ package me.shkschneider.skeleton.helpers;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Build;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.Toast;
 
 import java.lang.reflect.InvocationTargetException;
@@ -29,23 +29,25 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
+import de.keyboardsurfer.android.widget.crouton.Configuration;
 import de.keyboardsurfer.android.widget.crouton.Crouton;
 import de.keyboardsurfer.android.widget.crouton.Style;
 
 public abstract class AndroidHelper {
 
     public static final String PLATFORM = "Android";
+    public static final int LENGTH_SHORT = 2000;
+    public static final int LENGTH_LONG = 3500;
 
-    // Is Tablet
     // If SCREENLAYOUT_SIZE is XLARGE for API >= HONEYCOMB
     public static Boolean isTablet(final Context context) {
         if (context != null) {
             if (AndroidHelper.getApi() >= Build.VERSION_CODES.HONEYCOMB) {
-                final Configuration configuration = context.getResources().getConfiguration();
+                final android.content.res.Configuration configuration = context.getResources().getConfiguration();
                 if (configuration != null) {
                     try {
                         return (Boolean) configuration.getClass().getMethod("isLayoutSizeAtLeast", int.class)
-                                .invoke(configuration, Configuration.SCREENLAYOUT_SIZE_XLARGE);
+                                .invoke(configuration, android.content.res.Configuration.SCREENLAYOUT_SIZE_XLARGE);
                     } catch (NoSuchMethodException e) {
                         LogHelper.e("NoSuchMethodException: " + e.getMessage());
                     } catch (IllegalAccessException e) {
@@ -71,21 +73,51 @@ public abstract class AndroidHelper {
         }
     }
 
-    public static void croutonInfo(final Context context, final String text) {
-        if (context != null && ! TextUtils.isEmpty(text)) {
-            Crouton.makeText((Activity) context, text, Style.INFO).show();
+    public static void croutonInfo(final Activity activity, final String text) {
+        if (activity != null && ! TextUtils.isEmpty(text)) {
+            final Crouton crouton = Crouton.makeText(activity, text, Style.INFO);
+            crouton.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    crouton.cancel();
+                }
+
+            });
+            crouton.setConfiguration(new Configuration.Builder().setDuration(AndroidHelper.LENGTH_SHORT).build());
+            crouton.show();
         }
     }
 
-    public static void croutonConfirm(final Context context, final String text) {
-        if (context != null && ! TextUtils.isEmpty(text)) {
-            Crouton.makeText((Activity) context, text, Style.CONFIRM).show();
+    public static void croutonConfirm(final Activity activity, final String text) {
+        if (activity != null && ! TextUtils.isEmpty(text)) {
+            final Crouton crouton = Crouton.makeText(activity, text, Style.INFO);
+            crouton.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    crouton.cancel();
+                }
+
+            });
+            crouton.setConfiguration(new Configuration.Builder().setDuration(AndroidHelper.LENGTH_SHORT).build());
+            crouton.show();
         }
     }
 
-    public static void croutonAlert(final Context context, final String text) {
-        if (context != null && ! TextUtils.isEmpty(text)) {
-            Crouton.makeText((Activity) context, text, Style.ALERT).show();
+    public static void croutonAlert(final Activity activity, final String text) {
+        if (activity != null && ! TextUtils.isEmpty(text)) {
+            final Crouton crouton = Crouton.makeText(activity, text, Style.INFO);
+            crouton.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    crouton.cancel();
+                }
+
+            });
+            crouton.setConfiguration(new Configuration.Builder().setDuration(AndroidHelper.LENGTH_LONG).build());
+            crouton.show();
         }
     }
 

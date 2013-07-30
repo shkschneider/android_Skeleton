@@ -26,4 +26,11 @@ public class StringHelper {
         return string;
     }
 
+    public static Boolean isNumeric(final String string) {
+        if (! TextUtils.isEmpty(string)) {
+            return string.matches("^[0-9]+$");
+        }
+        return true;
+    }
+
 }

@@ -13,7 +13,7 @@
             android:xlargeScreens="true" />
 
 	<uses-sdk
-		android:minSdkVersion="7"
+		android:minSdkVersion="8"
 		android:targetSdkVersion="17" />
 
 	<uses-feature

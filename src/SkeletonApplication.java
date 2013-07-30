@@ -17,6 +17,8 @@ package me.shkschneider.skeleton;
 
 import android.app.Application;
 
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.BitmapAjaxCallback;
 import com.androidquery.util.AQUtility;
 
 import me.shkschneider.skeleton.helpers.AndroidHelper;
@@ -42,23 +44,23 @@ public class SkeletonApplication extends Application {
         LogHelper.i(toString());
 
 		PreferencesHelper.setContext(getApplicationContext());
+
         AQUtility.setDebug(SkeletonApplication.DEBUG);
         AQUtility.setCacheDir(FileHelper.get(DirHelper.getInternalCache(getApplicationContext())));
 
-        AQUtility.setExceptionHandler(new Thread.UncaughtExceptionHandler() {
-
-            @Override
-            public void uncaughtException(final Thread thread, final Throwable throwable) {
-                LogHelper.e("UNCAUGHTEXCEPTION: " + throwable.toString());
-                // ...
-            }
-        });
+        AjaxCallback.setNetworkLimit(4);
+        BitmapAjaxCallback.setIconCacheLimit(20);
+        BitmapAjaxCallback.setCacheLimit(20);
+        BitmapAjaxCallback.setPixelLimit(400 * 400);
+        BitmapAjaxCallback.setMaxPixelLimit(4000000);
 
     }
 
 	@Override
 	public void onLowMemory() {
 		LogHelper.w("LowMemory: " + RuntimeHelper.getFreeMemory() + "/" + RuntimeHelper.getMaxMemory() + " B");
+
+        BitmapAjaxCallback.clearCache();
 
 		super.onLowMemory();
 	}

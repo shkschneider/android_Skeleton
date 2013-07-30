@@ -50,7 +50,7 @@ public abstract class NetworkHelper {
     public static String userAgent(final Context context) {
         if (context != null) {
             return AndroidHelper.PLATFORM + "-" +
-                    AndroidHelper.getApi() +
+                    AndroidHelper.getApi() + "/" +
                     ApplicationHelper.getPackage(context) + "/" +
                     ApplicationHelper.getVersionCode(context);
         }

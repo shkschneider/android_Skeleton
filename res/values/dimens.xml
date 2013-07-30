@@ -1,11 +1,11 @@
 <resources>
 
-    <dimen name="baseMicro">2dp</dimen>
-    <dimen name="baseSmall">4dp</dimen>
-    <dimen name="baseMedium">8dp</dimen>
-    <dimen name="baseLarge">16dp</dimen>
-    <dimen name="baseHude">32dp</dimen>
+    <dimen name="baseMicro">4dp</dimen>
+    <dimen name="baseSmall">8dp</dimen>
+    <dimen name="baseMedium">16dp</dimen>
+    <dimen name="baseLarge">32dp</dimen>
     <dimen name="base">48dp</dimen>
+    <dimen name="baseHuge">96dp</dimen>
 
     <dimen name="textSizeMicro">12sp</dimen>
     <dimen name="textSizeSmall">14sp</dimen>
