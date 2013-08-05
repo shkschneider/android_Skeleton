@@ -116,7 +116,7 @@ public abstract class AndroidHelper {
                 }
 
             });
-            crouton.setConfiguration(new Configuration.Builder().setDuration(AndroidHelper.LENGTH_LONG).build());
+            crouton.setConfiguration(new Configuration.Builder().setDuration(AndroidHelper.LENGTH_SHORT).build());
             crouton.show();
         }
     }
