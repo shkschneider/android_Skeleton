@@ -91,7 +91,7 @@ public abstract class AndroidHelper {
 
     public static void croutonConfirm(final Activity activity, final String text) {
         if (activity != null && ! TextUtils.isEmpty(text)) {
-            final Crouton crouton = Crouton.makeText(activity, text, Style.INFO);
+            final Crouton crouton = Crouton.makeText(activity, text, Style.CONFIRM);
             crouton.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -107,7 +107,7 @@ public abstract class AndroidHelper {
 
     public static void croutonAlert(final Activity activity, final String text) {
         if (activity != null && ! TextUtils.isEmpty(text)) {
-            final Crouton crouton = Crouton.makeText(activity, text, Style.INFO);
+            final Crouton crouton = Crouton.makeText(activity, text, Style.ALERT);
             crouton.setOnClickListener(new View.OnClickListener() {
 
                 @Override

@@ -15,9 +15,13 @@
     <dimen name="screenLarge">720dp</dimen>
     <dimen name="screenHuge">1080dp</dimen>
 
-    <dimen name="textSizeMicro">12sp</dimen>
+    <dimen name="textSizeMicro">4sp</dimen>
+    <dimen name="textSizeTiny">8sp</dimen>
+    <dimen name="textSizeSmaller">12sp</dimen>
     <dimen name="textSizeSmall">14sp</dimen>
     <dimen name="textSizeMedium">18sp</dimen>
     <dimen name="textSizeLarge">22sp</dimen>
+    <dimen name="textSizeLarger">24sp</dimen>
+    <dimen name="textSizeBig">28sp</dimen>
 
 </resources>
