@@ -72,4 +72,20 @@ public abstract class ApplicationHelper {
         return "0";
     }
 
+    public static Float getVersionNumber(final Context context) {
+        if (context != null) {
+            try {
+                final PackageManager packageManager = context.getPackageManager();
+                if (packageManager != null) {
+                    final PackageInfo packageInfo = packageManager.getPackageInfo(ApplicationHelper.getPackage(context), PackageManager.GET_META_DATA);
+                    return Float.valueOf(packageInfo.versionName);
+                }
+            }
+            catch (NameNotFoundException e) {
+                LogHelper.e("NameNotFoundException: " + e.getMessage());
+            }
+        }
+        return 0F;
+    }
+
 }
