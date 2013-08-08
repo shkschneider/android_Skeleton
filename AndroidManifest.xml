@@ -30,7 +30,7 @@
             android:icon="@null"
             android:label="@string/app_name"
             android:name=".SkeletonApplication"
-            android:theme="@style/SkeletonTheme" >
+            android:theme="@style/SkeletonTheme.Light.DarkActionBar" >
 
 		<activity
 			android:name=".SkeletonActivity">

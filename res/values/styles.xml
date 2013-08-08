@@ -1,6 +1,14 @@
 <resources>
 
-    <style name="SkeletonTheme" parent="Theme.Sherlock.Light.DarkActionBar">
+    <style name="SkeletonTheme.Light" parent="Theme.Sherlock.Light">
+        <!-- ... -->
+    </style>
+
+    <style name="SkeletonTheme.Light.DarkActionBar" parent="Theme.Sherlock.Light.DarkActionBar">
+        <!-- ... -->
+    </style>
+
+    <style name="SkeletonTheme.Dark" parent="Theme.Sherlock">
         <!-- ... -->
     </style>
 
