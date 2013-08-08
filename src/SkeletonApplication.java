@@ -21,6 +21,8 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.BitmapAjaxCallback;
 import com.androidquery.util.AQUtility;
 
+import java.util.Locale;
+
 import me.shkschneider.skeleton.helpers.AndroidHelper;
 import me.shkschneider.skeleton.helpers.ApplicationHelper;
 import me.shkschneider.skeleton.helpers.DirHelper;
@@ -33,6 +35,7 @@ public class SkeletonApplication extends Application {
 
 	public static Boolean DEBUG = false;
     public static String TAG = null;
+    public static String LOCALE = null;
 
 	@Override
 	public void onCreate() {
@@ -40,6 +43,7 @@ public class SkeletonApplication extends Application {
 
         DEBUG = ApplicationHelper.isDebug();
         TAG = ApplicationHelper.getName(getApplicationContext());
+        LOCALE = Locale.getDefault().toString();
 
         LogHelper.i(toString());
 
@@ -53,7 +57,6 @@ public class SkeletonApplication extends Application {
         BitmapAjaxCallback.setCacheLimit(20);
         BitmapAjaxCallback.setPixelLimit(400 * 400);
         BitmapAjaxCallback.setMaxPixelLimit(4000000);
-
     }
 
 	@Override
