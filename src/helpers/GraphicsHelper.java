@@ -153,6 +153,16 @@ public abstract class GraphicsHelper {
             }
             return 0;
         }
+        
+        public static Bitmap bitmapFromUri(final Context context, final Uri uri) {
+            if (context != null) {
+                ContentResolver contentResolver = context.getContentResolver();
+                InputStream inputStream = contentResolver.openInputStream(uri);
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                return BitmapFactory.decodeStream(inputStream, null, options);
+            }
+            return null;
+        }
 
         public static Bitmap bitmapFromDrawable(final Drawable drawable) {
             if (drawable != null) {
