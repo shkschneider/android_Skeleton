@@ -15,6 +15,7 @@
  */
 package me.shkschneider.skeleton.helpers;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -24,9 +25,13 @@ import android.graphics.Matrix;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Handler;
 import android.util.TypedValue;
 import android.widget.ProgressBar;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public abstract class GraphicsHelper {
 
@@ -153,13 +158,16 @@ public abstract class GraphicsHelper {
             }
             return 0;
         }
-        
+
         public static Bitmap bitmapFromUri(final Context context, final Uri uri) {
             if (context != null) {
-                ContentResolver contentResolver = context.getContentResolver();
-                InputStream inputStream = contentResolver.openInputStream(uri);
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                return BitmapFactory.decodeStream(inputStream, null, options);
+                try {
+                    final BitmapFactory.Options options = new BitmapFactory.Options();
+                    return BitmapFactory.decodeStream(context.getContentResolver().openInputStream(uri), null, options);
+                }
+                catch (FileNotFoundException e) {
+                    LogHelper.e("FileNotFoundException: " + e.getMessage());
+                }
             }
             return null;
         }

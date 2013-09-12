@@ -20,8 +20,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 
-import me.shkschneider.skeleton.BuildConfig;
 import me.shkschneider.skeleton.R;
+import me.shkschneider.skeleton.BuildConfig;
 
 public abstract class ApplicationHelper {
 

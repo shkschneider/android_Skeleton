@@ -23,6 +23,7 @@ import com.androidquery.util.AQUtility;
 
 import java.util.Locale;
 
+import me.shkschneider.skeleton.R;
 import me.shkschneider.skeleton.helpers.AndroidHelper;
 import me.shkschneider.skeleton.helpers.ApplicationHelper;
 import me.shkschneider.skeleton.helpers.DirHelper;

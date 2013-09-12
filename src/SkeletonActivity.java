@@ -28,6 +28,7 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Window;
 
+import me.shkschneider.skeleton.R;
 import me.shkschneider.skeleton.helpers.AndroidHelper;
 import me.shkschneider.skeleton.helpers.NetworkHelper;
 import me.shkschneider.skeleton.net.ImageDownloader;
