@@ -21,7 +21,16 @@ all:
 	@if [ -n "$(PACKAGE)" ] ; then echo "- $(PACKAGE)" ; fi
 	@if [ -n "$(DEVICE)" ] ; then echo "- $(DEVICE)" ; fi
 
-libs: check
+prepare:
+	@echo "==> Check"
+
+	@if [ -z "$(TARGET)" ] ; then echo "Error: bad target '$(TARGET)'" ; exit 1 ; fi
+	@if [ -z "$(PACKAGE)" ] ; then echo "Error: no package" ; exit 1 ; fi
+	@if [ -z "$(ANDROID)" ] ; then echo "Error: command not found 'android'" ; exit 1 ; fi
+	@if [ -z "$(ADB)" ] ; then echo "Error: command not found 'adb'" ; exit 1 ; fi
+	@if [ -z "$(ANT)" ] ; then echo "Error: command not found 'ant'" ; exit 1 ; fi
+	@if [ -z "$(LINT)" ] ; then echo "Error: command not found 'lint'" ; exit 1 ; fi
+
 	@echo "==> Libs"
 
 	@if [ -f ".gitmodules" ] ; then git submodule update --init ; fi
@@ -53,21 +62,12 @@ libs: check
 	@echo "- ."
 	@$(ANDROID) --silent update project --name $(NAME) --target "$(TARGET)" --path .
 
-check: all
-	@echo "==> Check"
-	@if [ -z "$(TARGET)" ] ; then echo "Error: bad target '$(TARGET)'" ; exit 1 ; fi
-	@if [ -z "$(PACKAGE)" ] ; then echo "Error: no package" ; exit 1 ; fi
-	@if [ -z "$(ANDROID)" ] ; then echo "Error: command not found 'android'" ; exit 1 ; fi
-	@if [ -z "$(ADB)" ] ; then echo "Error: command not found 'adb'" ; exit 1 ; fi
-	@if [ -z "$(ANT)" ] ; then echo "Error: command not found 'ant'" ; exit 1 ; fi
-	@if [ -z "$(LINT)" ] ; then echo "Error: command not found 'lint'" ; exit 1 ; fi
-
-inspect: check
+inspect: prepare
 	@echo "==> Inspect"
 
 	@$(LINT) --quiet -w -Xlint:deprecation .
 
-debug: libs
+debug: prepare
 	@$(ANT) -quiet debug || exit 1
 
 	@echo
@@ -75,7 +75,7 @@ debug: libs
 	@cp $(APK_DEBUG) $(APK) || exit 1
 	@echo "==> $(APK)"
 
-release: libs
+release: prepare
 	@$(ANT) -quiet release || exit 1
 
 	@echo
@@ -83,7 +83,7 @@ release: libs
 	@cp $(APK_RELEASE) $(APK) || exit 1
 	@echo "==> $(APK)"
 
-install: check
+install: prepare
 	@echo "==> Install"
 
 	@if [ -z "$(DEVICE)" ] ; then echo "Error: no device" ; exit 1 ; fi
@@ -91,7 +91,7 @@ install: check
 
 	@$(ADB) install -r $(APK) || exit 1
 
-uninstall: check
+uninstall: prepare
 	@echo "==> Uninstall"
 
 	@if [ -z "$(DEVICE)" ] ; then echo "Error: no device" ; exit 1 ; fi
@@ -99,9 +99,9 @@ uninstall: check
 
 	@$(ADB) shell pm uninstall -k '$(PACKAGE)' || exit 1
 
-clean: check
+clean: prepare
 	@echo "==> Clean"
 	@$(ANT) -quiet clean || exit 1
 	@$(RM) $(APK)
 
-.PHONY: all check inspect debug release clean
+.PHONY: all prepare inspect debug release clean
