@@ -1,13 +1,13 @@
-NAME = $(shell basename $(shell readlink -f .))
+NAME = $(shell basename $(shell readlink -f . 2>/dev/null) 2>/dev/null)
 PACKAGE = $(shell cat AndroidManifest.xml 2>/dev/null | tr "[:space:]" "\n" | grep package= | cut -d'"' -f2)
 
-ANDROID = $(shell which android)
-ADB = $(shell which adb)
-ANT = $(shell which ant)
-LINT = $(shell which lint)
+ANDROID = $(shell which android 2>/dev/null)
+ADB = $(shell which adb 2>/dev/null)
+ANT = $(shell which ant 2>/dev/null)
+LINT = $(shell which lint 2>/dev/null)
 
-TARGET = $(shell android list targets -c | tail -1)
-DEVICE = $(shell $(ADB) devices -l | egrep '^[0-9A-F]' | head -1 | cut -c1-17)
+TARGET = $(shell $(ANDROID) list targets -c 2>/dev/null | tail -1)
+DEVICE = $(shell $(ADB) devices -l 2>/dev/null | egrep '^[0-9A-F]' | head -1 | cut -c1-17)
 
 APK = $(NAME).apk
 APK_DEBUG = bin/$(NAME)-debug.apk
@@ -22,7 +22,7 @@ all:
 	@if [ -n "$(DEVICE)" ] ; then echo "- $(DEVICE)" ; fi
 
 prepare:
-	@echo "==> Check"
+	@echo "==> Binaries"
 
 	@if [ -z "$(TARGET)" ] ; then echo "Error: bad target '$(TARGET)'" ; exit 1 ; fi
 	@if [ -z "$(PACKAGE)" ] ; then echo "Error: no package" ; exit 1 ; fi
@@ -31,9 +31,11 @@ prepare:
 	@if [ -z "$(ANT)" ] ; then echo "Error: command not found 'ant'" ; exit 1 ; fi
 	@if [ -z "$(LINT)" ] ; then echo "Error: command not found 'lint'" ; exit 1 ; fi
 
-	@echo "==> Libs"
+	@echo "==> Git"
 
 	@if [ -f ".gitmodules" ] ; then git submodule update --init ; fi
+
+	@echo "==> Libraries"
 
 	@echo "- actionbarsherlock"
 	@$(ANDROID) --silent update lib-project --target "$(TARGET)" --path libs/actionbarsherlock/actionbarsherlock
@@ -63,11 +65,14 @@ prepare:
 	@$(ANDROID) --silent update project --name $(NAME) --target "$(TARGET)" --path .
 
 inspect: prepare
-	@echo "==> Inspect"
+	@echo "==> Inspection"
 
 	@$(LINT) --quiet -w -Xlint:deprecation .
 
 debug: prepare
+	@echo "==> Compiling"
+	@echo
+
 	@$(ANT) -quiet debug || exit 1
 
 	@echo
@@ -76,6 +81,9 @@ debug: prepare
 	@echo "==> $(APK)"
 
 release: prepare
+	@echo "==> Compiling"
+	@echo
+
 	@$(ANT) -quiet release || exit 1
 
 	@echo
