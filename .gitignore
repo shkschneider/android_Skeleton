@@ -30,3 +30,6 @@ proguard/
 
 # Logs
 *.log
+
+# Support library
+android-support-v*.jar

@@ -3,14 +3,20 @@ DIR = $(shell readlink -f $(shell dirname $(shell find . -type f -name "AndroidM
 SDK = ${ANDROID_HOME}
 API = $(shell cat $(DIR)/AndroidManifest.xml 2>/dev/null | tr "[:space:]" "\n" | grep minSdkVersion= | cut -d'"' -f2)
 PACKAGE = $(shell cat $(DIR)/AndroidManifest.xml 2>/dev/null | tr "[:space:]" "\n" | grep package= | cut -d'"' -f2)
-SUPPORT = $(shell find $(SDK)/extras/android/support -type f -name "android-support-v*.jar" 2>/dev/null | head -1)
+SUPPORT = $(shell find $(SDK)/extras/android/support/v4 -maxdepth 1 -type f -name "android-support-v4.jar" 2>/dev/null | head -1)
 VERSION_NAME = $(shell cat $(DIR)/AndroidManifest.xml 2>/dev/null | tr "[:space:]" "\n" | grep versionName= | cut -d'"' -f2)
 VERSION_CODE = $(shell cat $(DIR)/AndroidManifest.xml 2>/dev/null | tr "[:space:]" "\n" | grep versionCode= | cut -d'"' -f2)
+SIGN = $(shell basename $(shell find $(DIR) -maxdepth 1 -type f -name ant.properties 2>/dev/null) 2>/dev/null)
 
 ANDROID = $(shell which android 2>/dev/null)
+ANDROID_OPTS = --silent
 ADB = $(shell which adb 2>/dev/null)
+ADB_OPTS =
 ANT = $(shell which ant 2>/dev/null)
+ANT_LOG = build.log
+ANT_OPTS = -logfile $(ANT_LOG)
 LINT = $(shell which lint 2>/dev/null)
+LINT_OPTS = --quiet -w -Xlint:deprecation
 
 TARGET = $(shell $(ANDROID) list targets -c 2>/dev/null | tail -1)
 DEVICE = $(shell $(ADB) devices -l 2>/dev/null | egrep '^[0-9A-F]' | head -1 | cut -c1-17)
@@ -38,7 +44,7 @@ all:
 	@if [ -z "$(TARGET)" ] ; then echo "Error: no target" ; exit 1 ; fi
 	@echo "- $(TARGET)"
 	@if [ -z "$(SUPPORT)" ] ; then echo "Error: no support library" ; exit 1 ; fi
-	@echo "- $(SUPPORT)"
+	@echo "- sdk:$(shell echo $(SUPPORT) | sed -r 's#$(SDK)/##')"
 	@echo "==> Device"
 	@if [ -n "$(DEVICE)" ] ; then echo "- $(DEVICE)" ; fi
 	@echo "==> Binaries"
@@ -55,47 +61,36 @@ update: all
 	@echo "==> Git"
 	@echo "- update"
 	@if [ -f ".gitmodules" ] ; then git submodule update --init >/dev/null ; fi
-	@echo "==> Support library"
-	@echo "- $(shell echo $(SUPPORT) | sed -r 's#$(SDK)/##')"
-	@$(foreach p, $(shell find . -type d -name "libs"), cp $(SUPPORT) $p/ ;)
 	@echo "==> Libraries"
-	@echo "- actionbarsherlock"
-	@$(ANDROID) --silent update lib-project --target "$(TARGET)" --path libs/actionbarsherlock/actionbarsherlock
-	@echo "- appmsg"
-	@$(ANDROID) --silent update lib-project --target "$(TARGET)" --path libs/appmsg/library
-	@echo "- collapsiblesearchmenu"
-	@$(ANDROID) --silent update lib-project --target "$(TARGET)" --path libs/collapsiblesearchmenu/library
-	@echo "- crouton"
-	@$(ANDROID) --silent update lib-project --target "$(TARGET)" --path libs/crouton/library
-	@echo "- googleplayservice"
-	@$(ANDROID) --silent update lib-project --target "$(TARGET)" --path libs/googleplayservice
-	@echo "- numberpicker"
-	@$(ANDROID) --silent update lib-project --target "$(TARGET)" --path libs/numberpicker/lib
-	@echo "- pulltorefresh"
-	@$(ANDROID) --silent update lib-project --target "$(TARGET)" --path libs/pulltorefresh
-	@echo "- sidenavigation"
-	@$(ANDROID) --silent update lib-project --target "$(TARGET)" --path libs/sidenavigation/library
+	@echo "- sdk:$(shell echo $(SUPPORT) | sed -r 's#$(SDK)/##')"
+	@$(foreach p, $(shell find . -type d -name "libs"), cp $(SUPPORT) $p/ ;)
+	@echo "- libs/actionbarsherlock"
+	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/actionbarsherlock/actionbarsherlock
 	@echo "==> Project"
-	@echo "- $(DIR)"
-	@$(ANDROID) --silent update project --name $(PACKAGE) --target "$(TARGET)" --path .
+	@echo "- $(PACKAGE)"
+	@$(ANDROID) $(ANDROID_OPTS) update project --name $(PACKAGE) --target "$(TARGET)" --path .
 
 check: all
 	@echo "==> Check"
 	@if [ ! -d "bin" ] ; then echo "Error: no build" ; exit 1; fi
-	@$(LINT) --quiet -w -Xlint:deprecation .
+	@$(LINT) $(LINT_OPTS) .
 
 debug: update
 	@echo "==> Build"
-	@$(ANT) -logfile ant.log debug > /dev/null || exit 1
-	@echo "- ant.log"
+	@$(ANT) $(ANT_OPTS) debug > /dev/null || exit 1
+	@echo "- $(ANT_LOG)"
+	@echo "==> Sign"
+	@if [ -n "$(SIGN)" ] ; then echo "- $(SIGN)" ; fi
 	@echo "==> Debug"
 	@cp $(APK_DEBUG) $(APK) || exit 1
 	@echo "==> $(APK)"
 
 release: update
 	@echo "==> Build"
-	@$(ANT) -logfile ant.log release > /dev/null || exit 1
-	@echo "- ant.log"
+	@$(ANT) $(ANT_OPTS) release > /dev/null || exit 1
+	@echo "- $(ANT_LOG)"
+	@echo "==> Sign"
+	@if [ -n "$(SIGN)" ] ; then echo "- $(SIGN)" ; fi
 	@echo "==> Release"
 	@cp $(APK_RELEASE) $(APK) || exit 1
 	@echo "==> $(APK)"

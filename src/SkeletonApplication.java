@@ -23,14 +23,11 @@ import com.androidquery.util.AQUtility;
 
 import java.util.Locale;
 
-import me.shkschneider.skeleton.R;
-import me.shkschneider.skeleton.helpers.AndroidHelper;
-import me.shkschneider.skeleton.helpers.ApplicationHelper;
-import me.shkschneider.skeleton.helpers.DirHelper;
-import me.shkschneider.skeleton.helpers.FileHelper;
-import me.shkschneider.skeleton.helpers.LogHelper;
-import me.shkschneider.skeleton.helpers.PreferencesHelper;
-import me.shkschneider.skeleton.helpers.RuntimeHelper;
+import me.shkschneider.skeleton.helpers.SkeletonAndroidHelper;
+import me.shkschneider.skeleton.helpers.SkeletonApplicationHelper;
+import me.shkschneider.skeleton.helpers.SkeletonFileHelper;
+import me.shkschneider.skeleton.helpers.SkeletonPreferencesHelper;
+import me.shkschneider.skeleton.helpers.SkeletonRuntimeHelper;
 
 public class SkeletonApplication extends Application {
 
@@ -42,16 +39,16 @@ public class SkeletonApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 
-        DEBUG = ApplicationHelper.isDebug();
-        TAG = ApplicationHelper.getName(getApplicationContext());
+        DEBUG = SkeletonApplicationHelper.isDebug();
+        TAG = SkeletonApplicationHelper.getName(getApplicationContext());
         LOCALE = Locale.getDefault().toString();
 
-        LogHelper.i(toString());
+        SkeletonLog.i(toString());
 
-		PreferencesHelper.setContext(getApplicationContext());
+		SkeletonPreferencesHelper.newInstance(getApplicationContext());
 
         AQUtility.setDebug(SkeletonApplication.DEBUG);
-        AQUtility.setCacheDir(FileHelper.get(DirHelper.getInternalCache(getApplicationContext())));
+        AQUtility.setCacheDir(SkeletonFileHelper.get(SkeletonFileHelper.getInternalCache(getApplicationContext())));
 
         AjaxCallback.setNetworkLimit(4);
         BitmapAjaxCallback.setIconCacheLimit(20);
@@ -62,7 +59,7 @@ public class SkeletonApplication extends Application {
 
 	@Override
 	public void onLowMemory() {
-		LogHelper.w("LowMemory: " + RuntimeHelper.getFreeMemory() + "/" + RuntimeHelper.getMaxMemory() + " B");
+		SkeletonLog.w("LowMemory: " + SkeletonRuntimeHelper.getFreeMemory() + "/" + SkeletonRuntimeHelper.getMaxMemory() + " B");
 
         BitmapAjaxCallback.clearCache();
 
@@ -71,12 +68,12 @@ public class SkeletonApplication extends Application {
 
 	@Override
 	public String toString() {
-		return ApplicationHelper.getName(getApplicationContext()) +
-                (ApplicationHelper.isDebug() ? " [DEBUG]" : "") +
-                " v" + ApplicationHelper.getVersionName(getApplicationContext()) +
-                " (" + ApplicationHelper.getPackage(getApplicationContext()) + ")" +
-                " Android " + AndroidHelper.getRelease() +
-                " (API-" + AndroidHelper.getApi() + ")";
+		return SkeletonApplicationHelper.getName(getApplicationContext()) +
+                (SkeletonApplicationHelper.isDebug() ? " [DEBUG]" : "") +
+                " v" + SkeletonApplicationHelper.getVersionName(getApplicationContext()) +
+                " (" + SkeletonApplicationHelper.getPackage(getApplicationContext()) + ")" +
+                " Android " + SkeletonAndroidHelper.getRelease() +
+                " (API-" + SkeletonAndroidHelper.getApi() + ")";
 	}
 
 }

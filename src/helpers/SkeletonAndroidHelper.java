@@ -1,0 +1,158 @@
+/**
+ * Copyright 2013 ShkSchneider
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package me.shkschneider.skeleton.helpers;
+
+import android.content.Context;
+import android.content.res.Configuration;
+import android.os.Build;
+import android.provider.Settings;
+import android.text.TextUtils;
+
+import java.lang.reflect.InvocationTargetException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.UUID;
+
+import me.shkschneider.skeleton.SkeletonLog;
+
+public abstract class SkeletonAndroidHelper {
+
+    public static final String PLATFORM = "Android";
+
+    // If SCREENLAYOUT_SIZE is XLARGE for API >= HONEYCOMB
+
+    public static Boolean isTablet(final Context context) {
+        if (context != null) {
+            if (SkeletonAndroidHelper.getApi() >= Build.VERSION_CODES.HONEYCOMB) {
+                final Configuration configuration = context.getResources().getConfiguration();
+                if (configuration != null) {
+                    try {
+                        return (Boolean) configuration.getClass().getMethod("isLayoutSizeAtLeast", int.class)
+                                .invoke(configuration, android.content.res.Configuration.SCREENLAYOUT_SIZE_XLARGE);
+                    }
+                    catch (NoSuchMethodException e) {
+                        SkeletonLog.e("NoSuchMethodException: " + e.getMessage());
+                    }
+                    catch (IllegalAccessException e) {
+                        SkeletonLog.e("IllegalAccessException: " + e.getMessage());
+                    }
+                    catch (InvocationTargetException e) {
+                        SkeletonLog.e("InvocationTargetException: " + e.getMessage());
+                    }
+                }
+                else {
+                    SkeletonLog.d("Configuration was NULL");
+                }
+            }
+            else {
+                SkeletonLog.d("Api was < HONEYCOMB");
+            }
+        }
+        else {
+            SkeletonLog.d("Context was NULL");
+        }
+        return false;
+    }
+
+    // Get Android ID (length: 16)
+    // The value may change if a factory reset is performed on the device.
+
+    public static String getId(final Context context) {
+        if (context != null) {
+            final String id = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+            if (! TextUtils.isEmpty(id)) {
+                return id.toLowerCase();
+            }
+            else {
+                SkeletonLog.d("Id was NULL");
+            }
+        }
+        else {
+            SkeletonLog.d("Context was NULL");
+        }
+        return null;
+    }
+
+    // Get Device ID (length: 32)
+    // The value may change if a factory reset is performed on the device.
+
+    public static String getDeviceId(final Context context) {
+        if (context != null) {
+            final String id = SkeletonAndroidHelper.getId(context);
+            if (! TextUtils.isEmpty(id)) {
+                try {
+                    final MessageDigest messageDigest = MessageDigest.getInstance(SkeletonHashHelper.MD5);
+                    if (messageDigest != null) {
+                        return new BigInteger(1, messageDigest.digest(id.getBytes())).toString(16).toLowerCase();
+                    }
+                    else {
+                        SkeletonLog.d("MessageDigest was NULL");
+                    }
+                }
+                catch (NoSuchAlgorithmException e) {
+                    SkeletonLog.e("NoSuchAlgorithmException: " + e.getMessage());
+                }
+            }
+            else {
+                SkeletonLog.d("Id was NULL");
+            }
+        }
+        else {
+            SkeletonLog.d("Context was NULL");
+        }
+        return null;
+    }
+
+    // Get UUID from Device ID (RFC4122, length: 36)
+    // The value may change if a factory reset is performed on the device.
+
+    public static String getUUID(final Context context) {
+        if (context != null) {
+            final String deviceId = SkeletonAndroidHelper.getDeviceId(context);
+            if (! TextUtils.isEmpty(deviceId)) {
+                return UUID.nameUUIDFromBytes(deviceId.getBytes()).toString();
+            }
+            else {
+                SkeletonLog.d("DeviceId was NULL");
+            }
+        }
+        else {
+            SkeletonLog.d("Context was NULL");
+        }
+        return null;
+    }
+
+    // Get a random ID (RFC4122, length: 32)
+    // Random
+
+    public static String getRandomId() {
+        return UUID.randomUUID().toString().replace("-", "");
+    }
+
+    public static String getDevice() {
+        return Build.DEVICE;
+    }
+
+	public static String getRelease() {
+		return Build.VERSION.RELEASE;
+	}
+
+	public static int getApi() {
+		return Build.VERSION.SDK_INT;
+	}
+
+}

@@ -1,27 +1,4 @@
 [submodule "libs/actionbarsherlock"]
-	path = libs/actionbarsherlock
-	url = https://github.com/JakeWharton/ActionBarSherlock.git
-        ignore = dirty
-[submodule "libs/appmsg"]
-	path = libs/appmsg
-	url = https://github.com/johnkil/Android-AppMsg.git
-        ignore = dirty
-[submodule "libs/crouton"]
-	path = libs/crouton
-	url = https://github.com/keyboardsurfer/Crouton.git
-        ignore = dirty
-[submodule "libs/pulltorefresh"]
-	path = libs/pulltorefresh
-	url = https://github.com/fruitranger/PulltorefreshListView.git
-        ignore = dirty
-[submodule "libs/numberpicker"]
-	path = libs/numberpicker
-	url = https://github.com/michaelnovakjr/numberpicker.git
-        ignore = dirty
-[submodule "libs/collapsiblesearchmenu"]
-	path = libs/collapsiblesearchmenu
-	url = https://github.com/johnkil/Android-CollapsibleSearchMenu.git
-        ignore = dirty
-[submodule "libs/sidenavigation"]
-	path = libs/sidenavigation
-	url = https://github.com/johnkil/SideNavigation.git
+    path = libs/actionbarsherlock
+    url = https://github.com/JakeWharton/ActionBarSherlock.git
+    ignore = dirty
