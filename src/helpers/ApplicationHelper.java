@@ -20,6 +20,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 
+import org.apache.http.protocol.HTTP;
+
 import me.shkschneider.skeleton.R;
 import me.shkschneider.skeleton.BuildConfig;
 

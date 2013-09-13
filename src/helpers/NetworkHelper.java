@@ -30,7 +30,16 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+import me.shkschneider.skeleton.AndroidHelper;
+
 public abstract class NetworkHelper {
+
+    public static final String SYSTEM_PROPERTY_USER_AGENT = "http.agent";
+
+    public static String getDefaultUserAgent() {
+        final String userAgent = System.getProperty(SYSTEM_PROPERTY_USER_AGENT);
+        return (userAgent != null ? userAgent : String.format("%s-%d", AndroidHelper.PLATFORM, AndroidHelper.getApi()));
+    }
 
 	public static Boolean isConnectedToInternet(final Context context) {
 		NetworkInfo networkInfo = ((ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
