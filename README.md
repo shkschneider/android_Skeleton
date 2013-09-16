@@ -95,6 +95,28 @@ Get StackTrace automatically - no need to put a tag.
     - String MODIFY_PHONE_STATE
     - String MOUNT_FORMAT_FILESYSTEMS
     - String MOUNT_UNMOUNT_FILESYSTEMS
+- Boolean hasFeature(final Context context, final java.lang.String feature)
+- Features
+    - String BLUETOOTH
+    - String CAMERA
+    - String CAMERA_AUTOFOCUS
+    - String CAMERA_FLASH
+    - String LIVE_WALLPAPER
+    - String LOCATION
+    - String LOCATION_GPS
+    - String LOCATION_NETWORK
+    - String MICROPHONE
+    - String SENSOR_ACCELEROMETER
+    - String SENSOR_COMPASS
+    - String SENSOR_LIGHT
+    - String SENSOR_PROXIMITY
+    - String TELEPHONY
+    - String TELEPHONY_CDMA
+    - String TELEPHONY_GSM
+    - String TOUCHSCREEN
+    - String TOUCHSCREEN_MULTITOUCH
+    - String TOUCHSCREEN_MULTITOUCH_DISTINCT
+    - String WIFI
 
 ### Skeleton.System
 
