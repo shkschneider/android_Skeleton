@@ -29,6 +29,7 @@ Get StackTrace automatically - no need to put a tag.
 - String getName(Context context)
 - String getVersionName(Context context)
 - Integer getVersionCode(Context context)
+- TelephonyManager getSim(Context context)
 - Boolean hasPermission(Context context, String permission)
 - Permissions
     - String ACCESS_CHECKIN_PROPERTIES
@@ -124,12 +125,17 @@ Get StackTrace automatically - no need to put a tag.
 - String SYSTEM_SERVICE_KEYGUARD_SERVICE
 - String SYSTEM_SERVICE_LOCATION_SERVICE
 - String SYSTEM_SERVICE_SEARCH_SERVICE
-- String SYSTEM_SERVICE_VIBRATOR_SERVICE
-- String SYSTEM_SERVICE_CONNECTIVITY_SERVICE
-- String SYSTEM_SERVICE_WIFI_SERVICE
-- String SYSTEM_SERVICE_INPUT_METHOD_SERVICE
-- String SYSTEM_SERVICE_UI_MODE_SERVICE
-- String SYSTEM_SERVICE_DOWNLOAD_SERVICE
+- String SYSTEM_SERVICE_SENSOR
+- String SYSTEM_SERVICE_STORAGE
+- String SYSTEM_SERVICE_VIBRATOR
+- String SYSTEM_SERVICE_CONNECTIVITY
+- String SYSTEM_SERVICE_WIFI
+- String SYSTEM_SERVICE_AUDIO
+- String SYSTEM_SERVICE_MEDIA_ROUTER
+- String SYSTEM_SERVICE_TELEPHONY
+- String SYSTEM_SERVICE_INPUT_METHOD
+- String SYSTEM_SERVICE_UI_MODE
+- String SYSTEM_SERVICE_DOWNLOAD
 - Object getSystemService(Context context, String service)
 
 ### Skeleton.File

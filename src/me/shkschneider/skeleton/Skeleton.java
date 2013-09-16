@@ -50,6 +50,7 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
@@ -440,6 +441,16 @@ public abstract class Skeleton {
             return null;
         }
 
+        public static TelephonyManager getSim(final Context context) {
+            if (context != null) {
+                return (TelephonyManager) System.getSystemService(context, System.SYSTEM_SERVICE_TELEPHONY);
+            }
+            else {
+                Log.w("Context was NULL");
+            }
+            return null;
+        }
+
         public static Boolean hasPermission(final Context context, final java.lang.String permission) {
             if (context != null) {
                 if (! TextUtils.isEmpty(permission)) {
@@ -584,12 +595,17 @@ public abstract class Skeleton {
         public static final java.lang.String SYSTEM_SERVICE_KEYGUARD_SERVICE = Context.KEYGUARD_SERVICE;
         public static final java.lang.String SYSTEM_SERVICE_LOCATION_SERVICE = Context.LOCATION_SERVICE;
         public static final java.lang.String SYSTEM_SERVICE_SEARCH_SERVICE = Context.SEARCH_SERVICE;
-        public static final java.lang.String SYSTEM_SERVICE_VIBRATOR_SERVICE = Context.VIBRATOR_SERVICE;
-        public static final java.lang.String SYSTEM_SERVICE_CONNECTIVITY_SERVICE = Context.CONNECTIVITY_SERVICE;
-        public static final java.lang.String SYSTEM_SERVICE_WIFI_SERVICE = Context.WIFI_SERVICE;
-        public static final java.lang.String SYSTEM_SERVICE_INPUT_METHOD_SERVICE = Context.INPUT_METHOD_SERVICE;
-        public static final java.lang.String SYSTEM_SERVICE_UI_MODE_SERVICE = Context.UI_MODE_SERVICE;
-        public static final java.lang.String SYSTEM_SERVICE_DOWNLOAD_SERVICE = Context.DOWNLOAD_SERVICE;
+        public static final java.lang.String SYSTEM_SERVICE_SENSOR = Context.SENSOR_SERVICE;
+        public static final java.lang.String SYSTEM_SERVICE_STORAGE = Context.STORAGE_SERVICE;
+        public static final java.lang.String SYSTEM_SERVICE_VIBRATOR = Context.VIBRATOR_SERVICE;
+        public static final java.lang.String SYSTEM_SERVICE_CONNECTIVITY = Context.CONNECTIVITY_SERVICE;
+        public static final java.lang.String SYSTEM_SERVICE_WIFI = Context.WIFI_SERVICE;
+        public static final java.lang.String SYSTEM_SERVICE_AUDIO = Context.AUDIO_SERVICE;
+        public static final java.lang.String SYSTEM_SERVICE_MEDIA_ROUTER = Context.MEDIA_ROUTER_SERVICE;
+        public static final java.lang.String SYSTEM_SERVICE_TELEPHONY = Context.TELEPHONY_SERVICE;
+        public static final java.lang.String SYSTEM_SERVICE_INPUT_METHOD = Context.INPUT_METHOD_SERVICE;
+        public static final java.lang.String SYSTEM_SERVICE_UI_MODE = Context.UI_MODE_SERVICE;
+        public static final java.lang.String SYSTEM_SERVICE_DOWNLOAD = Context.DOWNLOAD_SERVICE;
 
         public static Object getSystemService(final Context context, final java.lang.String service) {
             if (context != null) {
@@ -1006,7 +1022,7 @@ public abstract class Skeleton {
         }
 
         public static void vibrate(final Context context, final long duration) {
-            final android.os.Vibrator vibrator = (android.os.Vibrator) System.getSystemService(context, System.SYSTEM_SERVICE_VIBRATOR_SERVICE);
+            final android.os.Vibrator vibrator = (android.os.Vibrator) System.getSystemService(context, System.SYSTEM_SERVICE_VIBRATOR);
             if (vibrator != null) {
                 if (Android.getApi() < Build.VERSION_CODES.HONEYCOMB) {
                     vibrateOld(vibrator, duration);
@@ -1021,7 +1037,7 @@ public abstract class Skeleton {
         }
 
         public static void vibrate(final Context context, final long[] durations, final Boolean repeat) {
-            final android.os.Vibrator vibrator = (android.os.Vibrator) System.getSystemService(context, System.SYSTEM_SERVICE_VIBRATOR_SERVICE);
+            final android.os.Vibrator vibrator = (android.os.Vibrator) System.getSystemService(context, System.SYSTEM_SERVICE_VIBRATOR);
             if (vibrator != null) {
                 if (Android.getApi() < Build.VERSION_CODES.HONEYCOMB) {
                     vibrateOld(vibrator, durations, repeat);
@@ -1058,7 +1074,7 @@ public abstract class Skeleton {
         }
 
         public static Boolean isConnectedToInternet(final Context context) {
-            final NetworkInfo networkInfo = ((ConnectivityManager) System.getSystemService(context, System.SYSTEM_SERVICE_CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+            final NetworkInfo networkInfo = ((ConnectivityManager) System.getSystemService(context, System.SYSTEM_SERVICE_CONNECTIVITY)).getActiveNetworkInfo();
             if (networkInfo != null) {
                 return (! networkInfo.isConnected());
             }
@@ -1070,7 +1086,7 @@ public abstract class Skeleton {
 
         public static java.lang.String getMacAddress(final Context context) {
             if (context != null) {
-                final WifiManager manager = (WifiManager) System.getSystemService(context, System.SYSTEM_SERVICE_WIFI_SERVICE);
+                final WifiManager manager = (WifiManager) System.getSystemService(context, System.SYSTEM_SERVICE_WIFI);
                 final WifiInfo info = manager.getConnectionInfo();
                 final java.lang.String macAddress = info.getMacAddress();
                 if (! TextUtils.isEmpty(macAddress)) {
