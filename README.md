@@ -32,132 +32,17 @@ Get StackTrace automatically - no need to put a tag.
 - TelephonyManager getSim(Context context)
 - Boolean hasPermission(Context context, String permission)
 - Permissions
-    - String ACCESS_CHECKIN_PROPERTIES
-    - String ACCESS_COARSE_LOCATION
-    - String ACCESS_FINE_LOCATION
-    - String ACCESS_LOCATION_EXTRA_COMMANDS
-    - String ACCESS_MOCK_LOCATION
-    - String ACCESS_NETWORK_STATE
-    - String ACCESS_SURFACE_FLINGER
-    - String ACCESS_WIFI_STATE
-    - String ACCOUNT_MANAGER
-    - String ADD_VOICEMAIL
-    - String AUTHENTICATE_ACCOUNTS
-    - String BATTERY_STATS
-    - String BIND_ACCESSIBILITY_SERVICE
-    - String BIND_APPWIDGET
-    - String BIND_DEVICE_ADMIN
-    - String BIND_INPUT_METHOD
-    - String BIND_WALLPAPER
-    - String BLUETOOTH
-    - String BLUETOOTH_ADMIN
-    - String BRICK
-    - String BROADCAST_PACKAGE_REMOVED
-    - String BROADCAST_SMS
-    - String BROADCAST_STICKY
-    - String BROADCAST_WAP_PUSH
-    - String CALL_PHONE
-    - String CALL_PRIVILEGED
-    - String CAMERA
-    - String CHANGE_COMPONENT_ENABLED_STATE
-    - String CHANGE_CONFIGURATION
-    - String CHANGE_NETWORK_STATE
-    - String CHANGE_WIFI_MULTICAST_STATE
-    - String CHANGE_WIFI_STATE
-    - String CLEAR_APP_CACHE
-    - String CLEAR_APP_USER_DATA
-    - String CONTROL_LOCATION_UPDATES
-    - String DELETE_CACHE_FILES
-    - String DELETE_PACKAGES
-    - String DEVICE_POWER
-    - String DIAGNOSTIC
-    - String DISABLE_KEYGUARD
-    - String DUMP
-    - String EXPAND_STATUS_BAR
-    - String FACTORY_TEST
-    - String FLASHLIGHT
-    - String FORCE_BACK
-    - String GET_ACCOUNTS
-    - String GET_PACKAGE_SIZE
-    - String GET_TASKS
-    - String GLOBAL_SEARCH
-    - String HARDWARE_TEST
-    - String INJECT_EVENTS
-    - String INSTALL_LOCATION_PROVIDER
-    - String INSTALL_PACKAGES
-    - String INTERNAL_SYSTEM_WINDOW
-    - String INTERNET
-    - String KILL_BACKGROUND_PROCESSES
-    - String MANAGE_ACCOUNTS
-    - String MANAGE_APP_TOKENS
-    - String MASTER_CLEAR
-    - String MODIFY_AUDIO_SETTINGS
-    - String MODIFY_PHONE_STATE
-    - String MOUNT_FORMAT_FILESYSTEMS
-    - String MOUNT_UNMOUNT_FILESYSTEMS
+    - String [...]
 - Boolean hasFeature(final Context context, final java.lang.String feature)
 - Features
-    - String BLUETOOTH
-    - String CAMERA
-    - String CAMERA_AUTOFOCUS
-    - String CAMERA_FLASH
-    - String LIVE_WALLPAPER
-    - String LOCATION
-    - String LOCATION_GPS
-    - String LOCATION_NETWORK
-    - String MICROPHONE
-    - String SENSOR_ACCELEROMETER
-    - String SENSOR_COMPASS
-    - String SENSOR_LIGHT
-    - String SENSOR_PROXIMITY
-    - String TELEPHONY
-    - String TELEPHONY_CDMA
-    - String TELEPHONY_GSM
-    - String TOUCHSCREEN
-    - String TOUCHSCREEN_MULTITOUCH
-    - String TOUCHSCREEN_MULTITOUCH_DISTINCT
-    - String WIFI
+    - String [...]
 
 ### Skeleton.System
 
-- String SYSTEM_PROPERTY_JAVA_VM_NAME
-- String SYSTEM_PROPERTY_JAVA_VM_VENDOR
-- String SYSTEM_PROPERTY_JAVA_VM_VERSION
-- String SYSTEM_PROPERTY_JAVA_HOME
-- String SYSTEM_PROPERTY_USER_DIR
-- String SYSTEM_PROPERTY_USER_REGION
-- String SYSTEM_PROPERTY_JAVA_IO_TMPDIR
-- String SYSTEM_PROPERTY_JAVA_RUNTIME_NAME
-- String SYSTEM_PROPERTY_HTTP_AGENT
-- String SYSTEM_PROPERTY_FILE_SEPARATOR
-- String SYSTEM_PROPERTY_FILE_ENCODING
-- String SYSTEM_PROPERTY_LINE_SEPARATOR
-- String SYSTEM_PROPERTY_OS_ARCH
-- String SYSTEM_PROPERTY_OS_NAME
-- String SYSTEM_PROPERTY_OS_VERSION
-- String SYSTEM_PROPERTY_PATH_SEPARATOR
+- String SYSTEM_PROPERTY_[...]
 - String getSystemProperty(String property)
 - String uname()
-- String SYSTEM_SERVICE_WINDOW_SERVICE
-- String SYSTEM_SERVICE_LAYOUT_INFLATER_SERVICE
-- String SYSTEM_SERVICE_ACTIVITY_SERVICE
-- String SYSTEM_SERVICE_POWER_SERVICE
-- String SYSTEM_SERVICE_ALARM_SERVICE
-- String SYSTEM_SERVICE_NOTIFICATION_SERVICE
-- String SYSTEM_SERVICE_KEYGUARD_SERVICE
-- String SYSTEM_SERVICE_LOCATION_SERVICE
-- String SYSTEM_SERVICE_SEARCH_SERVICE
-- String SYSTEM_SERVICE_SENSOR
-- String SYSTEM_SERVICE_STORAGE
-- String SYSTEM_SERVICE_VIBRATOR
-- String SYSTEM_SERVICE_CONNECTIVITY
-- String SYSTEM_SERVICE_WIFI
-- String SYSTEM_SERVICE_AUDIO
-- String SYSTEM_SERVICE_MEDIA_ROUTER
-- String SYSTEM_SERVICE_TELEPHONY
-- String SYSTEM_SERVICE_INPUT_METHOD
-- String SYSTEM_SERVICE_UI_MODE
-- String SYSTEM_SERVICE_DOWNLOAD
+- String SYSTEM_SERVICE_[...]
 - Object getSystemService(Context context, String service)
 
 ### Skeleton.File
@@ -254,18 +139,7 @@ Get StackTrace automatically - no need to put a tag.
 
 ### Skeleton.Facebook
 
-- String PERMISSION_BASIC_INFO
-- String PERMISSION_READ_STREAM
-- String PERMISSION_READ_FRIENDLISTS
-- String PERMISSION_MANAGE_FRIENDLISTS
-- String PERMISSION_MANAGE_NOTIFICATIONS
-- String PERMISSION_PUBLISH_STREAM
-- String PERMISSION_PUBLISH_CHECKINS
-- String PERMISSION_OFFLINE_ACCESS
-- String PERMISSION_USER_PHOTOS
-- String PERMISSION_USER_LIKES
-- String PERMISSION_USER_GROUPS
-- String PERMISSION_FRIENDS_PHOTOS
+- String PERMISSION_[...]
 - Facebook newInstance(Context context, String appId, Integer requestCode)
 - Facebook getInstance()
 - void auth(Activity activity, FacebookCallback callback, String permissions)
@@ -300,13 +174,7 @@ Get StackTrace automatically - no need to put a tag.
 
 ### Skeleton.Screen
 
-- int DENSITY_LDPI
-- int DENSITY_MDPI
-- int DENSITY_HDPI
-- int DENSITY_XHDPI
-- int DENSITY_XXHDPI
-- int DENSITY_XXXHDPI
-- int DENSITY_TV
+- int DENSITY_[...]
 - void wakeLock(Activity activity)
 - Boolean isOn(Context context)
 - float density(final Context context)
@@ -317,20 +185,7 @@ Get StackTrace automatically - no need to put a tag.
 
 ### Skeleton.Intent
 
-- String BROADCAST_TIME_TICK
-- String BROADCAST_TIME_CHANGED
-- String BROADCAST_TIMEZONE_CHANGED
-- String BROADCAST_BOOT_COMPLETED
-- String BROADCAST_PACKAGE_ADDED
-- String BROADCAST_PACKAGE_CHANGED
-- String BROADCAST_PACKAGE_REMOVED
-- String BROADCAST_PACKAGE_RESTARTED
-- String BROADCAST_PACKAGE_DATA_CLEARED
-- String BROADCAST_UID_REMOVED
-- String BROADCAST_BATTERY_CHANGED
-- String BROADCAST_POWER_CONNECTED
-- String BROADCAST_POWER_DISCONNECTED
-- String BROADCAST_SHUTDOWN
+- String BROADCAST_[...]
 - void web(Activity activity, String url)
 - void market(Activity activity, String pkg)
 - void market(Activity activity)
