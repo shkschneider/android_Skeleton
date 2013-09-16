@@ -1,4 +1,5 @@
-DIR = $(shell readlink -f $(shell dirname $(shell find . -type f -name "AndroidManifest.xml" 2>/dev/null | sort | head -1) 2>/dev/null) 2>/dev/null)
+MANIFEST = $(shell find . -type f -name "AndroidManifest.xml" 2>/dev/null | sort | head -1)
+DIR = $(shell dirname $(shell readlink -f $(MANIFEST) 2>/dev/null) 2>/dev/null)
 
 SDK = ${ANDROID_HOME}
 API = $(shell cat $(DIR)/AndroidManifest.xml 2>/dev/null | tr "[:space:]" "\n" | grep minSdkVersion= | cut -d'"' -f2)
@@ -26,12 +27,13 @@ APK_DEBUG = bin/$(PACKAGE)-debug.apk
 APK_RELEASE = bin/$(PACKAGE)-release.apk
 
 all:
-	@echo "==> Directory"
 	@if [ -z "$(DIR)" ] ; then echo "Fatal error" ; exit 1 ; fi
+	@echo "==> Directory"
 	@echo "- $(DIR)"
-	@cd $(DIR) || exit 1
+	@cd $(DIR) > /dev/null || exit 1
 	@echo "==> Manifest"
-	@if [ ! -f "AndroidManifest.xml" ] ; then echo "Error: no manifest" ; exit 1 ; fi
+	@if [ -z "$(MANIFEST)" ] ; then echo "Error: no manifest" ; exit 1 ; fi
+	@echo "- $(MANIFEST)"
 	@if [ -z "$(PACKAGE)" ] ; then echo "Error: no package" ; exit 1 ; fi
 	@echo "- $(PACKAGE)"
 	@if [ -z "$(API)" ] ; then echo "Error: no api" ; exit 1 ; fi
@@ -60,20 +62,18 @@ all:
 update: all
 	@echo "==> Git"
 	@echo "- update"
-	@if [ -f ".gitmodules" ] ; then git submodule update --init >/dev/null ; fi
+	@if [ -f ".gitmodules" ] ; then git submodule update --init > /dev/null || exit 1 ; fi
 	@echo "==> Libraries"
 	@echo "- sdk:$(shell echo $(SUPPORT) | sed -r 's#$(SDK)/##')"
 	@$(foreach p, $(shell find . -type d -name "libs"), cp $(SUPPORT) $p/ ;)
-	@echo "- libs/actionbarsherlock"
-	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/actionbarsherlock/actionbarsherlock
-	@echo "==> Project"
+	@echo "==> Projects"
 	@echo "- $(PACKAGE)"
-	@$(ANDROID) $(ANDROID_OPTS) update project --name $(PACKAGE) --target "$(TARGET)" --path .
+	@$(ANDROID) $(ANDROID_OPTS) update project --name $(PACKAGE) --target "$(TARGET)" --path . --subprojects > /dev/null || exit 1
 
 check: all
 	@echo "==> Check"
 	@if [ ! -d "bin" ] ; then echo "Error: no build" ; exit 1; fi
-	@$(LINT) $(LINT_OPTS) .
+	@$(LINT) $(LINT_OPTS) . > /dev/null || exit 1
 
 debug: update
 	@echo "==> Build"
@@ -82,7 +82,7 @@ debug: update
 	@echo "==> Sign"
 	@if [ -n "$(SIGN)" ] ; then echo "- $(SIGN)" ; fi
 	@echo "==> Debug"
-	@cp $(APK_DEBUG) $(APK) || exit 1
+	@cp $(APK_DEBUG) $(APK) > /dev/null || exit 1
 	@echo "==> $(APK)"
 
 release: update
@@ -92,26 +92,26 @@ release: update
 	@echo "==> Sign"
 	@if [ -n "$(SIGN)" ] ; then echo "- $(SIGN)" ; fi
 	@echo "==> Release"
-	@cp $(APK_RELEASE) $(APK) || exit 1
+	@cp $(APK_RELEASE) $(APK) > /dev/null || exit 1
 	@echo "==> $(APK)"
 
 install: all
 	@echo "==> Install"
 	@if [ -z "$(DEVICE)" ] ; then echo "Error: no device" ; exit 1 ; fi
 	@if [ ! -f "$(APK)" ] ; then echo "Error: no apk" ; exit 1 ; fi
-	@$(ADB) install -r $(APK) || exit 1
+	@$(ADB) install -r $(APK) > /dev/null || exit 1
 
 uninstall: all
 	@echo "==> Uninstall"
 	@if [ -z "$(DEVICE)" ] ; then echo "Error: no device" ; exit 1 ; fi
-	@$(ADB) shell pm uninstall -k $(PACKAGE) || exit 1
+	@$(ADB) shell pm uninstall -k $(PACKAGE) > /dev/null || exit 1
 
 clean: all
 	@echo "==> Clean"
 	@$(ANT) -quiet clean > /dev/null || exit 1
 
 distclean: clean
-	@rm -f $(APK)
+	@rm -f $(APK) > /dev/null || exit 1
 
 help:
 	@echo "update check debug release clean distclean"
