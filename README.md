@@ -30,39 +30,39 @@ Get StackTrace automatically - no need to put a tag.
 
 ### Skeleton.System
 
-- String SYSTEM_PROPERTY_JAVA_VM_NAME = "java.vm.name"
-- String SYSTEM_PROPERTY_JAVA_VM_VENDOR = "java.vm.vendor"
-- String SYSTEM_PROPERTY_JAVA_VM_VERSION = "java.vm.version"
-- String SYSTEM_PROPERTY_JAVA_HOME = "java.home"
-- String SYSTEM_PROPERTY_USER_DIR = "user.dir"
-- String SYSTEM_PROPERTY_USER_REGION = "user.region"
-- String SYSTEM_PROPERTY_JAVA_IO_TMPDIR = "java.io.tmpdir"
-- String SYSTEM_PROPERTY_JAVA_RUNTIME_NAME = "java.runtime.name"
-- String SYSTEM_PROPERTY_HTTP_AGENT = "http.agent"
-- String SYSTEM_PROPERTY_FILE_SEPARATOR = "file.separator"
-- String SYSTEM_PROPERTY_FILE_ENCODING = "file.encoding"
-- String SYSTEM_PROPERTY_LINE_SEPARATOR = "line.separator"
-- String SYSTEM_PROPERTY_OS_ARCH = "os.arch"
-- String SYSTEM_PROPERTY_OS_NAME = "os.name"
-- String SYSTEM_PROPERTY_OS_VERSION = "os.version"
-- String SYSTEM_PROPERTY_PATH_SEPARATOR = "path.separator"
+- String SYSTEM_PROPERTY_JAVA_VM_NAME
+- String SYSTEM_PROPERTY_JAVA_VM_VENDOR
+- String SYSTEM_PROPERTY_JAVA_VM_VERSION
+- String SYSTEM_PROPERTY_JAVA_HOME
+- String SYSTEM_PROPERTY_USER_DIR
+- String SYSTEM_PROPERTY_USER_REGION
+- String SYSTEM_PROPERTY_JAVA_IO_TMPDIR
+- String SYSTEM_PROPERTY_JAVA_RUNTIME_NAME
+- String SYSTEM_PROPERTY_HTTP_AGENT
+- String SYSTEM_PROPERTY_FILE_SEPARATOR
+- String SYSTEM_PROPERTY_FILE_ENCODING
+- String SYSTEM_PROPERTY_LINE_SEPARATOR
+- String SYSTEM_PROPERTY_OS_ARCH
+- String SYSTEM_PROPERTY_OS_NAME
+- String SYSTEM_PROPERTY_OS_VERSION
+- String SYSTEM_PROPERTY_PATH_SEPARATOR
 - String getSystemProperty(String property)
 - String uname()
-- String SYSTEM_SERVICE_WINDOW_SERVICE = Context.WINDOW_SERVICE
-- String SYSTEM_SERVICE_LAYOUT_INFLATER_SERVICE = Context.LAYOUT_INFLATER_SERVICE
-- String SYSTEM_SERVICE_ACTIVITY_SERVICE = Context.ACTIVITY_SERVICE
-- String SYSTEM_SERVICE_POWER_SERVICE = Context.POWER_SERVICE
-- String SYSTEM_SERVICE_ALARM_SERVICE = Context.ALARM_SERVICE
-- String SYSTEM_SERVICE_NOTIFICATION_SERVICE = Context.NOTIFICATION_SERVICE
-- String SYSTEM_SERVICE_KEYGUARD_SERVICE = Context.KEYGUARD_SERVICE
-- String SYSTEM_SERVICE_LOCATION_SERVICE = Context.LOCATION_SERVICE
-- String SYSTEM_SERVICE_SEARCH_SERVICE = Context.SEARCH_SERVICE
-- String SYSTEM_SERVICE_VIBRATOR_SERVICE = Context.VIBRATOR_SERVICE
-- String SYSTEM_SERVICE_CONNECTIVITY_SERVICE = Context.CONNECTIVITY_SERVICE
-- String SYSTEM_SERVICE_WIFI_SERVICE = Context.WIFI_SERVICE
-- String SYSTEM_SERVICE_INPUT_METHOD_SERVICE = Context.INPUT_METHOD_SERVICE
-- String SYSTEM_SERVICE_UI_MODE_SERVICE = Context.UI_MODE_SERVICE
-- String SYSTEM_SERVICE_DOWNLOAD_SERVICE = Context.DOWNLOAD_SERVICE
+- String SYSTEM_SERVICE_WINDOW_SERVICE
+- String SYSTEM_SERVICE_LAYOUT_INFLATER_SERVICE
+- String SYSTEM_SERVICE_ACTIVITY_SERVICE
+- String SYSTEM_SERVICE_POWER_SERVICE
+- String SYSTEM_SERVICE_ALARM_SERVICE
+- String SYSTEM_SERVICE_NOTIFICATION_SERVICE
+- String SYSTEM_SERVICE_KEYGUARD_SERVICE
+- String SYSTEM_SERVICE_LOCATION_SERVICE
+- String SYSTEM_SERVICE_SEARCH_SERVICE
+- String SYSTEM_SERVICE_VIBRATOR_SERVICE
+- String SYSTEM_SERVICE_CONNECTIVITY_SERVICE
+- String SYSTEM_SERVICE_WIFI_SERVICE
+- String SYSTEM_SERVICE_INPUT_METHOD_SERVICE
+- String SYSTEM_SERVICE_UI_MODE_SERVICE
+- String SYSTEM_SERVICE_DOWNLOAD_SERVICE
 - Object getSystemService(Context context, String service)
 
 ### Skeleton.File
@@ -159,9 +159,18 @@ Get StackTrace automatically - no need to put a tag.
 
 ### Skeleton.Facebook
 
-- String PERMISSION_BASIC = "basic_info"
-- String PERMISSION_FRIENDS = "read_friendlists"
-- String PERMISSION_PUBLISH = "publish_actions"
+- String PERMISSION_BASIC_INFO
+- String PERMISSION_READ_STREAM
+- String PERMISSION_READ_FRIENDLISTS
+- String PERMISSION_MANAGE_FRIENDLISTS
+- String PERMISSION_MANAGE_NOTIFICATIONS
+- String PERMISSION_PUBLISH_STREAM
+- String PERMISSION_PUBLISH_CHECKINS
+- String PERMISSION_OFFLINE_ACCESS
+- String PERMISSION_USER_PHOTOS
+- String PERMISSION_USER_LIKES
+- String PERMISSION_USER_GROUPS
+- String PERMISSION_FRIENDS_PHOTOS
 - Facebook newInstance(Context context, String appId, Integer requestCode)
 - Facebook getInstance()
 - void auth(Activity activity, FacebookCallback callback, String permissions)
@@ -179,6 +188,52 @@ Get StackTrace automatically - no need to put a tag.
     - Boolean success
     - String content
     - Long duration
+
+### Skeleton.ImageDownloader
+
+- ImageDownloader(Context context, ImageView imageView, String url)
+- ImageDownloader cache(Boolean file, Boolean memory)
+- void run(ImageDownloaderCallback callback)
+- void run()
+
+### Skeleton.Location
+
+- Location(Context context, LocationCallback locationCallback)
+- Location Location start(Boolean gps)
+- void stop()
+- Location getLocation()
+
+### Skeleton.Screen
+
+- void wakeLock(Activity activity)
+- Boolean isOn(Context context)
+- float density(final Context context)
+- int height(final Context context)
+- int width(final Context context)
+- Integer orientation(Context context)
+- int pixelsFromDp(final Context context, final Float dp)
+
+### Skeleton.Intent
+
+- String BROADCAST_TIME_TICK
+- String BROADCAST_TIME_CHANGED
+- String BROADCAST_TIMEZONE_CHANGED
+- String BROADCAST_BOOT_COMPLETED
+- String BROADCAST_PACKAGE_ADDED
+- String BROADCAST_PACKAGE_CHANGED
+- String BROADCAST_PACKAGE_REMOVED
+- String BROADCAST_PACKAGE_RESTARTED
+- String BROADCAST_PACKAGE_DATA_CLEARED
+- String BROADCAST_UID_REMOVED
+- String BROADCAST_BATTERY_CHANGED
+- String BROADCAST_POWER_CONNECTED
+- String BROADCAST_POWER_DISCONNECTED
+- String BROADCAST_SHUTDOWN
+- void web(Activity activity, String url)
+- void market(Activity activity, String pkg)
+- void market(Activity activity)
+- void email(Activity activity, String[] to, String subject, String text)
+- void gallery(Activity activity, Uri uri)
 
 ## SkeletonActivity
 

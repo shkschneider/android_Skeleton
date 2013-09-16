@@ -30,14 +30,18 @@ import android.graphics.Matrix;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
@@ -47,6 +51,7 @@ import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.webkit.URLUtil;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -100,6 +105,9 @@ import java.util.UUID;
  *  Hash
  *  Facebook
  *  WebService
+ *  ImageDownloader
+ *  Location
+ *  Screen
  */
 
 @SuppressWarnings("unused")
@@ -732,100 +740,6 @@ public abstract class Skeleton {
 
     }
 
-    public static int pixelsFromDp(final Context context, final Float dp) {
-        if (context != null) {
-            if (dp > 0) {
-                return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics()));
-            }
-            else {
-                return 0;
-            }
-        }
-        else {
-            Log.w("Context was NULL");
-        }
-        return 0;
-    }
-
-    public static Bitmap bitmapFromUri(final Context context, final Uri uri) {
-        if (context != null) {
-            try {
-                final BitmapFactory.Options options = new BitmapFactory.Options();
-                return BitmapFactory.decodeStream(context.getContentResolver().openInputStream(uri), null, options);
-            }
-            catch (FileNotFoundException e) {
-                Log.e("FileNotFoundException: " + e.getMessage());
-            }
-        }
-        else {
-            Log.w("Context was NULL");
-        }
-        return null;
-    }
-
-    public static Bitmap bitmapFromDrawable(final Drawable drawable) {
-        if (drawable != null) {
-            if (drawable instanceof BitmapDrawable) {
-                return ((BitmapDrawable)drawable).getBitmap();
-            }
-
-            final Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-            final Canvas canvas = new Canvas(bitmap);
-            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-            drawable.draw(canvas);
-
-            return bitmap;
-        }
-        else {
-            Log.w("Drawable was NULL");
-        }
-        return null;
-    }
-
-    public static Drawable drawableFromBitmap(final Context context, final Bitmap bitmap) {
-        return new BitmapDrawable(context.getResources(), bitmap);
-    }
-
-    public static float density(final Context context) {
-        if (context != null) {
-            return context.getResources().getDisplayMetrics().density;
-        }
-        else {
-            Log.w("Context was NULL");
-        }
-        return 0F;
-    }
-
-    public static int height(final Context context) {
-        if (context != null) {
-            return context.getResources().getDisplayMetrics().heightPixels;
-        }
-        else {
-            Log.w("Context was NULL");
-        }
-        return 0;
-    }
-
-    public static int width(final Context context) {
-        if (context != null) {
-            return context.getResources().getDisplayMetrics().widthPixels;
-        }
-        else {
-            Log.w("Context was NULL");
-        }
-        return 0;
-    }
-
-    public static Drawable indeterminateDrawable(final Context context) {
-        if (context != null) {
-            return new ProgressBar(context).getIndeterminateDrawable();
-        }
-        else {
-            Log.w("Context was NULL");
-        }
-        return null;
-    }
-
     public static class Keyboard {
 
         // Behavior can vary
@@ -1124,7 +1038,11 @@ public abstract class Skeleton {
                 if (pendingIntent != null) {
                     notificationBuilder.setContentIntent(pendingIntent);
                 }
-                return notificationBuilder.build();
+                final android.app.Notification notification = notificationBuilder.build();
+                notification.flags |= android.app.Notification.FLAG_AUTO_CANCEL;
+                notification.defaults |= android.app.Notification.DEFAULT_SOUND;
+                notification.defaults |= android.app.Notification.DEFAULT_VIBRATE;
+                return notification;
             }
             else {
                 Log.w("Context was NULL");
@@ -1259,79 +1177,6 @@ public abstract class Skeleton {
 
     }
 
-    public static Bitmap rotateBitmap(final Context context, final int id, final float degrees) {
-        if (context != null) {
-            final Bitmap oldBitmap = BitmapFactory.decodeResource(context.getResources(), id);
-            final Matrix matrix = new Matrix();
-            matrix.postRotate(degrees);
-            return Bitmap.createBitmap(oldBitmap, 0, 0, oldBitmap.getWidth(), oldBitmap.getHeight(), matrix, true);
-        }
-        else {
-            Log.w("Context was NULL");
-        }
-        return null;
-    }
-
-    public static Drawable rotateDrawable(final Context context, final int id, final float degrees) {
-        if (context != null) {
-            return new BitmapDrawable(context.getResources(), rotateBitmap(context, id, degrees));
-        }
-        else {
-            Log.w("Context was NULL");
-        }
-        return null;
-    }
-
-    public static void animate(final AnimationDrawable animationDrawable, final AnimationCallback callback, final Long time) {
-        if (animationDrawable != null) {
-            animationDrawable.start();
-
-            if (time > 0) {
-                animateListener(animationDrawable, callback, time);
-            }
-            else {
-                Log.w("Time was negative");
-            }
-        }
-        else {
-            Log.w("AnimationDrawable was NULL");
-        }
-    }
-
-    public static void animate(final AnimationDrawable animationDrawable, final AnimationCallback callback) {
-        animate(animationDrawable, callback, 100L);
-    }
-
-    private static void animateListener(final AnimationDrawable animationDrawable, final AnimationCallback callback, final Long time) {
-        if (animationDrawable != null) {
-            new Handler().postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    if (animationDrawable.getCurrent() != animationDrawable.getFrame(animationDrawable.getNumberOfFrames() - 1)) {
-                        animateListener(animationDrawable, callback, time);
-                    }
-                    else if (callback != null) {
-                        callback.animationCallback();
-                    }
-                    else {
-                        Log.w("Callback was NULL");
-                    }
-                }
-
-            }, time);
-        }
-        else {
-            Log.w("AnimationDrawable was NULL");
-        }
-    }
-
-    public static interface AnimationCallback {
-
-        public void animationCallback();
-
-    }
-
     public static class Hash {
 
         public static final java.lang.String MD5 = "MD5";
@@ -1379,9 +1224,18 @@ public abstract class Skeleton {
 
         private static final java.lang.String GRAPH_ME_URL = "https://graph.facebook.com/me/feed";
 
-        public static final java.lang.String PERMISSION_BASIC = "basic_info";
-        public static final java.lang.String PERMISSION_FRIENDS = "read_friendlists";
-        public static final java.lang.String PERMISSION_PUBLISH = "publish_actions";
+        public static final java.lang.String PERMISSION_BASIC_INFO = "basic_info";
+        public static final java.lang.String PERMISSION_READ_STREAM = "read_stream";
+        public static final java.lang.String PERMISSION_READ_FRIENDLISTS = "read_friendlists";
+        public static final java.lang.String PERMISSION_MANAGE_FRIENDLISTS = "manage_friendlists";
+        public static final java.lang.String PERMISSION_MANAGE_NOTIFICATIONS = "manage_notifications";
+        public static final java.lang.String PERMISSION_PUBLISH_STREAM = "publish_stream";
+        public static final java.lang.String PERMISSION_PUBLISH_CHECKINS = "publish_checkins";
+        public static final java.lang.String PERMISSION_OFFLINE_ACCESS = "offline_access";
+        public static final java.lang.String PERMISSION_USER_PHOTOS = "user_photos";
+        public static final java.lang.String PERMISSION_USER_LIKES = "user_likes";
+        public static final java.lang.String PERMISSION_USER_GROUPS = "user_groups";
+        public static final java.lang.String PERMISSION_FRIENDS_PHOTOS = "friends_photos";
 
         private static Facebook INSTANCE = null;
 
@@ -1421,7 +1275,7 @@ public abstract class Skeleton {
             mHandle = new FacebookHandle(activity, mAppId, permissions) {
 
                 @Override
-                public boolean expired(AbstractAjaxCallback<?, ?> callback, AjaxStatus status) {
+                public boolean expired(final AbstractAjaxCallback<?, ?> callback, final AjaxStatus status) {
                     if (status.getCode() == HttpStatus.SC_UNAUTHORIZED) {
                         return true;
                     }
@@ -1487,7 +1341,7 @@ public abstract class Skeleton {
             return null;
         }
 
-        public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        public void onActivityResult(final int requestCode, final int resultCode, final android.content.Intent data) {
             if (requestCode == mRequestCode) {
                 if (mHandle != null) {
                     mHandle.onActivityResult(requestCode, resultCode, data);
@@ -1570,7 +1424,7 @@ public abstract class Skeleton {
                 }
                         .url(mUrl)
                         .type(java.lang.String.class)
-                        .header("User-Agent", Skeleton.Network.makeUserAgent(mContext));
+                        .header("User-Agent", Skeleton.Network.getDefaultUserAgent());
 
                 new AQuery(mContext).ajax(ajaxCallback);
             }
@@ -1606,6 +1460,472 @@ public abstract class Skeleton {
             public void webServiceCallback(final Integer id, final Response response);
 
         }
+
+    }
+
+    public static class ImageDownloader {
+
+        private Context mContext;
+        private ImageView mImageView;
+        private java.lang.String mUrl;
+        private Boolean[] mCache = { false, false };
+
+        public ImageDownloader(final Context context, final ImageView imageView, final java.lang.String url) {
+            mContext = context;
+            mImageView = imageView;
+            mUrl = url;
+        }
+
+        public ImageDownloader cache(final Boolean file, final Boolean memory) {
+            mCache[0] = file;
+            mCache[1] = memory;
+            return this;
+        }
+
+        public void run(final ImageDownloaderCallback callback) {
+            if (mContext != null) {
+                if (! TextUtils.isEmpty(mUrl)) {
+                    if (Skeleton.Network.isValidUrl(mUrl)) {
+                        new AQuery(mContext)
+                                .ajax(new AjaxCallback<Bitmap>() {
+
+                                    @Override
+                                    public void callback(final java.lang.String url, final Bitmap bitmap, final AjaxStatus status) {
+                                        if (bitmap != null) {
+                                            if (mImageView != null) {
+                                                mImageView.setImageBitmap(bitmap);
+                                                result(callback, mImageView, bitmap);
+                                            }
+                                            else {
+                                                Skeleton.Log.w("ImageView was NULL");
+                                                result(callback, null, null);
+                                            }
+                                        }
+                                        else {
+                                            Skeleton.Log.w("Bitmap was NULL");
+                                            result(callback, null, null);
+                                        }
+                                    }
+
+                                }
+                                        .fileCache(mCache[0])
+                                        .memCache(mCache[1])
+                                        .url(mUrl)
+                                        .type(Bitmap.class)
+                                        .header("User-Agent", Skeleton.Network.getDefaultUserAgent()));
+                    }
+                    else {
+                        Skeleton.Log.w("Url was invalid");
+                        result(callback, null, null);
+                    }
+                }
+                else {
+                    Skeleton.Log.w("Url was NULL");
+                    result(callback, null, null);
+                }
+            }
+            else {
+                Skeleton.Log.w("Context was NULL");
+                result(callback, null, null);
+            }
+        }
+
+        public void run() {
+            run(null);
+        }
+
+        private void result(final ImageDownloaderCallback callback, final ImageView imageView, final Bitmap bitmap) {
+            if (imageView != null) {
+                imageView.setImageBitmap(bitmap);
+            }
+            else {
+                Skeleton.Log.w("ImageView was NULL");
+            }
+
+            if (callback != null) {
+                callback.imageDownloaderCallback(imageView, bitmap);
+            }
+            else {
+                Skeleton.Log.w("Callback was NULL");
+            }
+        }
+
+        public static interface ImageDownloaderCallback {
+
+            public void imageDownloaderCallback(final ImageView imageView, final Bitmap bitmap);
+
+        }
+
+    }
+
+    public static class Location implements LocationListener {
+
+        private LocationManager mLocationManager;
+        private LocationCallback mLocationCallback;
+        private android.location.Location mLocation;
+
+        public Location(final Context context, final LocationCallback locationCallback) {
+            if (context != null) {
+                mLocationManager = (LocationManager) System.getSystemService(context, System.SYSTEM_SERVICE_LOCATION_SERVICE);
+                if (locationCallback != null) {
+                    mLocationCallback = locationCallback;
+                }
+                else {
+                    Log.d("LocationCallback was NULL");
+                }
+            }
+            else {
+                Log.w("Context was NULL");
+            }
+        }
+
+        public android.location.Location start(final Boolean gps) {
+            if (mLocationManager != null) {
+                mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+                mLocation = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                if (gps) {
+                    mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+                    mLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                }
+                return mLocation;
+            }
+            else {
+                Log.w("LocationManager was NULL");
+            }
+            return null;
+        }
+
+        public void stop() {
+            if (mLocationManager != null) {
+                mLocationManager.removeUpdates(this);
+            }
+            else {
+                Log.w("LocationManager was NULL");
+            }
+        }
+
+        public android.location.Location getLocation() {
+            return mLocation;
+        }
+
+        @Override
+        public void onLocationChanged(final android.location.Location location) {
+            mLocation = location;
+
+            if (mLocationCallback != null) {
+                mLocationCallback.locationCallback(mLocation);
+            }
+        }
+
+        @Override
+        public void onStatusChanged(final java.lang.String s, final int i, final Bundle bundle) {
+        }
+
+        @Override
+        public void onProviderEnabled(final java.lang.String provider) {
+            if (mLocationCallback != null) {
+                mLocationCallback.providerCallback(provider, true);
+            }
+        }
+
+        @Override
+        public void onProviderDisabled(final java.lang.String provider) {
+            if (mLocationCallback != null) {
+                mLocationCallback.providerCallback(provider, false);
+            }
+        }
+
+        public static interface LocationCallback {
+
+            public void providerCallback(final java.lang.String provider, final Boolean enabled);
+            public void locationCallback(final android.location.Location location);
+
+        }
+
+    }
+
+    public static class Screen {
+
+        public static void wakeLock(final Activity activity) {
+            if (activity != null) {
+                activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            }
+            else {
+                Log.w("Activity was NULL");
+            }
+        }
+
+        public static Boolean isOn(final Context context) {
+            if (context != null) {
+                return ((PowerManager) System.getSystemService(context, System.SYSTEM_SERVICE_POWER_SERVICE)).isScreenOn();
+            }
+            else {
+                Log.w("Context was NULL");
+            }
+            return false;
+        }
+
+        public static float density(final Context context) {
+            if (context != null) {
+                return context.getResources().getDisplayMetrics().density;
+            }
+            else {
+                Log.w("Context was NULL");
+            }
+            return 0F;
+        }
+
+        public static int height(final Context context) {
+            if (context != null) {
+                return context.getResources().getDisplayMetrics().heightPixels;
+            }
+            else {
+                Log.w("Context was NULL");
+            }
+            return 0;
+        }
+
+        public static int width(final Context context) {
+            if (context != null) {
+                return context.getResources().getDisplayMetrics().widthPixels;
+            }
+            else {
+                Log.w("Context was NULL");
+            }
+            return 0;
+        }
+
+        public static Integer orientation(final Context context) {
+            return ((WindowManager) System.getSystemService(context, System.SYSTEM_SERVICE_WINDOW_SERVICE)).getDefaultDisplay().getRotation();
+        }
+
+        public static int pixelsFromDp(final Context context, final Float dp) {
+            if (context != null) {
+                if (dp > 0) {
+                    return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics()));
+                }
+                else {
+                    return 0;
+                }
+            }
+            else {
+                Log.w("Context was NULL");
+            }
+            return 0;
+        }
+
+    }
+
+    public static class Intent {
+
+        public static final java.lang.String BROADCAST_TIME_TICK = android.content.Intent.ACTION_TIME_TICK;
+        public static final java.lang.String BROADCAST_TIME_CHANGED = android.content.Intent.ACTION_TIME_CHANGED;
+        public static final java.lang.String BROADCAST_TIMEZONE_CHANGED = android.content.Intent.ACTION_TIMEZONE_CHANGED;
+        public static final java.lang.String BROADCAST_BOOT_COMPLETED = android.content.Intent.ACTION_BOOT_COMPLETED;
+        public static final java.lang.String BROADCAST_PACKAGE_ADDED = android.content.Intent.ACTION_PACKAGE_ADDED;
+        public static final java.lang.String BROADCAST_PACKAGE_CHANGED = android.content.Intent.ACTION_PACKAGE_CHANGED;
+        public static final java.lang.String BROADCAST_PACKAGE_REMOVED = android.content.Intent.ACTION_PACKAGE_REMOVED;
+        public static final java.lang.String BROADCAST_PACKAGE_RESTARTED = android.content.Intent.ACTION_PACKAGE_RESTARTED;
+        public static final java.lang.String BROADCAST_PACKAGE_DATA_CLEARED = android.content.Intent.ACTION_PACKAGE_DATA_CLEARED;
+        public static final java.lang.String BROADCAST_UID_REMOVED = android.content.Intent.ACTION_UID_REMOVED;
+        public static final java.lang.String BROADCAST_BATTERY_CHANGED = android.content.Intent.ACTION_BATTERY_CHANGED;
+        public static final java.lang.String BROADCAST_POWER_CONNECTED = android.content.Intent.ACTION_POWER_CONNECTED;
+        public static final java.lang.String BROADCAST_POWER_DISCONNECTED = android.content.Intent.ACTION_POWER_DISCONNECTED;
+        public static final java.lang.String BROADCAST_SHUTDOWN = android.content.Intent.ACTION_SHUTDOWN;
+
+        public static void web(final Activity activity, final java.lang.String url) {
+            if (! TextUtils.isEmpty(url)) {
+                if (! Network.isValidUrl(url)) {
+                    if (activity != null) {
+                        activity.startActivity(new android.content.Intent(android.content.Intent.ACTION_VIEW, Uri.parse(url)));
+                    }
+                    else {
+                        Log.w("Activity was NULL");
+                    }
+                }
+                else {
+                    Log.w("Url was invalid");
+                }
+            }
+            else {
+                Log.w("Url was NULL");
+            }
+        }
+
+        public static void market(final Activity activity, final java.lang.String pkg) {
+            final android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("market://details?id=" + pkg));
+            if (activity != null) {
+                activity.startActivity(intent);
+            }
+            else {
+                Log.w("Activity was NULL");
+            }
+        }
+
+        public static void market(final Activity activity) {
+            final android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("market://details?id=" + Android.getPackage(activity)));
+            if (activity != null) {
+                activity.startActivity(intent);
+            }
+            else {
+                Log.w("Activity was NULL");
+            }
+        }
+
+        public static void email(final Activity activity, final java.lang.String[] to, final java.lang.String subject, final java.lang.String text) {
+            final android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_SEND);
+            intent.setType("plain/text");
+            intent.putExtra(android.content.Intent.EXTRA_EMAIL, to);
+            intent.putExtra(android.content.Intent.EXTRA_SUBJECT, subject);
+            intent.putExtra(android.content.Intent.EXTRA_TEXT, text);
+            if (activity != null) {
+                activity.startActivity(android.content.Intent.createChooser(intent, "Send An Email"));
+            }
+            else {
+                Log.w("Activity was NULL");
+            }
+        }
+
+        public static void gallery(final Activity activity, final Uri uri) {
+            final android.content.Intent intent = new android.content.Intent();
+            intent.setAction(android.content.Intent.ACTION_VIEW);
+            if (uri != null) {
+                intent.setDataAndType(uri, "image/*");
+                if (activity != null) {
+                    activity.startActivity(intent);
+                }
+                else {
+                    Log.w("Activity was NULL");
+                }
+            }
+            else {
+                Log.w("Uri was NULL");
+            }
+        }
+
+    }
+
+    public static Bitmap bitmapFromUri(final Context context, final Uri uri) {
+        if (context != null) {
+            try {
+                final BitmapFactory.Options options = new BitmapFactory.Options();
+                return BitmapFactory.decodeStream(context.getContentResolver().openInputStream(uri), null, options);
+            }
+            catch (FileNotFoundException e) {
+                Log.e("FileNotFoundException: " + e.getMessage());
+            }
+        }
+        else {
+            Log.w("Context was NULL");
+        }
+        return null;
+    }
+
+    public static Bitmap bitmapFromDrawable(final Drawable drawable) {
+        if (drawable != null) {
+            if (drawable instanceof BitmapDrawable) {
+                return ((BitmapDrawable)drawable).getBitmap();
+            }
+
+            final Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            final Canvas canvas = new Canvas(bitmap);
+            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+            drawable.draw(canvas);
+
+            return bitmap;
+        }
+        else {
+            Log.w("Drawable was NULL");
+        }
+        return null;
+    }
+
+    public static Drawable drawableFromBitmap(final Context context, final Bitmap bitmap) {
+        return new BitmapDrawable(context.getResources(), bitmap);
+    }
+
+    public static Bitmap rotateBitmap(final Context context, final int id, final float degrees) {
+        if (context != null) {
+            final Bitmap oldBitmap = BitmapFactory.decodeResource(context.getResources(), id);
+            final Matrix matrix = new Matrix();
+            matrix.postRotate(degrees);
+            return Bitmap.createBitmap(oldBitmap, 0, 0, oldBitmap.getWidth(), oldBitmap.getHeight(), matrix, true);
+        }
+        else {
+            Log.w("Context was NULL");
+        }
+        return null;
+    }
+
+    public static Drawable rotateDrawable(final Context context, final int id, final float degrees) {
+        if (context != null) {
+            return new BitmapDrawable(context.getResources(), rotateBitmap(context, id, degrees));
+        }
+        else {
+            Log.w("Context was NULL");
+        }
+        return null;
+    }
+
+    public static void animate(final AnimationDrawable animationDrawable, final AnimationCallback callback, final Long time) {
+        if (animationDrawable != null) {
+            animationDrawable.start();
+
+            if (time > 0) {
+                animateListener(animationDrawable, callback, time);
+            }
+            else {
+                Log.w("Time was negative");
+            }
+        }
+        else {
+            Log.w("AnimationDrawable was NULL");
+        }
+    }
+
+    public static Drawable indeterminateDrawable(final Context context) {
+        if (context != null) {
+            return new ProgressBar(context).getIndeterminateDrawable();
+        }
+        else {
+            Log.w("Context was NULL");
+        }
+        return null;
+    }
+
+    public static void animate(final AnimationDrawable animationDrawable, final AnimationCallback callback) {
+        animate(animationDrawable, callback, 100L);
+    }
+
+    private static void animateListener(final AnimationDrawable animationDrawable, final AnimationCallback callback, final Long time) {
+        if (animationDrawable != null) {
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    if (animationDrawable.getCurrent() != animationDrawable.getFrame(animationDrawable.getNumberOfFrames() - 1)) {
+                        animateListener(animationDrawable, callback, time);
+                    }
+                    else if (callback != null) {
+                        callback.animationCallback();
+                    }
+                    else {
+                        Log.w("Callback was NULL");
+                    }
+                }
+
+            }, time);
+        }
+        else {
+            Log.w("AnimationDrawable was NULL");
+        }
+    }
+
+    public static interface AnimationCallback {
+
+        public void animationCallback();
 
     }
 

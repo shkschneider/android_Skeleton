@@ -41,7 +41,7 @@ public class SkeletonReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(final Context context, final Intent intent) {
-        Skeleton.Log.d("Receive: " + intent.getAction());
+        Skeleton.Log.d(intent.getAction());
 	}
 
 }
