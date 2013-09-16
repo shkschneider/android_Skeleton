@@ -22,23 +22,6 @@ import android.content.Intent;
 @SuppressWarnings("unused")
 public class SkeletonReceiver extends BroadcastReceiver {
 
-    /*
-     * Intent.ACTION_TIME_TICK
-     * Intent.ACTION_TIME_CHANGED
-     * Intent.ACTION_TIMEZONE_CHANGED
-     * Intent.ACTION_BOOT_COMPLETED
-     * Intent.ACTION_PACKAGE_ADDED
-     * Intent.ACTION_PACKAGE_CHANGED
-     * Intent.ACTION_PACKAGE_REMOVED
-     * Intent.ACTION_PACKAGE_RESTARTED
-     * Intent.ACTION_PACKAGE_DATA_CLEARED
-     * Intent.ACTION_UID_REMOVED
-     * Intent.ACTION_BATTERY_CHANGED
-     * Intent.ACTION_POWER_CONNECTED
-     * Intent.ACTION_POWER_DISCONNECTED
-     * Intent.ACTION_SHUTDOWN
-     */
-
 	@Override
 	public void onReceive(final Context context, final Intent intent) {
         Skeleton.Log.d(intent.getAction());
