@@ -23,12 +23,7 @@ import com.androidquery.util.AQUtility;
 
 import java.util.Locale;
 
-import me.shkschneider.skeleton.helpers.SkeletonAndroidHelper;
-import me.shkschneider.skeleton.helpers.SkeletonApplicationHelper;
-import me.shkschneider.skeleton.helpers.SkeletonFileHelper;
-import me.shkschneider.skeleton.helpers.SkeletonPreferencesHelper;
-import me.shkschneider.skeleton.helpers.SkeletonRuntimeHelper;
-
+@SuppressWarnings("unused")
 public class SkeletonApplication extends Application {
 
 	public static Boolean DEBUG = false;
@@ -39,16 +34,14 @@ public class SkeletonApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 
-        DEBUG = SkeletonApplicationHelper.isDebug();
-        TAG = SkeletonApplicationHelper.getName(getApplicationContext());
+        DEBUG = Skeleton.isDebug();
+        TAG = Skeleton.getName(getApplicationContext());
         LOCALE = Locale.getDefault().toString();
 
-        SkeletonLog.i(toString());
-
-		SkeletonPreferencesHelper.newInstance(getApplicationContext());
+        Skeleton.Log.i(toString());
 
         AQUtility.setDebug(SkeletonApplication.DEBUG);
-        AQUtility.setCacheDir(SkeletonFileHelper.get(SkeletonFileHelper.getInternalCache(getApplicationContext())));
+        AQUtility.setCacheDir(Skeleton.File.get(Skeleton.File.getInternalCacheDir(getApplicationContext())));
 
         AjaxCallback.setNetworkLimit(4);
         BitmapAjaxCallback.setIconCacheLimit(20);
@@ -59,7 +52,7 @@ public class SkeletonApplication extends Application {
 
 	@Override
 	public void onLowMemory() {
-		SkeletonLog.w("LowMemory: " + SkeletonRuntimeHelper.getFreeMemory() + "/" + SkeletonRuntimeHelper.getMaxMemory() + " B");
+        Skeleton.Log.d("LowMemory: " + Skeleton.getFreeMemory() + "/" + Skeleton.getMaxMemory() + " B");
 
         BitmapAjaxCallback.clearCache();
 
@@ -68,12 +61,12 @@ public class SkeletonApplication extends Application {
 
 	@Override
 	public String toString() {
-		return SkeletonApplicationHelper.getName(getApplicationContext()) +
-                (SkeletonApplicationHelper.isDebug() ? " [DEBUG]" : "") +
-                " v" + SkeletonApplicationHelper.getVersionName(getApplicationContext()) +
-                " (" + SkeletonApplicationHelper.getPackage(getApplicationContext()) + ")" +
-                " Android " + SkeletonAndroidHelper.getRelease() +
-                " (API-" + SkeletonAndroidHelper.getApi() + ")";
+		return Skeleton.getName(getApplicationContext()) +
+                (Skeleton.isDebug() ? " [DEBUG]" : "") +
+                " v" + Skeleton.getVersionName(getApplicationContext()) +
+                " (" + Skeleton.getPackage(getApplicationContext()) + ")" +
+                " Android " + Skeleton.getRelease() +
+                " (API-" + Skeleton.getApi() + ")";
 	}
 
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.shkschneider.skeleton;
+package me.shkschneider.skeleton.tmp;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -24,8 +24,9 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 
-import me.shkschneider.skeleton.helpers.SkeletonNetworkHelper;
+import me.shkschneider.skeleton.Skeleton;
 
+@SuppressWarnings("unused")
 public class SkeletonImageDownloader {
 
     private Context mContext;
@@ -45,10 +46,10 @@ public class SkeletonImageDownloader {
         return this;
     }
 
-    public void run(final Callback callback) {
+    public void run(final ImageDownloaderCallback callback) {
         if (mContext != null) {
             if (! TextUtils.isEmpty(mUrl)) {
-                if (SkeletonNetworkHelper.isValidUrl(mUrl)) {
+                if (Skeleton.Network.isValidUrl(mUrl)) {
                     new AQuery(mContext)
                             .ajax(new AjaxCallback<Bitmap>() {
 
@@ -60,12 +61,12 @@ public class SkeletonImageDownloader {
                                             result(callback, mImageView, bitmap);
                                         }
                                         else {
-                                            SkeletonLog.d("ImageView was NULL");
+                                            Skeleton.Log.w("ImageView was NULL");
                                             result(callback, null, null);
                                         }
                                     }
                                     else {
-                                        SkeletonLog.d("Bitmap was NULL");
+                                        Skeleton.Log.w("Bitmap was NULL");
                                         result(callback, null, null);
                                     }
                                 }
@@ -75,20 +76,20 @@ public class SkeletonImageDownloader {
                             .memCache(mCache[1])
                             .url(mUrl)
                             .type(Bitmap.class)
-                            .header("User-Agent", SkeletonNetworkHelper.makeUserAgent(mContext)));
+                            .header("User-Agent", Skeleton.Network.makeUserAgent(mContext)));
                 }
                 else {
-                    SkeletonLog.w("Url was invalid");
+                    Skeleton.Log.w("Url was invalid");
                     result(callback, null, null);
                 }
             }
             else {
-                SkeletonLog.w("Url was NULL");
+                Skeleton.Log.w("Url was NULL");
                 result(callback, null, null);
             }
         }
         else {
-            SkeletonLog.w("Context was NULL");
+            Skeleton.Log.w("Context was NULL");
             result(callback, null, null);
         }
     }
@@ -97,25 +98,25 @@ public class SkeletonImageDownloader {
         run(null);
     }
 
-    private void result(final Callback callback, final ImageView imageView, final Bitmap bitmap) {
+    private void result(final ImageDownloaderCallback callback, final ImageView imageView, final Bitmap bitmap) {
         if (imageView != null) {
             imageView.setImageBitmap(bitmap);
         }
         else {
-            SkeletonLog.d("ImageView was NULL");
+            Skeleton.Log.w("ImageView was NULL");
         }
 
         if (callback != null) {
-            callback.ImageDownloaderCallback(imageView, bitmap);
+            callback.imageDownloaderCallback(imageView, bitmap);
         }
         else {
-            SkeletonLog.d("Callback was NULL");
+            Skeleton.Log.w("Callback was NULL");
         }
     }
 
-    public static interface Callback {
+    public static interface ImageDownloaderCallback {
 
-        public void ImageDownloaderCallback(final ImageView imageView, final Bitmap bitmap);
+        public void imageDownloaderCallback(final ImageView imageView, final Bitmap bitmap);
 
     }
 

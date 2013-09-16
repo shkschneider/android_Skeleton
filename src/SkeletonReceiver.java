@@ -19,6 +19,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+@SuppressWarnings("unused")
 public class SkeletonReceiver extends BroadcastReceiver {
 
     /*
@@ -40,7 +41,7 @@ public class SkeletonReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(final Context context, final Intent intent) {
-		SkeletonLog.d("Receive: " + intent.getAction());
+        Skeleton.Log.d("Receive: " + intent.getAction());
 	}
 
 }

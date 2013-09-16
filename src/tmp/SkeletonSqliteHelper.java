@@ -13,17 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.shkschneider.skeleton.helpers;
+package me.shkschneider.skeleton.tmp;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 
+import me.shkschneider.skeleton.Skeleton;
 import me.shkschneider.skeleton.SkeletonApplication;
-import me.shkschneider.skeleton.SkeletonLog;
 
 // TODO: Develop further
+@SuppressWarnings("unused")
 public class SkeletonSqliteHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE = SkeletonApplication.TAG;
@@ -57,10 +58,10 @@ public class SkeletonSqliteHelper extends SQLiteOpenHelper {
             return ;
         }
 
-        SkeletonLog.w("Upgrading database from v" + oldVersion + " to v" + newVersion);
+        Skeleton.Log.w("Upgrading database from v" + oldVersion + " to v" + newVersion);
 
         // Customize
-        SkeletonLog.w("All data will be erased!");
+        Skeleton.Log.w("All data will be erased!");
         database.execSQL("DROP TABLE IF EXISTS " + ExampleTable.NAME);
         onCreate(database);
     }
