@@ -327,27 +327,6 @@ public abstract class Skeleton {
             return null;
         }
 
-        public static Integer getVersionCode(final Context context) {
-            if (context != null) {
-                try {
-                    final PackageManager packageManager = context.getPackageManager();
-                    if (packageManager != null) {
-                        return packageManager.getPackageInfo(getPackage(context), PackageManager.GET_META_DATA).versionCode;
-                    }
-                    else {
-                        Log.w("PackageManager was NULL");
-                    }
-                }
-                catch (PackageManager.NameNotFoundException e) {
-                    Log.e("NameNotFoundException: " + e.getMessage());
-                }
-            }
-            else {
-                Log.w("Context was NULL");
-            }
-            return 0;
-        }
-
         public static java.lang.String getVersionName(final Context context) {
             if (context != null) {
                 try {
@@ -367,6 +346,27 @@ public abstract class Skeleton {
                 Log.w("Context was NULL");
             }
             return "0";
+        }
+
+        public static Integer getVersionCode(final Context context) {
+            if (context != null) {
+                try {
+                    final PackageManager packageManager = context.getPackageManager();
+                    if (packageManager != null) {
+                        return packageManager.getPackageInfo(getPackage(context), PackageManager.GET_META_DATA).versionCode;
+                    }
+                    else {
+                        Log.w("PackageManager was NULL");
+                    }
+                }
+                catch (PackageManager.NameNotFoundException e) {
+                    Log.e("NameNotFoundException: " + e.getMessage());
+                }
+            }
+            else {
+                Log.w("Context was NULL");
+            }
+            return 0;
         }
 
     }
@@ -1377,7 +1377,7 @@ public abstract class Skeleton {
 
     public static class Facebook {
 
-        public static final java.lang.String GRAPH_ME_URL = "https://graph.facebook.com/me/feed";
+        private static final java.lang.String GRAPH_ME_URL = "https://graph.facebook.com/me/feed";
 
         public static final java.lang.String PERMISSION_BASIC = "basic_info";
         public static final java.lang.String PERMISSION_FRIENDS = "read_friendlists";

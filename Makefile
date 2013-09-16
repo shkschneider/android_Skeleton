@@ -96,6 +96,13 @@ release: update
 	@cp $(APK_RELEASE) $(APK) > /dev/null || exit 1
 	@echo "==> $(APK)"
 
+clean: all
+	@echo "==> Clean"
+	@$(ANT) -quiet clean > /dev/null || exit 1
+
+distclean: clean
+	@rm -f $(APK) > /dev/null || exit 1
+
 install: all
 	@echo "==> Install"
 	@if [ -z "$(DEVICE)" ] ; then echo "Error: no device" ; exit 1 ; fi
@@ -107,14 +114,7 @@ uninstall: all
 	@if [ -z "$(DEVICE)" ] ; then echo "Error: no device" ; exit 1 ; fi
 	@$(ADB) shell pm uninstall -k $(PACKAGE) || exit 1
 
-clean: all
-	@echo "==> Clean"
-	@$(ANT) -quiet clean > /dev/null || exit 1
-
-distclean: clean
-	@rm -f $(APK) > /dev/null || exit 1
-
 help:
-	@echo "update check debug release clean distclean"
+	@echo "update check debug release clean distclean install uninstall"
 
 .PHONY: all update check debug release clean distclean help
