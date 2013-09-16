@@ -20,8 +20,37 @@
 		android:name="android.hardware.touchscreen"
 		android:required="true" />
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESSIBILITY_FEATURES" />
+    <uses-permission android:name="android.permission.ACCOUNTS" />
+    <uses-permission android:name="android.permission.AFFECTS_BATTERY" />
+    <uses-permission android:name="android.permission.APP_INFO" />
+    <uses-permission android:name="android.permission.AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.BLUETOOTH_NETWORK" />
+    <uses-permission android:name="android.permission.BOOKMARKS" />
+    <uses-permission android:name="android.permission.CALENDAR" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.COST_MONEY" />
+    <uses-permission android:name="android.permission.DEVELOPMENT_TOOLS" />
+    <uses-permission android:name="android.permission.DEVICE_ALARMS" />
+    <uses-permission android:name="android.permission.DISPLAY" />
+    <uses-permission android:name="android.permission.HARDWARE_CONTROLS" />
+    <uses-permission android:name="android.permission.LOCATION" />
+    <uses-permission android:name="android.permission.MESSAGES" />
+    <uses-permission android:name="android.permission.MICROPHONE" />
+    <uses-permission android:name="android.permission.NETWORK" />
+    <uses-permission android:name="android.permission.PERSONAL_INFO" />
+    <uses-permission android:name="android.permission.PHONE_CALLS" />
+    <uses-permission android:name="android.permission.SCREENLOCK" />
+    <uses-permission android:name="android.permission.SOCIAL_INFO" />
+    <!-- <uses-permission android:name="android.permission.STATUS_BAR" /> -->
+    <uses-permission android:name="android.permission.STORAGE" />
+    <uses-permission android:name="android.permission.SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.SYSTEM_CLOCK" />
+    <uses-permission android:name="android.permission.SYSTEM_TOOLS" />
+    <uses-permission android:name="android.permission.USER_DICTIONARY" />
+    <uses-permission android:name="android.permission.VOICEMAIL" />
+    <uses-permission android:name="android.permission.WALLPAPER" />
+    <uses-permission android:name="android.permission.WRITE_USER_DICTIONARY" />
 
 	<application
             android:allowBackup="true"
