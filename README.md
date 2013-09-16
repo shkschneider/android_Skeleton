@@ -48,10 +48,8 @@ Get StackTrace automatically - no need to put a tag.
 - String SYSTEM_PROPERTY_OS_NAME = "os.name"
 - String SYSTEM_PROPERTY_OS_VERSION = "os.version"
 - String SYSTEM_PROPERTY_PATH_SEPARATOR = "path.separator"
-
 - String getSystemProperty(String property)
 - String uname()
-
 - String SYSTEM_SERVICE_WINDOW_SERVICE = Context.WINDOW_SERVICE
 - String SYSTEM_SERVICE_LAYOUT_INFLATER_SERVICE = Context.LAYOUT_INFLATER_SERVICE
 - String SYSTEM_SERVICE_ACTIVITY_SERVICE = Context.ACTIVITY_SERVICE
@@ -67,13 +65,11 @@ Get StackTrace automatically - no need to put a tag.
 - String SYSTEM_SERVICE_INPUT_METHOD_SERVICE = Context.INPUT_METHOD_SERVICE
 - String SYSTEM_SERVICE_UI_MODE_SERVICE = Context.UI_MODE_SERVICE
 - String SYSTEM_SERVICE_DOWNLOAD_SERVICE = Context.DOWNLOAD_SERVICE
-
 - Object getSystemService(Context context, String service)
 
 ### Skeleton.File
 
 - String ASSETS_PREFIX = "file:///android_asset/"
-
 - File get(String path)
 - InputStream openFile(File file)
 - InputStream openRaw(Context context, int id)
@@ -150,7 +146,6 @@ Get StackTrace automatically - no need to put a tag.
 
 - String CHARSET = HTTP.UTF_8
 - String MIME_TYPE = "text/html"
-
 - WebView fromUrl(Context context, String url)
 - WebView fromAsset(Context context, String asset)
 - WebView fromHtml(Context context, String source)
@@ -161,7 +156,6 @@ Get StackTrace automatically - no need to put a tag.
 
 - String MD5 = "MD5"
 - String SHA = "SHA"
-
 - String md5(String string)
 - String sha(String string)
 
@@ -170,7 +164,6 @@ Get StackTrace automatically - no need to put a tag.
 - String PERMISSION_BASIC = "basic_info"
 - String PERMISSION_FRIENDS = "read_friendlists"
 - String PERMISSION_PUBLISH = "publish_actions"
-
 - Facebook newInstance(Context context, String appId, Integer requestCode)
 - Facebook getInstance()
 - void auth(Activity activity, FacebookCallback callback, String permissions)
