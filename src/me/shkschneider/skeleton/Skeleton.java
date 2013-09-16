@@ -15,6 +15,8 @@
  */
 package me.shkschneider.skeleton;
 
+import android.*;
+import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
@@ -23,7 +25,9 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -401,6 +405,131 @@ public abstract class Skeleton {
                 Log.w("Context was NULL");
             }
             return null;
+        }
+
+        public static java.lang.String getSignature(final Context context) {
+            if (context != null) {
+                final PackageManager packageManager = context.getPackageManager();
+                if (packageManager != null) {
+                    try {
+                        final PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES);
+                        if (packageInfo != null) {
+                            final Signature[] signatures = packageInfo.signatures;
+                            if (signatures != null) {
+                                return signatures[0].toCharsString();
+                            }
+                            else {
+                                Log.d("No signatures");
+                            }
+                        }
+                        else {
+                            Log.w("PackageInfo was NULL");
+                        }
+                    }
+                    catch (PackageManager.NameNotFoundException e) {
+                        Log.e("NameNotFoundException: " + e.getMessage());
+                    }
+                }
+                else {
+                    Log.w("PackageManager was NULL");
+                }
+            }
+            else {
+                Log.w("Context was NULL");
+            }
+            return null;
+        }
+
+        public static Boolean hasPermission(final Context context, final java.lang.String permission) {
+            if (context != null) {
+                if (! TextUtils.isEmpty(permission)) {
+                    final PackageManager packageManager = context.getPackageManager();
+                    if (packageManager != null) {
+                        return (packageManager.checkPermission(permission, Android.getPackage(context)) == PackageManager.PERMISSION_GRANTED);
+                    }
+                    else {
+                        Log.w("PackageManager was NULL");
+                    }
+                }
+                else {
+                    Log.w("Permission was NULL");
+                }
+            }
+            else {
+                Log.w("Context was NULL");
+            }
+            return false;
+        }
+
+        public static class Permissions {
+
+            public static final java.lang.String ACCESS_CHECKIN_PROPERTIES = android.Manifest.permission.ACCESS_CHECKIN_PROPERTIES;
+            public static final java.lang.String ACCESS_COARSE_LOCATION = android.Manifest.permission.ACCESS_COARSE_LOCATION;
+            public static final java.lang.String ACCESS_FINE_LOCATION = android.Manifest.permission.ACCESS_FINE_LOCATION;
+            public static final java.lang.String ACCESS_LOCATION_EXTRA_COMMANDS = android.Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS;
+            public static final java.lang.String ACCESS_MOCK_LOCATION = android.Manifest.permission.ACCESS_MOCK_LOCATION;
+            public static final java.lang.String ACCESS_NETWORK_STATE = android.Manifest.permission.ACCESS_NETWORK_STATE;
+            public static final java.lang.String ACCESS_SURFACE_FLINGER = android.Manifest.permission.ACCESS_SURFACE_FLINGER;
+            public static final java.lang.String ACCESS_WIFI_STATE = android.Manifest.permission.ACCESS_WIFI_STATE;
+            public static final java.lang.String ACCOUNT_MANAGER = android.Manifest.permission.ACCOUNT_MANAGER;
+            // public static final java.lang.String ADD_VOICEMAIL = Manifest.permission.ADD_VOICEMAIL;
+            public static final java.lang.String AUTHENTICATE_ACCOUNTS = android.Manifest.permission.AUTHENTICATE_ACCOUNTS;
+            public static final java.lang.String BATTERY_STATS = android.Manifest.permission.BATTERY_STATS;
+            // public static final java.lang.String BIND_ACCESSIBILITY_SERVICE = android.Manifest.permission.BIND_ACCESSIBILITY_SERVICE;
+            public static final java.lang.String BIND_APPWIDGET = android.Manifest.permission.BIND_APPWIDGET;
+            public static final java.lang.String BIND_DEVICE_ADMIN = android.Manifest.permission.BIND_DEVICE_ADMIN;
+            public static final java.lang.String BIND_INPUT_METHOD = android.Manifest.permission.BIND_INPUT_METHOD;
+            public static final java.lang.String BIND_WALLPAPER = android.Manifest.permission.BIND_WALLPAPER;
+            public static final java.lang.String BLUETOOTH = android.Manifest.permission.BLUETOOTH;
+            public static final java.lang.String BLUETOOTH_ADMIN = android.Manifest.permission.BLUETOOTH_ADMIN;
+            public static final java.lang.String BRICK = android.Manifest.permission.BRICK;
+            public static final java.lang.String BROADCAST_PACKAGE_REMOVED = android.Manifest.permission.BROADCAST_PACKAGE_REMOVED;
+            public static final java.lang.String BROADCAST_SMS = android.Manifest.permission.BROADCAST_SMS;
+            public static final java.lang.String BROADCAST_STICKY = android.Manifest.permission.BROADCAST_STICKY;
+            public static final java.lang.String BROADCAST_WAP_PUSH = android.Manifest.permission.BROADCAST_WAP_PUSH;
+            public static final java.lang.String CALL_PHONE = android.Manifest.permission.CALL_PHONE;
+            public static final java.lang.String CALL_PRIVILEGED = android.Manifest.permission.CALL_PRIVILEGED;
+            public static final java.lang.String CAMERA = android.Manifest.permission.CAMERA;
+            public static final java.lang.String CHANGE_COMPONENT_ENABLED_STATE = android.Manifest.permission.CHANGE_COMPONENT_ENABLED_STATE;
+            public static final java.lang.String CHANGE_CONFIGURATION = android.Manifest.permission.CHANGE_CONFIGURATION;
+            public static final java.lang.String CHANGE_NETWORK_STATE = android.Manifest.permission.CHANGE_NETWORK_STATE;
+            public static final java.lang.String CHANGE_WIFI_MULTICAST_STATE = android.Manifest.permission.CHANGE_WIFI_MULTICAST_STATE;
+            public static final java.lang.String CHANGE_WIFI_STATE = android.Manifest.permission.CHANGE_WIFI_STATE;
+            public static final java.lang.String CLEAR_APP_CACHE = android.Manifest.permission.CLEAR_APP_CACHE;
+            public static final java.lang.String CLEAR_APP_USER_DATA = android.Manifest.permission.CLEAR_APP_USER_DATA;
+            public static final java.lang.String CONTROL_LOCATION_UPDATES = android.Manifest.permission.CONTROL_LOCATION_UPDATES;
+            public static final java.lang.String DELETE_CACHE_FILES = android.Manifest.permission.DELETE_CACHE_FILES;
+            public static final java.lang.String DELETE_PACKAGES = android.Manifest.permission.DELETE_PACKAGES;
+            public static final java.lang.String DEVICE_POWER = android.Manifest.permission.DEVICE_POWER;
+            public static final java.lang.String DIAGNOSTIC = android.Manifest.permission.DIAGNOSTIC;
+            public static final java.lang.String DISABLE_KEYGUARD = android.Manifest.permission.DISABLE_KEYGUARD;
+            public static final java.lang.String DUMP = android.Manifest.permission.DUMP;
+            public static final java.lang.String EXPAND_STATUS_BAR = android.Manifest.permission.EXPAND_STATUS_BAR;
+            public static final java.lang.String FACTORY_TEST = android.Manifest.permission.FACTORY_TEST;
+            public static final java.lang.String FLASHLIGHT = android.Manifest.permission.FLASHLIGHT;
+            public static final java.lang.String FORCE_BACK = android.Manifest.permission.FORCE_BACK;
+            public static final java.lang.String GET_ACCOUNTS = android.Manifest.permission.GET_ACCOUNTS;
+            public static final java.lang.String GET_PACKAGE_SIZE = android.Manifest.permission.GET_PACKAGE_SIZE;
+            public static final java.lang.String GET_TASKS = android.Manifest.permission.GET_TASKS;
+            // public static final java.lang.String GET_TOP_ACTIVITY_INFO = android.Manifest.permission.GET_TOP_ACTIVITY_INFO;
+            public static final java.lang.String GLOBAL_SEARCH = android.Manifest.permission.GLOBAL_SEARCH;
+            public static final java.lang.String HARDWARE_TEST = android.Manifest.permission.HARDWARE_TEST;
+            public static final java.lang.String INJECT_EVENTS = android.Manifest.permission.INJECT_EVENTS;
+            public static final java.lang.String INSTALL_LOCATION_PROVIDER = android.Manifest.permission.INSTALL_LOCATION_PROVIDER;
+            public static final java.lang.String INSTALL_PACKAGES = android.Manifest.permission.INSTALL_PACKAGES;
+            public static final java.lang.String INTERNAL_SYSTEM_WINDOW = android.Manifest.permission.INTERNAL_SYSTEM_WINDOW;
+            public static final java.lang.String INTERNET = android.Manifest.permission.INTERNET;
+            public static final java.lang.String KILL_BACKGROUND_PROCESSES = android.Manifest.permission.KILL_BACKGROUND_PROCESSES;
+            // public static final java.lang.String LOCATION_HARDWARE = android.Manifest.permission.LOCATION_HARDWARE;
+            public static final java.lang.String MANAGE_ACCOUNTS = android.Manifest.permission.MANAGE_ACCOUNTS;
+            public static final java.lang.String MANAGE_APP_TOKENS = android.Manifest.permission.MANAGE_APP_TOKENS;
+            public static final java.lang.String MASTER_CLEAR = android.Manifest.permission.MASTER_CLEAR;
+            public static final java.lang.String MODIFY_AUDIO_SETTINGS = android.Manifest.permission.MODIFY_AUDIO_SETTINGS;
+            public static final java.lang.String MODIFY_PHONE_STATE = android.Manifest.permission.MODIFY_PHONE_STATE;
+            public static final java.lang.String MOUNT_FORMAT_FILESYSTEMS = android.Manifest.permission.MOUNT_FORMAT_FILESYSTEMS;
+            public static final java.lang.String MOUNT_UNMOUNT_FILESYSTEMS = android.Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS;
+            // public static final java.lang.String NFC = android.Manifest.permission.NFC;
+
         }
 
     }

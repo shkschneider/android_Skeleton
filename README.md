@@ -15,6 +15,7 @@ Get StackTrace automatically - no need to put a tag.
 ### Skeleton.Android
 
 - String getAccount(Context context)
+- String getSignature(Context context)
 - Boolean isTablet(Context context)
 - String getId(Context context)
 - String getDeviceId(Context context)
@@ -28,6 +29,71 @@ Get StackTrace automatically - no need to put a tag.
 - String getName(Context context)
 - String getVersionName(Context context)
 - Integer getVersionCode(Context context)
+- Boolean hasPermission(Context context, String permission)
+- Permissions
+    - String ACCESS_CHECKIN_PROPERTIES
+    - String ACCESS_COARSE_LOCATION
+    - String ACCESS_FINE_LOCATION
+    - String ACCESS_LOCATION_EXTRA_COMMANDS
+    - String ACCESS_MOCK_LOCATION
+    - String ACCESS_NETWORK_STATE
+    - String ACCESS_SURFACE_FLINGER
+    - String ACCESS_WIFI_STATE
+    - String ACCOUNT_MANAGER
+    - String ADD_VOICEMAIL
+    - String AUTHENTICATE_ACCOUNTS
+    - String BATTERY_STATS
+    - String BIND_ACCESSIBILITY_SERVICE
+    - String BIND_APPWIDGET
+    - String BIND_DEVICE_ADMIN
+    - String BIND_INPUT_METHOD
+    - String BIND_WALLPAPER
+    - String BLUETOOTH
+    - String BLUETOOTH_ADMIN
+    - String BRICK
+    - String BROADCAST_PACKAGE_REMOVED
+    - String BROADCAST_SMS
+    - String BROADCAST_STICKY
+    - String BROADCAST_WAP_PUSH
+    - String CALL_PHONE
+    - String CALL_PRIVILEGED
+    - String CAMERA
+    - String CHANGE_COMPONENT_ENABLED_STATE
+    - String CHANGE_CONFIGURATION
+    - String CHANGE_NETWORK_STATE
+    - String CHANGE_WIFI_MULTICAST_STATE
+    - String CHANGE_WIFI_STATE
+    - String CLEAR_APP_CACHE
+    - String CLEAR_APP_USER_DATA
+    - String CONTROL_LOCATION_UPDATES
+    - String DELETE_CACHE_FILES
+    - String DELETE_PACKAGES
+    - String DEVICE_POWER
+    - String DIAGNOSTIC
+    - String DISABLE_KEYGUARD
+    - String DUMP
+    - String EXPAND_STATUS_BAR
+    - String FACTORY_TEST
+    - String FLASHLIGHT
+    - String FORCE_BACK
+    - String GET_ACCOUNTS
+    - String GET_PACKAGE_SIZE
+    - String GET_TASKS
+    - String GLOBAL_SEARCH
+    - String HARDWARE_TEST
+    - String INJECT_EVENTS
+    - String INSTALL_LOCATION_PROVIDER
+    - String INSTALL_PACKAGES
+    - String INTERNAL_SYSTEM_WINDOW
+    - String INTERNET
+    - String KILL_BACKGROUND_PROCESSES
+    - String MANAGE_ACCOUNTS
+    - String MANAGE_APP_TOKENS
+    - String MASTER_CLEAR
+    - String MODIFY_AUDIO_SETTINGS
+    - String MODIFY_PHONE_STATE
+    - String MOUNT_FORMAT_FILESYSTEMS
+    - String MOUNT_UNMOUNT_FILESYSTEMS
 
 ### Skeleton.System
 
