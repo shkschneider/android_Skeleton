@@ -66,9 +66,10 @@ update: all
 	@echo "==> Libraries"
 	@echo "- sdk:$(shell echo $(SUPPORT) | sed -r 's#$(SDK)/##')"
 	@$(foreach p, $(shell find . -type d -name "libs"), cp $(SUPPORT) $p/ ;)
+	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/actionbarsherlock/actionbarsherlock > /dev/null || exit 1
 	@echo "==> Projects"
 	@echo "- $(PACKAGE)"
-	@$(ANDROID) $(ANDROID_OPTS) update project --name $(PACKAGE) --target "$(TARGET)" --path . --subprojects > /dev/null || exit 1
+	@$(ANDROID) $(ANDROID_OPTS) update project --name $(PACKAGE) --target "$(TARGET)" --path . > /dev/null || exit 1
 
 check: all
 	@echo "==> Check"
@@ -99,12 +100,12 @@ install: all
 	@echo "==> Install"
 	@if [ -z "$(DEVICE)" ] ; then echo "Error: no device" ; exit 1 ; fi
 	@if [ ! -f "$(APK)" ] ; then echo "Error: no apk" ; exit 1 ; fi
-	@$(ADB) install -r $(APK) > /dev/null || exit 1
+	@$(ADB) install -r $(APK) || exit 1
 
 uninstall: all
 	@echo "==> Uninstall"
 	@if [ -z "$(DEVICE)" ] ; then echo "Error: no device" ; exit 1 ; fi
-	@$(ADB) shell pm uninstall -k $(PACKAGE) > /dev/null || exit 1
+	@$(ADB) shell pm uninstall -k $(PACKAGE) || exit 1
 
 clean: all
 	@echo "==> Clean"

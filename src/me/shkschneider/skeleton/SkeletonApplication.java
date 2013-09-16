@@ -34,8 +34,8 @@ public class SkeletonApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 
-        DEBUG = Skeleton.isDebug();
-        TAG = Skeleton.getName(getApplicationContext());
+        DEBUG = Skeleton.Android.isDebug();
+        TAG = Skeleton.Android.getName(getApplicationContext());
         LOCALE = Locale.getDefault().toString();
 
         Skeleton.Log.i(toString());
@@ -52,7 +52,7 @@ public class SkeletonApplication extends Application {
 
 	@Override
 	public void onLowMemory() {
-        Skeleton.Log.d("LowMemory: " + Skeleton.getFreeMemory() + "/" + Skeleton.getMaxMemory() + " B");
+        Skeleton.Log.d("LowMemory: " + Skeleton.Runtime.getFreeMemory() + "/" + Skeleton.Runtime.getMaxMemory() + " B");
 
         BitmapAjaxCallback.clearCache();
 
@@ -61,12 +61,12 @@ public class SkeletonApplication extends Application {
 
 	@Override
 	public String toString() {
-		return Skeleton.getName(getApplicationContext()) +
-                (Skeleton.isDebug() ? " [DEBUG]" : "") +
-                " v" + Skeleton.getVersionName(getApplicationContext()) +
-                " (" + Skeleton.getPackage(getApplicationContext()) + ")" +
-                " Android " + Skeleton.getRelease() +
-                " (API-" + Skeleton.getApi() + ")";
+		return Skeleton.Android.getName(getApplicationContext()) +
+                (Skeleton.Android.isDebug() ? " [DEBUG]" : "") +
+                " v" + Skeleton.Android.getVersionName(getApplicationContext()) +
+                " (" + Skeleton.Android.getPackage(getApplicationContext()) + ")" +
+                " Android " + Skeleton.Android.getRelease() +
+                " (API-" + Skeleton.Android.getApi() + ")";
 	}
 
 }
