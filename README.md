@@ -72,7 +72,7 @@ Get StackTrace automatically - no need to put a tag.
 
 ### Skeleton.File
 
-- String ASSETS_PREFIX = "file:///android_asset/";
+- String ASSETS_PREFIX = "file:///android_asset/"
 
 - File get(String path)
 - InputStream openFile(File file)
@@ -148,8 +148,8 @@ Get StackTrace automatically - no need to put a tag.
 
 ### Skeleton.WebView
 
-- String CHARSET = HTTP.UTF_8;
-- String MIME_TYPE = "text/html";
+- String CHARSET = HTTP.UTF_8
+- String MIME_TYPE = "text/html"
 
 - WebView fromUrl(Context context, String url)
 - WebView fromAsset(Context context, String asset)
@@ -159,8 +159,8 @@ Get StackTrace automatically - no need to put a tag.
 
 ### Skeleton.Hash
 
-- String MD5 = "MD5";
-- String SHA = "SHA";
+- String MD5 = "MD5"
+- String SHA = "SHA"
 
 - String md5(String string)
 - String sha(String string)
