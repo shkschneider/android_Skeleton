@@ -1,5 +1,3 @@
-# android_Skeleton
-
 ## Skeleton
 
 Abstract / static classes.
