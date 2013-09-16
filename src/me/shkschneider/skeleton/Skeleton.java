@@ -15,6 +15,8 @@
  */
 package me.shkschneider.skeleton;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.NotificationManager;
@@ -47,6 +49,7 @@ import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
+import android.util.Patterns;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.WindowManager;
@@ -189,6 +192,8 @@ public abstract class Skeleton {
     }
 
     public static class Android {
+
+        private static final java.lang.String ACCOUNT_GOOGLE = "com.google";
 
         // If SCREENLAYOUT_SIZE is XLARGE for API >= HONEYCOMB
 
@@ -376,6 +381,26 @@ public abstract class Skeleton {
                 Log.w("Context was NULL");
             }
             return 0;
+        }
+
+        public static java.lang.String getAccount(final Context context) {
+            if (context != null) {
+                final AccountManager accountManager = AccountManager.get(context);
+                if (accountManager != null) {
+                    for (Account account : accountManager.getAccounts()) {
+                        if (Patterns.EMAIL_ADDRESS.matcher(account.name).matches()) {
+                            return account.name;
+                        }
+                    }
+                }
+                else {
+                    Log.w("AccountManager was NULL");
+                }
+            }
+            else {
+                Log.w("Context was NULL");
+            }
+            return null;
         }
 
     }

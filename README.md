@@ -14,6 +14,7 @@ Get StackTrace automatically - no need to put a tag.
 
 ### Skeleton.Android
 
+- String getAccount(Context context)
 - Boolean isTablet(Context context)
 - String getId(Context context)
 - String getDeviceId(Context context)
