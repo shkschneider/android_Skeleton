@@ -205,6 +205,13 @@ Get StackTrace automatically - no need to put a tag.
 
 ### Skeleton.Screen
 
+- int DENSITY_LDPI
+- int DENSITY_MDPI
+- int DENSITY_HDPI
+- int DENSITY_XHDPI
+- int DENSITY_XXHDPI
+- int DENSITY_XXXHDPI
+- int DENSITY_TV
 - void wakeLock(Activity activity)
 - Boolean isOn(Context context)
 - float density(final Context context)

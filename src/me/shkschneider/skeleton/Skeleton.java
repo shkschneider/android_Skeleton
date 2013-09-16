@@ -46,6 +46,7 @@ import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.WindowManager;
@@ -1646,6 +1647,15 @@ public abstract class Skeleton {
 
     public static class Screen {
 
+        // <http://developer.android.com/reference/android/util/DisplayMetrics.html>
+        public static final int DENSITY_LDPI = 120;
+        public static final int DENSITY_MDPI = 160;
+        public static final int DENSITY_HDPI = 240;
+        public static final int DENSITY_XHDPI = 320;
+        public static final int DENSITY_XXHDPI = 480;
+        public static final int DENSITY_XXXHDPI = 640;
+        public static final int DENSITY_TV = 213;
+
         public static void wakeLock(final Activity activity) {
             if (activity != null) {
                 activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -1665,14 +1675,14 @@ public abstract class Skeleton {
             return false;
         }
 
-        public static float density(final Context context) {
+        public static int density(final Context context) {
             if (context != null) {
-                return context.getResources().getDisplayMetrics().density;
+                return context.getResources().getDisplayMetrics().densityDpi;
             }
             else {
                 Log.w("Context was NULL");
             }
-            return 0F;
+            return 0;
         }
 
         public static int height(final Context context) {
