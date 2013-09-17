@@ -66,7 +66,7 @@ all:
 update: all
 	@echo "==> Git"
 	@echo "- update"
-	@if [ -f ".gitmodules" ] ; then git submodule update --init > /dev/null || exit 1 ; fi
+	@if [ -f ".gitmodules" ] ; then git submodule update --remote --init > /dev/null || exit 1 ; fi
 	@echo "==> Libraries"
 	@echo "- sdk:$(shell echo $(SUPPORT) | sed -r 's#$(SDK)/##')"
 	@$(foreach p, $(shell find . -type d -name "libs"), cp $(SUPPORT) $p/ ;)
