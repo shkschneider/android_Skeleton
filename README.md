@@ -190,7 +190,9 @@ Get StackTrace automatically - no need to put a tag.
 - void market(Activity activity, String pkg)
 - void market(Activity activity)
 - void email(Activity activity, String[] to, String subject, String text)
-- void gallery(Activity activity, Uri uri)
+- void image(Activity activity, Uri uri)
+- void camera()
+- void gallery()
 
 ## SkeletonActivity
 

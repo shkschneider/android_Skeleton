@@ -2036,7 +2036,7 @@ public abstract class Skeleton {
             }
         }
 
-        public static void gallery(final Activity activity, final Uri uri) {
+        public static void image(final Activity activity, final Uri uri) {
             final android.content.Intent intent = new android.content.Intent();
             intent.setAction(android.content.Intent.ACTION_VIEW);
             if (uri != null) {
