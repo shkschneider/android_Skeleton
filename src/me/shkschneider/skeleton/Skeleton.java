@@ -158,6 +158,9 @@ public abstract class Skeleton {
                 }
                 callerMethodName = elements[2].getMethodName();
                 callerMethodName = callerMethodName.substring(callerMethodName.lastIndexOf('_') + 1);
+                if (callerMethodName.equals("<init>")) {
+                    callerMethodName = callerClassName;
+                }
             }
 
             final java.lang.String stack = callerClassName + " " + callerMethodName + "()";
