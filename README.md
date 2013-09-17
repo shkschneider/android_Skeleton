@@ -198,6 +198,7 @@ Not much.
 
 ## SkeletonApplication
 
+- CONTEXT
 - DEBUG
 - TAG
 - LOCALE

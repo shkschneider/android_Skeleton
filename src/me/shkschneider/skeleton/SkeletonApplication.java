@@ -16,6 +16,7 @@
 package me.shkschneider.skeleton;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.BitmapAjaxCallback;
@@ -26,6 +27,7 @@ import java.util.Locale;
 @SuppressWarnings("unused")
 public class SkeletonApplication extends Application {
 
+    public static Context CONTEXT = null;
 	public static Boolean DEBUG = false;
     public static String TAG = null;
     public static String LOCALE = null;
@@ -34,6 +36,7 @@ public class SkeletonApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 
+        CONTEXT = getApplicationContext();
         DEBUG = Skeleton.Android.isDebug();
         TAG = Skeleton.Android.getName(getApplicationContext());
         LOCALE = Locale.getDefault().toString();
