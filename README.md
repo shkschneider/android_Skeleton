@@ -203,6 +203,13 @@ Get StackTrace automatically - no need to put a tag.
 - void gallery(Activity activity)
 - Bitmap onActivityResult(Context context, int requestCode, int resultCode, Intent intent)
 
+### Skeleton.Activity
+
+- void indeterminate(SherlockActivity sherlockActivity)
+- void indeterminate(SherlockActivity sherlockActivity, Boolean on)
+- void error(Context context, String message, DialogInterface.OnClickListener onClickListener)
+- void error(Context context, String message)
+
 ...
 
 ## SkeletonActivity

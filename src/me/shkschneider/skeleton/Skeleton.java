@@ -18,10 +18,11 @@ package me.shkschneider.skeleton;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -67,6 +68,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Window;
 import com.androidquery.AQuery;
 import com.androidquery.auth.FacebookHandle;
 import com.androidquery.callback.AbstractAjaxCallback;
@@ -986,7 +989,7 @@ public abstract class Skeleton {
 
         // Behavior can vary
 
-        public static void show(final Activity activity) {
+        public static void show(final android.app.Activity activity) {
             final InputMethodManager inputMethodManager = (InputMethodManager) System.getSystemService(activity, Context.INPUT_METHOD_SERVICE);
             if (inputMethodManager != null) {
                 inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0);
@@ -998,7 +1001,7 @@ public abstract class Skeleton {
 
         // Behavior can vary
 
-        public static void hide(final Activity activity) {
+        public static void hide(final android.app.Activity activity) {
             final InputMethodManager inputMethodManager = (InputMethodManager) System.getSystemService(activity, Context.INPUT_METHOD_SERVICE);
             if (inputMethodManager != null) {
                 final View view = activity.getCurrentFocus();
@@ -1285,7 +1288,7 @@ public abstract class Skeleton {
             }
         }
 
-        public static void croutonInfo(final Activity activity, final java.lang.String text) {
+        public static void croutonInfo(final android.app.Activity activity, final java.lang.String text) {
             if (activity != null) {
                 if (! TextUtils.isEmpty(text)) {
                     AppMsg.makeText(activity, text, AppMsg.STYLE_INFO).show();
@@ -1299,7 +1302,7 @@ public abstract class Skeleton {
             }
         }
 
-        public static void croutonConfirm(final Activity activity, final java.lang.String text) {
+        public static void croutonConfirm(final android.app.Activity activity, final java.lang.String text) {
             if (activity != null) {
                 if (! TextUtils.isEmpty(text)) {
                     AppMsg.makeText(activity, text, AppMsg.STYLE_CONFIRM).show();
@@ -1313,7 +1316,7 @@ public abstract class Skeleton {
             }
         }
 
-        public static void croutonAlert(final Activity activity, final java.lang.String text) {
+        public static void croutonAlert(final android.app.Activity activity, final java.lang.String text) {
             if (activity != null) {
                 if (! TextUtils.isEmpty(text)) {
                     AppMsg.makeText(activity, text, AppMsg.STYLE_ALERT).show();
@@ -1606,7 +1609,7 @@ public abstract class Skeleton {
             mAQuery = new AQuery(context);
         }
 
-        public void auth(final Activity activity, final FacebookCallback callback, final java.lang.String permissions) {
+        public void auth(final android.app.Activity activity, final FacebookCallback callback, final java.lang.String permissions) {
             mHandle = new FacebookHandle(activity, mAppId, permissions) {
 
                 @Override
@@ -1990,7 +1993,7 @@ public abstract class Skeleton {
         public static final int DENSITY_XXXHDPI = 640;
         public static final int DENSITY_TV = 213;
 
-        public static void wakeLock(final Activity activity) {
+        public static void wakeLock(final android.app.Activity activity) {
             if (activity != null) {
                 activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             }
@@ -2094,7 +2097,7 @@ public abstract class Skeleton {
             return false;
         }
 
-        public static void web(final Activity activity, final java.lang.String url) {
+        public static void web(final android.app.Activity activity, final java.lang.String url) {
             if (! TextUtils.isEmpty(url)) {
                 if (! Network.isValidUrl(url)) {
                     if (activity != null) {
@@ -2113,7 +2116,7 @@ public abstract class Skeleton {
             }
         }
 
-        public static void market(final Activity activity, final java.lang.String pkg) {
+        public static void market(final android.app.Activity activity, final java.lang.String pkg) {
             final android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_VIEW);
             intent.setData(Uri.parse("market://details?id=" + pkg));
             if (activity != null) {
@@ -2124,7 +2127,7 @@ public abstract class Skeleton {
             }
         }
 
-        public static void market(final Activity activity) {
+        public static void market(final android.app.Activity activity) {
             final android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_VIEW);
             intent.setData(Uri.parse("market://details?id=" + Android.getPackage(activity)));
             if (activity != null) {
@@ -2135,7 +2138,7 @@ public abstract class Skeleton {
             }
         }
 
-        public static void email(final Activity activity, final java.lang.String[] to, final java.lang.String subject, final java.lang.String text) {
+        public static void email(final android.app.Activity activity, final java.lang.String[] to, final java.lang.String subject, final java.lang.String text) {
             final android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_SEND);
             intent.setType("plain/text");
             intent.putExtra(android.content.Intent.EXTRA_EMAIL, to);
@@ -2149,7 +2152,7 @@ public abstract class Skeleton {
             }
         }
 
-        public static void image(final Activity activity, final Uri uri) {
+        public static void image(final android.app.Activity activity, final Uri uri) {
             final android.content.Intent intent = new android.content.Intent();
             intent.setAction(android.content.Intent.ACTION_VIEW);
             if (uri != null) {
@@ -2168,7 +2171,7 @@ public abstract class Skeleton {
 
         private static final int REQUEST_CODE_CAMERA = 111;
 
-        public static void camera(final Activity activity) {
+        public static void camera(final android.app.Activity activity) {
             if (activity != null) {
                 if (Android.hasFeature(activity, Android.Features.CAMERA)) {
                     final android.content.Intent intent = new android.content.Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -2190,7 +2193,7 @@ public abstract class Skeleton {
 
         private static final int REQUEST_CODE_GALLERY = 222;
 
-        public static void gallery(final Activity activity) {
+        public static void gallery(final android.app.Activity activity) {
             final android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_PICK);
             intent.setType("image/*");
             if (activity != null) {
@@ -2204,7 +2207,7 @@ public abstract class Skeleton {
         public static Bitmap onActivityResult(final Context context, final int requestCode, final int resultCode, final android.content.Intent intent) {
             if (context != null) {
                 if (intent != null) {
-                    if (resultCode == Activity.RESULT_OK) {
+                    if (resultCode == android.app.Activity.RESULT_OK) {
                         switch (requestCode) {
                             case REQUEST_CODE_CAMERA:
                                 final Bundle bundle = intent.getExtras();
@@ -2249,6 +2252,52 @@ public abstract class Skeleton {
                 Log.w("Context was NULL");
             }
             return null;
+        }
+
+    }
+
+    public static class Activity {
+
+        public static void indeterminate(final SherlockActivity sherlockActivity) {
+            if (sherlockActivity != null) {
+                sherlockActivity.requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+                sherlockActivity.setSupportProgressBarIndeterminateVisibility(true);
+            }
+            else {
+                Log.w("SherlockActivity was NULL");
+            }
+        }
+
+        public static void indeterminate(final SherlockActivity sherlockActivity, final Boolean on) {
+            if (sherlockActivity != null) {
+                sherlockActivity.setSupportProgressBarIndeterminate(on);
+            }
+            else {
+                Log.w("SherlockActivity was NULL");
+            }
+        }
+
+        public static void error(final Context context, final java.lang.String message, final DialogInterface.OnClickListener onClickListener) {
+            if (context != null) {
+                if (! TextUtils.isEmpty(message)) {
+                    new AlertDialog.Builder(context)
+                            .setMessage(message)
+                            .setNeutralButton(android.R.string.ok, onClickListener)
+                            .setCancelable(false)
+                            .create()
+                            .show();
+                }
+                else {
+                    Log.w("String was NULL");
+                }
+            }
+            else {
+                Log.w("Context was NULL");
+            }
+        }
+
+        public static void error(final Context context, final java.lang.String message) {
+            error(context, message, null);
         }
 
     }
