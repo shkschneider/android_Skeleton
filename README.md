@@ -93,13 +93,16 @@ Get StackTrace automatically - no need to put a tag.
 
 ### Skeleton.Notification
 
-- void showToastShort(Context context, String text)
-- void showToastLong(Context context, String text)
-- NotificationManager getNotificationManager(Context context)
+- void toastShort(Context context, String text)
+- void toastLong(Context context, String text)
+- void croutonInfo(Activity activity, String text)
+- void croutonConfirm(Activity activity, String text)
+- void croutonAlert(Activity activity, String text)
+- NotificationManager notificationManager(Context context)
+- Notification notification(Context context, int smallIcon, String title, String message, PendingIntent pendingIntent)
+- Notification notification(Context context, int smallIcon, String title, String message)
 - void notify(NotificationManager notificationManager, Notification notification, Integer id)
 - void cancel(NotificationManager notificationManager, Integer id)
-- Notification buildNotification(Context context, int smallIcon, String title, String message, PendingIntent pendingIntent)
-- Notification buildNotification(Context context, int smallIcon, String title, String message)
 
 ### Skeleton.Runtime
 

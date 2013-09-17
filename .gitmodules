@@ -2,3 +2,7 @@
     path = libs/actionbarsherlock
     url = https://github.com/JakeWharton/ActionBarSherlock.git
     ignore = dirty
+[submodule "libs/appmsg"]
+    path = libs/appmsg
+    url = https://github.com/johnkil/Android-AppMsg.git
+    ignore = dirty

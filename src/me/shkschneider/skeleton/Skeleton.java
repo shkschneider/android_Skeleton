@@ -68,6 +68,7 @@ import com.androidquery.auth.FacebookHandle;
 import com.androidquery.callback.AbstractAjaxCallback;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.devspark.appmsg.AppMsg;
 
 import org.apache.http.HttpStatus;
 import org.apache.http.conn.util.InetAddressUtils;
@@ -1201,7 +1202,7 @@ public abstract class Skeleton {
 
     public static class Notification {
 
-        public static void showToastShort(final Context context, final java.lang.String text) {
+        public static void toastShort(final Context context, final java.lang.String text) {
             if (context != null) {
                 if (! TextUtils.isEmpty(text)) {
                     Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
@@ -1215,7 +1216,7 @@ public abstract class Skeleton {
             }
         }
 
-        public static void showToastLong(final Context context, final java.lang.String text) {
+        public static void toastLong(final Context context, final java.lang.String text) {
             if (context != null) {
                 if (! TextUtils.isEmpty(text)) {
                     Toast.makeText(context, text, Toast.LENGTH_LONG).show();
@@ -1229,7 +1230,49 @@ public abstract class Skeleton {
             }
         }
 
-        public static NotificationManager getNotificationManager(final Context context) {
+        public static void croutonInfo(final Activity activity, final java.lang.String text) {
+            if (activity != null) {
+                if (! TextUtils.isEmpty(text)) {
+                    AppMsg.makeText(activity, text, AppMsg.STYLE_INFO).show();
+                }
+                else {
+                    Log.w("String was NULL");
+                }
+            }
+            else {
+                Log.w("Activity was NULL");
+            }
+        }
+
+        public static void croutonConfirm(final Activity activity, final java.lang.String text) {
+            if (activity != null) {
+                if (! TextUtils.isEmpty(text)) {
+                    AppMsg.makeText(activity, text, AppMsg.STYLE_CONFIRM).show();
+                }
+                else {
+                    Log.w("String was NULL");
+                }
+            }
+            else {
+                Log.w("Activity was NULL");
+            }
+        }
+
+        public static void croutonAlert(final Activity activity, final java.lang.String text) {
+            if (activity != null) {
+                if (! TextUtils.isEmpty(text)) {
+                    AppMsg.makeText(activity, text, AppMsg.STYLE_ALERT).show();
+                }
+                else {
+                    Log.w("String was NULL");
+                }
+            }
+            else {
+                Log.w("Activity was NULL");
+            }
+        }
+
+        public static NotificationManager notificationManager(final Context context) {
             if (context != null) {
                 return (NotificationManager) System.getSystemService(context, System.SYSTEM_SERVICE_NOTIFICATION_SERVICE);
             }
@@ -1239,30 +1282,7 @@ public abstract class Skeleton {
             return null;
         }
 
-        public static void notify(final NotificationManager notificationManager, final android.app.Notification notification, final Integer id) {
-            if (notificationManager != null) {
-                if (notification != null) {
-                    notificationManager.notify(id, notification);
-                }
-                else {
-                    Log.w("Notification was NULL");
-                }
-            }
-            else {
-                Log.w("NotificationManager was NULL");
-            }
-        }
-
-        public static void cancel(final NotificationManager notificationManager, final Integer id) {
-            if (notificationManager != null) {
-                notificationManager.cancel(id);
-            }
-            else {
-                Log.w("NotificationManager was NULL");
-            }
-        }
-
-        public static android.app.Notification buildNotification(final Context context, final int smallIcon, final java.lang.String title, final java.lang.String message, final PendingIntent pendingIntent) {
+        public static android.app.Notification notification(final Context context, final int smallIcon, final java.lang.String title, final java.lang.String message, final PendingIntent pendingIntent) {
             if (context != null) {
                 final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
                 notificationBuilder.setSmallIcon(smallIcon);
@@ -1287,8 +1307,31 @@ public abstract class Skeleton {
             return null;
         }
 
-        public static android.app.Notification buildNotification(final Context context, final int smallIcon, final java.lang.String title, final java.lang.String message) {
-            return buildNotification(context, smallIcon, title, message, null);
+        public static android.app.Notification notification(final Context context, final int smallIcon, final java.lang.String title, final java.lang.String message) {
+            return notification(context, smallIcon, title, message, null);
+        }
+
+        public static void notify(final NotificationManager notificationManager, final android.app.Notification notification, final Integer id) {
+            if (notificationManager != null) {
+                if (notification != null) {
+                    notificationManager.notify(id, notification);
+                }
+                else {
+                    Log.w("Notification was NULL");
+                }
+            }
+            else {
+                Log.w("NotificationManager was NULL");
+            }
+        }
+
+        public static void cancel(final NotificationManager notificationManager, final Integer id) {
+            if (notificationManager != null) {
+                notificationManager.cancel(id);
+            }
+            else {
+                Log.w("NotificationManager was NULL");
+            }
         }
 
     }

@@ -66,7 +66,10 @@ update: all
 	@echo "==> Libraries"
 	@echo "- sdk:$(shell echo $(SUPPORT) | sed -r 's#$(SDK)/##')"
 	@$(foreach p, $(shell find . -type d -name "libs"), cp $(SUPPORT) $p/ ;)
+	@echo "- libs:actionbarsherlock"
 	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/actionbarsherlock/actionbarsherlock > /dev/null || exit 1
+	@echo "- libs:appmsg"
+	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/appmsg/library > /dev/null || exit 1
 	@echo "==> Projects"
 	@echo "- $(PACKAGE)"
 	@$(ANDROID) $(ANDROID_OPTS) update project --name $(PACKAGE) --target "$(TARGET)" --path . > /dev/null || exit 1
