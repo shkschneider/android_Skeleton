@@ -56,6 +56,16 @@ Get StackTrace automatically - no need to put a tag.
 - String SYSTEM_SERVICE_[...]
 - Object systemService(Context context, String service)
 
+### Skeleton.Locale
+
+- Locale locale()
+- String language()
+- String language2()
+- String language3()
+- String country()
+- String country2()
+- String country3()
+
 ### Skeleton.File
 
 - String ASSETS_PREFIX

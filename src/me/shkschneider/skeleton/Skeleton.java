@@ -102,6 +102,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -759,6 +760,38 @@ public abstract class Skeleton {
                 Log.w("Context was NULL");
             }
             return null;
+        }
+
+    }
+
+    public static class Locale {
+
+        public static java.util.Locale locale() {
+            return java.util.Locale.getDefault();
+        }
+
+        public static java.lang.String language() {
+            return locale().getDisplayLanguage();
+        }
+
+        public static java.lang.String language2() {
+            return locale().getLanguage();
+        }
+
+        public static java.lang.String language3() {
+            return locale().getISO3Language();
+        }
+
+        public static java.lang.String country() {
+            return locale().getDisplayCountry();
+        }
+
+        public static java.lang.String country2() {
+            return locale().getCountry();
+        }
+
+        public static java.lang.String country3() {
+            return locale().getISO3Country();
         }
 
     }
