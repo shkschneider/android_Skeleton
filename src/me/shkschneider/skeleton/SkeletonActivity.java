@@ -15,9 +15,11 @@
  */
 package me.shkschneider.skeleton;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuItem;
 
 public class SkeletonActivity extends SherlockActivity {
 
@@ -25,6 +27,19 @@ public class SkeletonActivity extends SherlockActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.skeleton);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                startActivity(new Intent(SkeletonActivity.this, SkeletonActivity.class));
+                break ;
+            default:
+                super.onOptionsItemSelected(item);
+                break ;
+        }
+        return true;
     }
 
     @Override

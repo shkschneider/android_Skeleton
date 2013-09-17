@@ -186,13 +186,15 @@ Get StackTrace automatically - no need to put a tag.
 ### Skeleton.Intent
 
 - String BROADCAST_[...]
+- Boolean canHandle(Context context, Intent intent)
 - void web(Activity activity, String url)
 - void market(Activity activity, String pkg)
 - void market(Activity activity)
 - void email(Activity activity, String[] to, String subject, String text)
 - void image(Activity activity, Uri uri)
-- void camera()
-- void gallery()
+- void camera(Activity activity)
+- void gallery(Activity activity)
+- Bitmap onActivityResult(Context context, int requestCode, int resultCode, Intent intent)
 
 ## SkeletonActivity
 

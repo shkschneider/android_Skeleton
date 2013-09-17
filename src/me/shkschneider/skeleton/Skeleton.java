@@ -15,8 +15,6 @@
  */
 package me.shkschneider.skeleton;
 
-import android.*;
-import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
@@ -24,9 +22,9 @@ import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -48,12 +46,12 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
-import android.util.DisplayMetrics;
 import android.util.Patterns;
 import android.util.TypedValue;
 import android.view.KeyEvent;
@@ -1981,6 +1979,23 @@ public abstract class Skeleton {
         public static final java.lang.String BROADCAST_POWER_DISCONNECTED = android.content.Intent.ACTION_POWER_DISCONNECTED;
         public static final java.lang.String BROADCAST_SHUTDOWN = android.content.Intent.ACTION_SHUTDOWN;
 
+        public static Boolean canHandle(final Context context, final android.content.Intent intent) {
+            if (context != null) {
+                final PackageManager packageManager = context.getPackageManager();
+                if (packageManager != null) {
+                    List<ResolveInfo> resolveInfos = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+                    return (resolveInfos.size() > 0);
+                }
+                else {
+                    Log.w("PackageManager was NULL");
+                }
+            }
+            else {
+                Log.w("Context was NULL");
+            }
+            return false;
+        }
+
         public static void web(final Activity activity, final java.lang.String url) {
             if (! TextUtils.isEmpty(url)) {
                 if (! Network.isValidUrl(url)) {
@@ -2053,6 +2068,135 @@ public abstract class Skeleton {
             }
         }
 
+        private static final int REQUEST_CODE_CAMERA = 111;
+
+        public static void camera(final Activity activity) {
+            if (activity != null) {
+                if (Android.hasFeature(activity, Android.Features.CAMERA)) {
+                    final android.content.Intent intent = new android.content.Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    if (canHandle(activity, intent)) {
+                        activity.startActivityForResult(intent, REQUEST_CODE_CAMERA);
+                    }
+                    else {
+                        Log.w("Cannot handle Intent");
+                    }
+                }
+                else {
+                    Log.w("CAMERA was unavailable");
+                }
+            }
+            else {
+                Log.w("Activity was NULL");
+            }
+        }
+
+        private static final int REQUEST_CODE_GALLERY = 222;
+
+        public static void gallery(final Activity activity) {
+            final android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_PICK);
+            intent.setType("image/*");
+            if (activity != null) {
+                activity.startActivityForResult(intent, REQUEST_CODE_GALLERY);
+            }
+            else {
+                Log.w("Activity was NULL");
+            }
+        }
+
+        public static Bitmap onActivityResult(final Context context, final int requestCode, final int resultCode, final android.content.Intent intent) {
+            if (context != null) {
+                if (intent != null) {
+                    if (resultCode == Activity.RESULT_OK) {
+                        switch (requestCode) {
+                            case REQUEST_CODE_CAMERA:
+                                final Bundle bundle = intent.getExtras();
+                                if (bundle != null) {
+                                    return (Bitmap) bundle.get("data");
+                                }
+                                else {
+                                    Log.w("Bundle was NULL");
+                                }
+                                break ;
+                            case REQUEST_CODE_GALLERY:
+                                final Uri uri = intent.getData();
+                                if (uri != null) {
+                                    try {
+                                        final InputStream inputStream = context.getContentResolver().openInputStream(uri);
+                                        if (inputStream != null) {
+                                            return decodeUri(context, uri);
+                                        }
+                                        else {
+                                            Log.w("InputStream was NULL");
+                                        }
+                                    }
+                                    catch (FileNotFoundException e) {
+                                        Log.e("FileNotFoundException: " + e.getMessage());
+                                    }
+                                }
+                                else {
+                                    Log.w("Uri was NULL");
+                                }
+                                break ;
+                        }
+                    }
+                    else {
+                        Log.d("ResultCode was KO");
+                    }
+                }
+                else {
+                    Log.w("Intent was NULL");
+                }
+            }
+            else {
+                Log.w("Context was NULL");
+            }
+            return null;
+        }
+
+    }
+
+    public static Bitmap decodeUri(final Context context, final Uri uri, final Integer downsample) throws FileNotFoundException {
+        if (context != null) {
+            final BitmapFactory.Options bitmapFactoryOptionsTmp = new BitmapFactory.Options();
+            bitmapFactoryOptionsTmp.inJustDecodeBounds = true;
+            final InputStream inputStream = context.getContentResolver().openInputStream(uri);
+            if (inputStream != null) {
+                BitmapFactory.decodeStream(inputStream, null, bitmapFactoryOptionsTmp);
+
+                int width = bitmapFactoryOptionsTmp.outWidth;
+                int height = bitmapFactoryOptionsTmp.outHeight;
+                int scale = 1;
+                if (downsample > 0) {
+                    while (true) {
+                        if (width / 2 < downsample || height / 2 < downsample) {
+                            break ;
+                        }
+                        width /= 2;
+                        height /= 2;
+                        scale *= 2;
+                    }
+                    final BitmapFactory.Options bitmapFactoryOptions = new BitmapFactory.Options();
+                    bitmapFactoryOptions.inJustDecodeBounds = false;
+                    bitmapFactoryOptions.inSampleSize = scale;
+                    bitmapFactoryOptions.inPurgeable = true;
+                    return BitmapFactory.decodeStream(inputStream, null, bitmapFactoryOptions);
+                }
+                else {
+                    Log.w("Downsample was negative");
+                }
+            }
+            else {
+                Log.w("InputStream was NULL");
+            }
+        }
+        else {
+            Log.w("Context was NULL");
+        }
+        return null;
+    }
+
+    private static Bitmap decodeUri(final Context context, final Uri uri) throws FileNotFoundException {
+        return decodeUri(context, uri, Screen.density(context));
     }
 
     public static Bitmap bitmapFromUri(final Context context, final Uri uri) {
