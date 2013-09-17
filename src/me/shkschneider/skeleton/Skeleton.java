@@ -1148,7 +1148,7 @@ public abstract class Skeleton {
             else {
                 Log.w("NetworkInfo was NULL");
             }
-            return true;
+            return false;
         }
 
         public static java.lang.String getMacAddress(final Context context) {
