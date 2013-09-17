@@ -220,8 +220,6 @@ Get StackTrace automatically - no need to put a tag.
 - Drawable drawableFromBitmap(Context context, Bitmap bitmap)
 - Drawable indeterminateDrawable(Context context)
 
-...
-
 ## SkeletonActivity
 
 Not much.
