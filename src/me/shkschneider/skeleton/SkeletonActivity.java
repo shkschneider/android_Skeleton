@@ -15,9 +15,11 @@
  */
 package me.shkschneider.skeleton;
 
+import android.app.AlertDialog;
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.SimpleAdapter;
 
 import com.actionbarsherlock.app.SherlockListActivity;
@@ -31,10 +33,16 @@ import java.util.Map;
 
 public class SkeletonActivity extends SherlockListActivity {
 
-    private Map<String, String> map(final String key, final String value) {
+    private Map<String, String> map(final String key, final String value, final String[] infos) {
         final Map<String, String> data = new HashMap<String, String>();
-        data.put("1", key);
-        data.put("2", value);
+        data.put("key", key);
+        data.put("value", value);
+        data.put("info", String.format("Package: %s\n\nCall: %s\nTakes: %s\nReturns: %s",
+                Skeleton.Android.packageName(SkeletonActivity.this),
+                infos[1],
+                infos[2],
+                infos[0]
+        ));
         return data;
     }
 
@@ -47,73 +55,270 @@ public class SkeletonActivity extends SherlockListActivity {
         refresh();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        new AlertDialog.Builder(SkeletonActivity.this)
+                .setMessage(String.format("%s\n%s\n%s",
+                        "This is a skeleton application for Android.",
+                        "It features a lot of static classes that could help developers.",
+                        "Thanks for downloading!"))
+                .setNeutralButton(android.R.string.ok, null)
+                .setCancelable(true)
+                .create()
+                .show();
+
+        refresh();
+    }
+
     private void refresh() {
         Skeleton.Activity.indeterminate(SkeletonActivity.this, true);
 
         final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 
-        data.add(map("DEBUG", SkeletonApplication.DEBUG.toString()));
-        data.add(map("TAG", SkeletonApplication.TAG));
-        data.add(map("LOCALE", SkeletonApplication.LOCALE));
-
-        data.add(map("Time.timestamp()", Skeleton.Time.timestamp().toString()));
-        data.add(map("Android.account()", Skeleton.Android.account(SkeletonActivity.this)));
-        data.add(map("Android.signature()", Skeleton.Android.signature(SkeletonActivity.this).replaceFirst("^(.{40}).*$", "$1 [...]")));
-        data.add(map("Android.tablet()", Skeleton.Android.tablet(SkeletonActivity.this).toString()));
-        data.add(map("Android.id()", Skeleton.Android.id(SkeletonActivity.this)));
-        data.add(map("Android.deviceId()", Skeleton.Android.deviceId(SkeletonActivity.this)));
-        data.add(map("Android.uuid()", Skeleton.Android.uuid(SkeletonActivity.this)));
-        data.add(map("Android.randomId()", Skeleton.Android.randomId()));
-        data.add(map("Android.codename()", Skeleton.Android.codename()));
-        data.add(map("Android.manufacturer()", Skeleton.Android.manufacturer()));
-        data.add(map("Android.device()", Skeleton.Android.device()));
-        data.add(map("Android.release()", Skeleton.Android.release()));
-        data.add(map("Android.api()", Skeleton.Android.api().toString()));
-        data.add(map("Android.debug()", Skeleton.Android.debug().toString()));
-        data.add(map("Android.packageName()", Skeleton.Android.packageName(SkeletonActivity.this)));
-        data.add(map("Android.name()", Skeleton.Android.name(SkeletonActivity.this)));
-        data.add(map("Android.versionName()", Skeleton.Android.versionName(SkeletonActivity.this)));
-        data.add(map("Android.versionCode()", Skeleton.Android.versionCode(SkeletonActivity.this).toString()));
-        data.add(map("System.uname()", Skeleton.System.uname()));
-        data.add(map("File.internalDir()", Skeleton.File.internalDir(SkeletonActivity.this)));
-        data.add(map("File.externalDir()", Skeleton.File.externalDir(SkeletonActivity.this)));
-        data.add(map("File.internalCacheDir()", Skeleton.File.internalCacheDir(SkeletonActivity.this)));
-        data.add(map("File.externalCacheDir()", Skeleton.File.externalCacheDir(SkeletonActivity.this)));
-        data.add(map("File.downloadCache()", Skeleton.File.downloadCache()));
-        data.add(map("File.sdCardAvailable()", Skeleton.File.sdCardAvailable().toString()));
-        data.add(map("File.sdCard()", Skeleton.File.sdCard()));
-        data.add(map("Audio.volume()", Skeleton.Audio.volume(SkeletonActivity.this).toString()));
-        data.add(map("Network.defaultUserAgent()", Skeleton.Network.defaultUserAgent()));
-        data.add(map("Network.userAgent()", Skeleton.Network.userAgent(SkeletonActivity.this)));
-        data.add(map("Network.online()", Skeleton.Network.online(SkeletonActivity.this).toString()));
-        data.add(map("Network.macAddress()", Skeleton.Network.macAddress(SkeletonActivity.this)));
-        data.add(map("Network.ipAddresses()", Skeleton.Network.ipAddresses().toString()));
-        data.add(map("Runtime.processors()", Skeleton.Runtime.processors().toString()));
-        data.add(map("Runtime.freeMemory()", Skeleton.Runtime.freeMemory().toString()));
-        data.add(map("Runtime.maxMemory()", Skeleton.Runtime.maxMemory().toString()));
-        data.add(map("Runtime.totalMemory()", Skeleton.Runtime.totalMemory().toString()));
-        data.add(map("Screen.isOn()", Skeleton.Screen.isOn(SkeletonActivity.this).toString()));
-        data.add(map("Screen.density()", Skeleton.Screen.density(SkeletonActivity.this).toString()));
-        data.add(map("Screen.height()", Skeleton.Screen.height(SkeletonActivity.this).toString()));
-        data.add(map("Screen.width()", Skeleton.Screen.width(SkeletonActivity.this).toString()));
-        data.add(map("Screen.orientation()", Skeleton.Screen.orientation(SkeletonActivity.this).toString()));
-
-        final Skeleton.Location skeletonLocation = new Skeleton.Location(SkeletonActivity.this, null);
-        skeletonLocation.start(false);
-        final Location location = skeletonLocation.location();
-        data.add(map("Location.location()", String.format("%s %f %f ~%d",
-                location.getProvider(),
-                location.getLatitude(),
-                location.getLongitude(),
-                Math.round(location.getAccuracy()))));
-        skeletonLocation.stop();
+        data.add(map("DEBUG", SkeletonApplication.DEBUG.toString(), new String[] {
+                        "Boolean",
+                        "SkeletonApplication.DEBUG",
+                        "-"
+        }));
+        data.add(map("TAG", SkeletonApplication.TAG, new String[] {
+                "String",
+                "SkeletonApplication.TAG",
+                "-"
+        }));
+        data.add(map("LOCALE", SkeletonApplication.LOCALE, new String[] {
+                "Locale",
+                "SkeletonApplication.LOCALE",
+                "-"
+        }));
+        data.add(map("Time.timestamp()", Skeleton.Time.timestamp().toString(), new String[] {
+                "Long",
+                "Skeleton.Time.timestamp()",
+                "-"
+        }));
+        data.add(map("Android.account()", Skeleton.Android.account(SkeletonActivity.this), new String[] {
+                "String",
+                "Skeleton.Android.account()",
+                "Context"
+        }));
+        data.add(map("Android.tablet()", Skeleton.Android.tablet(SkeletonActivity.this).toString(), new String[] {
+                "Boolean",
+                "Skeleton.Android.tablet()",
+                "Context"
+        }));
+        data.add(map("Android.id()", Skeleton.Android.id(SkeletonActivity.this), new String[] {
+                "String",
+                "Skeleton.Android.id()",
+                "Context"
+        }));
+        data.add(map("Android.deviceId()", Skeleton.Android.deviceId(SkeletonActivity.this), new String[] {
+                "String",
+                "Skeleton.Android.deviceId()",
+                "Context"
+        }));
+        data.add(map("Android.uuid()", Skeleton.Android.uuid(SkeletonActivity.this), new String[] {
+                "String",
+                "Skeleton.Android.uuid()",
+                "Context"
+        }));
+        data.add(map("Android.randomId()", Skeleton.Android.randomId(), new String[] {
+                "String",
+                "Skeleton.Android.randomId()",
+                "-"
+        }));
+        data.add(map("Android.codename()", Skeleton.Android.codename(), new String[] {
+                "String",
+                "Skeleton.Android.codename()",
+                "-"
+        }));
+        data.add(map("Android.manufacturer()", Skeleton.Android.manufacturer(), new String[] {
+                "String",
+                "Skeleton.Android.manufacturer()",
+                "-"
+        }));
+        data.add(map("Android.device()", Skeleton.Android.device(), new String[] {
+                "String",
+                "Skeleton.Android.device()",
+                "-"
+        }));
+        data.add(map("Android.release()", Skeleton.Android.release(), new String[] {
+                "String",
+                "Skeleton.Android.release()",
+                "-"
+        }));
+        data.add(map("Android.api()", Skeleton.Android.api().toString(), new String[] {
+                "Integer",
+                "Skeleton.Android.api()",
+                "-"
+        }));
+        data.add(map("Android.debug()", Skeleton.Android.debug().toString(), new String[] {
+                "Boolean",
+                "Skeleton.Android.debug()",
+                "-"
+        }));
+        data.add(map("Android.packageName()", Skeleton.Android.packageName(SkeletonActivity.this), new String[] {
+                "String",
+                "Skeleton.Android.packageName()",
+                "Context"
+        }));
+        data.add(map("Android.name()", Skeleton.Android.name(SkeletonActivity.this), new String[] {
+                "String",
+                "Skeleton.Android.name()",
+                "Context"
+        }));
+        data.add(map("Android.versionName()", Skeleton.Android.versionName(SkeletonActivity.this), new String[] {
+                "String",
+                "Skeleton.Android.versionName()",
+                "Context"
+        }));
+        data.add(map("Android.versionCode()", Skeleton.Android.versionCode(SkeletonActivity.this).toString(), new String[] {
+                "Integer",
+                "Skeleton.Android.versionCode()",
+                "Context"
+        }));
+        data.add(map("System.uname()", Skeleton.System.uname(), new String[] {
+                "String",
+                "Skeleton.System.uname()",
+                "-"
+        }));
+        data.add(map("File.internalDir()", Skeleton.File.internalDir(SkeletonActivity.this), new String[] {
+                "String",
+                "Skeleton.File.internalDir()",
+                "Context"
+        }));
+        data.add(map("File.externalDir()", Skeleton.File.externalDir(SkeletonActivity.this), new String[] {
+                "String",
+                "Skeleton.File.externalDir()",
+                "Context"
+        }));
+        data.add(map("File.internalCacheDir()", Skeleton.File.internalCacheDir(SkeletonActivity.this), new String[] {
+                "String",
+                "Skeleton.File.internalCacheDir()",
+                "Context"
+        }));
+        data.add(map("File.externalCacheDir()", Skeleton.File.externalCacheDir(SkeletonActivity.this), new String[] {
+                "String",
+                "Skeleton.File.externalCacheDir()",
+                "Context"
+        }));
+        data.add(map("File.downloadCache()", Skeleton.File.downloadCache(), new String[] {
+                "String",
+                "Skeleton.File.downloadCache()",
+                "-"
+        }));
+        data.add(map("File.sdCardAvailable()", Skeleton.File.sdCardAvailable().toString(), new String[] {
+                "Boolean",
+                "Skeleton.File.sdCardAvailable()",
+                "-"
+        }));
+        data.add(map("File.sdCard()", Skeleton.File.sdCard(), new String[] {
+                "String",
+                "Skeleton.File.sdCard()",
+                "-"
+        }));
+        data.add(map("Audio.volume()", Skeleton.Audio.volume(SkeletonActivity.this).toString(), new String[] {
+                "Integer",
+                "Skeleton.Audio.volume()",
+                "Context"
+        }));
+        data.add(map("Network.defaultUserAgent()", Skeleton.Network.defaultUserAgent(), new String[] {
+                "String",
+                "Skeleton.Network.defaultUserAgent()",
+                "-"
+        }));
+        data.add(map("Network.userAgent()", Skeleton.Network.userAgent(SkeletonActivity.this), new String[] {
+                "String",
+                "Skeleton.Network.userAgent()",
+                "Context"
+        }));
+        data.add(map("Network.online()", Skeleton.Network.online(SkeletonActivity.this).toString(), new String[] {
+                "Boolean",
+                "Skeleton.Network.online()",
+                "Context"
+        }));
+        data.add(map("Network.macAddress()", Skeleton.Network.macAddress(SkeletonActivity.this), new String[] {
+                "String",
+                "Skeleton.Network.macAddress()",
+                "Context"
+        }));
+        data.add(map("Network.ipAddresses()", Skeleton.Network.ipAddresses().toString(), new String[] {
+                "List<String>",
+                "Skeleton.Network.ipAddresses()",
+                "-"
+        }));
+        data.add(map("Runtime.processors()", Skeleton.Runtime.processors().toString(), new String[] {
+                "Integer",
+                "Skeleton.Runtime.processors()",
+                "-"
+        }));
+        data.add(map("Runtime.freeMemory()", Skeleton.Runtime.freeMemory().toString(), new String[] {
+                "Long",
+                "Skeleton.Runtime.freeMemory()",
+                "-"
+        }));
+        data.add(map("Runtime.maxMemory()", Skeleton.Runtime.maxMemory().toString(), new String[] {
+                "Long",
+                "Skeleton.Runtime.maxMemory()",
+                "-"
+        }));
+        data.add(map("Runtime.totalMemory()", Skeleton.Runtime.totalMemory().toString(), new String[] {
+                "Long",
+                "Skeleton.Runtime.totalMemory()",
+                "-"
+        }));
+        data.add(map("Screen.isOn()", Skeleton.Screen.isOn(SkeletonActivity.this).toString(), new String[] {
+                "Boolean",
+                "Skeleton.Screen.isOn()",
+                "Context"
+        }));
+        data.add(map("Screen.density()", Skeleton.Screen.density(SkeletonActivity.this).toString(), new String[] {
+                "Integer",
+                "Skeleton.Screen.density()",
+                "Context"
+        }));
+        data.add(map("Screen.height()", Skeleton.Screen.height(SkeletonActivity.this).toString(), new String[] {
+                "Integer",
+                "Skeleton.Screen.height()",
+                "Context"
+        }));
+        data.add(map("Screen.width()", Skeleton.Screen.width(SkeletonActivity.this).toString(), new String[] {
+                "Integer",
+                "Skeleton.Screen.width()",
+                "Context"
+        }));
+        data.add(map("Screen.orientation()", Skeleton.Screen.orientation(SkeletonActivity.this).toString(), new String[] {
+                "Integer",
+                "Skeleton.Screen.orientation()",
+                "Context"
+        }));
 
         setListAdapter(new SimpleAdapter(SkeletonActivity.this,
                 data,
                 android.R.layout.simple_list_item_2,
-                new String[] { "1", "2" },
+                new String[] { "key", "value" },
                 new int[] { android.R.id.text1, android.R.id.text2 }
         ));
+        getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
+                final Map<String, String> map = data.get(position);
+                if (map != null) {
+                    new AlertDialog.Builder(SkeletonActivity.this)
+                            .setTitle(map.get("key"))
+                            .setMessage(map.get("info"))
+                            .setNeutralButton(android.R.string.ok, null)
+                            .setCancelable(true)
+                            .create()
+                            .show();
+                }
+                else {
+                    Skeleton.Log.w("Position invalid");
+                }
+            }
+
+        });
 
         Skeleton.Activity.indeterminate(SkeletonActivity.this, true);
     }
@@ -130,7 +335,10 @@ public class SkeletonActivity extends SherlockListActivity {
             case android.R.id.home:
                 startActivity(new Intent(SkeletonActivity.this, SkeletonActivity.class));
                 break ;
-            case R.id.skeleton:
+            case R.id.web:
+                Skeleton.Intent.web(SkeletonActivity.this, "https://github.com/shkschneider/android_Skeleton");
+                break ;
+            case R.id.refresh:
                 refresh();
                 break ;
             default:

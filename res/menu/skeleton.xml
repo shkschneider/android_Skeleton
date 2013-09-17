@@ -2,7 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/skeleton"
+        android:id="@+id/web"
+        android:title="@null"
+        android:icon="@drawable/ic_location_web_site_dark"
+        android:showAsAction="always" />
+
+    <item
+        android:id="@+id/refresh"
         android:title="@null"
         android:icon="@drawable/ic_navigation_refresh_dark"
         android:showAsAction="always" />

@@ -2169,7 +2169,7 @@ public abstract class Skeleton {
 
         public static void web(final android.app.Activity activity, final java.lang.String url) {
             if (! TextUtils.isEmpty(url)) {
-                if (! Network.validUrl(url)) {
+                if (Network.validUrl(url)) {
                     if (activity != null) {
                         activity.startActivity(new android.content.Intent(android.content.Intent.ACTION_VIEW, Uri.parse(url)));
                     }
