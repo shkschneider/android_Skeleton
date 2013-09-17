@@ -209,7 +209,11 @@ Get StackTrace automatically - no need to put a tag.
 ### Skeleton.Activity
 
 - void indeterminate(SherlockActivity sherlockActivity)
+- void indeterminate(SherlockListActivity sherlockListActivity)
+- void indeterminate(SherlockFragmentActivity sherlockFragmentActivity)
 - void indeterminate(SherlockActivity sherlockActivity, Boolean on)
+- void indeterminate(SherlockListActivity sherlockListActivity, Boolean on)
+- void indeterminate(SherlockFragmentActivity sherlockFragmentActivity, Boolean on)
 - void error(Context context, String message, DialogInterface.OnClickListener onClickListener)
 - void error(Context context, String message)
 

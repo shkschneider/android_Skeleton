@@ -68,6 +68,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Window;
 import com.androidquery.AQuery;
 import com.androidquery.auth.FacebookHandle;
@@ -2320,12 +2322,50 @@ public abstract class Skeleton {
             }
         }
 
+        public static void indeterminate(final SherlockListActivity sherlockListActivity) {
+            if (sherlockListActivity != null) {
+                sherlockListActivity.requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+                sherlockListActivity.setSupportProgressBarIndeterminateVisibility(true);
+            }
+            else {
+                Log.w("SherlockListActivity was NULL");
+            }
+        }
+
+        public static void indeterminate(final SherlockFragmentActivity sherlockFragmentActivity) {
+            if (sherlockFragmentActivity != null) {
+                sherlockFragmentActivity.requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+                sherlockFragmentActivity.setSupportProgressBarIndeterminateVisibility(true);
+            }
+            else {
+                Log.w("SherlockFragmentActivity was NULL");
+            }
+        }
+
         public static void indeterminate(final SherlockActivity sherlockActivity, final Boolean on) {
             if (sherlockActivity != null) {
                 sherlockActivity.setSupportProgressBarIndeterminate(on);
             }
             else {
                 Log.w("SherlockActivity was NULL");
+            }
+        }
+
+        public static void indeterminate(final SherlockListActivity sherlockListActivity, final Boolean on) {
+            if (sherlockListActivity != null) {
+                sherlockListActivity.setSupportProgressBarIndeterminate(on);
+            }
+            else {
+                Log.w("SherlockListActivity was NULL");
+            }
+        }
+
+        public static void indeterminate(final SherlockFragmentActivity sherlockFragmentActivity, final Boolean on) {
+            if (sherlockFragmentActivity != null) {
+                sherlockFragmentActivity.setSupportProgressBarIndeterminate(on);
+            }
+            else {
+                Log.w("SherlockFragmentActivity was NULL");
             }
         }
 
