@@ -57,7 +57,9 @@ import android.text.format.DateUtils;
 import android.util.Patterns;
 import android.util.TypedValue;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.URLUtil;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -984,46 +986,32 @@ public abstract class Skeleton {
 
         // Behavior can vary
 
-        public static void showKeyboard(final Activity activity) {
-            activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-
-            /*
+        public static void show(final Activity activity) {
             final InputMethodManager inputMethodManager = (InputMethodManager) System.getSystemService(activity, Context.INPUT_METHOD_SERVICE);
             if (inputMethodManager != null) {
-                final View view = activity.getCurrentFocus();
-                if (view != null) {
-                    inputMethodManager.toggleSoftInputFromWindow(view.getWindowToken(), InputMethodManager.SHOW_FORCED, 0);
-                }
-                else {
-                    L.d("View was NULL");
-                }
+                inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0);
             }
             else {
-                L.d("InputMethodManager was NULL");
+                Log.d("InputMethodManager was NULL");
             }
-            */
         }
 
         // Behavior can vary
 
-        public static void hideKeyboard(final Activity activity) {
-            activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
-            /*
+        public static void hide(final Activity activity) {
             final InputMethodManager inputMethodManager = (InputMethodManager) System.getSystemService(activity, Context.INPUT_METHOD_SERVICE);
             if (inputMethodManager != null) {
                 final View view = activity.getCurrentFocus();
                 if (view != null) {
-                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 }
                 else {
-                    L.d("View was NULL");
+                    Log.d("View was NULL");
                 }
             }
             else {
-                L.d("InputMethodManager was NULL");
+                Log.d("InputMethodManager was NULL");
             }
-            */
         }
 
         public static void keyboardCallback(final EditText editText, final KeyboardCallback callback) {

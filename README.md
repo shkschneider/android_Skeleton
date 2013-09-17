@@ -69,12 +69,10 @@ Get StackTrace automatically - no need to put a tag.
 - Boolean hasSdCardAvailable()
 - String getSdCard()
 
-...
-
 ### Skeleton.Keyboard
 
-- void showKeyboard(Activity activity)
-- void hideKeyboard(Activity activity)
+- void show(Activity activity)
+- void hide(Activity activity)
 - void keyboardCallback(EditText editText, KeyboardCallback callback)
 
 ### Skeleton.Audio
@@ -138,8 +136,6 @@ Get StackTrace automatically - no need to put a tag.
 - WebView fromUrl(Context context, String url)
 - WebView fromAsset(Context context, String asset)
 - WebView fromHtml(Context context, String source)
-
-...
 
 ### Skeleton.Hash
 
@@ -206,6 +202,8 @@ Get StackTrace automatically - no need to put a tag.
 - void camera(Activity activity)
 - void gallery(Activity activity)
 - Bitmap onActivityResult(Context context, int requestCode, int resultCode, Intent intent)
+
+...
 
 ## SkeletonActivity
 
