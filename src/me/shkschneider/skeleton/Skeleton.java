@@ -19,6 +19,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Application;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -74,6 +75,7 @@ import com.androidquery.callback.AbstractAjaxCallback;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.devspark.appmsg.AppMsg;
+import com.testflightapp.lib.TestFlight;
 
 import org.apache.http.HttpStatus;
 import org.apache.http.conn.util.InetAddressUtils;
@@ -179,6 +181,10 @@ public abstract class Skeleton {
                     android.util.Log.e(tag, "[" + stack + "] " + msg);
                     break ;
             }
+
+            if (TestFlight.isActive()) {
+                TestFlight.log("[" + stack + "] " + msg);
+            }
         }
 
         public static void v(final java.lang.String msg) {
@@ -201,11 +207,37 @@ public abstract class Skeleton {
             log(ERROR, msg);
         }
 
+        public static void checkpoint(final java.lang.String name) {
+            if (TestFlight.isActive()) {
+                TestFlight.passCheckpoint(name);
+            }
+            else {
+                Skeleton.Log.d("TestFlight was inactive");
+            }
+        }
+
     }
 
     public static class Android {
 
-        private static final java.lang.String ACCOUNT_GOOGLE = "com.google";
+        public static void testFlight(final Application application, final java.lang.String token) {
+            if (application != null) {
+                if (! TextUtils.isEmpty(token)) {
+                    if (! TestFlight.isActive()) {
+                        TestFlight.takeOff(application, token);
+                    }
+                    else {
+                        Skeleton.Log.d("TestFlight was active");
+                    }
+                }
+                else {
+                    Skeleton.Log.w("ApiKey was NULL");
+                }
+            }
+            else {
+                Skeleton.Log.w("Application was NULL");
+            }
+        }
 
         // If SCREENLAYOUT_SIZE is XLARGE for API >= HONEYCOMB
 
@@ -394,6 +426,8 @@ public abstract class Skeleton {
             }
             return 0;
         }
+
+        private static final java.lang.String ACCOUNT_GOOGLE = "com.google";
 
         public static java.lang.String getAccount(final Context context) {
             if (context != null) {

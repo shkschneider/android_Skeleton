@@ -11,9 +11,11 @@ Get StackTrace automatically - no need to put a tag.
 - void i(String msg)
 - void w(String msg)
 - void e(String msg)
+- void checkpoint(String name)
 
 ### Skeleton.Android
 
+- void testFlight(Application application, String token)
 - String getAccount(Context context)
 - String getSignature(Context context)
 - Boolean isTablet(Context context)
