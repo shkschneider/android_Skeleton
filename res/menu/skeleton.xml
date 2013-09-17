@@ -4,7 +4,7 @@
     <item
         android:id="@+id/skeleton"
         android:title="@null"
-        android:icon="@android:drawable/ic_dialog_info"
+        android:icon="@drawable/ic_navigation_refresh_dark"
         android:showAsAction="always" />
 
 </menu>
