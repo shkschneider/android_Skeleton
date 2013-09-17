@@ -64,6 +64,8 @@ public class SkeletonActivity extends SherlockListActivity {
         data.add(map("Android.deviceId()", Skeleton.Android.deviceId(SkeletonActivity.this)));
         data.add(map("Android.uuid()", Skeleton.Android.uuid(SkeletonActivity.this)));
         data.add(map("Android.randomId()", Skeleton.Android.randomId()));
+        data.add(map("Android.codename()", Skeleton.Android.codename()));
+        data.add(map("Android.manufacturer()", Skeleton.Android.manufacturer()));
         data.add(map("Android.device()", Skeleton.Android.device()));
         data.add(map("Android.release()", Skeleton.Android.release()));
         data.add(map("Android.api()", Skeleton.Android.api().toString()));

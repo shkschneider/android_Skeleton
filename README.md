@@ -30,6 +30,8 @@ Get StackTrace automatically - no need to put a tag.
 - String deviceId(Context context)
 - String uuid(Context context)
 - String randomId()
+- String codename()
+- String manufacturer()
 - String device()
 - String release()
 - Integer api()

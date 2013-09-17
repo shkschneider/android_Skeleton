@@ -371,8 +371,16 @@ public abstract class Skeleton {
             return UUID.randomUUID().toString().replace("-", "");
         }
 
-        public static java.lang.String device() {
+        public static java.lang.String codename() {
             return Build.DEVICE;
+        }
+
+        public static java.lang.String manufacturer() {
+            return Build.MANUFACTURER;
+        }
+
+        public static java.lang.String device() {
+            return Build.MODEL;
         }
 
         public static java.lang.String release() {
