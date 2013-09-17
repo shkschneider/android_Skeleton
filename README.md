@@ -15,6 +15,7 @@ Get StackTrace automatically - no need to put a tag.
 
 ### Skeleton.Android
 
+- int API_[...]
 - void testFlight(Application application, String token)
 - String getAccount(Context context)
 - String getSignature(Context context)

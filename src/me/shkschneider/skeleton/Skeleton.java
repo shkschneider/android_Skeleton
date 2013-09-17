@@ -220,6 +220,23 @@ public abstract class Skeleton {
 
     public static class Android {
 
+        public static final int API_3 = Build.VERSION_CODES.CUPCAKE;
+        public static final int API_4 = Build.VERSION_CODES.DONUT;
+        public static final int API_5 = Build.VERSION_CODES.ECLAIR;
+        public static final int API_6 = Build.VERSION_CODES.ECLAIR_0_1;
+        public static final int API_7 = Build.VERSION_CODES.ECLAIR_MR1;
+        public static final int API_8 = Build.VERSION_CODES.FROYO;
+        public static final int API_9 = Build.VERSION_CODES.GINGERBREAD;
+        public static final int API_10 = Build.VERSION_CODES.GINGERBREAD_MR1;
+        public static final int API_11 = Build.VERSION_CODES.HONEYCOMB;
+        public static final int API_12 = Build.VERSION_CODES.HONEYCOMB_MR1;
+        public static final int API_13 = Build.VERSION_CODES.HONEYCOMB_MR2;
+        public static final int API_14 = Build.VERSION_CODES.ICE_CREAM_SANDWICH;
+        public static final int API_15 = Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1;
+        public static final int API_16 = Build.VERSION_CODES.JELLY_BEAN;
+        public static final int API_17 = Build.VERSION_CODES.JELLY_BEAN_MR1;
+        public static final int API_18 = Build.VERSION_CODES.JELLY_BEAN_MR2;
+
         public static void testFlight(final Application application, final java.lang.String token) {
             if (application != null) {
                 if (! TextUtils.isEmpty(token)) {
