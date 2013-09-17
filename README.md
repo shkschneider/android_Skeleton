@@ -77,6 +77,14 @@ Get StackTrace automatically - no need to put a tag.
 - void hideKeyboard(Activity activity)
 - void keyboardCallback(EditText editText, KeyboardCallback callback)
 
+### Skeleton.Audio
+
+- Integer volume(Context context, int streamType)
+- Integer volume(Context context)
+- void play(String path)
+- void play(Context context, Uri uri)
+- void play(Context context, int rawId)
+
 ### Skeleton.Vibrator
 
 - void vibrate(Context context, long duration)
