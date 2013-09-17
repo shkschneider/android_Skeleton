@@ -260,9 +260,9 @@ public abstract class Skeleton {
 
         // If SCREENLAYOUT_SIZE is XLARGE for API >= HONEYCOMB
 
-        public static Boolean isTablet(final Context context) {
+        public static Boolean tablet(final Context context) {
             if (context != null) {
-                if (getApi() >= Build.VERSION_CODES.HONEYCOMB) {
+                if (api() >= Build.VERSION_CODES.HONEYCOMB) {
                     final Configuration configuration = context.getResources().getConfiguration();
                     if (configuration != null) {
                         try {
@@ -296,7 +296,7 @@ public abstract class Skeleton {
         // Get Android ID (length: 16)
         // The value may change if a factory reset is performed on the device.
 
-        public static java.lang.String getId(final Context context) {
+        public static java.lang.String id(final Context context) {
             if (context != null) {
                 final java.lang.String id = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
                 if (! TextUtils.isEmpty(id)) {
@@ -315,9 +315,9 @@ public abstract class Skeleton {
         // Get Device ID (length: 32)
         // The value may change if a factory reset is performed on the device.
 
-        public static java.lang.String getDeviceId(final Context context) {
+        public static java.lang.String deviceId(final Context context) {
             if (context != null) {
-                final java.lang.String id = getId(context);
+                final java.lang.String id = id(context);
                 if (! TextUtils.isEmpty(id)) {
                     try {
                         final MessageDigest messageDigest = MessageDigest.getInstance(Hash.MD5);
@@ -345,11 +345,11 @@ public abstract class Skeleton {
         // Get UUID from Device ID (RFC4122, length: 36)
         // The value may change if a factory reset is performed on the device.
 
-        public static java.lang.String getUUID(final Context context) {
+        public static java.lang.String uuid(final Context context) {
             if (context != null) {
-                final java.lang.String deviceId = getDeviceId(context);
+                final java.lang.String deviceId = deviceId(context);
                 if (! TextUtils.isEmpty(deviceId)) {
-                    return UUID.nameUUIDFromBytes(deviceId.getBytes()).toString();
+                    return UUID.nameUUIDFromBytes(deviceId.getBytes()).toString().replace("-", "");
                 }
                 else {
                     Log.w("DeviceId was NULL");
@@ -364,27 +364,27 @@ public abstract class Skeleton {
         // Get a random ID (RFC4122, length: 32)
         // Random
 
-        public static java.lang.String getRandomId() {
+        public static java.lang.String randomId() {
             return UUID.randomUUID().toString().replace("-", "");
         }
 
-        public static java.lang.String getDevice() {
+        public static java.lang.String device() {
             return Build.DEVICE;
         }
 
-        public static java.lang.String getRelease() {
+        public static java.lang.String release() {
             return Build.VERSION.RELEASE;
         }
 
-        public static int getApi() {
+        public static Integer api() {
             return Build.VERSION.SDK_INT;
         }
 
-        public static Boolean isDebug() {
+        public static Boolean debug() {
             return BuildConfig.DEBUG;
         }
 
-        public static java.lang.String getPackage(final Context context) {
+        public static java.lang.String packageName(final Context context) {
             if (context != null) {
                 return context.getPackageName();
             }
@@ -394,7 +394,7 @@ public abstract class Skeleton {
             return null;
         }
 
-        public static java.lang.String getName(final Context context) {
+        public static java.lang.String name(final Context context) {
             if (context != null) {
                 return context.getResources().getString(R.string.app_name);
             }
@@ -404,12 +404,12 @@ public abstract class Skeleton {
             return null;
         }
 
-        public static java.lang.String getVersionName(final Context context) {
+        public static java.lang.String versionName(final Context context) {
             if (context != null) {
                 try {
                     final PackageManager packageManager = context.getPackageManager();
                     if (packageManager != null) {
-                        return packageManager.getPackageInfo(getPackage(context), PackageManager.GET_META_DATA).versionName;
+                        return packageManager.getPackageInfo(packageName(context), PackageManager.GET_META_DATA).versionName;
                     }
                     else {
                         Log.w("PackageManager was NULL");
@@ -425,12 +425,12 @@ public abstract class Skeleton {
             return "0";
         }
 
-        public static Integer getVersionCode(final Context context) {
+        public static Integer versionCode(final Context context) {
             if (context != null) {
                 try {
                     final PackageManager packageManager = context.getPackageManager();
                     if (packageManager != null) {
-                        return packageManager.getPackageInfo(getPackage(context), PackageManager.GET_META_DATA).versionCode;
+                        return packageManager.getPackageInfo(packageName(context), PackageManager.GET_META_DATA).versionCode;
                     }
                     else {
                         Log.w("PackageManager was NULL");
@@ -448,7 +448,7 @@ public abstract class Skeleton {
 
         private static final java.lang.String ACCOUNT_GOOGLE = "com.google";
 
-        public static java.lang.String getAccount(final Context context) {
+        public static java.lang.String account(final Context context) {
             if (context != null) {
                 final AccountManager accountManager = AccountManager.get(context);
                 if (accountManager != null) {
@@ -468,7 +468,7 @@ public abstract class Skeleton {
             return null;
         }
 
-        public static java.lang.String getSignature(final Context context) {
+        public static java.lang.String signature(final Context context) {
             if (context != null) {
                 final PackageManager packageManager = context.getPackageManager();
                 if (packageManager != null) {
@@ -501,9 +501,9 @@ public abstract class Skeleton {
             return null;
         }
 
-        public static TelephonyManager getSim(final Context context) {
+        public static TelephonyManager sim(final Context context) {
             if (context != null) {
-                return (TelephonyManager) System.getSystemService(context, System.SYSTEM_SERVICE_TELEPHONY);
+                return (TelephonyManager) System.systemService(context, System.SYSTEM_SERVICE_TELEPHONY);
             }
             else {
                 Log.w("Context was NULL");
@@ -511,12 +511,12 @@ public abstract class Skeleton {
             return null;
         }
 
-        public static Boolean hasPermission(final Context context, final java.lang.String permission) {
+        public static Boolean permission(final Context context, final java.lang.String permission) {
             if (context != null) {
                 if (! TextUtils.isEmpty(permission)) {
                     final PackageManager packageManager = context.getPackageManager();
                     if (packageManager != null) {
-                        return (packageManager.checkPermission(permission, Android.getPackage(context)) == PackageManager.PERMISSION_GRANTED);
+                        return (packageManager.checkPermission(permission, packageName(context)) == PackageManager.PERMISSION_GRANTED);
                     }
                     else {
                         Log.w("PackageManager was NULL");
@@ -603,7 +603,7 @@ public abstract class Skeleton {
 
         }
 
-        public static Boolean hasFeature(final Context context, final java.lang.String feature) {
+        public static Boolean feature(final Context context, final java.lang.String feature) {
             if (context != null) {
                 if (! TextUtils.isEmpty(feature)) {
                     final PackageManager packageManager = context.getPackageManager();
@@ -694,9 +694,9 @@ public abstract class Skeleton {
         public static final java.lang.String SYSTEM_PROPERTY_OS_VERSION = "os.version";
         public static final java.lang.String SYSTEM_PROPERTY_PATH_SEPARATOR = "path.separator";
 
-        public static java.lang.String getSystemProperty(final java.lang.String property) {
+        public static java.lang.String systemProperty(final java.lang.String property) {
             if (! TextUtils.isEmpty(property)) {
-                final java.lang.String systemProperty = System.getSystemProperty(property);
+                final java.lang.String systemProperty = java.lang.System.getProperty(property);
                 if (systemProperty != null) {
                     return systemProperty;
                 }
@@ -709,9 +709,9 @@ public abstract class Skeleton {
 
         public static java.lang.String uname() {
             return java.lang.String.format("%s %s %s",
-                    getSystemProperty(SYSTEM_PROPERTY_OS_NAME),
-                    getSystemProperty(SYSTEM_PROPERTY_OS_VERSION),
-                    getSystemProperty(SYSTEM_PROPERTY_OS_ARCH));
+                    systemProperty(SYSTEM_PROPERTY_OS_NAME),
+                    systemProperty(SYSTEM_PROPERTY_OS_VERSION),
+                    systemProperty(SYSTEM_PROPERTY_OS_ARCH));
         }
 
         public static final java.lang.String SYSTEM_SERVICE_WINDOW_SERVICE = Context.WINDOW_SERVICE;
@@ -735,9 +735,14 @@ public abstract class Skeleton {
         public static final java.lang.String SYSTEM_SERVICE_UI_MODE = Context.UI_MODE_SERVICE;
         public static final java.lang.String SYSTEM_SERVICE_DOWNLOAD = Context.DOWNLOAD_SERVICE;
 
-        public static Object getSystemService(final Context context, final java.lang.String service) {
+        public static Object systemService(final Context context, final java.lang.String service) {
             if (context != null) {
-                return context.getSystemService(service);
+                if (! TextUtils.isEmpty(service)) {
+                    return context.getSystemService(service);
+                }
+                else {
+                    Log.w("Service was NULL");
+                }
             }
             else {
                 Log.w("Context was NULL");
@@ -955,27 +960,9 @@ public abstract class Skeleton {
 
         // Internal
 
-        public static java.lang.String getInternalDir(final Context context, final java.lang.String name) {
+        public static java.lang.String internalDir(final Context context) {
             if (context != null) {
                 final java.io.File dir = context.getFilesDir();
-                if (dir != null) {
-                    return (new java.io.File(dir.getAbsolutePath(), name).getAbsolutePath());
-                }
-                else {
-                    Log.w("Context was NULL");
-                }
-            }
-            else {
-                Log.w("Context was NULL");
-            }
-            return null;
-        }
-
-        // External
-
-        public static java.lang.String getExternalDir(final Context context, final java.lang.String name) {
-            if (context != null) {
-                final java.io.File dir = context.getExternalFilesDir(name);
                 if (dir != null) {
                     return dir.getAbsolutePath();
                 }
@@ -989,9 +976,27 @@ public abstract class Skeleton {
             return null;
         }
 
+        // External
+
+        public static java.lang.String externalDir(final Context context) {
+            if (context != null) {
+                final java.io.File dir = context.getExternalFilesDir(".");
+                if (dir != null) {
+                    return dir.getParentFile().getAbsolutePath();
+                }
+                else {
+                    Log.w("File was NULL");
+                }
+            }
+            else {
+                Log.w("Context was NULL");
+            }
+            return null;
+        }
+
         // Cache
 
-        public static java.lang.String getInternalCacheDir(final Context context) {
+        public static java.lang.String internalCacheDir(final Context context) {
             if (context != null) {
                 final java.io.File dir = context.getCacheDir();
                 if (dir != null) {
@@ -1007,7 +1012,7 @@ public abstract class Skeleton {
             return null;
         }
 
-        public static java.lang.String getExternalCacheDir(final Context context) {
+        public static java.lang.String externalCacheDir(final Context context) {
             if (context != null) {
                 final java.io.File dir = context.getExternalCacheDir();
                 if (dir != null) {
@@ -1023,17 +1028,17 @@ public abstract class Skeleton {
             return null;
         }
 
-        public static java.lang.String getDownloadCache() {
+        public static java.lang.String downloadCache() {
             return Environment.getDownloadCacheDirectory().getAbsolutePath();
         }
 
         // SDCard
 
-        public static Boolean hasSdCardAvailable() {
+        public static Boolean sdCardAvailable() {
             return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
         }
 
-        public static java.lang.String getSdCard() {
+        public static java.lang.String sdCard() {
             return Environment.getExternalStorageDirectory().getAbsolutePath();
         }
 
@@ -1044,7 +1049,7 @@ public abstract class Skeleton {
         // Behavior can vary
 
         public static void show(final android.app.Activity activity) {
-            final InputMethodManager inputMethodManager = (InputMethodManager) System.getSystemService(activity, Context.INPUT_METHOD_SERVICE);
+            final InputMethodManager inputMethodManager = (InputMethodManager) System.systemService(activity, Context.INPUT_METHOD_SERVICE);
             if (inputMethodManager != null) {
                 inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0);
             }
@@ -1056,7 +1061,7 @@ public abstract class Skeleton {
         // Behavior can vary
 
         public static void hide(final android.app.Activity activity) {
-            final InputMethodManager inputMethodManager = (InputMethodManager) System.getSystemService(activity, Context.INPUT_METHOD_SERVICE);
+            final InputMethodManager inputMethodManager = (InputMethodManager) System.systemService(activity, Context.INPUT_METHOD_SERVICE);
             if (inputMethodManager != null) {
                 final View view = activity.getCurrentFocus();
                 if (view != null) {
@@ -1109,7 +1114,7 @@ public abstract class Skeleton {
 
         public static Integer volume(final Context context, final int streamType) {
             if (context != null) {
-                final AudioManager audioManager = (AudioManager) System.getSystemService(context, System.SYSTEM_SERVICE_AUDIO);
+                final AudioManager audioManager = (AudioManager) System.systemService(context, System.SYSTEM_SERVICE_AUDIO);
                 audioManager.getStreamVolume(streamType);
             }
             else {
@@ -1200,9 +1205,9 @@ public abstract class Skeleton {
         }
 
         public static void vibrate(final Context context, final long duration) {
-            final android.os.Vibrator vibrator = (android.os.Vibrator) System.getSystemService(context, System.SYSTEM_SERVICE_VIBRATOR);
+            final android.os.Vibrator vibrator = (android.os.Vibrator) System.systemService(context, System.SYSTEM_SERVICE_VIBRATOR);
             if (vibrator != null) {
-                if (Android.getApi() < Build.VERSION_CODES.HONEYCOMB) {
+                if (Android.api() < Build.VERSION_CODES.HONEYCOMB) {
                     vibrateOld(vibrator, duration);
                 }
                 else {
@@ -1215,9 +1220,9 @@ public abstract class Skeleton {
         }
 
         public static void vibrate(final Context context, final long[] durations, final Boolean repeat) {
-            final android.os.Vibrator vibrator = (android.os.Vibrator) System.getSystemService(context, System.SYSTEM_SERVICE_VIBRATOR);
+            final android.os.Vibrator vibrator = (android.os.Vibrator) System.systemService(context, System.SYSTEM_SERVICE_VIBRATOR);
             if (vibrator != null) {
-                if (Android.getApi() < Build.VERSION_CODES.HONEYCOMB) {
+                if (Android.api() < Build.VERSION_CODES.HONEYCOMB) {
                     vibrateOld(vibrator, durations, repeat);
                 }
                 else {
@@ -1233,17 +1238,17 @@ public abstract class Skeleton {
 
     public static class Network {
 
-        public static java.lang.String getDefaultUserAgent() {
-            final java.lang.String userAgent = System.getSystemProperty(System.SYSTEM_PROPERTY_HTTP_AGENT);
-            return (userAgent != null ? userAgent : java.lang.String.format("%s-%d", PLATFORM, Android.getApi()));
+        public static java.lang.String defaultUserAgent() {
+            final java.lang.String userAgent = System.systemProperty(System.SYSTEM_PROPERTY_HTTP_AGENT);
+            return (userAgent != null ? userAgent : java.lang.String.format("%s-%d", PLATFORM, Android.api()));
         }
 
-        public static java.lang.String makeUserAgent(final Context context) {
+        public static java.lang.String userAgent(final Context context) {
             if (context != null) {
                 return PLATFORM + "-" +
-                        Android.getApi() + "/" +
-                        Android.getPackage(context) + "/" +
-                        Android.getVersionCode(context);
+                        Android.api() + "/" +
+                        Android.packageName(context) + "/" +
+                        Android.versionCode(context);
             }
             else {
                 Log.w("Context was NULL");
@@ -1251,10 +1256,10 @@ public abstract class Skeleton {
             return null;
         }
 
-        public static Boolean isConnectedToInternet(final Context context) {
-            final NetworkInfo networkInfo = ((ConnectivityManager) System.getSystemService(context, System.SYSTEM_SERVICE_CONNECTIVITY)).getActiveNetworkInfo();
+        public static Boolean online(final Context context) {
+            final NetworkInfo networkInfo = ((ConnectivityManager) System.systemService(context, System.SYSTEM_SERVICE_CONNECTIVITY)).getActiveNetworkInfo();
             if (networkInfo != null) {
-                return (! networkInfo.isConnected());
+                return networkInfo.isConnected();
             }
             else {
                 Log.w("NetworkInfo was NULL");
@@ -1262,9 +1267,9 @@ public abstract class Skeleton {
             return false;
         }
 
-        public static java.lang.String getMacAddress(final Context context) {
+        public static java.lang.String macAddress(final Context context) {
             if (context != null) {
-                final WifiManager wifiManager = (WifiManager) System.getSystemService(context, System.SYSTEM_SERVICE_WIFI);
+                final WifiManager wifiManager = (WifiManager) System.systemService(context, System.SYSTEM_SERVICE_WIFI);
                 final WifiInfo wifiInfo = wifiManager.getConnectionInfo();
                 final java.lang.String macAddress = wifiInfo.getMacAddress();
                 if (! TextUtils.isEmpty(macAddress)) {
@@ -1280,7 +1285,7 @@ public abstract class Skeleton {
             return null;
         }
 
-        public static Boolean isValidUrl(final java.lang.String url) {
+        public static Boolean validUrl(final java.lang.String url) {
             if (! TextUtils.isEmpty(url)) {
                 return URLUtil.isValidUrl(url);
             }
@@ -1386,7 +1391,7 @@ public abstract class Skeleton {
 
         public static NotificationManager notificationManager(final Context context) {
             if (context != null) {
-                return (NotificationManager) System.getSystemService(context, System.SYSTEM_SERVICE_NOTIFICATION_SERVICE);
+                return (NotificationManager) System.systemService(context, System.SYSTEM_SERVICE_NOTIFICATION_SERVICE);
             }
             else {
                 Log.w("Context was NULL");
@@ -1450,19 +1455,19 @@ public abstract class Skeleton {
 
     public static class Runtime {
 
-        public static int getProcessors() {
+        public static Integer processors() {
             return java.lang.Runtime.getRuntime().availableProcessors();
         }
 
-        public static long getFreeMemory() {
+        public static Long freeMemory() {
             return java.lang.Runtime.getRuntime().freeMemory();
         }
 
-        public static long getMaxMemory() {
+        public static Long maxMemory() {
             return java.lang.Runtime.getRuntime().maxMemory();
         }
 
-        public static long getTotalMemory() {
+        public static Long totalMemory() {
             return java.lang.Runtime.getRuntime().totalMemory();
         }
 
@@ -1480,7 +1485,7 @@ public abstract class Skeleton {
             return string;
         }
 
-        public static Boolean isNumeric(final java.lang.String string) {
+        public static Boolean numeric(final java.lang.String string) {
             if (! TextUtils.isEmpty(string)) {
                 return TextUtils.isDigitsOnly(string);
             }
@@ -1780,7 +1785,7 @@ public abstract class Skeleton {
                 Skeleton.Log.w("Url was NULL");
                 return false;
             }
-            if (! Skeleton.Network.isValidUrl(mUrl)) {
+            if (! Skeleton.Network.validUrl(mUrl)) {
                 Skeleton.Log.w("Url was invalid");
                 return false;
             }
@@ -1816,7 +1821,7 @@ public abstract class Skeleton {
                 }
                         .url(mUrl)
                         .type(java.lang.String.class)
-                        .header("User-Agent", Skeleton.Network.getDefaultUserAgent());
+                        .header("User-Agent", Skeleton.Network.defaultUserAgent());
 
                 new AQuery(mContext).ajax(ajaxCallback);
             }
@@ -1877,7 +1882,7 @@ public abstract class Skeleton {
         public void run(final ImageDownloaderCallback callback) {
             if (mContext != null) {
                 if (! TextUtils.isEmpty(mUrl)) {
-                    if (Skeleton.Network.isValidUrl(mUrl)) {
+                    if (Skeleton.Network.validUrl(mUrl)) {
                         new AQuery(mContext)
                                 .ajax(new AjaxCallback<Bitmap>() {
 
@@ -1904,7 +1909,7 @@ public abstract class Skeleton {
                                         .memCache(mCache[1])
                                         .url(mUrl)
                                         .type(Bitmap.class)
-                                        .header("User-Agent", Skeleton.Network.getDefaultUserAgent()));
+                                        .header("User-Agent", Skeleton.Network.defaultUserAgent()));
                     }
                     else {
                         Skeleton.Log.w("Url was invalid");
@@ -1958,7 +1963,7 @@ public abstract class Skeleton {
 
         public Location(final Context context, final LocationCallback locationCallback) {
             if (context != null) {
-                mLocationManager = (LocationManager) System.getSystemService(context, System.SYSTEM_SERVICE_LOCATION_SERVICE);
+                mLocationManager = (LocationManager) System.systemService(context, System.SYSTEM_SERVICE_LOCATION_SERVICE);
                 if (locationCallback != null) {
                     mLocationCallback = locationCallback;
                 }
@@ -1996,7 +2001,7 @@ public abstract class Skeleton {
             }
         }
 
-        public android.location.Location getLocation() {
+        public android.location.Location location() {
             return mLocation;
         }
 
@@ -2058,7 +2063,7 @@ public abstract class Skeleton {
 
         public static Boolean isOn(final Context context) {
             if (context != null) {
-                return ((PowerManager) System.getSystemService(context, System.SYSTEM_SERVICE_POWER_SERVICE)).isScreenOn();
+                return ((PowerManager) System.systemService(context, System.SYSTEM_SERVICE_POWER_SERVICE)).isScreenOn();
             }
             else {
                 Log.w("Context was NULL");
@@ -2066,7 +2071,7 @@ public abstract class Skeleton {
             return false;
         }
 
-        public static int density(final Context context) {
+        public static Integer density(final Context context) {
             if (context != null) {
                 return context.getResources().getDisplayMetrics().densityDpi;
             }
@@ -2076,7 +2081,7 @@ public abstract class Skeleton {
             return 0;
         }
 
-        public static int height(final Context context) {
+        public static Integer height(final Context context) {
             if (context != null) {
                 return context.getResources().getDisplayMetrics().heightPixels;
             }
@@ -2086,7 +2091,7 @@ public abstract class Skeleton {
             return 0;
         }
 
-        public static int width(final Context context) {
+        public static Integer width(final Context context) {
             if (context != null) {
                 return context.getResources().getDisplayMetrics().widthPixels;
             }
@@ -2097,10 +2102,10 @@ public abstract class Skeleton {
         }
 
         public static Integer orientation(final Context context) {
-            return ((WindowManager) System.getSystemService(context, System.SYSTEM_SERVICE_WINDOW_SERVICE)).getDefaultDisplay().getRotation();
+            return ((WindowManager) System.systemService(context, System.SYSTEM_SERVICE_WINDOW_SERVICE)).getDefaultDisplay().getRotation();
         }
 
-        public static int pixelsFromDp(final Context context, final Float dp) {
+        public static Integer pixelsFromDp(final Context context, final Float dp) {
             if (context != null) {
                 if (dp > 0) {
                     return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, context.getResources().getDisplayMetrics()));
@@ -2153,7 +2158,7 @@ public abstract class Skeleton {
 
         public static void web(final android.app.Activity activity, final java.lang.String url) {
             if (! TextUtils.isEmpty(url)) {
-                if (! Network.isValidUrl(url)) {
+                if (! Network.validUrl(url)) {
                     if (activity != null) {
                         activity.startActivity(new android.content.Intent(android.content.Intent.ACTION_VIEW, Uri.parse(url)));
                     }
@@ -2183,7 +2188,7 @@ public abstract class Skeleton {
 
         public static void market(final android.app.Activity activity) {
             final android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("market://details?id=" + Android.getPackage(activity)));
+            intent.setData(Uri.parse("market://details?id=" + Android.packageName(activity)));
             if (activity != null) {
                 activity.startActivity(intent);
             }
@@ -2227,7 +2232,7 @@ public abstract class Skeleton {
 
         public static void camera(final android.app.Activity activity) {
             if (activity != null) {
-                if (Android.hasFeature(activity, Android.Features.CAMERA)) {
+                if (Android.feature(activity, Android.Features.CAMERA)) {
                     final android.content.Intent intent = new android.content.Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     if (canHandle(activity, intent)) {
                         activity.startActivityForResult(intent, REQUEST_CODE_CAMERA);

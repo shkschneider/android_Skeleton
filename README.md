@@ -1,3 +1,9 @@
+## Makefile
+
+Requires ant.
+
+make {update,check,debug,release,clean,distclean,install,uninstall}
+
 ## Skeleton
 
 Abstract / static classes.
@@ -17,36 +23,36 @@ Get StackTrace automatically - no need to put a tag.
 
 - int API_[...]
 - void testFlight(Application application, String token)
-- String getAccount(Context context)
-- String getSignature(Context context)
-- Boolean isTablet(Context context)
-- String getId(Context context)
-- String getDeviceId(Context context)
-- String getUUID(Context context)
-- String getRandomId()
-- String getDevice()
-- String getRelease()
-- int getApi()
-- Boolean isDebug()
-- String getPackage(Context context)
-- String getName(Context context)
-- String getVersionName(Context context)
-- Integer getVersionCode(Context context)
-- TelephonyManager getSim(Context context)
-- Boolean hasPermission(Context context, String permission)
+- String account(Context context)
+- String signature(Context context)
+- Boolean tablet(Context context)
+- String id(Context context)
+- String deviceId(Context context)
+- String uuid(Context context)
+- String randomId()
+- String device()
+- String release()
+- Integer api()
+- Boolean debug()
+- String packageName(Context context)
+- String name(Context context)
+- String versionName(Context context)
+- Integer versionCode(Context context)
+- TelephonyManager sim(Context context)
+- Boolean permission(Context context, String permission)
 - Permissions
     - String [...]
-- Boolean hasFeature(final Context context, final java.lang.String feature)
+- Boolean feature(Context context, String feature)
 - Features
     - String [...]
 
 ### Skeleton.System
 
 - String SYSTEM_PROPERTY_[...]
-- String getSystemProperty(String property)
+- String systemProperty(String property)
 - String uname()
 - String SYSTEM_SERVICE_[...]
-- Object getSystemService(Context context, String service)
+- Object systemService(Context context, String service)
 
 ### Skeleton.File
 
@@ -64,13 +70,13 @@ Get StackTrace automatically - no need to put a tag.
 - Boolean serialize(File file, Object object)
 - Object unserialize(File file)
 - Boolean remove(File file)
-- String getInternalDir(Context context, String name)
-- String getExternalDir(Context context, String name)
-- String getInternalCacheDir(Context context)
-- String getExternalCacheDir(Context context)
-- String getDownloadCache()
-- Boolean hasSdCardAvailable()
-- String getSdCard()
+- String internalDir(Context context)
+- String externalDir(Context context)
+- String internalCacheDir(Context context)
+- String externalCacheDir(Context context)
+- String downloadCache()
+- Boolean sdCardAvailable()
+- String sdCard()
 
 ### Skeleton.Keyboard
 
@@ -93,11 +99,11 @@ Get StackTrace automatically - no need to put a tag.
 
 ### Skeleton.Network
 
-- String getDefaultUserAgent()
-- String makeUserAgent(Context context)
-- Boolean isConnectedToInternet(Context context)
-- String getMacAddress(Context context)
-- Boolean isValidUrl(String url)
+- String defaultUserAgent()
+- String userAgent(Context context)
+- Boolean online(Context context)
+- String macAddress(Context context)
+- Boolean validUrl(String url)
 - List<String> ipAddresses()
 
 ### Skeleton.Notification
@@ -115,15 +121,15 @@ Get StackTrace automatically - no need to put a tag.
 
 ### Skeleton.Runtime
 
-- int getProcessors()
-- long getFreeMemory()
-- long getMaxMemory()
-- long getTotalMemory()
+- Integer processors()
+- Long freeMemory()
+- Long maxMemory()
+- Long totalMemory()
 
 ### Skeleton.String
 
 - String capitalize(String string)
-- Boolean isNumeric(String string)
+- Boolean numeric(String string)
 - Boolean contains(String[] strings, String string)
 
 ### Skeleton.Time
@@ -180,18 +186,18 @@ Get StackTrace automatically - no need to put a tag.
 - Location(Context context, LocationCallback locationCallback)
 - Location Location start(Boolean gps)
 - void stop()
-- Location getLocation()
+- Location location()
 
 ### Skeleton.Screen
 
 - int DENSITY_[...]
 - void wakeLock(Activity activity)
 - Boolean isOn(Context context)
-- float density(final Context context)
-- int height(final Context context)
-- int width(final Context context)
+- Float density(Context context)
+- Integer height(Context context)
+- Integer width(Context context)
 - Integer orientation(Context context)
-- int pixelsFromDp(final Context context, final Float dp)
+- Integer pixelsFromDp(Context context, Float dp)
 
 ### Skeleton.Intent
 
@@ -219,10 +225,10 @@ Get StackTrace automatically - no need to put a tag.
 
 ### Skeleton.Graphics
 
-- Bitmap decodeUri(final Context context, final Uri uri, final Integer downsample)
-- Bitmap decodeUri(final Context context, final Uri uri)
-- Bitmap bitmapFromUri(final Context context, final Uri uri)
-- Bitmap bitmapFromDrawable(final Drawable drawable)
+- Bitmap decodeUri(Context context, Uri uri, Integer downsample)
+- Bitmap decodeUri(Context context, Uri uri)
+- Bitmap bitmapFromUri(Context context, Uri uri)
+- Bitmap bitmapFromDrawable(Drawable drawable)
 - Bitmap rotateBitmap(Bitmap bitmap, float degrees)
 - Drawable drawableFromBitmap(Context context, Bitmap bitmap)
 - Drawable indeterminateDrawable(Context context)
@@ -230,6 +236,7 @@ Get StackTrace automatically - no need to put a tag.
 ## SkeletonActivity
 
 Not much.
+Simple ListView with results from various Skeleton functions.
 
 ## SkeletonApplication
 
@@ -242,7 +249,3 @@ Not much.
 
 Not much.
 Simple example of receiver.
-
-## Makefile
-
-make {update,check,debug,release,clean,distclean,install,uninstall}

@@ -37,14 +37,14 @@ public class SkeletonApplication extends Application {
 		super.onCreate();
 
         CONTEXT = getApplicationContext();
-        DEBUG = Skeleton.Android.isDebug();
-        TAG = Skeleton.Android.getName(getApplicationContext());
+        DEBUG = Skeleton.Android.debug();
+        TAG = Skeleton.Android.name(getApplicationContext());
         LOCALE = Locale.getDefault().toString();
 
         Skeleton.Log.i(toString());
 
         AQUtility.setDebug(SkeletonApplication.DEBUG);
-        AQUtility.setCacheDir(Skeleton.File.get(Skeleton.File.getInternalCacheDir(getApplicationContext())));
+        AQUtility.setCacheDir(Skeleton.File.get(Skeleton.File.internalCacheDir(getApplicationContext())));
 
         AjaxCallback.setNetworkLimit(4);
         BitmapAjaxCallback.setIconCacheLimit(20);
@@ -55,7 +55,7 @@ public class SkeletonApplication extends Application {
 
 	@Override
 	public void onLowMemory() {
-        Skeleton.Log.d("LowMemory: " + Skeleton.Runtime.getFreeMemory() + "/" + Skeleton.Runtime.getMaxMemory() + " B");
+        Skeleton.Log.d("LowMemory: " + Skeleton.Runtime.freeMemory() + "/" + Skeleton.Runtime.maxMemory() + " B");
 
         BitmapAjaxCallback.clearCache();
 
@@ -64,12 +64,12 @@ public class SkeletonApplication extends Application {
 
 	@Override
 	public String toString() {
-		return Skeleton.Android.getName(getApplicationContext()) +
-                (Skeleton.Android.isDebug() ? " [DEBUG]" : "") +
-                " v" + Skeleton.Android.getVersionName(getApplicationContext()) +
-                " (" + Skeleton.Android.getPackage(getApplicationContext()) + ")" +
-                " Android " + Skeleton.Android.getRelease() +
-                " (API-" + Skeleton.Android.getApi() + ")";
+		return Skeleton.Android.name(getApplicationContext()) +
+                (Skeleton.Android.debug() ? " [DEBUG]" : "") +
+                " v" + Skeleton.Android.versionName(getApplicationContext()) +
+                " (" + Skeleton.Android.packageName(getApplicationContext()) + ")" +
+                " Android " + Skeleton.Android.release() +
+                " (API-" + Skeleton.Android.api() + ")";
 	}
 
 }
