@@ -33,6 +33,9 @@ import java.util.Map;
 
 public class SkeletonActivity extends SherlockListActivity {
 
+    private static final String AUTHOR_NAME = "ShkSchneider";
+    private static final String AUTHOR_URL = "https://github.com/shkschneider/android_Skeleton";
+
     private Map<String, String> map(final String key, final String value, final String[] infos) {
         final Map<String, String> data = new HashMap<String, String>();
         data.put("key", key);
@@ -60,10 +63,12 @@ public class SkeletonActivity extends SherlockListActivity {
         super.onResume();
 
         new AlertDialog.Builder(SkeletonActivity.this)
-                .setMessage(String.format("%s\n%s\n%s",
+                .setMessage(String.format("%s\n\n%s %s\n\n%s\n%s",
                         "This is a skeleton application for Android.",
                         "It features a lot of static classes that could help developers.",
-                        "Thanks for downloading!"))
+                        "Everything is checked, so the execution should be stable ; but do note methods can return NULL!",
+                        "Thanks for downloading!",
+                        "Get the code: shkschneider@github!"))
                 .setNeutralButton(android.R.string.ok, null)
                 .setCancelable(true)
                 .create()
@@ -287,7 +292,7 @@ public class SkeletonActivity extends SherlockListActivity {
                 "Skeleton.Screen.width()",
                 "Context"
         }));
-        data.add(map("Screen.orientation()", Skeleton.Screen.orientation(SkeletonActivity.this).toString(), new String[] {
+        data.add(map("Screen.orientation()", Skeleton.Screen.orientation(SkeletonActivity.this).toString(), new String[]{
                 "Integer",
                 "Skeleton.Screen.orientation()",
                 "Context"
@@ -335,8 +340,28 @@ public class SkeletonActivity extends SherlockListActivity {
             case android.R.id.home:
                 startActivity(new Intent(SkeletonActivity.this, SkeletonActivity.class));
                 break ;
+            case R.id.author:
+                new AlertDialog.Builder(SkeletonActivity.this)
+                        .setTitle(AUTHOR_NAME)
+                        .setMessage(AUTHOR_URL)
+                        .setNegativeButton(android.R.string.ok, null)
+                        .setCancelable(true)
+                        .create()
+                        .show();
+                break ;
+            case R.id.license:
+                new AlertDialog.Builder(SkeletonActivity.this)
+                        .setTitle("Apache 2.0")
+                        .setView(Skeleton.WebView.fromHtml(SkeletonActivity.this,
+                                Skeleton.File.readString(Skeleton.File.openRaw(SkeletonActivity.this, R.raw.license)).replaceAll("\n", "<br />")
+                        ))
+                        .setNegativeButton(android.R.string.ok, null)
+                        .setCancelable(true)
+                        .create()
+                        .show();
+                break ;
             case R.id.web:
-                Skeleton.Intent.web(SkeletonActivity.this, "https://github.com/shkschneider/android_Skeleton");
+                Skeleton.Intent.web(SkeletonActivity.this, AUTHOR_URL);
                 break ;
             case R.id.refresh:
                 refresh();

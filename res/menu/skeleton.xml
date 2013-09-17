@@ -3,14 +3,26 @@
 
     <item
         android:id="@+id/web"
-        android:title="@null"
-        android:icon="@drawable/ic_location_web_site_dark"
+        android:title="Github"
+        android:icon="@null"
         android:showAsAction="always" />
 
     <item
         android:id="@+id/refresh"
-        android:title="@null"
-        android:icon="@drawable/ic_navigation_refresh_dark"
+        android:title="Refresh"
+        android:icon="@null"
         android:showAsAction="always" />
+
+    <item
+        android:id="@+id/author"
+        android:title="Author"
+        android:icon="@null"
+        android:showAsAction="never" />
+
+    <item
+        android:id="@+id/license"
+        android:title="License"
+        android:icon="@null"
+        android:showAsAction="never" />
 
 </menu>
