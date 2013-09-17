@@ -110,7 +110,8 @@ release: update
 clean: all
 	@echo "==> Clean"
 	@$(ANT) -quiet clean > /dev/null || exit 1
-	@rm -rf out > /dev/null || exit 1
+	@rm -rf $(ANT_LOG) > /dev/null || exit 1
+	@rm -rf bin out > /dev/null || exit 1
 	@rm -f $(APK) > /dev/null || exit 1
 
 install: all
