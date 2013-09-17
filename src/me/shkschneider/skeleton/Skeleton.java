@@ -1153,9 +1153,9 @@ public abstract class Skeleton {
 
         public static java.lang.String getMacAddress(final Context context) {
             if (context != null) {
-                final WifiManager manager = (WifiManager) System.getSystemService(context, System.SYSTEM_SERVICE_WIFI);
-                final WifiInfo info = manager.getConnectionInfo();
-                final java.lang.String macAddress = info.getMacAddress();
+                final WifiManager wifiManager = (WifiManager) System.getSystemService(context, System.SYSTEM_SERVICE_WIFI);
+                final WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+                final java.lang.String macAddress = wifiInfo.getMacAddress();
                 if (! TextUtils.isEmpty(macAddress)) {
                     return macAddress;
                 }
