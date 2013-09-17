@@ -14,6 +14,9 @@ ANDROID_OPTS = --silent
 ADB = $(shell which adb 2>/dev/null)
 ADB_OPTS =
 ANT = $(shell which ant 2>/dev/null)
+ANT_PROPERTIES = "ant.properties"
+ANT_PROPERTIES_DEBUG = $(shell find . -maxdepth 1 -name "ant.debug" 2>/dev/null)
+ANT_PROPERTIES_RELEASE = $(shell find . -maxdepth 1 -name "ant.release" 2>/dev/null)
 ANT_LOG = build.log
 ANT_OPTS = -logfile $(ANT_LOG)
 LINT = $(shell which lint 2>/dev/null)
@@ -81,8 +84,10 @@ check: all
 
 debug: update
 	@echo "==> Build"
-	@$(ANT) $(ANT_OPTS) debug > /dev/null || exit 1
-	@echo "- $(ANT_LOG)"
+	@if [ -n "$(ANT_PROPERTIES_DEBUG)" ] ; then echo "- $(ANT_PROPERTIES)" ; fi
+	@if [ -n "$(ANT_PROPERTIES_DEBUG)" ] ; then cp $(ANT_PROPERTIES_DEBUG) $(ANT_PROPERTIES) > /dev/null || exit 1 ; fi
+	@echo "- ant debug"
+	@$(ANT) $(ANT_OPTS) debug > /dev/null || (echo "E: see $(ANT_LOG) for details" ; exit 1)
 	@echo "==> Sign"
 	@if [ -n "$(SIGN)" ] ; then echo "- $(SIGN)" ; fi
 	@echo "==> Debug"
@@ -91,8 +96,10 @@ debug: update
 
 release: update
 	@echo "==> Build"
-	@$(ANT) $(ANT_OPTS) release > /dev/null || exit 1
-	@echo "- $(ANT_LOG)"
+	@if [ -n "$(ANT_PROPERTIES_RELEASE)" ] ; then echo "- $(ANT_PROPERTIES)" ; fi
+	@if [ -n "$(ANT_PROPERTIES_RELEASE)" ] ; then cp $(ANT_PROPERTIES_RELEASE) $(ANT_PROPERTIES) > /dev/null || exit 1 ; fi
+	@echo "- ant debug"
+	@$(ANT) $(ANT_OPTS) release > /dev/null || (echo "E: see $(ANT_LOG) for details" ; exit 1)
 	@echo "==> Sign"
 	@if [ -n "$(SIGN)" ] ; then echo "- $(SIGN)" ; fi
 	@echo "==> Release"
