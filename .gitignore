@@ -34,3 +34,8 @@ proguard/
 
 # Support library
 android-support-v*.jar
+
+# Ant properties
+ant.properties
+ant.debug
+ant.release
