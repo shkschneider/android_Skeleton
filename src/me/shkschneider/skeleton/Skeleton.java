@@ -1192,7 +1192,8 @@ public abstract class Skeleton {
                         }
                     }
                 }
-            } catch (SocketException e) {
+            }
+            catch (SocketException e) {
                 Log.e("SocketException: " + e.getMessage());
             }
             return ipAddresses;
