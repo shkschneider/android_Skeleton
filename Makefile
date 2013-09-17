@@ -112,6 +112,7 @@ clean: all
 	@$(ANT) -quiet clean > /dev/null || exit 1
 
 distclean: clean
+	@rm -rf out > /dev/null || exit 1
 	@rm -f $(APK) > /dev/null || exit 1
 
 install: all
