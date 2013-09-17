@@ -2,11 +2,11 @@
 
 Requires ant.
 
-make {update,check,debug,release,clean,distclean,install,uninstall}
+make {update,check,debug,release,clean,distclean,install,run,uninstall,log,help}
 
 ## Skeleton
 
-Abstract / static classes.
+Usefull static classes.
 
 ### Skeleton.Log
 

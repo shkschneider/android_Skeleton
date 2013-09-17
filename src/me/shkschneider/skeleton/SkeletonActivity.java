@@ -242,6 +242,7 @@ public class SkeletonActivity extends SherlockListActivity {
             public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
                 final Map<String, String> map = data.get(position);
                 if (map != null) {
+                    Skeleton.Log.v(map.get("key"));
                     new AlertDialog.Builder(SkeletonActivity.this)
                             .setTitle(map.get("key"))
                             .setMessage(map.get("info"))

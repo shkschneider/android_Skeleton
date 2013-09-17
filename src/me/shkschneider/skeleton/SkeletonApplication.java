@@ -38,7 +38,7 @@ public class SkeletonApplication extends Application {
 
         CONTEXT = getApplicationContext();
         DEBUG = Skeleton.Android.debug();
-        TAG = Skeleton.Android.name(getApplicationContext());
+        TAG = Skeleton.Android.packageName(getApplicationContext());
         LOCALE = Locale.getDefault().toString();
 
         Skeleton.Log.i(toString());

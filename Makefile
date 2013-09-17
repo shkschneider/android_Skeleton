@@ -1,5 +1,6 @@
 MANIFEST = $(shell find . -type f -name "AndroidManifest.xml" 2>/dev/null | sort | head -1)
-DIR = $(shell dirname $(shell readlink -f $(MANIFEST) 2>/dev/null) 2>/dev/null)
+DIR = $(shell dirname $(shell readlink -f "$(MANIFEST)" 2>/dev/null) 2>/dev/null)
+ACTIVITY = $(shell cat "$(MANIFEST)" 2>/dev/null | tr "[:space:]" "\n" | grep 'android:name=' | grep Activity | head -1 | cut -d'"' -f2)
 
 SDK = ${ANDROID_HOME}
 API = $(shell cat $(DIR)/AndroidManifest.xml 2>/dev/null | tr "[:space:]" "\n" | grep minSdkVersion= | cut -d'"' -f2)
@@ -17,7 +18,7 @@ ANT = $(shell which ant 2>/dev/null)
 ANT_PROPERTIES = "ant.properties"
 ANT_PROPERTIES_DEBUG = $(shell find . -maxdepth 1 -name "ant.debug" 2>/dev/null)
 ANT_PROPERTIES_RELEASE = $(shell find . -maxdepth 1 -name "ant.release" 2>/dev/null)
-ANT_LOG = build.log
+ANT_LOG = "build.log"
 ANT_OPTS = -logfile $(ANT_LOG)
 LINT = $(shell which lint 2>/dev/null)
 LINT_OPTS = --quiet -w -Xlint:deprecation
@@ -116,15 +117,33 @@ distclean: clean
 install: all
 	@echo "==> Install"
 	@if [ -z "$(DEVICE)" ] ; then echo "Error: no device" ; exit 1 ; fi
+	@echo "- $(DEVICE)"
 	@if [ ! -f "$(APK)" ] ; then echo "Error: no apk" ; exit 1 ; fi
+	@echo "- $(APK)"
 	@$(ADB) install -r $(APK) || exit 1
+
+run: all
+	@echo "==> Run"
+	@if [ -z "$(DEVICE)" ] ; then echo "Error: no device" ; exit 1 ; fi
+	@echo "- $(DEVICE)"
+	@if [ -z "$(ACTIVITY)" ] ; then echo "Error: no activity" ; exit 1 ; fi
+	@echo "- $(PACKAGE)/$(ACTIVITY)"
+	@$(ADB) shell am start -n $(PACKAGE)/$(ACTIVITY) > /dev/null || exit 1
 
 uninstall: all
 	@echo "==> Uninstall"
 	@if [ -z "$(DEVICE)" ] ; then echo "Error: no device" ; exit 1 ; fi
+	@echo "- $(DEVICE)"
+	@echo "- $(PACKAGE)"
 	@$(ADB) shell pm uninstall -k $(PACKAGE) || exit 1
 
-help:
-	@echo "update check debug release clean distclean install uninstall"
+log: all
+	@echo "==> Log"
+	@if [ -z "$(DEVICE)" ] ; then echo "Error: no device" ; exit 1 ; fi
+	@echo "- $(DEVICE)"
+	@$(ADB) logcat -s $(PACKAGE) | egrep '^[A-Z]'
 
-.PHONY: all update check debug release clean distclean help
+help:
+	@echo "update check debug release clean distclean install run uninstall log"
+
+.PHONY: all update check debug release clean distclean install run uninstall log help
