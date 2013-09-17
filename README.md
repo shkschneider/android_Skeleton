@@ -2,7 +2,7 @@
 
 Requires ant.
 
-make {update,check,debug,release,clean,distclean,install,run,uninstall,log,help}
+make {update,check,debug,release,clean,install,run,uninstall,log,help}
 
 ## Skeleton
 

@@ -110,8 +110,6 @@ release: update
 clean: all
 	@echo "==> Clean"
 	@$(ANT) -quiet clean > /dev/null || exit 1
-
-distclean: clean
 	@rm -rf out > /dev/null || exit 1
 	@rm -f $(APK) > /dev/null || exit 1
 
@@ -145,6 +143,6 @@ log: all
 	@$(ADB) logcat -s $(PACKAGE) | egrep '^[A-Z]'
 
 help:
-	@echo "update check debug release clean distclean install run uninstall log"
+	@echo "update check debug release clean install run uninstall log"
 
-.PHONY: all update check debug release clean distclean install run uninstall log help
+.PHONY: all update check debug release clean install run uninstall log help
