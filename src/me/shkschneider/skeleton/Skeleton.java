@@ -121,6 +121,9 @@ import java.util.UUID;
  *  ImageDownloader
  *  Location
  *  Screen
+ *  Intent
+ *  Activity
+ *  Graphics
  */
 
 @SuppressWarnings("unused")
