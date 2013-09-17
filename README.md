@@ -210,6 +210,16 @@ Get StackTrace automatically - no need to put a tag.
 - void error(Context context, String message, DialogInterface.OnClickListener onClickListener)
 - void error(Context context, String message)
 
+### Skeleton.Graphics
+
+- Bitmap decodeUri(final Context context, final Uri uri, final Integer downsample)
+- Bitmap decodeUri(final Context context, final Uri uri)
+- Bitmap bitmapFromUri(final Context context, final Uri uri)
+- Bitmap bitmapFromDrawable(final Drawable drawable)
+- Bitmap rotateBitmap(Bitmap bitmap, float degrees)
+- Drawable drawableFromBitmap(Context context, Bitmap bitmap)
+- Drawable indeterminateDrawable(Context context)
+
 ...
 
 ## SkeletonActivity

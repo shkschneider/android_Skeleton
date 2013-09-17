@@ -32,7 +32,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
-import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.LocationListener;
@@ -47,7 +46,6 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.os.PowerManager;
 import android.provider.MediaStore;
 import android.provider.Settings;
@@ -2224,7 +2222,7 @@ public abstract class Skeleton {
                                     try {
                                         final InputStream inputStream = context.getContentResolver().openInputStream(uri);
                                         if (inputStream != null) {
-                                            return decodeUri(context, uri);
+                                            return Graphics.decodeUri(context, uri);
                                         }
                                         else {
                                             Log.w("InputStream was NULL");
@@ -2302,169 +2300,117 @@ public abstract class Skeleton {
 
     }
 
-    public static Bitmap decodeUri(final Context context, final Uri uri, final Integer downsample) throws FileNotFoundException {
-        if (context != null) {
-            final BitmapFactory.Options bitmapFactoryOptionsTmp = new BitmapFactory.Options();
-            bitmapFactoryOptionsTmp.inJustDecodeBounds = true;
-            final InputStream inputStream = context.getContentResolver().openInputStream(uri);
-            if (inputStream != null) {
-                BitmapFactory.decodeStream(inputStream, null, bitmapFactoryOptionsTmp);
+    public static class Graphics {
 
-                int width = bitmapFactoryOptionsTmp.outWidth;
-                int height = bitmapFactoryOptionsTmp.outHeight;
-                int scale = 1;
-                if (downsample > 0) {
-                    while (true) {
-                        if (width / 2 < downsample || height / 2 < downsample) {
-                            break ;
+        public static Bitmap decodeUri(final Context context, final Uri uri, final Integer downsample) {
+            if (context != null) {
+                final BitmapFactory.Options bitmapFactoryOptionsTmp = new BitmapFactory.Options();
+                bitmapFactoryOptionsTmp.inJustDecodeBounds = true;
+                try {
+                    final InputStream inputStream = context.getContentResolver().openInputStream(uri);
+                    if (inputStream != null) {
+                        BitmapFactory.decodeStream(inputStream, null, bitmapFactoryOptionsTmp);
+
+                        int width = bitmapFactoryOptionsTmp.outWidth;
+                        int height = bitmapFactoryOptionsTmp.outHeight;
+                        int scale = 1;
+                        if (downsample > 0) {
+                            while (true) {
+                                if (width / 2 < downsample || height / 2 < downsample) {
+                                    break ;
+                                }
+                                width /= 2;
+                                height /= 2;
+                                scale *= 2;
+                            }
+                            final BitmapFactory.Options bitmapFactoryOptions = new BitmapFactory.Options();
+                            bitmapFactoryOptions.inJustDecodeBounds = false;
+                            bitmapFactoryOptions.inSampleSize = scale;
+                            bitmapFactoryOptions.inPurgeable = true;
+                            return BitmapFactory.decodeStream(inputStream, null, bitmapFactoryOptions);
                         }
-                        width /= 2;
-                        height /= 2;
-                        scale *= 2;
-                    }
-                    final BitmapFactory.Options bitmapFactoryOptions = new BitmapFactory.Options();
-                    bitmapFactoryOptions.inJustDecodeBounds = false;
-                    bitmapFactoryOptions.inSampleSize = scale;
-                    bitmapFactoryOptions.inPurgeable = true;
-                    return BitmapFactory.decodeStream(inputStream, null, bitmapFactoryOptions);
-                }
-                else {
-                    Log.w("Downsample was negative");
-                }
-            }
-            else {
-                Log.w("InputStream was NULL");
-            }
-        }
-        else {
-            Log.w("Context was NULL");
-        }
-        return null;
-    }
-
-    private static Bitmap decodeUri(final Context context, final Uri uri) throws FileNotFoundException {
-        return decodeUri(context, uri, Screen.density(context));
-    }
-
-    public static Bitmap bitmapFromUri(final Context context, final Uri uri) {
-        if (context != null) {
-            try {
-                final BitmapFactory.Options options = new BitmapFactory.Options();
-                return BitmapFactory.decodeStream(context.getContentResolver().openInputStream(uri), null, options);
-            }
-            catch (FileNotFoundException e) {
-                Log.e("FileNotFoundException: " + e.getMessage());
-            }
-        }
-        else {
-            Log.w("Context was NULL");
-        }
-        return null;
-    }
-
-    public static Bitmap bitmapFromDrawable(final Drawable drawable) {
-        if (drawable != null) {
-            if (drawable instanceof BitmapDrawable) {
-                return ((BitmapDrawable)drawable).getBitmap();
-            }
-
-            final Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-            final Canvas canvas = new Canvas(bitmap);
-            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-            drawable.draw(canvas);
-
-            return bitmap;
-        }
-        else {
-            Log.w("Drawable was NULL");
-        }
-        return null;
-    }
-
-    public static Drawable drawableFromBitmap(final Context context, final Bitmap bitmap) {
-        return new BitmapDrawable(context.getResources(), bitmap);
-    }
-
-    public static Bitmap rotateBitmap(final Context context, final int id, final float degrees) {
-        if (context != null) {
-            final Bitmap oldBitmap = BitmapFactory.decodeResource(context.getResources(), id);
-            final Matrix matrix = new Matrix();
-            matrix.postRotate(degrees);
-            return Bitmap.createBitmap(oldBitmap, 0, 0, oldBitmap.getWidth(), oldBitmap.getHeight(), matrix, true);
-        }
-        else {
-            Log.w("Context was NULL");
-        }
-        return null;
-    }
-
-    public static Drawable rotateDrawable(final Context context, final int id, final float degrees) {
-        if (context != null) {
-            return new BitmapDrawable(context.getResources(), rotateBitmap(context, id, degrees));
-        }
-        else {
-            Log.w("Context was NULL");
-        }
-        return null;
-    }
-
-    public static void animate(final AnimationDrawable animationDrawable, final AnimationCallback callback, final Long time) {
-        if (animationDrawable != null) {
-            animationDrawable.start();
-
-            if (time > 0) {
-                animateListener(animationDrawable, callback, time);
-            }
-            else {
-                Log.w("Time was negative");
-            }
-        }
-        else {
-            Log.w("AnimationDrawable was NULL");
-        }
-    }
-
-    public static Drawable indeterminateDrawable(final Context context) {
-        if (context != null) {
-            return new ProgressBar(context).getIndeterminateDrawable();
-        }
-        else {
-            Log.w("Context was NULL");
-        }
-        return null;
-    }
-
-    public static void animate(final AnimationDrawable animationDrawable, final AnimationCallback callback) {
-        animate(animationDrawable, callback, 100L);
-    }
-
-    private static void animateListener(final AnimationDrawable animationDrawable, final AnimationCallback callback, final Long time) {
-        if (animationDrawable != null) {
-            new Handler().postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    if (animationDrawable.getCurrent() != animationDrawable.getFrame(animationDrawable.getNumberOfFrames() - 1)) {
-                        animateListener(animationDrawable, callback, time);
-                    }
-                    else if (callback != null) {
-                        callback.animationCallback();
+                        else {
+                            Log.w("Downsample was negative");
+                        }
                     }
                     else {
-                        Log.w("Callback was NULL");
+                        Log.w("InputStream was NULL");
                     }
                 }
-
-            }, time);
+                catch (FileNotFoundException e) {
+                    Log.e("FileNotFoundException: " + e.getMessage());
+                }
+            }
+            else {
+                Log.w("Context was NULL");
+            }
+            return null;
         }
-        else {
-            Log.w("AnimationDrawable was NULL");
+
+        private static Bitmap decodeUri(final Context context, final Uri uri) {
+            return decodeUri(context, uri, Screen.density(context));
         }
-    }
 
-    public static interface AnimationCallback {
+        public static Bitmap bitmapFromUri(final Context context, final Uri uri) {
+            if (context != null) {
+                try {
+                    final BitmapFactory.Options options = new BitmapFactory.Options();
+                    return BitmapFactory.decodeStream(context.getContentResolver().openInputStream(uri), null, options);
+                }
+                catch (FileNotFoundException e) {
+                    Log.e("FileNotFoundException: " + e.getMessage());
+                }
+            }
+            else {
+                Log.w("Context was NULL");
+            }
+            return null;
+        }
 
-        public void animationCallback();
+        public static Bitmap bitmapFromDrawable(final Drawable drawable) {
+            if (drawable != null) {
+                if (drawable instanceof BitmapDrawable) {
+                    return ((BitmapDrawable) drawable).getBitmap();
+                }
+
+                final Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+                final Canvas canvas = new Canvas(bitmap);
+                drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+                drawable.draw(canvas);
+
+                return bitmap;
+            }
+            else {
+                Log.w("Drawable was NULL");
+            }
+            return null;
+        }
+
+        public static Bitmap rotateBitmap(final Bitmap bitmap, final float degrees) {
+            if (bitmap != null) {
+                final Matrix matrix = new Matrix();
+                matrix.postRotate(degrees);
+                return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+            }
+            else {
+                Log.w("Bitmap was NULL");
+            }
+            return null;
+        }
+
+        public static Drawable drawableFromBitmap(final Context context, final Bitmap bitmap) {
+            return new BitmapDrawable(context.getResources(), bitmap);
+        }
+
+        public static Drawable indeterminateDrawable(final Context context) {
+            if (context != null) {
+                return new ProgressBar(context).getIndeterminateDrawable();
+            }
+            else {
+                Log.w("Context was NULL");
+            }
+            return null;
+        }
 
     }
 
