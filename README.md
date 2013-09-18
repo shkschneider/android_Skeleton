@@ -125,7 +125,7 @@ Get StackTrace automatically - no need to put a tag.
 - void croutonInfo(Activity activity, String text)
 - void croutonConfirm(Activity activity, String text)
 - void croutonAlert(Activity activity, String text)
-- void onDestroy()
+- void onDestroy(Activity activity)
 - NotificationManager notificationManager(Context context)
 - Notification notification(Context context, int smallIcon, String title, String message, PendingIntent pendingIntent)
 - Notification notification(Context context, int smallIcon, String title, String message)

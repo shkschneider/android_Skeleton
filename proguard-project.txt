@@ -5,7 +5,8 @@
 
 # <http://stackoverflow.com/questions/13402408>
 -keep class com.actionbarsherlock.** { *; }
--keep class com.devspark.appmsg.** { *; }
+-keep class com.devspark.** { *; }
+-keep class de.keyboardsurfer.** { *; }
 -keep class com.androidquery.** { *; }
 -dontwarn com.androidquery.**
 -keep class com.testflightapp.** { *; }

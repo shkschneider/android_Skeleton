@@ -212,13 +212,13 @@ public class SkeletonActivity extends SherlockListActivity {
                 "void", "Skeleton.Notification.toastLong()", "Context String"
         }));
         data.add(map("Notification.croutonInfo()", "Context-dependent", new String[] {
-                "void", "Skeleton.Notification.croutonInfo()", "Context String"
+                "void", "Skeleton.Notification.croutonInfo()", "Activity String"
         }));
         data.add(map("Notification.croutonConfirm()", "Context-dependent", new String[] {
-                "void", "Skeleton.Notification.croutonConfirm()", "Context String"
+                "void", "Skeleton.Notification.croutonConfirm()", "Activity String"
         }));
         data.add(map("Notification.croutonAlert()", "Context-dependent", new String[] {
-                "void", "Skeleton.Notification.croutonAlert()", "Context String"
+                "void", "Skeleton.Notification.croutonAlert()", "Activity String"
         }));
         data.add(map("Runtime.processors()", Skeleton.Runtime.processors().toString(), new String[] {
                 "Integer", "Skeleton.Runtime.processors()", "-"
@@ -261,9 +261,10 @@ public class SkeletonActivity extends SherlockListActivity {
             public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
                 final Map<String, String> map = data.get(position);
                 if (map != null) {
-                    Skeleton.Log.v(map.get("key"));
+                    final String key = map.get("key");
+                    Skeleton.Log.v(key);
                     new AlertDialog.Builder(SkeletonActivity.this)
-                            .setTitle(map.get("key"))
+                            .setTitle(key)
                             .setMessage(map.get("usage"))
                             .setNeutralButton(android.R.string.ok, null)
                             .setCancelable(true)

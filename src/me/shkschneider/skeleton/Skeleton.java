@@ -77,7 +77,6 @@ import com.androidquery.auth.FacebookHandle;
 import com.androidquery.callback.AbstractAjaxCallback;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
-import com.devspark.appmsg.AppMsg;
 import com.testflightapp.lib.TestFlight;
 
 import org.apache.http.HttpStatus;
@@ -105,6 +104,9 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
+
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
 
 /*
  * Skeleton
@@ -1394,7 +1396,7 @@ public abstract class Skeleton {
         public static void croutonInfo(final android.app.Activity activity, final java.lang.String text) {
             if (activity != null) {
                 if (! TextUtils.isEmpty(text)) {
-                    AppMsg.makeText(activity, text, AppMsg.STYLE_INFO).show();
+                    Crouton.makeText(activity, text, Style.INFO).show();
                 }
                 else {
                     Log.w("String was NULL");
@@ -1408,7 +1410,7 @@ public abstract class Skeleton {
         public static void croutonConfirm(final android.app.Activity activity, final java.lang.String text) {
             if (activity != null) {
                 if (! TextUtils.isEmpty(text)) {
-                    AppMsg.makeText(activity, text, AppMsg.STYLE_CONFIRM).show();
+                    Crouton.makeText(activity, text, Style.CONFIRM).show();
                 }
                 else {
                     Log.w("String was NULL");
@@ -1422,7 +1424,7 @@ public abstract class Skeleton {
         public static void croutonAlert(final android.app.Activity activity, final java.lang.String text) {
             if (activity != null) {
                 if (! TextUtils.isEmpty(text)) {
-                    AppMsg.makeText(activity, text, AppMsg.STYLE_ALERT).show();
+                    Crouton.makeText(activity, text, Style.ALERT).show();
                 }
                 else {
                     Log.w("String was NULL");
@@ -1433,8 +1435,13 @@ public abstract class Skeleton {
             }
         }
 
-        public static void onDestroy() {
-            AppMsg.cancelAll();
+        public static void onDestroy(final android.app.Activity activity) {
+            if (activity != null) {
+                Crouton.clearCroutonsForActivity(activity);
+            }
+            else {
+                Log.w("Activity was NULL");
+            }
         }
 
         public static NotificationManager notificationManager(final Context context) {
