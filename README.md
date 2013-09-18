@@ -132,8 +132,6 @@ Get StackTrace automatically - no need to put a tag.
 - Notification notification(Context context, int smallIcon, String title, String message)
 - void notify(NotificationManager notificationManager, Notification notification, Integer id)
 - void cancel(NotificationManager notificationManager, Integer id)
-- AlertDialog.Builder alertDialogBuilder(Context context, int style)
-- AlertDialog.Builder alertDialogBuilder(Context context)
 
 ### Skeleton.Runtime
 
@@ -238,6 +236,8 @@ Get StackTrace automatically - no need to put a tag.
 - void error(Context context, String message)
 - void showcase(Activity activity, int id, String title, String message, ShowcaseCallback callback)
 - void showcase(Activity activity, int id, String title, String message)
+- AlertDialog.Builder alertDialogBuilder(Context context, int style)
+- AlertDialog.Builder alertDialogBuilder(Context context)
 
 ### Skeleton.Graphics
 

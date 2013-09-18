@@ -1530,14 +1530,6 @@ public abstract class Skeleton {
             }
         }
 
-        public static AlertDialog.Builder alertDialogBuilder(final Context context, final int style) {
-            return new AlertDialog.Builder(new ContextThemeWrapper(context, style));
-        }
-
-        public static AlertDialog.Builder alertDialogBuilder(final Context context) {
-            return new AlertDialog.Builder(context);
-        }
-
     }
 
     public static class Runtime {
@@ -2539,6 +2531,26 @@ public abstract class Skeleton {
 
             public void showCaseCallback();
 
+        }
+
+        public static AlertDialog.Builder alertDialogBuilder(final Context context, final int style) {
+            if (context != null) {
+                return new AlertDialog.Builder(new ContextThemeWrapper(context, style));
+            }
+            else {
+                Log.w("Context was NULL");
+            }
+            return null;
+        }
+
+        public static AlertDialog.Builder alertDialogBuilder(final Context context) {
+            if (context != null) {
+                return new AlertDialog.Builder(context);
+            }
+            else {
+                Log.w("Context was NULL");
+            }
+            return null;
         }
 
     }
