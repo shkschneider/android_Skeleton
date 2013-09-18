@@ -68,7 +68,7 @@ all:
 update: all
 	@echo "==> Git"
 	@echo "- update"
-	@if [ -f ".gitmodules" ] ; then git submodule update --init > /dev/null || exit 1 ; fi
+	@if [ -f ".gitmodules" ] ; then git submodule --quiet update --init > /dev/null || exit 1 ; fi
 	@echo "==> Libraries"
 	@$(foreach p, $(shell find . -type f -name "AndroidManifest.xml"), mkdir -p $(shell dirname $p 2>/dev/null)/libs ;)
 	@echo "- libs"
@@ -119,7 +119,7 @@ release: update
 	@cp $(APK_RELEASE) $(APK) > /dev/null || exit 1
 	@echo "==> $(APK)"
 
-clean: all
+clean: update
 	@echo "==> Clean"
 	@$(ANT) -quiet clean > /dev/null || exit 1
 	@rm -rf $(ANT_LOG) > /dev/null || exit 1
