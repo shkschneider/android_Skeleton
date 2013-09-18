@@ -1,14 +1,23 @@
 # ProGuard
 
-# <http://stackoverflow.com/questions/18342694>
 -dontwarn org.msgpack.**
 
-# <http://stackoverflow.com/questions/13402408>
 -keep class com.actionbarsherlock.** { *; }
+-dontwarn com.actionbarsherlock.**
+
 -keep class com.devspark.** { *; }
+-dontwarn com.devspark.**
+
 -keep class de.keyboardsurfer.** { *; }
+-dontwarn de.keyboardsurfer.**
+
+-keep class com.github.espiandev.showcaseview.** { *; }
+-dontwarn com.github.espiandev.showcaseview.**
+
 -keep class com.androidquery.** { *; }
 -dontwarn com.androidquery.**
+
 -keep class com.testflightapp.** { *; }
+-dontwarn com.testflightapp.**
 
 # EOF
