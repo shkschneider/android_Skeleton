@@ -16,8 +16,10 @@ ADB = $(shell which adb 2>/dev/null)
 ADB_OPTS =
 ANT = $(shell which ant 2>/dev/null)
 ANT_PROPERTIES = "ant.properties"
-ANT_PROPERTIES_DEBUG = $(shell find . -maxdepth 1 -name "ant.debug" 2>/dev/null)
-ANT_PROPERTIES_RELEASE = $(shell find . -maxdepth 1 -name "ant.release" 2>/dev/null)
+ANT_DEBUG = "ant.debug"
+ANT_RELEASE = "ant.release"
+ANT_PROPERTIES_DEBUG = $(shell find . -maxdepth 1 -name $(ANT_DEBUG) 2>/dev/null)
+ANT_PROPERTIES_RELEASE = $(shell find . -maxdepth 1 -name $(ANT_RELEASE) 2>/dev/null)
 ANT_LOG = "build.log"
 ANT_OPTS = -logfile $(ANT_LOG)
 LINT = $(shell which lint 2>/dev/null)
@@ -68,14 +70,13 @@ update: all
 	@echo "- update"
 	@if [ -f ".gitmodules" ] ; then git submodule update --init > /dev/null || exit 1 ; fi
 	@echo "==> Libraries"
-	@echo "- sdk:$(shell echo $(SUPPORT) | sed -r 's#$(SDK)/##')"
-	@$(foreach p, $(shell find . -type d -name "libs"), cp $(SUPPORT) $p/ ;)
+	@$(foreach p, $(shell find . -type f -name "AndroidManifest.xml"), mkdir -p $(shell dirname $p 2>/dev/null)/libs ;)
+	@echo "- libs"
+	@$(foreach p, $(shell find . -type d -name "libs"), cp libs/*.jar $p/ 2>/dev/null ;)
 	@echo "- libs:actionbarsherlock"
 	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/actionbarsherlock/actionbarsherlock > /dev/null || exit 1
 	@echo "- libs:crouton"
 	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/crouton/library > /dev/null || exit 1
-	@echo "- libs:nineoldandroids"
-	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/nineoldandroids/library > /dev/null || exit 1
 	@echo "- libs:showcase"
 	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/showcase/library > /dev/null || exit 1
 	@echo "==> Projects"
@@ -89,7 +90,7 @@ check: all
 
 debug: update
 	@echo "==> Build"
-	@if [ -n "$(ANT_PROPERTIES_DEBUG)" ] ; then echo "- $(ANT_PROPERTIES)" ; fi
+	@echo "- $(ANT_PROPERTIES)"
 	@if [ -n "$(ANT_PROPERTIES_DEBUG)" ] ; then cp $(ANT_PROPERTIES_DEBUG) $(ANT_PROPERTIES) > /dev/null || exit 1 ; fi
 	@echo "- ant debug"
 	@$(ANT) $(ANT_OPTS) debug > /dev/null || (echo "E: see $(ANT_LOG) for details" ; exit 1)
@@ -101,8 +102,15 @@ debug: update
 
 release: update
 	@echo "==> Build"
-	@if [ -n "$(ANT_PROPERTIES_RELEASE)" ] ; then echo "- $(ANT_PROPERTIES)" ; fi
-	@if [ -n "$(ANT_PROPERTIES_RELEASE)" ] ; then cp $(ANT_PROPERTIES_RELEASE) $(ANT_PROPERTIES) > /dev/null || exit 1 ; fi
+	@echo "- $(ANT_PROPERTIES)"
+	@if [ -z "$(ANT_PROPERTIES_RELEASE)" ] ; then \
+		echo "E: no $(ANT_RELEASE)" ; \
+		echo "   key.store=" ; \
+		echo "   key.alias=" ; \
+		echo "   key.store.password=" ; \
+		echo "   key.alias.password=" ; \
+		exit 1 ; fi
+	@cp $(ANT_PROPERTIES_RELEASE) $(ANT_PROPERTIES) > /dev/null || exit 1
 	@echo "- ant debug"
 	@$(ANT) $(ANT_OPTS) release > /dev/null || (echo "E: see $(ANT_LOG) for details" ; exit 1)
 	@echo "==> Sign"
