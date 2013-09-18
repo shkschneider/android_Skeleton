@@ -125,6 +125,7 @@ Get StackTrace automatically - no need to put a tag.
 - void croutonInfo(Activity activity, String text)
 - void croutonConfirm(Activity activity, String text)
 - void croutonAlert(Activity activity, String text)
+- void onDestroy()
 - NotificationManager notificationManager(Context context)
 - Notification notification(Context context, int smallIcon, String title, String message, PendingIntent pendingIntent)
 - Notification notification(Context context, int smallIcon, String title, String message)
@@ -226,12 +227,8 @@ Get StackTrace automatically - no need to put a tag.
 
 ### Skeleton.Activity
 
-- void indeterminate(SherlockActivity sherlockActivity)
-- void indeterminate(SherlockListActivity sherlockListActivity)
-- void indeterminate(SherlockFragmentActivity sherlockFragmentActivity)
-- void indeterminate(SherlockActivity sherlockActivity, Boolean on)
-- void indeterminate(SherlockListActivity sherlockListActivity, Boolean on)
-- void indeterminate(SherlockFragmentActivity sherlockFragmentActivity, Boolean on)
+- void indeterminate(Object activity)
+- void indeterminate(Object activity, Boolean on)
 - void error(Context context, String message, DialogInterface.OnClickListener onClickListener)
 - void error(Context context, String message)
 

@@ -36,15 +36,15 @@ public class SkeletonActivity extends SherlockListActivity {
     private static final String AUTHOR_NAME = "ShkSchneider";
     private static final String AUTHOR_URL = "https://github.com/shkschneider/android_Skeleton";
 
-    private Map<String, String> map(final String key, final String value, final String[] infos) {
+    private Map<String, String> map(final String key, final String value, final String[] usage) {
         final Map<String, String> data = new HashMap<String, String>();
         data.put("key", key);
         data.put("value", value);
-        data.put("info", String.format("%s\n\nCall: %s\nTakes: %s\nReturns: %s",
+        data.put("usage", String.format("%s\n\nCall: %s\nTakes: %s\nReturns: %s",
                 Skeleton.Android.packageName(SkeletonActivity.this),
-                infos[1],
-                infos[2],
-                infos[0]
+                usage[1],
+                usage[2],
+                usage[0]
         ));
         return data;
     }
@@ -54,8 +54,6 @@ public class SkeletonActivity extends SherlockListActivity {
         super.onCreate(savedInstanceState);
         Skeleton.Activity.indeterminate(SkeletonActivity.this);
         setContentView(R.layout.skeleton);
-
-        refresh();
     }
 
     @Override
@@ -63,12 +61,11 @@ public class SkeletonActivity extends SherlockListActivity {
         super.onResume();
 
         new AlertDialog.Builder(SkeletonActivity.this)
-                .setMessage(String.format("%s\n\n%s %s\n\n%s\n%s",
+                .setMessage(String.format("%s\n%s\n%s\n%s",
                         "This is a skeleton application for Android.",
                         "It features a lot of static classes that could help developers.",
-                        "Everything is checked, so the execution should be stable ; but do note methods can return NULL!",
                         "Thanks for downloading!",
-                        "Get the code: shkschneider@github!"))
+                        "shkschneider@github"))
                 .setNeutralButton(android.R.string.ok, null)
                 .setCancelable(true)
                 .create()
@@ -202,6 +199,21 @@ public class SkeletonActivity extends SherlockListActivity {
         data.add(map("Network.ipAddresses()", Skeleton.Network.ipAddresses().toString(), new String[] {
                 "List<String>", "Skeleton.Network.ipAddresses()", "-"
         }));
+        data.add(map("Notification.toastShort()", "Context-independent", new String[] {
+                "void", "Skeleton.Notification.toastShort()", "Context String"
+        }));
+        data.add(map("Notification.toastLong()", "Context-independent", new String[] {
+                "void", "Skeleton.Notification.toastLong()", "Context String"
+        }));
+        data.add(map("Notification.croutonInfo()", "Context-dependent", new String[] {
+                "void", "Skeleton.Notification.croutonInfo()", "Context String"
+        }));
+        data.add(map("Notification.croutonConfirm()", "Context-dependent", new String[] {
+                "void", "Skeleton.Notification.croutonConfirm()", "Context String"
+        }));
+        data.add(map("Notification.croutonAlert()", "Context-dependent", new String[] {
+                "void", "Skeleton.Notification.croutonAlert()", "Context String"
+        }));
         data.add(map("Runtime.processors()", Skeleton.Runtime.processors().toString(), new String[] {
                 "Integer", "Skeleton.Runtime.processors()", "-"
         }));
@@ -236,6 +248,7 @@ public class SkeletonActivity extends SherlockListActivity {
                 new String[] { "key", "value" },
                 new int[] { android.R.id.text1, android.R.id.text2 }
         ));
+
         getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -245,7 +258,7 @@ public class SkeletonActivity extends SherlockListActivity {
                     Skeleton.Log.v(map.get("key"));
                     new AlertDialog.Builder(SkeletonActivity.this)
                             .setTitle(map.get("key"))
-                            .setMessage(map.get("info"))
+                            .setMessage(map.get("usage"))
                             .setNeutralButton(android.R.string.ok, null)
                             .setCancelable(true)
                             .create()
@@ -258,7 +271,7 @@ public class SkeletonActivity extends SherlockListActivity {
 
         });
 
-        Skeleton.Activity.indeterminate(SkeletonActivity.this, true);
+        Skeleton.Activity.indeterminate(SkeletonActivity.this, false);
     }
 
     @Override
