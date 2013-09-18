@@ -72,8 +72,6 @@ update: all
 	@$(foreach p, $(shell find . -type d -name "libs"), cp $(SUPPORT) $p/ ;)
 	@echo "- libs:actionbarsherlock"
 	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/actionbarsherlock/actionbarsherlock > /dev/null || exit 1
-	@echo "- libs:appmsg"
-	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/appmsg/library > /dev/null || exit 1
 	@echo "- libs:crouton"
 	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/crouton/library > /dev/null || exit 1
 	@echo "==> Projects"
