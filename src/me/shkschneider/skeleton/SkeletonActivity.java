@@ -36,6 +36,8 @@ public class SkeletonActivity extends SherlockListActivity {
     private static final String AUTHOR_NAME = "ShkSchneider";
     private static final String AUTHOR_URL = "https://github.com/shkschneider/android_Skeleton";
 
+    private Boolean mRefreshing;
+
     private Map<String, String> map(final String key, final String value, final String[] usage) {
         final Map<String, String> data = new HashMap<String, String>();
         data.put("key", key);
@@ -54,6 +56,8 @@ public class SkeletonActivity extends SherlockListActivity {
         super.onCreate(savedInstanceState);
         Skeleton.Activity.indeterminate(SkeletonActivity.this);
         setContentView(R.layout.skeleton);
+
+        mRefreshing = false;
     }
 
     @Override
@@ -75,7 +79,9 @@ public class SkeletonActivity extends SherlockListActivity {
     }
 
     private void refresh() {
-        Skeleton.Activity.indeterminate(SkeletonActivity.this, true);
+        mRefreshing = true;
+        invalidateOptionsMenu();
+        Skeleton.Activity.indeterminate(SkeletonActivity.this, mRefreshing);
 
         final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 
@@ -271,11 +277,16 @@ public class SkeletonActivity extends SherlockListActivity {
 
         });
 
-        Skeleton.Activity.indeterminate(SkeletonActivity.this, false);
+        mRefreshing = false;
+        invalidateOptionsMenu();
+        Skeleton.Activity.indeterminate(SkeletonActivity.this, mRefreshing);
     }
 
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
+        if (mRefreshing) {
+            return false;
+        }
         getSupportMenuInflater().inflate(R.menu.skeleton, menu);
         return super.onCreateOptionsMenu(menu);
     }
