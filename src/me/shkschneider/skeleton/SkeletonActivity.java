@@ -198,6 +198,9 @@ public class SkeletonActivity extends SherlockListActivity {
         data.add(map("Network.online()", Skeleton.Network.online(SkeletonActivity.this).toString(), new String[] {
                 "Boolean", "Skeleton.Network.online()", "Context"
         }));
+        data.add(map("Network.wifi()", Skeleton.Network.wifi(SkeletonActivity.this).toString(), new String[] {
+                "Boolean", "Skeleton.Network.wifi()", "Context"
+        }));
         data.add(map("Network.macAddress()", Skeleton.Network.macAddress(SkeletonActivity.this), new String[] {
                 "String", "Skeleton.Network.macAddress()", "Context"
         }));
