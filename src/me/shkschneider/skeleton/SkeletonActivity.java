@@ -15,7 +15,6 @@
  */
 package me.shkschneider.skeleton;
 
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -105,7 +104,7 @@ public class SkeletonActivity extends SherlockListActivity {
         data.add(map("Android.id()", Skeleton.Android.id(SkeletonActivity.this), new String[] {
                 "String", "Skeleton.Android.id()", "Context"
         }));
-        data.add(map("Android.deviceId()", Skeleton.Android.deviceId(SkeletonActivity.this), new String[] {
+        data.add(map("Android.deviceId()", Skeleton.Android.deviceId(SkeletonActivity.this), new String[]{
                 "String", "Skeleton.Android.deviceId()", "Context"
         }));
         data.add(map("Android.uuid()", Skeleton.Android.uuid(SkeletonActivity.this), new String[] {
@@ -268,7 +267,7 @@ public class SkeletonActivity extends SherlockListActivity {
                 if (map != null) {
                     final String key = map.get("key");
                     Skeleton.Log.v(key);
-                    new AlertDialog.Builder(SkeletonActivity.this)
+                    Skeleton.Notification.alertDialogBuilder(SkeletonActivity.this, R.style.Theme_Skeleton_Dialog_Light)
                             .setTitle(key)
                             .setMessage(map.get("usage"))
                             .setNeutralButton(android.R.string.ok, null)
@@ -304,7 +303,7 @@ public class SkeletonActivity extends SherlockListActivity {
                 startActivity(new Intent(SkeletonActivity.this, SkeletonActivity.class));
                 break ;
             case R.id.author:
-                new AlertDialog.Builder(SkeletonActivity.this)
+                Skeleton.Notification.alertDialogBuilder(SkeletonActivity.this, R.style.Theme_Skeleton_Dialog_Light)
                         .setTitle(AUTHOR_NAME)
                         .setMessage(AUTHOR_URL)
                         .setNegativeButton(android.R.string.ok, null)
@@ -313,7 +312,7 @@ public class SkeletonActivity extends SherlockListActivity {
                         .show();
                 break ;
             case R.id.license:
-                new AlertDialog.Builder(SkeletonActivity.this)
+                Skeleton.Notification.alertDialogBuilder(SkeletonActivity.this, R.style.Theme_Skeleton_Dialog_Light)
                         .setTitle("Apache 2.0")
                         .setView(Skeleton.WebView.fromHtml(SkeletonActivity.this,
                                 Skeleton.File.readString(Skeleton.File.openRaw(SkeletonActivity.this, R.raw.license)).replaceAll("\n", "<br />")

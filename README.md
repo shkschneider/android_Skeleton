@@ -132,6 +132,8 @@ Get StackTrace automatically - no need to put a tag.
 - Notification notification(Context context, int smallIcon, String title, String message)
 - void notify(NotificationManager notificationManager, Notification notification, Integer id)
 - void cancel(NotificationManager notificationManager, Integer id)
+- AlertDialog.Builder alertDialogBuilder(Context context, int style)
+- AlertDialog.Builder alertDialogBuilder(Context context)
 
 ### Skeleton.Runtime
 

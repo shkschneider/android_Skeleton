@@ -57,6 +57,7 @@ import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Patterns;
 import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -1527,6 +1528,14 @@ public abstract class Skeleton {
             else {
                 Log.w("NotificationManager was NULL");
             }
+        }
+
+        public static AlertDialog.Builder alertDialogBuilder(final Context context, final int style) {
+            return new AlertDialog.Builder(new ContextThemeWrapper(context, style));
+        }
+
+        public static AlertDialog.Builder alertDialogBuilder(final Context context) {
+            return new AlertDialog.Builder(context);
         }
 
     }
