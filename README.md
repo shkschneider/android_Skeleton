@@ -181,6 +181,7 @@ Get StackTrace automatically - no need to put a tag.
 
 - WebService(Context context, Integer id, String url)
 - void run(WebServiceCallback callback)
+- void run()
 - class Response
     - Integer code
     - Boolean success
@@ -197,6 +198,7 @@ Get StackTrace automatically - no need to put a tag.
 ### Skeleton.Location
 
 - Location(Context context, LocationCallback locationCallback)
+- Location(Context context)
 - Location Location start(Boolean gps)
 - void stop()
 - Location location()
@@ -231,6 +233,8 @@ Get StackTrace automatically - no need to put a tag.
 - void indeterminate(Object activity, Boolean on)
 - void error(Context context, String message, DialogInterface.OnClickListener onClickListener)
 - void error(Context context, String message)
+- void showcase(Activity activity, int id, String title, String message, ShowcaseCallback callback)
+- void showcase(Activity activity, int id, String title, String message)
 
 ### Skeleton.Graphics
 

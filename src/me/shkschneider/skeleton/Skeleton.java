@@ -32,6 +32,7 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -77,6 +78,7 @@ import com.androidquery.auth.FacebookHandle;
 import com.androidquery.callback.AbstractAjaxCallback;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
+import com.github.espiandev.showcaseview.ShowcaseView;
 import com.testflightapp.lib.TestFlight;
 
 import org.apache.http.HttpStatus;
@@ -1882,6 +1884,10 @@ public abstract class Skeleton {
             }
         }
 
+        public void run() {
+            run(null);
+        }
+
         public static class Response {
 
             public Integer code;
@@ -2029,6 +2035,10 @@ public abstract class Skeleton {
             else {
                 Log.w("Context was NULL");
             }
+        }
+
+        public Location(final Context context) {
+            this(context, null);
         }
 
         public android.location.Location start(final Boolean gps) {
@@ -2443,6 +2453,62 @@ public abstract class Skeleton {
 
         public static void error(final Context context, final java.lang.String message) {
             error(context, message, null);
+        }
+
+        public static void showcase(final android.app.Activity activity, final int id, final java.lang.String title, final java.lang.String message, final ShowcaseCallback callback) {
+            if (activity != null) {
+                if (id > 0) {
+                    if (! TextUtils.isEmpty(title)) {
+                        if (! TextUtils.isEmpty(message)) {
+                            final ShowcaseView.ConfigOptions configOptions = new ShowcaseView.ConfigOptions();
+                            final ShowcaseView showcaseView = ShowcaseView.insertShowcaseView(android.R.id.home,
+                                    activity,
+                                    title,
+                                    message,
+                                    configOptions);
+                            showcaseView.setBackgroundColor(Color.parseColor("#AA000000"));
+                            if (callback != null) {
+                                showcaseView.setOnShowcaseEventListener(new ShowcaseView.OnShowcaseEventListener() {
+
+                                    @Override
+                                    public void onShowcaseViewHide(final ShowcaseView showcaseView) {
+                                        callback.showCaseCallback();
+                                    }
+
+                                    @Override
+                                    public void onShowcaseViewShow(final ShowcaseView showcaseView) {
+                                    }
+
+                                });
+                            }
+                            showcaseView.show();
+                        }
+                        else {
+                            Log.w("Message was NULL");
+                        }
+                    }
+                    else {
+                        Log.w("Title was NULL");
+                    }
+                }
+                else {
+                    Log.w("Id was invalid");
+                }
+            }
+            else {
+                Log.w("Activity was NULL");
+            }
+
+        }
+
+        public static void showcase(final android.app.Activity activity, final int id, final java.lang.String title, final java.lang.String message) {
+            showcase(activity, id, title, message, null);
+        }
+
+        public interface ShowcaseCallback {
+
+            public void showCaseCallback();
+
         }
 
     }

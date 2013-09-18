@@ -6,4 +6,11 @@
 	path = libs/crouton
 	url = https://github.com/keyboardsurfer/Crouton.git
         ignore = dirty
-
+[submodule "libs/nineoldandroids"]
+	path = libs/nineoldandroids
+	url = https://github.com/JakeWharton/NineOldAndroids.git
+        ignore = dirty
+[submodule "libs/showcase"]
+	path = libs/showcase
+	url = https://github.com/Espiandev/ShowcaseView.git
+        ignore = dirty

@@ -64,16 +64,15 @@ public class SkeletonActivity extends SherlockListActivity {
     protected void onResume() {
         super.onResume();
 
-        new AlertDialog.Builder(SkeletonActivity.this)
-                .setMessage(String.format("%s\n%s\n%s\n%s",
+        Skeleton.Activity.showcase(SkeletonActivity.this,
+                android.R.id.home,
+                Skeleton.Android.name(SkeletonActivity.this),
+                String.format("%s\n%s\n%s\n%s",
                         "This is a skeleton application for Android.",
                         "It features a lot of static classes that could help developers.",
                         "Thanks for downloading!",
-                        "shkschneider@github"))
-                .setNeutralButton(android.R.string.ok, null)
-                .setCancelable(true)
-                .create()
-                .show();
+                        "Get the code: shkschneider@github!"),
+                null);
 
         refresh();
     }
@@ -244,8 +243,11 @@ public class SkeletonActivity extends SherlockListActivity {
         data.add(map("Screen.width()", Skeleton.Screen.width(SkeletonActivity.this).toString(), new String[] {
                 "Integer", "Skeleton.Screen.width()", "Context"
         }));
-        data.add(map("Screen.orientation()", Skeleton.Screen.orientation(SkeletonActivity.this).toString(), new String[]{
+        data.add(map("Screen.orientation()", Skeleton.Screen.orientation(SkeletonActivity.this).toString(), new String[] {
                 "Integer", "Skeleton.Screen.orientation()", "Context"
+        }));
+        data.add(map("Activity.showcase()", "Showcase an id (with callback)", new String[] {
+                "void", "Skeleton.Activity.showcase()", "Activity int String String"
         }));
 
         setListAdapter(new SimpleAdapter(SkeletonActivity.this,
