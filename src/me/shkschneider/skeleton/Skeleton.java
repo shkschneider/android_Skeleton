@@ -1305,12 +1305,33 @@ public abstract class Skeleton {
         }
 
         public static Boolean online(final Context context) {
-            final NetworkInfo networkInfo = ((ConnectivityManager) System.systemService(context, System.SYSTEM_SERVICE_CONNECTIVITY)).getActiveNetworkInfo();
-            if (networkInfo != null) {
-                return networkInfo.isConnected();
+            if (context != null) {
+                final NetworkInfo networkInfo = ((ConnectivityManager) System.systemService(context, System.SYSTEM_SERVICE_CONNECTIVITY)).getActiveNetworkInfo();
+                if (networkInfo != null) {
+                    return networkInfo.isConnected();
+                }
+                else {
+                    Log.w("NetworkInfo was NULL");
+                }
             }
             else {
-                Log.w("NetworkInfo was NULL");
+                Log.w("Context was NULL");
+            }
+            return false;
+        }
+
+        public static Boolean wifi(final Context context) {
+            if (context != null) {
+                final WifiManager wifiManager = ((WifiManager) System.systemService(context, System.SYSTEM_SERVICE_WIFI));
+                if (wifiManager != null) {
+                    return (wifiManager.getWifiState() == WifiManager.WIFI_STATE_ENABLED);
+                }
+                else {
+                    Log.w("NetworkInfo was NULL");
+                }
+            }
+            else {
+                Log.w("Context was NULL");
             }
             return false;
         }

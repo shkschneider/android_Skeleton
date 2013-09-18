@@ -114,6 +114,7 @@ Get StackTrace automatically - no need to put a tag.
 - String defaultUserAgent()
 - String userAgent(Context context)
 - Boolean online(Context context)
+- Boolean wifi(Context context)
 - String macAddress(Context context)
 - Boolean validUrl(String url)
 - List<String> ipAddresses()
