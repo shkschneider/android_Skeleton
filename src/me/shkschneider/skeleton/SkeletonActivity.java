@@ -267,7 +267,7 @@ public class SkeletonActivity extends SherlockListActivity {
                 if (map != null) {
                     final String key = map.get("key");
                     Skeleton.Log.v(key);
-                    Skeleton.Notification.alertDialogBuilder(SkeletonActivity.this, R.style.Theme_Skeleton_Dialog_Light)
+                    Skeleton.Activity.alertDialogBuilder(SkeletonActivity.this, R.style.Theme_Skeleton_Dialog_Light)
                             .setTitle(key)
                             .setMessage(map.get("usage"))
                             .setNeutralButton(android.R.string.ok, null)
@@ -303,7 +303,7 @@ public class SkeletonActivity extends SherlockListActivity {
                 startActivity(new Intent(SkeletonActivity.this, SkeletonActivity.class));
                 break ;
             case R.id.author:
-                Skeleton.Notification.alertDialogBuilder(SkeletonActivity.this, R.style.Theme_Skeleton_Dialog_Light)
+                Skeleton.Activity.alertDialogBuilder(SkeletonActivity.this, R.style.Theme_Skeleton_Dialog_Light)
                         .setTitle(AUTHOR_NAME)
                         .setMessage(AUTHOR_URL)
                         .setNegativeButton(android.R.string.ok, null)
@@ -312,7 +312,7 @@ public class SkeletonActivity extends SherlockListActivity {
                         .show();
                 break ;
             case R.id.license:
-                Skeleton.Notification.alertDialogBuilder(SkeletonActivity.this, R.style.Theme_Skeleton_Dialog_Light)
+                Skeleton.Activity.alertDialogBuilder(SkeletonActivity.this, R.style.Theme_Skeleton_Dialog_Light)
                         .setTitle("Apache 2.0")
                         .setView(Skeleton.WebView.fromHtml(SkeletonActivity.this,
                                 Skeleton.File.readString(Skeleton.File.openRaw(SkeletonActivity.this, R.raw.license)).replaceAll("\n", "<br />")
