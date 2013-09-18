@@ -19,7 +19,6 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.Application;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -80,7 +79,6 @@ import com.androidquery.callback.AbstractAjaxCallback;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.github.espiandev.showcaseview.ShowcaseView;
-import com.testflightapp.lib.TestFlight;
 
 import org.apache.http.HttpStatus;
 import org.apache.http.conn.util.InetAddressUtils;
@@ -192,10 +190,6 @@ public abstract class Skeleton {
                     android.util.Log.e(tag, "[" + stack + "] " + msg);
                     break ;
             }
-
-            if (TestFlight.isActive()) {
-                TestFlight.log("[" + stack + "] " + msg);
-            }
         }
 
         public static void v(final java.lang.String msg) {
@@ -218,15 +212,6 @@ public abstract class Skeleton {
             log(ERROR, msg);
         }
 
-        public static void checkpoint(final java.lang.String name) {
-            if (TestFlight.isActive()) {
-                TestFlight.passCheckpoint(name);
-            }
-            else {
-                Skeleton.Log.d("TestFlight was inactive");
-            }
-        }
-
     }
 
     public static class Android {
@@ -247,25 +232,6 @@ public abstract class Skeleton {
         public static final int API_16 = Build.VERSION_CODES.JELLY_BEAN;
         public static final int API_17 = Build.VERSION_CODES.JELLY_BEAN_MR1;
         public static final int API_18 = Build.VERSION_CODES.JELLY_BEAN_MR2;
-
-        public static void testFlight(final Application application, final java.lang.String token) {
-            if (application != null) {
-                if (! TextUtils.isEmpty(token)) {
-                    if (! TestFlight.isActive()) {
-                        TestFlight.takeOff(application, token);
-                    }
-                    else {
-                        Skeleton.Log.d("TestFlight was active");
-                    }
-                }
-                else {
-                    Skeleton.Log.w("ApiKey was NULL");
-                }
-            }
-            else {
-                Skeleton.Log.w("Application was NULL");
-            }
-        }
 
         // If SCREENLAYOUT_SIZE is XLARGE for API >= HONEYCOMB
 

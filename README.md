@@ -17,12 +17,10 @@ Get StackTrace automatically - no need to put a tag.
 - void i(String msg)
 - void w(String msg)
 - void e(String msg)
-- void checkpoint(String name)
 
 ### Skeleton.Android
 
 - int API_[...]
-- void testFlight(Application application, String token)
 - String account(Context context)
 - String signature(Context context)
 - Boolean tablet(Context context)
