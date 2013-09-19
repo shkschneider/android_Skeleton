@@ -89,7 +89,7 @@ update: all
 	@echo "- libs:showcase"
 	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/showcase/library > /dev/null || exit 1
 	@$(foreach p, $(shell find . -type f -name "AndroidManifest.xml"), mkdir -p $(shell dirname $p 2>/dev/null)/libs ;)
-	@echo "- libs/*.jar"
+	@echo "- libs:*.jar"
 	@$(foreach p, $(shell find . -type d -name "libs"), cp libs/*.jar $p/ 2>/dev/null ;)
 	@echo "==> Projects"
 	@echo "- $(PACKAGE)"
