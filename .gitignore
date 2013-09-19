@@ -39,3 +39,6 @@ android-support-v*.jar
 ant.properties
 ant.debug
 ant.release
+
+# Keystores
+*.keystore
