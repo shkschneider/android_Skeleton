@@ -80,7 +80,7 @@ all:
 update: all
 	@echo "==> Git"
 	@echo "- update"
-	@if [ -f ".gitmodules" ] ; then git submodule --quiet update --init > /dev/null || exit 1 ; fi
+	@if [ -f ".gitmodules" ] ; then git submodule update --init || exit 1 ; fi
 	@echo "==> Libraries"
 	@echo "- libs:actionbarsherlock"
 	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/actionbarsherlock/actionbarsherlock > /dev/null || exit 1
