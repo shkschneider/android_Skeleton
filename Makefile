@@ -89,6 +89,8 @@ update: all
 	@echo "- libs:showcase"
 	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/showcase/library > /dev/null || exit 1
 	@$(foreach p, $(shell find . -type f -name "AndroidManifest.xml"), mkdir -p $(shell dirname $p 2>/dev/null)/libs ;)
+	@echo "- $(SUPPORT)"
+	@cp $(SUPPORT) libs/ 2>/dev/null
 	@echo "- libs:*.jar"
 	@$(foreach p, $(shell find . -type d -name "libs"), cp libs/*.jar $p/ 2>/dev/null ;)
 	@echo "==> Projects"
@@ -105,7 +107,7 @@ debug: update
 	@echo "- $(ANT_PROPERTIES)"
 	@if [ -n "$(ANT_PROPERTIES_DEBUG)" ] ; then cp $(ANT_PROPERTIES_DEBUG) $(ANT_PROPERTIES) > /dev/null || exit 1 ; fi
 	@echo "- ant debug"
-	@$(ANT) $(ANT_OPTS) debug > /dev/null || (echo "E: see $(ANT_LOG) for details" >&2 ; exit 1)
+	@$(ANT) $(ANT_OPTS) debug > /dev/null || (echo "Failure: see $(ANT_LOG) for details" >&2 ; exit 1)
 	@echo "==> Sign"
 	@if [ -n "$(SIGN)" ] ; then echo "- $(SIGN)" ; fi
 	@echo "==> Debug"
@@ -124,7 +126,7 @@ release: update
 		exit 1 ; fi
 	@cp $(ANT_PROPERTIES_RELEASE) $(ANT_PROPERTIES) > /dev/null || exit 1
 	@echo "- ant debug"
-	@$(ANT) $(ANT_OPTS) release > /dev/null || (echo "E: see $(ANT_LOG) for details" >&2 ; exit 1)
+	@$(ANT) $(ANT_OPTS) release > /dev/null || (echo "Failure: see $(ANT_LOG) for details" >&2 ; exit 1)
 	@echo "==> Sign"
 	@if [ -n "$(SIGN)" ] ; then echo "- $(SIGN)" ; fi
 	@echo "==> Release"
