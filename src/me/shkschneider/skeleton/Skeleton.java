@@ -141,13 +141,13 @@ public abstract class Skeleton {
 
     public static class Log {
 
-        private static final int VERBOSE = 10;
-        private static final int DEBUG = 20;
-        private static final int INFO = 30;
-        private static final int WARN = 40;
-        private static final int ERROR = 50;
+        public static final int VERBOSE = 10;
+        public static final int DEBUG = 20;
+        public static final int INFO = 30;
+        public static final int WARN = 40;
+        public static final int ERROR = 50;
 
-        private static void log(final int state, final java.lang.String msg) {
+        public static void log(final int state, final java.lang.String msg) {
             final java.lang.String tag = SkeletonApplication.TAG;
 
             // Uses StackTrace to build the log tag
@@ -429,7 +429,7 @@ public abstract class Skeleton {
             return 0;
         }
 
-        private static final java.lang.String ACCOUNT_GOOGLE = "com.google";
+        public static final java.lang.String ACCOUNT_GOOGLE = "com.google";
 
         public static java.lang.String account(final Context context) {
             if (context != null) {
@@ -1253,22 +1253,9 @@ public abstract class Skeleton {
 
     public static class Network {
 
-        public static java.lang.String defaultUserAgent() {
+        public static java.lang.String userAgent() {
             final java.lang.String userAgent = System.systemProperty(System.SYSTEM_PROPERTY_HTTP_AGENT);
             return (userAgent != null ? userAgent : java.lang.String.format("%s-%d", PLATFORM, Android.api()));
-        }
-
-        public static java.lang.String userAgent(final Context context) {
-            if (context != null) {
-                return PLATFORM + "-" +
-                        Android.api() + "/" +
-                        Android.packageName(context) + "/" +
-                        Android.versionCode(context);
-            }
-            else {
-                Log.w("Context was NULL");
-            }
-            return null;
         }
 
         public static Boolean online(final Context context) {
@@ -1578,8 +1565,8 @@ public abstract class Skeleton {
 
     public static class WebView {
 
-        private static final java.lang.String CHARSET = HTTP.UTF_8;
-        private static final java.lang.String MIME_TYPE = "text/html";
+        public static final java.lang.String CHARSET = HTTP.UTF_8;
+        public static final java.lang.String MIME_TYPE = "text/html";
 
         public static android.webkit.WebView fromUrl(final Context context, final java.lang.String url) {
             if (context != null) {
@@ -1623,11 +1610,10 @@ public abstract class Skeleton {
 
         public static final java.lang.String MD5 = "MD5";
         public static final java.lang.String SHA = "SHA";
+        public static final Integer MD5_LENGTH = 32;
+        public static final Integer SHA_LENGTH = 40;
 
-        private static final Integer MD5_LENGTH = 32;
-        private static final Integer SHA_LENGTH = 40;
-
-        private static java.lang.String hash(final java.lang.String algorithm, final java.lang.String string, final Integer length) {
+        protected static java.lang.String hash(final java.lang.String algorithm, final java.lang.String string, final Integer length) {
             try {
                 final MessageDigest messageDigest = MessageDigest.getInstance(algorithm);
                 messageDigest.reset();
@@ -1664,8 +1650,7 @@ public abstract class Skeleton {
 
     public static class Facebook {
 
-        private static final java.lang.String GRAPH_ME_URL = "https://graph.facebook.com/me/feed";
-
+        public static final java.lang.String GRAPH_ME_URL = "https://graph.facebook.com/me/feed";
         public static final java.lang.String PERMISSION_BASIC_INFO = "basic_info";
         public static final java.lang.String PERMISSION_READ_STREAM = "read_stream";
         public static final java.lang.String PERMISSION_READ_FRIENDLISTS = "read_friendlists";
@@ -1679,12 +1664,12 @@ public abstract class Skeleton {
         public static final java.lang.String PERMISSION_USER_GROUPS = "user_groups";
         public static final java.lang.String PERMISSION_FRIENDS_PHOTOS = "friends_photos";
 
-        private static Facebook INSTANCE = null;
+        protected static Facebook INSTANCE = null;
 
-        private java.lang.String mAppId;
-        private Integer mRequestCode;
-        private AQuery mAQuery;
-        private FacebookHandle mHandle;
+        protected java.lang.String mAppId;
+        protected Integer mRequestCode;
+        protected AQuery mAQuery;
+        protected FacebookHandle mHandle;
 
         public static Facebook newInstance(final Context context, final java.lang.String appId, final Integer requestCode) {
             if (INSTANCE == null) {
@@ -1707,7 +1692,7 @@ public abstract class Skeleton {
             return INSTANCE;
         }
 
-        private Facebook(final Context context, final java.lang.String appId, final Integer requestCode) {
+        protected Facebook(final Context context, final java.lang.String appId, final Integer requestCode) {
             mAppId = appId;
             mRequestCode = requestCode;
             mAQuery = new AQuery(context);
@@ -1813,11 +1798,11 @@ public abstract class Skeleton {
 
     public static class WebService {
 
-        private Context mContext;
-        private Integer mId;
-        private java.lang.String mUrl;
+        protected Context mContext;
+        protected Integer mId;
+        protected java.lang.String mUrl;
 
-        private Boolean check() {
+        protected Boolean check() {
             if (mContext == null) {
                 Skeleton.Log.w("Context was NULL");
                 return false;
@@ -1866,7 +1851,7 @@ public abstract class Skeleton {
                 }
                         .url(mUrl)
                         .type(java.lang.String.class)
-                        .header("User-Agent", Skeleton.Network.defaultUserAgent());
+                        .header("User-Agent", Skeleton.Network.userAgent());
 
                 new AQuery(mContext).ajax(ajaxCallback);
             }
@@ -1911,10 +1896,10 @@ public abstract class Skeleton {
 
     public static class ImageDownloader {
 
-        private Context mContext;
-        private ImageView mImageView;
-        private java.lang.String mUrl;
-        private Boolean[] mCache = { false, false };
+        protected Context mContext;
+        protected ImageView mImageView;
+        protected java.lang.String mUrl;
+        protected Boolean[] mCache = { false, false };
 
         public ImageDownloader(final Context context, final ImageView imageView, final java.lang.String url) {
             mContext = context;
@@ -1958,7 +1943,7 @@ public abstract class Skeleton {
                                         .memCache(mCache[1])
                                         .url(mUrl)
                                         .type(Bitmap.class)
-                                        .header("User-Agent", Skeleton.Network.defaultUserAgent()));
+                                        .header("User-Agent", Skeleton.Network.userAgent()));
                     }
                     else {
                         Skeleton.Log.w("Url was invalid");
@@ -1980,7 +1965,7 @@ public abstract class Skeleton {
             run(null);
         }
 
-        private void result(final ImageDownloaderCallback callback, final ImageView imageView, final Bitmap bitmap) {
+        protected void result(final ImageDownloaderCallback callback, final ImageView imageView, final Bitmap bitmap) {
             if (imageView != null) {
                 imageView.setImageBitmap(bitmap);
             }
@@ -2006,9 +1991,9 @@ public abstract class Skeleton {
 
     public static class Location implements LocationListener {
 
-        private LocationManager mLocationManager;
-        private LocationCallback mLocationCallback;
-        private android.location.Location mLocation;
+        protected LocationManager mLocationManager;
+        protected LocationCallback mLocationCallback;
+        protected android.location.Location mLocation;
 
         public Location(final Context context, final LocationCallback locationCallback) {
             if (context != null) {
@@ -2281,7 +2266,7 @@ public abstract class Skeleton {
             }
         }
 
-        private static final int REQUEST_CODE_CAMERA = 111;
+        protected static final int REQUEST_CODE_CAMERA = 111;
 
         public static void camera(final android.app.Activity activity) {
             if (activity != null) {
@@ -2303,7 +2288,7 @@ public abstract class Skeleton {
             }
         }
 
-        private static final int REQUEST_CODE_GALLERY = 222;
+        protected static final int REQUEST_CODE_GALLERY = 222;
 
         public static void gallery(final android.app.Activity activity) {
             final android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_PICK);
