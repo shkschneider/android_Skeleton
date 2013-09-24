@@ -23,6 +23,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -48,6 +49,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.PowerManager;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
@@ -2616,6 +2618,38 @@ public abstract class Skeleton {
                 Log.w("Context was NULL");
             }
             return null;
+        }
+
+    }
+
+    public static class Preferences {
+
+        public static Boolean putString(final Context context, final java.lang.String key, final java.lang.String value) {
+            if (context != null) {
+                Log.d(key + " = " + value);
+                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+                editor.putString(key, value);
+                return editor.commit();
+            }
+            else {
+                Log.w("Context was NULL");
+            }
+            return false;
+        }
+
+        public static java.lang.String getString(final Context context, final java.lang.String key, final java.lang.String defaultValue) {
+            if (context != null) {
+                try {
+                    return PreferenceManager.getDefaultSharedPreferences(context).getString(key, defaultValue);
+                }
+                catch (ClassCastException e) {
+                    Log.e("ClassCastException: " + e.getMessage());
+                }
+            }
+            else {
+                Log.w("Context was NULL");
+            }
+            return "";
         }
 
     }
