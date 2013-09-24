@@ -83,13 +83,16 @@ update: all
 	@if [ -f ".gitmodules" ] ; then git submodule update --init || exit 1 ; fi
 	@echo "==> Libraries"
 	@echo "- libs:actionbarsherlock"
+	@if [ ! -d "libs/actionbarsherlock/actionbarsherlock" ] ; then echo "Error: missing submodule 'actionbarsherlock'" ; exit 1 ; fi
 	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/actionbarsherlock/actionbarsherlock > /dev/null || exit 1
 	@echo "- libs:crouton"
+	@if [ ! -d "libs/crouton/library" ] ; then echo "Error: missing submodule 'crouton'" ; exit 1 ; fi
 	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/crouton/library > /dev/null || exit 1
 	@echo "- libs:showcase"
+	@if [ ! -d "libs/showcase/library" ] ; then echo "Error: missing submodule 'showcase'" ; exit 1 ; fi
 	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/showcase/library > /dev/null || exit 1
-	@$(foreach p, $(shell find . -type f -name "AndroidManifest.xml"), mkdir -p $(shell dirname $p 2>/dev/null)/libs ;)
 	@echo "- $(SUPPORT)"
+	@$(foreach p, $(shell find . -type f -name "AndroidManifest.xml"), mkdir -p $(shell dirname $p 2>/dev/null)/libs ;)
 	@cp $(SUPPORT) libs/ 2>/dev/null
 	@echo "- libs:*.jar"
 	@$(foreach p, $(shell find * -mindepth 2 -type d -name "libs"), cp libs/*.jar $p/ 2>/dev/null ;)
