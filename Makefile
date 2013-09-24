@@ -92,7 +92,7 @@ update: all
 	@echo "- $(SUPPORT)"
 	@cp $(SUPPORT) libs/ 2>/dev/null
 	@echo "- libs:*.jar"
-	@$(foreach p, $(shell find . -type d -name "libs"), cp libs/*.jar $p/ 2>/dev/null ;)
+	@$(foreach p, $(shell find * -mindepth 2 -type d -name "libs"), cp libs/*.jar $p/ 2>/dev/null ;)
 	@echo "==> Projects"
 	@echo "- $(PACKAGE)"
 	@$(ANDROID) $(ANDROID_OPTS) update project --name $(PACKAGE) --target "$(TARGET)" --path . > /dev/null || exit 1
