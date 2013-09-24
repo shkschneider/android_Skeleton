@@ -1801,12 +1801,17 @@ public abstract class Skeleton {
     public static class WebService {
 
         protected Context mContext;
+        protected AQuery mAQuery;
         protected Integer mId;
         protected java.lang.String mUrl;
 
         protected Boolean check() {
             if (mContext == null) {
                 Skeleton.Log.w("Context was NULL");
+                return false;
+            }
+            if (mAQuery == null) {
+                Skeleton.Log.w("AQuery was NULL");
                 return false;
             }
             if (mId < 0) {
@@ -1826,6 +1831,9 @@ public abstract class Skeleton {
 
         public WebService(final Context context, final Integer id, final java.lang.String url) {
             mContext = context;
+            if (mContext != null) {
+                mAQuery = new AQuery(mContext);
+            }
             mId = id;
             mUrl = url;
         }
@@ -1838,7 +1846,7 @@ public abstract class Skeleton {
                 }
             }
             else {
-                final AjaxCallback<java.lang.String> ajaxCallback = new AjaxCallback<java.lang.String>() {
+                mAQuery.ajax(new AjaxCallback<java.lang.String>() {
 
                     @Override
                     public void callback(final java.lang.String url, final java.lang.String content, final AjaxStatus ajaxStatus) {
@@ -1853,9 +1861,13 @@ public abstract class Skeleton {
                 }
                         .url(mUrl)
                         .type(java.lang.String.class)
-                        .header("User-Agent", Skeleton.Network.userAgent());
+                        .header("User-Agent", Skeleton.Network.userAgent()));
+            }
+        }
 
-                new AQuery(mContext).ajax(ajaxCallback);
+        public void cancel() {
+            if (mAQuery != null) {
+                mAQuery.ajaxCancel();
             }
         }
 
