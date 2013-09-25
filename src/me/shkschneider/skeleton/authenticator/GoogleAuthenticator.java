@@ -18,11 +18,9 @@ package me.shkschneider.skeleton.authenticator;
 @SuppressWarnings("unused")
 public class GoogleAuthenticator {
 
-    protected static GoogleAuthenticator INSTANCE = null;
+    public static interface GoogleAuthenticatorCallback {
 
-    public static interface GoogleCallback {
-
-        public void googleCallback(final String token);
+        public void googleAuthenticatorCallback(final String token);
 
     }
 

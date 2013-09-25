@@ -46,41 +46,28 @@ public class FacebookAuthenticator {
     public static final String PERMISSION_USER_GROUPS = "user_groups";
     public static final String PERMISSION_FRIENDS_PHOTOS = "friends_photos";
 
-    protected static FacebookAuthenticator INSTANCE = null;
-
     protected String mAppId;
     protected Integer mRequestCode;
     protected AQuery mAQuery;
     protected FacebookHandle mHandle;
 
-    public static FacebookAuthenticator newInstance(final Context context, final String appId, final Integer requestCode) {
-        if (INSTANCE == null) {
-            if (context != null) {
-                if (! TextUtils.isEmpty(appId)) {
-                    INSTANCE = new FacebookAuthenticator(context, appId, requestCode);
-                }
-                else {
-                    LogHelper.w("AppId was NULL");
-                }
+    public FacebookAuthenticator(final Context context, final String appId, final Integer requestCode) {
+        if (context != null) {
+            if (! TextUtils.isEmpty(appId)) {
+                mAppId = appId;
+                mRequestCode = requestCode;
+                mAQuery = new AQuery(context);
             }
             else {
-                LogHelper.w("Context was NULL");
+                LogHelper.w("AppId was NULL");
             }
         }
-        return INSTANCE;
+        else {
+            LogHelper.w("Context was NULL");
+        }
     }
 
-    public static FacebookAuthenticator getInstance() {
-        return INSTANCE;
-    }
-
-    protected FacebookAuthenticator(final Context context, final String appId, final Integer requestCode) {
-        mAppId = appId;
-        mRequestCode = requestCode;
-        mAQuery = new AQuery(context);
-    }
-
-    public void auth(final Activity activity, final FacebookCallback callback, final String permissions) {
+    public void auth(final Activity activity, final FacebookAuthenticatorCallback facebookAuthenticatorCallback, final String permissions) {
         mHandle = new FacebookHandle(activity, mAppId, permissions) {
 
             @Override
@@ -94,36 +81,43 @@ public class FacebookAuthenticator {
         };
         mHandle.sso(mRequestCode);
 
-        mAQuery.auth(mHandle)
-                .ajax(GRAPH_ME_URL, String.class, new AjaxCallback<String>() {
+        if (mAQuery != null) {
+            mAQuery.auth(mHandle).ajax(GRAPH_ME_URL, String.class, new AjaxCallback<String>() {
 
-                    @Override
-                    public void callback(final String url, final String object, final AjaxStatus status) {
-                        super.callback(url, object, status);
+                @Override
+                public void callback(final String url, final String object, final AjaxStatus status) {
+                    super.callback(url, object, status);
 
-                        if (TextUtils.isEmpty(status.getError()) && ! status.getMessage().equalsIgnoreCase("cancel")) {
-                            final String token = mHandle.getToken();
-                            if (! TextUtils.isEmpty(token)) {
-                                LogHelper.d("Token: " + token);
-                                callback.facebookCallback(token);
-                            }
-                            else {
-                                LogHelper.w("Token is NULL");
-                                if (callback != null) {
-                                    callback.facebookCallback(null);
-                                }
-                            }
+                    if (TextUtils.isEmpty(status.getError()) && ! status.getMessage().equalsIgnoreCase("cancel")) {
+                        final String token = mHandle.getToken();
+                        if (! TextUtils.isEmpty(token)) {
+                            LogHelper.d("Token: " + token);
+                            facebookAuthenticatorCallback.facebookAuthenticatorCallback(token);
                         }
                         else {
-                            LogHelper.w("Message: " + status.getMessage());
-                            LogHelper.w("Error: " + status.getError());
-                            if (callback != null) {
-                                callback.facebookCallback(null);
+                            LogHelper.w("Token is NULL");
+                            if (facebookAuthenticatorCallback != null) {
+                                facebookAuthenticatorCallback.facebookAuthenticatorCallback(null);
                             }
                         }
                     }
+                    else {
+                        LogHelper.w("Message: " + status.getMessage());
+                        LogHelper.w("Error: " + status.getError());
+                        if (facebookAuthenticatorCallback != null) {
+                            facebookAuthenticatorCallback.facebookAuthenticatorCallback(null);
+                        }
+                    }
+                }
 
-                });
+            });
+        }
+        else {
+            LogHelper.w("AQuery was NULL");
+            if (facebookAuthenticatorCallback != null) {
+                facebookAuthenticatorCallback.facebookAuthenticatorCallback(null);
+            }
+        }
     }
 
     public void unauth() {
@@ -170,9 +164,9 @@ public class FacebookAuthenticator {
         }
     }
 
-    public static interface FacebookCallback {
+    public static interface FacebookAuthenticatorCallback {
 
-        public void facebookCallback(final String token);
+        public void facebookAuthenticatorCallback(final String token);
 
     }
 

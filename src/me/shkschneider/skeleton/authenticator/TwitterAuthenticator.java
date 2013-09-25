@@ -18,11 +18,9 @@ package me.shkschneider.skeleton.authenticator;
 @SuppressWarnings("unused")
 public class TwitterAuthenticator {
 
-    protected static TwitterAuthenticator INSTANCE = null;
+    public static interface TwitterAuthenticatorCallback {
 
-    public static interface TwitterCallback {
-
-        public void twitterCallback(final String token);
+        public void twitterAuthenticatorCallback(final String token);
 
     }
 
