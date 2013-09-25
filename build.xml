@@ -3,7 +3,7 @@
 
     <!-- The local.properties file is created and updated by the 'android' tool.
          It contains the path to the SDK. It should *NOT* be checked into
-         Version Control Systems. -->
+         Version Control SystemHelper. -->
     <property file="local.properties" />
 
     <!-- The ant.properties file can be created by you. It is only edited by the
@@ -23,7 +23,7 @@
          be updated using the 'android' tool with the 'update' action.
 
          This file is an integral part of the build system for your
-         application and should be checked into Version Control Systems.
+         application and should be checked into Version Control SystemHelper.
 
          -->
     <property file="ant.properties" />
@@ -45,7 +45,7 @@
          (or in .classpath for Eclipse projects).
 
          This file is an integral part of the build system for your
-         application and should be checked into Version Control Systems. -->
+         application and should be checked into Version Control SystemHelper. -->
     <loadproperties srcFile="project.properties" />
 
     <!-- quick check on sdk.dir -->

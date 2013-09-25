@@ -13,20 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.shkschneider.skeleton;
-
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-
-import me.shkschneider.skeleton.helper.LogHelper;
+package me.shkschneider.skeleton.authenticator;
 
 @SuppressWarnings("unused")
-public class SkeletonReceiver extends BroadcastReceiver {
+public class TwitterAuthenticator {
 
-	@Override
-	public void onReceive(final Context context, final Intent intent) {
-        LogHelper.d(intent.getAction());
-	}
+    protected static TwitterAuthenticator INSTANCE = null;
+
+    public static interface TwitterCallback {
+
+        public void twitterCallback(final String token);
+
+    }
 
 }

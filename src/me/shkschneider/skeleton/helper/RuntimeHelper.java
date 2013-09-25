@@ -13,20 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.shkschneider.skeleton;
-
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-
-import me.shkschneider.skeleton.helper.LogHelper;
+package me.shkschneider.skeleton.helper;
 
 @SuppressWarnings("unused")
-public class SkeletonReceiver extends BroadcastReceiver {
+public class RuntimeHelper {
 
-	@Override
-	public void onReceive(final Context context, final Intent intent) {
-        LogHelper.d(intent.getAction());
-	}
+    public static Integer processors() {
+        return java.lang.Runtime.getRuntime().availableProcessors();
+    }
+
+    public static Long freeMemory() {
+        return java.lang.Runtime.getRuntime().freeMemory();
+    }
+
+    public static Long maxMemory() {
+        return java.lang.Runtime.getRuntime().maxMemory();
+    }
+
+    public static Long totalMemory() {
+        return java.lang.Runtime.getRuntime().totalMemory();
+    }
 
 }
