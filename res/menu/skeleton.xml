@@ -2,26 +2,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/web"
-        android:title="Github"
+        android:id="@+id/code"
+        android:title="@string/menu_code"
         android:icon="@null"
         android:showAsAction="always" />
 
     <item
         android:id="@+id/refresh"
-        android:title="Refresh"
+        android:title="@string/menu_refresh"
         android:icon="@null"
         android:showAsAction="always" />
 
     <item
         android:id="@+id/author"
-        android:title="Author"
+        android:title="@string/menu_author"
         android:icon="@null"
         android:showAsAction="never" />
 
     <item
         android:id="@+id/license"
-        android:title="License"
+        android:title="@string/menu_license"
         android:icon="@null"
         android:showAsAction="never" />
 

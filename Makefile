@@ -1,6 +1,6 @@
 # Manifest
 MANIFEST = $(shell find . -type f -name "AndroidManifest.xml" 2>/dev/null | sort | head -1)
-ACTIVITY = $(shell cat "$(MANIFEST)" 2>/dev/null | tr "[:space:]" "\n" | grep 'android:name=' | grep Activity | head -1 | cut -d'"' -f2)
+ACTIVITY = $(shell cat $(MANIFEST) 2>/dev/null | tr "[:space:]" "\n" | grep 'android:name=' | grep Activity | head -1 | cut -d'"' -f2)
 MIN_API = $(shell cat $(MANIFEST) 2>/dev/null | tr "[:space:]" "\n" | grep 'minSdkVersion=' | cut -d'"' -f2)
 PACKAGE = $(shell cat $(MANIFEST) 2>/dev/null | tr "[:space:]" "\n" | grep 'package=' | cut -d'"' -f2)
 VERSION_NAME = $(shell cat $(MANIFEST) 2>/dev/null | tr "[:space:]" "\n" | grep 'versionName=' | cut -d'"' -f2)
@@ -179,7 +179,7 @@ install: all
 	@echo "- $(DEVICE)"
 	@if [ ! -f "$(APK)" ] ; then echo "Error: no apk" >&2 ; exit 1 ; fi
 	@echo "- $(APK)"
-	@$(ADB) install -r $(APK) || exit 1
+	@$(ADB) install -r -d $(APK) || exit 1
 
 run: all
 	@echo "==> Run"
@@ -194,7 +194,7 @@ uninstall: all
 	@if [ -z "$(DEVICE)" ] ; then echo "Error: no device" >&2 ; exit 1 ; fi
 	@echo "- $(DEVICE)"
 	@echo "- $(PACKAGE)"
-	@$(ADB) shell pm uninstall -k $(PACKAGE) || exit 1
+	@$(ADB) shell pm uninstall $(PACKAGE) > /dev/null || exit 1
 
 log: all
 	@echo "==> Log"
