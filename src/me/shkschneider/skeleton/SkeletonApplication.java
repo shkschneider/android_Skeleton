@@ -41,10 +41,10 @@ public class SkeletonApplication extends Application {
         TAG = Skeleton.Android.packageName(getApplicationContext());
         LOCALE = Locale.getDefault().toString();
 
-        Skeleton.Log.i(toString());
+        Log.i(toString());
 
         AQUtility.setDebug(SkeletonApplication.DEBUG);
-        AQUtility.setCacheDir(Skeleton.File.get(Skeleton.File.internalCacheDir(getApplicationContext())));
+        AQUtility.setCacheDir(Files.get(Files.internalCacheDir(getApplicationContext())));
 
         AjaxCallback.setNetworkLimit(4);
         BitmapAjaxCallback.setIconCacheLimit(20);
@@ -55,7 +55,7 @@ public class SkeletonApplication extends Application {
 
 	@Override
 	public void onLowMemory() {
-        Skeleton.Log.d("LowMemory: " + Skeleton.Runtime.freeMemory() + "/" + Skeleton.Runtime.maxMemory() + " B");
+        Log.d("LowMemory: " + Runtimes.freeMemory() + "/" + Runtimes.maxMemory() + " B");
 
         BitmapAjaxCallback.clearCache();
 

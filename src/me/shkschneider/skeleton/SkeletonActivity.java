@@ -143,8 +143,8 @@ public class SkeletonActivity extends SherlockListActivity {
         data.add(map("Android.versionCode()", Skeleton.Android.versionCode(SkeletonActivity.this).toString(), new String[] {
                 "Integer", "Skeleton.Android.versionCode()", "Context"
         }));
-        data.add(map("System.uname()", Skeleton.System.uname(), new String[] {
-                "String", "Skeleton.System.uname()", "-"
+        data.add(map("Systems.uname()", Skeleton.System.uname(), new String[] {
+                "String", "Skeleton.Systems.uname()", "-"
         }));
         data.add(map("Locale.language()", Skeleton.Locale.language(), new String[] {
                 "String", "Skeleton.Locale.language()", "-"
@@ -188,23 +188,23 @@ public class SkeletonActivity extends SherlockListActivity {
         data.add(map("Audio.volume()", Skeleton.Audio.volume(SkeletonActivity.this).toString(), new String[] {
                 "Integer", "Skeleton.Audio.volume()", "Context"
         }));
-        data.add(map("Network.defaultUserAgent()", Skeleton.Network.defaultUserAgent(), new String[] {
-                "String", "Skeleton.Network.defaultUserAgent()", "-"
+        data.add(map("Networks.defaultUserAgent()", Skeleton.Network.defaultUserAgent(), new String[] {
+                "String", "Skeleton.Networks.defaultUserAgent()", "-"
         }));
-        data.add(map("Network.userAgent()", Skeleton.Network.userAgent(SkeletonActivity.this), new String[] {
-                "String", "Skeleton.Network.userAgent()", "Context"
+        data.add(map("Networks.userAgent()", Skeleton.Network.userAgent(SkeletonActivity.this), new String[] {
+                "String", "Skeleton.Networks.userAgent()", "Context"
         }));
-        data.add(map("Network.online()", Skeleton.Network.online(SkeletonActivity.this).toString(), new String[] {
-                "Boolean", "Skeleton.Network.online()", "Context"
+        data.add(map("Networks.online()", Skeleton.Network.online(SkeletonActivity.this).toString(), new String[] {
+                "Boolean", "Skeleton.Networks.online()", "Context"
         }));
-        data.add(map("Network.wifi()", Skeleton.Network.wifi(SkeletonActivity.this).toString(), new String[] {
-                "Boolean", "Skeleton.Network.wifi()", "Context"
+        data.add(map("Networks.wifi()", Skeleton.Network.wifi(SkeletonActivity.this).toString(), new String[] {
+                "Boolean", "Skeleton.Networks.wifi()", "Context"
         }));
-        data.add(map("Network.macAddress()", Skeleton.Network.macAddress(SkeletonActivity.this), new String[] {
-                "String", "Skeleton.Network.macAddress()", "Context"
+        data.add(map("Networks.macAddress()", Skeleton.Network.macAddress(SkeletonActivity.this), new String[] {
+                "String", "Skeleton.Networks.macAddress()", "Context"
         }));
-        data.add(map("Network.ipAddresses()", Skeleton.Network.ipAddresses().toString(), new String[] {
-                "List<String>", "Skeleton.Network.ipAddresses()", "-"
+        data.add(map("Networks.ipAddresses()", Skeleton.Network.ipAddresses().toString(), new String[] {
+                "List<String>", "Skeleton.Networks.ipAddresses()", "-"
         }));
         data.add(map("Notification.toastShort()", "Context-independent", new String[] {
                 "void", "Skeleton.Notification.toastShort()", "Context String"
@@ -221,32 +221,32 @@ public class SkeletonActivity extends SherlockListActivity {
         data.add(map("Notification.croutonAlert()", "Context-dependent", new String[] {
                 "void", "Skeleton.Notification.croutonAlert()", "Activity String"
         }));
-        data.add(map("Runtime.processors()", Skeleton.Runtime.processors().toString(), new String[] {
-                "Integer", "Skeleton.Runtime.processors()", "-"
+        data.add(map("Runtimes.processors()", Skeleton.Runtime.processors().toString(), new String[] {
+                "Integer", "Skeleton.Runtimes.processors()", "-"
         }));
-        data.add(map("Runtime.freeMemory()", Skeleton.Runtime.freeMemory().toString(), new String[] {
-                "Long", "Skeleton.Runtime.freeMemory()", "-"
+        data.add(map("Runtimes.freeMemory()", Skeleton.Runtime.freeMemory().toString(), new String[] {
+                "Long", "Skeleton.Runtimes.freeMemory()", "-"
         }));
-        data.add(map("Runtime.maxMemory()", Skeleton.Runtime.maxMemory().toString(), new String[] {
-                "Long", "Skeleton.Runtime.maxMemory()", "-"
+        data.add(map("Runtimes.maxMemory()", Skeleton.Runtime.maxMemory().toString(), new String[] {
+                "Long", "Skeleton.Runtimes.maxMemory()", "-"
         }));
-        data.add(map("Runtime.totalMemory()", Skeleton.Runtime.totalMemory().toString(), new String[] {
-                "Long", "Skeleton.Runtime.totalMemory()", "-"
+        data.add(map("Runtimes.totalMemory()", Skeleton.Runtime.totalMemory().toString(), new String[] {
+                "Long", "Skeleton.Runtimes.totalMemory()", "-"
         }));
-        data.add(map("Screen.isOn()", Skeleton.Screen.isOn(SkeletonActivity.this).toString(), new String[] {
-                "Boolean", "Skeleton.Screen.isOn()", "Context"
+        data.add(map("Screens.isOn()", Skeleton.Screen.isOn(SkeletonActivity.this).toString(), new String[] {
+                "Boolean", "Skeleton.Screens.isOn()", "Context"
         }));
-        data.add(map("Screen.density()", Skeleton.Screen.density(SkeletonActivity.this).toString(), new String[] {
-                "Integer", "Skeleton.Screen.density()", "Context"
+        data.add(map("Screens.density()", Skeleton.Screen.density(SkeletonActivity.this).toString(), new String[] {
+                "Integer", "Skeleton.Screens.density()", "Context"
         }));
-        data.add(map("Screen.height()", Skeleton.Screen.height(SkeletonActivity.this).toString(), new String[] {
-                "Integer", "Skeleton.Screen.height()", "Context"
+        data.add(map("Screens.height()", Skeleton.Screen.height(SkeletonActivity.this).toString(), new String[] {
+                "Integer", "Skeleton.Screens.height()", "Context"
         }));
-        data.add(map("Screen.width()", Skeleton.Screen.width(SkeletonActivity.this).toString(), new String[] {
-                "Integer", "Skeleton.Screen.width()", "Context"
+        data.add(map("Screens.width()", Skeleton.Screen.width(SkeletonActivity.this).toString(), new String[] {
+                "Integer", "Skeleton.Screens.width()", "Context"
         }));
-        data.add(map("Screen.orientation()", Skeleton.Screen.orientation(SkeletonActivity.this).toString(), new String[] {
-                "Integer", "Skeleton.Screen.orientation()", "Context"
+        data.add(map("Screens.orientation()", Skeleton.Screen.orientation(SkeletonActivity.this).toString(), new String[] {
+                "Integer", "Skeleton.Screens.orientation()", "Context"
         }));
         data.add(map("Activity.showcase()", "Showcase an id (with callback)", new String[] {
                 "void", "Skeleton.Activity.showcase()", "Activity int String String"
