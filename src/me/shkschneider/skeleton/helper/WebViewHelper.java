@@ -16,18 +16,21 @@
 package me.shkschneider.skeleton.helper;
 
 import android.content.Context;
+import android.text.TextUtils;
+import android.webkit.WebView;
 
 import org.apache.http.protocol.HTTP;
 
 @SuppressWarnings("unused")
 public class WebViewHelper {
 
+    public static final String META_VIEWPORT = "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">";
     public static final String CHARSET = HTTP.UTF_8;
     public static final String MIME_TYPE = "text/html";
 
-    public static android.webkit.WebView fromUrl(final Context context, final String url) {
+    public static WebView fromUrl(final Context context, final String url) {
         if (context != null) {
-            final android.webkit.WebView webView = new android.webkit.WebView(context);
+            final WebView webView = new WebView(context);
             webView.loadUrl(url);
             return webView;
         }
@@ -37,9 +40,9 @@ public class WebViewHelper {
         return null;
     }
 
-    public static android.webkit.WebView fromAsset(final Context context, final String asset) {
+    public static WebView fromAsset(final Context context, final String asset) {
         if (context != null) {
-            final android.webkit.WebView webView = new android.webkit.WebView(context);
+            final WebView webView = new WebView(context);
             webView.loadDataWithBaseURL(FileHelper.ASSETS_PREFIX, asset, MIME_TYPE, CHARSET, "");
             return webView;
         }
@@ -49,9 +52,9 @@ public class WebViewHelper {
         return null;
     }
 
-    public static android.webkit.WebView fromHtml(final Context context, final String source) {
+    public static WebView fromHtml(final Context context, final String source) {
         if (context != null) {
-            final android.webkit.WebView webView = new android.webkit.WebView(context);
+            final WebView webView = new WebView(context);
             webView.loadData(source, MIME_TYPE, CHARSET);
             return webView;
         }
@@ -59,6 +62,64 @@ public class WebViewHelper {
             LogHelper.w("Context was NULL");
         }
         return null;
+    }
+
+    public static Boolean javascriptInterface(final WebView webView, final Object javascriptInterface, final String name) {
+        if (webView != null) {
+            if (javascriptInterface != null) {
+                if (! TextUtils.isEmpty(name)) {
+                    webView.addJavascriptInterface(javascriptInterface, name);
+                    // onClick="Android.alert()" -> @JavascriptInterface public void JavascriptInterface.alert()
+                    return true;
+                }
+                else {
+                    LogHelper.w("Name was NULL");
+                }
+            }
+            else {
+                LogHelper.w("JavascriptInterface was NULL");
+            }
+        }
+        else {
+            LogHelper.w("WebView was NULL");
+        }
+        return false;
+    }
+
+    public static Boolean javascriptInterface(final WebView webView, final Object javascriptInterface) {
+        return javascriptInterface(webView, javascriptInterface, AndroidHelper.PLATFORM);
+    }
+
+    public static Boolean back(final WebView webView) {
+        if (webView != null) {
+            if (webView.canGoBack()) {
+                webView.goBack();
+                return true;
+            }
+            else {
+                LogHelper.w("WebView cannot go back");
+            }
+        }
+        else {
+            LogHelper.w("WebView was NULL");
+        }
+        return false;
+    }
+
+    public static Boolean forward(final WebView webView) {
+        if (webView != null) {
+            if (webView.canGoForward()) {
+                webView.goForward();
+                return true;
+            }
+            else {
+                LogHelper.w("WebView cannot go forward");
+            }
+        }
+        else {
+            LogHelper.w("WebView was NULL");
+        }
+        return false;
     }
 
 }
