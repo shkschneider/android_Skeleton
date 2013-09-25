@@ -110,7 +110,8 @@ debug: update
 	@echo "- $(ANT_PROPERTIES)"
 	@if [ -n "$(ANT_PROPERTIES_DEBUG)" ] ; then cp $(ANT_PROPERTIES_DEBUG) $(ANT_PROPERTIES) > /dev/null || exit 1 ; fi
 	@echo "- ant debug"
-	@$(ANT) $(ANT_OPTS) debug > /dev/null || (echo "Failure: see $(ANT_LOG) for details" >&2 ; exit 1)
+	@$(ANT) $(ANT_OPTS) debug > /dev/null
+	@if [ $? -ne 0 ] ; then echo "Failure: see $(ANT_LOG) for details" >&2 ; exit 1 ; fi
 	@echo "==> Sign"
 	@if [ -n "$(SIGN)" ] ; then echo "- $(SIGN)" ; fi
 	@echo "==> Debug"
@@ -129,7 +130,8 @@ release: update
 		exit 1 ; fi
 	@cp $(ANT_PROPERTIES_RELEASE) $(ANT_PROPERTIES) > /dev/null || exit 1
 	@echo "- ant debug"
-	@$(ANT) $(ANT_OPTS) release > /dev/null || (echo "Failure: see $(ANT_LOG) for details" >&2 ; exit 1)
+	@$(ANT) $(ANT_OPTS) release > /dev/null
+	@if [ $? -ne 0 ] ; then echo "Failure: see $(ANT_LOG) for details" >&2 ; exit 1 ; fi
 	@echo "==> Sign"
 	@if [ -n "$(SIGN)" ] ; then echo "- $(SIGN)" ; fi
 	@echo "==> Release"

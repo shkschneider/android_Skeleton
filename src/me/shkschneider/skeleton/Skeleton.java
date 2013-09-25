@@ -85,6 +85,9 @@ import com.github.espiandev.showcaseview.ShowcaseView;
 import org.apache.http.HttpStatus;
 import org.apache.http.conn.util.InetAddressUtils;
 import org.apache.http.protocol.HTTP;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -128,12 +131,14 @@ import de.keyboardsurfer.android.widget.crouton.Style;
  *  Hash
  *  Facebook
  *  WebService
+ *   JsonParser
  *  ImageDownloader
- *  Location
+ *  Locator
  *  Screen
  *  Intent
  *  Activity
  *  Graphics
+ *  Preferences
  */
 
 @SuppressWarnings("unused")
@@ -1111,7 +1116,7 @@ public abstract class Skeleton {
                     });
                 }
                 else {
-                    Log.w("Callback was NULL");
+                    Log.w("KeyboardCallback was NULL");
                 }
             }
             else {
@@ -1641,11 +1646,11 @@ public abstract class Skeleton {
         }
 
         public static java.lang.String md5(final java.lang.String string) {
-            return hash(string, MD5, MD5_LENGTH);
+            return hash(MD5, string, MD5_LENGTH);
         }
 
         public static java.lang.String sha(final java.lang.String string) {
-            return hash(string, SHA, SHA_LENGTH);
+            return hash(SHA, string, SHA_LENGTH);
         }
 
     }
@@ -1854,7 +1859,7 @@ public abstract class Skeleton {
                             callback.webServiceCallback(mId, new Response(ajaxStatus, content));
                         }
                         else {
-                            Skeleton.Log.w("Callback was NULL");
+                            Skeleton.Log.w("WebServiceCallback was NULL");
                         }
                     }
 
@@ -1903,6 +1908,70 @@ public abstract class Skeleton {
         public static interface WebServiceCallback {
 
             public void webServiceCallback(final Integer id, final Response response);
+
+        }
+
+        public static class JsonParser {
+
+            public static JSONObject parse(final java.lang.String string) {
+                if (! TextUtils.isEmpty(string)) {
+                    try {
+                        return new JSONObject(string);
+                    }
+                    catch (JSONException e) {
+                        Log.e("JSONException: " + e.getMessage());
+                    }
+                }
+                else {
+                    Log.w("String was NULL");
+                }
+                return null;
+            }
+
+            public static JSONObject getJsonObject(final JSONObject json, final java.lang.String key) {
+                if (json != null) {
+                    try {
+                        return json.getJSONObject(key);
+                    }
+                    catch (JSONException e) {
+                        Log.e("JSONException: " + e.getMessage());
+                    }
+                }
+                else {
+                    Log.w("JSONObject was NULL");
+                }
+                return null;
+            }
+
+            public static JSONArray getJsonArray(final JSONObject json, final java.lang.String key) {
+                if (json != null) {
+                    try {
+                        return json.getJSONArray(key);
+                    }
+                    catch (JSONException e) {
+                        Log.e("JSONException: " + e.getMessage());
+                    }
+                }
+                else {
+                    Log.w("JSONObject was NULL");
+                }
+                return null;
+            }
+
+            public static java.lang.String getString(final JSONObject json, final java.lang.String key) {
+                if (json != null) {
+                    try {
+                        return json.getString(key);
+                    }
+                    catch (JSONException e) {
+                        Log.e("JSONException: " + e.getMessage());
+                    }
+                }
+                else {
+                    Log.w("JSONObject was NULL");
+                }
+                return null;
+            }
 
         }
 
@@ -1991,7 +2060,7 @@ public abstract class Skeleton {
                 callback.imageDownloaderCallback(imageView, bitmap);
             }
             else {
-                Skeleton.Log.w("Callback was NULL");
+                Skeleton.Log.w("ImageDownloaderCallback was NULL");
             }
         }
 
@@ -2003,13 +2072,13 @@ public abstract class Skeleton {
 
     }
 
-    public static class Location implements LocationListener {
+    public static class Locator implements LocationListener {
 
         protected LocationManager mLocationManager;
         protected LocationCallback mLocationCallback;
         protected android.location.Location mLocation;
 
-        public Location(final Context context, final LocationCallback locationCallback) {
+        public Locator(final Context context, final LocationCallback locationCallback) {
             if (context != null) {
                 mLocationManager = (LocationManager) System.systemService(context, System.SYSTEM_SERVICE_LOCATION_SERVICE);
                 if (locationCallback != null) {
@@ -2024,7 +2093,7 @@ public abstract class Skeleton {
             }
         }
 
-        public Location(final Context context) {
+        public Locator(final Context context) {
             this(context, null);
         }
 
@@ -2082,6 +2151,59 @@ public abstract class Skeleton {
             if (mLocationCallback != null) {
                 mLocationCallback.providerCallback(provider, false);
             }
+        }
+
+        public static Float metersFromDegrees(final Float degree) {
+            if (degree > 0) {
+                return (degree * 111111);
+            }
+            return 0F;
+        }
+
+        public static Float degreesFromMeters(final Float meters) {
+            if (meters > 0) {
+                return (meters / 111111);
+            }
+            return 0F;
+        }
+
+        public static Boolean betterLocation(final android.location.Location location, final android.location.Location currentLocation, final Long refreshRate) {
+            if (currentLocation == null) {
+                return true;
+            }
+            else if (location == null) {
+                return false;
+            }
+
+            final Long timeDelta = location.getTime() - currentLocation.getTime();
+            final Boolean isSignificantlyNewer = timeDelta > refreshRate;
+            final Boolean isSignificantlyOlder = timeDelta < -refreshRate;
+            final Boolean isNewer = timeDelta > 0;
+
+            if (isSignificantlyNewer) {
+                return true;
+            }
+            else if (isSignificantlyOlder) {
+                return false;
+            }
+
+            final Integer accuracyDelta = (int) (location.getAccuracy() - currentLocation.getAccuracy());
+            final Boolean isLessAccurate = accuracyDelta > 0;
+            final Boolean isMoreAccurate = accuracyDelta < 0;
+            final Boolean isSignificantlyLessAccurate = accuracyDelta > 200;
+            final Boolean isFromSameProvider = ((location.getProvider() == null) ?
+                    (currentLocation.getProvider() == null) : location.getProvider().equals(currentLocation.getProvider()));
+
+            if (isMoreAccurate) {
+                return true;
+            }
+            else if (isNewer && ! isLessAccurate) {
+                return true;
+            }
+            else if (isNewer && ! isSignificantlyLessAccurate && isFromSameProvider) {
+                return true;
+            }
+            return false;
         }
 
         public static interface LocationCallback {
@@ -2430,7 +2552,7 @@ public abstract class Skeleton {
                             .show();
                 }
                 else {
-                    Log.w("String was NULL");
+                    Log.w("Message was NULL");
                 }
             }
             else {
@@ -2511,6 +2633,38 @@ public abstract class Skeleton {
         public static AlertDialog.Builder alertDialogBuilder(final Context context) {
             if (context != null) {
                 return new AlertDialog.Builder(context);
+            }
+            else {
+                Log.w("Context was NULL");
+            }
+            return null;
+        }
+
+        public static AlertDialog alertDialog(final Context context, final int style) {
+            if (context != null) {
+                final AlertDialog.Builder alertDialog = alertDialogBuilder(context, style);
+                if (alertDialog != null) {
+                    return alertDialog.create();
+                }
+                else {
+                    Log.w("AlertDialog.Builder was NULL");
+                }
+            }
+            else {
+                Log.w("Context was NULL");
+            }
+            return null;
+        }
+
+        public static AlertDialog alertDialog(final Context context) {
+            if (context != null) {
+                final AlertDialog.Builder alertDialog = alertDialogBuilder(context);
+                if (alertDialog != null) {
+                    return alertDialog.create();
+                }
+                else {
+                    Log.w("AlertDialog.Builder was NULL");
+                }
             }
             else {
                 Log.w("Context was NULL");
