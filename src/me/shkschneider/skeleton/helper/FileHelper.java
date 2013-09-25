@@ -21,6 +21,7 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.text.TextUtils;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -36,11 +37,26 @@ public class FileHelper {
 
     public static final String ASSETS_PREFIX = "file:///android_asset/";
 
+    public static String join(final String dirname, final String basename) {
+        if (! TextUtils.isEmpty(dirname)) {
+            if (! TextUtils.isEmpty(basename)) {
+                return String.format("%s%s%s", dirname, SystemHelper.systemProperty(SystemHelper.SYSTEM_PROPERTY_PATH_SEPARATOR), basename);
+            }
+            else {
+                LogHelper.w("Basename was NULL");
+            }
+        }
+        else {
+            LogHelper.w("Dirname was NULL");
+        }
+        return null;
+    }
+
     // Get
 
-    public static java.io.File get(final String path) {
+    public static File get(final String path) {
         if (! TextUtils.isEmpty(path)) {
-            return new java.io.File(path);
+            return new File(path);
         }
         else {
             LogHelper.w("Path was NULL");
@@ -50,7 +66,7 @@ public class FileHelper {
 
     // Open
 
-    public static InputStream openFile(final java.io.File file) {
+    public static InputStream openFile(final File file) {
         if (file != null) {
             InputStream inputStream = null;
 
@@ -115,7 +131,7 @@ public class FileHelper {
         return null;
     }
 
-    public static String readString(final java.io.File file) {
+    public static String readString(final File file) {
         if (file != null) {
             try {
                 return readString(new FileInputStream(file));
@@ -130,7 +146,7 @@ public class FileHelper {
         return null;
     }
 
-    public static Bitmap readBitmap(final java.io.File file) {
+    public static Bitmap readBitmap(final File file) {
         if (file != null) {
             try {
                 final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -172,7 +188,7 @@ public class FileHelper {
         return false;
     }
 
-    public static Boolean writeString(final java.io.File file, final String content) {
+    public static Boolean writeString(final File file, final String content) {
         try {
             return writeString(new FileOutputStream(file), content);
         }
@@ -182,9 +198,9 @@ public class FileHelper {
         return null;
     }
 
-    public static Boolean writeBitmap(final java.io.File file, final Bitmap bitmap) {
+    public static Boolean writeBitmap(final File file, final Bitmap bitmap) {
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
+            final FileOutputStream fileOutputStream = new FileOutputStream(file);
             bitmap.compress(Bitmap.CompressFormat.PNG, 90, fileOutputStream);
             return true;
         }
@@ -196,7 +212,7 @@ public class FileHelper {
 
     // Serialize & Unserialize
 
-    public static Boolean serialize(final java.io.File file, final Object object) {
+    public static Boolean serialize(final File file, final Object object) {
         try {
             final FileOutputStream fileOutputStream = new FileOutputStream(file);
             final ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -211,7 +227,7 @@ public class FileHelper {
         return false;
     }
 
-    public static Object unserialize(final java.io.File file) {
+    public static Object unserialize(final File file) {
         try {
             final FileInputStream fileInputStream = new FileInputStream(file);
             final ObjectInputStream objectOutputStream = new ObjectInputStream(fileInputStream);
@@ -228,7 +244,7 @@ public class FileHelper {
 
     // Remove
 
-    public static Boolean remove(final java.io.File file) {
+    public static Boolean remove(final File file) {
         if (file != null) {
             return file.delete();
         }
@@ -242,7 +258,7 @@ public class FileHelper {
 
     public static String internalDir(final Context context) {
         if (context != null) {
-            final java.io.File dir = context.getFilesDir();
+            final File dir = context.getFilesDir();
             if (dir != null) {
                 return dir.getAbsolutePath();
             }
@@ -260,7 +276,7 @@ public class FileHelper {
 
     public static String externalDir(final Context context) {
         if (context != null) {
-            final java.io.File dir = context.getExternalFilesDir(".");
+            final File dir = context.getExternalFilesDir(".");
             if (dir != null) {
                 return dir.getParentFile().getAbsolutePath();
             }
@@ -278,7 +294,7 @@ public class FileHelper {
 
     public static String internalCacheDir(final Context context) {
         if (context != null) {
-            final java.io.File dir = context.getCacheDir();
+            final File dir = context.getCacheDir();
             if (dir != null) {
                 return dir.getAbsolutePath();
             }
@@ -294,7 +310,7 @@ public class FileHelper {
 
     public static String externalCacheDir(final Context context) {
         if (context != null) {
-            final java.io.File dir = context.getExternalCacheDir();
+            final File dir = context.getExternalCacheDir();
             if (dir != null) {
                 return dir.getAbsolutePath();
             }
@@ -314,7 +330,11 @@ public class FileHelper {
 
     // SDCard
 
-    public static Boolean sdCardAvailable() {
+    public static Boolean sdCardReadable() {
+        return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED_READ_ONLY);
+    }
+
+    public static Boolean sdCardWritable() {
         return Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
     }
 

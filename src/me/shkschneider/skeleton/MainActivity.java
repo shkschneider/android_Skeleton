@@ -17,8 +17,6 @@ package me.shkschneider.skeleton;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.SimpleAdapter;
 
 import com.actionbarsherlock.app.SherlockListActivity;
@@ -32,17 +30,9 @@ import java.util.Map;
 
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.AndroidHelper;
-import me.shkschneider.skeleton.helper.AudioHelper;
 import me.shkschneider.skeleton.helper.FileHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
-import me.shkschneider.skeleton.helper.LocaleHelper;
-import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.helper.RuntimeHelper;
-import me.shkschneider.skeleton.helper.ScreenHelper;
-import me.shkschneider.skeleton.helper.SystemHelper;
-import me.shkschneider.skeleton.helper.TimeHelper;
 import me.shkschneider.skeleton.helper.WebViewHelper;
-import me.shkschneider.skeleton.net.NetworkHelper;
 
 @SuppressWarnings("unused")
 public class MainActivity extends SherlockListActivity {
@@ -52,16 +42,10 @@ public class MainActivity extends SherlockListActivity {
 
     private Boolean mRefreshing;
 
-    private Map<String, String> map(final String key, final String value, final String[] usage) {
+    private Map<String, String> map(final String key, final String value) {
         final Map<String, String> data = new HashMap<String, String>();
         data.put("key", key);
         data.put("value", value);
-        data.put("usage", String.format("%s\n\nCall: %s\nTakes: %s\nReturns: %s",
-                AndroidHelper.packageName(MainActivity.this),
-                usage[1],
-                usage[2],
-                usage[0]
-        ));
         return data;
     }
 
@@ -98,171 +82,7 @@ public class MainActivity extends SherlockListActivity {
 
         final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 
-        data.add(map("DEBUG", SkeletonApplication.DEBUG.toString(), new String[] {
-                "Boolean", "SkeletonApplication.DEBUG", "-"
-        }));
-        data.add(map("TAG", SkeletonApplication.TAG, new String[] {
-                "String", "SkeletonApplication.TAG", "-"
-        }));
-        data.add(map("LOCALE", SkeletonApplication.LOCALE, new String[] {
-                "Locale", "SkeletonApplication.LOCALE", "-"
-        }));
-        data.add(map("Time.timestamp()", TimeHelper.timestamp().toString(), new String[] {
-                "Long", "TimeHelper.timestamp()", "-"
-        }));
-        data.add(map("Android.account()", AndroidHelper.account(MainActivity.this), new String[] {
-                "String", "AndroidHelper.account()", "Context"
-        }));
-        data.add(map("Android.tablet()", AndroidHelper.tablet(MainActivity.this).toString(), new String[] {
-                "Boolean", "AndroidHelper.tablet()", "Context"
-        }));
-        data.add(map("Android.id()", AndroidHelper.id(MainActivity.this), new String[] {
-                "String", "AndroidHelper.id()", "Context"
-        }));
-        data.add(map("Android.deviceId()", AndroidHelper.deviceId(MainActivity.this), new String[]{
-                "String", "AndroidHelper.deviceId()", "Context"
-        }));
-        data.add(map("Android.uuid()", AndroidHelper.uuid(MainActivity.this), new String[] {
-                "String", "AndroidHelper.uuid()", "Context"
-        }));
-        data.add(map("Android.randomId()", AndroidHelper.randomId(), new String[] {
-                "String", "AndroidHelper.randomId()", "-"
-        }));
-        data.add(map("Android.codename()", AndroidHelper.codename(), new String[] {
-                "String", "AndroidHelper.codename()", "-"
-        }));
-        data.add(map("Android.manufacturer()", AndroidHelper.manufacturer(), new String[] {
-                "String", "AndroidHelper.manufacturer()", "-"
-        }));
-        data.add(map("Android.device()", AndroidHelper.device(), new String[] {
-                "String", "AndroidHelper.device()", "-"
-        }));
-        data.add(map("Android.release()", AndroidHelper.release(), new String[] {
-                "String", "AndroidHelper.release()", "-"
-        }));
-        data.add(map("Android.api()", AndroidHelper.api().toString(), new String[] {
-                "Integer", "AndroidHelper.api()", "-"
-        }));
-        data.add(map("Android.debug()", AndroidHelper.debug().toString(), new String[] {
-                "Boolean", "AndroidHelper.debug()", "-"
-        }));
-        data.add(map("Android.packageName()", AndroidHelper.packageName(MainActivity.this), new String[] {
-                "String", "AndroidHelper.packageName()", "Context"
-        }));
-        data.add(map("Android.name()", AndroidHelper.name(MainActivity.this), new String[] {
-                "String", "AndroidHelper.name()", "Context"
-        }));
-        data.add(map("Android.versionName()", AndroidHelper.versionName(MainActivity.this), new String[] {
-                "String", "AndroidHelper.versionName()", "Context"
-        }));
-        data.add(map("Android.versionCode()", AndroidHelper.versionCode(MainActivity.this).toString(), new String[] {
-                "Integer", "AndroidHelper.versionCode()", "Context"
-        }));
-        data.add(map("SystemHelper.uname()", SystemHelper.uname(), new String[] {
-                "String", "Systemss.uname()", "-"
-        }));
-        data.add(map("Locale.language()", LocaleHelper.language(), new String[] {
-                "String", "LocaleHelper.language()", "-"
-        }));
-        data.add(map("Locale.language2()", LocaleHelper.language2(), new String[] {
-                "String", "LocaleHelper.language2()", "-"
-        }));
-        data.add(map("Locale.language3()", LocaleHelper.language3(), new String[] {
-                "String", "LocaleHelper.language3()", "-"
-        }));
-        data.add(map("Locale.country()", LocaleHelper.country(), new String[] {
-                "String", "LocaleHelper.country()", "-"
-        }));
-        data.add(map("Locale.country2()", LocaleHelper.country2(), new String[] {
-                "String", "LocaleHelper.country2()", "-"
-        }));
-        data.add(map("Locale.country3()", LocaleHelper.country3(), new String[] {
-                "String", "LocaleHelper.country3()", "-"
-        }));
-        data.add(map("File.internalDir()", FileHelper.internalDir(MainActivity.this), new String[] {
-                "String", "FileHelper.internalDir()", "Context"
-        }));
-        data.add(map("File.externalDir()", FileHelper.externalDir(MainActivity.this), new String[] {
-                "String", "FileHelper.externalDir()", "Context"
-        }));
-        data.add(map("File.internalCacheDir()", FileHelper.internalCacheDir(MainActivity.this), new String[] {
-                "String", "FileHelper.internalCacheDir()", "Context"
-        }));
-        data.add(map("File.externalCacheDir()", FileHelper.externalCacheDir(MainActivity.this), new String[] {
-                "String", "FileHelper.externalCacheDir()", "Context"
-        }));
-        data.add(map("File.downloadCache()", FileHelper.downloadCache(), new String[] {
-                "String", "FileHelper.downloadCache()", "-"
-        }));
-        data.add(map("File.sdCardAvailable()", FileHelper.sdCardAvailable().toString(), new String[] {
-                "Boolean", "FileHelper.sdCardAvailable()", "-"
-        }));
-        data.add(map("File.sdCard()", FileHelper.sdCard(), new String[] {
-                "String", "FileHelper.sdCard()", "-"
-        }));
-        data.add(map("AudioHelper.volume()", AudioHelper.volume(MainActivity.this).toString(), new String[] {
-                "Integer", "AudioHelper.volume()", "Context"
-        }));
-        data.add(map("NetworkHelper.userAgent()", NetworkHelper.userAgent(), new String[] {
-                "String", "NetworkHelper.userAgent()", "Context"
-        }));
-        data.add(map("NetworkHelper.online()", NetworkHelper.online(MainActivity.this).toString(), new String[] {
-                "Boolean", "NetworkHelper.online()", "Context"
-        }));
-        data.add(map("NetworkHelper.wifi()", NetworkHelper.wifi(MainActivity.this).toString(), new String[] {
-                "Boolean", "NetworkHelper.wifi()", "Context"
-        }));
-        data.add(map("NetworkHelper.macAddress()", NetworkHelper.macAddress(MainActivity.this), new String[] {
-                "String", "NetworkHelper.macAddress()", "Context"
-        }));
-        data.add(map("NetworkHelper.ipAddresses()", NetworkHelper.ipAddresses().toString(), new String[] {
-                "List<String>", "NetworkHelper.ipAddresses()", "-"
-        }));
-        data.add(map("Notification.toastShort()", "Context-independent", new String[] {
-                "void", "Skeleton.Notification.toastShort()", "Context String"
-        }));
-        data.add(map("Notification.toastLong()", "Context-independent", new String[] {
-                "void", "Skeleton.Notification.toastLong()", "Context String"
-        }));
-        data.add(map("Notification.croutonInfo()", "Context-dependent", new String[] {
-                "void", "Skeleton.Notification.croutonInfo()", "Activity String"
-        }));
-        data.add(map("Notification.croutonConfirm()", "Context-dependent", new String[] {
-                "void", "Skeleton.Notification.croutonConfirm()", "Activity String"
-        }));
-        data.add(map("Notification.croutonAlert()", "Context-dependent", new String[] {
-                "void", "Skeleton.Notification.croutonAlert()", "Activity String"
-        }));
-        data.add(map("RuntimeHelper.processors()", RuntimeHelper.processors().toString(), new String[] {
-                "Integer", "Runtimess.processors()", "-"
-        }));
-        data.add(map("RuntimeHelper.freeMemory()", RuntimeHelper.freeMemory().toString(), new String[] {
-                "Long", "Runtimess.freeMemory()", "-"
-        }));
-        data.add(map("RuntimeHelper.maxMemory()", RuntimeHelper.maxMemory().toString(), new String[] {
-                "Long", "Runtimess.maxMemory()", "-"
-        }));
-        data.add(map("RuntimeHelper.totalMemory()", RuntimeHelper.totalMemory().toString(), new String[] {
-                "Long", "Runtimess.totalMemory()", "-"
-        }));
-        data.add(map("ScreenHelper.on()", ScreenHelper.on(MainActivity.this).toString(), new String[] {
-                "Boolean", "Screenss.on()", "Context"
-        }));
-        data.add(map("ScreenHelper.density()", ScreenHelper.density(MainActivity.this).toString(), new String[] {
-                "Integer", "Screenss.density()", "Context"
-        }));
-        data.add(map("ScreenHelper.height()", ScreenHelper.height(MainActivity.this).toString(), new String[] {
-                "Integer", "Screenss.height()", "Context"
-        }));
-        data.add(map("ScreenHelper.width()", ScreenHelper.width(MainActivity.this).toString(), new String[] {
-                "Integer", "Screenss.width()", "Context"
-        }));
-        data.add(map("ScreenHelper.orientation()", ScreenHelper.orientation(MainActivity.this).toString(), new String[] {
-                "Integer", "Screenss.orientation()", "Context"
-        }));
-        data.add(map("Activity.showcase()", "Showcase an id (with callback)", new String[] {
-                "void", "ActivityHelper.showcase()", "Activity int String String"
-        }));
+        data.add(map("new FacebookAuthentication(...).auth(...)", "-"));
 
         setListAdapter(new SimpleAdapter(MainActivity.this,
                 data,
@@ -270,29 +90,6 @@ public class MainActivity extends SherlockListActivity {
                 new String[] { "key", "value" },
                 new int[] { android.R.id.text1, android.R.id.text2 }
         ));
-
-        getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
-                final Map<String, String> map = data.get(position);
-                if (map != null) {
-                    final String key = map.get("key");
-                    LogHelper.v(key);
-                    ActivityHelper.alertDialogBuilder(MainActivity.this, R.style.Theme_Skeleton_Dialog_Light)
-                            .setTitle(key)
-                            .setMessage(map.get("usage"))
-                            .setNeutralButton(android.R.string.ok, null)
-                            .setCancelable(true)
-                            .create()
-                            .show();
-                }
-                else {
-                    LogHelper.w("Position invalid");
-                }
-            }
-
-        });
 
         mRefreshing = false;
         invalidateOptionsMenu();
@@ -334,7 +131,7 @@ public class MainActivity extends SherlockListActivity {
                         .create()
                         .show();
                 break ;
-            case R.id.web:
+            case R.id.code:
                 IntentHelper.web(MainActivity.this, AUTHOR_URL);
                 break ;
             case R.id.refresh:
