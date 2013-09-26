@@ -50,6 +50,7 @@ import me.shkschneider.skeleton.helper.SystemHelper;
 import me.shkschneider.skeleton.helper.TimeHelper;
 import me.shkschneider.skeleton.helper.WebViewHelper;
 import me.shkschneider.skeleton.net.NetworkHelper;
+import me.shkschneider.skeleton.net.WebService;
 
 @SuppressWarnings("unused")
 public class MainActivity extends SherlockListActivity {
@@ -81,6 +82,15 @@ public class MainActivity extends SherlockListActivity {
                         "Thanks for downloading!",
                         "Get the code: shkschneider@github!"),
                 null);
+
+        new WebService().get("http://www.google.fr").callback(new WebService.WebServiceCallback() {
+
+            @Override
+            public void webServiceCallback(Boolean success, WebService.WebServiceResponse webServiceResponse) {
+                LogHelper.d(success.toString());
+            }
+
+        }).run();
     }
 
     @Override

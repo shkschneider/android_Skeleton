@@ -15,107 +15,158 @@
  */
 package me.shkschneider.skeleton.net;
 
-import android.content.Context;
-
-import com.androidquery.AQuery;
-import com.androidquery.callback.AjaxCallback;
-import com.androidquery.callback.AjaxStatus;
-
+import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpHead;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import me.shkschneider.skeleton.helper.FileHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.helper.StringHelper;
 
 @SuppressWarnings("unused")
 public class WebService {
 
-    protected Context mContext;
-    protected AQuery mAQuery;
-    protected Integer mId;
-    protected String mUrl;
+    protected HttpClient mClient;
+    protected HttpRequestBase mRequest;
+    protected HttpResponse mResponse;
+    protected WebServiceCallback mCallback;
 
-    public WebService(final Context context, final Integer id, final String url) {
-        mContext = context;
-        if (mContext != null) {
-            mAQuery = new AQuery(mContext);
-        }
-        mId = id;
-        mUrl = url;
+    public WebService(final HttpClient httpClient) {
+        mClient = httpClient;
+        mRequest = null;
+        mResponse = null;
     }
 
-    public void run(final WebServiceCallback callback) {
-        if (mContext != null) {
-            if (mAQuery != null) {
-                if (NetworkHelper.validUrl(mUrl)) {
-                    mAQuery.ajax(new AjaxCallback<String>() {
+    public WebService() {
+        this(new DefaultHttpClient());
+    }
 
-                        @Override
-                        public void callback(final String url, final String content, final AjaxStatus ajaxStatus) {
-                            if (callback != null) {
-                                callback.webServiceCallback(mId, new Response(ajaxStatus, content));
-                            }
-                            else {
-                                LogHelper.w("WebServiceCallback was NULL");
-                            }
-                        }
+    public WebService head(final String url) {
+        if (NetworkHelper.validUrl(url)) {
+            mRequest = new HttpHead(url);
+        }
+        else {
+            LogHelper.w("Url was invalid");
+        }
+        return this;
+    }
 
-                    }.url(mUrl).type(String.class).header("User-Agent", NetworkHelper.userAgent()));
-                    return ;
+    public WebService get(final String url) {
+        if (NetworkHelper.validUrl(url)) {
+            mRequest = new HttpGet(url);
+        }
+        else {
+            LogHelper.w("Url was invalid");
+        }
+        return this;
+    }
+
+    public WebService post(final String url, final List<String[]> params) {
+        if (NetworkHelper.validUrl(url)) {
+            mRequest = new HttpPost(url);
+            try {
+                final List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+                for (final String[] param : params) {
+                    if (param.length != 2) {
+                        LogHelper.w("Params are invalid");
+                    }
+                    else {
+                        nameValuePairs.add(new BasicNameValuePair(param[0], param[1]));
+                    }
                 }
-                else {
-                    LogHelper.w("Url was invalid");
-                }
+                ((HttpPost) mRequest).setEntity(new UrlEncodedFormEntity(nameValuePairs, HTTP.UTF_8));
+
             }
-            else {
-                LogHelper.w("AQuery was NULL");
+            catch (IOException e) {
+                LogHelper.e("IOException: " + e.getMessage());
             }
         }
         else {
-            LogHelper.w("Context was NULL");
+            LogHelper.w("Url was invalid");
         }
-        if (callback != null) {
-            callback.webServiceCallback(mId, new Response(null, null));
+        return this;
+    }
+
+    public WebService callback(final WebServiceCallback webServiceCallback) {
+        mCallback = webServiceCallback;
+        return this;
+    }
+
+    protected void callback() {
+        if (mCallback != null) {
+            final WebServiceResponse webServiceResponse = new WebServiceResponse();
+            if (mResponse != null) {
+                webServiceResponse.statusCode = mResponse.getStatusLine().getStatusCode();
+                webServiceResponse.statusMessage = mResponse.getStatusLine().getReasonPhrase();
+                try {
+                    webServiceResponse.response = mResponse.getEntity().getContent();
+                }
+                catch (IOException e) {
+                    LogHelper.w("IOException: " + e.getMessage());
+                }
+            }
+            mCallback.webServiceCallback((webServiceResponse.statusCode == HttpStatus.SC_OK), webServiceResponse);
         }
+    }
+
+    public HttpResponse run() {
+        if (mClient != null) {
+            if (mRequest != null) {
+                try {
+                    mResponse = mClient.execute(mRequest);
+                }
+                catch (IOException e) {
+                    LogHelper.e("IOException: " + e.getMessage());
+                }
+                callback();
+            }
+            else {
+                LogHelper.w("Request was NULL");
+            }
+        }
+        else {
+            LogHelper.w("Client was NULL");
+        }
+        return mResponse;
     }
 
     public void cancel() {
-        if (mAQuery != null) {
-            mAQuery.ajaxCancel();
+        if (mRequest != null) {
+            mRequest.abort();
         }
+        callback();
     }
 
-    public void run() {
-        run(null);
-    }
+    public static class WebServiceResponse {
 
-    public static class Response {
+        public Integer statusCode;
+        public String statusMessage;
+        public InputStream response;
 
-        public Integer code;
-        public Boolean success;
-        public String content;
-        public Long duration;
-
-        public Response(final AjaxStatus ajaxStatus, final String content) {
-            if (ajaxStatus != null) {
-                this.code = ajaxStatus.getCode();
-                this.success = (this.code == HttpStatus.SC_OK);
-                this.duration = ajaxStatus.getDuration();
-                this.content = (this.success ? content : StringHelper.capitalize(ajaxStatus.getMessage()));
-            }
-            else {
-                LogHelper.w("AjaxStatus was NULL");
-                this.code = -1;
-                this.success = false;
-                this.duration = 0L;
-                this.content = content;
-            }
+        public WebServiceResponse() {
+            statusCode = -1;
+            statusMessage = null;
+            response = null;
         }
 
     }
 
     public static interface WebServiceCallback {
 
-        public void webServiceCallback(final Integer id, final Response response);
+        public void webServiceCallback(final Boolean success, final WebServiceResponse webServiceResponse);
 
     }
 
