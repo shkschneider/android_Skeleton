@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -32,8 +33,9 @@ import java.util.Map;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.SystemHelper;
 
-public class MyListAdapter extends ArrayAdapter<Map<String, String>> implements Filterable {
+public class MyListAdapter extends ArrayAdapter<Map<String, String>> implements Filterable, SectionIndexer {
 
+    private static final String SECTIONS = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private static final int LAYOUT = android.R.layout.simple_list_item_2;
     private static final String FILTER = "text1";
 
@@ -118,4 +120,39 @@ public class MyListAdapter extends ArrayAdapter<Map<String, String>> implements 
 
         };
     }
+
+    @Override
+    // This provides the list view with an array of section objects.
+    public Object[] getSections() {
+        final String[] sections = new String[SECTIONS.length()];
+        for (int i = 0; i < SECTIONS.length(); i++) {
+            sections[i] = String.valueOf(SECTIONS.charAt(i));
+        }
+        return sections;
+    }
+
+    @Override
+    // Provides the starting index in the list for a given section.
+    public int getPositionForSection(final int position) {
+        final char c = SECTIONS.charAt(position);
+        for (int i = 0; i < mData.size(); i++) {
+            if (mData.get(i).get(FILTER).toUpperCase().charAt(0) == c) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    @Override
+    // This is a reverse mapping to fetch the section index for a given position in the list.
+    public int getSectionForPosition(final int position) {
+        final char c = mData.get(position).get(FILTER).charAt(0);
+        for (int i = 0; i < SECTIONS.length(); i++) {
+            if (SECTIONS.toUpperCase().charAt(i) == c) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
 }

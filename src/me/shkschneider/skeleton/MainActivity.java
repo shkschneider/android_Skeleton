@@ -253,6 +253,8 @@ public class MainActivity extends SherlockListActivity {
             }
 
         });
+        getListView().setFastScrollEnabled(true);
+        getListView().smoothScrollToPosition(0);
 
         ActivityHelper.indeterminate(MainActivity.this, false);
     }
