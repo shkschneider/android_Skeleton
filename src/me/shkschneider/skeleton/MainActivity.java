@@ -109,7 +109,7 @@ public class MainActivity extends SherlockListActivity {
         data.add(map("packageName()", "helper.AndroidHelper", AndroidHelper.packageName(MainActivity.this)));
         data.add(map("randomId()", "helper.AndroidHelper", AndroidHelper.randomId()));
         data.add(map("release()", "helper.AndroidHelper", AndroidHelper.release()));
-        data.add(map("signature()", "helper.AndroidHelper", AndroidHelper.signature(MainActivity.this)));
+        data.add(map("signature()", "helper.AndroidHelper", AndroidHelper.signature(MainActivity.this).substring(0, 32).concat("...")));
         data.add(map("sim()", "helper.AndroidHelper", null));
         data.add(map("tablet()", "helper.AndroidHelper", String.valueOf(AndroidHelper.tablet(MainActivity.this))));
         data.add(map("uuid()", "helper.AndroidHelper", AndroidHelper.uuid(MainActivity.this)));
