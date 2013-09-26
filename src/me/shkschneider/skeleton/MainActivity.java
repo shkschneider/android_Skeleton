@@ -15,16 +15,20 @@
  */
 package me.shkschneider.skeleton;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.SimpleAdapter;
+import android.widget.EditText;
 
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.widget.SearchView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,7 +39,9 @@ import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.FileHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
+import me.shkschneider.skeleton.helper.KeyboardHelper;
 import me.shkschneider.skeleton.helper.LocaleHelper;
+import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.RuntimeHelper;
 import me.shkschneider.skeleton.helper.ScreenHelper;
 import me.shkschneider.skeleton.helper.SystemHelper;
@@ -227,12 +233,7 @@ public class MainActivity extends SherlockListActivity {
         data.add(map("cancel()", "net.WebService", null));
         data.add(map("run()", "net.WebService", null));
 
-        setListAdapter(new SimpleAdapter(MainActivity.this,
-                data,
-                android.R.layout.simple_list_item_2,
-                new String[] { "text1", "text2" },
-                new int[] { android.R.id.text1, android.R.id.text2 }
-        ));
+        setListAdapter(new MyListAdapter(MainActivity.this, data));
 
         getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -259,12 +260,66 @@ public class MainActivity extends SherlockListActivity {
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         getSupportMenuInflater().inflate(R.menu.skeleton, menu);
+
+        final SearchManager searchManager = (SearchManager) SystemHelper.systemService(MainActivity.this, SystemHelper.SYSTEM_SERVICE_SEARCH_SERVICE);
+        final SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
+        if (searchView != null) {
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+            searchView.setIconifiedByDefault(false);
+            final SearchView.OnQueryTextListener onQueryTextListener = new SearchView.OnQueryTextListener() {
+
+                @Override
+                public boolean onQueryTextChange(final String newText) {
+                    ((MyListAdapter) getListAdapter()).getFilter().filter(newText);
+                    return true;
+                }
+
+                @Override
+                public boolean onQueryTextSubmit(final String query) {
+                    ((MyListAdapter) getListAdapter()).getFilter().filter(query);
+                    return true;
+                }
+
+            };
+            searchView.setOnQueryTextListener(onQueryTextListener);
+        }
+
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onSearchRequested() {
+        return super.onSearchRequested();
     }
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
+            case 1:
+                final EditText editText = (EditText) item.getActionView();
+                if (editText != null) {
+                    editText.addTextChangedListener(new TextWatcher() {
+
+                        @Override
+                        public void afterTextChanged(final Editable s) {
+                        }
+
+                        @Override
+                        public void beforeTextChanged(final CharSequence s, final int start, final int count, final int after) {
+                        }
+
+                        @Override
+                        public void onTextChanged(final CharSequence s, final int start, final int before, final int count) {
+                            // your search logic here
+                        }
+
+                    });
+                    editText.requestFocus();
+                    KeyboardHelper.show(MainActivity.this);
+                }
+                else {
+                    LogHelper.w("EditText was NULL");
+                }
             case android.R.id.home:
                 startActivity(new Intent(MainActivity.this, MainActivity.class));
                 break ;

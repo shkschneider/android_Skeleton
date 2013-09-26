@@ -2,10 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/menu_search"
+        android:actionViewClass="com.actionbarsherlock.widget.SearchView"
+        android:icon="@drawable/abs__ic_search"
+        android:showAsAction="always|collapseActionView"
+        android:title="@null"/>
+
+    <item
         android:id="@+id/code"
         android:title="@string/menu_code"
         android:icon="@null"
-        android:showAsAction="always" />
+        android:showAsAction="never" />
 
     <item
         android:id="@+id/author"
