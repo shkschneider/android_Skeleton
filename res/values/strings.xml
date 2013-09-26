@@ -4,7 +4,6 @@
     <string name="app_name" >Skeleton</string>
 
     <string name="menu_code">Code</string>
-    <string name="menu_refresh">Refresh</string>
     <string name="menu_author">Author</string>
     <string name="menu_license">License</string>
 

@@ -32,7 +32,6 @@ public class AudioHelper {
     public static final int STREAM_RING = AudioManager.STREAM_RING;
     public static final int STREAM_SYSTEM = AudioManager.STREAM_SYSTEM;
     public static final int STREAM_VOICE_CALL = AudioManager.STREAM_VOICE_CALL;
-    public static final int STREAM_DEFAULT = AudioManager.USE_DEFAULT_STREAM_TYPE;
 
     public static Integer volume(final Context context, final int streamType) {
         if (context != null) {
@@ -46,7 +45,7 @@ public class AudioHelper {
     }
 
     public static Integer volume(final Context context) {
-        return volume(context, AudioManager.USE_DEFAULT_STREAM_TYPE);
+        return volume(context, AudioManager.STREAM_SYSTEM);
     }
 
     public static void play(final String path) {

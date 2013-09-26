@@ -21,13 +21,13 @@ import android.location.LocationManager;
 import android.os.Bundle;
 
 @SuppressWarnings("unused")
-public class LocattionHelper implements LocationListener {
+public class LocationHelper implements LocationListener {
 
     protected LocationManager mLocationManager;
     protected LocationCallback mLocationCallback;
     protected android.location.Location mLocation;
 
-    public LocattionHelper(final Context context, final LocationCallback locationCallback) {
+    public LocationHelper(final Context context, final LocationCallback locationCallback) {
         if (context != null) {
             mLocationManager = (LocationManager) SystemHelper.systemService(context, SystemHelper.SYSTEM_SERVICE_LOCATION_SERVICE);
             if (locationCallback != null) {
@@ -42,7 +42,7 @@ public class LocattionHelper implements LocationListener {
         }
     }
 
-    public LocattionHelper(final Context context) {
+    public LocationHelper(final Context context) {
         this(context, null);
     }
 

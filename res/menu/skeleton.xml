@@ -8,12 +8,6 @@
         android:showAsAction="always" />
 
     <item
-        android:id="@+id/refresh"
-        android:title="@string/menu_refresh"
-        android:icon="@null"
-        android:showAsAction="always" />
-
-    <item
         android:id="@+id/author"
         android:title="@string/menu_author"
         android:icon="@null"

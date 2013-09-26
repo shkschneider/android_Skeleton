@@ -83,7 +83,7 @@ public class ActivityHelper {
         }
     }
 
-    public static void error(final Context context, final String message, final DialogInterface.OnClickListener onClickListener) {
+    public static void popup(final Context context, final String message, final DialogInterface.OnClickListener onClickListener) {
         if (context != null) {
             if (! TextUtils.isEmpty(message)) {
                 alertDialogBuilder(context)
@@ -102,8 +102,8 @@ public class ActivityHelper {
         }
     }
 
-    public static void error(final Context context, final String message) {
-        error(context, message, null);
+    public static void popup(final Context context, final String message) {
+        popup(context, message, null);
     }
 
     public static void showcase(final Activity activity, final int id, final String title, final String message, final ShowcaseCallback callback) {
@@ -175,38 +175,6 @@ public class ActivityHelper {
     public static AlertDialog.Builder alertDialogBuilder(final Context context) {
         if (context != null) {
             return new AlertDialog.Builder(context);
-        }
-        else {
-            LogHelper.w("Context was NULL");
-        }
-        return null;
-    }
-
-    public static AlertDialog alertDialog(final Context context, final int style) {
-        if (context != null) {
-            final AlertDialog.Builder alertDialog = alertDialogBuilder(context, style);
-            if (alertDialog != null) {
-                return alertDialog.create();
-            }
-            else {
-                LogHelper.w("AlertDialog.Builder was NULL");
-            }
-        }
-        else {
-            LogHelper.w("Context was NULL");
-        }
-        return null;
-    }
-
-    public static AlertDialog alertDialog(final Context context) {
-        if (context != null) {
-            final AlertDialog.Builder alertDialog = alertDialogBuilder(context);
-            if (alertDialog != null) {
-                return alertDialog.create();
-            }
-            else {
-                LogHelper.w("AlertDialog.Builder was NULL");
-            }
         }
         else {
             LogHelper.w("Context was NULL");
