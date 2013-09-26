@@ -16,7 +16,6 @@
 package me.shkschneider.skeleton.net;
 
 import android.content.Context;
-import android.text.TextUtils;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
@@ -35,30 +34,6 @@ public class WebService {
     protected Integer mId;
     protected String mUrl;
 
-    protected Boolean check() {
-        if (mContext == null) {
-            LogHelper.w("Context was NULL");
-            return false;
-        }
-        if (mAQuery == null) {
-            LogHelper.w("AQuery was NULL");
-            return false;
-        }
-        if (mId < 0) {
-            LogHelper.w("Id was invalid");
-            return false;
-        }
-        if (TextUtils.isEmpty(mUrl)) {
-            LogHelper.w("Url was NULL");
-            return false;
-        }
-        if (! NetworkHelper.validUrl(mUrl)) {
-            LogHelper.w("Url was invalid");
-            return false;
-        }
-        return true;
-    }
-
     public WebService(final Context context, final Integer id, final String url) {
         mContext = context;
         if (mContext != null) {
@@ -69,29 +44,37 @@ public class WebService {
     }
 
     public void run(final WebServiceCallback callback) {
-        if (! check()) {
-            LogHelper.d("check() failed");
-            if (callback != null) {
-                callback.webServiceCallback(mId, new Response(null, null));
+        if (mContext != null) {
+            if (mAQuery != null) {
+                if (NetworkHelper.validUrl(mUrl)) {
+                    mAQuery.ajax(new AjaxCallback<String>() {
+
+                        @Override
+                        public void callback(final String url, final String content, final AjaxStatus ajaxStatus) {
+                            if (callback != null) {
+                                callback.webServiceCallback(mId, new Response(ajaxStatus, content));
+                            }
+                            else {
+                                LogHelper.w("WebServiceCallback was NULL");
+                            }
+                        }
+
+                    }.url(mUrl).type(String.class).header("User-Agent", NetworkHelper.userAgent()));
+                    return ;
+                }
+                else {
+                    LogHelper.w("Url was invalid");
+                }
+            }
+            else {
+                LogHelper.w("AQuery was NULL");
             }
         }
         else {
-            mAQuery.ajax(new AjaxCallback<String>() {
-
-                @Override
-                public void callback(final String url, final String content, final AjaxStatus ajaxStatus) {
-                    if (callback != null) {
-                        callback.webServiceCallback(mId, new Response(ajaxStatus, content));
-                    }
-                    else {
-                        LogHelper.w("WebServiceCallback was NULL");
-                    }
-                }
-
-            }
-                    .url(mUrl)
-                    .type(String.class)
-                    .header("User-Agent", NetworkHelper.userAgent()));
+            LogHelper.w("Context was NULL");
+        }
+        if (callback != null) {
+            callback.webServiceCallback(mId, new Response(null, null));
         }
     }
 
