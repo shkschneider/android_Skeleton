@@ -91,9 +91,9 @@ public class MainActivity extends SherlockListActivity {
 
         final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 
-        data.add(map("DEBUG()", "SkeletonApplication", SkeletonApplication.DEBUG.toString()));
-        data.add(map("LOCALE()", "SkeletonApplication", SkeletonApplication.LOCALE));
-        data.add(map("TAG()", "SkeletonApplication", SkeletonApplication.TAG));
+        data.add(map("DEBUG", "SkeletonApplication", SkeletonApplication.DEBUG.toString()));
+        data.add(map("LOCALE", "SkeletonApplication", SkeletonApplication.LOCALE));
+        data.add(map("TAG", "SkeletonApplication", SkeletonApplication.TAG));
 
         data.add(map("auth()", "authenticator.FacebookAuthenticator", null));
         //data.add(map("auth()", "authenticator.GoogleAuthenticator", null));
@@ -239,7 +239,7 @@ public class MainActivity extends SherlockListActivity {
 
             @Override
             public int compare(final Map<String, String> m1, final Map<String, String> m2) {
-                return m1.get("text1").compareTo(m2.get("text1"));
+                return m1.get("text1").toUpperCase().compareTo(m2.get("text1").toUpperCase());
             }
 
         });

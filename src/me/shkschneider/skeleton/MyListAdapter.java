@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -122,21 +123,28 @@ public class MyListAdapter extends ArrayAdapter<Map<String, String>> implements 
     }
 
     @Override
-    // This provides the list view with an array of section objects.
     public Object[] getSections() {
-        final String[] sections = new String[SECTIONS.length()];
+        final List<String> sections = new ArrayList<String>();
         for (int i = 0; i < SECTIONS.length(); i++) {
-            sections[i] = String.valueOf(SECTIONS.charAt(i));
+            for (final Map<String, String> data : mData) {
+                String c = String.valueOf(data.get(FILTER).charAt(0)).toUpperCase();
+                if (! SECTIONS.contains(c)) {
+                    c = String.valueOf(SECTIONS.charAt(0)).toUpperCase();
+                }
+                if (! sections.contains(c)) {
+                    sections.add(c);
+                }
+            }
         }
-        return sections;
+        Collections.sort(sections);
+        return sections.toArray();
     }
 
     @Override
-    // Provides the starting index in the list for a given section.
     public int getPositionForSection(final int position) {
-        final char c = SECTIONS.charAt(position);
+        final String c = String.valueOf(SECTIONS.charAt(position)).toUpperCase();
         for (int i = 0; i < mData.size(); i++) {
-            if (mData.get(i).get(FILTER).toUpperCase().charAt(0) == c) {
+            if (String.valueOf(mData.get(i).get(FILTER).toUpperCase().charAt(0)).toUpperCase().equals(c)) {
                 return i;
             }
         }
@@ -144,11 +152,10 @@ public class MyListAdapter extends ArrayAdapter<Map<String, String>> implements 
     }
 
     @Override
-    // This is a reverse mapping to fetch the section index for a given position in the list.
     public int getSectionForPosition(final int position) {
-        final char c = mData.get(position).get(FILTER).charAt(0);
+        final String c = String.valueOf(mData.get(position).get(FILTER).charAt(0)).toUpperCase();
         for (int i = 0; i < SECTIONS.length(); i++) {
-            if (SECTIONS.toUpperCase().charAt(i) == c) {
+            if (String.valueOf(SECTIONS.toUpperCase().charAt(i)).toUpperCase().equals(c)) {
                 return i;
             }
         }

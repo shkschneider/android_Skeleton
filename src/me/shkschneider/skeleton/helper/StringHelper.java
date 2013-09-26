@@ -42,14 +42,16 @@ public class StringHelper {
 
     public static Boolean contains(final String[] strings, final String string) {
         if (strings != null) {
-            for (final String s : strings) {
-                if (s.equals(string)) {
-                    return true;
+            if (! TextUtils.isEmpty(string)) {
+                for (final String s : strings) {
+                    if (! TextUtils.isEmpty(s) && s.equals(string)) {
+                        return true;
+                    }
                 }
             }
         }
         else {
-            LogHelper.w("StringHelper was NULL");
+            LogHelper.w("Strings was NULL");
         }
         return false;
     }
