@@ -31,6 +31,8 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.widget.SearchView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -233,6 +235,15 @@ public class MainActivity extends SherlockListActivity {
         data.add(map("cancel()", "net.WebService", null));
         data.add(map("run()", "net.WebService", null));
 
+        Collections.sort(data, new Comparator<Map<String, String>>() {
+
+            @Override
+            public int compare(final Map<String, String> m1, final Map<String, String> m2) {
+                return m1.get("text1").compareTo(m2.get("text1"));
+            }
+
+        });
+
         setListAdapter(new MyListAdapter(MainActivity.this, data));
 
         getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -241,7 +252,7 @@ public class MainActivity extends SherlockListActivity {
             public void onItemClick(final AdapterView<?> adapterView, final View view, final int position, final long id) {
                 final String title = data.get(position).get("title");
                 final String message = data.get(position).get("message");
-                if (! TextUtils.isEmpty(message)) {
+                if (!TextUtils.isEmpty(message)) {
                     ActivityHelper.alertDialogBuilder(MainActivity.this)
                             .setTitle(title)
                             .setMessage(message)
