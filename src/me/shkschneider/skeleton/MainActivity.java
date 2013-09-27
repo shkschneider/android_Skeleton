@@ -82,15 +82,6 @@ public class MainActivity extends SherlockListActivity {
                         "Thanks for downloading!",
                         "Get the code: shkschneider@github!"),
                 null);
-
-        new WebService().get("http://www.google.fr").callback(new WebService.WebServiceCallback() {
-
-            @Override
-            public void webServiceCallback(Boolean success, WebService.WebServiceResponse webServiceResponse) {
-                LogHelper.d(success.toString());
-            }
-
-        }).run();
     }
 
     @Override

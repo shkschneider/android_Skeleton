@@ -28,6 +28,7 @@ import org.apache.http.conn.util.InetAddressUtils;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -38,6 +39,16 @@ import me.shkschneider.skeleton.helper.SystemHelper;
 
 @SuppressWarnings("unused")
 public class NetworkHelper {
+
+    public static String hostname() {
+        try {
+            return InetAddress.getLocalHost().getHostName();
+        }
+        catch (UnknownHostException e) {
+            LogHelper.e("UnknownHostException: "  + e.getMessage());
+        }
+        return null;
+    }
 
     public static String userAgent() {
         final String userAgent = SystemHelper.systemProperty(SystemHelper.SYSTEM_PROPERTY_HTTP_AGENT);
