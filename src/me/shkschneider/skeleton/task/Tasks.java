@@ -15,85 +15,92 @@
  */
 package me.shkschneider.skeleton.task;
 
+import android.app.Activity;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.TimeHelper;
 
 @SuppressWarnings("unused")
 public class Tasks {
 
-    private final LinkedList<Runnable> mTasks;
+    private Activity mActivity;
+    private List<Callable<Object>> mTasks;
     private Boolean mRunning;
+    private Long mDuration;
+
+    public Tasks(final Activity activity) {
+        mActivity = activity;
+        mTasks = new ArrayList<Callable<Object>>();
+        mRunning = false;
+        mDuration = 0L;
+    }
 
     public Tasks() {
-        mTasks = new LinkedList<Runnable>();
+        mActivity = null;
+        mTasks = new ArrayList<Callable<Object>>();
         mRunning = false;
+        mDuration = 0L;
     }
 
-    public Boolean queue(final Runnable runnable) {
-        if (! mRunning) {
-            if (runnable != null) {
-                synchronized(mTasks) {
-                    mTasks.addLast(runnable);
-                    mTasks.notify();
-                }
-                return true;
-            }
-            else {
-                LogHelper.w("Runnable was NULL");
+    public void queue(final Runnable runnable) {
+        if (runnable != null) {
+            synchronized(mTasks) {
+                mTasks.add(Executors.callable(runnable));
+                mTasks.notify();
             }
         }
         else {
-            LogHelper.d("Task was running");
+            LogHelper.w("Runnable was NULL");
         }
-        return false;
-    }
-
-    protected Runnable next() {
-        synchronized(mTasks) {
-            if (mTasks.isEmpty()) {
-                mRunning = false;
-            }
-            return mTasks.removeFirst();
-        }
-    }
-
-    private void myRun() {
-        while (mRunning) {
-            final Runnable runnable = next();
-            try {
-                runnable.run();
-                Thread.yield();
-            }
-            catch (Throwable t) {
-                LogHelper.e("Throwable: " + t.getMessage());
-            }
-        }
-    }
-
-    public Boolean run() {
-        if (! mRunning) {
-            final Thread thread = new Thread(new Runnable() {
-
-                @Override
-                public void run() {
-                    myRun();
-                }
-
-            });
-            thread.setDaemon(true);
-            mRunning = true;
-            thread.start();
-            return true;
-        }
-        else {
-            LogHelper.d("Task was running");
-        }
-        return false;
     }
 
     public Boolean running() {
         return mRunning;
+    }
+
+    public void run(final Callback callback) {
+        mRunning = true;
+        mDuration = TimeHelper.millitimestamp();
+        try {
+            Executors.newFixedThreadPool(mTasks.size()).invokeAll(mTasks);
+        }
+        catch (InterruptedException e) {
+            LogHelper.w("InterruptedException: " + e.getMessage());
+        }
+        mRunning = false;
+        if (callback != null) {
+            mDuration = (TimeHelper.millitimestamp() - mDuration);
+            if (mActivity != null) {
+                mActivity.runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        callback.tasksCallback(mDuration);
+                    }
+
+                });
+            }
+            else {
+                callback.tasksCallback(mDuration);
+            }
+        }
+    }
+
+    public void run() {
+        run(null);
+    }
+
+    public interface Callback {
+
+        public void tasksCallback(final Long duration);
+
     }
 
 }

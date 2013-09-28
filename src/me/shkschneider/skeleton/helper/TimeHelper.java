@@ -28,6 +28,10 @@ public class TimeHelper {
         return (java.lang.System.currentTimeMillis() / DateUtils.SECOND_IN_MILLIS);
     }
 
+    public static Long millitimestamp() {
+        return java.lang.System.currentTimeMillis();
+    }
+
     // Relative elapsed time
 
     public static String relative(final Long time) {

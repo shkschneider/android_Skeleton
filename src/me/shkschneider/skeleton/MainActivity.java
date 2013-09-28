@@ -15,6 +15,7 @@
  */
 package me.shkschneider.skeleton;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,6 +36,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import me.shkschneider.skeleton.helper.ActivityHelper;
@@ -50,7 +52,7 @@ import me.shkschneider.skeleton.helper.SystemHelper;
 import me.shkschneider.skeleton.helper.TimeHelper;
 import me.shkschneider.skeleton.helper.WebViewHelper;
 import me.shkschneider.skeleton.net.NetworkHelper;
-import me.shkschneider.skeleton.net.WebService;
+import me.shkschneider.skeleton.task.QueuedTasks;
 import me.shkschneider.skeleton.task.Tasks;
 
 @SuppressWarnings("unused")
@@ -84,7 +86,7 @@ public class MainActivity extends SherlockListActivity {
                         "Get the code: shkschneider@github!"),
                 null);
 
-        final Tasks tasks = new Tasks();
+        final Tasks tasks = new Tasks(MainActivity.this);
         tasks.queue(new Runnable() {
 
             @Override
@@ -123,7 +125,70 @@ public class MainActivity extends SherlockListActivity {
             }
 
         });
-        tasks.run();
+        tasks.run(new Tasks.Callback() {
+
+            @Override
+            public void tasksCallback(final Long duration) {
+                ActivityHelper.alertDialogBuilder(MainActivity.this)
+                        .setMessage("Tasks: " + duration + " ms")
+                        .setNeutralButton(android.R.string.ok, null)
+                        .create()
+                        .show();
+            }
+
+        });
+
+        final QueuedTasks queuedTasks = new QueuedTasks(MainActivity.this);
+        queuedTasks.queue(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000L);
+                }
+                catch (InterruptedException e) {
+                    LogHelper.w("InterruptedException: " + e.getMessage());
+                }
+            }
+
+        });
+        queuedTasks.queue(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000L);
+                } catch (InterruptedException e) {
+                    LogHelper.w("InterruptedException: " + e.getMessage());
+                }
+            }
+
+        });
+        queuedTasks.queue(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000L);
+                } catch (InterruptedException e) {
+                    LogHelper.w("InterruptedException: " + e.getMessage());
+                }
+                final Boolean b = true;
+            }
+
+        });
+        queuedTasks.run(new QueuedTasks.Callback() {
+
+            @Override
+            public void queuedTasksCallback(final Long duration) {
+                ActivityHelper.alertDialogBuilder(MainActivity.this)
+                        .setMessage("QueuedTasks: " + duration + " ms")
+                        .setNeutralButton(android.R.string.ok, null)
+                        .create()
+                        .show();
+            }
+
+        });
     }
 
     @Override
