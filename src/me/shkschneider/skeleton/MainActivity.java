@@ -15,7 +15,6 @@
  */
 package me.shkschneider.skeleton;
 
-import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,7 +35,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import me.shkschneider.skeleton.helper.ActivityHelper;
@@ -46,6 +44,7 @@ import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.KeyboardHelper;
 import me.shkschneider.skeleton.helper.LocaleHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.NumberHelper;
 import me.shkschneider.skeleton.helper.RuntimeHelper;
 import me.shkschneider.skeleton.helper.ScreenHelper;
 import me.shkschneider.skeleton.helper.SystemHelper;
@@ -85,110 +84,6 @@ public class MainActivity extends SherlockListActivity {
                         "Thanks for downloading!",
                         "Get the code: shkschneider@github!"),
                 null);
-
-        final Tasks tasks = new Tasks(MainActivity.this);
-        tasks.queue(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(1000L);
-                }
-                catch (InterruptedException e) {
-                    LogHelper.w("InterruptedException: " + e.getMessage());
-                }
-            }
-
-        });
-        tasks.queue(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(2000L);
-                } catch (InterruptedException e) {
-                    LogHelper.w("InterruptedException: " + e.getMessage());
-                }
-            }
-
-        });
-        tasks.queue(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(3000L);
-                } catch (InterruptedException e) {
-                    LogHelper.w("InterruptedException: " + e.getMessage());
-                }
-                final Boolean b = true;
-            }
-
-        });
-        tasks.run(new Tasks.Callback() {
-
-            @Override
-            public void tasksCallback(final Long duration) {
-                ActivityHelper.alertDialogBuilder(MainActivity.this)
-                        .setMessage("Tasks: " + duration + " ms")
-                        .setNeutralButton(android.R.string.ok, null)
-                        .create()
-                        .show();
-            }
-
-        });
-
-        final QueuedTasks queuedTasks = new QueuedTasks(MainActivity.this);
-        queuedTasks.queue(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(1000L);
-                }
-                catch (InterruptedException e) {
-                    LogHelper.w("InterruptedException: " + e.getMessage());
-                }
-            }
-
-        });
-        queuedTasks.queue(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(2000L);
-                } catch (InterruptedException e) {
-                    LogHelper.w("InterruptedException: " + e.getMessage());
-                }
-            }
-
-        });
-        queuedTasks.queue(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(3000L);
-                } catch (InterruptedException e) {
-                    LogHelper.w("InterruptedException: " + e.getMessage());
-                }
-                final Boolean b = true;
-            }
-
-        });
-        queuedTasks.run(new QueuedTasks.Callback() {
-
-            @Override
-            public void queuedTasksCallback(final Long duration) {
-                ActivityHelper.alertDialogBuilder(MainActivity.this)
-                        .setMessage("QueuedTasks: " + duration + " ms")
-                        .setNeutralButton(android.R.string.ok, null)
-                        .create()
-                        .show();
-            }
-
-        });
     }
 
     @Override
@@ -290,6 +185,8 @@ public class MainActivity extends SherlockListActivity {
         data.add(map("toastLong()", "helper.NotificationHelper", null));
         data.add(map("toastShort()", "helper.NotificationHelper", null));
 
+        data.add(map("random()", "helper.NumberHelper", String.valueOf(NumberHelper.random())));
+
         data.add(map("permission()", "helper.PermissionsHelper", null));
 
         data.add(map("freeMemory()", "helper.RuntimeHelper", String.valueOf(RuntimeHelper.freeMemory())));
@@ -343,11 +240,23 @@ public class MainActivity extends SherlockListActivity {
         data.add(map("cancel()", "net.WebService", null));
         data.add(map("run()", "net.WebService", null));
 
+        data.add(map("queue()", "task.QueuedTasks", null));
+        data.add(map("run()", "task.QueuedTasks", null));
+        data.add(map("running()", "task.QueuedTasks", null));
+        data.add(map("duration()", "task.QueuedTasks", null));
+
+        data.add(map("queue()", "task.Tasks", null));
+        data.add(map("run()", "task.Tasks", null));
+        data.add(map("running()", "task.Tasks", null));
+        data.add(map("duration()", "task.Tasks", null));
+
         Collections.sort(data, new Comparator<Map<String, String>>() {
 
             @Override
             public int compare(final Map<String, String> m1, final Map<String, String> m2) {
-                return m1.get("text1").toUpperCase().compareTo(m2.get("text1").toUpperCase());
+                final String s1 = m1.get("text1");
+                final String s2 = m2.get("text1");
+                return s1.compareToIgnoreCase(s2);
             }
 
         });

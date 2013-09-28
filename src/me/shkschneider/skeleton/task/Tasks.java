@@ -31,22 +31,21 @@ import me.shkschneider.skeleton.helper.TimeHelper;
 public class Tasks {
 
     private Activity mActivity;
-    private List<Callable<Object>> mTasks;
+    private final List<Callable<Object>> mTasks;
+    private Callback mCallback;
     private Boolean mRunning;
     private Long mDuration;
 
     public Tasks(final Activity activity) {
         mActivity = activity;
         mTasks = new ArrayList<Callable<Object>>();
+        mCallback = null;
         mRunning = false;
         mDuration = 0L;
     }
 
     public Tasks() {
-        mActivity = null;
-        mTasks = new ArrayList<Callable<Object>>();
-        mRunning = false;
-        mDuration = 0L;
+        this(null);
     }
 
     public void queue(final Runnable runnable) {
@@ -61,40 +60,56 @@ public class Tasks {
         }
     }
 
-    public Boolean running() {
-        return mRunning;
-    }
-
     public void run(final Callback callback) {
-        mRunning = true;
+        mCallback = callback;
         mDuration = TimeHelper.millitimestamp();
-        try {
-            Executors.newFixedThreadPool(mTasks.size()).invokeAll(mTasks);
-        }
-        catch (InterruptedException e) {
-            LogHelper.w("InterruptedException: " + e.getMessage());
-        }
-        mRunning = false;
-        if (callback != null) {
+        if (! mRunning) {
+            mRunning = true;
+            try {
+                Executors.newFixedThreadPool(mTasks.size()).invokeAll(mTasks);
+            }
+            catch (InterruptedException e) {
+                LogHelper.w("InterruptedException: " + e.getMessage());
+            }
+            mRunning = false;
             mDuration = (TimeHelper.millitimestamp() - mDuration);
-            if (mActivity != null) {
-                mActivity.runOnUiThread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        callback.tasksCallback(mDuration);
-                    }
-
-                });
-            }
-            else {
-                callback.tasksCallback(mDuration);
-            }
+            callback();
+        }
+        else {
+            LogHelper.w("Task was running");
         }
     }
 
     public void run() {
         run(null);
+    }
+
+    public Boolean running() {
+        return mRunning;
+    }
+
+    public Long duration() {
+        return (mRunning ? 0L : mDuration);
+    }
+
+    // TODO: cancel
+
+    private void callback() {
+        if (mCallback != null) {
+            if (mActivity != null) {
+                mActivity.runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        mCallback.tasksCallback(mDuration);
+                    }
+
+                });
+            }
+            else {
+                mCallback.tasksCallback(mDuration);
+            }
+        }
     }
 
     public interface Callback {

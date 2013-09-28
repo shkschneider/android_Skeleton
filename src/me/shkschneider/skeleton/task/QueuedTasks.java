@@ -64,21 +64,9 @@ public class QueuedTasks {
         synchronized(mRunnables) {
             if (mRunnables.isEmpty()) {
                 mRunning = false;
+                mDuration = (TimeHelper.millitimestamp() - mDuration);
                 if (mCallback != null) {
-                    mDuration = (TimeHelper.millitimestamp() - mDuration);
-                    if (mActivity != null) {
-                        mActivity.runOnUiThread(new Runnable() {
-
-                            @Override
-                            public void run() {
-                                mCallback.queuedTasksCallback(mDuration);
-                            }
-
-                        });
-                    }
-                    else {
-                        mCallback.queuedTasksCallback(mDuration);
-                    }
+                    callback();
                 }
                 return null;
             }
@@ -102,8 +90,8 @@ public class QueuedTasks {
     }
 
     public void run(final Callback callback) {
-        mDuration = TimeHelper.millitimestamp();
         mCallback = callback;
+        mDuration = TimeHelper.millitimestamp();
         if (! mRunning) {
             final Thread thread = new Thread(new Runnable() {
 
@@ -128,6 +116,30 @@ public class QueuedTasks {
 
     public Boolean running() {
         return mRunning;
+    }
+
+    public Long duration() {
+        return (mRunning ? 0L : mDuration);
+    }
+
+    // TODO: cancel
+
+    private void callback() {
+        if (mCallback != null) {
+            if (mActivity != null) {
+                mActivity.runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        mCallback.queuedTasksCallback(mDuration);
+                    }
+
+                });
+            }
+            else {
+                mCallback.queuedTasksCallback(mDuration);
+            }
+        }
     }
 
     public interface Callback {
