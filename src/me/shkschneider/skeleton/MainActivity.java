@@ -51,6 +51,7 @@ import me.shkschneider.skeleton.helper.TimeHelper;
 import me.shkschneider.skeleton.helper.WebViewHelper;
 import me.shkschneider.skeleton.net.NetworkHelper;
 import me.shkschneider.skeleton.net.WebService;
+import me.shkschneider.skeleton.task.Tasks;
 
 @SuppressWarnings("unused")
 public class MainActivity extends SherlockListActivity {
@@ -82,6 +83,47 @@ public class MainActivity extends SherlockListActivity {
                         "Thanks for downloading!",
                         "Get the code: shkschneider@github!"),
                 null);
+
+        final Tasks tasks = new Tasks();
+        tasks.queue(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000L);
+                }
+                catch (InterruptedException e) {
+                    LogHelper.w("InterruptedException: " + e.getMessage());
+                }
+            }
+
+        });
+        tasks.queue(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000L);
+                } catch (InterruptedException e) {
+                    LogHelper.w("InterruptedException: " + e.getMessage());
+                }
+            }
+
+        });
+        tasks.queue(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000L);
+                } catch (InterruptedException e) {
+                    LogHelper.w("InterruptedException: " + e.getMessage());
+                }
+                final Boolean b = true;
+            }
+
+        });
+        tasks.run();
     }
 
     @Override
