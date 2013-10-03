@@ -66,24 +66,22 @@ public class FeaturesHelper {
     // public static final String WIFI_DIRECT = PackageManager.FEATURE_WIFI_DIRECT;
 
     public static Boolean feature(final Context context, final String feature) {
-        if (context != null) {
-            if (! TextUtils.isEmpty(feature)) {
-                final PackageManager packageManager = context.getPackageManager();
-                if (packageManager != null) {
-                    return packageManager.hasSystemFeature(feature);
-                }
-                else {
-                    LogHelper.w("PackageManager was NULL");
-                }
-            }
-            else {
-                LogHelper.w("Permission was NULL");
-            }
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return false;
         }
-        return false;
+        if (TextUtils.isEmpty(feature)) {
+            LogHelper.w("Feature was NULL");
+            return false;
+        }
+
+        final PackageManager packageManager = context.getPackageManager();
+        if (packageManager == null) {
+            LogHelper.w("PackageManager was NULL");
+            return false;
+        }
+
+        return packageManager.hasSystemFeature(feature);
     }
 
 }

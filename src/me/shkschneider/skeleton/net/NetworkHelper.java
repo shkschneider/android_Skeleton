@@ -46,8 +46,8 @@ public class NetworkHelper {
         }
         catch (UnknownHostException e) {
             LogHelper.e("UnknownHostException: "  + e.getMessage());
+            return null;
         }
-        return null;
     }
 
     public static String userAgent() {
@@ -56,63 +56,59 @@ public class NetworkHelper {
     }
 
     public static Boolean online(final Context context) {
-        if (context != null) {
-            final NetworkInfo networkInfo = ((ConnectivityManager) SystemHelper.systemService(context, SystemHelper.SYSTEM_SERVICE_CONNECTIVITY)).getActiveNetworkInfo();
-            if (networkInfo != null) {
-                return networkInfo.isConnected();
-            }
-            else {
-                LogHelper.w("NetworkInfo was NULL");
-            }
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return false;
         }
-        return false;
+
+        final NetworkInfo networkInfo = ((ConnectivityManager) SystemHelper.systemService(context, SystemHelper.SYSTEM_SERVICE_CONNECTIVITY)).getActiveNetworkInfo();
+        if (networkInfo == null) {
+            LogHelper.w("NetworkInfo was NULL");
+            return false;
+        }
+
+        return networkInfo.isConnected();
     }
 
     public static Boolean wifi(final Context context) {
-        if (context != null) {
-            final WifiManager wifiManager = ((WifiManager) SystemHelper.systemService(context, SystemHelper.SYSTEM_SERVICE_WIFI));
-            if (wifiManager != null) {
-                return (wifiManager.getWifiState() == WifiManager.WIFI_STATE_ENABLED);
-            }
-            else {
-                LogHelper.w("NetworkInfo was NULL");
-            }
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return false;
         }
-        return false;
+
+        final WifiManager wifiManager = ((WifiManager) SystemHelper.systemService(context, SystemHelper.SYSTEM_SERVICE_WIFI));
+        if (wifiManager == null) {
+            LogHelper.w("NetworkInfo was NULL");
+            return null;
+        }
+
+        return (wifiManager.getWifiState() == WifiManager.WIFI_STATE_ENABLED);
     }
 
     public static String macAddress(final Context context) {
-        if (context != null) {
-            final WifiManager wifiManager = (WifiManager) SystemHelper.systemService(context, SystemHelper.SYSTEM_SERVICE_WIFI);
-            final WifiInfo wifiInfo = wifiManager.getConnectionInfo();
-            final String macAddress = wifiInfo.getMacAddress();
-            if (! TextUtils.isEmpty(macAddress)) {
-                return macAddress;
-            }
-            else {
-                LogHelper.w("MacAddress was NULL");
-            }
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        final WifiManager wifiManager = (WifiManager) SystemHelper.systemService(context, SystemHelper.SYSTEM_SERVICE_WIFI);
+        final WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+        final String macAddress = wifiInfo.getMacAddress();
+        if (TextUtils.isEmpty(macAddress)) {
+            LogHelper.w("MacAddress was NULL");
+            return null;
+        }
+
+        return macAddress;
     }
 
     public static Boolean validUrl(final String url) {
-        if (! TextUtils.isEmpty(url)) {
-            return URLUtil.isValidUrl(url);
-        }
-        else {
+        if (TextUtils.isEmpty(url)) {
             LogHelper.w("Url was null");
+            return false;
         }
-        return false;
+
+        return URLUtil.isValidUrl(url);
     }
 
     public static List<String> ipAddresses() {

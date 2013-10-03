@@ -23,7 +23,6 @@ import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.widget.ProgressBar;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -32,48 +31,47 @@ import java.io.InputStream;
 public class BitmapHelper {
 
     public static Bitmap decodeUri(final Context context, final Uri uri, final Integer downsample) {
-        if (context != null) {
-            final BitmapFactory.Options bitmapFactoryOptionsTmp = new BitmapFactory.Options();
-            bitmapFactoryOptionsTmp.inJustDecodeBounds = true;
-            try {
-                final InputStream inputStream = context.getContentResolver().openInputStream(uri);
-                if (inputStream != null) {
-                    BitmapFactory.decodeStream(inputStream, null, bitmapFactoryOptionsTmp);
-
-                    int width = bitmapFactoryOptionsTmp.outWidth;
-                    int height = bitmapFactoryOptionsTmp.outHeight;
-                    int scale = 1;
-                    if (downsample > 0) {
-                        while (true) {
-                            if (width / 2 < downsample || height / 2 < downsample) {
-                                break ;
-                            }
-                            width /= 2;
-                            height /= 2;
-                            scale *= 2;
-                        }
-                        final BitmapFactory.Options bitmapFactoryOptions = new BitmapFactory.Options();
-                        bitmapFactoryOptions.inJustDecodeBounds = false;
-                        bitmapFactoryOptions.inSampleSize = scale;
-                        bitmapFactoryOptions.inPurgeable = true;
-                        return BitmapFactory.decodeStream(inputStream, null, bitmapFactoryOptions);
-                    }
-                    else {
-                        LogHelper.w("Downsample was negative");
-                    }
-                }
-                else {
-                    LogHelper.w("InputStream was NULL");
-                }
-            }
-            catch (FileNotFoundException e) {
-                LogHelper.e("FileNotFoundException: " + e.getMessage());
-            }
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        final BitmapFactory.Options bitmapFactoryOptionsTmp = new BitmapFactory.Options();
+        bitmapFactoryOptionsTmp.inJustDecodeBounds = true;
+        try {
+            final InputStream inputStream = context.getContentResolver().openInputStream(uri);
+            if (inputStream == null) {
+                LogHelper.w("InputStream was NULL");
+                return null;
+            }
+
+            BitmapFactory.decodeStream(inputStream, null, bitmapFactoryOptionsTmp);
+            int width = bitmapFactoryOptionsTmp.outWidth;
+            int height = bitmapFactoryOptionsTmp.outHeight;
+            int scale = 1;
+            if (downsample <= 0) {
+                LogHelper.w("Downsample was invalid");
+                return null;
+            }
+
+            while (true) {
+                if (width / 2 < downsample || height / 2 < downsample) {
+                    break ;
+                }
+                width /= 2;
+                height /= 2;
+                scale *= 2;
+            }
+            final BitmapFactory.Options bitmapFactoryOptions = new BitmapFactory.Options();
+            bitmapFactoryOptions.inJustDecodeBounds = false;
+            bitmapFactoryOptions.inSampleSize = scale;
+            bitmapFactoryOptions.inPurgeable = true;
+            return BitmapFactory.decodeStream(inputStream, null, bitmapFactoryOptions);
+        }
+        catch (FileNotFoundException e) {
+            LogHelper.e("FileNotFoundException: " + e.getMessage());
+            return null;
+        }
     }
 
     public static Bitmap decodeUri(final Context context, final Uri uri) {
@@ -81,50 +79,45 @@ public class BitmapHelper {
     }
 
     public static Bitmap bitmapFromUri(final Context context, final Uri uri) {
-        if (context != null) {
-            try {
-                final BitmapFactory.Options options = new BitmapFactory.Options();
-                return BitmapFactory.decodeStream(context.getContentResolver().openInputStream(uri), null, options);
-            }
-            catch (FileNotFoundException e) {
-                LogHelper.e("FileNotFoundException: " + e.getMessage());
-            }
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        try {
+            return BitmapFactory.decodeStream(context.getContentResolver().openInputStream(uri), null, new BitmapFactory.Options());
+        }
+        catch (FileNotFoundException e) {
+            LogHelper.e("FileNotFoundException: " + e.getMessage());
+            return null;
+        }
     }
 
     public static Bitmap bitmapFromDrawable(final Drawable drawable) {
-        if (drawable != null) {
-            if (drawable instanceof BitmapDrawable) {
-                return ((BitmapDrawable) drawable).getBitmap();
-            }
-
-            final Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-            final Canvas canvas = new Canvas(bitmap);
-            drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-            drawable.draw(canvas);
-
-            return bitmap;
-        }
-        else {
+        if (drawable == null) {
             LogHelper.w("Drawable was NULL");
+            return null;
         }
-        return null;
+
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable) drawable).getBitmap();
+        }
+        final Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        final Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+        return bitmap;
     }
 
     public static Bitmap rotateBitmap(final Bitmap bitmap, final float degrees) {
-        if (bitmap != null) {
-            final Matrix matrix = new Matrix();
-            matrix.postRotate(degrees);
-            return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-        }
-        else {
+        if (bitmap == null) {
             LogHelper.w("Bitmap was NULL");
+            return null;
         }
-        return null;
+
+        final Matrix matrix = new Matrix();
+        matrix.postRotate(degrees);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
     }
 
 }

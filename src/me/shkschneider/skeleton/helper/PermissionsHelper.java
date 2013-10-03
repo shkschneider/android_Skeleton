@@ -90,24 +90,22 @@ public class PermissionsHelper {
     // public static final String NFC = android.Manifest.permission.NFC;
 
     public static Boolean permission(final Context context, final String permission) {
-        if (context != null) {
-            if (! TextUtils.isEmpty(permission)) {
-                final PackageManager packageManager = context.getPackageManager();
-                if (packageManager != null) {
-                    return (packageManager.checkPermission(permission, AndroidHelper.packageName(context)) == PackageManager.PERMISSION_GRANTED);
-                }
-                else {
-                    LogHelper.w("PackageManager was NULL");
-                }
-            }
-            else {
-                LogHelper.w("Permission was NULL");
-            }
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return false;
         }
-        return false;
+        if (TextUtils.isEmpty(permission)) {
+            LogHelper.w("Permission was NULL");
+            return false;
+        }
+
+        final PackageManager packageManager = context.getPackageManager();
+        if (packageManager == null) {
+            LogHelper.w("PackageManager was NULL");
+            return false;
+        }
+
+        return (packageManager.checkPermission(permission, AndroidHelper.packageName(context)) == PackageManager.PERMISSION_GRANTED);
     }
 
 }

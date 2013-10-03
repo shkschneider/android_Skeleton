@@ -38,154 +38,142 @@ public class FileHelper {
     public static final String ASSETS_PREFIX = "file:///android_asset/";
 
     public static String join(final String dirname, final String basename) {
-        if (! TextUtils.isEmpty(dirname)) {
-            if (! TextUtils.isEmpty(basename)) {
-                return String.format("%s%s%s", dirname, SystemHelper.systemProperty(SystemHelper.SYSTEM_PROPERTY_PATH_SEPARATOR), basename);
-            }
-            else {
-                LogHelper.w("Basename was NULL");
-            }
-        }
-        else {
+        if (TextUtils.isEmpty(dirname)) {
             LogHelper.w("Dirname was NULL");
+            return null;
         }
-        return null;
+        if (TextUtils.isEmpty(basename)) {
+            LogHelper.w("Basename was NULL");
+            return null;
+        }
+
+        return String.format("%s%s%s", dirname, SystemHelper.systemProperty(SystemHelper.SYSTEM_PROPERTY_PATH_SEPARATOR), basename);
     }
 
     // Get
 
     public static File get(final String path) {
-        if (! TextUtils.isEmpty(path)) {
-            return new File(path);
-        }
-        else {
+        if (TextUtils.isEmpty(path)) {
             LogHelper.w("Path was NULL");
+            return null;
         }
-        return null;
+
+        return new File(path);
     }
 
     // Open
 
     public static InputStream openFile(final File file) {
-        if (file != null) {
-            InputStream inputStream = null;
-
-            try {
-                inputStream = new FileInputStream(file);
-                inputStream.close();
-            }
-            catch (FileNotFoundException e) {
-                LogHelper.e("FileNotFoundException: " + e.getMessage());
-            }
-            catch (IOException e) {
-                LogHelper.e("IOException: " + e.getMessage());
-            }
-
-            return inputStream;
-        }
-        else {
+        if (file == null) {
             LogHelper.w("File was NULL");
+            return null;
         }
-        return null;
+
+        try {
+            return new FileInputStream(file);
+        }
+        catch (FileNotFoundException e) {
+            LogHelper.e("FileNotFoundException: " + e.getMessage());
+            return null;
+        }
+
     }
 
     public static InputStream openRaw(final Context context, final int id) {
-        if (context != null) {
-            return context.getResources().openRawResource(id);
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        return context.getResources().openRawResource(id);
     }
 
     public static InputStream openAsset(final Context context, final String name) {
-        if (context != null) {
-            try {
-                return context.getAssets().open(name);
-            }
-            catch (IOException e) {
-                LogHelper.e("IOException: " + e.getMessage());
-            }
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        try {
+            return context.getAssets().open(name);
+        }
+        catch (IOException e) {
+            LogHelper.e("IOException: " + e.getMessage());
+            return null;
+        }
     }
 
     // Read & Write
 
     public static String readString(final InputStream inputStream) {
-        if (inputStream != null) {
-            String string = "";
-            final Scanner scanner = new Scanner(inputStream);
-            while (scanner.hasNextLine()) {
-                string = string.concat(scanner.nextLine() + "\n");
-            }
-            return string;
-        }
-        else {
+        if (inputStream == null) {
             LogHelper.w("InputStream was NULL");
+            return null;
         }
-        return null;
+
+        String string = "";
+        final Scanner scanner = new Scanner(inputStream);
+        while (scanner.hasNextLine()) {
+            string = string.concat(scanner.nextLine() + "\n");
+        }
+        return string;
     }
 
     public static String readString(final File file) {
-        if (file != null) {
-            try {
-                return readString(new FileInputStream(file));
-            }
-            catch (FileNotFoundException e) {
-                LogHelper.e("FileNotFoundException: " + e.getMessage());
-            }
-        }
-        else {
+        if (file == null) {
             LogHelper.w("File was NULL");
+            return null;
         }
-        return null;
+
+        try {
+            return readString(new FileInputStream(file));
+        }
+        catch (FileNotFoundException e) {
+            LogHelper.e("FileNotFoundException: " + e.getMessage());
+            return null;
+        }
     }
 
     public static Bitmap readBitmap(final File file) {
-        if (file != null) {
-            try {
-                final BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-                return BitmapFactory.decodeStream(new FileInputStream(file), null, options);
-            }
-            catch (FileNotFoundException e) {
-                LogHelper.e("FileNotFoundException: " + e.getMessage());
-            }
-        }
-        else {
+        if (file == null) {
             LogHelper.w("File was NULL");
+            return null;
         }
-        return null;
+
+        try {
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+            return BitmapFactory.decodeStream(new FileInputStream(file), null, options);
+        }
+        catch (FileNotFoundException e) {
+            LogHelper.e("FileNotFoundException: " + e.getMessage());
+            return null;
+        }
     }
 
     public static Boolean writeString(final OutputStream outputStream, final String content) {
-        if (outputStream != null) {
-            if (! TextUtils.isEmpty(content)) {
-                try {
-                    outputStream.write(content.getBytes());
-                    outputStream.close();
-                    return true;
-                }
-                catch (FileNotFoundException e) {
-                    LogHelper.e("FileNotFoundException: " + e.getMessage());
-                }
-                catch (IOException e) {
-                    LogHelper.e("IOException: " + e.getMessage());
-                }
-            }
-            else {
-                LogHelper.w("String was NULL");
-            }
-        }
-        else {
+        if (outputStream == null) {
             LogHelper.w("OutputStream was NULL");
+            return false;
         }
-        return false;
+        if (TextUtils.isEmpty(content)) {
+            LogHelper.w("String was NULL");
+            return false;
+        }
+
+        try {
+            outputStream.write(content.getBytes());
+            outputStream.close();
+            return true;
+        }
+        catch (FileNotFoundException e) {
+            LogHelper.e("FileNotFoundException: " + e.getMessage());
+            return false;
+        }
+        catch (IOException e) {
+            LogHelper.e("IOException: " + e.getMessage());
+            return false;
+        }
     }
 
     public static Boolean writeString(final File file, final String content) {
@@ -194,8 +182,8 @@ public class FileHelper {
         }
         catch (FileNotFoundException e) {
             LogHelper.e("FileNotFoundException: " + e.getMessage());
+            return null;
         }
-        return null;
     }
 
     public static Boolean writeBitmap(final File file, final Bitmap bitmap) {
@@ -206,8 +194,8 @@ public class FileHelper {
         }
         catch (FileNotFoundException e) {
             LogHelper.e("FileNotFoundException: " + e.getMessage());
+            return false;
         }
-        return false;
     }
 
     // Serialize & Unserialize
@@ -223,8 +211,8 @@ public class FileHelper {
         }
         catch (IOException e) {
             LogHelper.e("IOException: " + e.getMessage());
+            return false;
         }
-        return false;
     }
 
     public static Object unserialize(final File file) {
@@ -235,93 +223,89 @@ public class FileHelper {
         }
         catch (IOException e) {
             LogHelper.e("IOException: " + e.getMessage());
+            return null;
         }
         catch (ClassNotFoundException e) {
             LogHelper.e("ClassNotFoundException: " + e.getMessage());
+            return null;
         }
-        return null;
     }
 
     // Remove
 
     public static Boolean remove(final File file) {
-        if (file != null) {
-            return file.delete();
-        }
-        else {
+        if (file == null) {
             LogHelper.w("File was NULL");
+            return false;
         }
-        return false;
+
+        return file.delete();
     }
 
     // Internal
 
     public static String internalDir(final Context context) {
-        if (context != null) {
-            final File dir = context.getFilesDir();
-            if (dir != null) {
-                return dir.getAbsolutePath();
-            }
-            else {
-                LogHelper.w("File was NULL");
-            }
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        final File dir = context.getFilesDir();
+        if (dir == null) {
+            LogHelper.w("File was NULL");
+            return null;
+        }
+
+        return dir.getAbsolutePath();
     }
 
     // External
 
     public static String externalDir(final Context context) {
-        if (context != null) {
-            final File dir = context.getExternalFilesDir(".");
-            if (dir != null) {
-                return dir.getParentFile().getAbsolutePath();
-            }
-            else {
-                LogHelper.w("File was NULL");
-            }
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        final File dir = context.getExternalFilesDir(".");
+        if (dir == null) {
+            LogHelper.w("File was NULL");
+            return null;
+        }
+
+        return dir.getParentFile().getAbsolutePath();
     }
 
     // Cache
 
     public static String internalCacheDir(final Context context) {
-        if (context != null) {
-            final File dir = context.getCacheDir();
-            if (dir != null) {
-                return dir.getAbsolutePath();
-            }
-            else {
-                LogHelper.w("File was NULL");
-            }
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        final File dir = context.getCacheDir();
+        if (dir == null) {
+            LogHelper.w("File was NULL");
+            return null;
+        }
+
+        return dir.getAbsolutePath();
     }
 
     public static String externalCacheDir(final Context context) {
-        if (context != null) {
-            final File dir = context.getExternalCacheDir();
-            if (dir != null) {
-                return dir.getAbsolutePath();
-            }
-            else {
-                LogHelper.w("File was NULL");
-            }
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        final File dir = context.getExternalCacheDir();
+        if (dir == null) {
+            LogHelper.w("File was NULL");
+            return null;
+        }
+
+        return dir.getAbsolutePath();
     }
 
     public static String downloadCache() {

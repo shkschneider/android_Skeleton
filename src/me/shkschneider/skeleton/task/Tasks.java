@@ -18,10 +18,8 @@ package me.shkschneider.skeleton.task;
 import android.app.Activity;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import me.shkschneider.skeleton.helper.LogHelper;
@@ -49,35 +47,35 @@ public class Tasks {
     }
 
     public void queue(final Runnable runnable) {
-        if (runnable != null) {
-            synchronized(mTasks) {
-                mTasks.add(Executors.callable(runnable));
-                mTasks.notify();
-            }
-        }
-        else {
+        if (runnable == null) {
             LogHelper.w("Runnable was NULL");
+            return ;
+        }
+
+        synchronized(mTasks) {
+            mTasks.add(Executors.callable(runnable));
+            mTasks.notify();
         }
     }
 
     public void run(final Callback callback) {
+        if (mRunning) {
+            LogHelper.w("Task was running");
+            return ;
+        }
+
         mCallback = callback;
         mDuration = TimeHelper.millitimestamp();
-        if (! mRunning) {
-            mRunning = true;
-            try {
-                Executors.newFixedThreadPool(mTasks.size()).invokeAll(mTasks);
-            }
-            catch (InterruptedException e) {
-                LogHelper.w("InterruptedException: " + e.getMessage());
-            }
-            mRunning = false;
-            mDuration = (TimeHelper.millitimestamp() - mDuration);
-            callback();
+        mRunning = true;
+        try {
+            Executors.newFixedThreadPool(mTasks.size()).invokeAll(mTasks);
         }
-        else {
-            LogHelper.w("Task was running");
+        catch (InterruptedException e) {
+            LogHelper.w("InterruptedException: " + e.getMessage());
         }
+        mRunning = false;
+        mDuration = (TimeHelper.millitimestamp() - mDuration);
+        callback();
     }
 
     public void run() {
@@ -95,20 +93,23 @@ public class Tasks {
     // TODO: cancel
 
     private void callback() {
-        if (mCallback != null) {
-            if (mActivity != null) {
-                mActivity.runOnUiThread(new Runnable() {
+        if (mCallback == null) {
+            LogHelper.d("Callback was NULL");
+            return ;
+        }
 
-                    @Override
-                    public void run() {
-                        mCallback.tasksCallback(mDuration);
-                    }
+        if (mActivity == null) {
+            mCallback.tasksCallback(mDuration);
+        }
+        else {
+            mActivity.runOnUiThread(new Runnable() {
 
-                });
-            }
-            else {
-                mCallback.tasksCallback(mDuration);
-            }
+                @Override
+                public void run() {
+                    mCallback.tasksCallback(mDuration);
+                }
+
+            });
         }
     }
 

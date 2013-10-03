@@ -23,60 +23,78 @@ import android.os.Build;
 public class VibratorHelper {
 
     @SuppressLint("NewApi")
-    private static void vibrateNew(final android.os.Vibrator vibrator, final long duration) {
-        if (vibrator.hasVibrator()) {
-            vibrator.vibrate(duration);
+    private static Boolean vibrateNew(final android.os.Vibrator vibrator, final long duration) {
+        if (! vibrator.hasVibrator()) {
+            LogHelper.d("Vibrator cannot vibrate");
+            return false;
         }
-        else {
-            LogHelper.d("VibratorHelper cannot vibrate");
-        }
+
+        vibrator.vibrate(duration);
+        return true;
     }
 
     @SuppressLint("NewApi")
-    private static void vibrateNew(final android.os.Vibrator vibrator, final long[] durations, final Boolean repeat) {
-        if (vibrator.hasVibrator()) {
-            vibrator.vibrate(durations, (repeat ? 0 : -1));
+    private static Boolean vibrateNew(final android.os.Vibrator vibrator, final long[] durations, final Boolean repeat) {
+        if (! vibrator.hasVibrator()) {
+            LogHelper.d("Vibrator cannot vibrate");
+            return false;
         }
-        else {
-            LogHelper.d("VibratorHelper cannot vibrate");
+        if (! vibrator.hasVibrator()) {
+            LogHelper.d("Vibrator cannot vibrate");
+            return false;
         }
-    }
 
-    private static void vibrateOld(final android.os.Vibrator vibrator, final long duration) {
-        vibrator.vibrate(duration);
-    }
-
-    private static void vibrateOld(final android.os.Vibrator vibrator, final long[] durations, final Boolean repeat) {
         vibrator.vibrate(durations, (repeat ? 0 : -1));
+        return true;
     }
 
-    public static void vibrate(final Context context, final long duration) {
+    private static Boolean vibrateOld(final android.os.Vibrator vibrator, final long duration) {
+        if (vibrator == null) {
+            LogHelper.d("Vibrator was NULL");
+            return false;
+        }
+
+        vibrator.vibrate(duration);
+        return true;
+    }
+
+    private static Boolean vibrateOld(final android.os.Vibrator vibrator, final long[] durations, final Boolean repeat) {
+        if (vibrator == null) {
+            LogHelper.d("Vibrator was NULL");
+            return false;
+        }
+
+        vibrator.vibrate(durations, (repeat ? 0 : -1));
+        return true;
+    }
+
+    public static Boolean vibrate(final Context context, final long duration) {
+        if (context == null) {
+            LogHelper.w("Context was NULL");
+            return false;
+        }
+
         final android.os.Vibrator vibrator = (android.os.Vibrator) SystemHelper.systemService(context, SystemHelper.SYSTEM_SERVICE_VIBRATOR);
-        if (vibrator != null) {
-            if (AndroidHelper.api() < Build.VERSION_CODES.HONEYCOMB) {
-                vibrateOld(vibrator, duration);
-            }
-            else {
-                vibrateNew(vibrator, duration);
-            }
+        if (AndroidHelper.api() < Build.VERSION_CODES.HONEYCOMB) {
+            return vibrateOld(vibrator, duration);
         }
         else {
-            LogHelper.w("VibratorHelper was NULL");
+            return vibrateNew(vibrator, duration);
         }
     }
 
-    public static void vibrate(final Context context, final long[] durations, final Boolean repeat) {
+    public static Boolean vibrate(final Context context, final long[] durations, final Boolean repeat) {
+        if (context == null) {
+            LogHelper.w("Context was NULL");
+            return false;
+        }
+
         final android.os.Vibrator vibrator = (android.os.Vibrator) SystemHelper.systemService(context, SystemHelper.SYSTEM_SERVICE_VIBRATOR);
-        if (vibrator != null) {
-            if (AndroidHelper.api() < Build.VERSION_CODES.HONEYCOMB) {
-                vibrateOld(vibrator, durations, repeat);
-            }
-            else {
-                vibrateNew(vibrator, durations, repeat);
-            }
+        if (AndroidHelper.api() < Build.VERSION_CODES.HONEYCOMB) {
+            return vibrateOld(vibrator, durations, repeat);
         }
         else {
-            LogHelper.w("VibratorHelper was NULL");
+            return vibrateNew(vibrator, durations, repeat);
         }
     }
 

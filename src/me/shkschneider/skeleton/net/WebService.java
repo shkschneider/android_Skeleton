@@ -18,8 +18,6 @@ package me.shkschneider.skeleton.net;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 
-import org.apache.http.HttpConnection;
-import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
@@ -38,7 +36,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.shkschneider.skeleton.helper.FileHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
 @SuppressWarnings("unused")
@@ -69,47 +66,46 @@ public class WebService extends AsyncTask<WebService.Callback, Void, HttpRespons
         }
 
         public Builder header(final String key, final String value) {
-            if (mRequest != null) {
-                if (! TextUtils.isEmpty(key)) {
-                    if (! TextUtils.isEmpty(key)) {
-                        mRequest.addHeader(key, value);
-                    }
-                    else {
-                        LogHelper.w("Value was NULL");
-                    }
-                }
-                else {
-                    LogHelper.w("Key was NULL");
-                }
+            if (mRequest == null) {
+                LogHelper.w("Request was NULL");
+            }
+            else if (TextUtils.isEmpty(key)) {
+                LogHelper.w("Key was NULL");
+            }
+            else if (TextUtils.isEmpty(value)) {
+                LogHelper.w("Value was NULL");
             }
             else {
-                LogHelper.w("Request was NULL");
+                mRequest.addHeader(key, value);
             }
             return this;
         }
 
         public Builder head(final String url) {
-            if (NetworkHelper.validUrl(url)) {
-                mRequest = new HttpHead(url);
+            if (! NetworkHelper.validUrl(url)) {
+                LogHelper.w("Url was invalid");
             }
             else {
-                LogHelper.w("Url was invalid");
+                mRequest = new HttpHead(url);
             }
             return this;
         }
 
         public Builder get(final String url) {
-            if (NetworkHelper.validUrl(url)) {
-                mRequest = new HttpGet(url);
+            if (! NetworkHelper.validUrl(url)) {
+                LogHelper.w("Url was invalid");
             }
             else {
-                LogHelper.w("Url was invalid");
+                mRequest = new HttpGet(url);
             }
             return this;
         }
 
         public Builder post(final String url, final List<String[]> params) {
-            if (NetworkHelper.validUrl(url)) {
+            if (! NetworkHelper.validUrl(url)) {
+                LogHelper.w("Url was invalid");
+            }
+            else {
                 mRequest = new HttpPost(url);
                 try {
                     final List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
@@ -128,70 +124,71 @@ public class WebService extends AsyncTask<WebService.Callback, Void, HttpRespons
                     LogHelper.e("IOException: " + e.getMessage());
                 }
             }
-            else {
-                LogHelper.w("Url was invalid");
-            }
             return this;
         }
 
         public WebService build() {
-            if (mClient != null) {
-                if (mRequest != null) {
-                    return new WebService(mClient, mRequest);
-                }
-                else {
-                    LogHelper.w("Request was NULL");
-                }
-            }
-            else {
+            if (mClient == null) {
                 LogHelper.w("Client was NULL");
+                return null;
             }
-            return null;
+            if (mRequest == null) {
+                LogHelper.w("Request was NULL");
+                return null;
+            }
+
+            return new WebService(mClient, mRequest);
         }
 
     }
 
     @Override
     protected HttpResponse doInBackground(WebService.Callback... callbacks) {
-        if (mClient != null) {
-            if (mRequest != null) {
-                try {
-                    mResponse = mClient.execute(mRequest);
-                }
-                catch (IOException e) {
-                    LogHelper.e("IOException: " + e.getMessage());
-                }
-            }
-            else {
-                LogHelper.w("Request was NULL");
-            }
-        }
-        else {
+        if (mClient == null) {
             LogHelper.w("Client was NULL");
+            return null;
+        }
+        if (mRequest == null) {
+            LogHelper.w("Request was NULL");
+            return null;
         }
 
-        if (callbacks != null) {
-            final Callback callback = callbacks[0];
-            if (callback != null) {
-                final Response webServiceResponse = new Response();
-                if (mResponse != null) {
-                    webServiceResponse.statusCode = mResponse.getStatusLine().getStatusCode();
-                    webServiceResponse.statusMessage = mResponse.getStatusLine().getReasonPhrase();
-                    try {
-                        if (mResponse.getEntity() != null) {
-                            webServiceResponse.response = mResponse.getEntity().getContent();
-                        }
-                    }
-                    catch (IOException e) {
-                        LogHelper.w("IOException: " + e.getMessage());
-                    }
-                }
-                else {
-                    LogHelper.w("Response was NULL");
-                }
-                callback.webServiceCallback((webServiceResponse.statusCode == HttpStatus.SC_OK), webServiceResponse);
+        try {
+            mResponse = mClient.execute(mRequest);
+            if (mResponse == null) {
+                LogHelper.w("Response was NULL");
+                return null;
             }
         }
+        catch (IOException e) {
+            LogHelper.e("IOException: " + e.getMessage());
+            return null;
+        }
+
+        final Response webServiceResponse = new Response();
+        webServiceResponse.statusCode = mResponse.getStatusLine().getStatusCode();
+        webServiceResponse.statusMessage = mResponse.getStatusLine().getReasonPhrase();
+        try {
+            if (mResponse.getEntity() != null) {
+                webServiceResponse.response = mResponse.getEntity().getContent();
+            }
+        }
+        catch (IOException e) {
+            LogHelper.w("IOException: " + e.getMessage());
+        }
+
+        if (callbacks == null) {
+            LogHelper.w("Callbacks was NULL");
+            return mResponse;
+        }
+
+        final Callback callback = callbacks[0];
+        if (callback == null) {
+            LogHelper.w("Callback was NULL");
+            return mResponse;
+        }
+
+        callback.webServiceCallback((webServiceResponse.statusCode == HttpStatus.SC_OK), webServiceResponse);
         return mResponse;
     }
 
@@ -204,12 +201,12 @@ public class WebService extends AsyncTask<WebService.Callback, Void, HttpRespons
     }
 
     public void cancel() {
-        if (mRequest != null) {
-            mRequest.abort();
-        }
-        else {
+        if (mRequest == null) {
             LogHelper.w("Request was NULL");
+            return ;
         }
+
+        mRequest.abort();
     }
 
     public static class Response {

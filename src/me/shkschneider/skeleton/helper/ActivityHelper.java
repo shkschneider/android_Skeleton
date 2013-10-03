@@ -33,127 +33,130 @@ import com.github.espiandev.showcaseview.ShowcaseView;
 @SuppressWarnings("unused")
 public class ActivityHelper {
 
-    public static void indeterminate(final Object activity) {
-        if (activity != null) {
-            if (activity instanceof SherlockActivity) {
-                ((SherlockActivity) activity).requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-                ((SherlockActivity) activity).setSupportProgressBarIndeterminate(true);
-            }
-            else if (activity instanceof SherlockListActivity) {
-                ((SherlockListActivity) activity).requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-                ((SherlockListActivity) activity).setSupportProgressBarIndeterminate(true);
-            }
-            else if (activity instanceof SherlockFragmentActivity) {
-                ((SherlockFragmentActivity) activity).requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-                ((SherlockFragmentActivity) activity).setSupportProgressBarIndeterminate(true);
-            }
-            else if (activity instanceof SherlockPreferenceActivity) {
-                ((SherlockPreferenceActivity) activity).requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-                ((SherlockPreferenceActivity) activity).setSupportProgressBarIndeterminate(true);
-            }
-            else {
-                LogHelper.w("Activity does not support FEATURE_INDETERMINATE_PROGRESS");
-            }
+    public static Boolean indeterminate(final Object activity) {
+        if (activity == null) {
+            LogHelper.w("Activity was NULL");
+            return false;
+        }
+
+        if (activity instanceof SherlockActivity) {
+            ((SherlockActivity) activity).requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+            ((SherlockActivity) activity).setSupportProgressBarIndeterminate(true);
+            return true;
+        }
+        else if (activity instanceof SherlockListActivity) {
+            ((SherlockListActivity) activity).requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+            ((SherlockListActivity) activity).setSupportProgressBarIndeterminate(true);
+            return true;
+        }
+        else if (activity instanceof SherlockFragmentActivity) {
+            ((SherlockFragmentActivity) activity).requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+            ((SherlockFragmentActivity) activity).setSupportProgressBarIndeterminate(true);
+            return true;
+        }
+        else if (activity instanceof SherlockPreferenceActivity) {
+            ((SherlockPreferenceActivity) activity).requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+            ((SherlockPreferenceActivity) activity).setSupportProgressBarIndeterminate(true);
+            return true;
         }
         else {
-            LogHelper.w("Activity was NULL");
+            LogHelper.w("Activity does not support FEATURE_INDETERMINATE_PROGRESS");
+            return false;
         }
     }
 
-    public static void indeterminate(final Object activity, final Boolean on) {
-        if (activity != null) {
-            if (activity instanceof SherlockActivity) {
-                ((SherlockActivity) activity).setSupportProgressBarIndeterminateVisibility(on);
-            }
-            else if (activity instanceof SherlockListActivity) {
-                ((SherlockListActivity) activity).setSupportProgressBarIndeterminateVisibility(on);
-            }
-            else if (activity instanceof SherlockFragmentActivity) {
-                ((SherlockFragmentActivity) activity).setSupportProgressBarIndeterminateVisibility(on);
-            }
-            else if (activity instanceof SherlockPreferenceActivity) {
-                ((SherlockPreferenceActivity) activity).setSupportProgressBarIndeterminateVisibility(on);
-            }
-            else {
-                LogHelper.w("Activity does not support FEATURE_INDETERMINATE_PROGRESS");
-            }
+    public static Boolean indeterminate(final Object activity, final Boolean on) {
+        if (activity == null) {
+            LogHelper.w("Activity was NULL");
+            return false;
+        }
+
+        if (activity instanceof SherlockActivity) {
+            ((SherlockActivity) activity).setSupportProgressBarIndeterminateVisibility(on);
+            return true;
+        }
+        else if (activity instanceof SherlockListActivity) {
+            ((SherlockListActivity) activity).setSupportProgressBarIndeterminateVisibility(on);
+            return true;
+        }
+        else if (activity instanceof SherlockFragmentActivity) {
+            ((SherlockFragmentActivity) activity).setSupportProgressBarIndeterminateVisibility(on);
+            return true;
+        }
+        else if (activity instanceof SherlockPreferenceActivity) {
+            ((SherlockPreferenceActivity) activity).setSupportProgressBarIndeterminateVisibility(on);
+            return true;
         }
         else {
-            LogHelper.w("Activity was NULL");
+            LogHelper.w("Activity does not support FEATURE_INDETERMINATE_PROGRESS");
+            return false;
         }
     }
 
-    public static void popup(final Context context, final String message, final DialogInterface.OnClickListener onClickListener) {
-        if (context != null) {
-            if (! TextUtils.isEmpty(message)) {
-                alertDialogBuilder(context)
-                        .setMessage(message)
-                        .setNeutralButton(android.R.string.ok, onClickListener)
-                        .setCancelable(false)
-                        .create()
-                        .show();
-            }
-            else {
-                LogHelper.w("Message was NULL");
-            }
-        }
-        else {
+    public static Boolean popup(final Context context, final String message, final DialogInterface.OnClickListener onClickListener) {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return false;
         }
+        if (TextUtils.isEmpty(message)) {
+            LogHelper.w("Message was NULL");
+            return false;
+        }
+
+        alertDialogBuilder(context)
+                .setMessage(message)
+                .setNeutralButton(android.R.string.ok, onClickListener)
+                .setCancelable(false)
+                .create()
+                .show();
+        return true;
     }
 
-    public static void popup(final Context context, final String message) {
-        popup(context, message, null);
+    public static Boolean popup(final Context context, final String message) {
+        return popup(context, message, null);
     }
 
-    public static void showcase(final Activity activity, final int id, final String title, final String message, final ShowcaseCallback callback) {
-        if (activity != null) {
-            if (id > 0) {
-                if (! TextUtils.isEmpty(title)) {
-                    if (! TextUtils.isEmpty(message)) {
-                        final ShowcaseView.ConfigOptions configOptions = new ShowcaseView.ConfigOptions();
-                        final ShowcaseView showcaseView = ShowcaseView.insertShowcaseView(android.R.id.home,
-                                activity,
-                                title,
-                                message,
-                                configOptions);
-                        showcaseView.setBackgroundColor(Color.parseColor("#AA000000"));
-                        if (callback != null) {
-                            showcaseView.setOnShowcaseEventListener(new ShowcaseView.OnShowcaseEventListener() {
-
-                                @Override
-                                public void onShowcaseViewHide(final ShowcaseView showcaseView) {
-                                    callback.showCaseCallback();
-                                }
-
-                                @Override
-                                public void onShowcaseViewShow(final ShowcaseView showcaseView) {
-                                }
-
-                            });
-                        }
-                        showcaseView.show();
-                    }
-                    else {
-                        LogHelper.w("Message was NULL");
-                    }
-                }
-                else {
-                    LogHelper.w("Title was NULL");
-                }
-            }
-            else {
-                LogHelper.w("Id was invalid");
-            }
-        }
-        else {
+    public static Boolean showcase(final Activity activity, final int id, final String title, final String message, final ShowcaseCallback callback) {
+        if (activity == null) {
             LogHelper.w("Activity was NULL");
+            return false;
+        }
+        if (id <= 0) {
+            LogHelper.w("Id was invalid");
+            return false;
+        }
+        if (TextUtils.isEmpty(title)) {
+            LogHelper.w("Title was NULL");
+            return false;
+        }
+        if (TextUtils.isEmpty(message)) {
+            LogHelper.w("Message was NULL");
+            return false;
         }
 
+        final ShowcaseView.ConfigOptions configOptions = new ShowcaseView.ConfigOptions();
+        final ShowcaseView showcaseView = ShowcaseView.insertShowcaseView(android.R.id.home, activity, title, message, configOptions);
+        showcaseView.setBackgroundColor(Color.parseColor("#AA000000"));
+        if (callback != null) {
+            showcaseView.setOnShowcaseEventListener(new ShowcaseView.OnShowcaseEventListener() {
+
+                @Override
+                public void onShowcaseViewHide(final ShowcaseView showcaseView) {
+                    callback.showCaseCallback();
+                }
+
+                @Override
+                public void onShowcaseViewShow(final ShowcaseView showcaseView) {
+                }
+
+            });
+        }
+        showcaseView.show();
+        return true;
     }
 
-    public static void showcase(final Activity activity, final int id, final String title, final String message) {
-        showcase(activity, id, title, message, null);
+    public static Boolean showcase(final Activity activity, final int id, final String title, final String message) {
+        return showcase(activity, id, title, message, null);
     }
 
     public interface ShowcaseCallback {
@@ -163,23 +166,21 @@ public class ActivityHelper {
     }
 
     public static AlertDialog.Builder alertDialogBuilder(final Context context, final int style) {
-        if (context != null) {
-            return new AlertDialog.Builder(new ContextThemeWrapper(context, style));
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        return new AlertDialog.Builder(new ContextThemeWrapper(context, style));
     }
 
     public static AlertDialog.Builder alertDialogBuilder(final Context context) {
-        if (context != null) {
-            return new AlertDialog.Builder(context);
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        return new AlertDialog.Builder(context);
     }
 
 }

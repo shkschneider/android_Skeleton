@@ -29,61 +29,55 @@ public class WebViewHelper {
     public static final String MIME_TYPE = "text/html";
 
     public static WebView fromUrl(final Context context, final String url) {
-        if (context != null) {
-            final WebView webView = new WebView(context);
-            webView.loadUrl(url);
-            return webView;
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        final WebView webView = new WebView(context);
+        webView.loadUrl(url);
+        return webView;
     }
 
     public static WebView fromAsset(final Context context, final String asset) {
-        if (context != null) {
-            final WebView webView = new WebView(context);
-            webView.loadDataWithBaseURL(FileHelper.ASSETS_PREFIX, asset, MIME_TYPE, CHARSET, "");
-            return webView;
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        final WebView webView = new WebView(context);
+        webView.loadDataWithBaseURL(FileHelper.ASSETS_PREFIX, asset, MIME_TYPE, CHARSET, "");
+        return webView;
     }
 
     public static WebView fromHtml(final Context context, final String source) {
-        if (context != null) {
-            final WebView webView = new WebView(context);
-            webView.loadData(source, MIME_TYPE, CHARSET);
-            return webView;
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        final WebView webView = new WebView(context);
+        webView.loadData(source, MIME_TYPE, CHARSET);
+        return webView;
     }
 
     public static Boolean javascriptInterface(final WebView webView, final Object javascriptInterface, final String name) {
-        if (webView != null) {
-            if (javascriptInterface != null) {
-                if (! TextUtils.isEmpty(name)) {
-                    webView.addJavascriptInterface(javascriptInterface, name);
-                    // onClick="Android.alert()" -> @JavascriptInterface public void JavascriptInterface.alert()
-                    return true;
-                }
-                else {
-                    LogHelper.w("Name was NULL");
-                }
-            }
-            else {
-                LogHelper.w("JavascriptInterface was NULL");
-            }
-        }
-        else {
+        if (webView == null) {
             LogHelper.w("WebView was NULL");
+            return false;
         }
-        return false;
+        if (javascriptInterface == null) {
+            LogHelper.w("JavascriptInterface was NULL");
+            return false;
+        }
+        if (TextUtils.isEmpty(name)) {
+            LogHelper.w("Name was NULL");
+            return false;
+        }
+
+        webView.addJavascriptInterface(javascriptInterface, name);
+        // onClick="Android.alert()" -> @JavascriptInterface public void JavascriptInterface.alert()
+        return true;
     }
 
     public static Boolean javascriptInterface(final WebView webView, final Object javascriptInterface) {
@@ -91,35 +85,31 @@ public class WebViewHelper {
     }
 
     public static Boolean back(final WebView webView) {
-        if (webView != null) {
-            if (webView.canGoBack()) {
-                webView.goBack();
-                return true;
-            }
-            else {
-                LogHelper.w("WebView cannot go back");
-            }
-        }
-        else {
+        if (webView == null) {
             LogHelper.w("WebView was NULL");
+            return false;
         }
-        return false;
+
+        if (! webView.canGoBack()) {
+            LogHelper.w("WebView cannot go back");
+        }
+
+        webView.goBack();
+        return true;
     }
 
     public static Boolean forward(final WebView webView) {
-        if (webView != null) {
-            if (webView.canGoForward()) {
-                webView.goForward();
-                return true;
-            }
-            else {
-                LogHelper.w("WebView cannot go forward");
-            }
-        }
-        else {
+        if (webView == null) {
             LogHelper.w("WebView was NULL");
+            return false;
         }
-        return false;
+
+        if (! webView.canGoForward()) {
+            LogHelper.w("WebView cannot go forward");
+        }
+
+        webView.goForward();
+        return true;
     }
 
 }

@@ -62,104 +62,105 @@ public class AndroidHelper {
     // If SCREENLAYOUT_SIZE is XLARGE for API >= HONEYCOMB
 
     public static Boolean tablet(final Context context) {
-        if (context != null) {
-            if (api() >= Build.VERSION_CODES.HONEYCOMB) {
-                final Configuration configuration = context.getResources().getConfiguration();
-                if (configuration != null) {
-                    try {
-                        return (Boolean) configuration.getClass().getMethod("isLayoutSizeAtLeast", int.class)
-                                .invoke(configuration, Configuration.SCREENLAYOUT_SIZE_XLARGE);
-                    }
-                    catch (NoSuchMethodException e) {
-                        LogHelper.e("NoSuchMethodException: " + e.getMessage());
-                    }
-                    catch (IllegalAccessException e) {
-                        LogHelper.e("IllegalAccessException: " + e.getMessage());
-                    }
-                    catch (InvocationTargetException e) {
-                        LogHelper.e("InvocationTargetException: " + e.getMessage());
-                    }
-                }
-                else {
-                    LogHelper.w("Configuration was NULL");
-                }
+        if (context == null) {
+            LogHelper.w("Context was NULL");
+            return false;
+        }
+
+        if (api() >= Build.VERSION_CODES.HONEYCOMB) {
+            final Configuration configuration = context.getResources().getConfiguration();
+            if (configuration == null) {
+                LogHelper.w("Configuration was NULL");
+                return false;
             }
-            else {
-                LogHelper.d("Api was < HONEYCOMB");
+
+            try {
+                return (Boolean) configuration.getClass().getMethod("isLayoutSizeAtLeast", int.class)
+                        .invoke(configuration, Configuration.SCREENLAYOUT_SIZE_XLARGE);
+            }
+            catch (NoSuchMethodException e) {
+                LogHelper.e("NoSuchMethodException: " + e.getMessage());
+                return false;
+            }
+            catch (IllegalAccessException e) {
+                LogHelper.e("IllegalAccessException: " + e.getMessage());
+                return false;
+            }
+            catch (InvocationTargetException e) {
+                LogHelper.e("InvocationTargetException: " + e.getMessage());
+                return false;
             }
         }
         else {
-            LogHelper.w("Context was NULL");
+            LogHelper.d("Api was < HONEYCOMB");
+            return false;
         }
-        return false;
     }
 
     // Get Android ID (length: 16)
     // The value may change if a factory reset is performed on the device.
 
     public static String id(final Context context) {
-        if (context != null) {
-            final String id = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-            if (! TextUtils.isEmpty(id)) {
-                return id.toLowerCase();
-            }
-            else {
-                LogHelper.w("Id was NULL");
-            }
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        final String id = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+        if (TextUtils.isEmpty(id)) {
+            LogHelper.w("Id was NULL");
+            return null;
+        }
+
+        return id.toLowerCase();
     }
 
     // Get Device ID (length: 32)
     // The value may change if a factory reset is performed on the device.
 
     public static String deviceId(final Context context) {
-        if (context != null) {
-            final String id = id(context);
-            if (! TextUtils.isEmpty(id)) {
-                try {
-                    final MessageDigest messageDigest = MessageDigest.getInstance(HashHelper.MD5);
-                    if (messageDigest != null) {
-                        return new BigInteger(1, messageDigest.digest(id.getBytes())).toString(16).toLowerCase();
-                    }
-                    else {
-                        LogHelper.w("MessageDigest was NULL");
-                    }
-                }
-                catch (NoSuchAlgorithmException e) {
-                    LogHelper.e("NoSuchAlgorithmException: " + e.getMessage());
-                }
-            }
-            else {
-                LogHelper.w("Id was NULL");
-            }
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        final String id = id(context);
+        if (TextUtils.isEmpty(id)) {
+            LogHelper.w("Id was NULL");
+            return null;
+        }
+
+        try {
+            final MessageDigest messageDigest = MessageDigest.getInstance(HashHelper.MD5);
+            if (messageDigest == null) {
+                LogHelper.w("MessageDigest was NULL");
+                return null;
+            }
+
+            return new BigInteger(1, messageDigest.digest(id.getBytes())).toString(16).toLowerCase();
+        }
+        catch (NoSuchAlgorithmException e) {
+            LogHelper.e("NoSuchAlgorithmException: " + e.getMessage());
+            return null;
+        }
     }
 
     // Get UUID from Device ID (RFC4122, length: 36)
     // The value may change if a factory reset is performed on the device.
 
     public static String uuid(final Context context) {
-        if (context != null) {
-            final String deviceId = deviceId(context);
-            if (! TextUtils.isEmpty(deviceId)) {
-                return UUID.nameUUIDFromBytes(deviceId.getBytes()).toString().replace("-", "");
-            }
-            else {
-                LogHelper.w("DeviceId was NULL");
-            }
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        final String deviceId = deviceId(context);
+        if (TextUtils.isEmpty(deviceId)) {
+            LogHelper.w("DeviceId was NULL");
+            return null;
+        }
+
+        return UUID.nameUUIDFromBytes(deviceId.getBytes()).toString().replace("-", "");
     }
 
     // Get a random ID (RFC4122, length: 32)
@@ -194,130 +195,128 @@ public class AndroidHelper {
     }
 
     public static String packageName(final Context context) {
-        if (context != null) {
-            return context.getPackageName();
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        return context.getPackageName();
     }
 
     public static String name(final Context context) {
-        if (context != null) {
-            return context.getResources().getString(R.string.app_name);
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        return context.getResources().getString(R.string.app_name);
     }
 
     public static String versionName(final Context context) {
-        if (context != null) {
-            try {
-                final PackageManager packageManager = context.getPackageManager();
-                if (packageManager != null) {
-                    return packageManager.getPackageInfo(packageName(context), PackageManager.GET_META_DATA).versionName;
-                }
-                else {
-                    LogHelper.w("PackageManager was NULL");
-                }
-            }
-            catch (PackageManager.NameNotFoundException e) {
-                LogHelper.e("NameNotFoundException: " + e.getMessage());
-            }
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return "0";
+
+        try {
+            final PackageManager packageManager = context.getPackageManager();
+            if (packageManager == null) {
+                LogHelper.w("PackageManager was NULL");
+                return null;
+            }
+
+            return packageManager.getPackageInfo(packageName(context), PackageManager.GET_META_DATA).versionName;
+        }
+        catch (PackageManager.NameNotFoundException e) {
+            LogHelper.e("NameNotFoundException: " + e.getMessage());
+            return null;
+        }
     }
 
     public static Integer versionCode(final Context context) {
-        if (context != null) {
-            try {
-                final PackageManager packageManager = context.getPackageManager();
-                if (packageManager != null) {
-                    return packageManager.getPackageInfo(packageName(context), PackageManager.GET_META_DATA).versionCode;
-                }
-                else {
-                    LogHelper.w("PackageManager was NULL");
-                }
-            }
-            catch (PackageManager.NameNotFoundException e) {
-                LogHelper.e("NameNotFoundException: " + e.getMessage());
-            }
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return 0;
         }
-        return 0;
+
+        try {
+            final PackageManager packageManager = context.getPackageManager();
+            if (packageManager == null) {
+                LogHelper.w("PackageManager was NULL");
+                return 0;
+            }
+
+            return packageManager.getPackageInfo(packageName(context), PackageManager.GET_META_DATA).versionCode;
+        }
+        catch (PackageManager.NameNotFoundException e) {
+            LogHelper.e("NameNotFoundException: " + e.getMessage());
+            return 0;
+        }
     }
 
     public static final String ACCOUNT_GOOGLE = "com.google";
 
     public static String account(final Context context) {
-        if (context != null) {
-            final AccountManager accountManager = AccountManager.get(context);
-            if (accountManager != null) {
-                for (Account account : accountManager.getAccounts()) {
-                    if (Patterns.EMAIL_ADDRESS.matcher(account.name).matches()) {
-                        return account.name;
-                    }
+        if (context == null) {
+            LogHelper.w("Context was NULL");
+            return null;
+        }
+
+        final AccountManager accountManager = AccountManager.get(context);
+        if (accountManager != null) {
+            for (Account account : accountManager.getAccounts()) {
+                if (Patterns.EMAIL_ADDRESS.matcher(account.name).matches()) {
+                    return account.name;
                 }
             }
-            else {
-                LogHelper.w("AccountManager was NULL");
-            }
+            return null;
         }
         else {
-            LogHelper.w("Context was NULL");
+            LogHelper.w("AccountManager was NULL");
+            return null;
         }
-        return null;
     }
 
     public static String signature(final Context context) {
-        if (context != null) {
-            final PackageManager packageManager = context.getPackageManager();
-            if (packageManager != null) {
-                try {
-                    final PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES);
-                    if (packageInfo != null) {
-                        final Signature[] signatures = packageInfo.signatures;
-                        if (signatures != null) {
-                            return signatures[0].toCharsString();
-                        }
-                        else {
-                            LogHelper.d("No signatures");
-                        }
-                    }
-                    else {
-                        LogHelper.w("PackageInfo was NULL");
-                    }
-                }
-                catch (PackageManager.NameNotFoundException e) {
-                    LogHelper.e("NameNotFoundException: " + e.getMessage());
-                }
-            }
-            else {
-                LogHelper.w("PackageManager was NULL");
-            }
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        final PackageManager packageManager = context.getPackageManager();
+        if (packageManager == null) {
+            LogHelper.w("PackageManager was NULL");
+            return null;
+        }
+
+        try {
+            final PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES);
+            if (packageInfo == null) {
+                LogHelper.w("PackageInfo was NULL");
+                return null;
+            }
+
+            final Signature[] signatures = packageInfo.signatures;
+            if (signatures == null) {
+                LogHelper.d("No signatures");
+                return null;
+            }
+
+            return signatures[0].toCharsString();
+        }
+        catch (PackageManager.NameNotFoundException e) {
+            LogHelper.e("NameNotFoundException: " + e.getMessage());
+            return null;
+        }
     }
 
     public static TelephonyManager sim(final Context context) {
-        if (context != null) {
-            return (TelephonyManager) SystemHelper.systemService(context, SystemHelper.SYSTEM_SERVICE_TELEPHONY);
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        return (TelephonyManager) SystemHelper.systemService(context, SystemHelper.SYSTEM_SERVICE_TELEPHONY);
     }
 
 }

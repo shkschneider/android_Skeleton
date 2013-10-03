@@ -34,63 +34,71 @@ public class AudioHelper {
     public static final int STREAM_VOICE_CALL = AudioManager.STREAM_VOICE_CALL;
 
     public static Integer volume(final Context context, final int streamType) {
-        if (context != null) {
-            final AudioManager audioManager = (AudioManager) SystemHelper.systemService(context, SystemHelper.SYSTEM_SERVICE_AUDIO);
-            audioManager.getStreamVolume(streamType);
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return 0;
         }
-        return 0;
+
+        final AudioManager audioManager = (AudioManager) SystemHelper.systemService(context, SystemHelper.SYSTEM_SERVICE_AUDIO);
+        return audioManager.getStreamVolume(streamType);
     }
 
     public static Integer volume(final Context context) {
+        if (context == null) {
+            LogHelper.w("Context was NULL");
+            return 0;
+        }
+
         return volume(context, AudioManager.STREAM_SYSTEM);
     }
 
-    public static void play(final String path) {
+    public static Boolean play(final String path) {
         try {
             final MediaPlayer mediaPlayer = new MediaPlayer();
             mediaPlayer.setDataSource(path);
             mediaPlayer.prepare();
             mediaPlayer.start();
+            return true;
         }
         catch (IOException e) {
             LogHelper.e("IOException: " + e.getMessage());
+            return false;
         }
     }
 
-    public static void play(final Context context, final Uri uri) {
-        if (context != null) {
-            if (uri != null) {
-                try {
-                    final MediaPlayer mediaPlayer = new MediaPlayer();
-                    mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-                    mediaPlayer.setDataSource(context, uri);
-                    mediaPlayer.prepare();
-                    mediaPlayer.start();
-                }
-                catch (IOException e) {
-                    LogHelper.e("IOException: " + e.getMessage());
-                }
-            }
-            else {
-                LogHelper.w("Uri was NULL");
-            }
-        }
-        else {
+    public static Boolean play(final Context context, final Uri uri) {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return false;
         }
-    }
+        if (uri == null) {
+            LogHelper.w("Uri was NULL");
+            return false;
+        }
 
-    public static void play(final Context context, final int rawId) {
-        if (context != null) {
-            final MediaPlayer mediaPlayer = MediaPlayer.create(context, rawId);
+        try {
+            final MediaPlayer mediaPlayer = new MediaPlayer();
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            mediaPlayer.setDataSource(context, uri);
+            mediaPlayer.prepare();
             mediaPlayer.start();
+            return true;
         }
-        else {
+        catch (IOException e) {
+            LogHelper.e("IOException: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public static Boolean play(final Context context, final int rawId) {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return false;
         }
+
+        final MediaPlayer mediaPlayer = MediaPlayer.create(context, rawId);
+        mediaPlayer.start();
+        return true;
     }
 
 }

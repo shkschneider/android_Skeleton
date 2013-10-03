@@ -29,33 +29,33 @@ public class ExternalStorageHelper {
     }
 
     public static Boolean write(final Context context, final String name, final String content, final Boolean append) {
+        if (context == null) {
+            LogHelper.w("Context was NULL");
+            return false;
+        }
+
         if (FileHelper.sdCardWritable()) {
-            if (context != null) {
-                return FileHelper.writeString(FileHelper.get(FileHelper.join(FileHelper.externalDir(context), name)), content);
-            }
-            else {
-                LogHelper.w("Context was NULL");
-            }
+            return FileHelper.writeString(FileHelper.get(FileHelper.join(FileHelper.externalDir(context), name)), content);
         }
         else {
             LogHelper.w("SDCard was not writable");
+            return false;
         }
-        return false;
     }
 
     public static String read(final Context context, final String name) {
+        if (context == null) {
+            LogHelper.w("Context was NULL");
+            return null;
+        }
+
         if (FileHelper.sdCardReadable()) {
-            if (context != null) {
-                return FileHelper.readString(FileHelper.get(FileHelper.join(FileHelper.externalDir(context), name)));
-            }
-            else {
-                LogHelper.w("Context was NULL");
-            }
+            return FileHelper.readString(FileHelper.get(FileHelper.join(FileHelper.externalDir(context), name)));
         }
         else {
             LogHelper.w("SDCard was not readable");
+            return null;
         }
-        return null;
     }
 
 }

@@ -16,6 +16,7 @@
 package me.shkschneider.skeleton.helper;
 
 import android.content.Context;
+import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -25,63 +26,61 @@ public class LocationHelper implements LocationListener {
 
     protected LocationManager mLocationManager;
     protected LocationCallback mLocationCallback;
-    protected android.location.Location mLocation;
+    protected Location mLocation;
 
     public LocationHelper(final Context context, final LocationCallback locationCallback) {
-        if (context != null) {
-            mLocationManager = (LocationManager) SystemHelper.systemService(context, SystemHelper.SYSTEM_SERVICE_LOCATION_SERVICE);
-            if (locationCallback != null) {
-                mLocationCallback = locationCallback;
-            }
-            else {
-                LogHelper.d("LocationCallback was NULL");
-            }
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return ;
         }
+
+        mLocationManager = (LocationManager) SystemHelper.systemService(context, SystemHelper.SYSTEM_SERVICE_LOCATION_SERVICE);
+        mLocationCallback = locationCallback;
     }
 
     public LocationHelper(final Context context) {
         this(context, null);
     }
 
-    public android.location.Location start(final Boolean gps) {
-        if (mLocationManager != null) {
-            mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
-            mLocation = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-            if (gps) {
-                mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-                mLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            }
-            return mLocation;
-        }
-        else {
+    public Location start(final Boolean gps) {
+        if (mLocationManager == null) {
             LogHelper.w("LocationManager was NULL");
+            return null;
         }
-        return null;
+
+        mLocationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+        mLocation = mLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        if (gps) {
+            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+            mLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        }
+        return mLocation;
     }
 
-    public void stop() {
-        if (mLocationManager != null) {
-            mLocationManager.removeUpdates(this);
-        }
-        else {
+    public Boolean stop() {
+        if (mLocationManager == null) {
             LogHelper.w("LocationManager was NULL");
+            return false;
         }
+
+        mLocationManager.removeUpdates(this);
+        return true;
     }
 
-    public android.location.Location location() {
+    public Location location() {
         return mLocation;
     }
 
     @Override
-    public void onLocationChanged(final android.location.Location location) {
+    public void onLocationChanged(final Location location) {
         mLocation = location;
 
-        if (mLocationCallback != null) {
-            mLocationCallback.locationCallback(mLocation);
+        if (mLocationCallback == null) {
+            LogHelper.w("Callback was NULL");
+            return ;
         }
+
+        mLocationCallback.locationCallback(mLocation);
     }
 
     @Override
@@ -90,33 +89,41 @@ public class LocationHelper implements LocationListener {
 
     @Override
     public void onProviderEnabled(final String provider) {
-        if (mLocationCallback != null) {
-            mLocationCallback.providerCallback(provider, true);
+        if (mLocationCallback == null) {
+            LogHelper.w("Callback was NULL");
+            return ;
         }
+
+        mLocationCallback.providerCallback(provider, true);
     }
 
     @Override
     public void onProviderDisabled(final String provider) {
-        if (mLocationCallback != null) {
-            mLocationCallback.providerCallback(provider, false);
+        if (mLocationCallback == null) {
+            LogHelper.w("Callback was NULL");
+            return ;
         }
+
+        mLocationCallback.providerCallback(provider, false);
     }
 
     public static Float metersFromDegrees(final Float degree) {
-        if (degree > 0) {
-            return (degree * 111111);
+        if (degree <= 0) {
+            return 0F;
         }
-        return 0F;
+
+        return (degree * 111111);
     }
 
     public static Float degreesFromMeters(final Float meters) {
-        if (meters > 0) {
-            return (meters / 111111);
+        if (meters <= 0) {
+            return 0F;
         }
-        return 0F;
+
+        return (meters / 111111);
     }
 
-    public static Boolean betterLocation(final android.location.Location location, final android.location.Location currentLocation, final Long refreshRate) {
+    public static Boolean betterLocation(final Location location, final Location currentLocation, final Long refreshRate) {
         if (currentLocation == null) {
             return true;
         }
@@ -140,8 +147,7 @@ public class LocationHelper implements LocationListener {
         final Boolean isLessAccurate = accuracyDelta > 0;
         final Boolean isMoreAccurate = accuracyDelta < 0;
         final Boolean isSignificantlyLessAccurate = accuracyDelta > 200;
-        final Boolean isFromSameProvider = ((location.getProvider() == null) ?
-                (currentLocation.getProvider() == null) : location.getProvider().equals(currentLocation.getProvider()));
+        final Boolean isFromSameProvider = ((location.getProvider() == null) ? (currentLocation.getProvider() == null) : location.getProvider().equals(currentLocation.getProvider()));
 
         if (isMoreAccurate) {
             return true;
@@ -158,7 +164,7 @@ public class LocationHelper implements LocationListener {
     public static interface LocationCallback {
 
         public void providerCallback(final String provider, final Boolean enabled);
-        public void locationCallback(final android.location.Location location);
+        public void locationCallback(final Location location);
 
     }
 

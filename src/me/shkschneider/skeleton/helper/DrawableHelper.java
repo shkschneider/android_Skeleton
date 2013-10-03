@@ -25,23 +25,21 @@ import android.widget.ProgressBar;
 public class DrawableHelper {
 
     public static Drawable drawableFromBitmap(final Context context, final Bitmap bitmap) {
-        if (context != null) {
-            return new BitmapDrawable(context.getResources(), bitmap);
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        return new BitmapDrawable(context.getResources(), bitmap);
     }
 
     public static Drawable indeterminateDrawable(final Context context) {
-        if (context != null) {
-            return new ProgressBar(context).getIndeterminateDrawable();
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        return new ProgressBar(context).getIndeterminateDrawable();
     }
 
 }

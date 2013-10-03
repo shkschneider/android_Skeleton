@@ -28,61 +28,53 @@ public class KeyboardHelper {
 
     // Behavior can vary
 
-    public static void show(final Activity activity) {
+    public static Boolean show(final Activity activity) {
         final InputMethodManager inputMethodManager = (InputMethodManager) SystemHelper.systemService(activity, Context.INPUT_METHOD_SERVICE);
-        if (inputMethodManager != null) {
-            inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0);
-        }
-        else {
-            LogHelper.d("InputMethodManager was NULL");
-        }
+        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0);
+        return true;
     }
 
     // Behavior can vary
 
-    public static void hide(final Activity activity) {
+    public static Boolean hide(final Activity activity) {
         final InputMethodManager inputMethodManager = (InputMethodManager) SystemHelper.systemService(activity, Context.INPUT_METHOD_SERVICE);
-        if (inputMethodManager != null) {
-            final View view = activity.getCurrentFocus();
-            if (view != null) {
-                inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-            }
-            else {
-                LogHelper.d("View was NULL");
-            }
+        final View view = activity.getCurrentFocus();
+        if (view == null) {
+            LogHelper.d("View was NULL");
+            return false;
         }
-        else {
-            LogHelper.d("InputMethodManager was NULL");
-        }
+
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        return true;
     }
 
-    public static void keyboardCallback(final EditText editText, final KeyboardCallback callback) {
-        if (editText != null) {
-            if (callback != null) {
-                editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-
-                    @Override
-                    public boolean onEditorAction(final TextView textView, final int i, final KeyEvent keyEvent) {
-                        if (keyEvent.getAction() == KeyEvent.ACTION_DOWN &&
-                                (keyEvent.getKeyCode() == KeyEvent.KEYCODE_DPAD_CENTER || keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                            callback.keyboardCallback();
-                        }
-                        // Keep false
-                        return false;
-                    }
-
-                });
-            }
-            else {
-                LogHelper.w("KeyboardCallback was NULL");
-            }
-        }
-        else {
+    public static Boolean keyboardCallback(final EditText editText, final Callback callback) {
+        if (editText == null) {
             LogHelper.w("EditText was NULL");
+            return false;
         }
+        if (callback == null) {
+            LogHelper.w("Callback was NULL");
+            return false;
+        }
+
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+
+            @Override
+            public boolean onEditorAction(final TextView textView, final int i, final KeyEvent keyEvent) {
+                if (keyEvent.getAction() == KeyEvent.ACTION_DOWN &&
+                        (keyEvent.getKeyCode() == KeyEvent.KEYCODE_DPAD_CENTER || keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                    callback.keyboardCallback();
+                }
+                // Keep false
+                return false;
+            }
+
+        });
+        return true;
     }
 
-    public static interface KeyboardCallback {
+    public static interface Callback {
 
         public void keyboardCallback();
 

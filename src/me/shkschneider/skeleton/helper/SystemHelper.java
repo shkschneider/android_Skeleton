@@ -41,16 +41,18 @@ public class SystemHelper {
     public static final String SYSTEM_PROPERTY_PATH_SEPARATOR = "path.separator";
 
     public static String systemProperty(final String property) {
-        if (! TextUtils.isEmpty(property)) {
-            final String systemProperty = java.lang.System.getProperty(property);
-            if (systemProperty != null) {
-                return systemProperty;
-            }
-            else {
-                LogHelper.w("SystemProperty was NULL");
-            }
+        if (TextUtils.isEmpty(property)) {
+            LogHelper.w("SystemProperty was NULL");
+            return null;
         }
-        return null;
+
+        final String systemProperty = java.lang.System.getProperty(property);
+        if (systemProperty == null) {
+            LogHelper.w("SystemProperty was NULL");
+            return null;
+        }
+
+        return systemProperty;
     }
 
     public static String uname() {
@@ -70,30 +72,29 @@ public class SystemHelper {
     public static final String SYSTEM_SERVICE_LOCATION_SERVICE = Context.LOCATION_SERVICE;
     public static final String SYSTEM_SERVICE_SEARCH_SERVICE = Context.SEARCH_SERVICE;
     public static final String SYSTEM_SERVICE_SENSOR = Context.SENSOR_SERVICE;
-    public static final String SYSTEM_SERVICE_STORAGE = Context.STORAGE_SERVICE;
+    //public static final String SYSTEM_SERVICE_STORAGE = Context.STORAGE_SERVICE;
     public static final String SYSTEM_SERVICE_VIBRATOR = Context.VIBRATOR_SERVICE;
     public static final String SYSTEM_SERVICE_CONNECTIVITY = Context.CONNECTIVITY_SERVICE;
     public static final String SYSTEM_SERVICE_WIFI = Context.WIFI_SERVICE;
     public static final String SYSTEM_SERVICE_AUDIO = Context.AUDIO_SERVICE;
-    public static final String SYSTEM_SERVICE_MEDIA_ROUTER = Context.MEDIA_ROUTER_SERVICE;
+    //public static final String SYSTEM_SERVICE_MEDIA_ROUTER = Context.MEDIA_ROUTER_SERVICE;
     public static final String SYSTEM_SERVICE_TELEPHONY = Context.TELEPHONY_SERVICE;
     public static final String SYSTEM_SERVICE_INPUT_METHOD = Context.INPUT_METHOD_SERVICE;
     public static final String SYSTEM_SERVICE_UI_MODE = Context.UI_MODE_SERVICE;
-    public static final String SYSTEM_SERVICE_DOWNLOAD = Context.DOWNLOAD_SERVICE;
+    //public static final String SYSTEM_SERVICE_DOWNLOAD = Context.DOWNLOAD_SERVICE;
 
+    @SuppressWarnings("MagicConstant")
     public static Object systemService(final Context context, final String service) {
-        if (context != null) {
-            if (! TextUtils.isEmpty(service)) {
-                return context.getSystemService(service);
-            }
-            else {
-                LogHelper.w("Service was NULL");
-            }
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+        if (TextUtils.isEmpty(service)) {
+            LogHelper.w("Service was NULL");
+            return null;
+        }
+
+        return context.getSystemService(service);
     }
 
 }

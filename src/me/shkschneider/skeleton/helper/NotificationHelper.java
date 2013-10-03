@@ -30,145 +30,150 @@ import de.keyboardsurfer.android.widget.crouton.Style;
 @SuppressWarnings("unused")
 public class NotificationHelper {
 
-    public static void toastShort(final Context context, final String text) {
-        if (context != null) {
-            if (! TextUtils.isEmpty(text)) {
-                Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
-            }
-            else {
-                LogHelper.w("String was NULL");
-            }
-        }
-        else {
+    public static Boolean toastShort(final Context context, final String text) {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return false;
         }
+        if (TextUtils.isEmpty(text)) {
+            LogHelper.w("String was NULL");
+            return false;
+        }
+
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+        return true;
     }
 
-    public static void toastLong(final Context context, final String text) {
-        if (context != null) {
-            if (! TextUtils.isEmpty(text)) {
-                Toast.makeText(context, text, Toast.LENGTH_LONG).show();
-            }
-            else {
-                LogHelper.w("String was NULL");
-            }
-        }
-        else {
+    public static Boolean toastLong(final Context context, final String text) {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return false;
         }
+        if (TextUtils.isEmpty(text)) {
+            LogHelper.w("String was NULL");
+            return false;
+        }
+
+        Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+        return true;
     }
 
-    public static void croutonInfo(final Activity activity, final String text) {
-        if (activity != null) {
-            if (! TextUtils.isEmpty(text)) {
-                Crouton.makeText(activity, text, Style.INFO).show();
-            }
-            else {
-                LogHelper.w("String was NULL");
-            }
-        }
-        else {
+    public static Boolean croutonInfo(final Activity activity, final String text) {
+        if (activity == null) {
             LogHelper.w("Activity was NULL");
+            return false;
         }
+        if (TextUtils.isEmpty(text)) {
+            LogHelper.w("String was NULL");
+            return false;
+        }
+
+        Crouton.makeText(activity, text, Style.INFO).show();
+        return true;
     }
 
-    public static void croutonConfirm(final Activity activity, final String text) {
-        if (activity != null) {
-            if (! TextUtils.isEmpty(text)) {
-                Crouton.makeText(activity, text, Style.CONFIRM).show();
-            }
-            else {
-                LogHelper.w("String was NULL");
-            }
-        }
-        else {
+    public static Boolean croutonConfirm(final Activity activity, final String text) {
+        if (activity == null) {
             LogHelper.w("Activity was NULL");
+            return false;
         }
+        if (TextUtils.isEmpty(text)) {
+            LogHelper.w("String was NULL");
+            return false;
+        }
+
+        Crouton.makeText(activity, text, Style.CONFIRM).show();
+        return true;
     }
 
-    public static void croutonAlert(final Activity activity, final String text) {
-        if (activity != null) {
-            if (! TextUtils.isEmpty(text)) {
-                Crouton.makeText(activity, text, Style.ALERT).show();
-            }
-            else {
-                LogHelper.w("String was NULL");
-            }
-        }
-        else {
+    public static Boolean croutonAlert(final Activity activity, final String text) {
+        if (activity == null) {
             LogHelper.w("Activity was NULL");
+            return false;
         }
+        if (TextUtils.isEmpty(text)) {
+            LogHelper.w("String was NULL");
+            return false;
+        }
+
+        Crouton.makeText(activity, text, Style.ALERT).show();
+        return true;
     }
 
-    public static void onDestroy(final Activity activity) {
-        if (activity != null) {
-            Crouton.clearCroutonsForActivity(activity);
-        }
-        else {
+    public static Boolean onDestroy(final Activity activity) {
+        if (activity == null) {
             LogHelper.w("Activity was NULL");
+            return false;
         }
+
+        Crouton.clearCroutonsForActivity(activity);
+        return true;
     }
 
     public static NotificationManager notificationManager(final Context context) {
-        if (context != null) {
-            return (NotificationManager) SystemHelper.systemService(context, SystemHelper.SYSTEM_SERVICE_NOTIFICATION_SERVICE);
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        return (NotificationManager) SystemHelper.systemService(context, SystemHelper.SYSTEM_SERVICE_NOTIFICATION_SERVICE);
     }
 
     public static Notification notification(final Context context, final int smallIcon, final String title, final String message, final PendingIntent pendingIntent) {
-        if (context != null) {
-            final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
-            notificationBuilder.setSmallIcon(smallIcon);
-            if (! TextUtils.isEmpty(title)) {
-                notificationBuilder.setContentTitle(title);
-            }
-            if (! TextUtils.isEmpty(message)) {
-                notificationBuilder.setContentText(message);
-            }
-            if (pendingIntent != null) {
-                notificationBuilder.setContentIntent(pendingIntent);
-            }
-            final Notification notification = notificationBuilder.build();
-            notification.flags |= Notification.FLAG_AUTO_CANCEL;
-            notification.defaults |= Notification.DEFAULT_SOUND;
-            notification.defaults |= Notification.DEFAULT_VIBRATE;
-            return notification;
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        final NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context);
+        notificationBuilder.setSmallIcon(smallIcon);
+        if (! TextUtils.isEmpty(title)) {
+            notificationBuilder.setContentTitle(title);
+        }
+        if (! TextUtils.isEmpty(message)) {
+            notificationBuilder.setContentText(message);
+        }
+        if (pendingIntent != null) {
+            notificationBuilder.setContentIntent(pendingIntent);
+        }
+        final Notification notification = notificationBuilder.build();
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+        notification.defaults |= Notification.DEFAULT_SOUND;
+        notification.defaults |= Notification.DEFAULT_VIBRATE;
+        return notification;
     }
 
     public static Notification notification(final Context context, final int smallIcon, final String title, final String message) {
+        if (context == null) {
+            LogHelper.w("Context was NULL");
+            return null;
+        }
+
         return notification(context, smallIcon, title, message, null);
     }
 
-    public static void notify(final NotificationManager notificationManager, final Notification notification, final Integer id) {
-        if (notificationManager != null) {
-            if (notification != null) {
-                notificationManager.notify(id, notification);
-            }
-            else {
-                LogHelper.w("Notification was NULL");
-            }
-        }
-        else {
+    public static Boolean notify(final NotificationManager notificationManager, final Notification notification, final Integer id) {
+        if (notificationManager == null) {
             LogHelper.w("NotificationManager was NULL");
+            return null;
         }
+        if (notification == null) {
+            LogHelper.w("Notification was NULL");
+            return null;
+        }
+
+        notificationManager.notify(id, notification);
+        return true;
     }
 
-    public static void cancel(final NotificationManager notificationManager, final Integer id) {
-        if (notificationManager != null) {
-            notificationManager.cancel(id);
-        }
-        else {
+    public static Boolean cancel(final NotificationManager notificationManager, final Integer id) {
+        if (notificationManager == null) {
             LogHelper.w("NotificationManager was NULL");
+            return false;
         }
+
+        notificationManager.cancel(id);
+        return true;
     }
 
 }

@@ -27,63 +27,71 @@ import me.shkschneider.skeleton.helper.LogHelper;
 public class JsonParser {
 
     public static JSONObject parse(final String string) {
-        if (! TextUtils.isEmpty(string)) {
-            try {
-                return new JSONObject(string);
-            }
-            catch (JSONException e) {
-                LogHelper.e("JSONException: " + e.getMessage());
-            }
-        }
-        else {
+        if (TextUtils.isEmpty(string)) {
             LogHelper.w("String was NULL");
+            return null;
         }
-        return null;
+
+        try {
+            return new JSONObject(string);
+        }
+        catch (JSONException e) {
+            LogHelper.e("JSONException: " + e.getMessage());
+            return null;
+        }
     }
 
     public static JSONObject jsonObject(final JSONObject json, final String key) {
-        if (json != null) {
-            try {
-                return json.getJSONObject(key);
-            }
-            catch (JSONException e) {
-                LogHelper.e("JSONException: " + e.getMessage());
-            }
-        }
-        else {
+        if (json == null) {
             LogHelper.w("JSONObject was NULL");
+            return null;
         }
-        return null;
+
+        try {
+            return json.getJSONObject(key);
+        }
+        catch (JSONException e) {
+            LogHelper.e("JSONException: " + e.getMessage());
+            return null;
+        }
     }
 
     public static JSONArray jsonArray(final JSONObject json, final String key) {
-        if (json != null) {
-            try {
-                return json.getJSONArray(key);
-            }
-            catch (JSONException e) {
-                LogHelper.e("JSONException: " + e.getMessage());
-            }
-        }
-        else {
+        if (json == null) {
             LogHelper.w("JSONObject was NULL");
+            return null;
         }
-        return null;
+        if (TextUtils.isEmpty(key)) {
+            LogHelper.w("Key was NULL");
+            return null;
+        }
+
+        try {
+            return json.getJSONArray(key);
+        }
+        catch (JSONException e) {
+            LogHelper.e("JSONException: " + e.getMessage());
+            return null;
+        }
     }
 
     public static String string(final JSONObject json, final String key) {
-        if (json != null) {
-            try {
-                return json.getString(key);
-            }
-            catch (JSONException e) {
-                LogHelper.e("JSONException: " + e.getMessage());
-            }
-        }
-        else {
+        if (json == null) {
             LogHelper.w("JSONObject was NULL");
+            return null;
         }
-        return null;
+        if (TextUtils.isEmpty(key)) {
+            LogHelper.w("Key was NULL");
+            return null;
+        }
+
+        try {
+            return json.getString(key);
+        }
+        catch (JSONException e) {
+            LogHelper.e("JSONException: " + e.getMessage());
+            return null;
+        }
     }
 
 }

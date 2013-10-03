@@ -47,27 +47,12 @@ public class LogHelper {
         }
 
         final String stack = callerClassName + " " + callerMethodName + "()";
-
         switch (state) {
-            case VERBOSE:
-                android.util.Log.v(tag, "[" + stack + "] " + msg);
-                break ;
-
-            case DEBUG:
-                android.util.Log.d(tag, "[" + stack + "] " + msg);
-                break ;
-
-            case INFO:
-                android.util.Log.i(tag, "[" + stack + "] " + msg);
-                break ;
-
-            case WARN:
-                android.util.Log.w(tag, "[" + stack + "] " + msg);
-                break ;
-
-            case ERROR:
-                android.util.Log.e(tag, "[" + stack + "] " + msg);
-                break ;
+            case VERBOSE: android.util.Log.v(tag, "[" + stack + "] " + msg); break ;
+            case DEBUG: android.util.Log.d(tag, "[" + stack + "] " + msg); break ;
+            case INFO: android.util.Log.i(tag, "[" + stack + "] " + msg); break ;
+            case WARN: android.util.Log.w(tag, "[" + stack + "] " + msg); break ;
+            case ERROR: android.util.Log.e(tag, "[" + stack + "] " + msg); break ;
         }
     }
 

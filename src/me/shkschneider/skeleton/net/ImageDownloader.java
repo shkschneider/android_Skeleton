@@ -47,51 +47,43 @@ public class ImageDownloader {
     }
 
     public void run(final ImageDownloaderCallback callback) {
-        if (mContext != null) {
-            if (! TextUtils.isEmpty(mUrl)) {
-                if (NetworkHelper.validUrl(mUrl)) {
-                    new AQuery(mContext)
-                            .ajax(new AjaxCallback<Bitmap>() {
-
-                                @Override
-                                public void callback(final String url, final Bitmap bitmap, final AjaxStatus status) {
-                                    if (bitmap != null) {
-                                        if (mImageView != null) {
-                                            mImageView.setImageBitmap(bitmap);
-                                            result(callback, mImageView, bitmap);
-                                        }
-                                        else {
-                                            LogHelper.w("ImageView was NULL");
-                                            result(callback, null, null);
-                                        }
-                                    }
-                                    else {
-                                        LogHelper.w("Bitmap was NULL");
-                                        result(callback, null, null);
-                                    }
-                                }
-
-                            }
-                                    .fileCache(mCache[0])
-                                    .memCache(mCache[1])
-                                    .url(mUrl)
-                                    .type(Bitmap.class)
-                                    .header("User-Agent", NetworkHelper.userAgent()));
-                }
-                else {
-                    LogHelper.w("Url was invalid");
-                    result(callback, null, null);
-                }
-            }
-            else {
-                LogHelper.w("Url was NULL");
-                result(callback, null, null);
-            }
-        }
-        else {
+        if (mContext == null) {
             LogHelper.w("Context was NULL");
             result(callback, null, null);
+            return ;
         }
+        if (TextUtils.isEmpty(mUrl)) {
+            LogHelper.w("Url was NULL");
+            result(callback, null, null);
+            return ;
+        }
+        if (! NetworkHelper.validUrl(mUrl)) {
+            LogHelper.w("Url was invalid");
+            result(callback, null, null);
+            return ;
+        }
+
+        new AQuery(mContext).ajax(new AjaxCallback<Bitmap>() {
+
+                    @Override
+                    public void callback(final String url, final Bitmap bitmap, final AjaxStatus status) {
+                        if (bitmap != null) {
+                            if (mImageView != null) {
+                                mImageView.setImageBitmap(bitmap);
+                                result(callback, mImageView, bitmap);
+                            }
+                            else {
+                                LogHelper.w("ImageView was NULL");
+                                result(callback, null, null);
+                            }
+                        }
+                        else {
+                            LogHelper.w("Bitmap was NULL");
+                            result(callback, null, null);
+                        }
+                    }
+
+                }.fileCache(mCache[0]).memCache(mCache[1]).url(mUrl).type(Bitmap.class).header("User-Agent", NetworkHelper.userAgent()));
     }
 
     public void run() {
@@ -99,19 +91,17 @@ public class ImageDownloader {
     }
 
     protected void result(final ImageDownloaderCallback callback, final ImageView imageView, final Bitmap bitmap) {
-        if (imageView != null) {
-            imageView.setImageBitmap(bitmap);
-        }
-        else {
+        if (imageView == null) {
             LogHelper.w("ImageView was NULL");
+            return ;
+        }
+        if (callback == null) {
+            LogHelper.w("ImageDownloaderCallback was NULL");
+            return ;
         }
 
-        if (callback != null) {
-            callback.imageDownloaderCallback(imageView, bitmap);
-        }
-        else {
-            LogHelper.w("ImageDownloaderCallback was NULL");
-        }
+        imageView.setImageBitmap(bitmap);
+        callback.imageDownloaderCallback(imageView, bitmap);
     }
 
     public static interface ImageDownloaderCallback {

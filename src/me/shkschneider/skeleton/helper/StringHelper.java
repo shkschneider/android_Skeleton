@@ -21,37 +21,37 @@ import android.text.TextUtils;
 public class StringHelper {
 
     public static String capitalize(final String string) {
-        if (! TextUtils.isEmpty(string)) {
-            return Character.toUpperCase(string.charAt(0)) + string.substring(1).toLowerCase();
-        }
-        else {
+        if (TextUtils.isEmpty(string)) {
             LogHelper.w("String was NULL");
+            return string;
         }
-        return string;
+
+        return Character.toUpperCase(string.charAt(0)) + string.substring(1).toLowerCase();
     }
 
     public static Boolean numeric(final String string) {
-        if (! TextUtils.isEmpty(string)) {
-            return TextUtils.isDigitsOnly(string);
-        }
-        else {
+        if (TextUtils.isEmpty(string)) {
             LogHelper.w("String was NULL");
+            return false;
         }
-        return false;
+
+        return TextUtils.isDigitsOnly(string);
     }
 
     public static Boolean contains(final String[] strings, final String string) {
-        if (strings != null) {
-            if (! TextUtils.isEmpty(string)) {
-                for (final String s : strings) {
-                    if (! TextUtils.isEmpty(s) && s.equals(string)) {
-                        return true;
-                    }
-                }
-            }
-        }
-        else {
+        if (strings == null) {
             LogHelper.w("Strings was NULL");
+            return false;
+        }
+        if (TextUtils.isEmpty(string)) {
+            LogHelper.w("String was NULL");
+            return false;
+        }
+
+        for (final String s : strings) {
+            if (! TextUtils.isEmpty(s) && s.equals(string)) {
+                return true;
+            }
         }
         return false;
     }

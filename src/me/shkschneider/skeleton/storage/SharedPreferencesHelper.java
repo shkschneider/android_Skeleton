@@ -25,31 +25,30 @@ import me.shkschneider.skeleton.helper.LogHelper;
 public class SharedPreferencesHelper {
 
     public static Boolean putString(final Context context, final String key, final String value) {
-        if (context != null) {
-            LogHelper.d(key + " = " + value);
-            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
-            editor.putString(key, value);
-            return editor.commit();
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return false;
         }
-        return false;
+
+        LogHelper.d(key + " = " + value);
+        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(context).edit();
+        editor.putString(key, value);
+        return editor.commit();
     }
 
     public static String getString(final Context context, final String key, final String defaultValue) {
-        if (context != null) {
-            try {
-                return PreferenceManager.getDefaultSharedPreferences(context).getString(key, defaultValue);
-            }
-            catch (ClassCastException e) {
-                LogHelper.e("ClassCastException: " + e.getMessage());
-            }
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return "";
+
+        try {
+            return PreferenceManager.getDefaultSharedPreferences(context).getString(key, defaultValue);
+        }
+        catch (ClassCastException e) {
+            LogHelper.e("ClassCastException: " + e.getMessage());
+            return null;
+        }
     }
 
 }

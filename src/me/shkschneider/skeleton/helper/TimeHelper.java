@@ -35,10 +35,24 @@ public class TimeHelper {
     // Relative elapsed time
 
     public static String relative(final Long time) {
+        if (time < 0) {
+            LogHelper.w("Time was invalid");
+            return null;
+        }
+
         return DateUtils.getRelativeTimeSpanString(time, new Date().getTime(), DateUtils.SECOND_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE).toString();
     }
 
     public static String relative(final Long from, final Long to) {
+        if (from < 0) {
+            LogHelper.w("TimeFrom was invalid");
+            return null;
+        }
+        if (to < 0) {
+            LogHelper.w("TimeTo was invalid");
+            return null;
+        }
+
         return DateUtils.getRelativeTimeSpanString(from, to, DateUtils.SECOND_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE).toString();
     }
 

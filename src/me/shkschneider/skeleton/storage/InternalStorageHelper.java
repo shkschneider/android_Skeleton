@@ -30,37 +30,37 @@ public class InternalStorageHelper {
     }
 
     public static Boolean write(final Context context, final String name, final String content, final Boolean append) {
-        if (context != null) {
-            try {
-                int mode = Context.MODE_PRIVATE;
-                if (append) {
-                    mode |= Context.MODE_APPEND;
-                }
-                return FileHelper.writeString(context.openFileOutput(name, mode), content);
-            }
-            catch (FileNotFoundException e) {
-                LogHelper.e("FileNotFoundException: " + e.getMessage());
-            }
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return false;
         }
-        return false;
+
+        try {
+            int mode = Context.MODE_PRIVATE;
+            if (append) {
+                mode |= Context.MODE_APPEND;
+            }
+            return FileHelper.writeString(context.openFileOutput(name, mode), content);
+        }
+        catch (FileNotFoundException e) {
+            LogHelper.e("FileNotFoundException: " + e.getMessage());
+            return false;
+        }
     }
 
     public static String read(final Context context, final String name) {
-        if (context != null) {
-            try {
-                return FileHelper.readString(context.openFileInput(name));
-            }
-            catch (FileNotFoundException e) {
-                LogHelper.e("FileNotFoundException: " + e.getMessage());
-            }
-        }
-        else {
+        if (context == null) {
             LogHelper.w("Context was NULL");
+            return null;
         }
-        return null;
+
+        try {
+            return FileHelper.readString(context.openFileInput(name));
+        }
+        catch (FileNotFoundException e) {
+            LogHelper.e("FileNotFoundException: " + e.getMessage());
+            return null;
+        }
     }
 
 }

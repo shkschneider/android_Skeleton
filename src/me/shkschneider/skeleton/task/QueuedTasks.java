@@ -44,19 +44,18 @@ public class QueuedTasks {
     }
 
     public void queue(final Runnable runnable) {
-        if (! mRunning) {
-            if (runnable != null) {
-                synchronized(mRunnables) {
-                    mRunnables.addLast(runnable);
-                    mRunnables.notify();
-                }
-            }
-            else {
-                LogHelper.w("Runnable was NULL");
-            }
-        }
-        else {
+        if (mRunning) {
             LogHelper.d("Task was running");
+            return ;
+        }
+        if (runnable == null) {
+            LogHelper.w("Runnable was NULL");
+            return ;
+        }
+
+        synchronized(mRunnables) {
+            mRunnables.addLast(runnable);
+            mRunnables.notify();
         }
     }
 
@@ -65,9 +64,7 @@ public class QueuedTasks {
             if (mRunnables.isEmpty()) {
                 mRunning = false;
                 mDuration = (TimeHelper.millitimestamp() - mDuration);
-                if (mCallback != null) {
-                    callback();
-                }
+                callback();
                 return null;
             }
             return mRunnables.removeFirst();
@@ -77,37 +74,40 @@ public class QueuedTasks {
     private void myRun() {
         while (mRunning) {
             final Runnable runnable = next();
-            if (runnable != null) {
-                try {
-                    runnable.run();
-                    Thread.yield();
-                }
-                catch (Throwable t) {
-                    LogHelper.e("Throwable: " + t.getMessage());
-                }
+            if (runnable == null) {
+                LogHelper.w("Runnable was NULL");
+                break ;
+            }
+
+            try {
+                runnable.run();
+                Thread.yield();
+            }
+            catch (Throwable t) {
+                LogHelper.e("Throwable: " + t.getMessage());
             }
         }
     }
 
     public void run(final Callback callback) {
+        if (mRunning) {
+            LogHelper.d("Task was running");
+            return ;
+        }
+
         mCallback = callback;
         mDuration = TimeHelper.millitimestamp();
-        if (! mRunning) {
-            final Thread thread = new Thread(new Runnable() {
+        final Thread thread = new Thread(new Runnable() {
 
-                @Override
-                public void run() {
-                    myRun();
-                }
+            @Override
+            public void run() {
+                myRun();
+            }
 
-            });
-            thread.setDaemon(true);
-            mRunning = true;
-            thread.start();
-        }
-        else {
-            LogHelper.d("Task was running");
-        }
+        });
+        thread.setDaemon(true);
+        mRunning = true;
+        thread.start();
     }
 
     public void run() {
@@ -125,20 +125,23 @@ public class QueuedTasks {
     // TODO: cancel
 
     private void callback() {
-        if (mCallback != null) {
-            if (mActivity != null) {
-                mActivity.runOnUiThread(new Runnable() {
+        if (mCallback == null) {
+            LogHelper.d("Callback was NULL");
+            return ;
+        }
 
-                    @Override
-                    public void run() {
-                        mCallback.queuedTasksCallback(mDuration);
-                    }
+        if (mActivity != null) {
+            mActivity.runOnUiThread(new Runnable() {
 
-                });
-            }
-            else {
-                mCallback.queuedTasksCallback(mDuration);
-            }
+                @Override
+                public void run() {
+                    mCallback.queuedTasksCallback(mDuration);
+                }
+
+            });
+        }
+        else {
+            mCallback.queuedTasksCallback(mDuration);
         }
     }
 

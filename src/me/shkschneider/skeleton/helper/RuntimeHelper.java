@@ -19,19 +19,19 @@ package me.shkschneider.skeleton.helper;
 public class RuntimeHelper {
 
     public static Integer processors() {
-        return java.lang.Runtime.getRuntime().availableProcessors();
+        return Runtime.getRuntime().availableProcessors();
     }
 
     public static Long freeMemory() {
-        return java.lang.Runtime.getRuntime().freeMemory();
+        return Runtime.getRuntime().freeMemory();
     }
 
     public static Long maxMemory() {
-        return java.lang.Runtime.getRuntime().maxMemory();
+        return Runtime.getRuntime().maxMemory();
     }
 
     public static Long totalMemory() {
-        return java.lang.Runtime.getRuntime().totalMemory();
+        return Runtime.getRuntime().totalMemory();
     }
 
 }
