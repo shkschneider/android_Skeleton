@@ -41,7 +41,7 @@ public class JsonParser {
         return null;
     }
 
-    public static JSONObject getJsonObject(final JSONObject json, final String key) {
+    public static JSONObject jsonObject(final JSONObject json, final String key) {
         if (json != null) {
             try {
                 return json.getJSONObject(key);
@@ -56,7 +56,7 @@ public class JsonParser {
         return null;
     }
 
-    public static JSONArray getJsonArray(final JSONObject json, final String key) {
+    public static JSONArray jsonArray(final JSONObject json, final String key) {
         if (json != null) {
             try {
                 return json.getJSONArray(key);
@@ -71,7 +71,7 @@ public class JsonParser {
         return null;
     }
 
-    public static String getString(final JSONObject json, final String key) {
+    public static String string(final JSONObject json, final String key) {
         if (json != null) {
             try {
                 return json.getString(key);

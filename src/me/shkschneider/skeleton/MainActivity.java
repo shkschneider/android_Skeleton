@@ -51,8 +51,6 @@ import me.shkschneider.skeleton.helper.SystemHelper;
 import me.shkschneider.skeleton.helper.TimeHelper;
 import me.shkschneider.skeleton.helper.WebViewHelper;
 import me.shkschneider.skeleton.net.NetworkHelper;
-import me.shkschneider.skeleton.task.QueuedTasks;
-import me.shkschneider.skeleton.task.Tasks;
 
 @SuppressWarnings("unused")
 public class MainActivity extends SherlockListActivity {
@@ -225,9 +223,9 @@ public class MainActivity extends SherlockListActivity {
         data.add(map("cache()", "net.ImageDownloader", null));
         data.add(map("run()", "net.ImageDownloader", null));
 
-        data.add(map("getJsonArray()", "net.JsonParser", null));
-        data.add(map("getJsonObject()", "net.JsonParser", null));
-        data.add(map("getString()", "net.JsonParser", null));
+        data.add(map("jsonArray()", "net.JsonParser", null));
+        data.add(map("jsonObject()", "net.JsonParser", null));
+        data.add(map("string()", "net.JsonParser", null));
         data.add(map("parse()", "net.JsonParser", null));
 
         data.add(map("ipAddresses()", "net.NetworkHelper", NetworkHelper.ipAddresses().toString()));
