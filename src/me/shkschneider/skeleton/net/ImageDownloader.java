@@ -52,11 +52,13 @@ public class ImageDownloader {
             result(callback, null, null);
             return ;
         }
+
         if (TextUtils.isEmpty(mUrl)) {
             LogHelper.w("Url was NULL");
             result(callback, null, null);
             return ;
         }
+
         if (! NetworkHelper.validUrl(mUrl)) {
             LogHelper.w("Url was invalid");
             result(callback, null, null);
@@ -95,6 +97,7 @@ public class ImageDownloader {
             LogHelper.w("ImageView was NULL");
             return ;
         }
+
         if (callback == null) {
             LogHelper.w("ImageDownloaderCallback was NULL");
             return ;

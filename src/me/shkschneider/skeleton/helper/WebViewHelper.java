@@ -66,10 +66,12 @@ public class WebViewHelper {
             LogHelper.w("WebView was NULL");
             return false;
         }
+
         if (javascriptInterface == null) {
             LogHelper.w("JavascriptInterface was NULL");
             return false;
         }
+
         if (TextUtils.isEmpty(name)) {
             LogHelper.w("Name was NULL");
             return false;

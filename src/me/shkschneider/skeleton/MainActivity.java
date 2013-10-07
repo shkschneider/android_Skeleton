@@ -97,9 +97,9 @@ public class MainActivity extends SherlockListActivity {
         data.add(map("TAG", "SkeletonApplication", SkeletonApplication.TAG));
 
         data.add(map("auth()", "authenticator.FacebookAuthenticator", null));
-        //data.add(map("auth()", "authenticator.GoogleAuthenticator", null));
-        //data.add(map("auth()", "authenticator.SingleSignOnAuthenticator", null));
-        //data.add(map("auth()", "authenticator.TwitterAuthenticator", null));
+        data.add(map("auth()", "authenticator.GoogleAuthenticator", null));
+        data.add(map("auth()", "authenticator.SingleSignOnAuthenticator", null));
+        data.add(map("auth()", "authenticator.TwitterAuthenticator", null));
 
         data.add(map("alertDialogBuilder()", "helper.ActivityHelper", null));
         data.add(map("popup()", "helper.ActivityHelper", null));
@@ -348,9 +348,12 @@ public class MainActivity extends SherlockListActivity {
                 else {
                     LogHelper.w("EditText was NULL");
                 }
+                break ;
+
             case android.R.id.home:
                 startActivity(new Intent(MainActivity.this, MainActivity.class));
                 break ;
+
             case R.id.author:
                 ActivityHelper.alertDialogBuilder(MainActivity.this, R.style.Theme_Skeleton_Dialog_Light)
                         .setTitle(AUTHOR_NAME)
@@ -360,6 +363,7 @@ public class MainActivity extends SherlockListActivity {
                         .create()
                         .show();
                 break ;
+
             case R.id.license:
                 ActivityHelper.alertDialogBuilder(MainActivity.this, R.style.Theme_Skeleton_Dialog_Light)
                         .setTitle("Apache 2.0")
@@ -371,9 +375,11 @@ public class MainActivity extends SherlockListActivity {
                         .create()
                         .show();
                 break ;
+
             case R.id.code:
                 IntentHelper.web(MainActivity.this, AUTHOR_URL);
                 break ;
+
             default:
                 super.onOptionsItemSelected(item);
                 break ;

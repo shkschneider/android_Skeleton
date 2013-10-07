@@ -70,6 +70,7 @@ public class FeaturesHelper {
             LogHelper.w("Context was NULL");
             return false;
         }
+
         if (TextUtils.isEmpty(feature)) {
             LogHelper.w("Feature was NULL");
             return false;

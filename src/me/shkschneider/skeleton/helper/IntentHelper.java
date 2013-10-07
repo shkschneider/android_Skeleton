@@ -74,10 +74,12 @@ public class IntentHelper {
             LogHelper.w("Url was NULL");
             return false;
         }
+
         if (! NetworkHelper.validUrl(url)) {
             LogHelper.w("Url was invalid");
             return false;
         }
+
         if (activity == null) {
             LogHelper.w("Activity was NULL");
             return false;
@@ -131,6 +133,7 @@ public class IntentHelper {
             LogHelper.w("Activity was NULL");
             return false;
         }
+
         if (uri == null) {
             LogHelper.w("Uri was NULL");
             return false;
@@ -181,10 +184,12 @@ public class IntentHelper {
             LogHelper.w("Context was NULL");
             return null;
         }
+
         if (intent == null) {
             LogHelper.w("Intent was NULL");
             return null;
         }
+
         if (resultCode != Activity.RESULT_OK) {
             LogHelper.d("ResultCode was KO");
             return null;
@@ -199,6 +204,7 @@ public class IntentHelper {
                 }
 
                 return (Bitmap) bundle.get("data");
+
             case REQUEST_CODE_GALLERY:
                 final Uri uri = intent.getData();
                 if (uri == null) {
@@ -219,6 +225,9 @@ public class IntentHelper {
                     LogHelper.e("FileNotFoundException: " + e.getMessage());
                     return null;
                 }
+
+            default:
+                break ;
         }
         return null;
     }

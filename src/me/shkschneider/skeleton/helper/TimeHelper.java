@@ -48,6 +48,7 @@ public class TimeHelper {
             LogHelper.w("TimeFrom was invalid");
             return null;
         }
+
         if (to < 0) {
             LogHelper.w("TimeTo was invalid");
             return null;

@@ -42,6 +42,7 @@ public class FileHelper {
             LogHelper.w("Dirname was NULL");
             return null;
         }
+
         if (TextUtils.isEmpty(basename)) {
             LogHelper.w("Basename was NULL");
             return null;
@@ -156,6 +157,7 @@ public class FileHelper {
             LogHelper.w("OutputStream was NULL");
             return false;
         }
+
         if (TextUtils.isEmpty(content)) {
             LogHelper.w("String was NULL");
             return false;

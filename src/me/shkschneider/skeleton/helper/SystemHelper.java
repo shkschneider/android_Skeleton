@@ -89,6 +89,7 @@ public class SystemHelper {
             LogHelper.w("Context was NULL");
             return null;
         }
+
         if (TextUtils.isEmpty(service)) {
             LogHelper.w("Service was NULL");
             return null;

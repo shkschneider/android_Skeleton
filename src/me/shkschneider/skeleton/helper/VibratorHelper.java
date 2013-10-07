@@ -39,6 +39,7 @@ public class VibratorHelper {
             LogHelper.d("Vibrator cannot vibrate");
             return false;
         }
+
         if (! vibrator.hasVibrator()) {
             LogHelper.d("Vibrator cannot vibrate");
             return false;

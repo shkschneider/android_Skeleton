@@ -94,6 +94,7 @@ public class PermissionsHelper {
             LogHelper.w("Context was NULL");
             return false;
         }
+
         if (TextUtils.isEmpty(permission)) {
             LogHelper.w("Permission was NULL");
             return false;

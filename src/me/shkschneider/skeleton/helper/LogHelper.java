@@ -53,6 +53,7 @@ public class LogHelper {
             case INFO: android.util.Log.i(tag, "[" + stack + "] " + msg); break ;
             case WARN: android.util.Log.w(tag, "[" + stack + "] " + msg); break ;
             case ERROR: android.util.Log.e(tag, "[" + stack + "] " + msg); break ;
+            default: break ;
         }
     }
 

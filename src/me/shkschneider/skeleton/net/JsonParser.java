@@ -61,6 +61,7 @@ public class JsonParser {
             LogHelper.w("JSONObject was NULL");
             return null;
         }
+
         if (TextUtils.isEmpty(key)) {
             LogHelper.w("Key was NULL");
             return null;
@@ -80,6 +81,7 @@ public class JsonParser {
             LogHelper.w("JSONObject was NULL");
             return null;
         }
+
         if (TextUtils.isEmpty(key)) {
             LogHelper.w("Key was NULL");
             return null;

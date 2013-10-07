@@ -71,6 +71,7 @@ public class AudioHelper {
             LogHelper.w("Context was NULL");
             return false;
         }
+
         if (uri == null) {
             LogHelper.w("Uri was NULL");
             return false;

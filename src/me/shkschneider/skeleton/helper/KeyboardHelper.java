@@ -53,6 +53,7 @@ public class KeyboardHelper {
             LogHelper.w("EditText was NULL");
             return false;
         }
+
         if (callback == null) {
             LogHelper.w("Callback was NULL");
             return false;

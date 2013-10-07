@@ -132,6 +132,7 @@ public class WebService extends AsyncTask<WebService.Callback, Void, HttpRespons
                 LogHelper.w("Client was NULL");
                 return null;
             }
+
             if (mRequest == null) {
                 LogHelper.w("Request was NULL");
                 return null;
@@ -148,6 +149,7 @@ public class WebService extends AsyncTask<WebService.Callback, Void, HttpRespons
             LogHelper.w("Client was NULL");
             return null;
         }
+
         if (mRequest == null) {
             LogHelper.w("Request was NULL");
             return null;

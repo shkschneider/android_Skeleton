@@ -43,6 +43,7 @@ public class StringHelper {
             LogHelper.w("Strings was NULL");
             return false;
         }
+
         if (TextUtils.isEmpty(string)) {
             LogHelper.w("String was NULL");
             return false;

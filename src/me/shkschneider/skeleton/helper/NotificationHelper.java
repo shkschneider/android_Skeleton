@@ -35,6 +35,7 @@ public class NotificationHelper {
             LogHelper.w("Context was NULL");
             return false;
         }
+
         if (TextUtils.isEmpty(text)) {
             LogHelper.w("String was NULL");
             return false;
@@ -49,6 +50,7 @@ public class NotificationHelper {
             LogHelper.w("Context was NULL");
             return false;
         }
+
         if (TextUtils.isEmpty(text)) {
             LogHelper.w("String was NULL");
             return false;
@@ -63,6 +65,7 @@ public class NotificationHelper {
             LogHelper.w("Activity was NULL");
             return false;
         }
+
         if (TextUtils.isEmpty(text)) {
             LogHelper.w("String was NULL");
             return false;
@@ -77,6 +80,7 @@ public class NotificationHelper {
             LogHelper.w("Activity was NULL");
             return false;
         }
+
         if (TextUtils.isEmpty(text)) {
             LogHelper.w("String was NULL");
             return false;
@@ -91,6 +95,7 @@ public class NotificationHelper {
             LogHelper.w("Activity was NULL");
             return false;
         }
+
         if (TextUtils.isEmpty(text)) {
             LogHelper.w("String was NULL");
             return false;
@@ -157,6 +162,7 @@ public class NotificationHelper {
             LogHelper.w("NotificationManager was NULL");
             return null;
         }
+
         if (notification == null) {
             LogHelper.w("Notification was NULL");
             return null;

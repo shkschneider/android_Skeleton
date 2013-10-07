@@ -58,6 +58,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
             LogHelper.w("SQLiteDatabase was NULL");
             return 0;
         }
+
         if (TextUtils.isEmpty(table)) {
             LogHelper.w("Table was NULL");
             return 0;
@@ -74,10 +75,12 @@ public class SqliteHelper extends SQLiteOpenHelper {
             LogHelper.w("SQLiteDatabase was NULL");
             return ;
         }
+
         if (TextUtils.isEmpty(table)) {
             LogHelper.w("Table was NULL");
             return ;
         }
+
         if (column == null) {
             LogHelper.w("Column was NULL");
             return ;
@@ -96,6 +99,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
             LogHelper.w("SQLiteDatabase was NULL");
             return null;
         }
+
         if (TextUtils.isEmpty(table)) {
             LogHelper.w("Table was NULL");
             return null;
@@ -114,10 +118,12 @@ public class SqliteHelper extends SQLiteOpenHelper {
             LogHelper.w("SQLiteDatabase was NULL");
             return false;
         }
+
         if (TextUtils.isEmpty(table)) {
             LogHelper.w("Table was NULL");
             return false;
         }
+
         if (column == null) {
             LogHelper.w("Column was NULL");
             return false;
@@ -137,6 +143,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
             LogHelper.w("SQLiteDatabase was NULL");
             return false;
         }
+
         if (TextUtils.isEmpty(table)) {
             LogHelper.w("Table was NULL");
             return false;

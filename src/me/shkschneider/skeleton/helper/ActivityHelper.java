@@ -98,6 +98,7 @@ public class ActivityHelper {
             LogHelper.w("Context was NULL");
             return false;
         }
+
         if (TextUtils.isEmpty(message)) {
             LogHelper.w("Message was NULL");
             return false;
@@ -121,14 +122,17 @@ public class ActivityHelper {
             LogHelper.w("Activity was NULL");
             return false;
         }
+
         if (id <= 0) {
             LogHelper.w("Id was invalid");
             return false;
         }
+
         if (TextUtils.isEmpty(title)) {
             LogHelper.w("Title was NULL");
             return false;
         }
+
         if (TextUtils.isEmpty(message)) {
             LogHelper.w("Message was NULL");
             return false;

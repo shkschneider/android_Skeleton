@@ -48,6 +48,7 @@ public class QueuedTasks {
             LogHelper.d("Task was running");
             return ;
         }
+
         if (runnable == null) {
             LogHelper.w("Runnable was NULL");
             return ;
