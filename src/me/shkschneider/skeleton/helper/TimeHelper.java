@@ -25,14 +25,14 @@ public class TimeHelper {
     // UNIX Timestamp (length: 1-11)
 
     public static Long timestamp() {
-        return (java.lang.System.currentTimeMillis() / DateUtils.SECOND_IN_MILLIS);
+        return (System.currentTimeMillis() / DateUtils.SECOND_IN_MILLIS);
     }
 
     public static Long millitimestamp() {
-        return java.lang.System.currentTimeMillis();
+        return System.currentTimeMillis();
     }
 
-    // Relative elapsed time
+    // Relative elapsed time (milliseconds)
 
     public static String relative(final Long time) {
         if (time < 0) {

@@ -24,7 +24,7 @@ import me.shkschneider.skeleton.helper.LogHelper;
 @SuppressWarnings("unused")
 public class ExternalStorageHelper {
 
-    public Boolean available() {
+    public static Boolean available() {
         return (! TextUtils.isEmpty(FileHelper.sdCard()));
     }
 

@@ -24,7 +24,7 @@ import me.shkschneider.skeleton.helper.LogHelper;
 @SuppressWarnings("unused")
 public class SharedPreferencesHelper {
 
-    public static Boolean putString(final Context context, final String key, final String value) {
+    public static Boolean put(final Context context, final String key, final String value) {
         if (context == null) {
             LogHelper.w("Context was NULL");
             return false;
@@ -36,7 +36,7 @@ public class SharedPreferencesHelper {
         return editor.commit();
     }
 
-    public static String getString(final Context context, final String key, final String defaultValue) {
+    public static String get(final Context context, final String key, final String defaultValue) {
         if (context == null) {
             LogHelper.w("Context was NULL");
             return null;

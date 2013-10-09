@@ -22,74 +22,144 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ListView;
 import android.widget.SectionIndexer;
-import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+import me.shkschneider.skeleton.helper.ListHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.StringHelper;
 import me.shkschneider.skeleton.helper.SystemHelper;
 
-public class MyListAdapter extends ArrayAdapter<Map<String, String>> implements Filterable, SectionIndexer {
+public class MyListAdapter extends ArrayAdapter<Map<String, Object>> implements Filterable, SectionIndexer {
 
-    private static final String SECTIONS = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    private static final int LAYOUT = android.R.layout.simple_list_item_2;
-    private static final String FILTER = "text1";
+    protected static final String SECTIONS = "#" + StringHelper.ALPHA.toUpperCase() + StringHelper.NUMERIC;
 
     private Context mContext;
-    private List<Map<String, String>> mData;
-    private List<Map<String, String>> mBackup;
+    private Integer mLayout;
+    private List<Data> mData;
+    private List<Data> mBackup;
+    private Callback mCallback;
 
     public MyListAdapter(final Context context, final int resource) {
         super(context, resource);
+        init(context, resource, null, null);
+    }
+
+    public MyListAdapter(final Context context, final int resource, final Data[] objects) {
+        super(context, resource);
+        init(context, resource, objects, null);
+    }
+
+    public MyListAdapter(final Context context, final int resource, final Data[] objects, final Callback callback) {
+        super(context, resource);
+        init(context, resource, objects, callback);
     }
 
     public MyListAdapter(final Context context, final int resource, final int textViewResourceId) {
         super(context, resource, textViewResourceId);
+        init(context, resource, null, null);
     }
 
-    public MyListAdapter(final Context context, final int resource, final Map<String, String>[] objects) {
-        super(context, resource, objects);
+    public MyListAdapter(final Context context, final int resource, final int textViewResourceId, final Data[] objects) {
+        super(context, resource, textViewResourceId);
+        init(context, resource, objects, null);
     }
 
-    public MyListAdapter(final Context context, final int resource, final int textViewResourceId, final Map<String, String>[] objects) {
-        super(context, resource, textViewResourceId, objects);
+    public MyListAdapter(final Context context, final int resource, final int textViewResourceId, final Data[] objects, final Callback callback) {
+        super(context, resource, textViewResourceId);
+        init(context, resource, objects, callback);
     }
 
-    public MyListAdapter(final Context context, final int resource, final List<Map<String, String>> objects) {
-        super(context, resource, objects);
-    }
-
-    public MyListAdapter(final Context context, final int resource, final int textViewResourceId, final List<Map<String, String>> objects) {
-        super(context, resource, textViewResourceId, objects);
-    }
-
-    public MyListAdapter(final Context context, final List<Map<String, String>> objects) {
-        super(context, LAYOUT, objects);
+    protected void init(final Context context, final int resource, final Data[] objects, final Callback callback) {
         mContext = context;
-        mData = objects;
-        mBackup = new ArrayList<Map<String, String>>(mData);
+        mLayout = resource;
+        mData = Arrays.asList(objects);
+        mBackup = new ArrayList<Data>(mData);
+        mCallback = callback;
+    }
+
+    public List<Data> get() {
+        return mData;
+    }
+
+    public Data get(final int position) {
+        if (mData == null || position < 0 || position >= mData.size()) {
+            return null;
+        }
+
+        return mData.get(position);
+    }
+
+    public void index(final ListView listView) {
+        if (listView == null) {
+            LogHelper.w("ListView was NULL");
+            return ;
+        }
+
+        if (mData != null) {
+            Collections.sort(mData, new Comparator<Data>() {
+
+                @Override
+                public int compare(final Data d1, final Data d2) {
+                    return d1.key.compareToIgnoreCase(d2.key);
+                }
+
+            });
+            notifyDataSetChanged();
+        }
+
+        listView.setFastScrollEnabled(true);
+        listView.smoothScrollToPosition(0);
+    }
+
+    public void clear() {
+        mData = null;
+    }
+
+    public static class Data {
+
+        protected String key;
+        protected Object value;
+
+        public Data(final String key, final Object value) {
+            this.key = key;
+            this.value = value;
+        }
+
     }
 
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
+        if (convertView == null && mContext != null && mLayout > 0) {
+            final LayoutInflater layoutInflater = (LayoutInflater) SystemHelper.systemService(mContext, SystemHelper.SYSTEM_SERVICE_LAYOUT_INFLATER_SERVICE);
+            convertView = layoutInflater.inflate(mLayout, null);
+        }
+
         if (convertView == null) {
-            convertView = ((LayoutInflater) SystemHelper.systemService(mContext, SystemHelper.SYSTEM_SERVICE_LAYOUT_INFLATER_SERVICE))
-                    .inflate(LAYOUT, null);
+            LogHelper.w("ConvertView was NULL");
+            return null;
         }
-        if (convertView != null) {
-            final Map<String, String> object = mData.get(position);
-            ((TextView) convertView.findViewById(android.R.id.text1)).setText(object.get("text1"));
-            ((TextView) convertView.findViewById(android.R.id.text2)).setText(object.get("text2"));
+
+        final Data data = get(position);
+
+        if (data == null) {
+            LogHelper.w("Data was NULL");
+            return convertView;
         }
-        else {
-            LogHelper.w("View was NULL");
+
+        if (mCallback == null) {
+            LogHelper.w("Callback was NULL");
+            return convertView;
         }
-        return convertView;
+
+        return mCallback.myListAdapterCallback(convertView, data);
     }
 
     @Override
@@ -98,24 +168,24 @@ public class MyListAdapter extends ArrayAdapter<Map<String, String>> implements 
 
             @Override
             protected FilterResults performFiltering(final CharSequence constraint) {
-                mData.clear();
-                final List<Map<String, String>> filteredData = new ArrayList<Map<String, String>>();
-                for (final Map<String, String> data : mBackup) {
-                    if (data.get(FILTER).toLowerCase().startsWith(constraint.toString().toLowerCase())) {
-                        filteredData.add(data);
+                clear();
+                final List<Object> objects = new ArrayList<Object>();
+                for (final Data data : mBackup) {
+                    if (data.key.toUpperCase().startsWith(constraint.toString().toLowerCase())) {
+                        objects.add(data);
                     }
                 }
                 final FilterResults filterResults = new FilterResults();
-                filterResults.count = filteredData.size();
-                filterResults.values = filteredData;
+                filterResults.count = objects.size();
+                filterResults.values = ListHelper.array(objects);
                 return filterResults;
             }
 
             @SuppressWarnings("unchecked")
             @Override
             protected void publishResults(final CharSequence charSequence, final FilterResults filterResults) {
-                mData.clear();
-                mData.addAll((Collection<? extends Map<String, String>>) filterResults.values);
+                clear();
+                mData = (List<Data>) filterResults.values;
                 notifyDataSetChanged();
             }
 
@@ -126,8 +196,8 @@ public class MyListAdapter extends ArrayAdapter<Map<String, String>> implements 
     public Object[] getSections() {
         final List<String> sections = new ArrayList<String>();
         for (int i = 0; i < SECTIONS.length(); i++) {
-            for (final Map<String, String> data : mData) {
-                String c = String.valueOf(data.get(FILTER).charAt(0)).toUpperCase();
+            for (final Data data : mData) {
+                String c = String.valueOf(data.key.charAt(0)).toUpperCase();
                 if (! SECTIONS.contains(c)) {
                     c = String.valueOf(SECTIONS.charAt(0)).toUpperCase();
                 }
@@ -144,7 +214,7 @@ public class MyListAdapter extends ArrayAdapter<Map<String, String>> implements 
     public int getPositionForSection(final int position) {
         final String c = String.valueOf(SECTIONS.charAt(position)).toUpperCase();
         for (int i = 0; i < mData.size(); i++) {
-            if (String.valueOf(mData.get(i).get(FILTER).toUpperCase().charAt(0)).toUpperCase().equals(c)) {
+            if (String.valueOf(get(i).key.toUpperCase().charAt(0)).toUpperCase().equals(c)) {
                 return i;
             }
         }
@@ -153,13 +223,24 @@ public class MyListAdapter extends ArrayAdapter<Map<String, String>> implements 
 
     @Override
     public int getSectionForPosition(final int position) {
-        final String c = String.valueOf(mData.get(position).get(FILTER).charAt(0)).toUpperCase();
+        final String c = String.valueOf(get(position).key.charAt(0)).toUpperCase();
         for (int i = 0; i < SECTIONS.length(); i++) {
             if (String.valueOf(SECTIONS.toUpperCase().charAt(i)).toUpperCase().equals(c)) {
                 return i;
             }
         }
         return 0;
+    }
+
+    @Override
+    public int getCount() {
+        return (mData == null ? super.getCount() : mData.size());
+    }
+
+    public static interface Callback {
+
+        public View myListAdapterCallback(final View view, final Data data);
+
     }
 
 }

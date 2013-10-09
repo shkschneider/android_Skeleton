@@ -19,53 +19,43 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.widget.SearchView;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.FileHelper;
+import me.shkschneider.skeleton.helper.HashHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.KeyboardHelper;
 import me.shkschneider.skeleton.helper.LocaleHelper;
+import me.shkschneider.skeleton.helper.LocationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.NumberHelper;
 import me.shkschneider.skeleton.helper.RuntimeHelper;
 import me.shkschneider.skeleton.helper.ScreenHelper;
+import me.shkschneider.skeleton.helper.StringHelper;
 import me.shkschneider.skeleton.helper.SystemHelper;
 import me.shkschneider.skeleton.helper.TimeHelper;
 import me.shkschneider.skeleton.helper.WebViewHelper;
 import me.shkschneider.skeleton.net.NetworkHelper;
+import me.shkschneider.skeleton.storage.ExternalStorageHelper;
+import me.shkschneider.skeleton.storage.InternalStorageHelper;
 
 @SuppressWarnings("unused")
 public class MainActivity extends SherlockListActivity {
 
     private static final String AUTHOR_NAME = "ShkSchneider";
     private static final String AUTHOR_URL = "https://github.com/shkschneider/android_Skeleton";
-
-    private Map<String, String> map(final String m, final String c, final String message) {
-        final Map<String, String> data = new HashMap<String, String>();
-        data.put("text1", m);
-        data.put("text2", c);
-        data.put("title", m);
-        data.put("message", message);
-        return data;
-    }
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -90,195 +80,191 @@ public class MainActivity extends SherlockListActivity {
 
         ActivityHelper.indeterminate(MainActivity.this, true);
 
-        final List<Map<String, String>> data = new ArrayList<Map<String, String>>();
-
-        data.add(map("DEBUG", "SkeletonApplication", SkeletonApplication.DEBUG.toString()));
-        data.add(map("LOCALE", "SkeletonApplication", SkeletonApplication.LOCALE));
-        data.add(map("TAG", "SkeletonApplication", SkeletonApplication.TAG));
-
-        data.add(map("auth()", "authenticator.FacebookAuthenticator", null));
-        data.add(map("auth()", "authenticator.GoogleAuthenticator", null));
-        data.add(map("auth()", "authenticator.SingleSignOnAuthenticator", null));
-        data.add(map("auth()", "authenticator.TwitterAuthenticator", null));
-
-        data.add(map("alertDialogBuilder()", "helper.ActivityHelper", null));
-        data.add(map("popup()", "helper.ActivityHelper", null));
-        data.add(map("indeterminate()", "helper.ActivityHelper", null));
-        data.add(map("showcase()", "helper.ActivityHelper", null));
-
-        data.add(map("account()", "helper.AndroidHelper", AndroidHelper.account(MainActivity.this)));
-        data.add(map("api()", "helper.AndroidHelper", String.valueOf(AndroidHelper.api())));
-        data.add(map("codename()", "helper.AndroidHelper", AndroidHelper.codename()));
-        data.add(map("debug()", "helper.AndroidHelper", String.valueOf(AndroidHelper.debug())));
-        data.add(map("device()", "helper.AndroidHelper", AndroidHelper.device()));
-        data.add(map("deviceId()", "helper.AndroidHelper", AndroidHelper.deviceId(MainActivity.this)));
-        data.add(map("id()", "helper.AndroidHelper", AndroidHelper.id(MainActivity.this)));
-        data.add(map("manufacturer()", "helper.AndroidHelper", AndroidHelper.manufacturer()));
-        data.add(map("name()", "helper.AndroidHelper", AndroidHelper.name(MainActivity.this)));
-        data.add(map("packageName()", "helper.AndroidHelper", AndroidHelper.packageName(MainActivity.this)));
-        data.add(map("randomId()", "helper.AndroidHelper", AndroidHelper.randomId()));
-        data.add(map("release()", "helper.AndroidHelper", AndroidHelper.release()));
-        data.add(map("signature()", "helper.AndroidHelper", AndroidHelper.signature(MainActivity.this).substring(0, 32).concat("...")));
-        data.add(map("sim()", "helper.AndroidHelper", null));
-        data.add(map("tablet()", "helper.AndroidHelper", String.valueOf(AndroidHelper.tablet(MainActivity.this))));
-        data.add(map("uuid()", "helper.AndroidHelper", AndroidHelper.uuid(MainActivity.this)));
-        data.add(map("versionCode()", "helper.AndroidHelper", String.valueOf(AndroidHelper.versionCode(MainActivity.this))));
-        data.add(map("versionName()", "helper.AndroidHelper", AndroidHelper.versionName(MainActivity.this)));
-
-        data.add(map("play()", "helper.AudioHelper", null));
-        data.add(map("volume()", "helper.AudioHelper", null));
-
-        data.add(map("bitmapFromDrawable()", "helper.BitmapHelper", null));
-        data.add(map("bitmapFromUri()", "helper.BitmapHelper", null));
-        data.add(map("decodeUri()", "helper.BitmapHelper", null));
-        data.add(map("rotateBitmap()", "helper.BitmapHelper", null));
-
-        data.add(map("drawableFromBitmap()", "helper.DrawableHelper", null));
-        data.add(map("indeterminateDrawable()", "helper.DrawableHelper", null));
-
-        data.add(map("feature()", "helper.FeaturesHelper", null));
-
-        data.add(map("md5()", "helper.HashHelper", null));
-        data.add(map("sha()", "helper.HashHelper", null));
-
-        data.add(map("camera()", "helper.IntentHelper", null));
-        data.add(map("canHandle()", "helper.IntentHelper", null));
-        data.add(map("email()", "helper.IntentHelper", null));
-        data.add(map("gallery()", "helper.IntentHelper", null));
-        data.add(map("image()", "helper.IntentHelper", null));
-        data.add(map("market()", "helper.IntentHelper", null));
-        data.add(map("web()", "helper.IntentHelper", null));
-
-        data.add(map("hide()", "helper.KeyboardHelper", null));
-        data.add(map("show()", "helper.KeyboardHelper", null));
-
-        data.add(map("country()", "helper.LocaleHelper", LocaleHelper.country()));
-        data.add(map("country2()", "helper.LocaleHelper", LocaleHelper.country2()));
-        data.add(map("country3()", "helper.LocaleHelper", LocaleHelper.country3()));
-        data.add(map("language()", "helper.LocaleHelper", LocaleHelper.language()));
-        data.add(map("language2()", "helper.LocaleHelper", LocaleHelper.language2()));
-        data.add(map("language3()", "helper.LocaleHelper", LocaleHelper.language3()));
-        data.add(map("locale()", "helper.LocaleHelper", LocaleHelper.locale().toString()));
-
-        data.add(map("betterLocation()", "helper.LocationHelper", null));
-        data.add(map("degreesFromMeters()", "helper.LocationHelper", null));
-        data.add(map("location()", "helper.LocationHelper", null));
-        data.add(map("metersFromDegrees()", "helper.LocationHelper", null));
-        data.add(map("start()", "helper.LocationHelper", null));
-        data.add(map("stop()", "helper.LocationHelper", null));
-
-        data.add(map("tag()", "helper.LogHelper", null));
-        data.add(map("level()", "helper.LogHelper", null));
-        data.add(map("loggable()", "helper.LogHelper", null));
-        data.add(map("verbose()", "helper.LogHelper", null));
-        data.add(map("v()", "helper.LogHelper", null));
-        data.add(map("debug()", "helper.LogHelper", null));
-        data.add(map("d()", "helper.LogHelper", null));
-        data.add(map("info()", "helper.LogHelper", null));
-        data.add(map("i()", "helper.LogHelper", null));
-        data.add(map("warning()", "helper.LogHelper", null));
-        data.add(map("w()", "helper.LogHelper", null));
-        data.add(map("error()", "helper.LogHelper", null));
-        data.add(map("e()", "helper.LogHelper", null));
-
-        data.add(map("cancel()", "helper.NotificationHelper", null));
-        data.add(map("croutonAlert()", "helper.NotificationHelper", null));
-        data.add(map("croutonConfirm()", "helper.NotificationHelper", null));
-        data.add(map("croutonInfo()", "helper.NotificationHelper", null));
-        data.add(map("notification()", "helper.NotificationHelper", null));
-        data.add(map("notificationManager()", "helper.NotificationHelper", null));
-        data.add(map("notify()", "helper.NotificationHelper", null));
-        data.add(map("toastLong()", "helper.NotificationHelper", null));
-        data.add(map("toastShort()", "helper.NotificationHelper", null));
-
-        data.add(map("random()", "helper.NumberHelper", String.valueOf(NumberHelper.random())));
-
-        data.add(map("permission()", "helper.PermissionsHelper", null));
-
-        data.add(map("freeMemory()", "helper.RuntimeHelper", String.valueOf(RuntimeHelper.freeMemory())));
-        data.add(map("maxMemory()", "helper.RuntimeHelper", String.valueOf(RuntimeHelper.maxMemory())));
-        data.add(map("processors()", "helper.RuntimeHelper", String.valueOf(RuntimeHelper.processors())));
-        data.add(map("totalMemory()", "helper.RuntimeHelper", String.valueOf(RuntimeHelper.totalMemory())));
-
-        data.add(map("density()", "helper.ScreenHelper", String.valueOf(ScreenHelper.density(MainActivity.this))));
-        data.add(map("height()", "helper.ScreenHelper", String.valueOf(ScreenHelper.height(MainActivity.this))));
-        data.add(map("on()", "helper.ScreenHelper", String.valueOf(ScreenHelper.on(MainActivity.this))));
-        data.add(map("orientation()", "helper.ScreenHelper", String.valueOf(ScreenHelper.orientation(MainActivity.this))));
-        data.add(map("pixelsFromDp()", "helper.ScreenHelper", null));
-        data.add(map("wakeLock()", "helper.ScreenHelper", null));
-        data.add(map("width()", "helper.ScreenHelper", String.valueOf(ScreenHelper.width(MainActivity.this))));
-
-        data.add(map("capitalize()", "helper.StringHelper", null));
-        data.add(map("contains()", "helper.StringHelper", null));
-        data.add(map("numeric()", "helper.StringHelper", null));
-
-        data.add(map("systemProperty()", "helper.SystemHelper", null));
-        data.add(map("systemService()", "helper.SystemHelper", null));
-        data.add(map("uname()", "helper.SystemHelper", SystemHelper.uname()));
-
-        data.add(map("relative()", "helper.TimeHelper", null));
-        data.add(map("timestamp()", "helper.TimeHelper", String.valueOf(TimeHelper.timestamp())));
-
-        data.add(map("vibrate()", "helper.VibratorHelper", null));
-
-        data.add(map("back()", "helper.WebViewHelper", null));
-        data.add(map("forward()", "helper.WebViewHelper", null));
-        data.add(map("fromAsset()", "helper.WebViewHelper", null));
-        data.add(map("fromHtml()", "helper.WebViewHelper", null));
-        data.add(map("fromUri()", "helper.WebViewHelper", null));
-        data.add(map("javascriptInterface()", "helper.WebViewHelper", null));
-
-        data.add(map("cache()", "net.ImageDownloader", null));
-        data.add(map("run()", "net.ImageDownloader", null));
-
-        data.add(map("jsonArray()", "net.JsonParser", null));
-        data.add(map("jsonObject()", "net.JsonParser", null));
-        data.add(map("string()", "net.JsonParser", null));
-        data.add(map("parse()", "net.JsonParser", null));
-
-        data.add(map("ipAddresses()", "net.NetworkHelper", NetworkHelper.ipAddresses().toString()));
-        data.add(map("macAddress()", "net.NetworkHelper", NetworkHelper.macAddress(MainActivity.this)));
-        data.add(map("online()", "net.NetworkHelper", String.valueOf(NetworkHelper.online(MainActivity.this))));
-        data.add(map("userAgent()", "net.NetworkHelper", NetworkHelper.userAgent()));
-        data.add(map("validUrl()", "net.NetworkHelper", null));
-        data.add(map("wifi()", "net.NetworkHelper", String.valueOf(NetworkHelper.wifi(MainActivity.this))));
-
-        data.add(map("cancel()", "net.WebService", null));
-        data.add(map("run()", "net.WebService", null));
-
-        data.add(map("queue()", "task.QueuedTasks", null));
-        data.add(map("run()", "task.QueuedTasks", null));
-        data.add(map("running()", "task.QueuedTasks", null));
-        data.add(map("duration()", "task.QueuedTasks", null));
-
-        data.add(map("queue()", "task.Tasks", null));
-        data.add(map("run()", "task.Tasks", null));
-        data.add(map("running()", "task.Tasks", null));
-        data.add(map("duration()", "task.Tasks", null));
-
-        Collections.sort(data, new Comparator<Map<String, String>>() {
+        final MyListAdapter myListAdapter = new MyListAdapter(MainActivity.this, android.R.layout.simple_list_item_2, new MyListAdapter.Data[] {
+                new MyListAdapter.Data("SkeletonApplication.DEBUG", SkeletonApplication.DEBUG.toString()),
+                new MyListAdapter.Data("SkeletonApplication.LOCALE", SkeletonApplication.LOCALE),
+                new MyListAdapter.Data("SkeletonApplication.TAG", SkeletonApplication.TAG),
+                // authenticator
+                new MyListAdapter.Data("FacebookAuthenticator.auth()", null),
+                new MyListAdapter.Data("GoogleAuthenticator.auth()", null),
+                new MyListAdapter.Data("SingleSignOnAuthenticator.auth()", null),
+                new MyListAdapter.Data("TwitterAuthenticator.auth()", null),
+                // helper
+                new MyListAdapter.Data("Activity.alertDialogBuilder()", null),
+                new MyListAdapter.Data("Activity.popup()", null),
+                new MyListAdapter.Data("Activity.indeterminate()", null),
+                new MyListAdapter.Data("Activity.showcase()", null),
+                new MyListAdapter.Data("Android.account()", AndroidHelper.account(MainActivity.this)),
+                new MyListAdapter.Data("Android.api()", AndroidHelper.api()),
+                new MyListAdapter.Data("Android.codename()", AndroidHelper.codename()),
+                new MyListAdapter.Data("Android.debug()", AndroidHelper.debug()),
+                new MyListAdapter.Data("Android.device()", AndroidHelper.device()),
+                new MyListAdapter.Data("Android.deviceId()", AndroidHelper.deviceId(MainActivity.this)),
+                new MyListAdapter.Data("Android.id()", AndroidHelper.id(MainActivity.this)),
+                new MyListAdapter.Data("Android.manufacturer()", AndroidHelper.manufacturer()),
+                new MyListAdapter.Data("Android.name()", AndroidHelper.name(MainActivity.this)),
+                new MyListAdapter.Data("Android.packageName()", AndroidHelper.packageName(MainActivity.this)),
+                new MyListAdapter.Data("Android.randomId()", AndroidHelper.randomId()),
+                new MyListAdapter.Data("Android.release()", AndroidHelper.release()),
+                new MyListAdapter.Data("Android.signature()", AndroidHelper.signature(MainActivity.this).substring(0, 32)),
+                new MyListAdapter.Data("Android.sim()", AndroidHelper.sim(MainActivity.this).toString()),
+                new MyListAdapter.Data("Android.tablet()", AndroidHelper.tablet(MainActivity.this)),
+                new MyListAdapter.Data("Android.uuid()", AndroidHelper.uuid(MainActivity.this)),
+                new MyListAdapter.Data("Android.versionCode()", AndroidHelper.versionCode(MainActivity.this)),
+                new MyListAdapter.Data("Android.versionName()", AndroidHelper.versionName(MainActivity.this)),
+                new MyListAdapter.Data("Android.alertDialogBuilder()", null),
+                new MyListAdapter.Data("Audio.play()", null),
+                new MyListAdapter.Data("Audio.volume()", null),
+                new MyListAdapter.Data("Bitmap.bitmapFromDrawable()", null),
+                new MyListAdapter.Data("Bitmap.bitmapFromUri()", null),
+                new MyListAdapter.Data("Bitmap.decodeUri()", null),
+                new MyListAdapter.Data("Bitmap.rotateBitmap()", null),
+                new MyListAdapter.Data("Drawable.drawableFromBitmap()", null),
+                new MyListAdapter.Data("Drawable.indeterminateDrawable()", null),
+                new MyListAdapter.Data("Features.feature()", null),
+                new MyListAdapter.Data("Hash.md5()", HashHelper.md5(AndroidHelper.name(MainActivity.this))),
+                new MyListAdapter.Data("Hash.sha()", HashHelper.sha(AndroidHelper.name(MainActivity.this))),
+                new MyListAdapter.Data("Intent.camera()", null),
+                new MyListAdapter.Data("Intent.canHandle()", null),
+                new MyListAdapter.Data("Intent.email()", null),
+                new MyListAdapter.Data("Intent.gallery()", null),
+                new MyListAdapter.Data("Intent.image()", null),
+                new MyListAdapter.Data("Intent.market()", null),
+                new MyListAdapter.Data("Intent.web()", null),
+                new MyListAdapter.Data("Keyboard.hide()", null),
+                new MyListAdapter.Data("Keyboard.show()", null),
+                new MyListAdapter.Data("Locale.country()", LocaleHelper.country()),
+                new MyListAdapter.Data("Locale.country2()", LocaleHelper.country2()),
+                new MyListAdapter.Data("Locale.country3()", LocaleHelper.country3()),
+                new MyListAdapter.Data("Locale.language()", LocaleHelper.language()),
+                new MyListAdapter.Data("Locale.language2()", LocaleHelper.language2()),
+                new MyListAdapter.Data("Locale.language3()", LocaleHelper.language3()),
+                new MyListAdapter.Data("Locale.locale()", LocaleHelper.locale()),
+                new MyListAdapter.Data("Location.betterLocation()", null),
+                new MyListAdapter.Data("Location.degreesFromMeters()", LocationHelper.degreesFromMeters(1F)),
+                new MyListAdapter.Data("Location.location()", null),
+                new MyListAdapter.Data("Location.metersFromDegrees()", LocationHelper.metersFromDegrees(1F)),
+                new MyListAdapter.Data("Location.start()", null),
+                new MyListAdapter.Data("Location.stop()", null),
+                new MyListAdapter.Data("Log.tag()", LogHelper.tag()),
+                new MyListAdapter.Data("Log.level()", LogHelper.level()),
+                new MyListAdapter.Data("Log.loggable()", LogHelper.loggable(LogHelper.level())),
+                new MyListAdapter.Data("Log.verbose()", null),
+                new MyListAdapter.Data("Log.v()", null),
+                new MyListAdapter.Data("Log.debug()", null),
+                new MyListAdapter.Data("Log.d()", null),
+                new MyListAdapter.Data("Log.info()", null),
+                new MyListAdapter.Data("Log.i()", null),
+                new MyListAdapter.Data("Log.warning()", null),
+                new MyListAdapter.Data("Log.w()", null),
+                new MyListAdapter.Data("Log.error()", null),
+                new MyListAdapter.Data("Log.e()", null),
+                new MyListAdapter.Data("Notification.cancel()", null),
+                new MyListAdapter.Data("Notification.croutonAlert()", null),
+                new MyListAdapter.Data("Notification.croutonConfirm()", null),
+                new MyListAdapter.Data("Notification.croutonInfo()", null),
+                new MyListAdapter.Data("Notification.notification()", null),
+                new MyListAdapter.Data("Notification.notificationManager()", null),
+                new MyListAdapter.Data("Notification.notify()", null),
+                new MyListAdapter.Data("Notification.toastLong()", null),
+                new MyListAdapter.Data("Notification.toastShort()", null),
+                new MyListAdapter.Data("Number.random()", NumberHelper.random()),
+                new MyListAdapter.Data("Permissions.permission()", null),
+                new MyListAdapter.Data("Runtime.freeMemory()", RuntimeHelper.freeMemory()),
+                new MyListAdapter.Data("Runtime.maxMemory()", RuntimeHelper.maxMemory()),
+                new MyListAdapter.Data("Runtime.processors()", RuntimeHelper.processors()),
+                new MyListAdapter.Data("Runtime.totalMemory()", RuntimeHelper.totalMemory()),
+                new MyListAdapter.Data("Screen.density()", ScreenHelper.density(MainActivity.this)),
+                new MyListAdapter.Data("Screen.height()", ScreenHelper.height(MainActivity.this)),
+                new MyListAdapter.Data("Screen.on()", ScreenHelper.on(MainActivity.this)),
+                new MyListAdapter.Data("Screen.orientation()", ScreenHelper.orientation(MainActivity.this)),
+                new MyListAdapter.Data("Screen.pixelsFromDp()", ScreenHelper.pixelsFromDp(MainActivity.this, 1F)),
+                new MyListAdapter.Data("Screen.wakeLock()", null),
+                new MyListAdapter.Data("Screen.width()", ScreenHelper.width(MainActivity.this)),
+                new MyListAdapter.Data("String.capitalize()", StringHelper.capitalize(AndroidHelper.name(MainActivity.this))),
+                new MyListAdapter.Data("String.contains()", null),
+                new MyListAdapter.Data("String.numeric()", null),
+                new MyListAdapter.Data("System.systemProperty()", null),
+                new MyListAdapter.Data("System.systemService()", null),
+                new MyListAdapter.Data("System.uname()", SystemHelper.uname()),
+                new MyListAdapter.Data("Time.relative()",
+                        TimeHelper.relative(TimeHelper.millitimestamp() - 42 * DateUtils.SECOND_IN_MILLIS, TimeHelper.millitimestamp())),
+                new MyListAdapter.Data("Time.timestamp()", TimeHelper.timestamp()),
+                new MyListAdapter.Data("Vibrator.vibrate()", null),
+                new MyListAdapter.Data("WebView.back()", null),
+                new MyListAdapter.Data("WebView.forward()", null),
+                new MyListAdapter.Data("WebView.fromAsset()", null),
+                new MyListAdapter.Data("WebView.fromHtml()", null),
+                new MyListAdapter.Data("WebView.fromUri()", null),
+                new MyListAdapter.Data("WebView.javascriptInterface()", null),
+                // net
+                new MyListAdapter.Data("ImageDownloader.cache()", null),
+                new MyListAdapter.Data("ImageDownloader.run()", null),
+                new MyListAdapter.Data("JsonParser.jsonArray()", null),
+                new MyListAdapter.Data("JsonParser.jsonObject()", null),
+                new MyListAdapter.Data("JsonParser.string()", null),
+                new MyListAdapter.Data("JsonParser.parse()", null),
+                new MyListAdapter.Data("Network.ipAddresses()", NetworkHelper.ipAddresses()),
+                new MyListAdapter.Data("Network.macAddress()", NetworkHelper.macAddress(MainActivity.this)),
+                new MyListAdapter.Data("Network.online()", NetworkHelper.online(MainActivity.this)),
+                new MyListAdapter.Data("Network.userAgent()", NetworkHelper.userAgent()),
+                new MyListAdapter.Data("Network.validUrl()", null),
+                new MyListAdapter.Data("Network.wifi()", NetworkHelper.wifi(MainActivity.this)),
+                new MyListAdapter.Data("WebService.cancel()", null),
+                new MyListAdapter.Data("WebService.run()", null),
+                // storage
+                new MyListAdapter.Data("ExternalStorage.available()", ExternalStorageHelper.available()),
+                new MyListAdapter.Data("ExternalStorage.read()", null),
+                new MyListAdapter.Data("ExternalStorage.write()", null),
+                new MyListAdapter.Data("InternalStorage.available()", InternalStorageHelper.available()),
+                new MyListAdapter.Data("InternalStorage.read()", null),
+                new MyListAdapter.Data("InternalStorage.write()", null),
+                new MyListAdapter.Data("SharedPreferences.get()", null),
+                new MyListAdapter.Data("SharedPreferences.put()", null),
+                new MyListAdapter.Data("Sqlite.add()", null),
+                new MyListAdapter.Data("Sqlite.count()", null),
+                new MyListAdapter.Data("Sqlite.get()", null),
+                new MyListAdapter.Data("Sqlite.remove()", null),
+                new MyListAdapter.Data("Sqlite.update()", null),
+                // task
+                new MyListAdapter.Data("QueuedTasks.queue()", null),
+                new MyListAdapter.Data("QueuedTasks.run()", null),
+                new MyListAdapter.Data("QueuedTasks.running()", null),
+                new MyListAdapter.Data("QueuedTasks.duration()", null),
+                new MyListAdapter.Data("Tasks.queue()", null),
+                new MyListAdapter.Data("Tasks.run()", null),
+                new MyListAdapter.Data("Tasks.running()", null),
+                new MyListAdapter.Data("Tasks.duration()", null)
+        }, new MyListAdapter.Callback() {
 
             @Override
-            public int compare(final Map<String, String> m1, final Map<String, String> m2) {
-                final String s1 = m1.get("text1");
-                final String s2 = m2.get("text1");
-                return s1.compareToIgnoreCase(s2);
+            public View myListAdapterCallback(final View view, final MyListAdapter.Data data) {
+                ((TextView) view.findViewById(android.R.id.text1)).setText(data.key);
+                if (data.value == null || data.value instanceof Runnable) {
+                    ((TextView) view.findViewById(android.R.id.text2)).setText("-");
+                    return view;
+                }
+                ((TextView) view.findViewById(android.R.id.text2)).setText(data.value.toString());
+                return view;
             }
 
         });
-
-        setListAdapter(new MyListAdapter(MainActivity.this, data));
+        myListAdapter.index(getListView());
+        setListAdapter(myListAdapter);
 
         getListView().setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(final AdapterView<?> adapterView, final View view, final int position, final long id) {
-                final String title = data.get(position).get("title");
-                final String message = data.get(position).get("message");
-                if (!TextUtils.isEmpty(message)) {
+                final String key = myListAdapter.get(position).key;
+                final Object value = myListAdapter.get(position).value;
+                if (value instanceof Runnable) {
+                    ((Runnable) value).run();
+                }
+                else {
                     ActivityHelper.alertDialogBuilder(MainActivity.this)
-                            .setTitle(title)
-                            .setMessage(message)
+                            .setTitle(key)
+                            .setMessage(value.toString())
                             .setNeutralButton(android.R.string.ok, null)
                             .setCancelable(true)
                             .create()
@@ -287,8 +273,6 @@ public class MainActivity extends SherlockListActivity {
             }
 
         });
-        getListView().setFastScrollEnabled(true);
-        getListView().smoothScrollToPosition(0);
 
         ActivityHelper.indeterminate(MainActivity.this, false);
     }

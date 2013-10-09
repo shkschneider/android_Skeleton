@@ -25,7 +25,7 @@ import me.shkschneider.skeleton.helper.LogHelper;
 @SuppressWarnings("unused")
 public class InternalStorageHelper {
 
-    public Boolean available() {
+    public static Boolean available() {
         return true;
     }
 
