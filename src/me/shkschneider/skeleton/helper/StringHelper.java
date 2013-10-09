@@ -20,13 +20,26 @@ import android.text.TextUtils;
 @SuppressWarnings("unused")
 public class StringHelper {
 
+    public static final String ALPHA = "abcdefghijklmnopqrstuvwxyz";
+    public static final String NUMERIC = "0123456789";
+    public static final String ALPHA_NUMERIC = ALPHA + NUMERIC;
+
     public static String capitalize(final String string) {
         if (TextUtils.isEmpty(string)) {
             LogHelper.w("String was NULL");
             return string;
         }
 
-        return Character.toUpperCase(string.charAt(0)) + string.substring(1).toLowerCase();
+        return string.substring(0, 1).toUpperCase() + string.substring(1).toLowerCase();
+    }
+
+    public static Boolean alpha(final String string) {
+        if (TextUtils.isEmpty(string)) {
+            LogHelper.w("String was NULL");
+            return false;
+        }
+
+        return chars(string, ALPHA);
     }
 
     public static Boolean numeric(final String string) {
@@ -35,26 +48,36 @@ public class StringHelper {
             return false;
         }
 
-        return TextUtils.isDigitsOnly(string);
+        return chars(string, NUMERIC);
     }
 
-    public static Boolean contains(final String[] strings, final String string) {
-        if (strings == null) {
-            LogHelper.w("Strings was NULL");
-            return false;
-        }
-
+    public static Boolean alphanumeric(final String string) {
         if (TextUtils.isEmpty(string)) {
             LogHelper.w("String was NULL");
             return false;
         }
 
-        for (final String s : strings) {
-            if (! TextUtils.isEmpty(s) && s.equals(string)) {
-                return true;
+        return chars(string, ALPHA_NUMERIC);
+    }
+
+    public static Boolean chars(final String string, final String chars) {
+        if (TextUtils.isEmpty(string)) {
+            LogHelper.w("String was NULL");
+            return false;
+        }
+
+        if (TextUtils.isEmpty(chars)) {
+            LogHelper.w("Chars was NULL");
+            return false;
+        }
+
+        for (char c : chars.toCharArray()) {
+            if (! chars.contains(String.valueOf(c))) {
+                return false;
             }
         }
-        return false;
+
+        return true;
     }
 
 }
