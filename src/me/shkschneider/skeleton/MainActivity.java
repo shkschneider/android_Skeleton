@@ -167,11 +167,14 @@ public class MainActivity extends SherlockListActivity {
         data.add(map("start()", "helper.LocationHelper", null));
         data.add(map("stop()", "helper.LocationHelper", null));
 
-        data.add(map("d()", "helper.LogHelper", null));
-        data.add(map("e()", "helper.LogHelper", null));
-        data.add(map("i()", "helper.LogHelper", null));
+        data.add(map("tag()", "helper.LogHelper", null));
+        data.add(map("level()", "helper.LogHelper", null));
+        data.add(map("loggable()", "helper.LogHelper", null));
         data.add(map("v()", "helper.LogHelper", null));
+        data.add(map("d()", "helper.LogHelper", null));
+        data.add(map("i()", "helper.LogHelper", null));
         data.add(map("w()", "helper.LogHelper", null));
+        data.add(map("e()", "helper.LogHelper", null));
 
         data.add(map("cancel()", "helper.NotificationHelper", null));
         data.add(map("croutonAlert()", "helper.NotificationHelper", null));

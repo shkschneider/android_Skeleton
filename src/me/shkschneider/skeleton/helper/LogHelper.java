@@ -26,8 +26,39 @@ public class LogHelper {
     public static final int WARN = 40;
     public static final int ERROR = 50;
 
-    public static void log(final int state, final String msg) {
-        final String tag = SkeletonApplication.TAG;
+    protected static String TAG = SkeletonApplication.TAG;
+    protected static int LEVEL = (AndroidHelper.debug() ? DEBUG : WARN);
+
+    // tag
+
+    public static String tag() {
+        return SkeletonApplication.TAG;
+    }
+
+    public static void tag(final String tag) {
+        TAG = tag;
+    }
+
+    // level
+
+    public static int level() {
+        return LEVEL;
+    }
+
+    public static void level(final int level) {
+        LEVEL = level;
+    }
+
+    // log
+
+    public static Boolean loggable(final int level) {
+        return (level >= LEVEL);
+    }
+
+    public static void log(final int level, final String msg) {
+        if (! loggable(level)) {
+            return ;
+        }
 
         // Uses StackTrace to build the log tag
         final StackTraceElement[] elements = new Throwable().getStackTrace();
@@ -46,8 +77,9 @@ public class LogHelper {
             }
         }
 
+        final String tag = tag();
         final String stack = callerClassName + " " + callerMethodName + "()";
-        switch (state) {
+        switch (level) {
             case VERBOSE: android.util.Log.v(tag, "[" + stack + "] " + msg); break ;
             case DEBUG: android.util.Log.d(tag, "[" + stack + "] " + msg); break ;
             case INFO: android.util.Log.i(tag, "[" + stack + "] " + msg); break ;
