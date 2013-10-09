@@ -170,10 +170,15 @@ public class MainActivity extends SherlockListActivity {
         data.add(map("tag()", "helper.LogHelper", null));
         data.add(map("level()", "helper.LogHelper", null));
         data.add(map("loggable()", "helper.LogHelper", null));
+        data.add(map("verbose()", "helper.LogHelper", null));
         data.add(map("v()", "helper.LogHelper", null));
+        data.add(map("debug()", "helper.LogHelper", null));
         data.add(map("d()", "helper.LogHelper", null));
+        data.add(map("info()", "helper.LogHelper", null));
         data.add(map("i()", "helper.LogHelper", null));
+        data.add(map("warning()", "helper.LogHelper", null));
         data.add(map("w()", "helper.LogHelper", null));
+        data.add(map("error()", "helper.LogHelper", null));
         data.add(map("e()", "helper.LogHelper", null));
 
         data.add(map("cancel()", "helper.NotificationHelper", null));

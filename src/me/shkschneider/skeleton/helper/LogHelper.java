@@ -89,24 +89,44 @@ public class LogHelper {
         }
     }
 
-    public static void v(final String msg) {
+    public static void verbose(final String msg) {
         log(VERBOSE, msg);
     }
 
-    public static void d(final String msg) {
+    public static void v(final String msg) {
+        verbose(msg);
+    }
+
+    public static void debug(final String msg) {
         log(DEBUG, msg);
     }
 
-    public static void i(final String msg) {
+    public static void d(final String msg) {
+        debug(msg);
+    }
+
+    public static void info(final String msg) {
         log(INFO, msg);
     }
 
-    public static void w(final String msg) {
+    public static void i(final String msg) {
+        info(msg);
+    }
+
+    public static void warning(final String msg) {
         log(WARN, msg);
     }
 
-    public static void e(final String msg) {
+    public static void w(final String msg) {
+        warning(msg);
+    }
+
+    public static void error(final String msg) {
         log(ERROR, msg);
+    }
+
+    public static void e(final String msg) {
+        error(msg);
     }
 
 }
