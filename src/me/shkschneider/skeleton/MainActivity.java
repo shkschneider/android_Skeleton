@@ -40,12 +40,14 @@ import me.shkschneider.skeleton.helper.KeyboardHelper;
 import me.shkschneider.skeleton.helper.LocaleHelper;
 import me.shkschneider.skeleton.helper.LocationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.NotificationHelper;
 import me.shkschneider.skeleton.helper.NumberHelper;
 import me.shkschneider.skeleton.helper.RuntimeHelper;
 import me.shkschneider.skeleton.helper.ScreenHelper;
 import me.shkschneider.skeleton.helper.StringHelper;
 import me.shkschneider.skeleton.helper.SystemHelper;
 import me.shkschneider.skeleton.helper.TimeHelper;
+import me.shkschneider.skeleton.helper.VibratorHelper;
 import me.shkschneider.skeleton.helper.WebViewHelper;
 import me.shkschneider.skeleton.net.NetworkHelper;
 import me.shkschneider.skeleton.storage.ExternalStorageHelper;
@@ -90,8 +92,27 @@ public class MainActivity extends SherlockListActivity {
                 new MyListAdapter.Data("SingleSignOnAuthenticator.auth()", null),
                 new MyListAdapter.Data("TwitterAuthenticator.auth()", null),
                 // helper
-                new MyListAdapter.Data("Activity.alertDialogBuilder()", null),
-                new MyListAdapter.Data("Activity.popup()", null),
+                new MyListAdapter.Data("Activity.alertDialogBuilder()", new Runnable() {
+
+                    @Override
+                    public void run() {
+                        ActivityHelper.alertDialogBuilder(MainActivity.this)
+                                .setTitle(AndroidHelper.name(MainActivity.this))
+                                .setMessage(AndroidHelper.packageName(MainActivity.this))
+                                .setNeutralButton(android.R.string.ok, null)
+                                .create()
+                                .show();
+                    }
+
+                }),
+                new MyListAdapter.Data("Activity.popup()", new Runnable() {
+
+                    @Override
+                    public void run() {
+                        ActivityHelper.popup(MainActivity.this, AndroidHelper.name(MainActivity.this));
+                    }
+
+                }),
                 new MyListAdapter.Data("Activity.indeterminate()", null),
                 new MyListAdapter.Data("Activity.showcase()", null),
                 new MyListAdapter.Data("Android.account()", AndroidHelper.account(MainActivity.this)),
@@ -104,6 +125,18 @@ public class MainActivity extends SherlockListActivity {
                 new MyListAdapter.Data("Android.manufacturer()", AndroidHelper.manufacturer()),
                 new MyListAdapter.Data("Android.name()", AndroidHelper.name(MainActivity.this)),
                 new MyListAdapter.Data("Android.packageName()", AndroidHelper.packageName(MainActivity.this)),
+                new MyListAdapter.Data("Android.permissions()", new Runnable() {
+
+                    @Override
+                    public void run() {
+                        String permissions = "";
+                        for (final String permission : AndroidHelper.permissions(MainActivity.this)) {
+                            permissions = permissions.concat(permission.replace("android.permission.", "")).concat("\n");
+                        }
+                        ActivityHelper.popup(MainActivity.this, permissions);
+                    }
+
+                }),
                 new MyListAdapter.Data("Android.randomId()", AndroidHelper.randomId()),
                 new MyListAdapter.Data("Android.release()", AndroidHelper.release()),
                 new MyListAdapter.Data("Android.signature()", AndroidHelper.signature(MainActivity.this).substring(0, 32)),
@@ -112,7 +145,6 @@ public class MainActivity extends SherlockListActivity {
                 new MyListAdapter.Data("Android.uuid()", AndroidHelper.uuid(MainActivity.this)),
                 new MyListAdapter.Data("Android.versionCode()", AndroidHelper.versionCode(MainActivity.this)),
                 new MyListAdapter.Data("Android.versionName()", AndroidHelper.versionName(MainActivity.this)),
-                new MyListAdapter.Data("Android.alertDialogBuilder()", null),
                 new MyListAdapter.Data("Audio.play()", null),
                 new MyListAdapter.Data("Audio.volume()", null),
                 new MyListAdapter.Data("Bitmap.bitmapFromDrawable()", null),
@@ -124,15 +156,67 @@ public class MainActivity extends SherlockListActivity {
                 new MyListAdapter.Data("Features.feature()", null),
                 new MyListAdapter.Data("Hash.md5()", HashHelper.md5(AndroidHelper.name(MainActivity.this))),
                 new MyListAdapter.Data("Hash.sha()", HashHelper.sha(AndroidHelper.name(MainActivity.this))),
-                new MyListAdapter.Data("Intent.camera()", null),
+                new MyListAdapter.Data("Intent.camera()", new Runnable() {
+
+                    @Override
+                    public void run() {
+                        IntentHelper.camera(MainActivity.this);
+                    }
+
+                }),
                 new MyListAdapter.Data("Intent.canHandle()", null),
-                new MyListAdapter.Data("Intent.email()", null),
-                new MyListAdapter.Data("Intent.gallery()", null),
+                new MyListAdapter.Data("Intent.email()", new Runnable() {
+
+                    @Override
+                    public void run() {
+                        final String subject = String.format("%s v%s: ",
+                                AndroidHelper.name(MainActivity.this),
+                                AndroidHelper.versionName(MainActivity.this));
+                        IntentHelper.email(MainActivity.this, new String[]{""}, subject, "...");
+                    }
+
+                }),
+                new MyListAdapter.Data("Intent.gallery()", new Runnable() {
+
+                    @Override
+                    public void run() {
+                        IntentHelper.gallery(MainActivity.this);
+                    }
+
+                }),
                 new MyListAdapter.Data("Intent.image()", null),
-                new MyListAdapter.Data("Intent.market()", null),
-                new MyListAdapter.Data("Intent.web()", null),
-                new MyListAdapter.Data("Keyboard.hide()", null),
-                new MyListAdapter.Data("Keyboard.show()", null),
+                new MyListAdapter.Data("Intent.market()", new Runnable() {
+
+                    @Override
+                    public void run() {
+                        IntentHelper.market(MainActivity.this);
+                    }
+
+                }),
+                new MyListAdapter.Data("Intent.web()", new Runnable() {
+
+                    @Override
+                    public void run() {
+                        IntentHelper.web(MainActivity.this, "https://shkschneider.me");
+                    }
+
+                }),
+                new MyListAdapter.Data("Keyboard.hide()", new Runnable() {
+
+                    @Override
+                    public void run() {
+                        KeyboardHelper.hide(MainActivity.this);
+                    }
+
+                }),
+                new MyListAdapter.Data("Keyboard.show()", new Runnable() {
+
+                    @Override
+                    public void run() {
+                        KeyboardHelper.show(MainActivity.this);
+                    }
+
+                }),
                 new MyListAdapter.Data("Locale.country()", LocaleHelper.country()),
                 new MyListAdapter.Data("Locale.country2()", LocaleHelper.country2()),
                 new MyListAdapter.Data("Locale.country3()", LocaleHelper.country3()),
@@ -166,8 +250,22 @@ public class MainActivity extends SherlockListActivity {
                 new MyListAdapter.Data("Notification.notification()", null),
                 new MyListAdapter.Data("Notification.notificationManager()", null),
                 new MyListAdapter.Data("Notification.notify()", null),
-                new MyListAdapter.Data("Notification.toastLong()", null),
-                new MyListAdapter.Data("Notification.toastShort()", null),
+                new MyListAdapter.Data("Notification.toastLong()", new Runnable() {
+
+                    @Override
+                    public void run() {
+                        NotificationHelper.toastLong(MainActivity.this, AndroidHelper.name(MainActivity.this));
+                    }
+
+                }),
+                new MyListAdapter.Data("Notification.toastShort()", new Runnable() {
+
+                    @Override
+                    public void run() {
+                        NotificationHelper.toastShort(MainActivity.this, AndroidHelper.name(MainActivity.this));
+                    }
+
+                }),
                 new MyListAdapter.Data("Number.random()", NumberHelper.random()),
                 new MyListAdapter.Data("Permissions.permission()", null),
                 new MyListAdapter.Data("Runtime.freeMemory()", RuntimeHelper.freeMemory()),
@@ -187,10 +285,16 @@ public class MainActivity extends SherlockListActivity {
                 new MyListAdapter.Data("System.systemProperty()", null),
                 new MyListAdapter.Data("System.systemService()", null),
                 new MyListAdapter.Data("System.uname()", SystemHelper.uname()),
-                new MyListAdapter.Data("Time.relative()",
-                        TimeHelper.relative(TimeHelper.millitimestamp() - 42 * DateUtils.SECOND_IN_MILLIS, TimeHelper.millitimestamp())),
+                new MyListAdapter.Data("Time.relative()", TimeHelper.relative(TimeHelper.millitimestamp() - 42 * DateUtils.SECOND_IN_MILLIS, TimeHelper.millitimestamp())),
                 new MyListAdapter.Data("Time.timestamp()", TimeHelper.timestamp()),
-                new MyListAdapter.Data("Vibrator.vibrate()", null),
+                new MyListAdapter.Data("Vibrator.vibrate()", new Runnable() {
+
+                    @Override
+                    public void run() {
+                        VibratorHelper.vibrate(MainActivity.this, 1 * DateUtils.SECOND_IN_MILLIS);
+                    }
+
+                }),
                 new MyListAdapter.Data("WebView.back()", null),
                 new MyListAdapter.Data("WebView.forward()", null),
                 new MyListAdapter.Data("WebView.fromAsset()", null),
@@ -258,17 +362,19 @@ public class MainActivity extends SherlockListActivity {
             public void onItemClick(final AdapterView<?> adapterView, final View view, final int position, final long id) {
                 final String key = myListAdapter.get(position).key;
                 final Object value = myListAdapter.get(position).value;
-                if (value instanceof Runnable) {
-                    ((Runnable) value).run();
-                }
-                else {
-                    ActivityHelper.alertDialogBuilder(MainActivity.this)
-                            .setTitle(key)
-                            .setMessage(value.toString())
-                            .setNeutralButton(android.R.string.ok, null)
-                            .setCancelable(true)
-                            .create()
-                            .show();
+                if (value != null) {
+                    if (value instanceof Runnable) {
+                        ((Runnable) value).run();
+                    }
+                    else {
+                        ActivityHelper.alertDialogBuilder(MainActivity.this)
+                                .setTitle(key)
+                                .setMessage(value.toString())
+                                .setNeutralButton(android.R.string.ok, null)
+                                .setCancelable(true)
+                                .create()
+                                .show();
+                    }
                 }
             }
 

@@ -254,6 +254,28 @@ public class AndroidHelper {
         }
     }
 
+    public static String[] permissions(final Context context) {
+        if (context == null) {
+            LogHelper.w("Context was NULL");
+            return null;
+        }
+
+        try {
+            final PackageManager packageManager = context.getPackageManager();
+            if (packageManager == null) {
+                LogHelper.w("PackageManager was NULL");
+                return null;
+            }
+
+            final PackageInfo packageInfo = packageManager.getPackageInfo(AndroidHelper.packageName(context), PackageManager.GET_PERMISSIONS);
+            return packageInfo.requestedPermissions;
+        }
+        catch (PackageManager.NameNotFoundException e) {
+            LogHelper.e("NameNotFoundException: " + e.getMessage());
+            return null;
+        }
+    }
+
     public static final String ACCOUNT_GOOGLE = "com.google";
 
     public static String account(final Context context) {
