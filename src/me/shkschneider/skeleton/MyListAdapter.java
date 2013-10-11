@@ -39,10 +39,11 @@ import me.shkschneider.skeleton.helper.SystemHelper;
 
 public class MyListAdapter extends ArrayAdapter<Map<String, Object>> implements Filterable, SectionIndexer {
 
-    protected static final String SECTIONS = "#" + StringHelper.ALPHA.toUpperCase() + StringHelper.NUMERIC;
+    protected static final String SECTIONS = "#" + StringHelper.ALPHA.toUpperCase();
 
     private Context mContext;
     private Integer mLayout;
+    private List<String> mSections;
     private List<Data> mData;
     private List<Data> mBackup;
     private Callback mCallback;
@@ -80,6 +81,7 @@ public class MyListAdapter extends ArrayAdapter<Map<String, Object>> implements 
     protected void init(final Context context, final int resource, final Data[] objects, final Callback callback) {
         mContext = context;
         mLayout = resource;
+        mSections = null;
         mData = Arrays.asList(objects);
         mBackup = new ArrayList<Data>(mData);
         mCallback = callback;
@@ -194,25 +196,23 @@ public class MyListAdapter extends ArrayAdapter<Map<String, Object>> implements 
 
     @Override
     public Object[] getSections() {
-        final List<String> sections = new ArrayList<String>();
+        mSections = new ArrayList<String>();
         for (int i = 0; i < SECTIONS.length(); i++) {
             for (final Data data : mData) {
                 String c = String.valueOf(data.key.charAt(0)).toUpperCase();
-                if (! SECTIONS.contains(c)) {
-                    c = String.valueOf(SECTIONS.charAt(0)).toUpperCase();
-                }
-                if (! sections.contains(c)) {
-                    sections.add(c);
+                if (! mSections.contains(c)) {
+                    mSections.add(c);
                 }
             }
         }
-        Collections.sort(sections);
-        return sections.toArray();
+        return mSections.toArray();
     }
 
     @Override
-    public int getPositionForSection(final int position) {
-        final String c = String.valueOf(SECTIONS.charAt(position)).toUpperCase();
+    public int getPositionForSection(int position) {
+        position = (position <= 0 ? 0 : position);
+        position = (position >= mSections.size() ? mSections.size() - 1 : position);
+        final String c = String.valueOf(mSections.get(position).charAt(0)).toUpperCase();
         for (int i = 0; i < mData.size(); i++) {
             if (String.valueOf(get(i).key.toUpperCase().charAt(0)).toUpperCase().equals(c)) {
                 return i;
@@ -223,10 +223,13 @@ public class MyListAdapter extends ArrayAdapter<Map<String, Object>> implements 
 
     @Override
     public int getSectionForPosition(final int position) {
-        final String c = String.valueOf(get(position).key.charAt(0)).toUpperCase();
-        for (int i = 0; i < SECTIONS.length(); i++) {
-            if (String.valueOf(SECTIONS.toUpperCase().charAt(i)).toUpperCase().equals(c)) {
-                return i;
+        final Data data = get(position);
+        if (data != null) {
+            final String c = String.valueOf(data.key.charAt(0)).toUpperCase();
+            for (int i = 0; i < SECTIONS.length(); i++) {
+                if (String.valueOf(SECTIONS.toUpperCase().charAt(i)).toUpperCase().equals(c)) {
+                    return i;
+                }
             }
         }
         return 0;

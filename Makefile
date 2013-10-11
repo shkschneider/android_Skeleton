@@ -82,6 +82,9 @@ update: all
 	@echo "- update"
 	@if [ -f ".gitmodules" ] ; then git submodule update --init || exit 1 ; fi
 	@echo "==> Libraries"
+	@echo "- libs:library"
+	@if [ ! -d "libs/library" ] ; then echo "Error: missing submodule 'library'" ; exit 1 ; fi
+	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/library > /dev/null || exit 1
 	@echo "- libs:actionbarsherlock"
 	@if [ ! -d "libs/actionbarsherlock/actionbarsherlock" ] ; then echo "Error: missing submodule 'actionbarsherlock'" ; exit 1 ; fi
 	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/actionbarsherlock/actionbarsherlock > /dev/null || exit 1
@@ -158,7 +161,7 @@ doc: all
 				| tr -d "[:space:]") \
 		$(PACKAGE)
 
-clean: update
+clean:
 	@echo "==> Clean"
 	@echo "- ant clean"
 	@$(ANT) -quiet clean > /dev/null || exit 1

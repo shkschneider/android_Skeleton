@@ -43,3 +43,6 @@ ant.release
 
 # Keystores
 *.keystore
+
+# Python
+*.pyc

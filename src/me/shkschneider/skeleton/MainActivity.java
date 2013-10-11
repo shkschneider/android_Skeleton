@@ -17,6 +17,7 @@ package me.shkschneider.skeleton;
 
 import android.app.SearchManager;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -30,6 +31,7 @@ import com.actionbarsherlock.app.SherlockListActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.widget.SearchView;
+import com.github.espiandev.showcaseview.ShowcaseView;
 
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.AndroidHelper;
@@ -62,25 +64,24 @@ public class MainActivity extends SherlockListActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityHelper.indeterminate(MainActivity.this);
-        setContentView(R.layout.skeleton);
+        setContentView(me.shkschneider.skeleton.R.layout.skeleton);
 
-        ActivityHelper.showcase(MainActivity.this,
-                android.R.id.home,
+        final ShowcaseView.ConfigOptions configOptions = new ShowcaseView.ConfigOptions();
+        final ShowcaseView showcaseView = ShowcaseView.insertShowcaseView(android.R.id.home, MainActivity.this,
                 AndroidHelper.name(MainActivity.this),
                 String.format("%s\n%s\n%s\n%s",
                         "This is a skeleton application for Android.",
                         "It features a lot of static classes that could help developers.",
                         "Thanks for downloading!",
                         "Get the code: shkschneider@github!"),
-                null);
+                configOptions);
+        showcaseView.setBackgroundColor(Color.parseColor("#AA000000"));
+        showcaseView.show();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        ActivityHelper.indeterminate(MainActivity.this, true);
 
         final MyListAdapter myListAdapter = new MyListAdapter(MainActivity.this, android.R.layout.simple_list_item_2, new MyListAdapter.Data[] {
                 new MyListAdapter.Data("SkeletonApplication.DEBUG", SkeletonApplication.DEBUG.toString()),
@@ -125,6 +126,9 @@ public class MainActivity extends SherlockListActivity {
                 new MyListAdapter.Data("Android.manufacturer()", AndroidHelper.manufacturer()),
                 new MyListAdapter.Data("Android.name()", AndroidHelper.name(MainActivity.this)),
                 new MyListAdapter.Data("Android.packageName()", AndroidHelper.packageName(MainActivity.this)),
+                new MyListAdapter.Data("Android.versionCode()", AndroidHelper.versionCode(MainActivity.this)),
+                new MyListAdapter.Data("Android.versionName()", AndroidHelper.versionName(MainActivity.this)),
+                new MyListAdapter.Data("Android.icon()", null),
                 new MyListAdapter.Data("Android.permissions()", new Runnable() {
 
                     @Override
@@ -143,8 +147,6 @@ public class MainActivity extends SherlockListActivity {
                 new MyListAdapter.Data("Android.sim()", AndroidHelper.sim(MainActivity.this).toString()),
                 new MyListAdapter.Data("Android.tablet()", AndroidHelper.tablet(MainActivity.this)),
                 new MyListAdapter.Data("Android.uuid()", AndroidHelper.uuid(MainActivity.this)),
-                new MyListAdapter.Data("Android.versionCode()", AndroidHelper.versionCode(MainActivity.this)),
-                new MyListAdapter.Data("Android.versionName()", AndroidHelper.versionName(MainActivity.this)),
                 new MyListAdapter.Data("Audio.play()", null),
                 new MyListAdapter.Data("Audio.volume()", null),
                 new MyListAdapter.Data("Bitmap.bitmapFromDrawable()", null),
@@ -365,8 +367,7 @@ public class MainActivity extends SherlockListActivity {
                 if (value != null) {
                     if (value instanceof Runnable) {
                         ((Runnable) value).run();
-                    }
-                    else {
+                    } else {
                         ActivityHelper.alertDialogBuilder(MainActivity.this)
                                 .setTitle(key)
                                 .setMessage(value.toString())
@@ -379,16 +380,14 @@ public class MainActivity extends SherlockListActivity {
             }
 
         });
-
-        ActivityHelper.indeterminate(MainActivity.this, false);
     }
 
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
-        getSupportMenuInflater().inflate(R.menu.skeleton, menu);
+        getSupportMenuInflater().inflate(me.shkschneider.skeleton.R.menu.skeleton, menu);
 
         final SearchManager searchManager = (SearchManager) SystemHelper.systemService(MainActivity.this, SystemHelper.SYSTEM_SERVICE_SEARCH_SERVICE);
-        final SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
+        final SearchView searchView = (SearchView) menu.findItem(me.shkschneider.skeleton.R.id.menu_search).getActionView();
         if (searchView != null) {
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
             searchView.setIconifiedByDefault(false);
@@ -452,8 +451,8 @@ public class MainActivity extends SherlockListActivity {
                 startActivity(new Intent(MainActivity.this, MainActivity.class));
                 break ;
 
-            case R.id.author:
-                ActivityHelper.alertDialogBuilder(MainActivity.this, R.style.Theme_Skeleton_Dialog_Light)
+            case me.shkschneider.skeleton.R.id.author:
+                ActivityHelper.alertDialogBuilder(MainActivity.this, me.shkschneider.skeleton.R.style.Theme_Skeleton_Dialog_Light)
                         .setTitle(AUTHOR_NAME)
                         .setMessage(AUTHOR_URL)
                         .setNegativeButton(android.R.string.ok, null)
@@ -462,11 +461,11 @@ public class MainActivity extends SherlockListActivity {
                         .show();
                 break ;
 
-            case R.id.license:
-                ActivityHelper.alertDialogBuilder(MainActivity.this, R.style.Theme_Skeleton_Dialog_Light)
+            case me.shkschneider.skeleton.R.id.license:
+                ActivityHelper.alertDialogBuilder(MainActivity.this, me.shkschneider.skeleton.R.style.Theme_Skeleton_Dialog_Light)
                         .setTitle("Apache 2.0")
                         .setView(WebViewHelper.fromHtml(MainActivity.this,
-                                FileHelper.readString(FileHelper.openRaw(MainActivity.this, R.raw.license)).replaceAll("\n", "<br />")
+                                FileHelper.readString(FileHelper.openRaw(MainActivity.this, me.shkschneider.skeleton.R.raw.license)).replaceAll("\n", "<br />")
                         ))
                         .setNegativeButton(android.R.string.ok, null)
                         .setCancelable(true)
@@ -474,7 +473,7 @@ public class MainActivity extends SherlockListActivity {
                         .show();
                 break ;
 
-            case R.id.code:
+            case me.shkschneider.skeleton.R.id.code:
                 IntentHelper.web(MainActivity.this, AUTHOR_URL);
                 break ;
 
