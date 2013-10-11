@@ -222,7 +222,9 @@ public class MyListAdapter extends ArrayAdapter<Map<String, Object>> implements 
     }
 
     @Override
-    public int getSectionForPosition(final int position) {
+    public int getSectionForPosition(int position) {
+        position = (position <= 0 ? 0 : position);
+        position = (position >= mSections.size() ? mSections.size() - 1 : position);
         final Data data = get(position);
         if (data != null) {
             final String c = String.valueOf(data.key.charAt(0)).toUpperCase();
