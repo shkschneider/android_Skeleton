@@ -13,23 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.shkschneider.skeleton.helper;
-
-import java.util.Random;
+package me.shkschneider.skeleton.security;
 
 @SuppressWarnings("unused")
-public class NumberHelper {
+public class Rot13 {
 
-    public static Integer random(final Integer min, final Integer max) {
-        return new Random().nextInt((max - min) + 1) + min;
-    }
-
-    public static Integer random() {
-        return new Random().nextInt();
-    }
-
-    public static Boolean zero(final Integer integer) {
-        return (integer == null || integer == 0);
+    public static String crypt(final String string) {
+        final StringBuilder stringBuilder = new StringBuilder();
+        for (char c : string.toCharArray()) {
+            if       (c >= 'a' && c <= 'm') c += 13;
+            else if  (c >= 'A' && c <= 'M') c += 13;
+            else if  (c >= 'n' && c <= 'z') c -= 13;
+            else if  (c >= 'N' && c <= 'Z') c -= 13;
+            stringBuilder.append(c);
+        }
+        return stringBuilder.toString();
     }
 
 }

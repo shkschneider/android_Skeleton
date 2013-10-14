@@ -36,7 +36,6 @@ import com.github.espiandev.showcaseview.ShowcaseView;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.FileHelper;
-import me.shkschneider.skeleton.helper.HashHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.KeyboardHelper;
 import me.shkschneider.skeleton.helper.LocaleHelper;
@@ -52,6 +51,10 @@ import me.shkschneider.skeleton.helper.TimeHelper;
 import me.shkschneider.skeleton.helper.VibratorHelper;
 import me.shkschneider.skeleton.helper.WebViewHelper;
 import me.shkschneider.skeleton.net.NetworkHelper;
+import me.shkschneider.skeleton.security.Base64Helper;
+import me.shkschneider.skeleton.security.Rot13;
+import me.shkschneider.skeleton.security.CryptHelper;
+import me.shkschneider.skeleton.security.HashHelper;
 import me.shkschneider.skeleton.storage.ExternalStorageHelper;
 import me.shkschneider.skeleton.storage.InternalStorageHelper;
 
@@ -66,22 +69,12 @@ public class MainActivity extends SherlockListActivity {
         super.onCreate(savedInstanceState);
         setContentView(me.shkschneider.skeleton.R.layout.skeleton);
 
-        final ShowcaseView.ConfigOptions configOptions = new ShowcaseView.ConfigOptions();
-        final ShowcaseView showcaseView = ShowcaseView.insertShowcaseView(android.R.id.home, MainActivity.this,
-                AndroidHelper.name(MainActivity.this),
-                String.format("%s\n%s\n%s\n%s",
-                        "This is a skeleton application for Android.",
-                        "It features a lot of static classes that could help developers.",
-                        "Thanks for downloading!",
-                        "Get the code: shkschneider@github!"),
-                configOptions);
-        showcaseView.setBackgroundColor(Color.parseColor("#AA000000"));
-        showcaseView.show();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
+        CryptHelper cryptHelper = new CryptHelper("masterpassword");
+        final byte[] encryptedBytes = cryptHelper.encrypt("cleartext".getBytes());
+        final String encryptedString = Base64Helper.encrypt(encryptedBytes);
+        final byte[] decryptedBytes = cryptHelper.decrypt(encryptedBytes);
+        final String decryptedString = new String(decryptedBytes);
+        final Boolean b = true;
 
         final MyListAdapter myListAdapter = new MyListAdapter(MainActivity.this, android.R.layout.simple_list_item_2, new MyListAdapter.Data[] {
                 new MyListAdapter.Data("SkeletonApplication.DEBUG", SkeletonApplication.DEBUG.toString()),
@@ -156,8 +149,6 @@ public class MainActivity extends SherlockListActivity {
                 new MyListAdapter.Data("Drawable.drawableFromBitmap()", null),
                 new MyListAdapter.Data("Drawable.indeterminateDrawable()", null),
                 new MyListAdapter.Data("Features.feature()", null),
-                new MyListAdapter.Data("Hash.md5()", HashHelper.md5(AndroidHelper.name(MainActivity.this))),
-                new MyListAdapter.Data("Hash.sha()", HashHelper.sha(AndroidHelper.name(MainActivity.this))),
                 new MyListAdapter.Data("Intent.camera()", new Runnable() {
 
                     @Override
@@ -284,6 +275,7 @@ public class MainActivity extends SherlockListActivity {
                 new MyListAdapter.Data("String.capitalize()", StringHelper.capitalize(AndroidHelper.name(MainActivity.this))),
                 new MyListAdapter.Data("String.contains()", null),
                 new MyListAdapter.Data("String.numeric()", null),
+                new MyListAdapter.Data("String.random()", StringHelper.random(16)),
                 new MyListAdapter.Data("System.systemProperty()", null),
                 new MyListAdapter.Data("System.systemService()", null),
                 new MyListAdapter.Data("System.uname()", SystemHelper.uname()),
@@ -318,6 +310,29 @@ public class MainActivity extends SherlockListActivity {
                 new MyListAdapter.Data("Network.wifi()", NetworkHelper.wifi(MainActivity.this)),
                 new MyListAdapter.Data("WebService.cancel()", null),
                 new MyListAdapter.Data("WebService.run()", null),
+                // security
+                new MyListAdapter.Data("Base64.encrypt()", Base64Helper.encrypt(AndroidHelper.name(MainActivity.this))),
+                new MyListAdapter.Data("Base64.decrypt()", Base64Helper.decrypt(Base64Helper.encrypt(AndroidHelper.name(MainActivity.this)))),
+                new MyListAdapter.Data("Hash.md5()", HashHelper.md5(AndroidHelper.name(MainActivity.this))),
+                new MyListAdapter.Data("Hash.sha()", HashHelper.sha(AndroidHelper.name(MainActivity.this))),
+                new MyListAdapter.Data("Crypt.algorithms()", new Runnable() {
+
+                    @Override
+                    public void run() {
+                        String algorithms = "";
+                        for (final String algorithm : CryptHelper.algorithms()) {
+                            algorithms = algorithms.concat(algorithm + "\n");
+                        }
+                        ActivityHelper.alertDialogBuilder(MainActivity.this)
+                                .setMessage(algorithms)
+                                .setNeutralButton(android.R.string.ok, null)
+                                .create()
+                                .show();
+                    }
+
+                }),
+                new MyListAdapter.Data("Crypt.encrypt()", null),
+                new MyListAdapter.Data("Crypt.decrypt()", null),
                 // storage
                 new MyListAdapter.Data("ExternalStorage.available()", ExternalStorageHelper.available()),
                 new MyListAdapter.Data("ExternalStorage.read()", null),
@@ -380,6 +395,23 @@ public class MainActivity extends SherlockListActivity {
             }
 
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        final ShowcaseView.ConfigOptions configOptions = new ShowcaseView.ConfigOptions();
+        final ShowcaseView showcaseView = ShowcaseView.insertShowcaseView(android.R.id.home, MainActivity.this,
+                AndroidHelper.name(MainActivity.this),
+                String.format("%s\n%s\n%s\n%s",
+                        "This is a skeleton application for Android.",
+                        "It features a lot of static classes that could help developers.",
+                        "Thanks for downloading!",
+                        "Get the code: shkschneider@github!"),
+                configOptions);
+        showcaseView.setBackgroundColor(Color.parseColor("#AA000000"));
+        showcaseView.show();
     }
 
     @Override

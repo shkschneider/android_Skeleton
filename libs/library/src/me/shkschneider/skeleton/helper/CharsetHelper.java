@@ -15,21 +15,14 @@
  */
 package me.shkschneider.skeleton.helper;
 
-import java.util.Random;
+import org.apache.http.protocol.HTTP;
 
 @SuppressWarnings("unused")
-public class NumberHelper {
+public class CharsetHelper {
 
-    public static Integer random(final Integer min, final Integer max) {
-        return new Random().nextInt((max - min) + 1) + min;
-    }
-
-    public static Integer random() {
-        return new Random().nextInt();
-    }
-
-    public static Boolean zero(final Integer integer) {
-        return (integer == null || integer == 0);
-    }
+    public static final String ASCII = HTTP.ASCII;
+    public static final String UTF8 = HTTP.UTF_8;
+    public static final String UTF16 = HTTP.UTF_16;
+    public static final String ISO_8859_1 = HTTP.ISO_8859_1;
 
 }

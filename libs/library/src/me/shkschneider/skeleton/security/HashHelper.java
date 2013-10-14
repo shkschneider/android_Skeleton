@@ -13,18 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.shkschneider.skeleton.helper;
+package me.shkschneider.skeleton.security;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import me.shkschneider.skeleton.helper.LogHelper;
+
 @SuppressWarnings("unused")
 public class HashHelper {
 
+    public static final String[] ALGORITHMS = new String[] {
+            "SHA",
+            "MD5"
+    };
+
     public static final String MD5 = "MD5";
     public static final String SHA = "SHA";
-    public static final Integer MD5_LENGTH = 32;
-    public static final Integer SHA_LENGTH = 40;
+
+    protected static final Integer MD5_LENGTH = 32;
+    protected static final Integer SHA_LENGTH = 40;
 
     protected static String hash(final String algorithm, final String string, final Integer length) {
         try {

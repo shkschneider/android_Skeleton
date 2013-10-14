@@ -37,6 +37,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 import me.shkschneider.skeleton.BuildConfig;
+import me.shkschneider.skeleton.security.HashHelper;
 
 @SuppressWarnings("unused")
 public class AndroidHelper {

@@ -17,11 +17,14 @@ package me.shkschneider.skeleton.helper;
 
 import android.text.TextUtils;
 
+import java.util.Random;
+
 @SuppressWarnings("unused")
 public class StringHelper {
 
     public static final String ALPHA = "abcdefghijklmnopqrstuvwxyz";
     public static final String NUMERIC = "0123456789";
+    public final static String HEX = NUMERIC + ALPHA.substring(0, 6);
     public static final String ALPHA_NUMERIC = ALPHA + NUMERIC;
 
     public static String capitalize(final String string) {
@@ -78,6 +81,28 @@ public class StringHelper {
         }
 
         return true;
+    }
+
+    public static String random(final String characters, final Integer length) {
+        if (TextUtils.isEmpty(characters)) {
+            LogHelper.w("Characters was NULL");
+            return null;
+        }
+        if (length <= 0) {
+            LogHelper.w("Length was invalid");
+            return null;
+        }
+
+        final Random random = new Random();
+        final StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            stringBuilder.append(characters.charAt(random.nextInt(characters.length())));
+        }
+        return stringBuilder.toString();
+    }
+
+    public static String random(final Integer length) {
+        return random(ALPHA.toLowerCase() + ALPHA.toUpperCase() + NUMERIC, length);
     }
 
 }

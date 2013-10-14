@@ -29,13 +29,13 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.shkschneider.skeleton.helper.CharsetHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
 @SuppressWarnings("unused")
@@ -117,7 +117,7 @@ public class WebService extends AsyncTask<WebService.Callback, Void, HttpRespons
                             nameValuePairs.add(new BasicNameValuePair(param[0], param[1]));
                         }
                     }
-                    ((HttpPost) mRequest).setEntity(new UrlEncodedFormEntity(nameValuePairs, HTTP.UTF_8));
+                    ((HttpPost) mRequest).setEntity(new UrlEncodedFormEntity(nameValuePairs, CharsetHelper.UTF8));
 
                 }
                 catch (IOException e) {
