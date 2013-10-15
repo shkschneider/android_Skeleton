@@ -51,21 +51,29 @@ public class CryptHelper {
         return algorithms;
     }
 
-    protected String mSecret;
+    protected static final String ALGORITHM = "AES/CTR/NoPadding"; // CFB OFB CTR
+    protected static final Integer ALGORITHM_KEY_LENGTH = 128;
+    protected static final Integer ALGORITHM_KEY_PAD = 16;
+
+    protected byte[] mSecret;
     protected IvParameterSpec mIvSpec;
     protected SecretKeySpec mKeySpec;
     protected SecretKey mKey;
     protected Cipher mCipher;
 
-    public CryptHelper(final String secret) {
+    public CryptHelper(final byte[] secret, final String algorithm) {
         try {
+            // salt
             mSecret = secret;
-            mIvSpec = new IvParameterSpec(StringHelper.HEX.getBytes());
-            final KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
-            keyGenerator.init(128);
+            // initialzation vector
+            mIvSpec = new IvParameterSpec(StringHelper.random(ALGORITHM_KEY_PAD).getBytes());
+            // key
+            final KeyGenerator keyGenerator = KeyGenerator.getInstance(ALGORITHM.split("/")[0]);
+            keyGenerator.init(ALGORITHM_KEY_LENGTH);
             mKey = keyGenerator.generateKey();
-            mKeySpec = new SecretKeySpec(mKey.getEncoded(), "AES");
-            mCipher = Cipher.getInstance("AES/CBC/NoPadding");
+            mKeySpec = new SecretKeySpec(mKey.getEncoded(), ALGORITHM.split("/")[0]);
+            // cipher
+            mCipher = Cipher.getInstance(ALGORITHM);
         }
         catch (NoSuchAlgorithmException e) {
             LogHelper.w("NoSuchAlgorithmException: " + e.getMessage());
@@ -75,9 +83,25 @@ public class CryptHelper {
         }
     }
 
+    public CryptHelper(final byte[] secret) {
+        this(secret, ALGORITHM);
+    }
+
+    public String secret() {
+        return Base64Helper.encrypt(mSecret);
+    }
+
+    public String key() {
+        return Base64Helper.encrypt(mKey.getEncoded());
+    }
+
+    public String algorithm() {
+        return mKey.getAlgorithm();
+    }
+
     protected byte[] pad(byte[] bytes) {
-        final int extras = 16 - (bytes.length % 16);
-        if (extras == 0 || extras == 16) {
+        final int extras = ALGORITHM_KEY_PAD - (bytes.length % ALGORITHM_KEY_PAD);
+        if (extras == 0 || extras == ALGORITHM_KEY_PAD) {
             return bytes;
         }
 
@@ -139,23 +163,6 @@ public class CryptHelper {
             LogHelper.w("InvalidKeyException: " + e.getMessage());
         }
         return null;
-    }
-
-    public byte[] decrypt(final String string) {
-        return decrypt(string.getBytes());
-    }
-
-    public static String rot13(final String string) {
-        final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < string.length(); i++) {
-            char c = string.charAt(i);
-            if       (c >= 'a' && c <= 'm') c += 13;
-            else if  (c >= 'A' && c <= 'M') c += 13;
-            else if  (c >= 'n' && c <= 'z') c -= 13;
-            else if  (c >= 'N' && c <= 'Z') c -= 13;
-            stringBuilder.append(c);
-        }
-        return stringBuilder.toString();
     }
 
 }

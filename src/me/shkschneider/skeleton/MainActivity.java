@@ -52,7 +52,6 @@ import me.shkschneider.skeleton.helper.VibratorHelper;
 import me.shkschneider.skeleton.helper.WebViewHelper;
 import me.shkschneider.skeleton.net.NetworkHelper;
 import me.shkschneider.skeleton.security.Base64Helper;
-import me.shkschneider.skeleton.security.Rot13;
 import me.shkschneider.skeleton.security.CryptHelper;
 import me.shkschneider.skeleton.security.HashHelper;
 import me.shkschneider.skeleton.storage.ExternalStorageHelper;
@@ -67,14 +66,12 @@ public class MainActivity extends SherlockListActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(me.shkschneider.skeleton.R.layout.skeleton);
+        setContentView(R.layout.skeleton);
 
-        CryptHelper cryptHelper = new CryptHelper("masterpassword");
-        final byte[] encryptedBytes = cryptHelper.encrypt("cleartext".getBytes());
-        final String encryptedString = Base64Helper.encrypt(encryptedBytes);
-        final byte[] decryptedBytes = cryptHelper.decrypt(encryptedBytes);
-        final String decryptedString = new String(decryptedBytes);
-        final Boolean b = true;
+        final CryptHelper cryptHelper = new CryptHelper("passphrase".getBytes());
+        final byte[] bytes = AndroidHelper.name(MainActivity.this).getBytes();
+        final byte[] encrypted = cryptHelper.encrypt(bytes);
+        final byte[] decrypted = cryptHelper.decrypt(encrypted);
 
         final MyListAdapter myListAdapter = new MyListAdapter(MainActivity.this, android.R.layout.simple_list_item_2, new MyListAdapter.Data[] {
                 new MyListAdapter.Data("SkeletonApplication.DEBUG", SkeletonApplication.DEBUG.toString()),
@@ -331,8 +328,11 @@ public class MainActivity extends SherlockListActivity {
                     }
 
                 }),
-                new MyListAdapter.Data("Crypt.encrypt()", null),
-                new MyListAdapter.Data("Crypt.decrypt()", null),
+                new MyListAdapter.Data("Crypt.secret()", cryptHelper.secret()),
+                new MyListAdapter.Data("Crypt.key()", cryptHelper.key()),
+                new MyListAdapter.Data("Crypt.algorithm()", cryptHelper.algorithm()),
+                new MyListAdapter.Data("Crypt.encrypt()", Base64Helper.encrypt(encrypted)),
+                new MyListAdapter.Data("Crypt.decrypt()", new String(decrypted)),
                 // storage
                 new MyListAdapter.Data("ExternalStorage.available()", ExternalStorageHelper.available()),
                 new MyListAdapter.Data("ExternalStorage.read()", null),
@@ -361,8 +361,12 @@ public class MainActivity extends SherlockListActivity {
             @Override
             public View myListAdapterCallback(final View view, final MyListAdapter.Data data) {
                 ((TextView) view.findViewById(android.R.id.text1)).setText(data.key);
-                if (data.value == null || data.value instanceof Runnable) {
+                if (data.value == null) {
                     ((TextView) view.findViewById(android.R.id.text2)).setText("-");
+                    return view;
+                }
+                if (data.value instanceof Runnable) {
+                    ((TextView) view.findViewById(android.R.id.text2)).setText("[click]");
                     return view;
                 }
                 ((TextView) view.findViewById(android.R.id.text2)).setText(data.value.toString());
@@ -416,10 +420,10 @@ public class MainActivity extends SherlockListActivity {
 
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
-        getSupportMenuInflater().inflate(me.shkschneider.skeleton.R.menu.skeleton, menu);
+        getSupportMenuInflater().inflate(R.menu.skeleton, menu);
 
         final SearchManager searchManager = (SearchManager) SystemHelper.systemService(MainActivity.this, SystemHelper.SYSTEM_SERVICE_SEARCH_SERVICE);
-        final SearchView searchView = (SearchView) menu.findItem(me.shkschneider.skeleton.R.id.menu_search).getActionView();
+        final SearchView searchView = (SearchView) menu.findItem(R.id.menu_search).getActionView();
         if (searchView != null) {
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
             searchView.setIconifiedByDefault(false);
@@ -483,8 +487,8 @@ public class MainActivity extends SherlockListActivity {
                 startActivity(new Intent(MainActivity.this, MainActivity.class));
                 break ;
 
-            case me.shkschneider.skeleton.R.id.author:
-                ActivityHelper.alertDialogBuilder(MainActivity.this, me.shkschneider.skeleton.R.style.Theme_Skeleton_Dialog_Light)
+            case R.id.author:
+                ActivityHelper.alertDialogBuilder(MainActivity.this, R.style.Theme_Skeleton_Dialog_Light)
                         .setTitle(AUTHOR_NAME)
                         .setMessage(AUTHOR_URL)
                         .setNegativeButton(android.R.string.ok, null)
@@ -493,11 +497,11 @@ public class MainActivity extends SherlockListActivity {
                         .show();
                 break ;
 
-            case me.shkschneider.skeleton.R.id.license:
-                ActivityHelper.alertDialogBuilder(MainActivity.this, me.shkschneider.skeleton.R.style.Theme_Skeleton_Dialog_Light)
+            case R.id.license:
+                ActivityHelper.alertDialogBuilder(MainActivity.this, R.style.Theme_Skeleton_Dialog_Light)
                         .setTitle("Apache 2.0")
                         .setView(WebViewHelper.fromHtml(MainActivity.this,
-                                FileHelper.readString(FileHelper.openRaw(MainActivity.this, me.shkschneider.skeleton.R.raw.license)).replaceAll("\n", "<br />")
+                                FileHelper.readString(FileHelper.openRaw(MainActivity.this, R.raw.license)).replaceAll("\n", "<br />")
                         ))
                         .setNegativeButton(android.R.string.ok, null)
                         .setCancelable(true)
@@ -505,7 +509,7 @@ public class MainActivity extends SherlockListActivity {
                         .show();
                 break ;
 
-            case me.shkschneider.skeleton.R.id.code:
+            case R.id.code:
                 IntentHelper.web(MainActivity.this, AUTHOR_URL);
                 break ;
 
