@@ -94,7 +94,9 @@ update: all
 	@echo "- libs:showcase"
 	@if [ ! -d "libs/showcase/library" ] ; then echo "Error: missing submodule 'showcase'" ; exit 1 ; fi
 	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/showcase/library > /dev/null || exit 1
-	@echo "- $(SUPPORT)"
+	@if [ ! -d "libs/facebook/facebook" ] ; then echo "Error: missing submodule 'facebook'" ; exit 1 ; fi
+	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/facebook/facebook > /dev/null || exit 1
+	@echo "- sdk:$(shell echo $(SUPPORT) | sed -r 's#$(ANDROID_SDK)/##')"
 	@$(foreach p, $(shell find . -type f -name "AndroidManifest.xml"), mkdir -p $(shell dirname $p 2>/dev/null)/libs ;)
 	@cp $(SUPPORT) libs/ 2>/dev/null
 	@echo "- libs:*.jar"

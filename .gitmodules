@@ -9,3 +9,7 @@
 	path = libs/showcase
 	url = https://github.com/Espiandev/ShowcaseView.git
         ignore = dirty
+[submodule "libs/facebook"]
+	path = libs/facebook
+	url = https://github.com/facebook/facebook-android-sdk.git
+        ignore = dirty
