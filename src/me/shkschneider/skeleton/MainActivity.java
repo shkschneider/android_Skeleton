@@ -51,7 +51,7 @@ import me.shkschneider.skeleton.helper.TimeHelper;
 import me.shkschneider.skeleton.helper.VibratorHelper;
 import me.shkschneider.skeleton.helper.WebViewHelper;
 import me.shkschneider.skeleton.net.NetworkHelper;
-import me.shkschneider.skeleton.net.VolleyHelper;
+import me.shkschneider.skeleton.net.VolleyBall;
 import me.shkschneider.skeleton.security.Base64Helper;
 import me.shkschneider.skeleton.security.CryptHelper;
 import me.shkschneider.skeleton.security.HashHelper;
@@ -79,10 +79,16 @@ public class MainActivity extends SherlockListActivity {
                 new MyListAdapter.Data("SkeletonApplication.LOCALE", SkeletonApplication.LOCALE),
                 new MyListAdapter.Data("SkeletonApplication.TAG", SkeletonApplication.TAG),
                 // authenticator
-                new MyListAdapter.Data("FacebookAuthenticator.auth()", null),
-                new MyListAdapter.Data("GoogleAuthenticator.auth()", null),
-                new MyListAdapter.Data("SingleSignOnAuthenticator.auth()", null),
-                new MyListAdapter.Data("TwitterAuthenticator.auth()", null),
+                new MyListAdapter.Data("FacebookAuthenticator.permissions()", null),
+                new MyListAdapter.Data("FacebookAuthenticator.loginButton()", null),
+                new MyListAdapter.Data("FacebookAuthenticator.login()", null),
+                //new MyListAdapter.Data("FacebookAuthenticator.friends()", null),
+                //new MyListAdapter.Data("FacebookAuthenticator.invite()", null),
+                //new MyListAdapter.Data("FacebookAuthenticator.publish()", null),
+                new MyListAdapter.Data("FacebookAuthenticator.logout()", null),
+                new MyListAdapter.Data("FacebookAuthenticator.appId()", null),
+                new MyListAdapter.Data("FacebookAuthenticator.token()", null),
+                new MyListAdapter.Data("FacebookAuthenticator.session()", null),
                 // helper
                 new MyListAdapter.Data("Activity.alertDialogBuilder()", new Runnable() {
 
@@ -306,8 +312,6 @@ public class MainActivity extends SherlockListActivity {
                 // security
                 new MyListAdapter.Data("Base64.encrypt()", Base64Helper.encrypt(AndroidHelper.name(MainActivity.this))),
                 new MyListAdapter.Data("Base64.decrypt()", Base64Helper.decrypt(Base64Helper.encrypt(AndroidHelper.name(MainActivity.this)))),
-                new MyListAdapter.Data("Hash.md5()", HashHelper.md5(AndroidHelper.name(MainActivity.this))),
-                new MyListAdapter.Data("Hash.sha()", HashHelper.sha(AndroidHelper.name(MainActivity.this))),
                 new MyListAdapter.Data("Crypt.algorithms()", new Runnable() {
 
                     @Override
@@ -325,6 +329,8 @@ public class MainActivity extends SherlockListActivity {
                 new MyListAdapter.Data("Crypt.algorithm()", cryptHelper.algorithm()),
                 new MyListAdapter.Data("Crypt.encrypt()", Base64Helper.encrypt(encrypted)),
                 new MyListAdapter.Data("Crypt.decrypt()", new String(decrypted)),
+                new MyListAdapter.Data("Hash.md5()", HashHelper.md5(AndroidHelper.name(MainActivity.this))),
+                new MyListAdapter.Data("Hash.sha()", HashHelper.sha(AndroidHelper.name(MainActivity.this))),
                 // storage
                 new MyListAdapter.Data("ExternalStorage.available()", ExternalStorageHelper.available()),
                 new MyListAdapter.Data("ExternalStorage.read()", null),
@@ -403,18 +409,6 @@ public class MainActivity extends SherlockListActivity {
                 configOptions);
         showcaseView.setBackgroundColor(Color.parseColor("#AA000000"));
         showcaseView.show();
-
-        final VolleyHelper volley = new VolleyHelper(MainActivity.this);
-        volley.getString("http://ifconfig.me/ip", "ip", new VolleyHelper.VolleyCallback() {
-
-            @Override
-            public void volleyCallback(final Object tag, final Boolean success, final Object object) {
-                if (object != null && object instanceof String) {
-                    ActivityHelper.popup(MainActivity.this, (String) tag, (String) object);
-                }
-            }
-
-        });
     }
 
     @Override

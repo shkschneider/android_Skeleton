@@ -35,32 +35,30 @@ import java.util.List;
 import me.shkschneider.skeleton.helper.LogHelper;
 
 @SuppressWarnings("unused")
-public class VolleyHelper {
+public class VolleyBall {
 
     protected RequestQueue mVolley;
     protected Object mTag;
     protected List<Request> mRequests;
 
-    public VolleyHelper(final Context context, final Object tag) {
-        mVolley = Volley.newRequestQueue(context);
+    public VolleyBall(final Context context, final Object tag) {
+        mVolley = Volley.newRequestQueue(context, new OkHttpStack());
         mTag = tag;
         mRequests = new ArrayList<Request>();
     }
 
-    public VolleyHelper(final Context context) {
-        mVolley = Volley.newRequestQueue(context);
-        mTag = getClass().getCanonicalName();
-        mRequests = new ArrayList<Request>();
+    public VolleyBall(final Context context) {
+        this(context, VolleyBall.class.getSimpleName());
     }
 
-    public void getString(final String url, final Object tag, final VolleyCallback callback) {
+    public void getString(final String url, final Object tag, final VolleyBallCallback callback) {
         final Request request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
 
             @Override
             public void onResponse(final String string) {
                 LogHelper.d("Response: " + string);
                 if (callback != null) {
-                    callback.volleyCallback(tag, true, string);
+                    callback.volleyBallCallback(tag, true, string);
                 }
             }
 
@@ -70,7 +68,7 @@ public class VolleyHelper {
             public void onErrorResponse(final VolleyError error) {
                 LogHelper.e("VolleyError: " + error.getMessage());
                 if (callback != null) {
-                    callback.volleyCallback(tag, false, error.getMessage());
+                    callback.volleyBallCallback(tag, false, error.getMessage());
                 }
             }
 
@@ -81,18 +79,18 @@ public class VolleyHelper {
         mRequests.add(request);
     }
 
-    public void getString(final String url, final VolleyCallback callback) {
+    public void getString(final String url, final VolleyBallCallback callback) {
         getString(url, mTag, callback);
     }
 
-    public void getJson(final String url, final Object tag, final VolleyCallback callback) {
+    public void getJson(final String url, final Object tag, final VolleyBallCallback callback) {
         final Request request = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(final JSONObject jsonObject) {
                 LogHelper.d("Response: " + jsonObject.toString());
                 if (callback != null) {
-                    callback.volleyCallback(tag, true, jsonObject);
+                    callback.volleyBallCallback(tag, true, jsonObject);
                 }
             }
 
@@ -102,7 +100,7 @@ public class VolleyHelper {
             public void onErrorResponse(final VolleyError error) {
                 LogHelper.e("VolleyError: " + error.getMessage());
                 if (callback != null) {
-                    callback.volleyCallback(tag, false, error.getMessage());
+                    callback.volleyBallCallback(tag, false, error.getMessage());
                 }
             }
 
@@ -113,18 +111,18 @@ public class VolleyHelper {
         mRequests.add(request);
     }
 
-    public void getJson(final String url, final VolleyCallback callback) {
+    public void getJson(final String url, final VolleyBallCallback callback) {
         getJson(url, mTag, callback);
     }
 
-    public void getImage(final String url, final Object tag, final VolleyCallback callback) {
+    public void getImage(final String url, final Object tag, final VolleyBallCallback callback) {
         final Request request = new ImageRequest(url, new Response.Listener<Bitmap>() {
 
             @Override
             public void onResponse(final Bitmap bitmap) {
                 LogHelper.d("Response: " + bitmap.toString());
                 if (callback != null) {
-                    callback.volleyCallback(tag, true, bitmap);
+                    callback.volleyBallCallback(tag, true, bitmap);
                 }
             }
 
@@ -134,7 +132,7 @@ public class VolleyHelper {
             public void onErrorResponse(final VolleyError error) {
                 LogHelper.e("VolleyError: " + error.getMessage());
                 if (callback != null) {
-                    callback.volleyCallback(tag, false, error.getMessage());
+                    callback.volleyBallCallback(tag, false, error.getMessage());
                 }
             }
 
@@ -145,7 +143,7 @@ public class VolleyHelper {
         mRequests.add(request);
     }
 
-    public void getImage(final String url, final VolleyCallback callback) {
+    public void getImage(final String url, final VolleyBallCallback callback) {
         getImage(url, mTag, callback);
     }
 
@@ -157,9 +155,9 @@ public class VolleyHelper {
         mVolley.cancelAll(mTag);
     }
 
-    public interface VolleyCallback {
+    public interface VolleyBallCallback {
 
-        public void volleyCallback(final Object tag, final Boolean success, final Object object);
+        public void volleyBallCallback(final Object tag, final Boolean success, final Object object);
 
     }
 
