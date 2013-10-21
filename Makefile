@@ -104,8 +104,8 @@ update: all
 	@if [ ! -d "libs/facebook/facebook" ] ; then echo "Error: missing submodule 'facebook'" ; exit 1 ; fi
 	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path "libs/facebook/facebook" > /dev/null || exit 1
 	@echo "- libs:simple-facebook"
-	@if [ ! -d "libs/simple-facebook/Simple Facebook" ] ; then echo "Error: missing submodule 'simple-facebook'" ; exit 1 ; fi
-	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path "libs/simple-facebook/Simple Facebook" > /dev/null || exit 1
+	@if [ ! -d "libs/simple-facebook/simple-facebook" ] ; then echo "Error: missing submodule 'simple-facebook'" ; exit 1 ; fi
+	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path "libs/simple-facebook/simple-facebook" > /dev/null || exit 1
 	@echo "- sdk:$(shell echo $(SUPPORT) | sed -r 's#$(ANDROID_SDK)/##')"
 	@$(foreach p, $(shell find . -type f -name "AndroidManifest.xml"), mkdir -p $(shell dirname $p 2>/dev/null)/libs ;)
 	@cp $(SUPPORT) libs/ 2>/dev/null
