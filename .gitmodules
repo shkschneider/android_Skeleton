@@ -16,5 +16,5 @@
         ignore = dirty
 [submodule "libs/simple-facebook"]
 	path = libs/simple-facebook
-	url = https://github.com/sromku/android-simple-facebook.git
+	url = https://github.com/shkschneider/android-simple-facebook.git
         ignore = dirty

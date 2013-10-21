@@ -42,9 +42,11 @@ DOC = "doc"
 
 all:
 	@if [ -z "$(DIR)" ] ; then echo "Fatal error" >&2 ; exit 1 ; fi
+
 	@echo "==> Directory"
 	@echo "- $(DIR)"
 	@cd $(DIR) > /dev/null || exit 1
+
 	@echo "==> Manifest"
 	@if [ -z "$(MANIFEST)" ] ; then echo "Error: no manifest" >&2 ; exit 1 ; fi
 	@echo "- $(MANIFEST)"
@@ -54,6 +56,7 @@ all:
 	@echo "- API-$(MIN_API)"
 	@if [ -z "$(VERSION_NAME)" -o -z "$(VERSION_CODE)" ] ; then echo "Error: no version" >&2 ; exit 1 ; fi
 	@echo "- v$(VERSION_NAME) b$(VERSION_CODE)"
+
 	@echo "==> SDK"
 	@if [ -z "$(ANDROID_SDK)" ] ; then echo "Error: no sdk" >&2 ; exit 1 ; fi
 	@echo "- $(ANDROID_SDK)"
@@ -61,8 +64,10 @@ all:
 	@echo "- $(TARGET)"
 	@if [ -z "$(SUPPORT)" ] ; then echo "Error: no support library" >&2 ; exit 1 ; fi
 	@echo "- sdk:$(shell echo $(SUPPORT) | sed -r 's#$(ANDROID_SDK)/##')"
+
 	@echo "==> Device"
 	@if [ -n "$(DEVICE)" ] ; then echo "- $(DEVICE)" ; fi
+
 	@echo "==> Binaries"
 	@echo "- android"
 	@if [ -z "$(ANDROID)" ] ; then echo "Error: command not found 'android'" >&2 ; exit 1 ; fi
@@ -81,26 +86,32 @@ update: all
 	@echo "==> Git"
 	@echo "- update"
 	@if [ -f ".gitmodules" ] ; then git submodule update --init || exit 1 ; fi
+
 	@echo "==> Libraries"
 	@echo "- libs:library"
 	@if [ ! -d "libs/library" ] ; then echo "Error: missing submodule 'library'" ; exit 1 ; fi
-	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/library > /dev/null || exit 1
+	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path "libs/library" > /dev/null || exit 1
 	@echo "- libs:actionbarsherlock"
 	@if [ ! -d "libs/actionbarsherlock/actionbarsherlock" ] ; then echo "Error: missing submodule 'actionbarsherlock'" ; exit 1 ; fi
-	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/actionbarsherlock/actionbarsherlock > /dev/null || exit 1
+	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path "libs/actionbarsherlock/actionbarsherlock" > /dev/null || exit 1
 	@echo "- libs:crouton"
 	@if [ ! -d "libs/crouton/library" ] ; then echo "Error: missing submodule 'crouton'" ; exit 1 ; fi
-	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/crouton/library > /dev/null || exit 1
+	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path "libs/crouton/library" > /dev/null || exit 1
 	@echo "- libs:showcase"
 	@if [ ! -d "libs/showcase/library" ] ; then echo "Error: missing submodule 'showcase'" ; exit 1 ; fi
-	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/showcase/library > /dev/null || exit 1
+	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path "libs/showcase/library" > /dev/null || exit 1
+	@echo "- libs:facebook"
 	@if [ ! -d "libs/facebook/facebook" ] ; then echo "Error: missing submodule 'facebook'" ; exit 1 ; fi
-	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path libs/facebook/facebook > /dev/null || exit 1
+	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path "libs/facebook/facebook" > /dev/null || exit 1
+	@echo "- libs:simple-facebook"
+	@if [ ! -d "libs/simple-facebook/Simple Facebook" ] ; then echo "Error: missing submodule 'simple-facebook'" ; exit 1 ; fi
+	@$(ANDROID) $(ANDROID_OPTS) update lib-project --target "$(TARGET)" --path "libs/simple-facebook/Simple Facebook" > /dev/null || exit 1
 	@echo "- sdk:$(shell echo $(SUPPORT) | sed -r 's#$(ANDROID_SDK)/##')"
 	@$(foreach p, $(shell find . -type f -name "AndroidManifest.xml"), mkdir -p $(shell dirname $p 2>/dev/null)/libs ;)
 	@cp $(SUPPORT) libs/ 2>/dev/null
 	@echo "- libs:*.jar"
 	@$(foreach p, $(shell find * -mindepth 2 -type d -name "libs"), cp libs/*.jar $p/ 2>/dev/null ;)
+
 	@echo "==> Projects"
 	@echo "- $(PACKAGE)"
 	@$(ANDROID) $(ANDROID_OPTS) update project --name $(PACKAGE) --target "$(TARGET)" --path . > /dev/null || exit 1
@@ -116,10 +127,13 @@ debug: update
 	@if [ -n "$(ANT_PROPERTIES_DEBUG)" ] ; then cp $(ANT_PROPERTIES_DEBUG) $(ANT_PROPERTIES) > /dev/null || exit 1 ; fi
 	@echo "- ant debug"
 	@$(ANT) $(ANT_OPTS) debug > /dev/null || (echo "Failure: see $(ANT_LOG) for details" >&2 ; exit 1)
+
 	@echo "==> Sign"
 	@if [ -n "$(SIGN)" ] ; then echo "- $(SIGN)" ; fi
+
 	@echo "==> Debug"
 	@cp $(APK_DEBUG) $(APK) > /dev/null || exit 1
+
 	@echo "==> $(APK)"
 
 release: update
@@ -135,10 +149,13 @@ release: update
 	@cp $(ANT_PROPERTIES_RELEASE) $(ANT_PROPERTIES) > /dev/null || exit 1
 	@echo "- ant debug"
 	@$(ANT) $(ANT_OPTS) release > /dev/null || (echo "Failure: see $(ANT_LOG) for details" >&2 ; exit 1)
+
 	@echo "==> Sign"
 	@if [ -n "$(SIGN)" ] ; then echo "- $(SIGN)" ; fi
+
 	@echo "==> Release"
 	@cp $(APK_RELEASE) $(APK) > /dev/null || exit 1
+
 	@echo "==> $(APK)"
 
 doc: all
