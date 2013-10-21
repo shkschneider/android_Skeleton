@@ -51,6 +51,7 @@ import me.shkschneider.skeleton.helper.TimeHelper;
 import me.shkschneider.skeleton.helper.VibratorHelper;
 import me.shkschneider.skeleton.helper.WebViewHelper;
 import me.shkschneider.skeleton.net.NetworkHelper;
+import me.shkschneider.skeleton.net.VolleyHelper;
 import me.shkschneider.skeleton.security.Base64Helper;
 import me.shkschneider.skeleton.security.CryptHelper;
 import me.shkschneider.skeleton.security.HashHelper;
@@ -87,12 +88,7 @@ public class MainActivity extends SherlockListActivity {
 
                     @Override
                     public void run() {
-                        ActivityHelper.alertDialogBuilder(MainActivity.this)
-                                .setTitle(AndroidHelper.name(MainActivity.this))
-                                .setMessage(AndroidHelper.packageName(MainActivity.this))
-                                .setNeutralButton(android.R.string.ok, null)
-                                .create()
-                                .show();
+                        ActivityHelper.popup(MainActivity.this, AndroidHelper.name(MainActivity.this), AndroidHelper.packageName(MainActivity.this));
                     }
 
                 }),
@@ -320,11 +316,7 @@ public class MainActivity extends SherlockListActivity {
                         for (final String algorithm : CryptHelper.algorithms()) {
                             algorithms = algorithms.concat(algorithm + "\n");
                         }
-                        ActivityHelper.alertDialogBuilder(MainActivity.this)
-                                .setMessage(algorithms)
-                                .setNeutralButton(android.R.string.ok, null)
-                                .create()
-                                .show();
+                        ActivityHelper.popup(MainActivity.this, algorithms);
                     }
 
                 }),
@@ -386,14 +378,9 @@ public class MainActivity extends SherlockListActivity {
                 if (value != null) {
                     if (value instanceof Runnable) {
                         ((Runnable) value).run();
-                    } else {
-                        ActivityHelper.alertDialogBuilder(MainActivity.this)
-                                .setTitle(key)
-                                .setMessage(value.toString())
-                                .setNeutralButton(android.R.string.ok, null)
-                                .setCancelable(true)
-                                .create()
-                                .show();
+                    }
+                    else {
+                        ActivityHelper.popup(MainActivity.this, key, value.toString());
                     }
                 }
             }
@@ -416,6 +403,18 @@ public class MainActivity extends SherlockListActivity {
                 configOptions);
         showcaseView.setBackgroundColor(Color.parseColor("#AA000000"));
         showcaseView.show();
+
+        final VolleyHelper volley = new VolleyHelper(MainActivity.this);
+        volley.getString("http://ifconfig.me/ip", "ip", new VolleyHelper.VolleyCallback() {
+
+            @Override
+            public void volleyCallback(final Object tag, final Boolean success, final Object object) {
+                if (object != null && object instanceof String) {
+                    ActivityHelper.popup(MainActivity.this, (String) tag, (String) object);
+                }
+            }
+
+        });
     }
 
     @Override
@@ -488,23 +487,17 @@ public class MainActivity extends SherlockListActivity {
                 break ;
 
             case R.id.author:
-                ActivityHelper.alertDialogBuilder(MainActivity.this, R.style.Theme_Skeleton_Dialog_Light)
-                        .setTitle(AUTHOR_NAME)
-                        .setMessage(AUTHOR_URL)
-                        .setNegativeButton(android.R.string.ok, null)
-                        .setCancelable(true)
-                        .create()
-                        .show();
+                ActivityHelper.popup(MainActivity.this, AUTHOR_NAME, AUTHOR_URL);
                 break ;
 
             case R.id.license:
+                ActivityHelper.popup(MainActivity.this, "Apache 2.0", AUTHOR_URL);
                 ActivityHelper.alertDialogBuilder(MainActivity.this, R.style.Theme_Skeleton_Dialog_Light)
                         .setTitle("Apache 2.0")
                         .setView(WebViewHelper.fromHtml(MainActivity.this,
                                 FileHelper.readString(FileHelper.openRaw(MainActivity.this, R.raw.license)).replaceAll("\n", "<br />")
                         ))
                         .setNegativeButton(android.R.string.ok, null)
-                        .setCancelable(true)
                         .create()
                         .show();
                 break ;

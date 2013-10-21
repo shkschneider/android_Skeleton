@@ -24,28 +24,38 @@ import android.view.ContextThemeWrapper;
 @SuppressWarnings("unused")
 public class ActivityHelper {
 
-    public static Boolean popup(final Context context, final String message, final DialogInterface.OnClickListener onClickListener) {
+    public static Boolean popup(final Context context, final String title, final String message, final DialogInterface.OnClickListener onClickListener) {
         if (context == null) {
             LogHelper.w("Context was NULL");
             return false;
         }
-
         if (TextUtils.isEmpty(message)) {
             LogHelper.w("Message was NULL");
             return false;
         }
 
-        alertDialogBuilder(context)
-                .setMessage(message)
-                .setNeutralButton(android.R.string.ok, onClickListener)
-                .setCancelable(false)
-                .create()
-                .show();
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+        if (! TextUtils.isEmpty(title)) {
+            alertDialogBuilder.setTitle(title);
+        }
+        alertDialogBuilder.setMessage(message);
+        alertDialogBuilder.setNeutralButton(android.R.string.ok, onClickListener);
+        alertDialogBuilder.setCancelable(false);
+        final AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
         return true;
     }
 
+    public static Boolean popup(final Context context, final String message, final DialogInterface.OnClickListener onClickListener) {
+        return popup(context, null, message, onClickListener);
+    }
+
+    public static Boolean popup(final Context context, final String title, final String message) {
+        return popup(context, title, message, null);
+    }
+
     public static Boolean popup(final Context context, final String message) {
-        return popup(context, message, null);
+        return popup(context, null, message, null);
     }
 
     public static AlertDialog.Builder alertDialogBuilder(final Context context, final int style) {

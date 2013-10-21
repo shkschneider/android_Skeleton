@@ -18,3 +18,7 @@
 	path = libs/simple-facebook
 	url = https://github.com/shkschneider/android-simple-facebook.git
         ignore = dirty
+[submodule "libs/volley"]
+	path = libs/volley
+	url = https://android.googlesource.com/platform/frameworks/volley
+        ignore = dirty
