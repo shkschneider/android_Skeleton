@@ -48,7 +48,7 @@ public class SingleSignOnAuthenticator {
         mAQuery = new AQuery(context);
     }
 
-    public Boolean auth(final Activity activity, final SingleSignOnAuthenticatorCallback singleSignOnAuthenticatorCallback, final String permissions) {
+    public Boolean login(final Activity activity, final SingleSignOnAuthenticatorCallback singleSignOnAuthenticatorCallback, final String permissions) {
         if (mAQuery == null) {
             LogHelper.w("AQuery was NULL");
             if (singleSignOnAuthenticatorCallback != null) {
@@ -81,7 +81,7 @@ public class SingleSignOnAuthenticator {
         return true;
     }
 
-    public Boolean unauth() {
+    public Boolean logout() {
         if (mHandle == null) {
             LogHelper.w("Handle was NULL");
             return false;

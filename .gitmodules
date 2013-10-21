@@ -1,6 +1,7 @@
 [submodule "libs/actionbarsherlock"]
 	path = libs/actionbarsherlock
 	url = https://github.com/JakeWharton/ActionBarSherlock.git
+        ignore = dirty
 [submodule "libs/crouton"]
 	path = libs/crouton
 	url = https://github.com/keyboardsurfer/Crouton.git
@@ -12,4 +13,8 @@
 [submodule "libs/facebook"]
 	path = libs/facebook
 	url = https://github.com/facebook/facebook-android-sdk.git
+        ignore = dirty
+[submodule "libs/simple-facebook"]
+	path = libs/simple-facebook
+	url = https://github.com/sromku/android-simple-facebook.git
         ignore = dirty
