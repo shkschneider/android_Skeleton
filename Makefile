@@ -147,7 +147,7 @@ release: update
 		echo "   key.alias.password=" >&2 ; \
 		exit 1 ; fi
 	@cp $(ANT_PROPERTIES_RELEASE) $(ANT_PROPERTIES) > /dev/null || exit 1
-	@echo "- ant debug"
+	@echo "- ant release"
 	@$(ANT) $(ANT_OPTS) release > /dev/null || (echo "Failure: see $(ANT_LOG) for details" >&2 ; exit 1)
 
 	@echo "==> Sign"
