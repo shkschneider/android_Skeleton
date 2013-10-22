@@ -1,0 +1,25 @@
+<resources>
+
+    <!-- API-14 introduces contrasted ActionBar -->
+
+    <style name="Theme.Skeleton.Light" parent="android:Theme.Holo.Light">
+        <!-- ... -->
+    </style>
+
+    <style name="Theme.Skeleton.Light.DarkActionBar" parent="android:Theme.Holo.Light.DarkActionBar">
+        <!-- ... -->
+    </style>
+
+    <style name="Theme.Skeleton.Dark" parent="android:Theme.Holo">
+        <!-- ... -->
+    </style>
+
+    <style name="Theme.Skeleton.Dialog.Light" parent="android:Theme.Holo.Light.Dialog">
+        <!-- ... -->
+    </style>
+
+    <style name="Theme.Skeleton.Dialog.Dark" parent="android:Theme.Holo.Dialog">
+        <!-- ... -->
+    </style>
+
+</resources>

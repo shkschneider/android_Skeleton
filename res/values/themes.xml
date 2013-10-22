@@ -1,22 +1,22 @@
 <resources>
 
-    <style name="Theme.Skeleton.Light" parent="android:Theme.Holo.Light">
+    <style name="Theme.Skeleton.Light" parent="android:Theme.Light">
         <!-- ... -->
     </style>
 
-    <style name="Theme.Skeleton.Light.DarkActionBar" parent="android:Theme.Holo.Light.DarkActionBar">
+    <style name="Theme.Skeleton.Light.DarkActionBar" parent="android:Theme.Light">
         <!-- ... -->
     </style>
 
-    <style name="Theme.Skeleton.Dark" parent="android:Theme.Holo">
+    <style name="Theme.Skeleton.Dark" parent="android:Theme.Black">
         <!-- ... -->
     </style>
 
-    <style name="Theme.Skeleton.Dialog.Light" parent="android:Theme.Holo.Light.Dialog">
+    <style name="Theme.Skeleton.Dialog.Light" parent="android:Theme.Dialog">
         <!-- ... -->
     </style>
 
-    <style name="Theme.Skeleton.Dialog.Dark" parent="android:Theme.Holo.Dialog">
+    <style name="Theme.Skeleton.Dialog.Dark" parent="android:Theme.Dialog">
         <!-- ... -->
     </style>
 
