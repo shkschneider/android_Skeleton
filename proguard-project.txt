@@ -1,23 +1,52 @@
+#
 # ProGuard
+#
 
 -dontwarn org.msgpack.**
 
+-keep class com.android.** { *; }
+-dontwarn com.android.**
+
+-keep class com.google.** { *; }
+-dontwarn com.google.**
+
+-keep class com.github.** { *; }
+-dontwarn com.github.**
+
+# actionbarsherlock
 -keep class com.actionbarsherlock.** { *; }
 -dontwarn com.actionbarsherlock.**
 
--keep class com.devspark.** { *; }
--dontwarn com.devspark.**
-
+# crouton
 -keep class de.keyboardsurfer.** { *; }
 -dontwarn de.keyboardsurfer.**
 
+# facebook
+-keep class com.facebook.android.** { *; }
+-dontwarn com.facebook.android.**
+
+# showcaseview
 -keep class com.github.espiandev.showcaseview.** { *; }
 -dontwarn com.github.espiandev.showcaseview.**
 
+# android-query
 -keep class com.androidquery.** { *; }
 -dontwarn com.androidquery.**
 
--keep class com.testflightapp.** { *; }
--dontwarn com.testflightapp.**
+# simple-facebook
+-keep class com.sromku.simple.fb.** { *; }
+-dontwarn com.sromku.simple.fb.**
+
+# volley
+-keep class com.android.volley.** { *; }
+-dontwarn com.android.volley.**
+
+# nineoldandroids
+-keep class com.jakewharton.nineoldandroids.** { *; }
+-dontwarn com.jakewharton.nineoldandroids.**
+
+# okhttp
+-keep class com.squareup.okhttp.** { *; }
+-dontwarn com.squareup.okhttp.**
 
 # EOF
