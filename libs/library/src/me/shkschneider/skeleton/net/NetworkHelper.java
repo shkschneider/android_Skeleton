@@ -45,7 +45,7 @@ public class NetworkHelper {
             return InetAddress.getLocalHost().getHostName();
         }
         catch (UnknownHostException e) {
-            LogHelper.e("UnknownHostException: "  + e.getMessage());
+            LogHelper.e("UnknownHostException: " + e.getMessage());
             return null;
         }
     }

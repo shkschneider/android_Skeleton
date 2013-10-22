@@ -51,7 +51,6 @@ import me.shkschneider.skeleton.helper.TimeHelper;
 import me.shkschneider.skeleton.helper.VibratorHelper;
 import me.shkschneider.skeleton.helper.WebViewHelper;
 import me.shkschneider.skeleton.net.NetworkHelper;
-import me.shkschneider.skeleton.net.VolleyBall;
 import me.shkschneider.skeleton.security.Base64Helper;
 import me.shkschneider.skeleton.security.CryptHelper;
 import me.shkschneider.skeleton.security.HashHelper;
@@ -295,8 +294,6 @@ public class MainActivity extends SherlockListActivity {
                 new MyListAdapter.Data("WebView.fromUri()", null),
                 new MyListAdapter.Data("WebView.javascriptInterface()", null),
                 // net
-                new MyListAdapter.Data("ImageDownloader.cache()", null),
-                new MyListAdapter.Data("ImageDownloader.run()", null),
                 new MyListAdapter.Data("JsonParser.jsonArray()", null),
                 new MyListAdapter.Data("JsonParser.jsonObject()", null),
                 new MyListAdapter.Data("JsonParser.string()", null),
@@ -307,6 +304,10 @@ public class MainActivity extends SherlockListActivity {
                 new MyListAdapter.Data("Network.userAgent()", NetworkHelper.userAgent()),
                 new MyListAdapter.Data("Network.validUrl()", null),
                 new MyListAdapter.Data("Network.wifi()", NetworkHelper.wifi(MainActivity.this)),
+                new MyListAdapter.Data("VolleyBall.getString()", null),
+                new MyListAdapter.Data("VolleyBall.getJson()", null),
+                new MyListAdapter.Data("VolleyBall.getImage()", null),
+                new MyListAdapter.Data("VolleyBall.cancel()", null),
                 new MyListAdapter.Data("WebService.cancel()", null),
                 new MyListAdapter.Data("WebService.run()", null),
                 // security
