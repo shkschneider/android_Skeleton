@@ -19,7 +19,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.android.LogHelper;
 
 @SuppressWarnings("unused")
 public class SharedPreferencesHelper {

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.shkschneider.skeleton.helper;
+package me.shkschneider.skeleton.android;
 
 import android.content.Context;
 import android.media.AudioManager;
@@ -21,6 +21,9 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 
 import java.io.IOException;
+
+import me.shkschneider.skeleton.android.LogHelper;
+import me.shkschneider.skeleton.android.SystemHelper;
 
 @SuppressWarnings("unused")
 public class AudioHelper {

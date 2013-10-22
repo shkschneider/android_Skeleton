@@ -21,7 +21,7 @@ import com.squareup.okhttp.OkHttpClient;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.android.LogHelper;
 
 public class OkHttpStack extends HurlStack {
 

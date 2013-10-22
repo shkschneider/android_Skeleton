@@ -31,8 +31,8 @@ import com.sromku.simple.fb.SimpleFacebookConfiguration;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.shkschneider.skeleton.helper.AndroidHelper;
-import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.android.AndroidHelper;
+import me.shkschneider.skeleton.android.LogHelper;
 
 @SuppressWarnings("unused")
 public class FacebookAuthenticator {

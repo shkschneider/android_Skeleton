@@ -21,7 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.android.LogHelper;
 
 @SuppressWarnings("unused")
 public class JsonParser {

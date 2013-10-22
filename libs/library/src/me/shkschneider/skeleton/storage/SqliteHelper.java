@@ -22,7 +22,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
 
-import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.android.LogHelper;
 
 @SuppressWarnings("unused")
 public class SqliteHelper extends SQLiteOpenHelper {

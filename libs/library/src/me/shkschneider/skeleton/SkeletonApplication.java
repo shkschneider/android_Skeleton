@@ -24,10 +24,10 @@ import com.androidquery.util.AQUtility;
 
 import java.util.Locale;
 
-import me.shkschneider.skeleton.helper.AndroidHelper;
-import me.shkschneider.skeleton.helper.FileHelper;
-import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.helper.RuntimeHelper;
+import me.shkschneider.skeleton.android.AndroidHelper;
+import me.shkschneider.skeleton.android.FileHelper;
+import me.shkschneider.skeleton.android.LogHelper;
+import me.shkschneider.skeleton.android.RuntimeHelper;
 
 @SuppressWarnings("unused")
 public class SkeletonApplication extends Application {

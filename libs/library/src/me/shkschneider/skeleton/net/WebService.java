@@ -35,8 +35,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.shkschneider.skeleton.helper.CharsetHelper;
-import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.android.LogHelper;
 
 @SuppressWarnings("unused")
 public class WebService extends AsyncTask<WebService.Callback, Void, HttpResponse> {

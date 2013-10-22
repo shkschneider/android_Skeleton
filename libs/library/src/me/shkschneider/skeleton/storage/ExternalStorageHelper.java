@@ -18,8 +18,8 @@ package me.shkschneider.skeleton.storage;
 import android.content.Context;
 import android.text.TextUtils;
 
-import me.shkschneider.skeleton.helper.FileHelper;
-import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.android.FileHelper;
+import me.shkschneider.skeleton.android.LogHelper;
 
 @SuppressWarnings("unused")
 public class ExternalStorageHelper {

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.shkschneider.skeleton.helper;
+package me.shkschneider.skeleton.android;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -26,6 +26,9 @@ import android.net.Uri;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+
+import me.shkschneider.skeleton.android.LogHelper;
+import me.shkschneider.skeleton.android.ScreenHelper;
 
 @SuppressWarnings("unused")
 public class BitmapHelper {

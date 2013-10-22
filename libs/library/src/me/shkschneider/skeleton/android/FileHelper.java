@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.shkschneider.skeleton.helper;
+package me.shkschneider.skeleton.android;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -31,6 +31,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.Scanner;
+
+import me.shkschneider.skeleton.android.LogHelper;
+import me.shkschneider.skeleton.android.SystemHelper;
 
 @SuppressWarnings("unused")
 public class FileHelper {

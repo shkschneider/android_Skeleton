@@ -34,8 +34,8 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.helper.StringHelper;
+import me.shkschneider.skeleton.android.LogHelper;
+import me.shkschneider.skeleton.java.StringHelper;
 
 @SuppressWarnings("unused")
 public class CryptHelper {

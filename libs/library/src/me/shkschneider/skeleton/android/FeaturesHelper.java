@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.shkschneider.skeleton.helper;
+package me.shkschneider.skeleton.android;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
+
+import me.shkschneider.skeleton.android.LogHelper;
 
 @SuppressWarnings("unused")
 public class FeaturesHelper {

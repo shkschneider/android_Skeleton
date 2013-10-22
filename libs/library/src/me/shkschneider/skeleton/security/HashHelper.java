@@ -18,7 +18,7 @@ package me.shkschneider.skeleton.security;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.android.LogHelper;
 
 @SuppressWarnings("unused")
 public class HashHelper {

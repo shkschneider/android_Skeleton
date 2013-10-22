@@ -13,23 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.shkschneider.skeleton.helper;
+package me.shkschneider.skeleton.java;
 
+import java.util.Arrays;
 import java.util.List;
 
-@SuppressWarnings("unused")
-public class ListHelper {
+import me.shkschneider.skeleton.android.LogHelper;
 
-    public static Object[] array(final List<Object> objects) {
+@SuppressWarnings("unused")
+public class ArrayHelper {
+
+    public static List<Object> list(final Object[] objects) {
         if (objects == null) {
             LogHelper.w("Objects was NULL");
             return null;
         }
 
-        return objects.toArray(new Object[objects.size()]);
+        return Arrays.asList(objects);
     }
 
-    public static Boolean equals(final List<Object> objects, final Object object) {
+    public static Boolean contains(final Object[] objects, final Object object) {
         if (objects == null) {
             LogHelper.w("Objects was NULL");
             return false;
@@ -42,7 +45,30 @@ public class ListHelper {
 
         for (final Object o : objects) {
             if (o == null) {
-                return false;
+                continue ;
+            }
+            if (o.equals(object)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static Boolean equals(final Object[] objects, final Object object) {
+        if (objects == null) {
+            LogHelper.w("Objects was NULL");
+            return false;
+        }
+
+        if (object == null) {
+            LogHelper.w("String was NULL");
+            return false;
+        }
+
+        for (final Object o : objects) {
+            if (o == null) {
+                continue ;
             }
             if (! o.equals(object)) {
                 return false;

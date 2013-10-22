@@ -33,23 +33,23 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.widget.SearchView;
 import com.github.espiandev.showcaseview.ShowcaseView;
 
-import me.shkschneider.skeleton.helper.ActivityHelper;
-import me.shkschneider.skeleton.helper.AndroidHelper;
-import me.shkschneider.skeleton.helper.FileHelper;
-import me.shkschneider.skeleton.helper.IntentHelper;
-import me.shkschneider.skeleton.helper.KeyboardHelper;
-import me.shkschneider.skeleton.helper.LocaleHelper;
-import me.shkschneider.skeleton.helper.LocationHelper;
-import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.helper.NotificationHelper;
-import me.shkschneider.skeleton.helper.NumberHelper;
-import me.shkschneider.skeleton.helper.RuntimeHelper;
-import me.shkschneider.skeleton.helper.ScreenHelper;
-import me.shkschneider.skeleton.helper.StringHelper;
-import me.shkschneider.skeleton.helper.SystemHelper;
-import me.shkschneider.skeleton.helper.TimeHelper;
-import me.shkschneider.skeleton.helper.VibratorHelper;
-import me.shkschneider.skeleton.helper.WebViewHelper;
+import me.shkschneider.skeleton.android.ActivityHelper;
+import me.shkschneider.skeleton.android.AndroidHelper;
+import me.shkschneider.skeleton.android.FileHelper;
+import me.shkschneider.skeleton.android.IntentHelper;
+import me.shkschneider.skeleton.android.KeyboardHelper;
+import me.shkschneider.skeleton.android.LocaleHelper;
+import me.shkschneider.skeleton.android.LocationHelper;
+import me.shkschneider.skeleton.android.LogHelper;
+import me.shkschneider.skeleton.android.NotificationHelper;
+import me.shkschneider.skeleton.java.NumberHelper;
+import me.shkschneider.skeleton.android.RuntimeHelper;
+import me.shkschneider.skeleton.android.ScreenHelper;
+import me.shkschneider.skeleton.java.StringHelper;
+import me.shkschneider.skeleton.android.SystemHelper;
+import me.shkschneider.skeleton.java.TimeHelper;
+import me.shkschneider.skeleton.android.VibratorHelper;
+import me.shkschneider.skeleton.android.WebViewHelper;
 import me.shkschneider.skeleton.net.NetworkHelper;
 import me.shkschneider.skeleton.security.Base64Helper;
 import me.shkschneider.skeleton.security.CryptHelper;
@@ -77,18 +77,7 @@ public class MainActivity extends SherlockListActivity {
                 new MyListAdapter.Data("SkeletonApplication.DEBUG", SkeletonApplication.DEBUG.toString()),
                 new MyListAdapter.Data("SkeletonApplication.LOCALE", SkeletonApplication.LOCALE),
                 new MyListAdapter.Data("SkeletonApplication.TAG", SkeletonApplication.TAG),
-                // authenticator
-                new MyListAdapter.Data("FacebookAuthenticator.permissions()", null),
-                new MyListAdapter.Data("FacebookAuthenticator.loginButton()", null),
-                new MyListAdapter.Data("FacebookAuthenticator.login()", null),
-                //new MyListAdapter.Data("FacebookAuthenticator.friends()", null),
-                //new MyListAdapter.Data("FacebookAuthenticator.invite()", null),
-                //new MyListAdapter.Data("FacebookAuthenticator.publish()", null),
-                new MyListAdapter.Data("FacebookAuthenticator.logout()", null),
-                new MyListAdapter.Data("FacebookAuthenticator.appId()", null),
-                new MyListAdapter.Data("FacebookAuthenticator.token()", null),
-                new MyListAdapter.Data("FacebookAuthenticator.session()", null),
-                // helper
+                // android
                 new MyListAdapter.Data("Activity.alertDialogBuilder()", new Runnable() {
 
                     @Override
@@ -138,14 +127,6 @@ public class MainActivity extends SherlockListActivity {
                 new MyListAdapter.Data("Android.sim()", AndroidHelper.sim(MainActivity.this).toString()),
                 new MyListAdapter.Data("Android.tablet()", AndroidHelper.tablet(MainActivity.this)),
                 new MyListAdapter.Data("Android.uuid()", AndroidHelper.uuid(MainActivity.this)),
-                new MyListAdapter.Data("Audio.play()", null),
-                new MyListAdapter.Data("Audio.volume()", null),
-                new MyListAdapter.Data("Bitmap.bitmapFromDrawable()", null),
-                new MyListAdapter.Data("Bitmap.bitmapFromUri()", null),
-                new MyListAdapter.Data("Bitmap.decodeUri()", null),
-                new MyListAdapter.Data("Bitmap.rotateBitmap()", null),
-                new MyListAdapter.Data("Drawable.drawableFromBitmap()", null),
-                new MyListAdapter.Data("Drawable.indeterminateDrawable()", null),
                 new MyListAdapter.Data("Features.feature()", null),
                 new MyListAdapter.Data("Intent.camera()", new Runnable() {
 
@@ -257,7 +238,6 @@ public class MainActivity extends SherlockListActivity {
                     }
 
                 }),
-                new MyListAdapter.Data("Number.random()", NumberHelper.random()),
                 new MyListAdapter.Data("Permissions.permission()", null),
                 new MyListAdapter.Data("Runtime.freeMemory()", RuntimeHelper.freeMemory()),
                 new MyListAdapter.Data("Runtime.maxMemory()", RuntimeHelper.maxMemory()),
@@ -270,15 +250,9 @@ public class MainActivity extends SherlockListActivity {
                 new MyListAdapter.Data("Screen.pixelsFromDp()", ScreenHelper.pixelsFromDp(MainActivity.this, 1F)),
                 new MyListAdapter.Data("Screen.wakeLock()", null),
                 new MyListAdapter.Data("Screen.width()", ScreenHelper.width(MainActivity.this)),
-                new MyListAdapter.Data("String.capitalize()", StringHelper.capitalize(AndroidHelper.name(MainActivity.this))),
-                new MyListAdapter.Data("String.contains()", null),
-                new MyListAdapter.Data("String.numeric()", null),
-                new MyListAdapter.Data("String.random()", StringHelper.random(16)),
                 new MyListAdapter.Data("System.systemProperty()", null),
                 new MyListAdapter.Data("System.systemService()", null),
                 new MyListAdapter.Data("System.uname()", SystemHelper.uname()),
-                new MyListAdapter.Data("Time.relative()", TimeHelper.relative(TimeHelper.millitimestamp() - 42 * DateUtils.SECOND_IN_MILLIS, TimeHelper.millitimestamp())),
-                new MyListAdapter.Data("Time.timestamp()", TimeHelper.timestamp()),
                 new MyListAdapter.Data("Vibrator.vibrate()", new Runnable() {
 
                     @Override
@@ -293,6 +267,33 @@ public class MainActivity extends SherlockListActivity {
                 new MyListAdapter.Data("WebView.fromHtml()", null),
                 new MyListAdapter.Data("WebView.fromUri()", null),
                 new MyListAdapter.Data("WebView.javascriptInterface()", null),
+                new MyListAdapter.Data("Audio.play()", null),
+                new MyListAdapter.Data("Audio.volume()", null),
+                new MyListAdapter.Data("Bitmap.bitmapFromDrawable()", null),
+                new MyListAdapter.Data("Bitmap.bitmapFromUri()", null),
+                new MyListAdapter.Data("Bitmap.decodeUri()", null),
+                new MyListAdapter.Data("Bitmap.rotateBitmap()", null),
+                new MyListAdapter.Data("Drawable.drawableFromBitmap()", null),
+                new MyListAdapter.Data("Drawable.indeterminateDrawable()", null),
+                // authenticator
+                new MyListAdapter.Data("FacebookAuthenticator.permissions()", null),
+                new MyListAdapter.Data("FacebookAuthenticator.loginButton()", null),
+                new MyListAdapter.Data("FacebookAuthenticator.login()", null),
+                //new MyListAdapter.Data("FacebookAuthenticator.friends()", null),
+                //new MyListAdapter.Data("FacebookAuthenticator.invite()", null),
+                //new MyListAdapter.Data("FacebookAuthenticator.publish()", null),
+                new MyListAdapter.Data("FacebookAuthenticator.logout()", null),
+                new MyListAdapter.Data("FacebookAuthenticator.appId()", null),
+                new MyListAdapter.Data("FacebookAuthenticator.token()", null),
+                new MyListAdapter.Data("FacebookAuthenticator.session()", null),
+                // java
+                new MyListAdapter.Data("Number.random()", NumberHelper.random()),
+                new MyListAdapter.Data("String.capitalize()", StringHelper.capitalize(AndroidHelper.name(MainActivity.this))),
+                new MyListAdapter.Data("String.contains()", null),
+                new MyListAdapter.Data("String.numeric()", null),
+                new MyListAdapter.Data("String.random()", StringHelper.random(16)),
+                new MyListAdapter.Data("Time.relative()", TimeHelper.relative(TimeHelper.millitimestamp() - 42 * DateUtils.SECOND_IN_MILLIS, TimeHelper.millitimestamp())),
+                new MyListAdapter.Data("Time.timestamp()", TimeHelper.timestamp()),
                 // net
                 new MyListAdapter.Data("JsonParser.jsonArray()", null),
                 new MyListAdapter.Data("JsonParser.jsonObject()", null),

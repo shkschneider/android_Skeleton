@@ -33,9 +33,9 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-import me.shkschneider.skeleton.helper.AndroidHelper;
-import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.helper.SystemHelper;
+import me.shkschneider.skeleton.android.AndroidHelper;
+import me.shkschneider.skeleton.android.LogHelper;
+import me.shkschneider.skeleton.android.SystemHelper;
 
 @SuppressWarnings("unused")
 public class NetworkHelper {

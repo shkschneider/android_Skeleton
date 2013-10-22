@@ -19,8 +19,8 @@ import android.app.Activity;
 
 import java.util.LinkedList;
 
-import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.helper.TimeHelper;
+import me.shkschneider.skeleton.android.LogHelper;
+import me.shkschneider.skeleton.java.TimeHelper;
 
 @SuppressWarnings("unused")
 public class QueuedTasks {

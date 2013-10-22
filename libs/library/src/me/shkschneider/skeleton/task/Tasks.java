@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Executors;
 
-import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.helper.TimeHelper;
+import me.shkschneider.skeleton.android.LogHelper;
+import me.shkschneider.skeleton.java.TimeHelper;
 
 @SuppressWarnings("unused")
 public class Tasks {

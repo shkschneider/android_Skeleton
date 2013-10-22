@@ -32,10 +32,10 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
-import me.shkschneider.skeleton.helper.ListHelper;
-import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.helper.StringHelper;
-import me.shkschneider.skeleton.helper.SystemHelper;
+import me.shkschneider.skeleton.java.ListHelper;
+import me.shkschneider.skeleton.android.LogHelper;
+import me.shkschneider.skeleton.java.StringHelper;
+import me.shkschneider.skeleton.android.SystemHelper;
 
 public class MyListAdapter extends ArrayAdapter<Map<String, Object>> implements Filterable, SectionIndexer {
 

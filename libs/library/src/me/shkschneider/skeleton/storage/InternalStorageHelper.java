@@ -19,8 +19,8 @@ import android.content.Context;
 
 import java.io.FileNotFoundException;
 
-import me.shkschneider.skeleton.helper.FileHelper;
-import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.android.FileHelper;
+import me.shkschneider.skeleton.android.LogHelper;
 
 @SuppressWarnings("unused")
 public class InternalStorageHelper {
