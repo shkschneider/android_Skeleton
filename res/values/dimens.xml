@@ -1,13 +1,16 @@
 <resources>
 
+    <dimen name="spacePico">2dp</dimen>
     <dimen name="spaceMicro">4dp</dimen>
     <dimen name="spaceTiny">8dp</dimen>
     <dimen name="spaceSmaller">16dp</dimen>
     <dimen name="spaceSmall">32dp</dimen>
     <dimen name="spaceMedium">48dp</dimen>
-    <dimen name="spaceLarge">96dp</dimen>
-    <dimen name="spaceLarger">144dp</dimen>
-    <dimen name="spaceBig">192dp</dimen>
+    <dimen name="spaceLarge">72dp</dimen>
+    <dimen name="spaceLarger">96dp</dimen>
+    <dimen name="spaceBig">144dp</dimen>
+    <dimen name="spaceHuge">192dp</dimen>
+    <dimen name="spaceMega">240dp</dimen>
 
     <dimen name="screenTiny">240dp</dimen>
     <dimen name="screenSmall">360dp</dimen>
@@ -23,5 +26,8 @@
     <dimen name="textSizeLarge">22sp</dimen>
     <dimen name="textSizeLarger">24sp</dimen>
     <dimen name="textSizeBig">28sp</dimen>
+    <dimen name="textSizeHuge">32sp</dimen>
+
+    <dimen name="widget_margin">8dp</dimen>
 
 </resources>

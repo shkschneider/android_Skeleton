@@ -11,6 +11,7 @@
     <color name="lightRed">#FF4444</color>
     <color name="darkRed">#CC0000</color>
     <color name="black">#000000</color>
+    <color name="grey">#C0C0C0</color>
     <color name="white">#FFFFFF</color>
 
 </resources>

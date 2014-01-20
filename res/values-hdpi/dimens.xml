@@ -1,5 +1,5 @@
 <resources>
 
-    <dimen name="skeleton">72dp</dimen>
+    <dimen name="dimen">72dp</dimen>
 
 </resources>
