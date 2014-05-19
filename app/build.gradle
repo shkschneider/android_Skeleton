@@ -21,14 +21,14 @@ android {
         resources.srcDirs = ['src']
         java.srcDirs = ['src']
     }
-    //signingConfigs {
-    //    main {
-    //        storeFile file('')
-    //        storePassword ''
-    //        keyAlias ''
-    //        keyPassword ''
-    //    }
-    //}
+    signingConfigs {
+        main {
+            storeFile file('../debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+    }
     lintOptions {
         checkReleaseBuilds false
         abortOnError false
@@ -40,15 +40,15 @@ android {
             zipAlign true
             runProguard false
             //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-            //signingConfig signingConfigs.main
+            signingConfig signingConfigs.main
         }
         release {
             debuggable false
             jniDebugBuild false
             zipAlign true
             runProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-            //signingConfig signingConfigs.main
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.main
         }
     }
 }

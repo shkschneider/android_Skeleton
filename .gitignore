@@ -8,7 +8,10 @@
 # Java class files
 *.class
 
-# generated files
+# Keystores
+*.keystore
+
+# Generated files
 bin/
 gen/
 out/
