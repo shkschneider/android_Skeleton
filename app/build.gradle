@@ -1,0 +1,59 @@
+apply plugin: 'android'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion '19.1.0'
+
+    defaultConfig {
+        minSdkVersion 10
+        targetSdkVersion 19
+        versionCode 300
+        versionName "3.0.0"
+    }
+    sourceSets.main {
+        manifest.srcFile 'AndroidManifest.xml'
+        assets.srcDirs = ['assets']
+        // libs
+        jniLibs.srcDirs = ['native-libs']
+        aidl.srcDirs = ['res']
+        res.srcDirs = ['res']
+        renderscript.srcDirs = ['src']
+        resources.srcDirs = ['src']
+        java.srcDirs = ['src']
+    }
+    //signingConfigs {
+    //    main {
+    //        storeFile file('')
+    //        storePassword ''
+    //        keyAlias ''
+    //        keyPassword ''
+    //    }
+    //}
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    buildTypes {
+        debug {
+            debuggable true
+            jniDebugBuild true
+            zipAlign true
+            runProguard false
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            //signingConfig signingConfigs.main
+        }
+        release {
+            debuggable false
+            jniDebugBuild false
+            zipAlign true
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            //signingConfig signingConfigs.main
+        }
+    }
+}
+
+dependencies {
+    compile project(':skeleton')
+    compile fileTree(dir: 'libs', include: '*.jar')
+}

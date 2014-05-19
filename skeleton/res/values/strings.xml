@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--
+        @android:string/ok
+        @android:string/cancel
+        @android:string/yes
+        @android:string/no
+        @android:string/loading
+    -->
+
+    <string name="skeleton">"Skeleton"</string>
+    <string name="dots">"&#8230;"</string>
+
+</resources>

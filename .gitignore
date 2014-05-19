@@ -12,9 +12,12 @@
 bin/
 gen/
 out/
+build/
+dist/
 
 # Local configuration file (sdk path, etc)
 local.properties
+.gradle/
 
 # Eclipse project files
 .classpath
@@ -32,17 +35,6 @@ proguard_logs/
 
 # Logs
 *.log
-
-# Support library
-android-support-v*.jar
-
-# Ant properties
-ant.properties
-ant.debug
-ant.release
-
-# Keystores
-*.keystore
 
 # Python
 *.pyc

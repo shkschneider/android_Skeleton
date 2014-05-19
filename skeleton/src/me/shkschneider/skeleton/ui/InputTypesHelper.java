@@ -1,0 +1,20 @@
+package me.shkschneider.skeleton.ui;
+
+import android.text.InputType;
+
+public class InputTypesHelper {
+
+    public int INPUTTYPE_NONE = 0;
+    public int INPUTTYPE_NUMBER = InputType.TYPE_CLASS_NUMBER;
+    public int INPUTTYPE_PHONE = InputType.TYPE_CLASS_PHONE;
+    public int INPUTTYPE_TEXT = InputType.TYPE_CLASS_TEXT;
+    public int INPUTTYPE_AUTOCOMPLETE = InputType.TYPE_TEXT_FLAG_AUTO_COMPLETE;
+    public int INPUTTYPE_AUTOCORRECT = InputType.TYPE_TEXT_FLAG_AUTO_CORRECT;
+    public int INPUTTYPE_CAPWORDS = InputType.TYPE_TEXT_FLAG_CAP_WORDS;
+    public int INPUTTYPE_CAPSENTENCES = InputType.TYPE_TEXT_FLAG_CAP_SENTENCES;
+    public int INPUTTYPE_EMAILADDRESS = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS;
+    public int INPUTTYPE_PERSONNAME = InputType.TYPE_TEXT_VARIATION_PERSON_NAME;
+    public int INPUTTYPE_PASSWORD = InputType.TYPE_TEXT_VARIATION_PASSWORD;
+    public int INPUTTYPE_VISIBLEPASSWORD = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD;
+
+}

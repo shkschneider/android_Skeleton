@@ -1,0 +1,11 @@
+Retrofit
+    http://square.github.io/retrofit/
+    for Webservices
+
+Ion
+    https://github.com/koush/ion
+    for http requests (wrapped)
+
+OkHTTP
+    http://square.github.io/okhttp/
+    for http requests (not wrapped, needs AsyncTask and runOnUiThread if Callback)
