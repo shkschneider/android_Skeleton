@@ -2,13 +2,23 @@ apply plugin: 'android'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion '19.0.3'
+    buildToolsVersion '19.1.0'
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 10
         targetSdkVersion 19
         versionCode 1
         versionName "1.0.0"
+    }
+    sourceSets.main {
+        manifest.srcFile 'AndroidManifest.xml'
+        assets.srcDirs = ['assets']
+        jniLibs.srcDirs = ['native-libs']
+        aidl.srcDirs = ['res']
+        res.srcDirs = ['res']
+        renderscript.srcDirs = ['src']
+        resources.srcDirs = ['src']
+        java.srcDirs = ['src']
     }
     signingConfigs {
         debug {
@@ -34,7 +44,7 @@ android {
             jniDebugBuild true
             zipAlign false
             runProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            // proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             signingConfig signingConfigs.debug
         }
         release {
@@ -42,15 +52,21 @@ android {
             jniDebugBuild false
             zipAlign true
             runProguard false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            // proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             signingConfig signingConfigs.release
         }
     }
 }
 
 dependencies {
+    compile 'com.google.android.gms:play-services:+'
     compile 'com.android.support:support-v4:19+'
     compile 'com.android.support:appcompat-v7:19+'
-    compile 'com.squareup.phrase:phrase:1.0.3'
-    compile fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+
+    compile 'com.squareup.phrase:phrase:+'
+    compile 'com.github.johnkil.android-appmsg:appmsg:+'
+    // compile 'com.koushikdutta.ion:ion:+'
+
+    // compile(name: '...', ext: 'aar')
+    compile fileTree(dir: 'libs', include: '*.jar')
 }
