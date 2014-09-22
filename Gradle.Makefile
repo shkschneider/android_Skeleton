@@ -8,27 +8,18 @@ RM = rm -f
 all:
 	@echo "apkDebug apkRelease jarDebug jarRelease clean distClean"
 
-apkDebug:
+debug:
 	@$(GRADLE) assembleDebug
-	@$(CP) $(NAME)/build/apk/$(NAME)-debug-unaligned.apk $(NAME).apk
+	@$(CP) $(NAME)/build/outputs/apk/$(NAME)-debug.apk $(NAME).apk
 
-apkRelease:
+release:
 	@$(GRADLE) assembleRelease
-	@$(CP) $(NAME)/build/apk/$(NAME)-release.apk $(NAME).apk
-
-jarDebug:
-	@$(GRADLE) jarDebug
-	@$(CP) $(NAME)/build/libs/$(NAME).jar $(NAME).jar
-
-jarRelease:
-	@$(GRADLE) jarRelease
-	@$(CP) $(NAME)/build/libs/$(NAME).jar $(NAME).jar
+	@$(CP) $(NAME)/build/outputs/apk/$(NAME)-release.apk $(NAME).apk
 
 clean:
 	@$(GRADLE) clean
 
-distClean: clean
+distclean: clean
 	@$(RM) $(NAME).apk
-	@$(RM) $(NAME).jar
 
-.PHONE: all apkDebug apkRelease jarDebug jarRelease clean distClean
+.PHONE: all debug release clean distclean
