@@ -5,20 +5,21 @@ android {
     buildToolsVersion '19.1.0'
 
     defaultConfig {
-        minSdkVersion 10
+        applicationId 'me.app'
+        minSdkVersion 14
         targetSdkVersion 19
         versionCode 1
-        versionName "1.0.0"
+        versionName '1.0.0'
     }
     sourceSets.main {
         manifest.srcFile 'AndroidManifest.xml'
         assets.srcDirs = ['assets']
         jniLibs.srcDirs = ['native-libs']
-        aidl.srcDirs = ['res']
+        resources.srcDirs = ['res']
         res.srcDirs = ['res']
-        renderscript.srcDirs = ['src']
-        resources.srcDirs = ['src']
         java.srcDirs = ['src']
+        //aidl.srcDirs = ['']
+        //renderscript.srcDirs = ['']
     }
     signingConfigs {
         debug {
@@ -59,14 +60,30 @@ android {
 }
 
 dependencies {
-    compile 'com.google.android.gms:play-services:+'
+    compile 'com.intellij:annotations:+'
+
     compile 'com.android.support:support-v4:19+'
     compile 'com.android.support:appcompat-v7:19+'
+    compile 'com.google.android.gms:play-services:4.4.52'
 
     compile 'com.squareup.phrase:phrase:+'
     compile 'com.github.johnkil.android-appmsg:appmsg:+'
     // compile 'com.koushikdutta.ion:ion:+'
 
-    // compile(name: '...', ext: 'aar')
+    compile(name: 'support-v4-preferencefragment', ext: 'aar')
     compile fileTree(dir: 'libs', include: '*.jar')
+}
+
+task run(type: Exec) {
+    def rootDir = project.rootDir
+    def localProperties = new File(rootDir, "local.properties")
+    if (localProperties.exists()) {
+        Properties properties = new Properties()
+        localProperties.withInputStream {
+            instr -> properties.load(instr)
+        }
+        def sdkDir = properties.getProperty('sdk.dir')
+        def adb = "$sdkDir/platform-tools/adb"
+        commandLine "$adb", 'shell', 'am', 'start', '-n', 'me.app/.MainActivity'
+    }
 }

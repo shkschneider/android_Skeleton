@@ -1,0 +1,43 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <PreferenceCategory android:title="@string/app">
+
+        <Preference
+            android:key="app_package"
+            android:selectable="false"
+            android:title="@null"
+            android:summary="@null" />
+
+        <Preference
+            android:key="app_versionName"
+            android:selectable="false"
+            android:title="@null"
+            android:summary="@null" />
+
+        <Preference
+            android:key="app_versionCode"
+            android:selectable="false"
+            android:title="@null"
+            android:summary="@null" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/os">
+
+        <Preference
+            android:key="os_version"
+            android:selectable="false"
+            android:title="@null"
+            android:summary="@null" />
+
+        <Preference
+            android:key="os_api"
+            android:selectable="false"
+            android:title="@null"
+            android:summary="@null" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

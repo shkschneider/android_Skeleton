@@ -1,0 +1,4 @@
+<resources>
+    <string name="app">Me.App</string>
+    <string name="os">Android</string>
+</resources>
