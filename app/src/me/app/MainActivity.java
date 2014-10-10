@@ -13,8 +13,6 @@ import com.koushikdutta.ion.Response;
 
 import org.jetbrains.annotations.NotNull;
 
-import fr.castorflex.android.smoothprogressbar.SmoothProgressBar;
-import fr.castorflex.android.smoothprogressbar.SmoothProgressDrawable;
 import me.sdk.Activity;
 import me.sdk.ActivityHelper;
 import me.sdk.IntentHelper;
@@ -28,7 +26,6 @@ public class MainActivity extends Activity {
 
     private static final String URL = "http://ifconfig.me/ip";
 
-    private SmoothProgressBar mSmoothProgressBar;
     private TextView mTextView;
 
     @Override
@@ -47,21 +44,6 @@ public class MainActivity extends Activity {
                 ActivityHelper.toast(q);
             }
         });
-        mSmoothProgressBar = (SmoothProgressBar) findViewById(R.id.smoothprogressbar);
-        mSmoothProgressBar.setIndeterminateDrawable(new SmoothProgressDrawable.Builder(MainActivity.this)
-                .interpolator(new AccelerateInterpolator())
-                .callbacks(new SmoothProgressDrawable.Callbacks() {
-                    @Override
-                    public void onStop() {
-                        invalidateOptionsMenu();
-                    }
-
-                    @Override
-                    public void onStart() {
-                        invalidateOptionsMenu();
-                    }
-                })
-                .build());
         ((TextView) findViewById(android.R.id.text1)).setText(URL);
         mTextView = (TextView) findViewById(android.R.id.text2);
     }
@@ -74,7 +56,7 @@ public class MainActivity extends Activity {
     }
 
     private void refresh() {
-        mSmoothProgressBar.progressiveStart();
+        loading(true);
         Ion.with(MainActivity.this)
                 .load(URL)
                 .asString()
@@ -82,7 +64,7 @@ public class MainActivity extends Activity {
                 .setCallback(new FutureCallback<Response<String>>() {
                     @Override
                     public void onCompleted(final Exception e, final Response<String> result) {
-                        mSmoothProgressBar.progressiveStop();
+                        loading(false);
                         if (e != null) {
                             LogHelper.wtf(e);
                             ActivityHelper.croutonRed(MainActivity.this, e.getLocalizedMessage());
