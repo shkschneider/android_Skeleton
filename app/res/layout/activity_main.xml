@@ -3,20 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@android:id/text1"
-        android:textStyle="bold"
+    <me.sdk.ListView
+        android:id="@+id/listview"
         android:layout_width="match_parent"
-        android:minHeight="48dp"
-        android:layout_height="wrap_content"
-        android:gravity="center" />
-
-    <TextView
-        android:id="@android:id/text2"
-        android:textStyle="normal"
-        android:layout_width="match_parent"
-        android:minHeight="48dp"
-        android:layout_height="wrap_content"
-        android:gravity="center" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>
