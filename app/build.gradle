@@ -68,7 +68,9 @@ dependencies {
 
     compile 'com.squareup.phrase:phrase:+'
     compile 'com.github.johnkil.android-appmsg:appmsg:+'
-    // compile 'com.koushikdutta.ion:ion:+'
+    compile 'com.github.castorflex.smoothprogressbar:library:+'
+    compile 'com.github.castorflex.smoothprogressbar:library-circular:+'
+    compile 'com.koushikdutta.ion:ion:+'
 
     compile(name: 'support-v4-preferencefragment', ext: 'aar')
     compile fileTree(dir: 'libs', include: '*.jar')

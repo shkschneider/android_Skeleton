@@ -2,9 +2,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_settings"
-        android:icon="@android:drawable/ic_menu_preferences"
+        android:id="@+id/menu_about"
+        android:icon="@android:drawable/ic_menu_info_details"
         android:title="@null"
-        app:showAsAction="always" />
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom" />
 
 </menu>

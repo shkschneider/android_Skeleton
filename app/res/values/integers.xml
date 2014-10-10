@@ -1,0 +1,7 @@
+<resources>
+
+    <integer name="animation_long">@android:integer/config_longAnimTime</integer>
+    <integer name="animation_medium">@android:integer/config_mediumAnimTime</integer>
+    <integer name="animation_short">@android:integer/config_shortAnimTime</integer>
+
+</resources>

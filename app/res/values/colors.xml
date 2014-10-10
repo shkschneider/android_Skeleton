@@ -1,0 +1,23 @@
+<resources>
+
+    <color name="blueLight">#33B5E5</color>
+    <color name="blueDark">#0099CC</color>
+    <color name="purpleLight">#AA66CC</color>
+    <color name="purpleDark">#9933CC</color>
+    <color name="greenLight">#99CC00</color>
+    <color name="greenDark">#669900</color>
+    <color name="orangeLight">#FFBB33</color>
+    <color name="orangeDark">#FF8800</color>
+    <color name="redLight">#FF4444</color>
+    <color name="redDark">#CC0000</color>
+    <color name="black">#000000</color>
+    <color name="grey">#C0C0C0</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="transparent">@android:color/transparent</color>
+    <color name="lightWhiteTransparent">#AAFFFFFF</color>
+    <color name="darkWhiteTransparent">#CCFFFFFF</color>
+    <color name="lightBlackTransparent">#AA000000</color>
+    <color name="darkBlackTransparent">#CC000000</color>
+
+</resources>

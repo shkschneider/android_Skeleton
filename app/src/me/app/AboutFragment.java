@@ -7,12 +7,12 @@ import android.support.v4.preference.PreferenceFragment;
 import me.sdk.AndroidHelper;
 import me.sdk.ApplicationHelper;
 
-public class SettingsFragment extends PreferenceFragment {
+public class AboutFragment extends PreferenceFragment {
 
     @Override
     public void onCreate(final Bundle paramBundle) {
         super.onCreate(paramBundle);
-        addPreferencesFromResource(R.xml.settings);
+        addPreferencesFromResource(R.xml.about);
 
         // Application
 

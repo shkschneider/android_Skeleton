@@ -1,23 +1,39 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center">
 
-    <TextView
-        android:id="@android:id/text1"
-        android:textStyle="bold"
+    <fr.castorflex.android.smoothprogressbar.SmoothProgressBar
+        android:layout_alignParentTop="true"
+        android:id="@+id/smoothprogressbar"
         android:layout_width="match_parent"
-        android:minHeight="48dp"
-        android:layout_height="wrap_content"
-        android:gravity="center" />
+        android:layout_height="4dp"
+        android:indeterminate="true" />
 
-    <TextView
-        android:id="@android:id/text2"
-        android:textStyle="normal"
+    <LinearLayout
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="4dp"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:minHeight="48dp"
-        android:layout_height="wrap_content"
-        android:gravity="center" />
+        android:layout_height="match_parent">
 
-</LinearLayout>
+        <TextView
+            android:id="@android:id/text1"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:minHeight="48dp"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@android:id/text2"
+            android:textStyle="normal"
+            android:layout_width="match_parent"
+            android:minHeight="48dp"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+
+    </LinearLayout>
+
+</RelativeLayout>

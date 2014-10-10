@@ -1,4 +1,15 @@
 <resources>
+
+    <!--
+        @android:string/ok
+        @android:string/cancel
+        @android:string/yes
+        @android:string/no
+        @android:string/loading
+    -->
+    <string name="dots">"&#8230;"</string>
+
     <string name="app">Me.App</string>
     <string name="os">Android</string>
+
 </resources>
