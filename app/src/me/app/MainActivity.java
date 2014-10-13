@@ -2,7 +2,6 @@ package me.app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -53,20 +52,6 @@ public class MainActivity extends MyActivity {
         myListView.setCallback(new MyListView.Callback() {
 
             @Override
-            public void scrollUp() {
-                if (! loading()) {
-                    charging(0);
-                }
-            }
-
-            @Override
-            public void scrollDown() {
-                if (! loading()) {
-                    charging(0);
-                }
-            }
-
-            @Override
             public void overscroll(final int n) {
                 if (! loading()) {
                     charging(n);
@@ -94,12 +79,10 @@ public class MainActivity extends MyActivity {
 
     private void refresh() {
         loading(true);
-        final Handler handler = new Handler();
         final Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 loading(false);
-                mAdapter.clear();
                 final Locale[] locales = Locale.getAvailableLocales();
                 final List<String> countries = new ArrayList<String>();
                 for (final Locale locale : locales) {
@@ -108,12 +91,13 @@ public class MainActivity extends MyActivity {
                         countries.add(country);
                     }
                 }
-                Collections.sort(countries);
+                Collections.shuffle(countries);
+                mAdapter.clear();
                 mAdapter.addAll(countries);
                 mAdapter.notifyDataSetChanged();
             }
         };
-        handler.postDelayed(runnable, 1000);
+        Executor.delayedRunnable(runnable, 1, TimeUnit.SECONDS);
 //        Ion.with(this)
 //                .load("http://ifconfig.me/ip")
 //                .asString()

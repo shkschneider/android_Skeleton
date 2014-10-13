@@ -44,6 +44,7 @@ public class MyActivity extends ActionBarActivity {
 
     private void setContentView() {
         mProgressBar = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);
+        mProgressBar.setBackgroundColor(getResources().getColor(R.color.transparent));
         mProgressBar.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 24));
         mProgressBar.setIndeterminate(false);
         mProgressBar.setVisibility(View.GONE);
@@ -155,7 +156,7 @@ public class MyActivity extends ActionBarActivity {
     }
 
     public void loading(final boolean b) {
-        mProgressBar.setIndeterminate(true);
+        mProgressBar.setIndeterminate(b);
         mProgressBar.setVisibility((b ? View.VISIBLE : View.GONE));
     }
 
