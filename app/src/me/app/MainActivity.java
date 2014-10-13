@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import me.sdk.Executor;
+import me.sdk.RunnableHelper;
 import me.sdk.MyActivity;
 import me.sdk.ActivityHelper;
 import me.sdk.IntentHelper;
@@ -96,7 +96,7 @@ public class MainActivity extends MyActivity {
                 mAdapter.notifyDataSetChanged();
             }
         };
-        Executor.delayedRunnable(runnable, 1, TimeUnit.SECONDS);
+        RunnableHelper.delay(runnable, 1, TimeUnit.SECONDS);
 //        Ion.with(this)
 //                .load("http://ifconfig.me/ip")
 //                .asString()

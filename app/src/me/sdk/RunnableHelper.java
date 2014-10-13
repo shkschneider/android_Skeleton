@@ -4,9 +4,9 @@ import android.os.Handler;
 
 import java.util.concurrent.TimeUnit;
 
-public class Executor {
+public class RunnableHelper {
 
-    public static void delayedRunnable(final Runnable runnable, final int amount, TimeUnit timeUnit) {
+    public static void delay(final Runnable runnable, final int amount, TimeUnit timeUnit) {
         new Handler().postDelayed(runnable, timeUnit.toMillis(amount));
     }
 
