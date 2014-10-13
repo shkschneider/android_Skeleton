@@ -132,7 +132,7 @@ public class MyActivity extends ActionBarActivity {
     }
 
     public boolean charging() {
-        return (mProgressBar.getVisibility() == View.VISIBLE);
+        return (! loading() && mProgressBar.getVisibility() == View.VISIBLE);
     }
 
     public void charging(int percent) {
