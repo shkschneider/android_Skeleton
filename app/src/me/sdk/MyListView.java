@@ -43,7 +43,9 @@ public class MyListView extends ListView implements AbsListView.OnScrollListener
     @Override
     public boolean onTouchEvent(@NotNull final MotionEvent motionEvent) {
         if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-            mCallback.overscroll(0);
+            if (mCallback != null) {
+                mCallback.overscroll(0);
+            }
             mDelta = 0;
         }
         return super.onTouchEvent(motionEvent);
@@ -55,10 +57,11 @@ public class MyListView extends ListView implements AbsListView.OnScrollListener
 
     @Override
     public void onScrollStateChanged(final AbsListView view, final int scrollState) {
-        ;
+        // Ignore
     }
 
-    // uncharge and recharging
+    // uncharges or recharges
+    @Override
     protected void onScrollChanged(int x, int y, int oldx, int oldy) {
         super.onScrollChanged(x, y, oldx, oldy);
         if (mTrackedChild == null) {
@@ -73,7 +76,7 @@ public class MyListView extends ListView implements AbsListView.OnScrollListener
             if (childIsSafeToTrack) {
                 final int top = mTrackedChild.getTop();
                 final int delta = ((int) ((top - mTrackedChildPrevTop) * SENSITIVITY));
-                // uncharge or recharging
+                // uncharges or recharges
                 if (delta < 0 || mDelta > 0) {
                     mDelta += delta;
                     if (mCallback != null) {
@@ -88,46 +91,44 @@ public class MyListView extends ListView implements AbsListView.OnScrollListener
         }
     }
 
+    // detects bottom
     @Override
-    public void onScroll(final AbsListView view, final int firstVisibleItem, final int visibleItemCount, final int totalItemCount) {
-        ;
-//        if (getLastVisiblePosition() == totalItemCount - 1 && getChildAt(totalItemCount - 1).getBottom() <= getHeight()) {
-//            mCallback.bottom();
-//        }
+    public void onScroll(final AbsListView absListView, final int firstVisibleItem, final int visibleItemCount, final int totalItemCount) {
+        if (totalItemCount > 0 && getLastVisiblePosition() == getCount() - 1) {
+            if (mCallback != null) {
+                mCallback.bottom();
+            }
+        }
     }
 
     // charges (and loads if >= 100)
     @Override
     protected boolean overScrollBy(final int deltaX, final int deltaY, final int scrollX, final int scrollY, final int scrollRangeX, final int scrollRangeY, final int maxOverScrollX, final int maxOverScrollY, final boolean isTouchEvent) {
         final boolean overscrolled = super.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX, scrollRangeY, maxOverScrollX, maxOverScrollY, isTouchEvent);
-        if (mCallback != null && isTouchEvent) {
-            mDelta += deltaY * (-1 * SENSITIVITY);
-            if (mDelta >= 100) {
-                // loads
-                mDelta = 100;
-                if (getFirstVisiblePosition() == 0) {
-                    mCallback.overscrollTop();
+        if (isTouchEvent) {
+            // detects only loading up (swiping down)
+            mDelta += deltaY * SENSITIVITY * -1;
+            if (mCallback != null) {
+                if (mDelta >= 100) {
+                    // loads
+                    mDelta = 100;
+                    if (getFirstVisiblePosition() == 0) {
+                        mCallback.overscroll();
+                    }
+                } else {
+                    // charges
+                    mCallback.overscroll(mDelta);
                 }
-                else {
-                    mCallback.overscrollBottom();
-                }
-            }
-            else {
-                // charges
-                mCallback.overscroll(mDelta);
             }
         }
         return overscrolled;
     }
 
-    // TODO smoothScrollToPosition()
-
     public interface Callback {
 
         public void overscroll(final int n);
-        public void overscrollTop();
-        public void overscrollBottom();
-        // TODO public void bottom();
+        public void overscroll();
+        public void bottom();
 
     }
 

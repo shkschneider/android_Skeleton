@@ -50,7 +50,6 @@ public class MainActivity extends MyActivity {
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
         myListView.setAdapter(mAdapter);
         myListView.setCallback(new MyListView.Callback() {
-
             @Override
             public void overscroll(final int n) {
                 if (! loading()) {
@@ -59,13 +58,13 @@ public class MainActivity extends MyActivity {
             }
 
             @Override
-            public void overscrollTop() {
+            public void overscroll() {
                 refresh();
             }
 
             @Override
-            public void overscrollBottom() {
-                // Ignore
+            public void bottom() {
+                ActivityHelper.toast("bottom");
             }
         });
     }
