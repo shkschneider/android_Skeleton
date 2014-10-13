@@ -1,40 +1,32 @@
 package me.app;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.SpannableStringBuilder;
-import android.text.style.StyleSpan;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
-
-import com.google.gson.JsonObject;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
-import com.koushikdutta.ion.Response;
 
 import org.jetbrains.annotations.NotNull;
 
-import me.sdk.Activity;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+
+import me.sdk.Executor;
+import me.sdk.MyActivity;
 import me.sdk.ActivityHelper;
-import me.sdk.GsonParser;
 import me.sdk.IntentHelper;
-import me.sdk.ListView;
-import me.sdk.LogHelper;
+import me.sdk.MyListView;
 import me.sdk.StringHelper;
 
-public class MainActivity extends Activity {
+public class MainActivity extends MyActivity {
 
-    public static Intent intent(final Activity activity) {
-        return new Intent(activity, MainActivity.class).setFlags(IntentHelper.HOME_FLAGS);
+    public static Intent intent(final MyActivity myActivity) {
+        return new Intent(myActivity, MainActivity.class).setFlags(IntentHelper.HOME_FLAGS);
     }
-
-    private static final String URL = "http://ifconfig.me/all.json";
 
     private ArrayAdapter<String> mAdapter;
 
@@ -55,27 +47,39 @@ public class MainActivity extends Activity {
             }
         });
 
-        final ListView listView = (ListView) findViewById(R.id.listview);
-        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1) {
+        final MyListView myListView = (MyListView) findViewById(R.id.listview);
+        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
+        myListView.setAdapter(mAdapter);
+        myListView.setCallback(new MyListView.Callback() {
+
             @Override
-            public View getView(final int position, final View convertView, final ViewGroup parent) {
-                final View view = super.getView(position, convertView, parent);
-                final String item = getItem(position);
-                final SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(item);
-                spannableStringBuilder.setSpan(new StyleSpan(Typeface.BOLD), 0, item.indexOf(" "), 0);
-                ((TextView) view.findViewById(android.R.id.text1)).setText(spannableStringBuilder);
-                return view;
+            public void scrollUp() {
+                if (! loading()) {
+                    charging(0);
+                }
             }
-        };
-        listView.setAdapter(mAdapter);
-        listView.setCallback(new ListView.Callback() {
+
             @Override
-            public void overscrolledTop() {
+            public void scrollDown() {
+                if (! loading()) {
+                    charging(0);
+                }
+            }
+
+            @Override
+            public void overscroll(final int n) {
+                if (! loading()) {
+                    charging(n);
+                }
+            }
+
+            @Override
+            public void overscrollTop() {
                 refresh();
             }
 
             @Override
-            public void overscrolledBottom() {
+            public void overscrollBottom() {
                 // Ignore
             }
         });
@@ -90,38 +94,40 @@ public class MainActivity extends Activity {
 
     private void refresh() {
         loading(true);
-        Ion.with(MainActivity.this)
-                .load(URL)
-                .asJsonObject()
-                .withResponse()
-                .setCallback(new FutureCallback<Response<JsonObject>>() {
-                    @Override
-                    public void onCompleted(final Exception e, final Response<JsonObject> result) {
-                        loading(false);
-                        if (e != null) {
-                            LogHelper.wtf(e);
-                            ActivityHelper.croutonRed(MainActivity.this, e.getLocalizedMessage());
-                            return;
-                        }
-
-                        final int responseCode = result.getHeaders().getResponseCode();
-                        final String responseMessage = result.getHeaders().getResponseMessage();
-                        if (responseCode >= 400) {
-                            ActivityHelper.croutonOrange(MainActivity.this, String.format("%d: %s", responseCode, responseMessage));
-                        } else {
-                            ActivityHelper.croutonGreen(MainActivity.this, String.format("%d: %s", responseCode, responseMessage));
-                        }
-
-                        final JsonObject jsonObject = result.getResult();
-                        for (final String key : GsonParser.keys(jsonObject)) {
-                            final String value = GsonParser.string(jsonObject, key);
-                            if (! StringHelper.nullOrEmpty(value)) {
-                                mAdapter.add(key + " " + value);
-                            }
-                        }
-                        mAdapter.notifyDataSetChanged();
+        final Handler handler = new Handler();
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                loading(false);
+                mAdapter.clear();
+                final Locale[] locales = Locale.getAvailableLocales();
+                final List<String> countries = new ArrayList<String>();
+                for (final Locale locale : locales) {
+                    final String country = locale.getDisplayCountry().trim();
+                    if (!StringHelper.nullOrEmpty(country) && !countries.contains(country)) {
+                        countries.add(country);
                     }
-                });
+                }
+                Collections.sort(countries);
+                mAdapter.addAll(countries);
+                mAdapter.notifyDataSetChanged();
+            }
+        };
+        handler.postDelayed(runnable, 1000);
+//        Ion.with(this)
+//                .load("http://ifconfig.me/ip")
+//                .asString()
+//                .withResponse()
+//                .setCallback(new FutureCallback<Response<String>>() {
+//                    @Override
+//                    public void onCompleted(final Exception e, final Response<String> result) {
+//                        loading(false);
+//
+//                        final int responseCode = result.getHeaders().getResponseCode();
+//                        final String responseMessage = result.getHeaders().getResponseMessage();
+//                        final String response = result.getResult();
+//                    }
+//                });
     }
 
     @Override

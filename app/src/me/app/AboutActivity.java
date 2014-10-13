@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import me.sdk.Activity;
+import me.sdk.MyActivity;
 
-public class AboutActivity extends Activity {
+public class AboutActivity extends MyActivity {
 
-    public static Intent intent(final Activity activity) {
-        return new Intent(activity, AboutActivity.class);
+    public static Intent intent(final MyActivity myActivity) {
+        return new Intent(myActivity, AboutActivity.class);
     }
 
     @Override

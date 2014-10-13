@@ -43,7 +43,7 @@ public class IntentHelper {
     }
 
     public static Bitmap onActivityResult(final int resultCode, final Intent data) {
-        if (resultCode == Activity.RESULT_OK) {
+        if (resultCode == MyActivity.RESULT_OK) {
             final Bundle extras = data.getExtras();
             return (Bitmap) extras.get("data");
         }

@@ -1,14 +1,11 @@
 package me.sdk;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,9 +22,12 @@ import me.app.R;
  * boolean alive()
  * void home(boolean)
  * void searchable(String, SearchCallback)
+ * boolean charging()
+ * void charging(int)
+ * boolean loading()
  * void loading(boolean)
  */
-public class Activity extends ActionBarActivity {
+public class MyActivity extends ActionBarActivity {
 
     private boolean mAlive = false;
     private String mSearchHint;
@@ -45,7 +45,7 @@ public class Activity extends ActionBarActivity {
     private void setContentView() {
         mProgressBar = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);
         mProgressBar.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 24));
-        mProgressBar.setIndeterminate(true);
+        mProgressBar.setIndeterminate(false);
         mProgressBar.setVisibility(View.GONE);
 
         final FrameLayout frameLayout = (FrameLayout) getWindow().getDecorView();
@@ -131,21 +131,32 @@ public class Activity extends ActionBarActivity {
         supportInvalidateOptionsMenu();
     }
 
-    public void loading(final boolean b) {
-        mProgressBar.setIndeterminate(true);
-        mProgressBar.setVisibility((b ? View.VISIBLE : View.GONE));
+    public boolean charging() {
+        return (mProgressBar.getVisibility() == View.VISIBLE);
     }
 
-    @Deprecated
-    public void loading(final int percent) {
+    public void charging(int percent) {
         mProgressBar.setIndeterminate(false);
-        if (percent <= 0 || percent >= 100) {
+        if (percent <= 0) {
+            mProgressBar.setProgress(0);
             mProgressBar.setVisibility(View.GONE);
             return ;
         }
 
         mProgressBar.setVisibility(View.VISIBLE);
+        if (percent > 100) {
+            percent = 100;
+        }
         mProgressBar.setProgress(percent);
+    }
+
+    public boolean loading() {
+        return mProgressBar.isIndeterminate();
+    }
+
+    public void loading(final boolean b) {
+        mProgressBar.setIndeterminate(true);
+        mProgressBar.setVisibility((b ? View.VISIBLE : View.GONE));
     }
 
     @Override
