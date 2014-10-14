@@ -2,6 +2,7 @@ package me.sdk;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.view.Gravity;
 import android.widget.Toast;
 
@@ -33,6 +34,14 @@ public class ActivityHelper {
 
     public static void croutonRed(@NotNull final Activity activity, @NotNull final String msg) {
         crouton(activity, msg, AppMsg.STYLE_ALERT);
+    }
+
+    public static boolean portrait() {
+        return (MainApplication.CONTEXT.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
+    }
+
+    public static boolean landscape() {
+        return (MainApplication.CONTEXT.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
     }
 
 }

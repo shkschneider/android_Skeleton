@@ -58,7 +58,6 @@ public class MyActivity extends ActionBarActivity {
             public void onGlobalLayout() {
                 final View view = frameLayout.findViewById(android.R.id.content);
                 mProgressBar.setY(view.getY() - 10);
-                mProgressBar.setBackgroundColor(getResources().getColor(android.R.color.transparent));
                 if (AndroidHelper.api() < AndroidHelper.API_16) {
                     removeGlobalLayoutListenerOld(mProgressBar.getViewTreeObserver(), this);
                 }
