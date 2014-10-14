@@ -1,11 +1,11 @@
-package me.app;
+package me.shkschneider.app;
 
 import android.os.Bundle;
 import android.preference.Preference;
 import android.support.v4.preference.PreferenceFragment;
 
-import me.sdk.AndroidHelper;
-import me.sdk.ApplicationHelper;
+import me.shkschneider.sdk.AndroidHelper;
+import me.shkschneider.sdk.ApplicationHelper;
 
 public class AboutFragment extends PreferenceFragment {
 

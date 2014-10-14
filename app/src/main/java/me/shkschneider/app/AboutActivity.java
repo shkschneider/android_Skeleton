@@ -1,10 +1,10 @@
-package me.app;
+package me.shkschneider.app;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import me.sdk.MyActivity;
+import me.shkschneider.sdk.MyActivity;
 
 public class AboutActivity extends MyActivity {
 

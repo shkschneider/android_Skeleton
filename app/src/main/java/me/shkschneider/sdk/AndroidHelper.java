@@ -1,4 +1,4 @@
-package me.sdk;
+package me.shkschneider.sdk;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -10,7 +10,7 @@ import com.google.android.gms.auth.GoogleAuthUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.app.MainApplication;
+import me.shkschneider.app.MainApplication;
 
 public class AndroidHelper {
 

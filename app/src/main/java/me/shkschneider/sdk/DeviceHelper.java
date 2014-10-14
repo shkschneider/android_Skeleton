@@ -1,4 +1,4 @@
-package me.sdk;
+package me.shkschneider.sdk;
 
 import android.content.res.Configuration;
 import android.os.Build;

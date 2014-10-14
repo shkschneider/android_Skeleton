@@ -1,4 +1,4 @@
-package me.sdk;
+package me.shkschneider.sdk;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import me.app.BuildConfig;
-import me.app.MainApplication;
+import me.shkschneider.app.BuildConfig;
+import me.shkschneider.app.MainApplication;
 
 public class ApplicationHelper {
 

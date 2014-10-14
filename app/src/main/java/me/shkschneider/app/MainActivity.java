@@ -1,4 +1,4 @@
-package me.app;
+package me.shkschneider.app;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,12 +14,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import me.sdk.RunnableHelper;
-import me.sdk.MyActivity;
-import me.sdk.ActivityHelper;
-import me.sdk.IntentHelper;
-import me.sdk.MyListView;
-import me.sdk.StringHelper;
+import me.shkschneider.sdk.RunnableHelper;
+import me.shkschneider.sdk.MyActivity;
+import me.shkschneider.sdk.ActivityHelper;
+import me.shkschneider.sdk.IntentHelper;
+import me.shkschneider.sdk.MyListView;
+import me.shkschneider.sdk.StringHelper;
 
 public class MainActivity extends MyActivity {
 

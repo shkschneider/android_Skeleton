@@ -1,4 +1,4 @@
-package me.sdk;
+package me.shkschneider.sdk;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -7,7 +7,7 @@ import android.content.DialogInterface;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 
-import me.app.MainApplication;
+import me.shkschneider.app.MainApplication;
 
 public class GooglePlayServicesHelper {
 

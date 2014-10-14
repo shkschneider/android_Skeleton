@@ -1,10 +1,10 @@
-package me.sdk;
+package me.shkschneider.sdk;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import me.app.MainApplication;
+import me.shkschneider.app.MainApplication;
 
 public class SharedPreferencesHelper {
 

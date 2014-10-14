@@ -1,4 +1,4 @@
-package me.sdk;
+package me.shkschneider.sdk;
 
 public class MimeTypeHelper {
 

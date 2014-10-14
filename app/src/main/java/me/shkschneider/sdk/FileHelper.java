@@ -1,4 +1,4 @@
-package me.sdk;
+package me.shkschneider.sdk;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

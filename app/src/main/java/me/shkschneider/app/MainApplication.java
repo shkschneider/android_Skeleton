@@ -1,6 +1,6 @@
-package me.app;
+package me.shkschneider.app;
 
-import me.sdk.MyApplication;
+import me.shkschneider.sdk.MyApplication;
 
 public class MainApplication extends MyApplication {
 

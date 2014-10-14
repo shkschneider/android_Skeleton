@@ -1,4 +1,4 @@
-package me.sdk;
+package me.shkschneider.sdk;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;

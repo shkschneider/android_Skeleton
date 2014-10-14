@@ -5,7 +5,7 @@ android {
     buildToolsVersion '19.1.0'
 
     defaultConfig {
-        applicationId 'me.app'
+        applicationId 'me.shkschneider.app'
         minSdkVersion 14
         targetSdkVersion 19
         versionCode 1
@@ -77,6 +77,6 @@ task run(type: Exec) {
         }
         def sdkDir = properties.getProperty('sdk.dir')
         def adb = "$sdkDir/platform-tools/adb"
-        commandLine "$adb", 'shell', 'am', 'start', '-n', 'me.app/.MainActivity'
+        commandLine "$adb", 'shell', 'am', 'start', '-n', android.defaultConfig.applicationId + '/.MainActivity'
     }
 }

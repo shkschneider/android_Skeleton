@@ -1,4 +1,4 @@
-package me.sdk;
+package me.shkschneider.sdk;
 
 import android.app.Activity;
 import android.graphics.Rect;
@@ -10,7 +10,7 @@ import android.view.WindowManager;
 
 import org.jetbrains.annotations.NotNull;
 
-import me.app.MainApplication;
+import me.shkschneider.app.MainApplication;
 
 /**
  * Simple static class to handle android screens.

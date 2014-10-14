@@ -1,9 +1,9 @@
-package me.sdk;
+package me.shkschneider.sdk;
 
 import android.content.Context;
 import android.os.SystemClock;
 
-import me.app.MainApplication;
+import me.shkschneider.app.MainApplication;
 
 public class SystemHelper {
 

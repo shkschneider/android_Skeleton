@@ -1,4 +1,4 @@
-package me.sdk;
+package me.shkschneider.sdk;
 
 import android.annotation.TargetApi;
 import android.os.Bundle;
@@ -16,7 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
-import me.app.R;
+import me.shkschneider.app.R;
 
 /**
  * boolean alive()

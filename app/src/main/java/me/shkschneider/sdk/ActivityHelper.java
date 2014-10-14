@@ -1,7 +1,6 @@
-package me.sdk;
+package me.shkschneider.sdk;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.view.Gravity;
 import android.widget.Toast;
@@ -10,7 +9,7 @@ import com.devspark.appmsg.AppMsg;
 
 import org.jetbrains.annotations.NotNull;
 
-import me.app.MainApplication;
+import me.shkschneider.app.MainApplication;
 
 public class ActivityHelper {
 
