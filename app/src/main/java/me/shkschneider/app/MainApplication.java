@@ -1,8 +1,8 @@
 package me.shkschneider.app;
 
-import me.shkschneider.sdk.MyApplication;
+import me.shkschneider.skeleton.SkeletonApplication;
 
-public class MainApplication extends MyApplication {
+public class MainApplication extends SkeletonApplication {
 
     // CONTEXT
 

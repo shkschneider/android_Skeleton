@@ -2,17 +2,17 @@ package me.shkschneider.app;
 
 import android.os.Bundle;
 import android.preference.Preference;
-import android.support.v4.preference.PreferenceFragment;
 
-import me.shkschneider.sdk.AndroidHelper;
-import me.shkschneider.sdk.ApplicationHelper;
+import me.shkschneider.skeleton.AndroidHelper;
+import me.shkschneider.skeleton.ApplicationHelper;
+import me.shkschneider.skeleton.SkeletonPreferenceFragment;
 
-public class AboutFragment extends PreferenceFragment {
+public class AboutFragment extends SkeletonPreferenceFragment {
 
     @Override
     public void onCreate(final Bundle paramBundle) {
         super.onCreate(paramBundle);
-        addPreferencesFromResource(R.xml.about);
+        addPreferencesFromResource(R.xml.fragment_about);
 
         // Application
 
