@@ -1,4 +1,4 @@
-package me.shkschneider.app;
+package me.shkschneider.app.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,15 +12,20 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import me.shkschneider.skeleton.ActivityHelper;
-import me.shkschneider.skeleton.RunnableHelper;
-import me.shkschneider.skeleton.StringHelper;
-import me.shkschneider.skeleton.MyListView;
+import me.shkschneider.app.R;
+import me.shkschneider.skeleton.helper.ActivityHelper;
+import me.shkschneider.skeleton.helper.RunnableHelper;
+import me.shkschneider.skeleton.helper.StringHelper;
+import me.shkschneider.skeleton.ui.MyListView;
 import me.shkschneider.skeleton.SkeletonFragment;
 
 public class ListViewFragment extends SkeletonFragment {
 
     private ArrayAdapter<String> mAdapter;
+
+    public ListViewFragment() {
+        title("ListView");
+    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
@@ -79,20 +84,6 @@ public class ListViewFragment extends SkeletonFragment {
             }
         };
         RunnableHelper.delay(runnable, 1, TimeUnit.SECONDS);
-//        Ion.with(this)
-//                .load("http://ifconfig.me/ip")
-//                .asString()
-//                .withResponse()
-//                .setCallback(new FutureCallback<Response<String>>() {
-//                    @Override
-//                    public void onCompleted(final Exception e, final Response<String> result) {
-//                        loading(false);
-//
-//                        final int responseCode = result.getHeaders().getResponseCode();
-//                        final String responseMessage = result.getHeaders().getResponseMessage();
-//                        final String response = result.getResult();
-//                    }
-//                });
     }
 
 }

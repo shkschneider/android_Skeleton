@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton;
+package me.shkschneider.skeleton.helper;
 
 import android.os.IBinder;
 import android.view.KeyEvent;

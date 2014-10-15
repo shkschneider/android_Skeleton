@@ -17,6 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import me.shkschneider.app.R;
+import me.shkschneider.skeleton.helper.AndroidHelper;
+import me.shkschneider.skeleton.helper.KeyboardHelper;
+import me.shkschneider.skeleton.helper.LogHelper;
 
 /**
  * boolean alive()
@@ -60,8 +63,7 @@ public class SkeletonActivity extends ActionBarActivity {
                 mProgressBar.setY(view.getY() - 10);
                 if (AndroidHelper.api() < AndroidHelper.API_16) {
                     removeGlobalLayoutListenerOld(mProgressBar.getViewTreeObserver(), this);
-                }
-                else {
+                } else {
                     removeGlobalLayoutListenerNew(mProgressBar.getViewTreeObserver(), this);
                 }
             }
@@ -205,6 +207,7 @@ public class SkeletonActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            // TODO startActivity() with IntentHelper.HOME_FLAGS
             finish();
             return true;
         }
@@ -246,6 +249,13 @@ public class SkeletonActivity extends ActionBarActivity {
 
         public void onSearchTextChange(final String q);
         public void onSearchTextSubmit(final String q);
+
+    }
+
+    public static interface NavigationCallback {
+
+        public void onHomeAsUpPressed();
+        public void onBackPressed();
 
     }
 

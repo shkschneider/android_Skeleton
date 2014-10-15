@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton;
+package me.shkschneider.skeleton.helper;
 
 import org.jetbrains.annotations.NotNull;
 

@@ -1,4 +1,4 @@
-package me.shkschneider.app;
+package me.shkschneider.app.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -6,10 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import me.shkschneider.skeleton.ApplicationHelper;
+import me.shkschneider.app.R;
+import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.SkeletonFragment;
 
 public class MainFragment extends SkeletonFragment {
+
+    public MainFragment() {
+        title("Main");
+    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {

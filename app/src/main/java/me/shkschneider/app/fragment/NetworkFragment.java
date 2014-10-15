@@ -1,4 +1,4 @@
-package me.shkschneider.app;
+package me.shkschneider.app.fragment;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -15,15 +15,20 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.Response;
 
-import me.shkschneider.skeleton.ActivityHelper;
-import me.shkschneider.skeleton.GsonParser;
-import me.shkschneider.skeleton.MyListView;
+import me.shkschneider.app.R;
+import me.shkschneider.skeleton.helper.ActivityHelper;
+import me.shkschneider.skeleton.helper.GsonParser;
+import me.shkschneider.skeleton.ui.MyListView;
 import me.shkschneider.skeleton.SkeletonFragment;
-import me.shkschneider.skeleton.StringHelper;
+import me.shkschneider.skeleton.helper.StringHelper;
 
 public class NetworkFragment extends SkeletonFragment {
 
     private ArrayAdapter<SpannableStringBuilder> mAdapter;
+
+    public NetworkFragment() {
+        title("Network");
+    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
@@ -85,7 +90,7 @@ public class NetworkFragment extends SkeletonFragment {
                         for (final String key : GsonParser.keys(response)) {
                             final String value = GsonParser.string(response, key);
                             if (! StringHelper.nullOrEmpty(value)) {
-                                final String string = String.format("%s: %s", key, value);
+                                final String string = String.format("%s %s", key, value);
                                 final SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(string);
                                 spannableStringBuilder.setSpan(new StyleSpan(Typeface.BOLD), 0, string.indexOf(" "), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
                                 mAdapter.add(spannableStringBuilder);

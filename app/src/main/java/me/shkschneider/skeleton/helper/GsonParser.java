@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton;
+package me.shkschneider.skeleton.helper;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;

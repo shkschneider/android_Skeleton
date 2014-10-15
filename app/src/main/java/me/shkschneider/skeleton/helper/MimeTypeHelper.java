@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton;
+package me.shkschneider.skeleton.helper;
 
 public class MimeTypeHelper {
 

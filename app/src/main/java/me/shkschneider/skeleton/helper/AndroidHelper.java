@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton;
+package me.shkschneider.skeleton.helper;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;

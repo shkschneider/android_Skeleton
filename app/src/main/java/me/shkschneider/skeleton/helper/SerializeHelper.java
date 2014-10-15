@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton;
+package me.shkschneider.skeleton.helper;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -7,6 +7,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+
+import me.shkschneider.skeleton.helper.LogHelper;
 
 public class SerializeHelper {
 

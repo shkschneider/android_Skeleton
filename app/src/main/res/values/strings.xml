@@ -9,7 +9,8 @@
     -->
     <string name="dots">"&#8230;"</string>
 
-    <string name="app">Skeleton</string>
+    <string name="skeleton">Skeleton</string>
+    <string name="about">About</string>
     <string name="os">Android</string>
 
 </resources>

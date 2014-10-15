@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton;
+package me.shkschneider.skeleton.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;

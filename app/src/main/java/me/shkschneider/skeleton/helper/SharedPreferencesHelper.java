@@ -1,10 +1,12 @@
-package me.shkschneider.skeleton;
+package me.shkschneider.skeleton.helper;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import me.shkschneider.app.MainApplication;
+import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.StringHelper;
 
 public class SharedPreferencesHelper {
 

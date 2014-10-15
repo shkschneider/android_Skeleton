@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import me.shkschneider.app.R;
+import me.shkschneider.skeleton.helper.LogHelper;
 
 public abstract class NavigationDrawerActivity extends SkeletonActivity {
 
@@ -33,7 +34,7 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
         setContentView(R.layout.activity_navigationdrawer);
         home(true);
 
-        mTitle = getResources().getString(R.string.app);
+        mTitle = getResources().getString(R.string.skeleton);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_drawerlayout);
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_navigation_drawer, android.R.string.ok, android.R.string.cancel) {
@@ -57,11 +58,11 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(final AdapterView<?> adapterView, final View view, final int position, final long id) {
-                selectItem(position);
+                navigationDrawer(position);
             }
         });
         if (savedInstanceState == null) {
-            selectItem(0);
+            navigationDrawer(0);
         }
     }
 
@@ -69,12 +70,15 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
     protected abstract Fragment getFragment(final int position);
     protected abstract String getTitle(final int position);
 
-    private void selectItem(final int position) {
+    public void navigationDrawer(final int position) {
         final Fragment fragment = getFragment(position);
         if (fragment == null) {
             LogHelper.warning("Fragment was NULL");
             return ;
         }
+
+        charging(0);
+        loading(false);
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.drawer_framelayout, fragment)
@@ -82,6 +86,10 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
         mDrawerList.setItemChecked(position, true);
         setTitle(getTitle(position));
         mDrawerLayout.closeDrawer(mDrawerList);
+    }
+
+    public int navigationDrawer() {
+        return mDrawerList.getCheckedItemPosition();
     }
 
     @Override
