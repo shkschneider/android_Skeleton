@@ -1,14 +1,11 @@
 package me.shkschneider.app.fragment;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -24,7 +21,7 @@ import me.shkschneider.skeleton.helper.StringHelper;
 
 public class NetworkFragment extends SkeletonFragment {
 
-    private ArrayAdapter<SpannableStringBuilder> mAdapter;
+    private ArrayAdapter<String> mAdapter;
 
     public NetworkFragment() {
         title("Network");
@@ -32,10 +29,23 @@ public class NetworkFragment extends SkeletonFragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_network, container, false);
+        final View view = inflater.inflate(R.layout.fragment_listview, container, false);
 
         final MyListView myListView = (MyListView) view.findViewById(R.id.mylistview);
-        mAdapter = new ArrayAdapter<SpannableStringBuilder>(skeletonActivity(), android.R.layout.simple_list_item_1);
+        mAdapter = new ArrayAdapter<String>(skeletonActivity(), R.layout.listview_item2) {
+            @Override
+            public View getView(final int position, View convertView, final ViewGroup parent) {
+                if (convertView == null) {
+                    convertView = inflater.inflate(R.layout.listview_item2, parent, false);
+                }
+                final String string = getItem(position);
+                final String string1 = string.substring(0, string.indexOf(" "));
+                final String string2 = string.substring(string.indexOf(" ") + 1, string.length());
+                ((TextView) convertView.findViewById(android.R.id.text1)).setText(string1);
+                ((TextView) convertView.findViewById(android.R.id.text2)).setText(string2);
+                return convertView;
+            }
+        };
         myListView.setAdapter(mAdapter);
         myListView.setCallback(new MyListView.Callback() {
             @Override
@@ -52,7 +62,7 @@ public class NetworkFragment extends SkeletonFragment {
 
             @Override
             public void bottom() {
-                ActivityHelper.toast("bottom");
+                // Ignore
             }
         });
 
@@ -91,9 +101,7 @@ public class NetworkFragment extends SkeletonFragment {
                             final String value = GsonParser.string(response, key);
                             if (! StringHelper.nullOrEmpty(value)) {
                                 final String string = String.format("%s %s", key, value);
-                                final SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder(string);
-                                spannableStringBuilder.setSpan(new StyleSpan(Typeface.BOLD), 0, string.indexOf(" "), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-                                mAdapter.add(spannableStringBuilder);
+                                mAdapter.add(string);
                             }
                         }
                         mAdapter.notifyDataSetChanged();

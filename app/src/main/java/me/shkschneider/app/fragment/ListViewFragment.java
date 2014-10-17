@@ -32,7 +32,7 @@ public class ListViewFragment extends SkeletonFragment {
         final View view = inflater.inflate(R.layout.fragment_listview, container, false);
 
         final MyListView myListView = (MyListView) view.findViewById(R.id.mylistview);
-        mAdapter = new ArrayAdapter<String>(skeletonActivity(), android.R.layout.simple_list_item_1);
+        mAdapter = new ArrayAdapter<String>(skeletonActivity(), R.layout.listview_item1);
         myListView.setAdapter(mAdapter);
         myListView.setCallback(new MyListView.Callback() {
             @Override
@@ -44,7 +44,7 @@ public class ListViewFragment extends SkeletonFragment {
 
             @Override
             public void overscroll() {
-                refresh();
+                ActivityHelper.toast("overscroll");
             }
 
             @Override

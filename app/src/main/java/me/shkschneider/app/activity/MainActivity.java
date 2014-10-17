@@ -1,6 +1,5 @@
 package me.shkschneider.app.activity;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import me.shkschneider.app.fragment.AndroidSdksFragment;
 import me.shkschneider.app.fragment.ListViewFragment;
 import me.shkschneider.app.fragment.MainFragment;
 import me.shkschneider.app.fragment.NetworkFragment;
@@ -26,6 +26,11 @@ import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.SystemHelper;
 
 public class MainActivity extends NavigationDrawerActivity {
+
+    public static final int NAVIGATION_MAIN = 0;
+    public static final int NAVIGATION_LISTVIEW = 1;
+    public static final int NAVIGATION_NETWORK = 2;
+    public static final int NAVIGATION_ANDROIDSDKS = 3;
 
     public static Intent getInstance(final Activity activity) {
         return new Intent(activity, MainActivity.class).setFlags(IntentHelper.HOME_FLAGS);
@@ -69,9 +74,10 @@ public class MainActivity extends NavigationDrawerActivity {
     protected ArrayAdapter getAdapter() {
         return new ArrayAdapter<SkeletonFragment>(this, R.layout.listview_navigationdrawer_item, new ArrayList<SkeletonFragment>() {
             {
-                add(new MainFragment());
-                add(new ListViewFragment());
-                add(new NetworkFragment());
+                add(NAVIGATION_MAIN, new MainFragment());
+                add(NAVIGATION_LISTVIEW, new ListViewFragment());
+                add(NAVIGATION_NETWORK, new NetworkFragment());
+                add(NAVIGATION_ANDROIDSDKS, new AndroidSdksFragment());
             }
         }) {
             @Override
