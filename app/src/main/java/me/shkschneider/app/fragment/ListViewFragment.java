@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Locale;
 
 import me.shkschneider.app.R;
+import me.shkschneider.app.controller.ListViewIndexer;
 import me.shkschneider.skeleton.SkeletonActivity;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.ActivityHelper;
@@ -37,13 +38,21 @@ public class ListViewFragment extends SkeletonFragment {
         final View view = inflater.inflate(R.layout.fragment_listview, container, false);
 
         final ListView listView = (ListView) view.findViewById(R.id.listview);
-        mAdapter = new ArrayAdapter<String>(skeletonActivity(), R.layout.listview_item1) {
+        mAdapter = new ListViewIndexer(skeletonActivity(), R.layout.listview_item1) {
             @Override
             public boolean areAllItemsEnabled() {
                 return true;
             }
         };
+//        mAdapter = new ArrayAdapter<String>(skeletonActivity(), R.layout.listview_item1) {
+//            @Override
+//            public boolean areAllItemsEnabled() {
+//                return true;
+//            }
+//        };
         listView.setAdapter(mAdapter);
+        listView.setFastScrollEnabled(true);
+        listView.setFastScrollAlwaysVisible(false);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(final AdapterView<?> adapterView, final View view, final int position, final long id) {

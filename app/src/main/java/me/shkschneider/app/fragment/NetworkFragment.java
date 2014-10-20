@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -13,14 +14,20 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.Response;
 
+import fr.castorflex.android.circularprogressbar.CircularProgressBar;
+import fr.castorflex.android.circularprogressbar.CircularProgressDrawable;
+import fr.castorflex.android.smoothprogressbar.SmoothProgressDrawable;
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.GsonParser;
 import me.shkschneider.skeleton.SkeletonFragment;
+import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.StringHelper;
 
 public class NetworkFragment extends SkeletonFragment {
 
+    private CircularProgressBar mCircularProgressBar;
+    private ListView mListView;
     private ArrayAdapter<String> mAdapter;
 
     public NetworkFragment() {
@@ -31,7 +38,12 @@ public class NetworkFragment extends SkeletonFragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_listview, container, false);
 
-        final ListView listView = (ListView) view.findViewById(R.id.listview);
+        mCircularProgressBar = (CircularProgressBar) view.findViewById(R.id.circularprogressbar);
+        mCircularProgressBar.setIndeterminateDrawable(new CircularProgressDrawable.Builder(skeletonActivity())
+                .color(getResources().getColor(R.color.blueLight))
+                .style(CircularProgressDrawable.Style.ROUNDED)
+                .build());
+        mListView = (ListView) view.findViewById(R.id.listview);
         mAdapter = new ArrayAdapter<String>(skeletonActivity(), R.layout.listview_item2) {
             @Override
             public View getView(final int position, View convertView, final ViewGroup parent) {
@@ -46,7 +58,7 @@ public class NetworkFragment extends SkeletonFragment {
                 return convertView;
             }
         };
-        listView.setAdapter(mAdapter);
+        mListView.setAdapter(mAdapter);
 
         return view;
     }
@@ -58,8 +70,13 @@ public class NetworkFragment extends SkeletonFragment {
         refresh();
     }
 
+    private void loading(final boolean b) {
+        mCircularProgressBar.setVisibility((b ? View.VISIBLE : View.GONE));
+        mListView.setVisibility((b ? View.GONE : View.VISIBLE));
+    }
+
     public void refresh() {
-        skeletonActivity().loading(true);
+        loading(true);
         Ion.with(this)
                 .load("http://ifconfig.me/all.json")
                 .asJsonObject()
@@ -67,7 +84,12 @@ public class NetworkFragment extends SkeletonFragment {
                 .setCallback(new FutureCallback<Response<JsonObject>>() {
                     @Override
                     public void onCompleted(final Exception e, final Response<JsonObject> result) {
-                        skeletonActivity().loading(false);
+                        loading(false);
+                        if (e != null) {
+                            LogHelper.wtf(e);
+                            ActivityHelper.croutonRed(skeletonActivity(), e.getLocalizedMessage());
+                            return ;
+                        }
 
                         final int responseCode = result.getHeaders().getResponseCode();
                         final String responseMessage = result.getHeaders().getResponseMessage();

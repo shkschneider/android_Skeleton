@@ -35,6 +35,7 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
         setContentView(R.layout.activity_navigationdrawer);
         home(true);
 
+        // TOFO FIXME NavigationDrawer not visible on API-17
         mTitle = getResources().getString(R.string.skeleton);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_drawerlayout);
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
@@ -66,6 +67,13 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
         if (savedInstanceState == null) {
             navigationDrawer(0);
         }
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        // Fix for lower APIs: the ic_navigation_drawer drawable was not showed
+        mDrawerToggle.syncState();
     }
 
     protected abstract ArrayAdapter getAdapter();
@@ -112,6 +120,12 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mDrawerLayout.closeDrawer(mDrawerList);
     }
 
 }

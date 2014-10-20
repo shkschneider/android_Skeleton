@@ -58,6 +58,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:19.+'
     compile 'com.google.android.gms:play-services:6.+'
     // com.google.android.gms: <https://play.google.com/store/apps/details?id=com.google.android.gms>
+    compile 'com.github.castorflex.smoothprogressbar:library:+'
+    compile 'com.github.castorflex.smoothprogressbar:library-circular:+'
 
     compile 'com.squareup.phrase:phrase:+'
     compile 'com.github.johnkil.android-appmsg:appmsg:+'

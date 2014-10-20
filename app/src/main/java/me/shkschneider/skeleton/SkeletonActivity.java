@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 
 import me.shkschneider.app.R;
@@ -103,6 +104,19 @@ public class SkeletonActivity extends ActionBarActivity {
         // SearchViewFormatter: <https://gist.github.com/ademar111190/7d31dab71502e6a85b8a>
         searchView.setIconifiedByDefault(true);
         searchView.setQueryHint(mSearchHint);
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // TODO FIXME HomeAsUp does not cancel search
+            }
+        });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                mSearchCallback.onSearchTextChange("");
+                return false;
+            }
+        });
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override
