@@ -19,6 +19,7 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
 
     private CharSequence mTitle;
     private DrawerLayout mDrawerLayout;
+    // TODO FIXME ActionBarDrawerToggle deprecated
     private ActionBarDrawerToggle mDrawerToggle;
     private ListView mDrawerList;
 
@@ -37,6 +38,7 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
         mTitle = getResources().getString(R.string.skeleton);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_drawerlayout);
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        // TODO FIXME ActionBarDrawerToggle deprecated
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_navigation_drawer, android.R.string.ok, android.R.string.cancel) {
             @Override
             public void onDrawerClosed(final View drawerView) {
@@ -77,15 +79,15 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
             return ;
         }
 
-        charging(0);
         loading(false);
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.drawer_framelayout, fragment)
                 .commit();
         mDrawerList.setItemChecked(position, true);
-        setTitle(getTitle(position));
         mDrawerLayout.closeDrawer(mDrawerList);
+        setTitle(getTitle(position));
+        supportInvalidateOptionsMenu();
     }
 
     public int navigationDrawer() {

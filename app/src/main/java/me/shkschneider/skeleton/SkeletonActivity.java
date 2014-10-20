@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton;
 
-import android.annotation.TargetApi;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
@@ -8,16 +7,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.Window;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 
 import me.shkschneider.app.R;
-import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.KeyboardHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
@@ -33,70 +25,17 @@ import me.shkschneider.skeleton.helper.LogHelper;
 public class SkeletonActivity extends ActionBarActivity {
 
     private boolean mAlive = false;
+    private boolean mLoading = false;
     private String mSearchHint;
     private SearchCallback mSearchCallback = null; // Activated if not null
     private MenuItem mSearchMenuItem;
-    private ProgressBar mProgressBar;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         supportRequestWindowFeature(Window.FEATURE_ACTION_BAR);
+        supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         // setContentView()
-    }
-
-    private void setContentView() {
-        mProgressBar = new ProgressBar(this, null, android.R.attr.progressBarStyleHorizontal);
-        mProgressBar.setBackgroundColor(getResources().getColor(R.color.transparent));
-        mProgressBar.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 24));
-        mProgressBar.setIndeterminate(false);
-        mProgressBar.setVisibility(View.GONE);
-
-        final FrameLayout frameLayout = (FrameLayout) getWindow().getDecorView();
-        frameLayout.addView(mProgressBar);
-
-        final ViewTreeObserver viewTreeObserver = mProgressBar.getViewTreeObserver();
-        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                final View view = frameLayout.findViewById(android.R.id.content);
-                mProgressBar.setY(view.getY() - 10);
-                if (AndroidHelper.api() < AndroidHelper.API_16) {
-                    removeGlobalLayoutListenerOld(mProgressBar.getViewTreeObserver(), this);
-                } else {
-                    removeGlobalLayoutListenerNew(mProgressBar.getViewTreeObserver(), this);
-                }
-            }
-
-            @TargetApi(AndroidHelper.API_16)
-            private void removeGlobalLayoutListenerNew(final ViewTreeObserver viewTreeObserver, final ViewTreeObserver.OnGlobalLayoutListener globalLayoutListener) {
-                viewTreeObserver.removeOnGlobalLayoutListener(globalLayoutListener);
-            }
-
-            @SuppressWarnings("deprecation")
-            private void removeGlobalLayoutListenerOld(final ViewTreeObserver viewTreeObserver, final ViewTreeObserver.OnGlobalLayoutListener globalLayoutListener) {
-                viewTreeObserver.removeGlobalOnLayoutListener(globalLayoutListener);
-            }
-        });
-    }
-
-    @Override
-    public void setContentView(final int layoutResID) {
-        super.setContentView(layoutResID);
-        setContentView();
-    }
-
-    @Override
-    public void setContentView(final View view) {
-        super.setContentView(view);
-        setContentView();
-    }
-
-    @Deprecated
-    @Override
-    public void setContentView(View view, ViewGroup.LayoutParams params) {
-        super.setContentView(view, params);
-        setContentView();
     }
 
     @Override
@@ -133,32 +72,13 @@ public class SkeletonActivity extends ActionBarActivity {
         supportInvalidateOptionsMenu();
     }
 
-    public boolean charging() {
-        return (! loading() && mProgressBar.getVisibility() == View.VISIBLE);
-    }
-
-    public void charging(int percent) {
-        mProgressBar.setIndeterminate(false);
-        if (percent <= 0) {
-            mProgressBar.setProgress(0);
-            mProgressBar.setVisibility(View.GONE);
-            return ;
-        }
-
-        mProgressBar.setVisibility(View.VISIBLE);
-        if (percent > 100) {
-            percent = 100;
-        }
-        mProgressBar.setProgress(percent);
-    }
-
     public boolean loading() {
-        return mProgressBar.isIndeterminate();
+        return mLoading;
     }
 
     public void loading(final boolean b) {
-        mProgressBar.setIndeterminate(b);
-        mProgressBar.setVisibility((b ? View.VISIBLE : View.GONE));
+        mLoading = b;
+        setSupportProgressBarIndeterminateVisibility(mLoading);
     }
 
     @Override

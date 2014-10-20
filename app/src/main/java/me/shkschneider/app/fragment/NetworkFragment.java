@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
@@ -15,7 +16,6 @@ import com.koushikdutta.ion.Response;
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.GsonParser;
-import me.shkschneider.skeleton.ui.MyListView;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.StringHelper;
 
@@ -31,7 +31,7 @@ public class NetworkFragment extends SkeletonFragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_listview, container, false);
 
-        final MyListView myListView = (MyListView) view.findViewById(R.id.mylistview);
+        final ListView listView = (ListView) view.findViewById(R.id.listview);
         mAdapter = new ArrayAdapter<String>(skeletonActivity(), R.layout.listview_item2) {
             @Override
             public View getView(final int position, View convertView, final ViewGroup parent) {
@@ -46,25 +46,7 @@ public class NetworkFragment extends SkeletonFragment {
                 return convertView;
             }
         };
-        myListView.setAdapter(mAdapter);
-        myListView.setCallback(new MyListView.Callback() {
-            @Override
-            public void overscroll(final int n) {
-                if (!skeletonActivity().loading()) {
-                    skeletonActivity().charging(n);
-                }
-            }
-
-            @Override
-            public void overscroll() {
-                refresh();
-            }
-
-            @Override
-            public void bottom() {
-                // Ignore
-            }
-        });
+        listView.setAdapter(mAdapter);
 
         return view;
     }

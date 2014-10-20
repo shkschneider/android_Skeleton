@@ -2,7 +2,7 @@ apply plugin: 'android'
 
 android {
     compileSdkVersion 19
-    buildToolsVersion '19.1.0'
+    buildToolsVersion '19.1'
 
     defaultConfig {
         applicationId 'me.shkschneider.app'
@@ -54,9 +54,9 @@ android {
 dependencies {
     compile 'com.intellij:annotations:+'
 
-    compile 'com.android.support:support-v4:19+'
-    compile 'com.android.support:appcompat-v7:19+'
-    compile 'com.google.android.gms:play-services:4.4.52'
+    compile 'com.android.support:support-v4:19.+'
+    compile 'com.android.support:appcompat-v7:19.+'
+    compile 'com.google.android.gms:play-services:6.+'
     // com.google.android.gms: <https://play.google.com/store/apps/details?id=com.google.android.gms>
 
     compile 'com.squareup.phrase:phrase:+'

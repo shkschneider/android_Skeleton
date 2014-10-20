@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.koushikdutta.async.future.FutureCallback;
@@ -15,6 +16,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Comparator;
 
 import me.shkschneider.app.R;
@@ -22,7 +24,6 @@ import me.shkschneider.app.model.AndroidSdk;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.ui.MyListView;
 
 public class AndroidSdksFragment extends SkeletonFragment {
 
@@ -38,7 +39,7 @@ public class AndroidSdksFragment extends SkeletonFragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_listview, container, false);
 
-        final MyListView myListView = (MyListView) view.findViewById(R.id.mylistview);
+        final ListView listView = (ListView) view.findViewById(R.id.listview);
         mAdapter = new ArrayAdapter<AndroidSdk>(skeletonActivity(), R.layout.listview_item2) {
             @Override
             public View getView(final int position, View convertView, final ViewGroup parent) {
@@ -53,25 +54,7 @@ public class AndroidSdksFragment extends SkeletonFragment {
                 return convertView;
             }
         };
-        myListView.setAdapter(mAdapter);
-        myListView.setCallback(new MyListView.Callback() {
-            @Override
-            public void overscroll(final int n) {
-                if (!skeletonActivity().loading()) {
-                    skeletonActivity().charging(n);
-                }
-            }
-
-            @Override
-            public void overscroll() {
-                refresh();
-            }
-
-            @Override
-            public void bottom() {
-                // Ignore
-            }
-        });
+        listView.setAdapter(mAdapter);
 
         return view;
     }
@@ -85,8 +68,6 @@ public class AndroidSdksFragment extends SkeletonFragment {
 
     public void refresh() {
         skeletonActivity().loading(true);
-        mAdapter.clear();
-        mAdapter.notifyDataSetChanged();
         Ion.with(this)
                 .load(URL)
                 .asInputStream()
@@ -109,6 +90,7 @@ public class AndroidSdksFragment extends SkeletonFragment {
 
                         final InputStream inputStream = result.getResult();
                         try {
+                            final ArrayList<AndroidSdk> androidSdks = new ArrayList<AndroidSdk>();
                             AndroidSdk androidSdk = null;
 
                             final XmlPullParserFactory xmlPullParserFactory = XmlPullParserFactory.newInstance();
@@ -136,13 +118,15 @@ public class AndroidSdksFragment extends SkeletonFragment {
                                         break;
                                     case XmlPullParser.END_TAG:
                                         if (androidSdk != null && androidSdk.valid()) {
-                                            mAdapter.add(androidSdk);
+                                            androidSdks.add(androidSdk);
                                             androidSdk = null;
                                         }
                                         break;
                                 }
                                 eventType = xmlPullParser.next();
                             }
+                            mAdapter.clear();
+                            mAdapter.addAll(androidSdks);
                             mAdapter.sort(new Comparator<AndroidSdk>() {
                                 @Override
                                 public int compare(final AndroidSdk androidSdk1, final AndroidSdk androidSdk2) {

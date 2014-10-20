@@ -19,7 +19,6 @@ import me.shkschneider.app.fragment.ListViewFragment;
 import me.shkschneider.app.fragment.MainFragment;
 import me.shkschneider.app.fragment.NetworkFragment;
 import me.shkschneider.app.R;
-import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.NavigationDrawerActivity;
 import me.shkschneider.skeleton.SkeletonFragment;
@@ -40,25 +39,16 @@ public class MainActivity extends NavigationDrawerActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        searchable(getResources().getString(R.string.dots), new SearchCallback() {
-            @Override
-            public void onSearchTextChange(String q) {
-                // Ignore
-            }
-
-            @Override
-            public void onSearchTextSubmit(String q) {
-                ActivityHelper.toast(q);
-            }
-        });
-
         navigationDrawer(0);
     }
 
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+        if (navigationDrawer() != NAVIGATION_LISTVIEW) {
+            searchable(null, null);
+        }
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
