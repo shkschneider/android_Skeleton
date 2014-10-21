@@ -25,7 +25,7 @@ import me.shkschneider.skeleton.helper.StringHelper;
 
 public class ListViewFragment extends SkeletonFragment {
 
-    private ListViewIndexer<String> mAdapter;
+    private ListViewIndexer mAdapter;
 
     public ListViewFragment() {
         title("ListView");
@@ -38,21 +38,40 @@ public class ListViewFragment extends SkeletonFragment {
         final View view = inflater.inflate(R.layout.fragment_listview, container, false);
 
         final ListView listView = (ListView) view.findViewById(R.id.listview);
-        mAdapter = new ListViewIndexer<String>(skeletonActivity(), R.layout.listview_item1) {
-            @Override
-            public boolean areAllItemsEnabled() {
-                return true;
+        mAdapter = new ListViewIndexer(new ArrayAdapter<String>(skeletonActivity(), R.layout.listview_item1) {
+            {
+                addAll("Annona", "Apples", "Apricots", "Avocado",
+                        "Banano", "Bilberry", "Blackberry",
+                        "Cantalope", "Coconut", "Currant", "Cherry", "Cherimoya",
+                        "Date", "Damson", "Durian", "Elderberry",
+                        "Fig", "Feijoa",
+                        "Grapefruit", "Grape", "Gooseberry", "Guava",
+                        "Honeydew melon", "Huckleberry",
+                        "Jackfruit", "Juniper Berry", "Jambul", "jujube",
+                        "kiwi", "Kumquat",
+                        "Lemons", "Limes", "Lychee",
+                        "Mango", "Mandarin", "Mangostine", "Nectaraine",
+                        "Orange", "Olive",
+                        "Prunes", "Pears", "Plum", "Pineapple", "Peach", "Papaya", "Passionfruit", "Pomegranate", "Pomelo",
+                        "Raspberries", "Rock melon", "Rambutan",
+                        "Strawberry", "Sweety", "Salmonberry", "Satsuma",
+                        "Tangerines", "Tomato",
+                        "Ugli",
+                        "Watermelon", "Woodapple");
             }
-        };
+        });
+//        mAdapter.setSections(new ListViewIndexer.Section[] {
+//                new ListViewIndexer.Section(0, "A")
+//        });
         listView.setAdapter(mAdapter);
         listView.setFastScrollEnabled(true);
         listView.setFastScrollAlwaysVisible(false);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(final AdapterView<?> adapterView, final View view, final int position, final long id) {
-                ActivityHelper.toast(mAdapter.getItem(position));
-            }
-        });
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(final AdapterView<?> adapterView, final View view, final int position, final long id) {
+//                ActivityHelper.toast(mAdapter.getItem(position));
+//            }
+//        });
 
         return view;
     }
@@ -98,26 +117,8 @@ public class ListViewFragment extends SkeletonFragment {
 //                return s1.compareTo(s2);
 //            }
 //        });
-        mAdapter.clear();
+//        mAdapter.clear();
 //        mAdapter.addAll(countries);
-        mAdapter.addAll("Annona", "Apples", "Apricots", "Avocado",
-                "Banano", "Bilberry", "Blackberry",
-                "Cantalope", "Coconut", "Currant", "Cherry", "Cherimoya",
-                "Date", "Damson", "Durian", "Elderberry",
-                "Fig", "Feijoa",
-                "Grapefruit", "Grape", "Gooseberry", "Guava",
-                "Honeydew melon", "Huckleberry",
-                "Jackfruit", "Juniper Berry", "Jambul", "jujube",
-                "kiwi", "Kumquat",
-                "Lemons", "Limes", "Lychee",
-                "Mango", "Mandarin", "Mangostine", "Nectaraine",
-                "Orange", "Olive",
-                "Prunes", "Pears", "Plum", "Pineapple", "Peach", "Papaya", "Passionfruit", "Pomegranate", "Pomelo",
-                "Raspberries", "Rock melon", "Rambutan",
-                "Strawberry", "Sweety", "Salmonberry", "Satsuma",
-                "Tangerines", "Tomato",
-                "Ugli",
-                "Watermelon", "Woodapple");
         mAdapter.notifyDataSetChanged();
     }
 
