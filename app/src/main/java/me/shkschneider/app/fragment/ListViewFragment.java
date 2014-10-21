@@ -25,7 +25,7 @@ import me.shkschneider.skeleton.helper.StringHelper;
 
 public class ListViewFragment extends SkeletonFragment {
 
-    private ArrayAdapter<String> mAdapter;
+    private ListViewIndexer<String> mAdapter;
 
     public ListViewFragment() {
         title("ListView");
@@ -38,18 +38,12 @@ public class ListViewFragment extends SkeletonFragment {
         final View view = inflater.inflate(R.layout.fragment_listview, container, false);
 
         final ListView listView = (ListView) view.findViewById(R.id.listview);
-        mAdapter = new ListViewIndexer(skeletonActivity(), R.layout.listview_item1) {
+        mAdapter = new ListViewIndexer<String>(skeletonActivity(), R.layout.listview_item1) {
             @Override
             public boolean areAllItemsEnabled() {
                 return true;
             }
         };
-//        mAdapter = new ArrayAdapter<String>(skeletonActivity(), R.layout.listview_item1) {
-//            @Override
-//            public boolean areAllItemsEnabled() {
-//                return true;
-//            }
-//        };
         listView.setAdapter(mAdapter);
         listView.setFastScrollEnabled(true);
         listView.setFastScrollAlwaysVisible(false);
@@ -88,24 +82,42 @@ public class ListViewFragment extends SkeletonFragment {
     }
 
     public void refresh(final String q) {
-        final Locale[] locales = Locale.getAvailableLocales();
-        final List<String> countries = new ArrayList<String>();
-        for (final Locale locale : locales) {
-            final String country = locale.getDisplayCountry().trim();
-            if (! StringHelper.nullOrEmpty(country)
-                    && (StringHelper.nullOrEmpty(q) || country.toLowerCase().contains(q.toLowerCase()))
-                    && ! countries.contains(country)) {
-                countries.add(country);
-            }
-        }
-        Collections.sort(countries, new Comparator<String>() {
-            @Override
-            public int compare(final String s1, final String s2) {
-                return s1.compareTo(s2);
-            }
-        });
+//        final Locale[] locales = Locale.getAvailableLocales();
+//        final List<String> countries = new ArrayList<String>();
+//        for (final Locale locale : locales) {
+//            final String country = locale.getDisplayCountry().trim();
+//            if (! StringHelper.nullOrEmpty(country)
+//                    && (StringHelper.nullOrEmpty(q) || country.toLowerCase().contains(q.toLowerCase()))
+//                    && ! countries.contains(country)) {
+//                countries.add(country);
+//            }
+//        }
+//        Collections.sort(countries, new Comparator<String>() {
+//            @Override
+//            public int compare(final String s1, final String s2) {
+//                return s1.compareTo(s2);
+//            }
+//        });
         mAdapter.clear();
-        mAdapter.addAll(countries);
+//        mAdapter.addAll(countries);
+        mAdapter.addAll("Annona", "Apples", "Apricots", "Avocado",
+                "Banano", "Bilberry", "Blackberry",
+                "Cantalope", "Coconut", "Currant", "Cherry", "Cherimoya",
+                "Date", "Damson", "Durian", "Elderberry",
+                "Fig", "Feijoa",
+                "Grapefruit", "Grape", "Gooseberry", "Guava",
+                "Honeydew melon", "Huckleberry",
+                "Jackfruit", "Juniper Berry", "Jambul", "jujube",
+                "kiwi", "Kumquat",
+                "Lemons", "Limes", "Lychee",
+                "Mango", "Mandarin", "Mangostine", "Nectaraine",
+                "Orange", "Olive",
+                "Prunes", "Pears", "Plum", "Pineapple", "Peach", "Papaya", "Passionfruit", "Pomegranate", "Pomelo",
+                "Raspberries", "Rock melon", "Rambutan",
+                "Strawberry", "Sweety", "Salmonberry", "Satsuma",
+                "Tangerines", "Tomato",
+                "Ugli",
+                "Watermelon", "Woodapple");
         mAdapter.notifyDataSetChanged();
     }
 

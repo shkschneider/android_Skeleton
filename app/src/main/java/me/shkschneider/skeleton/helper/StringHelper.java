@@ -47,6 +47,10 @@ public class StringHelper {
         return true;
     }
 
+    public static String[] split(final String string) {
+        return string.split("(?!^)");
+    }
+
     public static String random(final String characters, final int length) {
         if (length <= 0) {
             LogHelper.warning("Length was invalid");
