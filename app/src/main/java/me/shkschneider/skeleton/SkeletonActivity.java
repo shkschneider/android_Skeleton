@@ -116,7 +116,7 @@ public class SkeletonActivity extends ActionBarActivity {
     public void searchable(final String hint, final SearchCallback searchCallback) {
         mSearchHint = hint;
         mSearchCallback = searchCallback;
-        supportInvalidateOptionsMenu();
+        // supportInvalidateOptionsMenu();
     }
 
     public boolean loading() {
