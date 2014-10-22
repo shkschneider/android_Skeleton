@@ -40,8 +40,8 @@ public class SkeletonActivity extends ActionBarActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        supportRequestWindowFeature(Window.FEATURE_ACTION_BAR);
-        supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        // FIXME supportRequestWindowFeature(Window.FEATURE_ACTION_BAR);
+        // FIXME supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         // setContentView()
     }
 
@@ -83,7 +83,7 @@ public class SkeletonActivity extends ActionBarActivity {
 
         actionBar.setDisplayUseLogoEnabled(b);
         if (! b) {
-            actionBar.setIcon(android.R.color.transparent);
+            actionBar.setIcon(getResources().getColor(android.R.color.transparent));
         }
         else {
             try {
@@ -119,10 +119,12 @@ public class SkeletonActivity extends ActionBarActivity {
         // supportInvalidateOptionsMenu();
     }
 
+    @Deprecated
     public boolean loading() {
         return mLoading;
     }
 
+    @Deprecated
     public void loading(final boolean b) {
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar == null) {
@@ -131,7 +133,7 @@ public class SkeletonActivity extends ActionBarActivity {
         }
 
         mLoading = b;
-        setSupportProgressBarIndeterminateVisibility(mLoading);
+        // FIXME setSupportProgressBarIndeterminateVisibility(mLoading);
     }
 
     @Override
