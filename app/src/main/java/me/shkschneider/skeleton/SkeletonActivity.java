@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -14,6 +15,7 @@ import android.view.Window;
 import me.shkschneider.app.MainApplication;
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
+import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.KeyboardHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.StringHelper;
@@ -191,8 +193,8 @@ public class SkeletonActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            // TODO startActivity() with IntentHelper.HOME_FLAGS
-            finish();
+            final Intent intent = getPackageManager().getLaunchIntentForPackage(ApplicationHelper.packageName());
+            startActivity(intent.setFlags(IntentHelper.HOME_FLAGS));
             return true;
         }
 
