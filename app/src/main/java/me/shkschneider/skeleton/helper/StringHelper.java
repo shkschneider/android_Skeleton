@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.helper;
 
+import java.text.Normalizer;
 import java.util.Random;
 
 public class StringHelper {
@@ -49,6 +50,13 @@ public class StringHelper {
 
     public static String[] split(final String string) {
         return string.split("(?!^)");
+    }
+
+    public static String withoutAccents(String string) {
+        string = Normalizer.normalize(string, Normalizer.Form.NFD);
+        // string = string.replaceAll("[^\\p{ASCII}]", ""); // ascii
+        string = string.replaceAll("\\p{M}", ""); // unicode
+        return string;
     }
 
     public static String random(final String characters, final int length) {

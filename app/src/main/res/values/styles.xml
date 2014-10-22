@@ -3,11 +3,19 @@
     <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <item name="android:actionBarStyle">@style/AppTheme.ActionBarStyle</item>
         <item name="actionBarStyle">@style/AppTheme.ActionBarStyle</item>
+        <item name="android:actionBarTabTextStyle">@style/AppTheme.ActionBarTabTextStyle</item>
+        <item name="actionBarTabTextStyle">@style/AppTheme.ActionBarTabTextStyle</item>
+        <item name="android:actionMenuTextColor">@color/white</item>
+        <item name="actionMenuTextColor">@color/white</item>
     </style>
 
     <style name="AppTheme.ActionBarStyle" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@color/blueLight</item>
         <item name="background">@color/blueLight</item>
+    </style>
+
+    <style name="AppTheme.ActionBarTabTextStyle" parent="@style/Widget.AppCompat.Light.ActionBar.TabText">
+        <item name="android:textColor">@color/white</item>
     </style>
 
 </resources>

@@ -18,6 +18,8 @@ public class AboutActivity extends SkeletonFragmentActivity implements SkeletonA
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         home(true);
+        logo(false);
+
         setFragment(new AboutFragment());
     }
 

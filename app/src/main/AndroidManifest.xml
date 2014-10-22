@@ -2,19 +2,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="me.shkschneider.app">
 
+    <uses-permission
+        android:name="android.permission.INTERNET" />
+
+    <uses-feature
+        android:name="android.hardware.touchscreen"
+        android:required="true" />
+
     <supports-screens
         android:smallScreens="true"
         android:normalScreens="true"
         android:largeScreens="true"
         android:xlargeScreens="false"
         android:anyDensity="true" />
-
-    <uses-feature
-        android:name="android.hardware.touchscreen"
-        android:required="true" />
-
-    <uses-permission
-        android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"

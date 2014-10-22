@@ -34,8 +34,9 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigationdrawer);
         home(true);
+        logo(false);
 
-        // TOFO FIXME NavigationDrawer not visible on API-17
+        // TODO FIXME NavigationDrawer not visible on API-17
         mTitle = getResources().getString(R.string.skeleton);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_drawerlayout);
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);

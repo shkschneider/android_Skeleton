@@ -39,7 +39,7 @@ public class MainActivity extends NavigationDrawerActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        navigationDrawer(NAVIGATION_LISTVIEW);
+        navigationDrawer(0);
     }
 
     @Override

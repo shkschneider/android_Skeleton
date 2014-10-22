@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
@@ -10,9 +11,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 
+import me.shkschneider.app.MainApplication;
 import me.shkschneider.app.R;
+import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.KeyboardHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.StringHelper;
 
 /**
  * boolean alive()
@@ -65,6 +69,46 @@ public class SkeletonActivity extends ActionBarActivity {
         }
 
         actionBar.setDisplayHomeAsUpEnabled(b);
+        actionBar.setDisplayShowHomeEnabled(b);
+    }
+
+    public void logo(final boolean b) {
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar == null) {
+            LogHelper.warning("ActionBar was NULL");
+            return ;
+        }
+
+        actionBar.setDisplayUseLogoEnabled(b);
+        if (! b) {
+            actionBar.setIcon(android.R.color.transparent);
+        }
+        else {
+            try {
+                final Drawable icon = getPackageManager().getActivityIcon(getComponentName());
+                actionBar.setIcon(icon);
+            }
+            catch (final Exception e) {
+                LogHelper.wtf(e);
+            }
+        }
+    }
+
+    public void title(final String title) {
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar == null) {
+            LogHelper.warning("ActionBar was NULL");
+            return ;
+        }
+
+        if (StringHelper.nullOrEmpty(title)) {
+            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setTitle(null);
+        }
+        else {
+            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setTitle(title);
+        }
     }
 
     public void searchable(final String hint, final SearchCallback searchCallback) {
@@ -78,6 +122,12 @@ public class SkeletonActivity extends ActionBarActivity {
     }
 
     public void loading(final boolean b) {
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar == null) {
+            LogHelper.warning("ActionBar was NULL");
+            return ;
+        }
+
         mLoading = b;
         setSupportProgressBarIndeterminateVisibility(mLoading);
     }
