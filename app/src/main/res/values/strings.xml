@@ -8,6 +8,7 @@
         @android:string/loading
     -->
     <string name="dots">"&#8230;"</string>
+    <string name="loading">"Loading…"</string>
 
     <string name="skeleton">Skeleton</string>
     <string name="about">About</string>

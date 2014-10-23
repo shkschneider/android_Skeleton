@@ -6,13 +6,16 @@ import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.SearchView;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
+import android.view.animation.AccelerateInterpolator;
+import android.widget.TextView;
 
-import me.shkschneider.app.MainApplication;
+import fr.castorflex.android.smoothprogressbar.SmoothProgressDrawable;
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
@@ -32,7 +35,7 @@ import me.shkschneider.skeleton.helper.StringHelper;
 public class SkeletonActivity extends ActionBarActivity {
 
     private boolean mAlive = false;
-    private boolean mLoading = false;
+    private ActionMode mActionMode = null;
     private String mSearchHint;
     private SearchCallback mSearchCallback = null; // Activated if not null
     private MenuItem mSearchMenuItem;
@@ -40,8 +43,6 @@ public class SkeletonActivity extends ActionBarActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // FIXME supportRequestWindowFeature(Window.FEATURE_ACTION_BAR);
-        // FIXME supportRequestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         // setContentView()
     }
 
@@ -119,21 +120,42 @@ public class SkeletonActivity extends ActionBarActivity {
         // supportInvalidateOptionsMenu();
     }
 
-    @Deprecated
     public boolean loading() {
-        return mLoading;
+        return (mActionMode != null);
     }
 
-    @Deprecated
     public void loading(final boolean b) {
-        final ActionBar actionBar = getSupportActionBar();
-        if (actionBar == null) {
-            LogHelper.warning("ActionBar was NULL");
-            return ;
-        }
+        if (b) {
+            mActionMode = startSupportActionMode(new ActionMode.Callback() {
+                @Override
+                public boolean onCreateActionMode(final ActionMode actionMode, final Menu menu) {
+                    final LayoutInflater layoutInflater = LayoutInflater.from(SkeletonActivity.this);
+                    final View view = layoutInflater.inflate(R.layout.loading, null);
+                    ((TextView) view.findViewById(R.id.title)).setText(getSupportActionBar().getTitle());
+                    actionMode.setCustomView(view);
+                    return true;
+                }
 
-        mLoading = b;
-        // FIXME setSupportProgressBarIndeterminateVisibility(mLoading);
+                @Override
+                public boolean onPrepareActionMode(final ActionMode actionMode, final Menu menu) {
+                    return false;
+                }
+
+                @Override
+                public boolean onActionItemClicked(final ActionMode actionMode, final MenuItem menuItem) {
+                    return false;
+                }
+
+                @Override
+                public void onDestroyActionMode(final ActionMode actionMode) {
+                    // Ignore
+                }
+            });
+        }
+        else if (mActionMode != null) {
+            mActionMode.finish();
+            mActionMode = null;
+        }
     }
 
     @Override

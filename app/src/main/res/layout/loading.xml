@@ -1,0 +1,25 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:paddingRight="16dp"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:layout_alignParentLeft="true"
+        android:id="@+id/title"
+        android:text="@null"
+        android:textSize="@dimen/textSizeMediumish"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="left|center_vertical" />
+
+    <fr.castorflex.android.circularprogressbar.CircularProgressBar
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:indeterminate="true" />
+
+</RelativeLayout>

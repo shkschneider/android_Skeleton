@@ -19,8 +19,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import fr.castorflex.android.circularprogressbar.CircularProgressBar;
-import fr.castorflex.android.circularprogressbar.CircularProgressDrawable;
 import me.shkschneider.app.R;
 import me.shkschneider.app.model.AndroidSdk;
 import me.shkschneider.skeleton.SkeletonFragment;
@@ -31,8 +29,6 @@ public class AndroidSdksFragment extends SkeletonFragment {
 
     private static final String URL = "https://dl-ssl.google.com/android/repository/repository-10.xml";
 
-    private CircularProgressBar mCircularProgressBar;
-    private ListView mListView;
     private ArrayAdapter<AndroidSdk> mAdapter;
 
     public AndroidSdksFragment() {
@@ -43,12 +39,7 @@ public class AndroidSdksFragment extends SkeletonFragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_listview, container, false);
 
-        mCircularProgressBar = (CircularProgressBar) view.findViewById(R.id.circularprogressbar);
-        mCircularProgressBar.setIndeterminateDrawable(new CircularProgressDrawable.Builder(skeletonActivity())
-                .color(getResources().getColor(R.color.blueLight))
-                .style(CircularProgressDrawable.Style.ROUNDED)
-                .build());
-        mListView = (ListView) view.findViewById(R.id.listview);
+        final ListView listView = (ListView) view.findViewById(R.id.listview);
         mAdapter = new ArrayAdapter<AndroidSdk>(skeletonActivity(), R.layout.listview_item2) {
             @Override
             public View getView(final int position, View convertView, final ViewGroup parent) {
@@ -63,14 +54,9 @@ public class AndroidSdksFragment extends SkeletonFragment {
                 return convertView;
             }
         };
-        mListView.setAdapter(mAdapter);
+        listView.setAdapter(mAdapter);
 
         return view;
-    }
-
-    private void loading(final boolean b) {
-        mCircularProgressBar.setVisibility((b ? View.VISIBLE : View.GONE));
-        mListView.setVisibility((b ? View.GONE : View.VISIBLE));
     }
 
     @Override
@@ -81,7 +67,7 @@ public class AndroidSdksFragment extends SkeletonFragment {
     }
 
     public void refresh() {
-        loading(true);
+        skeletonActivity().loading(true);
         Ion.with(this)
                 .load(URL)
                 .asInputStream()
@@ -89,7 +75,7 @@ public class AndroidSdksFragment extends SkeletonFragment {
                 .setCallback(new FutureCallback<Response<InputStream>>() {
                     @Override
                     public void onCompleted(final Exception e, final Response<InputStream> result) {
-                        loading(false);
+                        skeletonActivity().loading(false);
                         if (e != null) {
                             ActivityHelper.croutonRed(skeletonActivity(), e.getLocalizedMessage());
                             return ;
