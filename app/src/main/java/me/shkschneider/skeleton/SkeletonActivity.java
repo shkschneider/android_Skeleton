@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.TextView;
 
+import fr.castorflex.android.circularprogressbar.CircularProgressBar;
 import fr.castorflex.android.smoothprogressbar.SmoothProgressDrawable;
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
