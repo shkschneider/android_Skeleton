@@ -4,6 +4,11 @@ import android.support.v4.app.Fragment;
 
 import me.shkschneider.skeleton.helper.ClassHelper;
 
+/**
+ * title()
+ * title(String)
+ * skeletonActivity()
+ */
 public class SkeletonFragment extends Fragment {
 
     protected String mTitle;
@@ -12,12 +17,12 @@ public class SkeletonFragment extends Fragment {
         title(ClassHelper.name(SkeletonFragment.class));
     }
 
-    protected void title(final String title) {
-        mTitle = title;
-    }
-
     public String title() {
         return mTitle;
+    }
+
+    protected void title(final String title) {
+        mTitle = title;
     }
 
     public SkeletonActivity skeletonActivity() {

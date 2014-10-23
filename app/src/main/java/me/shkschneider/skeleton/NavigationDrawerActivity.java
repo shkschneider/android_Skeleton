@@ -6,31 +6,20 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.helper.LogHelper;
 
 public abstract class NavigationDrawerActivity extends SkeletonActivity {
 
-    private CharSequence mTitle;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private ListView mDrawerList;
-
-    @Override
-    public void setTitle(final CharSequence title) {
-        mTitle = title;
-        getSupportActionBar().setTitle(mTitle);
-    }
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -39,24 +28,9 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
         home(true);
         logo(false);
 
-        mTitle = getResources().getString(R.string.skeleton);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_drawerlayout);
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, android.R.string.ok, android.R.string.cancel) {
-            @Override
-            public void onDrawerClosed(final View drawerView) {
-                super.onDrawerClosed(drawerView);
-                setTitle(mTitle);
-                // supportInvalidateOptionsMenu();
-            }
-
-            @Override
-            public void onDrawerOpened(final View drawerView) {
-                super.onDrawerOpened(drawerView);
-                setTitle(mTitle);
-                // supportInvalidateOptionsMenu();
-            }
-        };
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, android.R.string.ok, android.R.string.cancel);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerList = (ListView) findViewById(R.id.drawer_listview);
         mDrawerList.setAdapter(getAdapter());
@@ -69,6 +43,13 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
         if (savedInstanceState == null) {
             navigationDrawer(0);
         }
+    }
+
+    @Override
+    protected void onPostCreate(final Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Fix for lower APIs: the ic_navigation_drawer drawable was not showed
+        mDrawerToggle.syncState();
     }
 
     @Override
@@ -96,7 +77,7 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
                 .commit();
         mDrawerList.setItemChecked(position, true);
         closeNavigationDrawer();
-        setTitle(getTitle(position));
+        title(getTitle(position));
         supportInvalidateOptionsMenu();
     }
 
@@ -114,12 +95,6 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
 
     public void closeNavigationDrawer() {
         mDrawerLayout.closeDrawer(mDrawerList);
-    }
-
-    @Override
-    protected void onPostCreate(final Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
     }
 
     @Override

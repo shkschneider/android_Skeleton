@@ -1,7 +1,6 @@
 package me.shkschneider.skeleton;
 
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -13,11 +12,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
 import android.widget.TextView;
 
-import fr.castorflex.android.circularprogressbar.CircularProgressBar;
-import fr.castorflex.android.smoothprogressbar.SmoothProgressDrawable;
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
@@ -28,11 +24,15 @@ import me.shkschneider.skeleton.helper.StringHelper;
 /**
  * boolean alive()
  * void home(boolean)
+ * void logo(boolean)
+ * void title(String)
+ * void title(CharSequence)
  * void searchable(String, SearchCallback)
- * boolean charging()
- * void charging(int)
  * boolean loading()
  * void loading(boolean)
+ * NavigationCallback:
+ * - void onHomeAsUpPressed()
+ * - void onBackPressed()
  */
 public class SkeletonActivity extends ActionBarActivity {
 
@@ -107,6 +107,23 @@ public class SkeletonActivity extends ActionBarActivity {
         }
 
         if (StringHelper.nullOrEmpty(title)) {
+            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setTitle(null);
+        }
+        else {
+            actionBar.setDisplayShowTitleEnabled(true);
+            actionBar.setTitle(title);
+        }
+    }
+
+    public void title(final CharSequence title) {
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar == null) {
+            LogHelper.warning("ActionBar was NULL");
+            return ;
+        }
+
+        if (title == null || title.length() == 0) {
             actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setTitle(null);
         }
