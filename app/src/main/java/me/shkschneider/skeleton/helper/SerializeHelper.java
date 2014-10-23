@@ -8,8 +8,6 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import me.shkschneider.skeleton.helper.LogHelper;
-
 public class SerializeHelper {
 
     public static boolean write(@NotNull final Object object, @NotNull final File file) {

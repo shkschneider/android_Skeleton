@@ -5,8 +5,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import me.shkschneider.app.MainApplication;
-import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.helper.StringHelper;
 
 public class SharedPreferencesHelper {
 

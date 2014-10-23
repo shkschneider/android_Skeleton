@@ -152,7 +152,7 @@ public class SkeletonActivity extends ActionBarActivity {
                 @Override
                 public boolean onCreateActionMode(final ActionMode actionMode, final Menu menu) {
                     final LayoutInflater layoutInflater = LayoutInflater.from(SkeletonActivity.this);
-                    final View view = layoutInflater.inflate(R.layout.loading, null);
+                    final View view = layoutInflater.inflate(R.layout.actionmode_loading, null);
                     ((TextView) view.findViewById(R.id.title)).setText(getSupportActionBar().getTitle());
                     actionMode.setCustomView(view);
                     return true;

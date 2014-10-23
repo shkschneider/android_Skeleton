@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.helper;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.view.Gravity;
+import android.view.View;
 import android.widget.Toast;
 
 import com.devspark.appmsg.AppMsg;
@@ -12,6 +13,10 @@ import org.jetbrains.annotations.NotNull;
 import me.shkschneider.app.MainApplication;
 
 public class ActivityHelper {
+
+    public static View contentView(@NotNull final Activity activity) {
+        return activity.getWindow().getDecorView().findViewById(android.R.id.content);
+    }
 
     public static void toast(@NotNull final String msg) {
         Toast.makeText(MainApplication.CONTEXT, msg, Toast.LENGTH_SHORT).show();

@@ -21,7 +21,6 @@ import java.util.Comparator;
 
 import me.shkschneider.app.R;
 import me.shkschneider.app.model.AndroidSdk;
-import me.shkschneider.skeleton.NavigationDrawerActivity;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.LogHelper;

@@ -14,10 +14,9 @@ import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.Response;
 
 import me.shkschneider.app.R;
-import me.shkschneider.skeleton.NavigationDrawerActivity;
+import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.GsonParser;
-import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.StringHelper;
 

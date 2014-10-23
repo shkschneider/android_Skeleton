@@ -14,14 +14,14 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import me.shkschneider.app.R;
 import me.shkschneider.app.fragment.AndroidSdksFragment;
 import me.shkschneider.app.fragment.ListViewFragment;
 import me.shkschneider.app.fragment.MainFragment;
 import me.shkschneider.app.fragment.NetworkFragment;
-import me.shkschneider.app.R;
-import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.NavigationDrawerActivity;
 import me.shkschneider.skeleton.SkeletonFragment;
+import me.shkschneider.skeleton.helper.IntentHelper;
 
 public class MainActivity extends NavigationDrawerActivity {
 

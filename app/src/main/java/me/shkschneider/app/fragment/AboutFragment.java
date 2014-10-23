@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.preference.Preference;
 
 import me.shkschneider.app.R;
+import me.shkschneider.skeleton.SkeletonPreferenceFragment;
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
-import me.shkschneider.skeleton.SkeletonPreferenceFragment;
 
 public class AboutFragment extends SkeletonPreferenceFragment {
 

@@ -9,13 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.ImageViewBitmapInfo;
 import com.koushikdutta.ion.Ion;
 
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.ImageManipulator;
-import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.SkeletonFragment;
+import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
 public class MainFragment extends SkeletonFragment {
