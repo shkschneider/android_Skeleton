@@ -51,6 +51,7 @@ public class ListViewFragment extends SkeletonFragment {
         };
         mAdapter.withSections(listView);
         listView.setAdapter(mAdapter);
+        listView.setFastScrollEnabled(true);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(final AdapterView<?> adapterView, final View view, final int position, final long id) {

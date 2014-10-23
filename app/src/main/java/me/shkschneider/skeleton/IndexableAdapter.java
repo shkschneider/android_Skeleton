@@ -109,6 +109,10 @@ public class IndexableAdapter<T> extends ArrayAdapter<T> implements SectionIndex
     }
 
     private void buildSections() {
+        if (! mIndexed) {
+            return ;
+        }
+
         mIndexes.clear();
         int offset = 0;
         for (int i = 0; i < super.getCount(); i++) {
@@ -169,6 +173,10 @@ public class IndexableAdapter<T> extends ArrayAdapter<T> implements SectionIndex
     // This class only generates header views
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
+        if (! mIndexed) {
+            return super.getView(position, convertView, parent);
+        }
+
         if (isSectionAtPosition(position)) {
             final int section = getSectionForPosition(position);
             final LayoutInflater layoutInflater = LayoutInflater.from(SkeletonApplication.CONTEXT);
