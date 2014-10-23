@@ -154,7 +154,7 @@ public class SkeletonActivity extends ActionBarActivity {
                 }
             });
         }
-        else if (mActionMode != null) {
+        else if (loading()) {
             mActionMode.finish();
             mActionMode = null;
         }

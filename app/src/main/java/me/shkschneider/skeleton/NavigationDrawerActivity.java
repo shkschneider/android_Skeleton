@@ -2,15 +2,19 @@ package me.shkschneider.skeleton;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.helper.LogHelper;
@@ -19,7 +23,6 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
 
     private CharSequence mTitle;
     private DrawerLayout mDrawerLayout;
-    // TODO FIXME ActionBarDrawerToggle deprecated
     private ActionBarDrawerToggle mDrawerToggle;
     private ListView mDrawerList;
 
@@ -36,24 +39,22 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
         home(true);
         logo(false);
 
-        // TODO FIXME NavigationDrawer not visible on API-17
         mTitle = getResources().getString(R.string.skeleton);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_drawerlayout);
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        // TODO FIXME ActionBarDrawerToggle deprecated
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_navigation_drawer, android.R.string.ok, android.R.string.cancel) {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, android.R.string.ok, android.R.string.cancel) {
             @Override
             public void onDrawerClosed(final View drawerView) {
                 super.onDrawerClosed(drawerView);
                 setTitle(mTitle);
-                supportInvalidateOptionsMenu();
+                // supportInvalidateOptionsMenu();
             }
 
             @Override
             public void onDrawerOpened(final View drawerView) {
                 super.onDrawerOpened(drawerView);
                 setTitle(mTitle);
-                supportInvalidateOptionsMenu();
+                // supportInvalidateOptionsMenu();
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -94,13 +95,25 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
                 .replace(R.id.drawer_framelayout, fragment)
                 .commit();
         mDrawerList.setItemChecked(position, true);
-        mDrawerLayout.closeDrawer(mDrawerList);
+        closeNavigationDrawer();
         setTitle(getTitle(position));
         supportInvalidateOptionsMenu();
     }
 
     public int navigationDrawer() {
         return mDrawerList.getCheckedItemPosition();
+    }
+
+    public boolean navigationDrawerOpened() {
+        return mDrawerLayout.isDrawerOpen(mDrawerList);
+    }
+
+    public void openNavigationDrawer() {
+        mDrawerLayout.openDrawer(mDrawerList);
+    }
+
+    public void closeNavigationDrawer() {
+        mDrawerLayout.closeDrawer(mDrawerList);
     }
 
     @Override
@@ -126,7 +139,7 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        mDrawerLayout.closeDrawer(mDrawerList);
+        closeNavigationDrawer();
     }
 
 }
