@@ -17,6 +17,14 @@ import org.jetbrains.annotations.NotNull;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
+/**
+ * Handles Bitmaps.
+ *
+ * - Bitmap from Drawable(Drawable)
+ * - Bitmap circular(Bitmap)
+ * - Bitmap rotate(Bitmap, float)
+ * - Bitmap fromView(View)
+ */
 public class ImageManipulator {
 
     @Deprecated

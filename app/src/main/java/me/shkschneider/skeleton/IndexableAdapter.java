@@ -20,8 +20,19 @@ import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.StringHelper;
 
 /**
- * Uses the toString() method of objects to index with configurable yet automatic sections.
- * @param <T> objects
+ * Intelligent ArrayAdapter that uses the toString() values of its items to automatically create sections in a ListView.
+ * Everything is handled internally so getItem(int) considers the (previous) sections offset and so forth.
+ * <br />
+ * The getView() method return a section's view or null if it's a regular item.
+ * It is then up to you to inflate the view of your items.
+ * <br />
+ * In such terms, yes, the recycling of the views is not really possible.
+ *
+ * - void withSections(ListView, String)
+ * - void withSections(ListView)
+ * - void withoutSections()
+ *
+ * @param <T> items
  */
 public class IndexableAdapter<T> extends ArrayAdapter<T> implements SectionIndexer {
 

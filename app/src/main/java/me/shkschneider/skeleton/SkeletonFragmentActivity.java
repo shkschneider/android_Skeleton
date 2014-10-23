@@ -6,6 +6,11 @@ import android.support.v4.app.Fragment;
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.helper.LogHelper;
 
+/**
+ * Base FragmentActivity you should use!
+ *
+ * - void setFragment(Fragment)
+ */
 public class SkeletonFragmentActivity extends SkeletonActivity {
 
     @Override

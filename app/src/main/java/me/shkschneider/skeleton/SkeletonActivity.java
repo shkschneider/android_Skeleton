@@ -22,15 +22,18 @@ import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.StringHelper;
 
 /**
- * boolean alive()
- * void home(boolean)
- * void logo(boolean)
- * void title(String)
- * void title(CharSequence)
- * void searchable(String, SearchCallback)
- * boolean loading()
- * void loading(boolean)
- * NavigationCallback:
+ * Base Activity you should use!
+ *
+ * - boolean alive()
+ * - void home(boolean)
+ * - void logo(boolean)
+ * - void title(String)
+ * - void title(CharSequence)
+ * - void searchable(String, SearchCallback)
+ * - boolean loading()
+ * - void loading(boolean)
+ *
+ * interface NavigationCallback
  * - void onHomeAsUpPressed()
  * - void onBackPressed()
  */

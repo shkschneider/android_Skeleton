@@ -22,7 +22,6 @@ import me.shkschneider.app.R;
 import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.NavigationDrawerActivity;
 import me.shkschneider.skeleton.SkeletonFragment;
-import me.shkschneider.skeleton.helper.SystemHelper;
 
 public class MainActivity extends NavigationDrawerActivity {
 
@@ -73,7 +72,7 @@ public class MainActivity extends NavigationDrawerActivity {
             @Override
             public View getView(final int position, View convertView, final ViewGroup parent) {
                 if (convertView == null) {
-                    final LayoutInflater layoutInflater = (LayoutInflater) SystemHelper.systemService(SystemHelper.SYSTEM_SERVICE_LAYOUT_INFLATER_SERVICE);
+                    final LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
                     convertView = layoutInflater.inflate(R.layout.listview_navigationdrawer_item, parent, false);
                 }
                 final TextView textView = ((TextView) convertView.findViewById(R.id.textview));

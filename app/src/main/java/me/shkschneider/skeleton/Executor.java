@@ -6,6 +6,9 @@ import java.util.concurrent.TimeUnit;
 
 import me.shkschneider.skeleton.helper.LogHelper;
 
+/**
+ * @TODO
+ */
 public class Executor {
 
     public static void delayRunnable(final Runnable runnable, final int amount, final TimeUnit timeUnit) {

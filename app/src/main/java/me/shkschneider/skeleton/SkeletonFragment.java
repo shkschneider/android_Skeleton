@@ -5,9 +5,11 @@ import android.support.v4.app.Fragment;
 import me.shkschneider.skeleton.helper.ClassHelper;
 
 /**
- * title()
- * title(String)
- * skeletonActivity()
+ * Base Fragment you should use!
+ *
+ * - String title()
+ * - void title(String)
+ * - SkeletonActivity skeletonActivity()
  */
 public class SkeletonFragment extends Fragment {
 

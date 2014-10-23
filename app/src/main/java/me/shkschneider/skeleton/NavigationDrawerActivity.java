@@ -15,6 +15,24 @@ import android.widget.ListView;
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.helper.LogHelper;
 
+/**
+ * This Activity handles everything needed for a NavigationDrawer in an Activity.
+ * You implements a few methods and this class will do the work for you.
+ *
+ * - ArrayAdapter getAdapter()
+ * - Fragment getFragment(int)
+ * - String getTitle(int)
+ *
+ * And of course the getView() method from the Adapter you will create.
+ * <br />
+ * This class also comes with some handy methods:
+ *
+ * - void navigationDrawer(int)
+ * - int navigationDrawer()
+ * - boolean navigationDrawerOpened()
+ * - openNavigationDrawer()
+ * - closeNavigationDrawer()
+ */
 public abstract class NavigationDrawerActivity extends SkeletonActivity {
 
     private DrawerLayout mDrawerLayout;

@@ -8,7 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 /**
- * skeletonActivity()
+ * Base PreferenceFragment you should use!
+ * This is the new way to present Settings in Android: using a (Preference)Fragment.
+ * This class also removes paddings of the ListView (that is not new-API-friendly).
+ *
+ * - skeletonActivity()
+ *
+ * @see me.shkschneider.skeleton.SkeletonFragmentActivity
  */
 public class SkeletonPreferenceFragment extends PreferenceFragment {
 
