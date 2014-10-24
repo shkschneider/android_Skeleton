@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -149,8 +150,9 @@ public class SkeletonActivity extends ActionBarActivity {
     }
 
     public void loading(final boolean b) {
-        if (b) {
+        if (b && ! loading()) {
             mActionMode = startSupportActionMode(new ActionMode.Callback() {
+                @SuppressLint("InflateParams") // inflater has no ViewGroup
                 @Override
                 public boolean onCreateActionMode(final ActionMode actionMode, final Menu menu) {
                     final LayoutInflater layoutInflater = LayoutInflater.from(SkeletonActivity.this);
@@ -176,7 +178,7 @@ public class SkeletonActivity extends ActionBarActivity {
                 }
             });
         }
-        else if (loading()) {
+        else if (! b && loading()) {
             mActionMode.finish();
             mActionMode = null;
         }
