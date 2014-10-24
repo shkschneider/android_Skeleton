@@ -8,4 +8,4 @@
     android:paddingRight="16dp"
     android:gravity="left|center_vertical"
     android:textStyle="bold"
-    android:textColor="@color/contentForegroundHighlightColor" />
+    android:textColor="@color/textHighlightColor" />

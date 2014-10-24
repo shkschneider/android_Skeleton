@@ -13,7 +13,7 @@
         android:gravity="left|bottom"
         android:minHeight="24dp"
         android:paddingTop="4dp"
-        android:textColor="@color/contentForegroundPrimaryColor" />
+        android:textColor="@color/textPrimaryColor" />
 
     <TextView
         android:id="@android:id/text2"
@@ -22,6 +22,6 @@
         android:gravity="left|top"
         android:minHeight="24dp"
         android:paddingBottom="4dp"
-        android:textColor="@color/contentForegroundSecondaryColor" />
+        android:textColor="@color/textSecondaryColor" />
 
 </LinearLayout>

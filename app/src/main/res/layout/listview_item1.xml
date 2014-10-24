@@ -9,4 +9,4 @@
     android:paddingTop="4dp"
     android:paddingBottom="4dp"
     android:gravity="left|center_vertical"
-    android:textColor="@color/contentForegroundPrimaryColor" />
+    android:textColor="@color/textPrimaryColor" />

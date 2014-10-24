@@ -1,8 +1,13 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="AppTheme" parent="@style/_AppTheme">
-        <item name="android:colorPrimaryDark">@color/actionBarBackgroundSecondaryColor</item>
-        <item name="android:navigationBarColor">@color/actionBarBackgroundSecondaryColor</item>
+        <!-- Material Design -->
+        <item name="android:colorPrimaryDark">@color/statusBarColor</item>
+        <item name="android:navigationBarColor">@color/navigationBarColor</item>
+        <item name="colorControlNormal">@color/scrollBarColor</item>
+        <item name="colorControlActivated">@color/widgetColor</item>
+        <item name="colorControlHighlight">@color/touchEventColor</item>
+        <item name="colorSwitchThumbNormal">@color/green</item>
     </style>
 
 </resources>
