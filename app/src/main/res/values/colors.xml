@@ -6,6 +6,7 @@
     <!-- Your theme is pretty much set now: the rest is optional tweaking -->
     <color name="statusBarColor">@color/secondaryColor</color> <!-- secondary or black -->
     <color name="navigationBarColor">@color/black</color> <!-- secondary or black -->
+    <!-- You should not have to edit anything below this line, but you can -->
     <color name="actionBarColor">@color/primaryColor</color>
     <color name="actionBarForegroundColor">@color/white</color>
     <color name="contentBackgroundColor">@color/white</color>
@@ -15,7 +16,6 @@
     <color name="scrollBarColor">@color/secondaryColor</color>
     <color name="widgetColor">@color/primaryColor</color>
     <color name="touchEventColor">@color/secondaryColor</color>
-    <!-- /Theme colors -->
 
     <!-- Material colors <http://www.google.com/design/spec/style/color.html#color-ui-color-palette> -->
     <color name="red">#e51c23</color>

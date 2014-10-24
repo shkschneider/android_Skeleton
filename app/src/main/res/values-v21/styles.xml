@@ -1,5 +1,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- API-21+ implementation -->
     <style name="AppTheme" parent="@style/_AppTheme">
         <!-- Material Design -->
         <item name="android:colorPrimaryDark">@color/statusBarColor</item>
@@ -8,6 +9,9 @@
         <item name="colorControlActivated">@color/widgetColor</item>
         <item name="colorControlHighlight">@color/touchEventColor</item>
         <item name="colorSwitchThumbNormal">@color/green</item>
+        <!-- ... -->
     </style>
+
+    <!-- ... -->
 
 </resources>

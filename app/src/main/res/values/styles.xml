@@ -1,25 +1,30 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Tweak for multiple implementations -->
     <style name="AppTheme" parent="@style/_AppTheme" />
 
+    <!-- Default implementation -->
     <style name="_AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
-        <!-- Material (thanks to AppCompat) -->
+        <!-- Material Design -->
         <item name="colorPrimary">@color/actionBarColor</item>
         <item name="colorAccent">@color/textHighlightColor</item>
-        <!-- Styles -->
-        <item name="actionBarStyle">@style/AppTheme.ActionBarStyle</item>
-        <item name="actionModeStyle">@style/AppTheme.ActionModeStyle</item>
         <!-- Android -->
         <item name="android:windowBackground">@color/contentBackgroundColor</item>
         <item name="android:textColorPrimary">@color/textPrimaryColor</item>
         <item name="android:textColorSecondary">@color/textSecondaryColor</item>
+        <!-- Custom styles -->
+        <item name="actionBarStyle">@style/AppTheme.ActionBarStyle</item>
+        <item name="actionModeStyle">@style/AppTheme.ActionModeStyle</item>
         <!-- ... -->
     </style>
 
+    <!-- Material Design -->
     <style name="AppTheme.ActionBarStyle" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse" />
 
     <style name="AppTheme.ActionModeStyle" parent="@style/AppTheme.ActionBarStyle">
         <item name="background">@color/actionBarColor</item>
     </style>
+
+    <!-- ... -->
 
 </resources>
