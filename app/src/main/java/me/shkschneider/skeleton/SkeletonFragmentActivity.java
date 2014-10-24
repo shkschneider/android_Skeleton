@@ -10,6 +10,8 @@ import me.shkschneider.skeleton.helper.LogHelper;
  * Base FragmentActivity you should use!
  *
  * - void setFragment(Fragment)
+ *
+ * @see me.shkschneider.skeleton.SkeletonActivity
  */
 public class SkeletonFragmentActivity extends SkeletonActivity {
 

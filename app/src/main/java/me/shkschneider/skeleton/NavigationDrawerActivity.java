@@ -32,6 +32,8 @@ import me.shkschneider.skeleton.helper.LogHelper;
  * - boolean navigationDrawerOpened()
  * - openNavigationDrawer()
  * - closeNavigationDrawer()
+ *
+ * @see me.shkschneider.skeleton.SkeletonActivity
  */
 public abstract class NavigationDrawerActivity extends SkeletonActivity {
 

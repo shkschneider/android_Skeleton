@@ -6,7 +6,9 @@ import android.content.Context;
 /**
  * Base Application you should use!
  *
- * Context CONTEXT
+ * - Context CONTEXT
+ *
+ * @see android.app.Application
  */
 public class SkeletonApplication extends Application {
 

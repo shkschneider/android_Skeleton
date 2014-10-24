@@ -7,9 +7,12 @@ import me.shkschneider.skeleton.helper.ClassHelper;
 /**
  * Base Fragment you should use!
  *
+ * - boolean alive()
  * - String title()
  * - void title(String)
  * - SkeletonActivity skeletonActivity()
+ *
+ * @see android.support.v4.app.Fragment
  */
 public class SkeletonFragment extends Fragment {
 
@@ -17,6 +20,10 @@ public class SkeletonFragment extends Fragment {
 
     public SkeletonFragment() {
         title(ClassHelper.name(SkeletonFragment.class));
+    }
+
+    public boolean alive() {
+        return isVisible();
     }
 
     public String title() {

@@ -7,7 +7,9 @@ import java.util.concurrent.TimeUnit;
 import me.shkschneider.skeleton.helper.LogHelper;
 
 /**
- * @TODO
+ * Handles and executes Runnables in different ways.
+ *
+ * @see java.lang.Runnable
  */
 public class Executor {
 

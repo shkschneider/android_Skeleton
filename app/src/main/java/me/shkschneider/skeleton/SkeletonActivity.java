@@ -36,6 +36,8 @@ import me.shkschneider.skeleton.helper.StringHelper;
  * interface NavigationCallback
  * - void onHomeAsUpPressed()
  * - void onBackPressed()
+ *
+ * @see android.support.v7.app.ActionBarActivity
  */
 public class SkeletonActivity extends ActionBarActivity {
 

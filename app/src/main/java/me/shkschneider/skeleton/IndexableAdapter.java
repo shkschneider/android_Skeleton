@@ -33,6 +33,8 @@ import me.shkschneider.skeleton.helper.StringHelper;
  * - void withoutSections()
  *
  * @param <T> items
+ * @see android.widget.ArrayAdapter
+ * @see android.widget.SectionIndexer
  */
 public class IndexableAdapter<T> extends ArrayAdapter<T> implements SectionIndexer {
 

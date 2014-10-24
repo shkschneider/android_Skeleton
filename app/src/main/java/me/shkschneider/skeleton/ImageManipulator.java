@@ -24,6 +24,8 @@ import me.shkschneider.skeleton.helper.LogHelper;
  * - Bitmap circular(Bitmap)
  * - Bitmap rotate(Bitmap, float)
  * - Bitmap fromView(View)
+ *
+ * @see android.graphics.Bitmap
  */
 public class ImageManipulator {
 
