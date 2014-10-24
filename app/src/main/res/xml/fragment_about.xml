@@ -2,7 +2,18 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
-    <PreferenceCategory android:title="@string/skeleton">
+    <PreferenceCategory
+        android:title="@string/skeleton">
+
+        <SwitchPreference
+            android:title="title"
+            android:summary="summary" />
+
+        <Preference
+            android:key="notifications"
+            android:selectable="true"
+            android:title="@null"
+            android:summary="@null" />
 
         <Preference
             android:key="app_package"
@@ -24,7 +35,8 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/os">
+    <PreferenceCategory
+        android:title="@string/os">
 
         <Preference
             android:key="os_version"

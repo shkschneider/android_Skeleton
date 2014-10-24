@@ -7,6 +7,7 @@ import me.shkschneider.app.R;
 import me.shkschneider.skeleton.SkeletonPreferenceFragment;
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
+import me.shkschneider.skeleton.helper.IntentHelper;
 
 public class AboutFragment extends SkeletonPreferenceFragment {
 
@@ -16,6 +17,16 @@ public class AboutFragment extends SkeletonPreferenceFragment {
         addPreferencesFromResource(R.xml.fragment_about);
 
         // Application
+
+        final Preference notifications = findPreference("notifications");
+        notifications.setTitle("notifications");
+        notifications.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(final Preference preference) {
+                startActivity(IntentHelper.settings());
+                return true;
+            }
+        });
 
         final Preference appPackage = findPreference("app_package");
         appPackage.setTitle("packageName");

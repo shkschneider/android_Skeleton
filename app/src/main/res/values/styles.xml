@@ -12,6 +12,8 @@
         <item name="actionModeStyle">@style/AppTheme.ActionModeStyle</item>
         <item name="android:actionBarTabTextStyle">@style/AppTheme.ActionBarTabTextStyle</item>
         <item name="actionBarTabTextStyle">@style/AppTheme.ActionBarTabTextStyle</item>
+
+        <item name="android:preferenceCategoryStyle">@style/AppTheme.Preference.Category</item>
     </style>
 
     <style name="AppTheme.ActionBarStyle" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
@@ -26,6 +28,12 @@
 
     <style name="AppTheme.ActionBarTabTextStyle" parent="@style/Widget.AppCompat.Light.ActionBar.TabText">
         <item name="android:textColor">@color/actionBarForegroundColor</item>
+    </style>
+
+    <style name="AppTheme.Preference.Category" parent="AppTheme">
+        <item name="android:layout">@layout/preference_category</item>
+        <item name="android:shouldDisableView">false</item>
+        <item name="android:selectable">false</item>
     </style>
 
 </resources>
