@@ -36,15 +36,15 @@ public class AndroidSdksFragment extends SkeletonFragment {
     }
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_listview, container, false);
+    public void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        final ListView listView = (ListView) view.findViewById(R.id.listview);
+        final LayoutInflater layoutInflater = LayoutInflater.from(skeletonActivity());
         mAdapter = new ArrayAdapter<AndroidSdk>(skeletonActivity(), R.layout.listview_item2) {
             @Override
             public View getView(final int position, View convertView, final ViewGroup parent) {
                 if (convertView == null) {
-                    convertView = inflater.inflate(R.layout.listview_item2, parent, false);
+                    convertView = layoutInflater.inflate(R.layout.listview_item2, parent, false);
                 }
                 final AndroidSdk androidSdk = getItem(position);
                 final String string1 = String.format("Android %s", androidSdk.version);
@@ -54,16 +54,15 @@ public class AndroidSdksFragment extends SkeletonFragment {
                 return convertView;
             }
         };
-        listView.setAdapter(mAdapter);
-
-        return view;
+        refresh();
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-        refresh();
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.fragment_listview, container, false);
+        final ListView listView = (ListView) view.findViewById(R.id.listview);
+        listView.setAdapter(mAdapter);
+        return view;
     }
 
     public void refresh() {

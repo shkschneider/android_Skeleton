@@ -39,6 +39,7 @@ import me.shkschneider.skeleton.helper.StringHelper;
  * - void onBackPressed()
  *
  * @see android.support.v7.app.ActionBarActivity
+ * @see <http://developer.android.com/training/basics/activity-lifecycle/starting.html#lifecycle-states>
  */
 public class SkeletonActivity extends ActionBarActivity {
 

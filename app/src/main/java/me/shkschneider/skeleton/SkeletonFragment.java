@@ -13,6 +13,7 @@ import me.shkschneider.skeleton.helper.ClassHelper;
  * - SkeletonActivity skeletonActivity()
  *
  * @see android.support.v4.app.Fragment
+ * @see <http://developer.android.com/guide/components/fragments.html#Creating>
  */
 public class SkeletonFragment extends Fragment {
 

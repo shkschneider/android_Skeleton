@@ -17,7 +17,6 @@ import java.util.Locale;
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.IndexableAdapter;
 import me.shkschneider.skeleton.SkeletonActivity;
-import me.shkschneider.skeleton.SkeletonApplication;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.StringHelper;
@@ -31,34 +30,23 @@ public class ListViewFragment extends SkeletonFragment {
     }
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        setHasOptionsMenu(true);
+    public void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        final View view = inflater.inflate(R.layout.fragment_listview, container, false);
-
-        final ListView listView = (ListView) view.findViewById(R.id.listview);
+        final LayoutInflater layoutInflater = LayoutInflater.from(skeletonActivity());
         mAdapter = new IndexableAdapter<String>(skeletonActivity(), R.layout.listview_item1) {
             @Override
             public View getView(final int position, final View convertView, final ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);
                 if (view == null) {
-                    final LayoutInflater layoutInflater = LayoutInflater.from(SkeletonApplication.CONTEXT);
                     view = layoutInflater.inflate(R.layout.listview_item1, parent, false);
                     ((TextView) view.findViewById(android.R.id.text1)).setText(getItem(position));
                 }
                 return view;
             }
         };
-        mAdapter.withSections(listView);
-        listView.setAdapter(mAdapter);
-        listView.setFastScrollEnabled(true);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(final AdapterView<?> adapterView, final View view, final int position, final long id) {
-                ActivityHelper.toast(mAdapter.getItem(position));
-            }
-        });
 
+        setHasOptionsMenu(true);
         skeletonActivity().searchable(getResources().getString(R.string.dots), new SkeletonActivity.SearchCallback() {
             @Override
             public void onSearchTextChange(final String q) {
@@ -70,15 +58,23 @@ public class ListViewFragment extends SkeletonFragment {
                 // Ignore
             }
         });
-
-        return view;
+        refresh(null);
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-
-        refresh(null);
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
+        final View view = inflater.inflate(R.layout.fragment_listview, container, false);
+        final ListView listView = (ListView) view.findViewById(R.id.listview);
+        mAdapter.withSections(listView);
+        listView.setAdapter(mAdapter);
+        listView.setFastScrollEnabled(true);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(final AdapterView<?> adapterView, final View view, final int position, final long id) {
+                ActivityHelper.toast(mAdapter.getItem(position));
+            }
+        });
+        return view;
     }
 
     public void refresh(final String q) {
