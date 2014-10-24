@@ -1,11 +1,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="AppTheme" parent="@style/_AppTheme">
-        <item name="android:colorPrimary">@color/actionBarBackgroundPrimaryColor</item>
         <item name="android:colorPrimaryDark">@color/actionBarBackgroundSecondaryColor</item>
-        <item name="android:windowBackground">@color/contentBackgroundColor</item>
-        <item name="android:textColorPrimary">@color/contentForegroundPrimaryColor</item>
-        <item name="android:textColorSecondary">@color/contentForegroundSecondaryColor</item>
         <item name="android:navigationBarColor">@color/actionBarBackgroundSecondaryColor</item>
     </style>
 

@@ -14,4 +14,9 @@ public class AndroidSdk {
                 && ! StringHelper.nullOrEmpty(revision));
     }
 
+    @Override
+    public String toString() {
+        return String.format("Android %s", version);
+    }
+
 }

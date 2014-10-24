@@ -18,6 +18,8 @@ public class AboutFragment extends SkeletonPreferenceFragment {
 
         // Application
 
+        // TODO SwitchCompat
+
         final Preference notifications = findPreference("notifications");
         notifications.setTitle("notifications");
         notifications.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {

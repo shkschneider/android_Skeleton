@@ -6,8 +6,8 @@
         android:title="@string/skeleton">
 
         <SwitchPreference
-            android:title="title"
-            android:summary="summary" />
+            android:title="Switch"
+            android:summary="@null" />
 
         <Preference
             android:key="notifications"

@@ -46,6 +46,11 @@ public class NetworkFragment extends SkeletonFragment {
                 ((TextView) convertView.findViewById(android.R.id.text2)).setText(string2);
                 return convertView;
             }
+
+            @Override
+            public boolean areAllItemsEnabled() {
+                return false;
+            }
         };
         refresh();
     }

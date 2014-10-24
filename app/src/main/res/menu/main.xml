@@ -1,7 +1,9 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/menu_about"
+    <item
+        android:id="@+id/menu_about"
         android:title="@null"
         android:icon="@android:drawable/ic_menu_info_details"
         android:orderInCategory="1"

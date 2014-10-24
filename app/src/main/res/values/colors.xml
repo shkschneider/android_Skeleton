@@ -1,13 +1,15 @@
 <resources>
 
     <!-- Theme colors -->
-    <color name="actionBarBackgroundPrimaryColor">@color/blueDark</color> <!-- dark -->
-    <color name="actionBarBackgroundSecondaryColor">@color/blueLight</color> <!-- light -->
-    <color name="actionBarForegroundColor">@color/white</color>
+    <color name="actionBarBackgroundPrimaryColor">@color/blueDark</color> <!-- darker tone -->
+    <color name="actionBarBackgroundSecondaryColor">@color/blueLight</color> <!-- lighter tone or black -->
+    <color name="actionBarForegroundColor">@color/white</color> <!-- most likely white or black -->
+    <!-- You should not need to edit anything below this line -->
     <color name="contentBackgroundColor">@color/white</color>
     <color name="contentForegroundPrimaryColor">@color/black</color>
     <color name="contentForegroundSecondaryColor">@color/grey</color>
-    <color name="contentForegroundHighlightColor">@color/actionBarBackgroundSecondaryColor</color>
+    <color name="contentForegroundHighlightColor">@color/actionBarBackgroundPrimaryColor</color>
+    <!-- /Theme colors -->
 
     <!-- Material colors <http://www.google.com/design/spec/style/color.html#color-ui-color-palette> -->
     <color name="red">#e51c23</color>

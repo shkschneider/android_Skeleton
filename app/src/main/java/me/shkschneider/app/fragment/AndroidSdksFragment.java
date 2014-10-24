@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -53,6 +54,11 @@ public class AndroidSdksFragment extends SkeletonFragment {
                 ((TextView) convertView.findViewById(android.R.id.text2)).setText(string2);
                 return convertView;
             }
+
+            @Override
+            public boolean areAllItemsEnabled() {
+                return true;
+            }
         };
         refresh();
     }
@@ -62,6 +68,12 @@ public class AndroidSdksFragment extends SkeletonFragment {
         final View view = inflater.inflate(R.layout.fragment_listview, container, false);
         final ListView listView = (ListView) view.findViewById(R.id.listview);
         listView.setAdapter(mAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(final AdapterView<?> adapterView, final View view, final int position, final long id) {
+                ActivityHelper.toast(mAdapter.getItem(position).toString());
+            }
+        });
         return view;
     }
 
