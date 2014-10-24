@@ -51,6 +51,11 @@ public class NetworkFragment extends SkeletonFragment {
             public boolean areAllItemsEnabled() {
                 return false;
             }
+
+            @Override
+            public boolean isEnabled(final int position) {
+                return false;
+            }
         };
         refresh();
     }

@@ -44,6 +44,11 @@ public class ListViewFragment extends SkeletonFragment {
                 }
                 return view;
             }
+
+            @Override
+            public boolean areAllItemsEnabled() {
+                return true;
+            }
         };
 
         setHasOptionsMenu(true);
