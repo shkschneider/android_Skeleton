@@ -9,8 +9,8 @@
         android:layout_alignParentLeft="true"
         android:id="@+id/title"
         android:text="@null"
+        android:textColor="@color/actionBarForegroundColor"
         android:textSize="@dimen/textSizeMediumish"
-        android:textColor="@color/white"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="left|center_vertical" />
@@ -21,6 +21,6 @@
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:indeterminate="true"
-        app:cpb_color="@color/white" />
+        app:cpb_color="@color/actionBarForegroundColor" />
 
 </RelativeLayout>

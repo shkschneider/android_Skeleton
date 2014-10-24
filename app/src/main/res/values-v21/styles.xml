@@ -1,17 +1,12 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:colorPrimary">@color/blueLight</item>
-        <item name="android:colorPrimaryDark">@color/blueDark</item>
-
-        <item name="android:actionBarStyle">@style/AppTheme.ActionBarStyle</item>
-        <item name="actionBarStyle">@style/AppTheme.ActionBarStyle</item>
-        <item name="android:actionModeStyle">@style/AppTheme.ActionModeStyle</item>
-        <item name="actionModeStyle">@style/AppTheme.ActionModeStyle</item>
-        <item name="android:actionBarTabTextStyle">@style/AppTheme.ActionBarTabTextStyle</item>
-        <item name="actionBarTabTextStyle">@style/AppTheme.ActionBarTabTextStyle</item>
-        <item name="android:actionMenuTextColor">@color/white</item>
-        <item name="actionMenuTextColor">@color/white</item>
+    <style name="AppTheme" parent="@style/_AppTheme">
+        <item name="android:colorPrimary">@color/actionBarBackgroundPrimaryColor</item>
+        <item name="android:colorPrimaryDark">@color/actionBarBackgroundSecondaryColor</item>
+        <item name="android:windowBackground">@color/contentBackgroundColor</item>
+        <item name="android:textColorPrimary">@color/contentForegroundPrimaryColor</item>
+        <item name="android:textColorSecondary">@color/contentForegroundSecondaryColor</item>
+        <item name="android:navigationBarColor">@color/actionBarBackgroundSecondaryColor</item>
     </style>
 
 </resources>

@@ -78,10 +78,10 @@ public class MainActivity extends NavigationDrawerActivity {
                 final TextView textView = ((TextView) convertView.findViewById(R.id.textview));
                 textView.setText(getTitle(position));
                 if (position == navigationDrawer()) {
-                    textView.setTextColor(getResources().getColor(R.color.blueDark));
+                    textView.setTextColor(getResources().getColor(R.color.contentForegroundHighlightColor));
                 }
                 else {
-                    textView.setTextColor(getResources().getColor(R.color.black));
+                    textView.setTextColor(getResources().getColor(R.color.contentForegroundPrimaryColor));
                 }
                 return convertView;
             }

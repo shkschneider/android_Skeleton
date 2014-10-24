@@ -8,13 +8,12 @@
 
     <TextView
         android:id="@android:id/text1"
-        android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="left|bottom"
         android:minHeight="24dp"
         android:paddingTop="4dp"
-        android:textColor="@color/black" />
+        android:textColor="@color/contentForegroundPrimaryColor" />
 
     <TextView
         android:id="@android:id/text2"
@@ -23,6 +22,6 @@
         android:gravity="left|top"
         android:minHeight="24dp"
         android:paddingBottom="4dp"
-        android:textColor="@color/black" />
+        android:textColor="@color/contentForegroundSecondaryColor" />
 
 </LinearLayout>
