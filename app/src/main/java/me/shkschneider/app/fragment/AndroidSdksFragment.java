@@ -21,10 +21,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 import me.shkschneider.app.R;
-import me.shkschneider.app.model.AndroidSdk;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.StringHelper;
 
 public class AndroidSdksFragment extends SkeletonFragment {
 
@@ -161,6 +161,25 @@ public class AndroidSdksFragment extends SkeletonFragment {
                         }
                     }
                 });
+    }
+
+    private class AndroidSdk {
+
+        public String version;
+        public String apiLevel;
+        public String revision;
+
+        public boolean valid() {
+            return (! StringHelper.nullOrEmpty(version)
+                    && ! StringHelper.nullOrEmpty(apiLevel)
+                    && ! StringHelper.nullOrEmpty(revision));
+        }
+
+        @Override
+        public String toString() {
+            return String.format("Android %s", version);
+        }
+
     }
 
 }
