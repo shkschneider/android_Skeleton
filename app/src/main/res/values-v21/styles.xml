@@ -9,6 +9,8 @@
         <item name="colorControlActivated">@color/widgetColor</item>
         <item name="colorControlHighlight">@color/touchEventColor</item>
         <item name="colorSwitchThumbNormal">@color/green</item>
+        <!-- Android -->
+        <item name="android:windowContentOverlay">@null</item>
         <!-- ... -->
     </style>
 

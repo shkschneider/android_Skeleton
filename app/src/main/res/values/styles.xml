@@ -25,6 +25,17 @@
         <item name="background">@color/actionBarColor</item>
     </style>
 
+    <!-- Android -->
+
+    <style name="AppTheme.PagerTabStrip">
+        <item name="android:paddingTop">@dimen/spaceTiny</item>
+        <item name="android:paddingBottom">@dimen/spaceTiny</item>
+        <item name="android:textSize">@dimen/textSizeSmallish</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@color/primaryColor</item>
+        <item name="android:textColor">@color/actionBarForegroundColor</item>
+    </style>
+
     <!-- ... -->
 
 </resources>

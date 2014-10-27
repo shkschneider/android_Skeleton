@@ -9,7 +9,8 @@
     <!-- You should not have to edit anything below this line, but you can -->
     <color name="actionBarColor">@color/primaryColor</color>
     <color name="actionBarForegroundColor">@color/white</color>
-    <color name="contentBackgroundColor">@android:color/background_light</color>
+    <color name="contentBackgroundColor">@color/background</color>
+    <color name="cellBackgroundColor">@color/white</color>
     <color name="navigationDrawerBackgroundColor">@color/white</color>
     <color name="textPrimaryColor">@color/black</color>
     <color name="textSecondaryColor">@color/grey</color>
@@ -54,6 +55,7 @@
     <!-- Android colors <http://developer.android.com/reference/android/graphics/Color.html> -->
     <color name="black">@android:color/black</color>
     <color name="white">@android:color/white</color>
+    <color name="background">#eeffffff</color>
     <color name="transparent">@android:color/transparent</color>
 
 </resources>

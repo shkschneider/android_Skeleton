@@ -2,6 +2,7 @@
 
     <dimen name="actionBar">56dp</dimen> <!-- used to be 48 < API-21 -->
 
+    <dimen name="spaceNull">0dp</dimen>
     <dimen name="spacePico">2dp</dimen>
     <dimen name="spaceMicro">4dp</dimen>
     <dimen name="spaceTiny">8dp</dimen>

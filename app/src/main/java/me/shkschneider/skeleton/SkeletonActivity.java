@@ -43,6 +43,7 @@ import me.shkschneider.skeleton.helper.StringHelper;
  */
 public class SkeletonActivity extends ActionBarActivity {
 
+    private CharSequence mTitle;
     private boolean mAlive = false;
     private ActionMode mActionMode = null;
     private String mSearchHint;
@@ -53,6 +54,7 @@ public class SkeletonActivity extends ActionBarActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // setContentView()
+        mTitle = null;
     }
 
     @Override
@@ -107,6 +109,7 @@ public class SkeletonActivity extends ActionBarActivity {
     }
 
     public void title(final String title) {
+        mTitle = title;
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar == null) {
             LogHelper.warning("ActionBar was NULL");
@@ -124,6 +127,7 @@ public class SkeletonActivity extends ActionBarActivity {
     }
 
     public void title(final CharSequence title) {
+        mTitle = title;
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar == null) {
             LogHelper.warning("ActionBar was NULL");
@@ -138,6 +142,10 @@ public class SkeletonActivity extends ActionBarActivity {
             actionBar.setDisplayShowTitleEnabled(true);
             actionBar.setTitle(title);
         }
+    }
+
+    public String title() {
+        return (String) mTitle;
     }
 
     public void searchable(final String hint, final SearchCallback searchCallback) {
