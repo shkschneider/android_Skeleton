@@ -61,7 +61,7 @@ dependencies {
     // compile 'com.android.support:gridlayout-v7:21.+'
     // compile 'com.android.support:mediarouter-v7:21.+'
     // compile 'com.android.support:palette-v7:21.+'
-    // compile 'com.android.support:recyclerview-v7:21.+'
+    compile 'com.android.support:recyclerview-v7:21.+'
 
     // compile 'com.github.castorflex.smoothprogressbar:library:+'
     compile 'com.github.castorflex.smoothprogressbar:library-circular:+'

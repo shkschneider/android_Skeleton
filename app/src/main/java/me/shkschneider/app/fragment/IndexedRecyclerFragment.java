@@ -1,12 +1,11 @@
 package me.shkschneider.app.fragment;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,41 +14,24 @@ import java.util.List;
 import java.util.Locale;
 
 import me.shkschneider.app.R;
-import me.shkschneider.skeleton.IndexableAdapter;
+import me.shkschneider.skeleton.adapter.IndexedRecyclerAdapter;
 import me.shkschneider.skeleton.SkeletonActivity;
 import me.shkschneider.skeleton.SkeletonFragment;
-import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.StringHelper;
 
-public class ListViewFragment extends SkeletonFragment {
+public class IndexedRecyclerFragment extends SkeletonFragment {
 
-    private IndexableAdapter<String> mAdapter;
+    private IndexedRecyclerAdapter mAdapter;
 
-    public ListViewFragment() {
-        title("ListView");
+    public IndexedRecyclerFragment() {
+        title("IndexedRecycler");
     }
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final LayoutInflater layoutInflater = LayoutInflater.from(skeletonActivity());
-        mAdapter = new IndexableAdapter<String>(skeletonActivity(), R.layout.listview_item1) {
-            @Override
-            public View getView(final int position, final View convertView, final ViewGroup parent) {
-                View view = super.getView(position, convertView, parent);
-                if (view == null) {
-                    view = layoutInflater.inflate(R.layout.listview_item1, parent, false);
-                    ((TextView) view.findViewById(android.R.id.text1)).setText(getItem(position));
-                }
-                return view;
-            }
-
-            @Override
-            public boolean areAllItemsEnabled() {
-                return true;
-            }
-        };
+        mAdapter = new IndexedRecyclerAdapter();
 
         setHasOptionsMenu(true);
         skeletonActivity().searchable(getResources().getString(R.string.dots), new SkeletonActivity.SearchCallback() {
@@ -68,17 +50,12 @@ public class ListViewFragment extends SkeletonFragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_listview, container, false);
-        final ListView listView = (ListView) view.findViewById(R.id.listview);
-        mAdapter.withSections(listView);
-        listView.setAdapter(mAdapter);
-        listView.setFastScrollEnabled(true);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(final AdapterView<?> adapterView, final View view, final int position, final long id) {
-                ActivityHelper.toast(mAdapter.getItem(position));
-            }
-        });
+        final View view = inflater.inflate(R.layout.fragment_indexedrecyclerview, container, false);
+        final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        recyclerView.setHasFixedSize(true);
+        final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(skeletonActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(mAdapter);
         return view;
     }
 

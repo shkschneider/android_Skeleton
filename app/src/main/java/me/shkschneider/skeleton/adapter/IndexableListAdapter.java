@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton;
+package me.shkschneider.skeleton.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import me.shkschneider.app.R;
+import me.shkschneider.skeleton.SkeletonApplication;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.StringHelper;
 
@@ -36,7 +37,7 @@ import me.shkschneider.skeleton.helper.StringHelper;
  * @see android.widget.ArrayAdapter
  * @see android.widget.SectionIndexer
  */
-public class IndexableAdapter<T> extends ArrayAdapter<T> implements SectionIndexer {
+public class IndexableListAdapter<T> extends ArrayAdapter<T> implements SectionIndexer {
 
     private boolean mIndexed = true;
     private String mSections = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -44,27 +45,27 @@ public class IndexableAdapter<T> extends ArrayAdapter<T> implements SectionIndex
 
     // Constructors
 
-    public IndexableAdapter(final Context context, final int resource) {
+    public IndexableListAdapter(final Context context, final int resource) {
         super(context, resource);
     }
 
-    public IndexableAdapter(final Context context, final int resource, final int textViewResourceId) {
+    public IndexableListAdapter(final Context context, final int resource, final int textViewResourceId) {
         super(context, resource, textViewResourceId);
     }
 
-    public IndexableAdapter(final Context context, final int resource, final T[] objects) {
+    public IndexableListAdapter(final Context context, final int resource, final T[] objects) {
         super(context, resource, objects);
     }
 
-    public IndexableAdapter(final Context context, final int resource, final int textViewResourceId, final T[] objects) {
+    public IndexableListAdapter(final Context context, final int resource, final int textViewResourceId, final T[] objects) {
         super(context, resource, textViewResourceId, objects);
     }
 
-    public IndexableAdapter(final Context context, final int resource, final List<T> objects) {
+    public IndexableListAdapter(final Context context, final int resource, final List<T> objects) {
         super(context, resource, objects);
     }
 
-    public IndexableAdapter(final Context context, final int resource, final int textViewResourceId, final List<T> objects) {
+    public IndexableListAdapter(final Context context, final int resource, final int textViewResourceId, final List<T> objects) {
         super(context, resource, textViewResourceId, objects);
     }
 
