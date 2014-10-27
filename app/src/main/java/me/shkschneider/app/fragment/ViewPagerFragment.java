@@ -132,10 +132,11 @@ public class ViewPagerFragment extends SkeletonFragment {
         }
 
         public void refresh() {
-            final int n = 2 * getArguments().getInt(POSITION);
+            final int position = getArguments().getInt(POSITION);
+            final int n = 10 * position;
             mAdapter.clear();
             for (int i = 0; i < n; i++) {
-                mAdapter.add(StringHelper.random(n));
+                mAdapter.add(String.format("%d#%02d-%s", position, (i + 1), StringHelper.random(n)));
             }
             mAdapter.notifyDataSetChanged();
         }
