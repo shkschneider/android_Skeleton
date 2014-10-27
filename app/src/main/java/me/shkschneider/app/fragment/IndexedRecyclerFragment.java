@@ -50,7 +50,7 @@ public class IndexedRecyclerFragment extends SkeletonFragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_indexedrecyclerview, container, false);
+        final View view = inflater.inflate(R.layout.fragment_recyclerview, container, false);
         final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
         final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(skeletonActivity());

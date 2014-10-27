@@ -68,7 +68,7 @@ public class IndexableListFragment extends SkeletonFragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_indexablelistview, container, false);
+        final View view = inflater.inflate(R.layout.fragment_listview, container, false);
         final ListView listView = (ListView) view.findViewById(R.id.listview);
         mAdapter.withSections(listView);
         listView.setAdapter(mAdapter);
