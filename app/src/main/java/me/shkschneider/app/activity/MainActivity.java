@@ -56,6 +56,10 @@ public class MainActivity extends NavigationDrawerActivity {
             startActivity(AboutActivity.getInstance(MainActivity.this));
             return true;
         }
+        if (item.getItemId() == R.id.menu_settings) {
+            startActivity(SettingsActivity.getInstance(MainActivity.this));
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 

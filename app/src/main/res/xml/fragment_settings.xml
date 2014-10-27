@@ -1,0 +1,16 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <SwitchPreference
+        android:key="switch"
+        android:title="Switch"
+        android:summary="@null" />
+
+    <Preference
+        android:key="notifications"
+        android:selectable="true"
+        android:title="@null"
+        android:summary="@null" />
+
+</PreferenceScreen>

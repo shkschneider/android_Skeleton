@@ -5,16 +5,6 @@
     <PreferenceCategory
         android:title="@string/skeleton">
 
-        <SwitchPreference
-            android:title="Switch"
-            android:summary="@null" />
-
-        <Preference
-            android:key="notifications"
-            android:selectable="true"
-            android:title="@null"
-            android:summary="@null" />
-
         <Preference
             android:key="app_package"
             android:selectable="false"

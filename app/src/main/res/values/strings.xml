@@ -9,8 +9,9 @@
     -->
     <string name="dots">"&#8230;"</string>
 
-    <string name="skeleton">Skeleton</string>
-    <string name="about">About</string>
-    <string name="os">Android</string>
+    <string name="skeleton">"Skeleton"</string>
+    <string name="about">"About"</string>
+    <string name="os">"Android"</string>
+    <string name="settings">"Settings"</string>
 
 </resources>
