@@ -3,9 +3,9 @@
     android:id="@android:id/text1"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="48dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
+    android:minHeight="@dimen/spaceMedium"
+    android:paddingLeft="@dimen/spaceSmaller"
+    android:paddingRight="@dimen/spaceSmaller"
     android:gravity="left|center_vertical"
     android:textStyle="bold"
     android:textColor="@color/textHighlightColor" />

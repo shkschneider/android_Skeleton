@@ -1,12 +1,33 @@
-<TextView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@android:id/text1"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="48dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="4dp"
-    android:paddingBottom="4dp"
-    android:gravity="left|center_vertical"
-    android:textColor="@color/textPrimaryColor" />
+    android:minHeight="@dimen/spaceMedium"
+    android:paddingLeft="@dimen/spaceTiny"
+    android:paddingRight="@dimen/spaceTiny"
+    android:paddingTop="@dimen/spaceMicro"
+    android:paddingBottom="@dimen/spaceMicro">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cellBackgroundColor"
+        android:minHeight="@dimen/spaceMedium"
+        android:paddingLeft="@dimen/spaceTiny"
+        android:paddingRight="@dimen/spaceTiny"
+        android:paddingTop="@dimen/spaceMicro"
+        android:paddingBottom="@dimen/spaceMicro">
+
+        <TextView
+            android:id="@android:id/text1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:minHeight="@dimen/spaceMedium"
+            android:textColor="@color/textPrimaryColor" />
+
+    </LinearLayout>
+
+</LinearLayout>

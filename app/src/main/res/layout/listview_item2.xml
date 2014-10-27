@@ -1,27 +1,41 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="48dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    android:minHeight="@dimen/spaceMedium"
+    android:paddingLeft="@dimen/spaceTiny"
+    android:paddingRight="@dimen/spaceTiny"
+    android:paddingTop="@dimen/spaceMicro"
+    android:paddingBottom="@dimen/spaceMicro">
 
-    <TextView
-        android:id="@android:id/text1"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="left|bottom"
-        android:minHeight="24dp"
-        android:paddingTop="4dp"
-        android:textColor="@color/textPrimaryColor" />
+        android:background="@color/cellBackgroundColor"
+        android:minHeight="@dimen/spaceMedium"
+        android:paddingLeft="@dimen/spaceTiny"
+        android:paddingRight="@dimen/spaceTiny"
+        android:paddingTop="@dimen/spaceMicro"
+        android:paddingBottom="@dimen/spaceMicro">
 
-    <TextView
-        android:id="@android:id/text2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="left|top"
-        android:minHeight="24dp"
-        android:paddingBottom="4dp"
-        android:textColor="@color/textSecondaryColor" />
+        <TextView
+            android:id="@android:id/text1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|bottom"
+            android:minHeight="24dp"
+            android:textColor="@color/textPrimaryColor" />
+
+        <TextView
+            android:id="@android:id/text2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|top"
+            android:minHeight="24dp"
+            android:textColor="@color/textSecondaryColor" />
+
+    </LinearLayout>
 
 </LinearLayout>
