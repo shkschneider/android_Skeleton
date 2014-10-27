@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import me.shkschneider.app.R;
+import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
 /**
@@ -80,8 +81,8 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
     }
 
     protected abstract ArrayAdapter getAdapter();
-    protected abstract Fragment getFragment(final int position);
-    protected abstract String getTitle(final int position);
+    protected abstract SkeletonFragment getFragment(final int position);
+//    protected abstract String getTitle(final int position);
 
     public void navigationDrawer(final int position) {
         final Fragment fragment = getFragment(position);
@@ -97,7 +98,6 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
                 .commit();
         mDrawerList.setItemChecked(position, true);
         closeNavigationDrawer();
-        title(getTitle(position));
         supportInvalidateOptionsMenu();
     }
 
@@ -111,10 +111,12 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
 
     public void openNavigationDrawer() {
         mDrawerLayout.openDrawer(mDrawerList);
+        title(ApplicationHelper.name());
     }
 
     public void closeNavigationDrawer() {
         mDrawerLayout.closeDrawer(mDrawerList);
+        title(getFragment(navigationDrawer()).title());
     }
 
     @Override
@@ -126,6 +128,12 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
+            if (! navigationDrawerOpened()) {
+                title(ApplicationHelper.name());
+            }
+            else {
+                title(getFragment(navigationDrawer()).title());
+            }
             return true;
         }
         return super.onOptionsItemSelected(item);

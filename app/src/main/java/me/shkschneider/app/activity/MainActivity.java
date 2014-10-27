@@ -19,6 +19,7 @@ import me.shkschneider.app.fragment.AndroidSdksFragment;
 import me.shkschneider.app.fragment.ListViewFragment;
 import me.shkschneider.app.fragment.MainFragment;
 import me.shkschneider.app.fragment.NetworkFragment;
+import me.shkschneider.app.fragment.ViewPagerFragment;
 import me.shkschneider.skeleton.NavigationDrawerActivity;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.IntentHelper;
@@ -29,6 +30,7 @@ public class MainActivity extends NavigationDrawerActivity {
     public static final int NAVIGATION_LISTVIEW = 1;
     public static final int NAVIGATION_NETWORK = 2;
     public static final int NAVIGATION_ANDROIDSDKS = 3;
+    public static final int NAVIGATION_VIEWPAGER = 4;
 
     public static Intent getInstance(final Activity activity) {
         return new Intent(activity, MainActivity.class).setFlags(IntentHelper.HOME_FLAGS);
@@ -71,6 +73,7 @@ public class MainActivity extends NavigationDrawerActivity {
                 add(NAVIGATION_LISTVIEW, new ListViewFragment());
                 add(NAVIGATION_NETWORK, new NetworkFragment());
                 add(NAVIGATION_ANDROIDSDKS, new AndroidSdksFragment());
+                add(NAVIGATION_VIEWPAGER, new ViewPagerFragment());
             }
         }) {
             @Override
@@ -80,7 +83,7 @@ public class MainActivity extends NavigationDrawerActivity {
                     convertView = layoutInflater.inflate(R.layout.listview_navigationdrawer_item, parent, false);
                 }
                 final TextView textView = ((TextView) convertView.findViewById(R.id.textview));
-                textView.setText(getTitle(position));
+                textView.setText(getItem(position).title());
                 if (position == navigationDrawer()) {
                     textView.setTextColor(getResources().getColor(R.color.textHighlightColor));
                 }
@@ -98,13 +101,13 @@ public class MainActivity extends NavigationDrawerActivity {
     }
 
     @Override
-    protected Fragment getFragment(int position) {
+    protected SkeletonFragment getFragment(final int position) {
         return (SkeletonFragment) getAdapter().getItem(position);
     }
 
-    @Override
-    protected String getTitle(int position) {
-        return ((SkeletonFragment) getFragment(position)).title();
-    }
+//    @Override
+//    protected String getTitle(int position) {
+//        return ((SkeletonFragment) getFragment(position)).title();
+//    }
 
 }
