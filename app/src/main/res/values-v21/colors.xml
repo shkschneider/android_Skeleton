@@ -1,14 +1,11 @@
 <resources>
 
     <!-- Theme colors (Material Design) -->
-    <color name="primaryColor">#3F51B5</color> <!-- lighter 500 tone -->
-    <color name="secondaryColor">#303F9F</color> <!-- darker 700 tone -->
+    <color name="primaryColor">@color/color</color> <!-- lighter (500 tone) -->
+    <color name="secondaryColor">@color/indigo</color> <!-- darker (700 tone) -->
     <!-- Your theme is pretty much set now: the rest is optional tweaking -->
     <color name="statusBarColor">@color/secondaryColor</color> <!-- secondary or black -->
     <color name="navigationBarColor">@color/black</color> <!-- secondary or black -->
-    <color name="scrollBarColor">@color/accentColor</color>
-    <color name="widgetColor">@color/accentColor</color>
-    <color name="touchEventColor">@color/secondaryColor</color>
 
     <!-- ... -->
 

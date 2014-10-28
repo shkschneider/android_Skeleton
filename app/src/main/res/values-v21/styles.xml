@@ -5,10 +5,10 @@
         <!-- Material Design -->
         <item name="android:colorPrimaryDark">@color/statusBarColor</item>
         <item name="android:navigationBarColor">@color/navigationBarColor</item>
-        <item name="colorControlNormal">@color/scrollBarColor</item>
-        <item name="colorControlActivated">@color/widgetColor</item>
-        <item name="colorControlHighlight">@color/touchEventColor</item>
-        <item name="colorSwitchThumbNormal">@color/green</item> <!-- FIXME found what that is -->
+        <item name="colorControlNormal">@color/accentColor</item>
+        <item name="colorControlActivated">@color/accentColor</item>
+        <item name="colorControlHighlight">@color/secondaryColor</item>
+        <item name="colorSwitchThumbNormal">@color/accentColor</item>
         <item name="android:listSeparatorTextViewStyle">?android:attr/listSeparatorTextViewStyle</item>
         <!-- ... -->
     </style>

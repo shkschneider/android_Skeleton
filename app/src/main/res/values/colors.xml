@@ -1,8 +1,8 @@
 <resources>
 
     <!-- Theme colors (Material Design) -->
-    <color name="color">@color/indigo</color>
-    <color name="accentColor">@color/pink</color>
+    <color name="color">@color/blue</color>
+    <color name="accentColor">@color/lightblue</color>
     <!-- Your theme is pretty much set now: the rest is optional tweaking -->
     <color name="primaryColor">@color/color</color>
     <color name="secondaryColor">@color/color</color>
