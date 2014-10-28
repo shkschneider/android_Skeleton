@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.astuetz.PagerSlidingTabStrip;
 
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.SkeletonFragment;
@@ -41,8 +42,9 @@ public class ViewPagerFragment extends SkeletonFragment {
         final View view = inflater.inflate(R.layout.fragment_viewpager, container, false);
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         viewPager.setAdapter(mPagerAdapter);
-        final PagerTabStrip pagerTabStrip = (PagerTabStrip) view.findViewById(R.id.pagertabstrip);
-        pagerTabStrip.setDrawFullUnderline(false);
+        final PagerSlidingTabStrip pagerSlidingTabStrip = (PagerSlidingTabStrip) view.findViewById(R.id.pagerslidingtabstrip);
+        pagerSlidingTabStrip.setShouldExpand(false);
+        pagerSlidingTabStrip.setViewPager(viewPager);
         return view;
     }
 
@@ -78,7 +80,7 @@ public class ViewPagerFragment extends SkeletonFragment {
         public static DummyFragment newInstance(final int position) {
             final DummyFragment dummyFragment = new DummyFragment();
             final Bundle bundle = new Bundle();
-            bundle.putString(TITLE, String.format("DF #%d", position).toUpperCase());
+            bundle.putString(TITLE, String.format("Page #%d", position).toUpperCase());
             bundle.putInt(POSITION, position);
             dummyFragment.setArguments(bundle);
             return dummyFragment;
@@ -120,7 +122,7 @@ public class ViewPagerFragment extends SkeletonFragment {
 
         @Override
         public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-            final View view = inflater.inflate(R.layout.fragment_indexablelistview, container, false);
+            final View view = inflater.inflate(R.layout.fragment_listview, container, false);
             final ListView listView = (ListView) view.findViewById(R.id.listview);
             listView.setAdapter(mAdapter);
             return view;
