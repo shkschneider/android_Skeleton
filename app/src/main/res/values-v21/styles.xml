@@ -8,9 +8,8 @@
         <item name="colorControlNormal">@color/scrollBarColor</item>
         <item name="colorControlActivated">@color/widgetColor</item>
         <item name="colorControlHighlight">@color/touchEventColor</item>
-        <item name="colorSwitchThumbNormal">@color/green</item>
-        <!-- Android -->
-        <item name="android:windowContentOverlay">@null</item>
+        <item name="colorSwitchThumbNormal">@color/green</item> <!-- FIXME found what that is -->
+        <item name="android:listSeparatorTextViewStyle">?android:attr/listSeparatorTextViewStyle</item>
         <!-- ... -->
     </style>
 

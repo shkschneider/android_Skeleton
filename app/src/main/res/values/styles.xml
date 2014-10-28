@@ -7,14 +7,19 @@
     <style name="_AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <!-- Material Design -->
         <item name="colorPrimary">@color/actionBarColor</item>
-        <item name="colorAccent">@color/textHighlightColor</item>
+        <item name="colorAccent">@color/accentColor</item>
+        <item name="android:windowContentOverlay">@null</item>
         <!-- Android -->
         <item name="android:windowBackground">@color/contentBackgroundColor</item>
         <item name="android:textColorPrimary">@color/textPrimaryColor</item>
         <item name="android:textColorSecondary">@color/textSecondaryColor</item>
+        <item name="android:textColorHighlight">@color/highlightColor</item>
+        <item name="android:textColorHint">@color/textSecondaryColor</item>
         <!-- Custom styles -->
         <item name="actionBarStyle">@style/AppTheme.ActionBarStyle</item>
         <item name="actionModeStyle">@style/AppTheme.ActionModeStyle</item>
+        <item name="android:listSeparatorTextViewStyle">@style/AppTheme.ListSeparatorTextViewStyle</item>
+        <item name="android:preferenceScreenStyle">@style/AppTheme.PreferenceScreenStyle</item>
         <!-- ... -->
     </style>
 
@@ -27,6 +32,22 @@
 
     <!-- Android -->
 
+    <style name="AppTheme.ListSeparatorTextViewStyle">
+        <item name="android:background">@color/transparent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/spaceSmall</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/highlightColor</item>
+        <item name="android:textSize">@dimen/textSizeSmall</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">@dimen/spaceTiny</item>
+        <item name="android:shouldDisableView">false</item>
+        <item name="android:selectable">false</item>
+    </style>
+    <style name="AppTheme.PreferenceScreenStyle">
+        <!-- ... -->
+    </style>
+
     <style name="AppTheme.PagerTabStrip">
         <item name="android:paddingTop">@dimen/spaceTiny</item>
         <item name="android:paddingBottom">@dimen/spaceTiny</item>
@@ -34,6 +55,17 @@
         <item name="android:textStyle">bold</item>
         <item name="android:background">@color/primaryColor</item>
         <item name="android:textColor">@color/actionBarForegroundColor</item>
+    </style>
+    <style name="AppTheme.PagerSlidingTabStrip" parent="AppTheme.PagerTabStrip">
+        <item name="pstsIndicatorColor">@color/white</item>
+        <item name="pstsUnderlineColor">@color/primaryColor</item>
+        <item name="pstsDividerColor">@color/transparent</item>
+        <item name="pstsIndicatorHeight">@dimen/spaceMicro</item>
+        <item name="pstsUnderlineHeight">@dimen/spacePico</item>
+        <item name="pstsDividerPadding">0dp</item>
+        <item name="pstsTabBackground">@color/primaryColor</item>
+        <item name="pstsShouldExpand">false</item>
+        <item name="pstsTextAllCaps">true</item>
     </style>
 
     <!-- ... -->

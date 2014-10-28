@@ -1,9 +1,11 @@
 <resources>
 
     <!-- Theme colors (Material Design) -->
-    <color name="primaryColor">@color/blueDark</color> <!-- darker tone -->
-    <color name="secondaryColor">@color/blueLight</color> <!-- lighter tone -->
+    <color name="color">@color/indigo</color>
+    <color name="accentColor">@color/pink</color>
     <!-- Your theme is pretty much set now: the rest is optional tweaking -->
+    <color name="primaryColor">@color/color</color>
+    <color name="secondaryColor">@color/color</color>
     <color name="statusBarColor">@color/secondaryColor</color> <!-- secondary or black -->
     <color name="navigationBarColor">@color/black</color> <!-- secondary or black -->
     <!-- You should not have to edit anything below this line, but you can -->
@@ -14,10 +16,7 @@
     <color name="navigationDrawerBackgroundColor">@color/white</color>
     <color name="textPrimaryColor">@color/black</color>
     <color name="textSecondaryColor">@color/grey</color>
-    <color name="textHighlightColor">@color/primaryColor</color>
-    <color name="scrollBarColor">@color/secondaryColor</color>
-    <color name="widgetColor">@color/primaryColor</color>
-    <color name="touchEventColor">@color/secondaryColor</color>
+    <color name="highlightColor">@color/accentColor</color>
 
     <!-- Material colors <http://www.google.com/design/spec/style/color.html#color-ui-color-palette> -->
     <color name="red">#e51c23</color>
