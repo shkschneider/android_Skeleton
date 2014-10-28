@@ -19,7 +19,6 @@
         <item name="actionBarStyle">@style/AppTheme.ActionBarStyle</item>
         <item name="actionModeStyle">@style/AppTheme.ActionModeStyle</item>
         <item name="android:listSeparatorTextViewStyle">@style/AppTheme.ListSeparatorTextViewStyle</item>
-        <item name="android:preferenceScreenStyle">@style/AppTheme.PreferenceScreenStyle</item>
         <!-- ... -->
     </style>
 
@@ -43,9 +42,6 @@
         <item name="android:padding">@dimen/spaceTiny</item>
         <item name="android:shouldDisableView">false</item>
         <item name="android:selectable">false</item>
-    </style>
-    <style name="AppTheme.PreferenceScreenStyle">
-        <!-- ... -->
     </style>
 
     <style name="AppTheme.PagerTabStrip">
