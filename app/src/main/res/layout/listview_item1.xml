@@ -4,30 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="@dimen/spaceMedium"
-    android:paddingLeft="@dimen/spaceTiny"
-    android:paddingRight="@dimen/spaceTiny"
-    android:paddingTop="@dimen/spaceMicro"
-    android:paddingBottom="@dimen/spaceMicro">
+    android:paddingLeft="@dimen/spaceSmaller"
+    android:paddingRight="@dimen/spaceSmaller"
+    android:paddingTop="@dimen/spaceTiny"
+    android:paddingBottom="@dimen/spaceTiny">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <TextView
+        android:id="@android:id/text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/cellBackgroundColor"
+        android:gravity="left|center_vertical"
         android:minHeight="@dimen/spaceMedium"
-        android:paddingLeft="@dimen/spaceTiny"
-        android:paddingRight="@dimen/spaceTiny"
-        android:paddingTop="@dimen/spaceMicro"
-        android:paddingBottom="@dimen/spaceMicro">
-
-        <TextView
-            android:id="@android:id/text1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left|center_vertical"
-            android:minHeight="@dimen/spaceMedium"
-            android:textColor="@color/textPrimaryColor" />
-
-    </LinearLayout>
+        android:textColor="@color/textPrimaryColor" />
 
 </LinearLayout>
