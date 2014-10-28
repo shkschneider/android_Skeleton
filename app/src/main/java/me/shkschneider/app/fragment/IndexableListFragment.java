@@ -55,12 +55,12 @@ public class IndexableListFragment extends SkeletonFragment {
         skeletonActivity().searchable(getResources().getString(R.string.dots), new SkeletonActivity.SearchCallback() {
             @Override
             public void onSearchTextChange(final String q) {
-                refresh(q);
+                // Ignore
             }
 
             @Override
             public void onSearchTextSubmit(final String q) {
-                // Ignore
+                refresh(q);
             }
         });
         refresh(null);

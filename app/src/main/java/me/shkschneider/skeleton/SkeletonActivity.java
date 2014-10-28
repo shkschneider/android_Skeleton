@@ -215,13 +215,6 @@ public class SkeletonActivity extends ActionBarActivity {
         // SearchViewFormatter: <https://gist.github.com/ademar111190/7d31dab71502e6a85b8a>
         searchView.setIconifiedByDefault(true);
         searchView.setQueryHint(mSearchHint);
-        searchView.setOnSearchClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                // TODO FIXME HomeAsUp does not cancel search
-                // It does with the AppCompat-v7-r21 and a NavigationDrawer
-            }
-        });
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
