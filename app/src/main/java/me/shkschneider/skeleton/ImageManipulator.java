@@ -8,12 +8,14 @@ import android.graphics.Paint;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.v7.graphics.Palette;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.RelativeLayout;
 
 import org.jetbrains.annotations.NotNull;
 
+import me.shkschneider.app.R;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
@@ -78,6 +80,16 @@ public class ImageManipulator {
         final Canvas canvas = new Canvas(bitmap);
         view.draw(canvas);
         return bitmap;
+    }
+
+    public static int vibrantColor(@NotNull final Bitmap bitmap) {
+        final Palette palette = Palette.generate(bitmap);
+        return palette.getVibrantColor(ApplicationHelper.resources().getColor(R.color.transparent));
+    }
+
+    public static int mutedColor(@NotNull final Bitmap bitmap) {
+        final Palette palette = Palette.generate(bitmap);
+        return palette.getMutedColor(ApplicationHelper.resources().getColor(R.color.transparent));
     }
 
 }

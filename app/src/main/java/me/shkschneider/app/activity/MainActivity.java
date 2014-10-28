@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import me.shkschneider.app.R;
 import me.shkschneider.app.fragment.AndroidSdksFragment;
-import me.shkschneider.app.fragment.IndexableListFragment;
+import me.shkschneider.app.fragment.IndexedListFragment;
 import me.shkschneider.app.fragment.IndexedRecyclerFragment;
 import me.shkschneider.app.fragment.MainFragment;
 import me.shkschneider.app.fragment.NetworkFragment;
@@ -72,7 +72,7 @@ public class MainActivity extends NavigationDrawerActivity {
         return new ArrayAdapter<SkeletonFragment>(this, R.layout.listview_navigationdrawer_item, new ArrayList<SkeletonFragment>() {
             {
                 add(NAVIGATION_MAIN, new MainFragment());
-                add(NAVIGATION_LISTVIEW, new IndexableListFragment());
+                add(NAVIGATION_LISTVIEW, new IndexedListFragment());
                 add(NAVIGATION_RECYCLERVIEW, new IndexedRecyclerFragment());
                 add(NAVIGATION_NETWORK, new NetworkFragment());
                 add(NAVIGATION_ANDROIDSDKS, new AndroidSdksFragment());
@@ -88,7 +88,7 @@ public class MainActivity extends NavigationDrawerActivity {
                 final TextView textView = ((TextView) convertView.findViewById(R.id.textview));
                 textView.setText(getItem(position).title());
                 if (position == navigationDrawer()) {
-                    textView.setTextColor(getResources().getColor(R.color.textHighlightColor));
+                    textView.setTextColor(getResources().getColor(R.color.highlightColor));
                 }
                 else {
                     textView.setTextColor(getResources().getColor(R.color.textPrimaryColor));

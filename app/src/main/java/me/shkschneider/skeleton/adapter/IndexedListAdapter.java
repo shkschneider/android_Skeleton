@@ -10,7 +10,6 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,77 +28,45 @@ import me.shkschneider.skeleton.helper.StringHelper;
  * <br />
  * In such terms, yes, the recycling of the views is not really possible.
  *
- * - void withSections(ListView, String)
- * - void withSections(ListView)
- * - void withoutSections()
- *
  * @param <T> items
  * @see android.widget.ArrayAdapter
  * @see android.widget.SectionIndexer
  */
-public class IndexableListAdapter<T> extends ArrayAdapter<T> implements SectionIndexer {
+public class IndexedListAdapter<T> extends ArrayAdapter<T> implements SectionIndexer {
 
-    private boolean mIndexed = true;
     private String mSections = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private Map<String, Integer> mIndexes = new LinkedHashMap<String, Integer>();
 
     // Constructors
 
-    public IndexableListAdapter(final Context context, final int resource) {
+    public IndexedListAdapter(final Context context, final int resource) {
         super(context, resource);
     }
 
-    public IndexableListAdapter(final Context context, final int resource, final int textViewResourceId) {
+    public IndexedListAdapter(final Context context, final int resource, final int textViewResourceId) {
         super(context, resource, textViewResourceId);
     }
 
-    public IndexableListAdapter(final Context context, final int resource, final T[] objects) {
+    public IndexedListAdapter(final Context context, final int resource, final T[] objects) {
         super(context, resource, objects);
     }
 
-    public IndexableListAdapter(final Context context, final int resource, final int textViewResourceId, final T[] objects) {
+    public IndexedListAdapter(final Context context, final int resource, final int textViewResourceId, final T[] objects) {
         super(context, resource, textViewResourceId, objects);
     }
 
-    public IndexableListAdapter(final Context context, final int resource, final List<T> objects) {
+    public IndexedListAdapter(final Context context, final int resource, final List<T> objects) {
         super(context, resource, objects);
     }
 
-    public IndexableListAdapter(final Context context, final int resource, final int textViewResourceId, final List<T> objects) {
+    public IndexedListAdapter(final Context context, final int resource, final int textViewResourceId, final List<T> objects) {
         super(context, resource, textViewResourceId, objects);
-    }
-
-    // Items
-
-    @Override
-    public void add(final T object) {
-        super.add(object);
-        if (mIndexed) {
-            buildSections();
-        }
-    }
-
-    @Override
-    public void addAll(final Collection<? extends T> collection) {
-        super.addAll(collection);
-        if (mIndexed) {
-            buildSections();
-        }
-    }
-
-    @Override
-    public void addAll(final T... items) {
-        super.addAll(items);
-        if (mIndexed) {
-            buildSections();
-        }
     }
 
     // Sections
 
     public void withSections(final ListView listView, final String sections) {
         listView.setFastScrollEnabled(true);
-        mIndexed = true;
         mSections = sections;
     }
 
@@ -107,15 +74,7 @@ public class IndexableListAdapter<T> extends ArrayAdapter<T> implements SectionI
         withSections(listView, mSections);
     }
 
-    public void withoutSections() {
-        mIndexed = false;
-    }
-
     private void buildSections() {
-        if (! mIndexed) {
-            return ;
-        }
-
         mIndexes.clear();
         int offset = 0;
         for (int i = 0; i < super.getCount(); i++) {
@@ -176,10 +135,6 @@ public class IndexableListAdapter<T> extends ArrayAdapter<T> implements SectionI
     // This class only generates header views
     @Override
     public View getView(final int position, View convertView, final ViewGroup parent) {
-        if (! mIndexed) {
-            return super.getView(position, convertView, parent);
-        }
-
         if (isSectionAtPosition(position)) {
             final int section = getSectionForPosition(position);
             final LayoutInflater layoutInflater = LayoutInflater.from(SkeletonApplication.CONTEXT);

@@ -15,18 +15,18 @@ import java.util.List;
 import java.util.Locale;
 
 import me.shkschneider.app.R;
-import me.shkschneider.skeleton.adapter.IndexableListAdapter;
+import me.shkschneider.skeleton.adapter.IndexedListAdapter;
 import me.shkschneider.skeleton.SkeletonActivity;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.StringHelper;
 
-public class IndexableListFragment extends SkeletonFragment {
+public class IndexedListFragment extends SkeletonFragment {
 
-    private IndexableListAdapter<String> mAdapter;
+    private IndexedListAdapter<String> mAdapter;
 
-    public IndexableListFragment() {
-        title("IndexableList");
+    public IndexedListFragment() {
+        title("IndexedList");
     }
 
     @Override
@@ -34,7 +34,7 @@ public class IndexableListFragment extends SkeletonFragment {
         super.onCreate(savedInstanceState);
 
         final LayoutInflater layoutInflater = LayoutInflater.from(skeletonActivity());
-        mAdapter = new IndexableListAdapter<String>(skeletonActivity(), R.layout.listview_item1) {
+        mAdapter = new IndexedListAdapter<String>(skeletonActivity(), R.layout.listview_item1) {
             @Override
             public View getView(final int position, final View convertView, final ViewGroup parent) {
                 View view = super.getView(position, convertView, parent);

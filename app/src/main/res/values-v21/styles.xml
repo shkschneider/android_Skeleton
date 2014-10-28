@@ -9,6 +9,7 @@
         <item name="colorControlActivated">@color/accentColor</item>
         <item name="colorControlHighlight">@color/secondaryColor</item>
         <item name="colorSwitchThumbNormal">@color/accentColor</item>
+        <!-- Android -->
         <item name="android:listSeparatorTextViewStyle">?android:attr/listSeparatorTextViewStyle</item>
         <!-- ... -->
     </style>
