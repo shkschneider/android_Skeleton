@@ -19,6 +19,8 @@
         <item name="actionBarStyle">@style/AppTheme.ActionBarStyle</item>
         <item name="actionModeStyle">@style/AppTheme.ActionModeStyle</item>
         <item name="android:listSeparatorTextViewStyle">@style/AppTheme.ListSeparatorTextViewStyle</item>
+        <item name="android:buttonStyle">@style/AppTheme.ButtonStyle</item>
+        <item name="android:imageButtonStyle">@style/AppTheme.ImageButtonStyle</item>
         <!-- ... -->
     </style>
 
@@ -30,6 +32,23 @@
     </style>
 
     <!-- Android -->
+
+    <style name="AppTheme.ImageButtonStyle" parent="@style/Widget.AppCompat.Light.ActionButton">
+        <item name="android:enabled">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">@color/transparent</item>
+    </style>
+    <style name="AppTheme.ButtonStyle" parent="@style/Widget.AppCompat.Light.ActionButton">
+        <item name="android:enabled">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+    <style name="AppTheme.DividerVertical">
+        <item name="android:background">?android:attr/dividerVertical</item>
+    </style>
+    <style name="AppTheme.DividerHorizontal">
+        <item name="android:background">?android:attr/dividerHorizontal</item>
+    </style>
 
     <style name="AppTheme.ListSeparatorTextViewStyle">
         <item name="android:background">@color/transparent</item>

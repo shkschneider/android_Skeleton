@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +16,7 @@ import me.shkschneider.app.R;
 import me.shkschneider.skeleton.ImageManipulator;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
+import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
 public class MainFragment extends SkeletonFragment {
@@ -27,9 +29,11 @@ public class MainFragment extends SkeletonFragment {
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_main, container, false);
 
+        final String author = "ShkSchneider";
+
         final ImageView authorAvatar = (ImageView) view.findViewById(R.id.authorAvatar);
         Ion.with(skeletonActivity())
-                .load("https://shkschneider.me/shkschneider.png")
+                .load(String.format("https://%s.me/%s.png", author.toLowerCase(), author.toLowerCase()))
                 .asBitmap()
                 .setCallback(new FutureCallback<Bitmap>() {
                     @Override
@@ -51,7 +55,16 @@ public class MainFragment extends SkeletonFragment {
         applicationName.setText(ApplicationHelper.name());
 
         final TextView authorName = (TextView) view.findViewById(R.id.authorName);
-        authorName.setText("ShkSchneider");
+        authorName.setText(author);
+
+        final Button website = (Button) view.findViewById(R.id.website);
+        website.setText(getResources().getString(R.string.website));
+        website.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                startActivity(IntentHelper.url(getResources().getString(R.string.website)));
+            }
+        });
 
         return view;
     }

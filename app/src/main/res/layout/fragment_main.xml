@@ -1,34 +1,67 @@
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:id="@+id/authorAvatar"
         android:src="@null"
         android:contentDescription="@null"
-        android:layout_width="144dp"
-        android:layout_height="144dp"
+        android:layout_width="@dimen/spaceBig"
+        android:layout_height="@dimen/spaceBig"
         android:layout_gravity="center"
-        android:padding="16dp" />
+        android:padding="@dimen/spaceSmaller" />
 
-    <TextView
-        android:id="@+id/applicationName"
-        android:text="@string/dots"
+    <LinearLayout
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/spaceBig"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="24dp"
-        android:gravity="bottom|center_horizontal"
-        android:textStyle="bold" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/authorName"
-        android:text="@string/dots"
+        <TextView
+            android:id="@+id/applicationName"
+            android:text="@string/dots"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="24dp"
+            android:gravity="bottom|center_horizontal"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/authorName"
+            android:text="@string/dots"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="24dp"
+            android:gravity="top|center_horizontal"
+            android:textStyle="normal" />
+
+        <ImageButton
+            android:src="@drawable/ic_launcher"
+            android:contentDescription="@null"
+            android:layout_width="@dimen/spaceBig"
+            android:layout_height="@dimen/spaceBig"
+            android:layout_gravity="center"
+            android:padding="@dimen/spaceSmaller" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/spaceMedium"
+        style="@style/AppTheme.DividerHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="24dp"
-        android:gravity="top|center_horizontal"
-        android:textStyle="normal" />
+        android:layout_height="1dp" />
 
-</LinearLayout>
+    <Button
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/website"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceMedium"
+        android:text="@string/dots" />
+
+</RelativeLayout>
