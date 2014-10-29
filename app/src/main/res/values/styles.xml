@@ -64,6 +64,14 @@
         <item name="android:selectable">false</item>
     </style>
 
+    <style name="AppTheme.SlidingTabLayout">
+        <!--<item name="android:paddingTop">@dimen/spaceTiny</item>-->
+        <!--<item name="android:paddingBottom">@dimen/spaceTiny</item>-->
+        <!--<item name="android:textSize">@dimen/textSizeSmallish</item>-->
+        <!--<item name="android:textStyle">bold</item>-->
+        <item name="android:background">@color/primaryColor</item>
+        <item name="android:textColor">@color/actionBarForegroundColor</item>
+    </style>
     <style name="AppTheme.PagerTabStrip">
         <item name="android:paddingTop">@dimen/spaceTiny</item>
         <item name="android:paddingBottom">@dimen/spaceTiny</item>
@@ -71,17 +79,6 @@
         <item name="android:textStyle">bold</item>
         <item name="android:background">@color/primaryColor</item>
         <item name="android:textColor">@color/actionBarForegroundColor</item>
-    </style>
-    <style name="AppTheme.PagerSlidingTabStrip" parent="AppTheme.PagerTabStrip">
-        <item name="pstsIndicatorColor">@color/white</item>
-        <item name="pstsUnderlineColor">@color/primaryColor</item>
-        <item name="pstsDividerColor">@color/transparent</item>
-        <item name="pstsIndicatorHeight">@dimen/spaceMicro</item>
-        <item name="pstsUnderlineHeight">@dimen/spacePico</item>
-        <item name="pstsDividerPadding">0dp</item>
-        <item name="pstsTabBackground">@color/primaryColor</item>
-        <item name="pstsShouldExpand">false</item>
-        <item name="pstsTextAllCaps">true</item>
     </style>
 
     <!-- ... -->

@@ -13,11 +13,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.astuetz.PagerSlidingTabStrip;
-
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.StringHelper;
+import me.shkschneider.skeleton.ui.SlidingTabLayout;
 
 public class ViewPagerFragment extends SkeletonFragment {
 
@@ -42,9 +41,9 @@ public class ViewPagerFragment extends SkeletonFragment {
         final View view = inflater.inflate(R.layout.fragment_viewpager, container, false);
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         viewPager.setAdapter(mPagerAdapter);
-        final PagerSlidingTabStrip pagerSlidingTabStrip = (PagerSlidingTabStrip) view.findViewById(R.id.pagerslidingtabstrip);
-        pagerSlidingTabStrip.setShouldExpand(false);
-        pagerSlidingTabStrip.setViewPager(viewPager);
+        final SlidingTabLayout slidingTabLayout = (SlidingTabLayout) view.findViewById(R.id.slidingtablayout);
+        slidingTabLayout.setTabViewFullWidth(true);
+        slidingTabLayout.setViewPager(viewPager);
         return view;
     }
 
