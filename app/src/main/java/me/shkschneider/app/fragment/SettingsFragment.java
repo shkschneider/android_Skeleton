@@ -3,6 +3,8 @@ package me.shkschneider.app.fragment;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.SwitchPreference;
+import android.support.annotation.Nullable;
+import android.view.View;
 
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.SkeletonPreferenceFragment;
@@ -15,6 +17,11 @@ public class SettingsFragment extends SkeletonPreferenceFragment {
     public void onCreate(final Bundle paramBundle) {
         super.onCreate(paramBundle);
         addPreferencesFromResource(R.xml.fragment_settings);
+    }
+
+    @Override
+    public void onViewCreated(final View view, final @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         // Switch
 

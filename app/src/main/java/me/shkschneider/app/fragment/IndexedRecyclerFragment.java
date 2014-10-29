@@ -1,6 +1,7 @@
 package me.shkschneider.app.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -50,13 +51,17 @@ public class IndexedRecyclerFragment extends SkeletonFragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_recyclerview, container, false);
+        return inflater.inflate(R.layout.fragment_recyclerview, container, false);
+    }
+
+    @Override
+    public void onViewCreated(final View view, final @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
         final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(skeletonActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mAdapter);
-        return view;
     }
 
     public void refresh(final String q) {

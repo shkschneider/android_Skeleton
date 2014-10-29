@@ -1,6 +1,7 @@
 package me.shkschneider.app.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -38,12 +39,16 @@ public class ActionBarPagerFragment extends SkeletonFragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_actionbarpager, container, false);
+        return inflater.inflate(R.layout.fragment_actionbarpager, container, false);
+    }
+
+    @Override
+    public void onViewCreated(final View view, final @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         viewPager.setAdapter(mPagerAdapter);
         final ActionBarPagerTabStrip actionBarPagerTabStrip = (ActionBarPagerTabStrip) view.findViewById(R.id.actionbarpagertabstrip);
         actionBarPagerTabStrip.setViewPager(viewPager);
-        return view;
     }
 
     public void refresh() {

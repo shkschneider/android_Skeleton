@@ -1,6 +1,7 @@
 package me.shkschneider.app.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +69,12 @@ public class IndexedListFragment extends SkeletonFragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_listview, container, false);
+        return inflater.inflate(R.layout.fragment_listview, container, false);
+    }
+
+    @Override
+    public void onViewCreated(final View view, final @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         final ListView listView = (ListView) view.findViewById(R.id.listview);
         mAdapter.withSections(listView);
         listView.setAdapter(mAdapter);
@@ -79,7 +85,6 @@ public class IndexedListFragment extends SkeletonFragment {
                 ActivityHelper.toast(mAdapter.getItem(position));
             }
         });
-        return view;
     }
 
     public void refresh(final String q) {
