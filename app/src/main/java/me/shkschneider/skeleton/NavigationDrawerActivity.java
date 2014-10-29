@@ -31,6 +31,7 @@ import me.shkschneider.skeleton.helper.LogHelper;
  * - void navigationDrawer(int)
  * - int navigationDrawer()
  * - boolean navigationDrawerOpened()
+ * - boolean navigationDrawerOpenedOrOpening()
  * - openNavigationDrawer()
  * - closeNavigationDrawer()
  *
@@ -93,15 +94,19 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
             return ;
         }
 
-        // clears any loading
+        // Clears any loading
         indeterminateLoading(false);
 
+        // Switch Fragment
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.drawer_framelayout, fragment)
                 .commit();
 
+        // Updates NavigationDrawer
         mDrawerList.setItemChecked(position, true);
         closeNavigationDrawer();
+
+        // Updates menu
         supportInvalidateOptionsMenu();
     }
 
@@ -138,9 +143,11 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         if (mOpenedOrOpening) {
+            // Hides menu when opened
             menu.clear();
             return true;
         }
+        // Restores menu when closed
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -155,6 +162,7 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
                 mOpenedOrOpening = false;
                 title(getFragment(navigationDrawer()).title());
             }
+            // see onCreateOptionsMenu() above
             supportInvalidateOptionsMenu();
             return true;
         }
