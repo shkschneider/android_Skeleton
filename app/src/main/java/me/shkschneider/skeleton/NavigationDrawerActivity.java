@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -38,6 +39,7 @@ import me.shkschneider.skeleton.helper.LogHelper;
  */
 public abstract class NavigationDrawerActivity extends SkeletonActivity {
 
+    private boolean mOpenedOrOpening = false;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private ListView mDrawerList;
@@ -82,7 +84,6 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
 
     protected abstract ArrayAdapter getAdapter();
     protected abstract SkeletonFragment getFragment(final int position);
-//    protected abstract String getTitle(final int position);
 
     public void navigationDrawer(final int position) {
         final Fragment fragment = getFragment(position);
@@ -109,12 +110,18 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
         return mDrawerLayout.isDrawerOpen(mDrawerList);
     }
 
+    public boolean navigationDrawerOpenedOrOpening() {
+        return mOpenedOrOpening;
+    }
+
     public void openNavigationDrawer() {
+        mOpenedOrOpening = true;
         mDrawerLayout.openDrawer(mDrawerList);
         title(ApplicationHelper.name());
     }
 
     public void closeNavigationDrawer() {
+        mOpenedOrOpening = false;
         mDrawerLayout.closeDrawer(mDrawerList);
         title(getFragment(navigationDrawer()).title());
     }
@@ -126,14 +133,26 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(final Menu menu) {
+        if (mOpenedOrOpening) {
+            menu.clear();
+            return true;
+        }
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             if (! navigationDrawerOpened()) {
+                mOpenedOrOpening = true;
                 title(ApplicationHelper.name());
             }
             else {
+                mOpenedOrOpening = false;
                 title(getFragment(navigationDrawer()).title());
             }
+            supportInvalidateOptionsMenu();
             return true;
         }
         return super.onOptionsItemSelected(item);
