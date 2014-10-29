@@ -17,11 +17,11 @@
         android:layout_height="@dimen/spaceMedium" />
 
     <LinearLayout
+        android:layout_marginLeft="@dimen/spaceSmaller"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/spaceMedium"
-        android:layout_marginLeft="@dimen/spaceSmaller">
+        android:minHeight="@dimen/spaceMedium">
 
         <TextView
             android:id="@android:id/text1"
