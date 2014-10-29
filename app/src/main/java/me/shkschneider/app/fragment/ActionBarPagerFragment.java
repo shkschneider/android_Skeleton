@@ -16,13 +16,14 @@ import android.widget.TextView;
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.StringHelper;
+import me.shkschneider.skeleton.ui.ActionBarPagerTabStrip;
 
-public class ViewPagerFragment extends SkeletonFragment {
+public class ActionBarPagerFragment extends SkeletonFragment {
 
     private static final int TABS = 2;
 
-    public ViewPagerFragment() {
-        title("ViewPager");
+    public ActionBarPagerFragment() {
+        title("ActionBarPager");
     }
 
     private PagerAdapter mPagerAdapter;
@@ -37,9 +38,11 @@ public class ViewPagerFragment extends SkeletonFragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_viewpager, container, false);
+        final View view = inflater.inflate(R.layout.fragment_actionbarpager, container, false);
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         viewPager.setAdapter(mPagerAdapter);
+        final ActionBarPagerTabStrip actionBarPagerTabStrip = (ActionBarPagerTabStrip) view.findViewById(R.id.actionbarpagertabstrip);
+        actionBarPagerTabStrip.setViewPager(viewPager);
         return view;
     }
 

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import me.shkschneider.app.R;
+import me.shkschneider.app.fragment.ActionBarPagerFragment;
 import me.shkschneider.app.fragment.AndroidSdksFragment;
 import me.shkschneider.app.fragment.IndexedListFragment;
 import me.shkschneider.app.fragment.IndexedRecyclerFragment;
@@ -31,7 +32,8 @@ public class MainActivity extends NavigationDrawerActivity {
     public static final int NAVIGATION_RECYCLERVIEW = 2;
     public static final int NAVIGATION_NETWORK = 3;
     public static final int NAVIGATION_ANDROIDSDKS = 4;
-    public static final int NAVIGATION_VIEWPAGER = 5;
+    public static final int NAVIGATION_ACTIONBARPAGER = 5;
+    public static final int NAVIGATION_VIEWPAGER = 6;
 
     public static Intent getInstance(final Activity activity) {
         return new Intent(activity, MainActivity.class).setFlags(IntentHelper.HOME_FLAGS);
@@ -76,6 +78,7 @@ public class MainActivity extends NavigationDrawerActivity {
                 add(NAVIGATION_RECYCLERVIEW, new IndexedRecyclerFragment());
                 add(NAVIGATION_NETWORK, new NetworkFragment());
                 add(NAVIGATION_ANDROIDSDKS, new AndroidSdksFragment());
+                add(NAVIGATION_ACTIONBARPAGER, new ActionBarPagerFragment());
                 add(NAVIGATION_VIEWPAGER, new ViewPagerFragment());
             }
         }) {
