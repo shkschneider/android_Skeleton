@@ -164,7 +164,7 @@ public class SkeletonActivity extends ActionBarActivity {
     public void searchable(final String hint, final SearchCallback searchCallback) {
         mSearchHint = hint;
         mSearchCallback = searchCallback;
-        // supportInvalidateOptionsMenu();
+        // supportInvalidateOptionsMenu()
     }
 
     // Loading
@@ -173,22 +173,31 @@ public class SkeletonActivity extends ActionBarActivity {
         return (mActionMode != null);
     }
 
-    private void clearLoading() {
-        mLoadingCount = 0;
-        LogHelper.info("loading:" + mLoadingCount);
-        if (mActionMode != null) {
-            mActionMode.finish();
-            mActionMode = null;
-            mLoadingView.setText("");
-            mLoadingView = null;
-        }
+    public void loading(final int i) {
+        mLoadingCount += i;
+        updateLoading(true);
+    }
+
+    public void indeterminateLoading(final boolean b) {
+        mLoadingCount = (b ? 1 : 0);
+        updateLoading(false);
+    }
+
+    public int loadingCount() {
+        return mLoadingCount;
     }
 
     private void updateLoading(final boolean showCount) {
         if (mLoadingCount == 0) {
-            clearLoading();
+            if (mActionMode != null) {
+                mActionMode.finish();
+                mActionMode = null;
+                mLoadingView.setText("");
+                mLoadingView = null;
+            }
+            return ;
         }
-        else if (! loading()) {
+        if (! loading()) {
             mActionMode = startSupportActionMode(new ActionMode.Callback() {
                 @SuppressLint("InflateParams") // inflater has no ViewGroup
                 @Override
@@ -217,26 +226,12 @@ public class SkeletonActivity extends ActionBarActivity {
                 }
             });
         }
-        else if (showCount) {
+        if (showCount) {
             mLoadingView.setText(String.valueOf(mLoadingCount));
         }
         else {
             mLoadingView.setText("");
         }
-    }
-
-    public void loading(final int i) {
-        mLoadingCount += i;
-        updateLoading(true);
-    }
-
-    public void indeterminateLoading(final boolean b) {
-        mLoadingCount = (b ? 1 : 0);
-        updateLoading(false);
-    }
-
-    public int loadingCount() {
-        return mLoadingCount;
     }
 
     @Override
