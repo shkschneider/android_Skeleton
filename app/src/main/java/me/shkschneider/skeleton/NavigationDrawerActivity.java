@@ -23,7 +23,6 @@ import me.shkschneider.skeleton.helper.LogHelper;
  *
  * - ArrayAdapter getAdapter()
  * - Fragment getFragment(int)
- * - String getTitle(int)
  *
  * And of course the getView() method from the Adapter you will create.
  * <br />
@@ -34,6 +33,8 @@ import me.shkschneider.skeleton.helper.LogHelper;
  * - boolean navigationDrawerOpened()
  * - openNavigationDrawer()
  * - closeNavigationDrawer()
+ *
+ * Changing of item in the NavigationDrawer auto-cancel any loading in the Activity.
  *
  * @see me.shkschneider.skeleton.SkeletonActivity
  */
@@ -71,17 +72,15 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
     @Override
     protected void onPostCreate(final Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        // Fix for lower APIs: the ic_navigation_drawer drawable was not showed
+        // Fix for lower APIs where the ic_navigation_drawer drawable was not showed
         mDrawerToggle.syncState();
-        // TODO check if still of actuality
     }
 
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        // Fix for lower APIs: the ic_navigation_drawer drawable was not showed
+        // Fix for lower APIs where the ic_navigation_drawer drawable was not showed
         mDrawerToggle.syncState();
-        // TODO check if still of actuality
     }
 
     protected abstract ArrayAdapter getAdapter();

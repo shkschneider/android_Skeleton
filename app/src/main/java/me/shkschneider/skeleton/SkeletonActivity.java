@@ -164,20 +164,23 @@ public class SkeletonActivity extends ActionBarActivity {
     public void searchable(final String hint, final SearchCallback searchCallback) {
         mSearchHint = hint;
         mSearchCallback = searchCallback;
-        // supportInvalidateOptionsMenu()
+        // AVOID supportInvalidateOptionsMenu()
     }
 
     // Loading
 
     public boolean loading() {
+        // Checking ActionMode is more reliable as mLoadingCount
         return (mActionMode != null);
     }
 
+    // Increments or decrements the loading stack
     public void loading(final int i) {
         mLoadingCount += i;
         updateLoading(true);
     }
 
+    // Resets loading to true or false
     public void indeterminateLoading(final boolean b) {
         mLoadingCount = (b ? 1 : 0);
         updateLoading(false);
@@ -188,6 +191,10 @@ public class SkeletonActivity extends ActionBarActivity {
     }
 
     private void updateLoading(final boolean showCount) {
+        // Just to be safe: can happen with loading(-1) after an indeterminateLoading(false)
+        if (mLoadingCount < 0) {
+            mLoadingCount = 0;
+        }
         if (mLoadingCount == 0) {
             if (mActionMode != null) {
                 mActionMode.finish();
@@ -253,7 +260,6 @@ public class SkeletonActivity extends ActionBarActivity {
             LogHelper.warning("SearchView was NULL");
             return super.onCreateOptionsMenu(menu);
         }
-        // SearchViewFormatter: <https://gist.github.com/ademar111190/7d31dab71502e6a85b8a>
         searchView.setIconifiedByDefault(true);
         searchView.setQueryHint(mSearchHint);
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
