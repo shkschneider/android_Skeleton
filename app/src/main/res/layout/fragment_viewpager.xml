@@ -5,7 +5,6 @@
     android:layout_height="match_parent">
 
     <me.shkschneider.skeleton.ui.ActionBarTabStrip
-        style="@style/AppTheme.SlidingTabLayout"
         android:id="@+id/slidingtablayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/spaceMedium" />

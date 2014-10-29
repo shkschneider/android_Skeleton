@@ -42,7 +42,8 @@ public class ViewPagerFragment extends SkeletonFragment {
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         viewPager.setAdapter(mPagerAdapter);
         final ActionBarTabStrip actionBarTabStrip = (ActionBarTabStrip) view.findViewById(R.id.slidingtablayout);
-        actionBarTabStrip.setTabViewFullWidth(true);
+//        actionBarTabStrip.setFullWidth(true);
+//        actionBarTabStrip.setUnderline(false);
         actionBarTabStrip.setViewPager(viewPager);
         return view;
     }

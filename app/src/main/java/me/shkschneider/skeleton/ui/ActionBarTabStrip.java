@@ -33,92 +33,45 @@ import android.widget.TextView;
 
 import me.shkschneider.app.R;
 
-// TODO cleanup
 public class ActionBarTabStrip extends HorizontalScrollView {
 
-    public interface TabColorizer {
-
-        int getIndicatorColor(int position);
-        int getDividerColor(int position);
-
-    }
-
-    private static final int TITLE_OFFSET_DIPS = 24;
-    private static final int TAB_VIEW_PADDING_DIPS = 16;
-    private static final int TAB_VIEW_TEXT_SIZE_SP = 12;
-
     private int mTitleOffset;
-    private int mTabViewLayoutId;
-    private boolean mTabViewFullWidth;
-    private int mTabViewTextViewId;
+    private int mLayoutId;
+    private int mTextViewId;
     private ViewPager mViewPager;
     private ViewPager.OnPageChangeListener mViewPagerPageChangeListener;
 
-    private final ActionBarTabStripCell mTabStrip;
+    private final ActionBarTabStripCell mTabStripCell;
 
-    public ActionBarTabStrip(Context context) {
+    public ActionBarTabStrip(final Context context) {
         this(context, null);
-        init();
     }
 
-    public ActionBarTabStrip(Context context, AttributeSet attrs) {
+    public ActionBarTabStrip(final Context context, final AttributeSet attrs) {
         this(context, attrs, 0);
-        init();
     }
 
-    public ActionBarTabStrip(Context context, AttributeSet attrs, int defStyle) {
+    public ActionBarTabStrip(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
         setHorizontalScrollBarEnabled(false);
         setFillViewport(true);
-        mTitleOffset = (int) (TITLE_OFFSET_DIPS * getResources().getDisplayMetrics().density);
-        mTabStrip = new ActionBarTabStripCell(context);
-        addView(mTabStrip, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        init();
-    }
-
-    private void init() {
-        mTabViewFullWidth = false;
-        setCustomTabColorizer(new TabColorizer() {
-            @Override
-            public int getIndicatorColor(final int position) {
-                return getResources().getColor(R.color.actionBarForegroundColor);
-            }
-
-            @Override
-            public int getDividerColor(final int position) {
-                return getResources().getColor(R.color.transparent);
-            }
-        });
+        mTitleOffset = (int) (24 * getResources().getDisplayMetrics().density);
+        mTabStripCell = new ActionBarTabStripCell(context);
+        addView(mTabStripCell, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         setBackgroundColor(getResources().getColor(R.color.primaryColor));
     }
 
-    public void setTabViewFullWidth(boolean fullWidth) {
-        mTabViewFullWidth = fullWidth;
-    }
-
-    public void setCustomTabColorizer(TabColorizer tabColorizer) {
-        mTabStrip.setCustomTabColorizer(tabColorizer);
-    }
-
-    public void setSelectedIndicatorColors(int... colors) {
-        mTabStrip.setSelectedIndicatorColors(colors);
-    }
-
-    public void setDividerColors(int... colors) {
-        mTabStrip.setDividerColors(colors);
-    }
-
-    public void setOnPageChangeListener(ViewPager.OnPageChangeListener listener) {
+    public void setOnPageChangeListener(final ViewPager.OnPageChangeListener listener) {
         mViewPagerPageChangeListener = listener;
     }
 
-    public void setCustomTabView(int layoutResId, int textViewId) {
-        mTabViewLayoutId = layoutResId;
-        mTabViewTextViewId = textViewId;
+    public void setCustomTabView(final int layoutResId, final int textViewId) {
+        mLayoutId = layoutResId;
+        mTextViewId = textViewId;
     }
 
-    public void setViewPager(ViewPager viewPager) {
-        mTabStrip.removeAllViews();
+    public void setViewPager(final ViewPager viewPager) {
+        mTabStripCell.removeAllViews();
         mViewPager = viewPager;
         if (viewPager != null) {
             viewPager.setOnPageChangeListener(new InternalViewPagerListener());
@@ -126,10 +79,10 @@ public class ActionBarTabStrip extends HorizontalScrollView {
         }
     }
 
-    protected TextView createDefaultTabView(Context context) {
+    protected TextView createDefaultTabView(final Context context) {
         TextView textView = new TextView(context);
         textView.setGravity(Gravity.CENTER);
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, TAB_VIEW_TEXT_SIZE_SP);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
         textView.setTypeface(Typeface.DEFAULT_BOLD);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             TypedValue outValue = new TypedValue();
@@ -139,7 +92,7 @@ public class ActionBarTabStrip extends HorizontalScrollView {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
             textView.setAllCaps(true);
         }
-        int padding = (int) (TAB_VIEW_PADDING_DIPS * getResources().getDisplayMetrics().density);
+        final int padding = (int) (16 * getResources().getDisplayMetrics().density);
         textView.setPadding(padding, padding, padding, padding);
         textView.setTextColor(getResources().getColor(R.color.actionBarForegroundColor));
         return textView;
@@ -151,9 +104,9 @@ public class ActionBarTabStrip extends HorizontalScrollView {
         for (int i = 0; i < adapter.getCount(); i++) {
             View tabView = null;
             TextView tabTitleView = null;
-            if (mTabViewLayoutId != 0) {
-                tabView = LayoutInflater.from(getContext()).inflate(mTabViewLayoutId, mTabStrip, false);
-                tabTitleView = (TextView) tabView.findViewById(mTabViewTextViewId);
+            if (mLayoutId != 0) {
+                tabView = LayoutInflater.from(getContext()).inflate(mLayoutId, mTabStripCell, false);
+                tabTitleView = (TextView) tabView.findViewById(mTextViewId);
             }
             if (tabView == null) {
                 tabView = createDefaultTabView(getContext());
@@ -162,15 +115,13 @@ public class ActionBarTabStrip extends HorizontalScrollView {
                 tabTitleView = (TextView) tabView;
             }
             if (tabView != null) {
-                if (mTabViewFullWidth) {
-                    tabView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F));
-                }
+                tabView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F));
                 tabView.setOnClickListener(tabClickListener);
             }
             if (tabTitleView != null) {
                 tabTitleView.setText(adapter.getPageTitle(i));
             }
-            mTabStrip.addView(tabView);
+            mTabStripCell.addView(tabView);
         }
     }
 
@@ -182,12 +133,12 @@ public class ActionBarTabStrip extends HorizontalScrollView {
         }
     }
 
-    private void scrollToTab(int tabIndex, int positionOffset) {
-        final int tabStripChildCount = mTabStrip.getChildCount();
+    private void scrollToTab(final int tabIndex, final int positionOffset) {
+        final int tabStripChildCount = mTabStripCell.getChildCount();
         if (tabStripChildCount == 0 || tabIndex < 0 || tabIndex >= tabStripChildCount) {
-            return;
+            return ;
         }
-        View selectedChild = mTabStrip.getChildAt(tabIndex);
+        final View selectedChild = mTabStripCell.getChildAt(tabIndex);
         if (selectedChild != null) {
             int targetScrollX = selectedChild.getLeft() + positionOffset;
             if (tabIndex > 0 || positionOffset > 0) {
@@ -202,14 +153,14 @@ public class ActionBarTabStrip extends HorizontalScrollView {
         private int mScrollState;
 
         @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            int tabStripChildCount = mTabStrip.getChildCount();
+        public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
+            final int tabStripChildCount = mTabStripCell.getChildCount();
             if ((tabStripChildCount == 0) || (position < 0) || (position >= tabStripChildCount)) {
                 return ;
             }
-            mTabStrip.onViewPagerPageChanged(position, positionOffset);
-            View selectedTitle = mTabStrip.getChildAt(position);
-            int extraOffset = ((selectedTitle != null) ? (int) (positionOffset * selectedTitle.getWidth()) : 0);
+            mTabStripCell.onViewPagerPageChanged(position, positionOffset);
+            final View selectedTitle = mTabStripCell.getChildAt(position);
+            final int extraOffset = ((selectedTitle != null) ? (int) (positionOffset * selectedTitle.getWidth()) : 0);
             scrollToTab(position, extraOffset);
             if (mViewPagerPageChangeListener != null) {
                 mViewPagerPageChangeListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
@@ -217,7 +168,7 @@ public class ActionBarTabStrip extends HorizontalScrollView {
         }
 
         @Override
-        public void onPageScrollStateChanged(int state) {
+        public void onPageScrollStateChanged(final int state) {
             mScrollState = state;
             if (mViewPagerPageChangeListener != null) {
                 mViewPagerPageChangeListener.onPageScrollStateChanged(state);
@@ -225,9 +176,9 @@ public class ActionBarTabStrip extends HorizontalScrollView {
         }
 
         @Override
-        public void onPageSelected(int position) {
+        public void onPageSelected(final int position) {
             if (mScrollState == ViewPager.SCROLL_STATE_IDLE) {
-                mTabStrip.onViewPagerPageChanged(position, 0f);
+                mTabStripCell.onViewPagerPageChanged(position, 0F);
                 scrollToTab(position, 0);
             }
             if (mViewPagerPageChangeListener != null) {
@@ -240,9 +191,9 @@ public class ActionBarTabStrip extends HorizontalScrollView {
     private class TabClickListener implements View.OnClickListener {
 
         @Override
-        public void onClick(View v) {
-            for (int i = 0; i < mTabStrip.getChildCount(); i++) {
-                if (v == mTabStrip.getChildAt(i)) {
+        public void onClick(final View view) {
+            for (int i = 0; i < mTabStripCell.getChildCount(); i++) {
+                if (view == mTabStripCell.getChildAt(i)) {
                     mViewPager.setCurrentItem(i);
                     return ;
                 }
