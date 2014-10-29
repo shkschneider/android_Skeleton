@@ -12,6 +12,7 @@
     <ImageView
         android:id="@+id/imageview"
         android:src="@null"
+        android:layout_gravity="center"
         android:contentDescription="@null"
         android:layout_width="@dimen/spaceMedium"
         android:layout_height="@dimen/spaceMedium" />
