@@ -4,6 +4,9 @@ import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.Response;
 
+import org.jetbrains.annotations.NotNull;
+
+import me.shkschneider.skeleton.helper.ClassHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
 /**
@@ -34,11 +37,12 @@ public class WebService<T> {
     private Class<T> mClassType;
 
     // implicitly specify a classType (same as T)
-    public WebService(final Class<T> classType) {
+    public WebService(@NotNull final Class<T> classType) {
         mClassType = classType;
     }
 
-    public void get(final String url, final Callback<T> callback) {
+    public void get(@NotNull final String url, final Callback<T> callback) {
+        LogHelper.info("type:" + ClassHelper.name(mClassType) + " url:" + url);
         Ion.with(SkeletonApplication.CONTEXT)
                 .load(url)
                 // cannot get classType from generic T type variable

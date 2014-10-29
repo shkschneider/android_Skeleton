@@ -11,7 +11,11 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.graphics.Palette;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -20,7 +24,10 @@ import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
 /**
- * Handles Bitmaps.
+ * Handles Bitmaps (remote & local).
+ *
+ * - void loadImage(String, ImageView)
+ * - void getImage(String, Callback)
  *
  * - Bitmap fromDrawable(Drawable)
  * - Bitmap circular(Bitmap)
@@ -30,6 +37,40 @@ import me.shkschneider.skeleton.helper.LogHelper;
  * @see android.graphics.Bitmap
  */
 public class ImageManipulator {
+
+    // Remote
+
+    public static void loadImage(@NotNull final String url, @NotNull final ImageView imageView) {
+        LogHelper.info("type:image url:" + url);
+        Ion.with(imageView).load(url);
+    }
+
+    public static void getImage(@NotNull final String url, @NotNull final Callback callback) {
+        LogHelper.info("type:image url:" + url);
+        Ion.with(SkeletonApplication.CONTEXT)
+                .load(url)
+                .asBitmap()
+                .setCallback(new FutureCallback<Bitmap>() {
+                    @Override
+                    public void onCompleted(final Exception e, final Bitmap result) {
+                        if (e != null) {
+                            LogHelper.wtf(e);
+                            callback.bitmapCallback(e, null);
+                            return ;
+                        }
+
+                        callback.bitmapCallback(null, result);
+                    }
+                });
+    }
+
+    public interface Callback {
+
+        public void bitmapCallback(final Exception e, final Bitmap bitmap);
+
+    }
+
+    // Local
 
     @Deprecated
     public static Drawable fromBitmap(@NotNull final Bitmap bitmap) {
