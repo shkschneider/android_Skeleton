@@ -64,7 +64,6 @@ public class IndexedListFragment extends SkeletonFragment {
                 refresh(q);
             }
         });
-        refresh(null);
     }
 
     @Override
@@ -85,6 +84,12 @@ public class IndexedListFragment extends SkeletonFragment {
                 ActivityHelper.toast(mAdapter.getItem(position));
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh(null);
     }
 
     public void refresh(final String q) {

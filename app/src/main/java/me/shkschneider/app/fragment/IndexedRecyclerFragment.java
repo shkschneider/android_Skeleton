@@ -46,7 +46,6 @@ public class IndexedRecyclerFragment extends SkeletonFragment {
                 refresh(q);
             }
         });
-        refresh(null);
     }
 
     @Override
@@ -62,6 +61,12 @@ public class IndexedRecyclerFragment extends SkeletonFragment {
         final RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(skeletonActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh(null);
     }
 
     public void refresh(final String q) {

@@ -34,7 +34,6 @@ public class ActionBarPagerFragment extends SkeletonFragment {
         super.onCreate(savedInstanceState);
 
         mPagerAdapter = new MyPagerAdapter(getFragmentManager());
-        refresh();
     }
 
     @Override
@@ -49,6 +48,12 @@ public class ActionBarPagerFragment extends SkeletonFragment {
         viewPager.setAdapter(mPagerAdapter);
         final ActionBarPagerTabStrip actionBarPagerTabStrip = (ActionBarPagerTabStrip) view.findViewById(R.id.actionbarpagertabstrip);
         actionBarPagerTabStrip.setViewPager(viewPager);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
     }
 
     public void refresh() {
@@ -120,7 +125,6 @@ public class ActionBarPagerFragment extends SkeletonFragment {
                     return false;
                 }
             };
-            refresh();
         }
 
         @Override
@@ -134,6 +138,12 @@ public class ActionBarPagerFragment extends SkeletonFragment {
         @Override
         public String title() {
             return getArguments().getString(TITLE);
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            refresh();
         }
 
         public void refresh() {

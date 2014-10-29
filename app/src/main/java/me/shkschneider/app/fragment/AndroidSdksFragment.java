@@ -10,10 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
-import com.koushikdutta.ion.Response;
-
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
@@ -23,6 +19,7 @@ import java.util.Comparator;
 
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.SkeletonFragment;
+import me.shkschneider.skeleton.WebService;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.StringHelper;
@@ -61,7 +58,6 @@ public class AndroidSdksFragment extends SkeletonFragment {
                 return true;
             }
         };
-        refresh();
     }
 
     @Override
@@ -82,90 +78,86 @@ public class AndroidSdksFragment extends SkeletonFragment {
         });
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
+    }
+
     public void refresh() {
-        skeletonActivity().loading(true);
-        Ion.with(this)
-                .load(URL)
-                .asInputStream()
-                .withResponse()
-                .setCallback(new FutureCallback<Response<InputStream>>() {
+        skeletonActivity().loading(+1);
+        WebService.getInputStream(URL, new WebService.Callback() {
                     @Override
-                    public void onCompleted(final Exception e, final Response<InputStream> result) {
-                        skeletonActivity().loading(false);
+                    public void webServiceCallback(final Exception e, final Object result) {
+                        skeletonActivity().loading(-1);
                         if (e != null) {
-                            ActivityHelper.croutonRed(skeletonActivity(), e.getLocalizedMessage());
-                            return ;
+                            ActivityHelper.croutonRed(skeletonActivity(), e.getMessage());
+                            return;
                         }
 
-                        final int responseCode = result.getHeaders().getResponseCode();
-                        final String responseMessage = result.getHeaders().getResponseMessage();
-                        if (responseCode >= 400) {
-                            ActivityHelper.croutonOrange(skeletonActivity(), responseMessage);
-                            return ;
-                        }
-
-                        final InputStream inputStream = result.getResult();
-                        try {
-                            final ArrayList<AndroidSdk> androidSdks = new ArrayList<AndroidSdk>();
-                            AndroidSdk androidSdk = null;
-
-                            final XmlPullParserFactory xmlPullParserFactory = XmlPullParserFactory.newInstance();
-                            final XmlPullParser xmlPullParser = xmlPullParserFactory.newPullParser();
-                            xmlPullParser.setInput(inputStream, null);
-                            int eventType = xmlPullParser.getEventType();
-                            while (eventType != XmlPullParser.END_DOCUMENT) {
-                                final String name = xmlPullParser.getName();
-                                switch (eventType) {
-                                    case XmlPullParser.START_TAG:
-                                        if (name.equals("sdk:platform")) {
-                                            androidSdk = new AndroidSdk();
-                                        }
-                                        else if (androidSdk != null) {
-                                            if (name.equals("sdk:version")) {
-                                                androidSdk.version = xmlPullParser.nextText();
-                                            }
-                                            else if (name.equals("sdk:api-level")) {
-                                                androidSdk.apiLevel = xmlPullParser.nextText();
-                                            }
-                                            else if (name.equals("sdk:revision")) {
-                                                androidSdk.revision = xmlPullParser.nextText();
-                                            }
-                                        }
-                                        break;
-                                    case XmlPullParser.END_TAG:
-                                        if (androidSdk != null && androidSdk.valid()) {
-                                            androidSdks.add(androidSdk);
-                                            androidSdk = null;
-                                        }
-                                        break;
-                                }
-                                eventType = xmlPullParser.next();
-                            }
-                            mAdapter.clear();
-                            mAdapter.addAll(androidSdks);
-                            mAdapter.sort(new Comparator<AndroidSdk>() {
-                                @Override
-                                public int compare(final AndroidSdk androidSdk1, final AndroidSdk androidSdk2) {
-                                    int diff = Integer.valueOf(androidSdk2.apiLevel) - Integer.valueOf(androidSdk1.apiLevel);
-                                    if (diff != 0) {
-                                        return diff;
-                                    }
-                                    diff = Integer.valueOf(androidSdk2.revision) - Integer.valueOf(androidSdk1.revision);
-                                    if (diff != 0) {
-                                        return diff;
-                                    }
-
-                                    return 0;
-                                }
-                            });
-                            mAdapter.notifyDataSetChanged();
-                        }
-                        catch (final Exception ex) {
-                            LogHelper.wtf(ex);
-                            ActivityHelper.croutonRed(skeletonActivity(), ex.getLocalizedMessage());
-                        }
+                        final InputStream inputStream = (InputStream) result;
+                        parseXml(inputStream);
                     }
                 });
+    }
+
+    private void parseXml(final InputStream inputStream) {
+        try {
+            final ArrayList<AndroidSdk> androidSdks = new ArrayList<AndroidSdk>();
+            AndroidSdk androidSdk = null;
+
+            final XmlPullParserFactory xmlPullParserFactory = XmlPullParserFactory.newInstance();
+            final XmlPullParser xmlPullParser = xmlPullParserFactory.newPullParser();
+            xmlPullParser.setInput(inputStream, null);
+            int eventType = xmlPullParser.getEventType();
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                final String name = xmlPullParser.getName();
+                switch (eventType) {
+                    case XmlPullParser.START_TAG:
+                        if (name.equals("sdk:platform")) {
+                            androidSdk = new AndroidSdk();
+                        } else if (androidSdk != null) {
+                            if (name.equals("sdk:version")) {
+                                androidSdk.version = xmlPullParser.nextText();
+                            } else if (name.equals("sdk:api-level")) {
+                                androidSdk.apiLevel = xmlPullParser.nextText();
+                            } else if (name.equals("sdk:revision")) {
+                                androidSdk.revision = xmlPullParser.nextText();
+                            }
+                        }
+                        break;
+                    case XmlPullParser.END_TAG:
+                        if (androidSdk != null && androidSdk.valid()) {
+                            androidSdks.add(androidSdk);
+                            androidSdk = null;
+                        }
+                        break;
+                }
+                eventType = xmlPullParser.next();
+            }
+            mAdapter.clear();
+            mAdapter.addAll(androidSdks);
+            mAdapter.sort(new Comparator<AndroidSdk>() {
+                @Override
+                public int compare(final AndroidSdk androidSdk1, final AndroidSdk androidSdk2) {
+                    int diff = Integer.valueOf(androidSdk2.apiLevel) - Integer.valueOf(androidSdk1.apiLevel);
+                    if (diff != 0) {
+                        return diff;
+                    }
+                    diff = Integer.valueOf(androidSdk2.revision) - Integer.valueOf(androidSdk1.revision);
+                    if (diff != 0) {
+                        return diff;
+                    }
+
+                    return 0;
+                }
+            });
+            mAdapter.notifyDataSetChanged();
+        }
+        catch (final Exception ex) {
+            LogHelper.wtf(ex);
+            ActivityHelper.croutonRed(skeletonActivity(), ex.getMessage());
+        }
     }
 
     private class AndroidSdk {

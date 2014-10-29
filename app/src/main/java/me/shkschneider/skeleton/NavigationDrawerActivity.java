@@ -73,6 +73,7 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
         super.onPostCreate(savedInstanceState);
         // Fix for lower APIs: the ic_navigation_drawer drawable was not showed
         mDrawerToggle.syncState();
+        // TODO check if still of actuality
     }
 
     @Override
@@ -80,6 +81,7 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
         super.onPostResume();
         // Fix for lower APIs: the ic_navigation_drawer drawable was not showed
         mDrawerToggle.syncState();
+        // TODO check if still of actuality
     }
 
     protected abstract ArrayAdapter getAdapter();
@@ -92,11 +94,13 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
             return ;
         }
 
-        loading(false);
+        // clears any loading
+        indeterminateLoading(false);
 
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.drawer_framelayout, fragment)
                 .commit();
+
         mDrawerList.setItemChecked(position, true);
         closeNavigationDrawer();
         supportInvalidateOptionsMenu();

@@ -83,23 +83,28 @@ public class NetworkFragment extends SkeletonFragment {
         super.onViewCreated(view, savedInstanceState);
         final ListView listView = (ListView) view.findViewById(R.id.listview);
         listView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         refresh();
     }
 
     public void refresh() {
-        skeletonActivity().loading(true);
-        new WebService<JsonObject>(JsonObject.class)
-                .get("http://ifconfig.me/all.json", new WebService.Callback<JsonObject>() {
+        skeletonActivity().loading(+1);
+        WebService.getJsonObject("http://ifconfig.me/all.json", new WebService.Callback() {
                     @Override
-                    public void webServiceCallback(final Exception e, final JsonObject response) {
-                        skeletonActivity().loading(false);
+                    public void webServiceCallback(final Exception e, final Object result) {
+                        skeletonActivity().loading(-1);
                         if (e != null) {
-                            ActivityHelper.croutonRed(skeletonActivity(), e.getLocalizedMessage());
+                            ActivityHelper.croutonRed(skeletonActivity(), e.getMessage());
                             return;
                         }
 
-                        for (final String key : GsonParser.keys(response)) {
-                            final String value = GsonParser.string(response, key);
+                        final JsonObject jsonObject = (JsonObject) result;
+                        for (final String key : GsonParser.keys(jsonObject)) {
+                            final String value = GsonParser.string(jsonObject, key);
                             if (!StringHelper.nullOrEmpty(value)) {
                                 final String string = String.format("%s %s", key, value);
                                 mAdapter.add(string);
@@ -109,17 +114,19 @@ public class NetworkFragment extends SkeletonFragment {
                     }
                 });
 
-        skeletonActivity().loading(true);
-        new WebService<String>(String.class).get("http://ipecho.net/plain", new WebService.Callback<String>() {
+        skeletonActivity().loading(+1);
+        WebService.getString("http://ipecho.net/plain", new WebService.Callback() {
             @Override
-            public void webServiceCallback(final Exception e, final String response) {
-                skeletonActivity().loading(false);
+            public void webServiceCallback(final Exception e, final Object result) {
+                skeletonActivity().loading(-1);
                 if (e != null) {
-                    ActivityHelper.croutonRed(skeletonActivity(), e.getLocalizedMessage());
+                    ActivityHelper.croutonRed(skeletonActivity(), e.getMessage());
                     return;
                 }
 
-                ActivityHelper.croutonGreen(skeletonActivity(), response);
+                final String string = (String) result;
+                mAdapter.add("ip " + string);
+                mAdapter.notifyDataSetChanged();
             }
         });
     }

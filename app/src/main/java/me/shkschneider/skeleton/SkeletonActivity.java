@@ -32,7 +32,9 @@ import me.shkschneider.skeleton.helper.StringHelper;
  * - void title(CharSequence)
  * - void searchable(String, SearchCallback)
  * - boolean loading()
- * - void loading(boolean)
+ * - void loading(int)
+ * - void indeterminateLoading(boolean)
+ * - int loadingCount()
  *
  * interface NavigationCallback
  * - void onHomeAsUpPressed()
@@ -43,7 +45,9 @@ import me.shkschneider.skeleton.helper.StringHelper;
  */
 public class SkeletonActivity extends ActionBarActivity {
 
-    private CharSequence mTitle;
+    private int mLoadingCount = 0;
+    private TextView mLoadingView;
+    private CharSequence mTitle = null;
     private boolean mAlive = false;
     private ActionMode mActionMode = null;
     private String mSearchHint;
@@ -54,8 +58,9 @@ public class SkeletonActivity extends ActionBarActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // setContentView()
-        mTitle = null;
     }
+
+    // Alive
 
     @Override
     protected void onResume() {
@@ -75,6 +80,8 @@ public class SkeletonActivity extends ActionBarActivity {
         return mAlive;
     }
 
+    // Home
+
     public void home(final boolean b) {
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar == null) {
@@ -85,6 +92,8 @@ public class SkeletonActivity extends ActionBarActivity {
         actionBar.setDisplayHomeAsUpEnabled(b);
         actionBar.setDisplayShowHomeEnabled(b);
     }
+
+    // Logo
 
     public void logo(final boolean b) {
         final ActionBar actionBar = getSupportActionBar();
@@ -107,6 +116,8 @@ public class SkeletonActivity extends ActionBarActivity {
             }
         }
     }
+
+    // Title
 
     public void title(final String title) {
         mTitle = title;
@@ -148,18 +159,36 @@ public class SkeletonActivity extends ActionBarActivity {
         return (String) mTitle;
     }
 
+    // Search
+
     public void searchable(final String hint, final SearchCallback searchCallback) {
         mSearchHint = hint;
         mSearchCallback = searchCallback;
         // supportInvalidateOptionsMenu();
     }
 
+    // Loading
+
     public boolean loading() {
         return (mActionMode != null);
     }
 
-    public void loading(final boolean b) {
-        if (b && ! loading()) {
+    private void clearLoading() {
+        mLoadingCount = 0;
+        LogHelper.info("loading:" + mLoadingCount);
+        if (mActionMode != null) {
+            mActionMode.finish();
+            mActionMode = null;
+            mLoadingView.setText("");
+            mLoadingView = null;
+        }
+    }
+
+    private void updateLoading(final boolean showCount) {
+        if (mLoadingCount == 0) {
+            clearLoading();
+        }
+        else if (! loading()) {
             mActionMode = startSupportActionMode(new ActionMode.Callback() {
                 @SuppressLint("InflateParams") // inflater has no ViewGroup
                 @Override
@@ -167,6 +196,7 @@ public class SkeletonActivity extends ActionBarActivity {
                     final LayoutInflater layoutInflater = LayoutInflater.from(SkeletonActivity.this);
                     final View view = layoutInflater.inflate(R.layout.actionmode_loading, null);
                     ((TextView) view.findViewById(R.id.title)).setText(getSupportActionBar().getTitle());
+                    mLoadingView = (TextView) view.findViewById(R.id.loading);
                     actionMode.setCustomView(view);
                     return true;
                 }
@@ -187,10 +217,26 @@ public class SkeletonActivity extends ActionBarActivity {
                 }
             });
         }
-        else if (! b && loading()) {
-            mActionMode.finish();
-            mActionMode = null;
+        else if (showCount) {
+            mLoadingView.setText(String.valueOf(mLoadingCount));
         }
+        else {
+            mLoadingView.setText("");
+        }
+    }
+
+    public void loading(final int i) {
+        mLoadingCount += i;
+        updateLoading(true);
+    }
+
+    public void indeterminateLoading(final boolean b) {
+        mLoadingCount = (b ? 1 : 0);
+        updateLoading(false);
+    }
+
+    public int loadingCount() {
+        return mLoadingCount;
     }
 
     @Override

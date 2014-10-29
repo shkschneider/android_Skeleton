@@ -23,4 +23,13 @@
         android:indeterminate="true"
         app:cpb_color="@color/actionBarForegroundColor" />
 
+    <TextView
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/loading"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:gravity="center"
+        android:textColor="@color/actionBarForegroundColor" />
+
 </RelativeLayout>

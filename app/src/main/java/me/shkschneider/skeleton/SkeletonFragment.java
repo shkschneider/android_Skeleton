@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton;
 
+import android.app.Activity;
 import android.support.v4.app.Fragment;
 
 import me.shkschneider.skeleton.helper.ClassHelper;
@@ -20,10 +21,17 @@ import me.shkschneider.skeleton.helper.ClassHelper;
  */
 public class SkeletonFragment extends Fragment {
 
+    protected SkeletonActivity mActivity;
     protected String mTitle;
 
     public SkeletonFragment() {
         title(ClassHelper.name(SkeletonFragment.class));
+    }
+
+    @Override
+    public void onAttach(final Activity activity) {
+        super.onAttach(activity);
+        mActivity = (SkeletonActivity) activity;
     }
 
     public boolean alive() {
@@ -39,7 +47,10 @@ public class SkeletonFragment extends Fragment {
     }
 
     public SkeletonActivity skeletonActivity() {
-        return (SkeletonActivity) getActivity();
+        if (mActivity == null) {
+            return (SkeletonActivity) getActivity();
+        }
+        return mActivity;
     }
 
 }

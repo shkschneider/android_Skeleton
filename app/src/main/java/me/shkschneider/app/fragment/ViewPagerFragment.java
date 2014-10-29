@@ -33,7 +33,6 @@ public class ViewPagerFragment extends SkeletonFragment {
         super.onCreate(savedInstanceState);
 
         mPagerAdapter = new MyPagerAdapter(getFragmentManager());
-        refresh();
     }
 
     @Override
@@ -46,6 +45,12 @@ public class ViewPagerFragment extends SkeletonFragment {
         super.onViewCreated(view, savedInstanceState);
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         viewPager.setAdapter(mPagerAdapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
     }
 
     public void refresh() {
@@ -117,7 +122,6 @@ public class ViewPagerFragment extends SkeletonFragment {
                     return false;
                 }
             };
-            refresh();
         }
 
         @Override
@@ -131,6 +135,12 @@ public class ViewPagerFragment extends SkeletonFragment {
         @Override
         public String title() {
             return getArguments().getString(TITLE);
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            refresh();
         }
 
         public void refresh() {

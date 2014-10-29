@@ -1,68 +1,112 @@
 package me.shkschneider.skeleton;
 
+import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.Response;
 
 import org.jetbrains.annotations.NotNull;
 
-import me.shkschneider.skeleton.helper.ClassHelper;
+import java.io.InputStream;
+
 import me.shkschneider.skeleton.helper.LogHelper;
 
 /**
- * WebService (generified) that handles most class types (default being InputStream from Ion library).
- * Beware that T and the Class<T> parameter of the constructor MUST be the same classType.
- * <em>This is due to Java limitations in reflections with Ion's mechanisms.</em>
- * <br />
- * Safe for types like:
- * - InputStream
- * - String
- * - Json
- * - XML
- * - ...
- *
- * WebService<T>:
- * - WebService(Class<T>)
- * - void get(String, Callback<T>)
- *
- * WebServiceException:
- * - String getMessage()
- * - int getErrorCode()
- *
- * Callback<T>:
- * - void webServiceCallback(Exception, T)
+ * @TODO generify
  */
-public class WebService<T> {
+public class WebService {
 
-    private Class<T> mClassType;
-
-    // implicitly specify a classType (same as T)
-    public WebService(@NotNull final Class<T> classType) {
-        mClassType = classType;
-    }
-
-    public void get(@NotNull final String url, final Callback<T> callback) {
-        LogHelper.info("type:" + ClassHelper.name(mClassType) + " url:" + url);
+    public static void getJsonObject(@NotNull final String url, final Callback callback) {
+        LogHelper.info("type:" + "JsonObject" + " url:" + url);
         Ion.with(SkeletonApplication.CONTEXT)
                 .load(url)
-                // cannot get classType from generic T type variable
-                .as(mClassType)
+                .asJsonObject()
                 .withResponse()
-                .setCallback(new FutureCallback<Response<T>>() {
+                .setCallback(new FutureCallback<Response<JsonObject>>() {
                     @Override
-                    public void onCompleted(final Exception e, final Response<T> response) {
+                    public void onCompleted(final Exception e, final Response<JsonObject> response) {
                         if (e != null) {
                             LogHelper.wtf(e);
                             if (callback == null) {
                                 LogHelper.warning("Callback was NULL");
-                                return ;
+                                return;
                             }
                             callback.webServiceCallback(e, null);
-                            return ;
+                            return;
                         }
                         if (callback == null) {
                             LogHelper.warning("Callback was NULL");
-                            return ;
+                            return;
+                        }
+
+                        final int responseCode = response.getHeaders().getResponseCode();
+                        final String responseMessage = response.getHeaders().getResponseMessage();
+                        if (responseCode >= 400) {
+                            callback.webServiceCallback(new WebServiceException(responseCode, responseMessage), null);
+                        }
+                        else {
+                            callback.webServiceCallback(null, response.getResult());
+                        }
+                    }
+                });
+    }
+
+    public static void getString(@NotNull final String url, final Callback callback) {
+        LogHelper.info("type:" + "InputStream" + " url:" + url);
+        Ion.with(SkeletonApplication.CONTEXT)
+                .load(url)
+                .asString()
+                .withResponse()
+                .setCallback(new FutureCallback<Response<String>>() {
+                    @Override
+                    public void onCompleted(final Exception e, final Response<String> response) {
+                        if (e != null) {
+                            LogHelper.wtf(e);
+                            if (callback == null) {
+                                LogHelper.warning("Callback was NULL");
+                                return;
+                            }
+                            callback.webServiceCallback(e, null);
+                            return;
+                        }
+                        if (callback == null) {
+                            LogHelper.warning("Callback was NULL");
+                            return;
+                        }
+
+                        final int responseCode = response.getHeaders().getResponseCode();
+                        final String responseMessage = response.getHeaders().getResponseMessage();
+                        if (responseCode >= 400) {
+                            callback.webServiceCallback(new WebServiceException(responseCode, responseMessage), null);
+                        }
+                        else {
+                            callback.webServiceCallback(null, response.getResult());
+                        }
+                    }
+                });
+    }
+
+    public static void getInputStream(@NotNull final String url, final Callback callback) {
+        LogHelper.info("type:" + "InputStream" + " url:" + url);
+        Ion.with(SkeletonApplication.CONTEXT)
+                .load(url)
+                .asInputStream()
+                .withResponse()
+                .setCallback(new FutureCallback<Response<InputStream>>() {
+                    @Override
+                    public void onCompleted(final Exception e, final Response<InputStream> response) {
+                        if (e != null) {
+                            LogHelper.wtf(e);
+                            if (callback == null) {
+                                LogHelper.warning("Callback was NULL");
+                                return;
+                            }
+                            callback.webServiceCallback(e, null);
+                            return;
+                        }
+                        if (callback == null) {
+                            LogHelper.warning("Callback was NULL");
+                            return;
                         }
 
                         final int responseCode = response.getHeaders().getResponseCode();
@@ -86,20 +130,15 @@ public class WebService<T> {
             mCode = code;
         }
 
-        @Override
-        public String getLocalizedMessage() {
-            return super.getMessage();
-        }
-
         public int getErrorCode() {
             return mCode;
         }
 
     }
 
-    public interface Callback<T> {
+    public interface Callback {
 
-        public void webServiceCallback(final Exception e, final T response);
+        public void webServiceCallback(final Exception e, final Object result);
 
     }
 
