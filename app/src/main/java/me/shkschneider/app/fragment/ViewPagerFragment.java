@@ -16,7 +16,7 @@ import android.widget.TextView;
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.StringHelper;
-import me.shkschneider.skeleton.ui.SlidingTabLayout;
+import me.shkschneider.skeleton.ui.ActionBarTabStrip;
 
 public class ViewPagerFragment extends SkeletonFragment {
 
@@ -41,9 +41,9 @@ public class ViewPagerFragment extends SkeletonFragment {
         final View view = inflater.inflate(R.layout.fragment_viewpager, container, false);
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         viewPager.setAdapter(mPagerAdapter);
-        final SlidingTabLayout slidingTabLayout = (SlidingTabLayout) view.findViewById(R.id.slidingtablayout);
-        slidingTabLayout.setTabViewFullWidth(true);
-        slidingTabLayout.setViewPager(viewPager);
+        final ActionBarTabStrip actionBarTabStrip = (ActionBarTabStrip) view.findViewById(R.id.slidingtablayout);
+        actionBarTabStrip.setTabViewFullWidth(true);
+        actionBarTabStrip.setViewPager(viewPager);
         return view;
     }
 

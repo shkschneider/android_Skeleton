@@ -4,15 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <me.shkschneider.skeleton.ui.SlidingTabLayout
+    <me.shkschneider.skeleton.ui.ActionBarTabStrip
         style="@style/AppTheme.SlidingTabLayout"
-        android:id="@+id/slidingtablayout"g
+        android:id="@+id/slidingtablayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/spaceMedium" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 </LinearLayout>

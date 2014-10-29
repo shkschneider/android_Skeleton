@@ -34,7 +34,7 @@ import android.widget.TextView;
 import me.shkschneider.app.R;
 
 // TODO cleanup
-public class SlidingTabLayout extends HorizontalScrollView {
+public class ActionBarTabStrip extends HorizontalScrollView {
 
     public interface TabColorizer {
 
@@ -51,28 +51,27 @@ public class SlidingTabLayout extends HorizontalScrollView {
     private int mTabViewLayoutId;
     private boolean mTabViewFullWidth;
     private int mTabViewTextViewId;
-    private int mTextViewColor;
     private ViewPager mViewPager;
     private ViewPager.OnPageChangeListener mViewPagerPageChangeListener;
 
-    private final SlidingTabStrip mTabStrip;
+    private final ActionBarTabStripCell mTabStrip;
 
-    public SlidingTabLayout(Context context) {
+    public ActionBarTabStrip(Context context) {
         this(context, null);
         init();
     }
 
-    public SlidingTabLayout(Context context, AttributeSet attrs) {
+    public ActionBarTabStrip(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
         init();
     }
 
-    public SlidingTabLayout(Context context, AttributeSet attrs, int defStyle) {
+    public ActionBarTabStrip(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         setHorizontalScrollBarEnabled(false);
         setFillViewport(true);
         mTitleOffset = (int) (TITLE_OFFSET_DIPS * getResources().getDisplayMetrics().density);
-        mTabStrip = new SlidingTabStrip(context);
+        mTabStrip = new ActionBarTabStripCell(context);
         addView(mTabStrip, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         init();
     }
@@ -90,7 +89,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
                 return getResources().getColor(R.color.transparent);
             }
         });
-        mTextViewColor = getResources().getColor(R.color.actionBarForegroundColor);
+        setBackgroundColor(getResources().getColor(R.color.primaryColor));
     }
 
     public void setTabViewFullWidth(boolean fullWidth) {
@@ -107,10 +106,6 @@ public class SlidingTabLayout extends HorizontalScrollView {
 
     public void setDividerColors(int... colors) {
         mTabStrip.setDividerColors(colors);
-    }
-
-    public void setTextColor(int color) {
-        mTextViewColor = color;
     }
 
     public void setOnPageChangeListener(ViewPager.OnPageChangeListener listener) {
@@ -146,7 +141,7 @@ public class SlidingTabLayout extends HorizontalScrollView {
         }
         int padding = (int) (TAB_VIEW_PADDING_DIPS * getResources().getDisplayMetrics().density);
         textView.setPadding(padding, padding, padding, padding);
-        textView.setTextColor(mTextViewColor);
+        textView.setTextColor(getResources().getColor(R.color.actionBarForegroundColor));
         return textView;
     }
 
