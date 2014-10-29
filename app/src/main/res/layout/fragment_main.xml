@@ -40,6 +40,7 @@
             android:textStyle="normal" />
 
         <ImageButton
+            android:id="@+id/imagebutton"
             android:src="@drawable/ic_launcher"
             android:contentDescription="@null"
             android:layout_width="@dimen/spaceBig"

@@ -22,7 +22,7 @@ import me.shkschneider.skeleton.helper.LogHelper;
 /**
  * Handles Bitmaps.
  *
- * - Bitmap from Drawable(Drawable)
+ * - Bitmap fromDrawable(Drawable)
  * - Bitmap circular(Bitmap)
  * - Bitmap rotate(Bitmap, float)
  * - Bitmap fromView(View)
@@ -32,7 +32,7 @@ import me.shkschneider.skeleton.helper.LogHelper;
 public class ImageManipulator {
 
     @Deprecated
-    public static Drawable drawableFromBitmap(@NotNull final Bitmap bitmap) {
+    public static Drawable fromBitmap(@NotNull final Bitmap bitmap) {
         return new BitmapDrawable(bitmap);
     }
 

@@ -10,15 +10,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
-import com.koushikdutta.ion.Response;
 
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.SkeletonFragment;
+import me.shkschneider.skeleton.WebService;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.GsonParser;
-import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.StringHelper;
 
 public class NetworkFragment extends SkeletonFragment {
@@ -75,29 +72,15 @@ public class NetworkFragment extends SkeletonFragment {
 
     public void refresh() {
         skeletonActivity().loading(true);
-        Ion.with(this)
-                .load("http://ifconfig.me/all.json")
-                .asJsonObject()
-                .withResponse()
-                .setCallback(new FutureCallback<Response<JsonObject>>() {
+        new WebService<JsonObject>(JsonObject.class)
+                .get("http://ifconfig.me/all.json", new WebService.Callback<JsonObject>() {
                     @Override
-                    public void onCompleted(final Exception e, final Response<JsonObject> result) {
+                    public void webServiceCallback(final Exception e, final JsonObject response) {
                         skeletonActivity().loading(false);
                         if (e != null) {
-                            LogHelper.wtf(e);
                             ActivityHelper.croutonRed(skeletonActivity(), e.getLocalizedMessage());
                             return ;
                         }
-
-                        final int responseCode = result.getHeaders().getResponseCode();
-                        final String responseMessage = result.getHeaders().getResponseMessage();
-                        if (responseCode >= 400) {
-                            ActivityHelper.croutonRed(skeletonActivity(), String.format("%d: %s", responseCode, responseMessage));
-                        }
-                        else {
-                            ActivityHelper.croutonGreen(skeletonActivity(), String.format("%d: %s", responseCode, responseMessage));
-                        }
-                        final JsonObject response = result.getResult();
 
                         for (final String key : GsonParser.keys(response)) {
                             final String value = GsonParser.string(response, key);
@@ -109,6 +92,22 @@ public class NetworkFragment extends SkeletonFragment {
                         mAdapter.notifyDataSetChanged();
                     }
                 });
+
+        skeletonActivity().loading(true);
+        new WebService<String>(String.class).get("http://ipecho.net/plain", new WebService.Callback<String>() {
+            @Override
+            public void webServiceCallback(final Exception e, final String response) {
+                skeletonActivity().loading(false);
+                if (e != null) {
+                    ActivityHelper.croutonRed(skeletonActivity(), e.getLocalizedMessage());
+                    return ;
+                }
+
+                ActivityHelper.croutonGreen(skeletonActivity(), response);
+            }
+        });
+
+        // TODO "https://developer.android.com/images/resource-card-android-studio.png"
     }
 
 }
