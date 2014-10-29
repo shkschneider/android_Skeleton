@@ -6,6 +6,9 @@ import me.shkschneider.skeleton.helper.ClassHelper;
 
 /**
  * Base Fragment you should use!
+ * - onCreate()
+ * - onCreateView()
+ * - onViewCreated()
  *
  * - boolean alive()
  * - String title()
