@@ -16,7 +16,7 @@ import com.google.gson.JsonObject;
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.ImageManipulator;
 import me.shkschneider.skeleton.SkeletonFragment;
-import me.shkschneider.skeleton.WebService;
+import me.shkschneider.skeleton.WebServiceIon;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.GsonParser;
 import me.shkschneider.skeleton.helper.LogHelper;
@@ -42,14 +42,14 @@ public class NetworkFragment extends SkeletonFragment {
                     convertView = layoutInflater.inflate(R.layout.listview_iconitem2, parent, false);
                 }
                 final ImageView imageView = (ImageView) convertView.findViewById(R.id.imageview);
-                ImageManipulator.getImage("https://developer.android.com/images/resource-card-android-studio.png", new ImageManipulator.Callback() {
+                new WebServiceIon().getImage("https://developer.android.com/images/resource-card-android-studio.png", new WebServiceIon.Callback() {
                     @Override
-                    public void bitmapCallback(final Exception e, final Bitmap bitmap) {
+                    public void webServiceCallback(final WebServiceIon.WebServiceException e, final Object result) {
                         if (e != null) {
-                            LogHelper.wtf(e);
-                            return ;
+                            return;
                         }
 
+                        final Bitmap bitmap = (Bitmap) result;
                         imageView.setImageBitmap(ImageManipulator.circular(bitmap));
                     }
                 });
@@ -93,31 +93,11 @@ public class NetworkFragment extends SkeletonFragment {
 
     public void refresh() {
         skeletonActivity().loading(+1);
-        WebService.getJsonObject("http://ifconfig.me/all.json", new WebService.Callback() {
-                    @Override
-                    public void webServiceCallback(final Exception e, final Object result) {
-                        skeletonActivity().loading(-1);
-                        if (e != null) {
-                            ActivityHelper.croutonRed(skeletonActivity(), e.getMessage());
-                            return;
-                        }
-
-                        final JsonObject jsonObject = (JsonObject) result;
-                        for (final String key : GsonParser.keys(jsonObject)) {
-                            final String value = GsonParser.string(jsonObject, key);
-                            if (!StringHelper.nullOrEmpty(value)) {
-                                final String string = String.format("%s %s", key, value);
-                                mAdapter.add(string);
-                            }
-                        }
-                        mAdapter.notifyDataSetChanged();
-                    }
-                });
-
-        skeletonActivity().loading(+1);
-        WebService.getString("http://ipecho.net/plain", new WebService.Callback() {
+        final long start1 = System.currentTimeMillis();
+        new WebServiceIon().getString("http://ipecho.net/plain", new WebServiceIon.Callback() {
             @Override
-            public void webServiceCallback(final Exception e, final Object result) {
+            public void webServiceCallback(final WebServiceIon.WebServiceException e, final Object result) {
+                LogHelper.info("time:" + (System.currentTimeMillis() - start1));
                 skeletonActivity().loading(-1);
                 if (e != null) {
                     ActivityHelper.croutonRed(skeletonActivity(), e.getMessage());
@@ -126,6 +106,29 @@ public class NetworkFragment extends SkeletonFragment {
 
                 final String string = (String) result;
                 mAdapter.add("ip " + string);
+                mAdapter.notifyDataSetChanged();
+            }
+        });
+        skeletonActivity().loading(+1);
+        final long start2 = System.currentTimeMillis();
+        new WebServiceIon().getJsonObject("http://ifconfig.me/all.json", new WebServiceIon.Callback() {
+            @Override
+            public void webServiceCallback(final WebServiceIon.WebServiceException e, final Object result) {
+                skeletonActivity().loading(-1);
+                LogHelper.info("time:" + (System.currentTimeMillis() - start2));
+                if (e != null) {
+                    ActivityHelper.croutonRed(skeletonActivity(), e.getMessage());
+                    return ;
+                }
+
+                final JsonObject jsonObject = (JsonObject) result;
+                for (final String key : GsonParser.keys(jsonObject)) {
+                    final String value = GsonParser.string(jsonObject, key);
+                    if (!StringHelper.nullOrEmpty(value)) {
+                        final String string = String.format("%s %s", key, value);
+                        mAdapter.add(string);
+                    }
+                }
                 mAdapter.notifyDataSetChanged();
             }
         });

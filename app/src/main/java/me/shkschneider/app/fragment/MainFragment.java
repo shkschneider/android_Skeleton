@@ -10,12 +10,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
-
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.ImageManipulator;
 import me.shkschneider.skeleton.SkeletonFragment;
+import me.shkschneider.skeleton.WebServiceIon;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
@@ -38,24 +36,23 @@ public class MainFragment extends SkeletonFragment {
         super.onViewCreated(view, savedInstanceState);
 
         final ImageView authorAvatar = (ImageView) view.findViewById(R.id.authorAvatar);
-        Ion.with(skeletonActivity())
-                .load(String.format("https://%s.me/%s.png", AUTHOR.toLowerCase(), AUTHOR.toLowerCase()))
-                .asBitmap()
-                .setCallback(new FutureCallback<Bitmap>() {
-                    @Override
-                    public void onCompleted(final Exception e, final Bitmap result) {
-                        if (e != null) {
-                            LogHelper.wtf(e);
-                            return;
-                        }
-                        if (result == null) {
-                            LogHelper.warning("Bitmap was NULL");
-                            return;
-                        }
+        final String url = String.format("https://%s.me/%s.png", AUTHOR.toLowerCase(), AUTHOR.toLowerCase());
+        new WebServiceIon().getImage(url, new WebServiceIon.Callback() {
+            @Override
+            public void webServiceCallback(final WebServiceIon.WebServiceException e, final Object result) {
+                if (e != null) {
+                    LogHelper.wtf(e);
+                    return;
+                }
+                if (result == null) {
+                    LogHelper.warning("Bitmap was NULL");
+                    return;
+                }
 
-                        authorAvatar.setImageBitmap(ImageManipulator.circular(result));
-                    }
-                });
+                final Bitmap bitmap = (Bitmap) result;
+                authorAvatar.setImageBitmap(ImageManipulator.circular(bitmap));
+            }
+        });
 
         final TextView applicationName = (TextView) view.findViewById(R.id.applicationName);
         applicationName.setText(ApplicationHelper.name());

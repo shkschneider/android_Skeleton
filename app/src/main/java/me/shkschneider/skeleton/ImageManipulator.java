@@ -24,10 +24,7 @@ import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
 /**
- * Handles Bitmaps (remote & local).
- *
- * - void loadImage(String, ImageView)
- * - void getImage(String, Callback)
+ * Handles Bitmaps (locally).
  *
  * - Bitmap fromDrawable(Drawable)
  * - Bitmap circular(Bitmap)
@@ -37,40 +34,6 @@ import me.shkschneider.skeleton.helper.LogHelper;
  * @see android.graphics.Bitmap
  */
 public class ImageManipulator {
-
-    // Remote
-
-    public static void loadImage(@NotNull final String url, @NotNull final ImageView imageView) {
-        LogHelper.info("type:image url:" + url);
-        Ion.with(imageView).load(url);
-    }
-
-    public static void getImage(@NotNull final String url, @NotNull final Callback callback) {
-        LogHelper.info("type:image url:" + url);
-        Ion.with(SkeletonApplication.CONTEXT)
-                .load(url)
-                .asBitmap()
-                .setCallback(new FutureCallback<Bitmap>() {
-                    @Override
-                    public void onCompleted(final Exception e, final Bitmap result) {
-                        if (e != null) {
-                            LogHelper.wtf(e);
-                            callback.bitmapCallback(e, null);
-                            return ;
-                        }
-
-                        callback.bitmapCallback(null, result);
-                    }
-                });
-    }
-
-    public interface Callback {
-
-        public void bitmapCallback(final Exception e, final Bitmap bitmap);
-
-    }
-
-    // Local
 
     @Deprecated
     public static Drawable fromBitmap(@NotNull final Bitmap bitmap) {
@@ -90,12 +53,12 @@ public class ImageManipulator {
     }
 
     public static Bitmap circular(@NotNull final Bitmap bitmap) {
-        Bitmap circleBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-        BitmapShader shader = new BitmapShader (bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
-        Paint paint = new Paint();
+        final Bitmap circleBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        final BitmapShader shader = new BitmapShader (bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        final Paint paint = new Paint();
         paint.setShader(shader);
-        Canvas c = new Canvas(circleBitmap);
-        c.drawCircle(bitmap.getWidth()/2, bitmap.getHeight()/2, bitmap.getWidth()/2, paint);
+        final Canvas canvas = new Canvas(circleBitmap);
+        canvas.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint);
         return circleBitmap;
     }
 

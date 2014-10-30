@@ -19,7 +19,7 @@ import java.util.Comparator;
 
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.SkeletonFragment;
-import me.shkschneider.skeleton.WebService;
+import me.shkschneider.skeleton.WebServiceIon;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.StringHelper;
@@ -86,9 +86,9 @@ public class AndroidSdksFragment extends SkeletonFragment {
 
     public void refresh() {
         skeletonActivity().loading(+1);
-        WebService.getInputStream(URL, new WebService.Callback() {
+        new WebServiceIon().getInputStream(URL, new WebServiceIon.Callback() {
                     @Override
-                    public void webServiceCallback(final Exception e, final Object result) {
+                    public void webServiceCallback(final WebServiceIon.WebServiceException e, final Object result) {
                         skeletonActivity().loading(-1);
                         if (e != null) {
                             ActivityHelper.croutonRed(skeletonActivity(), e.getMessage());

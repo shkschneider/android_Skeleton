@@ -4,8 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -33,6 +35,10 @@ public class GsonParser {
         }
 
         return parse(string);
+    }
+
+    public static JsonObject parse(@NotNull final JSONObject jsonObject) {
+        return new JsonParser().parse(jsonObject.toString()).getAsJsonObject();
     }
 
     public static List<String> keys(@NotNull final JsonObject jsonObject) {
