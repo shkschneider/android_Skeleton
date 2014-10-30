@@ -37,6 +37,7 @@ public class WebServiceIon {
     private static final int TIMEOUT = (int) TimeUnit.SECONDS.toMillis(5);
     // No retries
     // Automatic cache GET requests (never in DEBUG)
+    private static final String CACHE_CONTROL = "min-fresh=60";
     // Automatic GZip
 
     private LoadBuilder<Builders.Any.B> mIon;
@@ -53,6 +54,9 @@ public class WebServiceIon {
         // builder.setBodyParameter()
         if (ApplicationHelper.debug()) {
             builder.noCache();
+        }
+        else {
+            builder.setHeader("Cache-Control", CACHE_CONTROL);
         }
         return builder;
     }
