@@ -18,7 +18,6 @@ public class Executor {
             LogHelper.warning("Runnable was NULL");
             return ;
         }
-        final Handler handler = new Handler();
-        handler.postDelayed(runnable, (timeUnit.toSeconds(amount) * 1000));
+        new Handler().postDelayed(runnable, timeUnit.toMillis(amount));
     }
 }

@@ -30,7 +30,6 @@ import me.shkschneider.skeleton.helper.LogHelper;
  *
  * - void navigationDrawer(int)
  * - int navigationDrawer()
- * - boolean navigationDrawerOpened()
  * - boolean navigationDrawerOpenedOrOpening()
  * - openNavigationDrawer()
  * - closeNavigationDrawer()
@@ -46,6 +45,9 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
     private ActionBarDrawerToggle mDrawerToggle;
     private ListView mDrawerList;
 
+    protected abstract ArrayAdapter getAdapter();
+    protected abstract SkeletonFragment getFragment(final int position);
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +57,17 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_drawerlayout);
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, android.R.string.ok, android.R.string.cancel);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, android.R.string.ok, android.R.string.cancel) {
+            @Override
+            public void onDrawerOpened(final View view) {
+                onNavigationDrawerOpened();
+            }
+
+            @Override
+            public void onDrawerClosed(final View view) {
+                onNavigationDrawerClosed();
+            }
+        };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerList = (ListView) findViewById(R.id.drawer_listview);
         mDrawerList.setAdapter(getAdapter());
@@ -84,9 +96,6 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
         mDrawerToggle.syncState();
     }
 
-    protected abstract ArrayAdapter getAdapter();
-    protected abstract SkeletonFragment getFragment(final int position);
-
     public void navigationDrawer(final int position) {
         final Fragment fragment = getFragment(position);
         if (fragment == null) {
@@ -105,6 +114,7 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
         // Updates NavigationDrawer
         mDrawerList.setItemChecked(position, true);
         closeNavigationDrawer();
+        onNavigationDrawerClosed();
 
         // Updates menu
         supportInvalidateOptionsMenu();
@@ -114,6 +124,7 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
         return mDrawerList.getCheckedItemPosition();
     }
 
+    @Deprecated
     public boolean navigationDrawerOpened() {
         return mDrawerLayout.isDrawerOpen(mDrawerList);
     }
@@ -123,15 +134,23 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
     }
 
     public void openNavigationDrawer() {
-        mOpenedOrOpening = true;
         mDrawerLayout.openDrawer(mDrawerList);
+    }
+
+    private void onNavigationDrawerOpened() {
+        mOpenedOrOpening = true;
         title(ApplicationHelper.name());
+        supportInvalidateOptionsMenu();
     }
 
     public void closeNavigationDrawer() {
-        mOpenedOrOpening = false;
         mDrawerLayout.closeDrawer(mDrawerList);
+    }
+
+    private void onNavigationDrawerClosed() {
+        mOpenedOrOpening = false;
         title(getFragment(navigationDrawer()).title());
+        supportInvalidateOptionsMenu();
     }
 
     @Override
@@ -155,15 +174,11 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
     public boolean onOptionsItemSelected(final MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             if (! navigationDrawerOpened()) {
-                mOpenedOrOpening = true;
-                title(ApplicationHelper.name());
+                onNavigationDrawerOpened();
             }
             else {
-                mOpenedOrOpening = false;
-                title(getFragment(navigationDrawer()).title());
+                onNavigationDrawerClosed();
             }
-            // see onCreateOptionsMenu() above
-            supportInvalidateOptionsMenu();
             return true;
         }
         return super.onOptionsItemSelected(item);
