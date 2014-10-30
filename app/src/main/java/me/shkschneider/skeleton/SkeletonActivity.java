@@ -177,7 +177,7 @@ public class SkeletonActivity extends ActionBarActivity {
     // Increments or decrements the loading stack
     public void loading(final int i) {
         mLoadingCount += i;
-        updateLoading(true);
+        updateLoading(ApplicationHelper.debug());
     }
 
     // Resets loading to true or false
