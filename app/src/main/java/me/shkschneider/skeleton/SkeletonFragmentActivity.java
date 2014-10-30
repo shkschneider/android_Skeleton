@@ -26,7 +26,6 @@ public class SkeletonFragmentActivity extends SkeletonActivity {
             LogHelper.warning("Fragment was NULL");
             return ;
         }
-
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.framelayout, fragment)
                 .commit();

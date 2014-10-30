@@ -21,7 +21,6 @@ public class LogHelper {
         if (StringHelper.nullOrEmpty(msg)) {
             return ;
         }
-
         // Uses StackTrace to build the log tag
         final StackTraceElement[] elements = new Throwable().getStackTrace();
         String callerClassName = "?";
@@ -74,7 +73,6 @@ public class LogHelper {
         if (throwable == null) {
             return ;
         }
-
         LogHelper.log(WTF, throwable.getClass().getName() + ": " + throwable.getMessage());
         if (ApplicationHelper.debug()) {
             throwable.printStackTrace();

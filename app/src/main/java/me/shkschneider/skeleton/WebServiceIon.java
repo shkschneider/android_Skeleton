@@ -151,7 +151,12 @@ public class WebServiceIon {
             mCode = responseCode;
         }
 
-        public int getErrorCode() {
+        @Override
+        public String getMessage() {
+            return super.getMessage();
+        }
+
+        public int getCode() {
             return mCode;
         }
 

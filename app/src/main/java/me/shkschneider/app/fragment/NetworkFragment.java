@@ -81,34 +81,28 @@ public class NetworkFragment extends SkeletonFragment {
     public void refresh() {
         mAdapter.clear();
         skeletonActivity().loading(+1);
-        final long start1 = System.currentTimeMillis();
         new WebServiceIon().getString("http://ipecho.net/plain", new WebServiceIon.Callback() {
             @Override
             public void webServiceCallback(final WebServiceIon.WebServiceException e, final Object result) {
-                LogHelper.info("time:" + (System.currentTimeMillis() - start1));
                 skeletonActivity().loading(-1);
                 if (e != null) {
                     ActivityHelper.croutonRed(skeletonActivity(), e.getMessage());
-                    return;
+                    return ;
                 }
-
                 final String string = (String) result;
                 mAdapter.add("ip " + string);
                 mAdapter.notifyDataSetChanged();
             }
         });
         skeletonActivity().loading(+1);
-        final long start2 = System.currentTimeMillis();
         new WebServiceIon().getJsonObject("http://ifconfig.me/all.json", new WebServiceIon.Callback() {
             @Override
             public void webServiceCallback(final WebServiceIon.WebServiceException e, final Object result) {
                 skeletonActivity().loading(-1);
-                LogHelper.info("time:" + (System.currentTimeMillis() - start2));
                 if (e != null) {
                     ActivityHelper.croutonRed(skeletonActivity(), e.getMessage());
                     return ;
                 }
-
                 final JsonObject jsonObject = (JsonObject) result;
                 for (final String key : GsonParser.keys(jsonObject)) {
                     final String value = GsonParser.string(jsonObject, key);

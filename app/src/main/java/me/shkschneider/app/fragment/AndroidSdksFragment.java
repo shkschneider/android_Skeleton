@@ -92,9 +92,8 @@ public class AndroidSdksFragment extends SkeletonFragment {
                         skeletonActivity().loading(-1);
                         if (e != null) {
                             ActivityHelper.croutonRed(skeletonActivity(), e.getMessage());
-                            return;
+                            return ;
                         }
-
                         final InputStream inputStream = (InputStream) result;
                         parseXml(inputStream);
                     }
@@ -102,10 +101,9 @@ public class AndroidSdksFragment extends SkeletonFragment {
     }
 
     private void parseXml(final InputStream inputStream) {
+        AndroidSdk androidSdk = null;
         try {
             final ArrayList<AndroidSdk> androidSdks = new ArrayList<AndroidSdk>();
-            AndroidSdk androidSdk = null;
-
             final XmlPullParserFactory xmlPullParserFactory = XmlPullParserFactory.newInstance();
             final XmlPullParser xmlPullParser = xmlPullParserFactory.newPullParser();
             xmlPullParser.setInput(inputStream, null);

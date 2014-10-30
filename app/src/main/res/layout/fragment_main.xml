@@ -6,7 +6,7 @@
     <ImageView
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/authorAvatar"
+        android:id="@+id/imageview"
         android:src="@null"
         android:contentDescription="@null"
         android:layout_width="@dimen/spaceBig"
@@ -22,8 +22,8 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/applicationName"
-            android:text="@string/dots"
+            android:id="@android:id/text1"
+            android:text="@null"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="24dp"
@@ -31,22 +31,13 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/authorName"
-            android:text="@string/dots"
+            android:id="@android:id/text2"
+            android:text="@null"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="24dp"
             android:gravity="top|center_horizontal"
             android:textStyle="normal" />
-
-        <ImageButton
-            android:id="@+id/imagebutton"
-            android:src="@drawable/ic_launcher"
-            android:contentDescription="@null"
-            android:layout_width="@dimen/spaceBig"
-            android:layout_height="@dimen/spaceBig"
-            android:layout_gravity="center"
-            android:padding="@dimen/spaceSmaller" />
 
     </LinearLayout>
 

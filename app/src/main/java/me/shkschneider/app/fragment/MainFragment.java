@@ -10,11 +10,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.ImageManipulator;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.WebServiceIon;
-import me.shkschneider.skeleton.helper.ApplicationHelper;
+import me.shkschneider.skeleton.helper.ActivityHelper;
+import me.shkschneider.skeleton.helper.GsonParser;
 import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
@@ -35,30 +39,43 @@ public class MainFragment extends SkeletonFragment {
     public void onViewCreated(final View view, final @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final ImageView authorAvatar = (ImageView) view.findViewById(R.id.authorAvatar);
-        final String url = String.format("https://%s.me/%s.png", AUTHOR.toLowerCase(), AUTHOR.toLowerCase());
-        new WebServiceIon().getImage(url, new WebServiceIon.Callback() {
+        final ImageView imageview = (ImageView) view.findViewById(R.id.imageview);
+        // imageview.setImageDrawable(IndeterminateDrawable.get());
+        final TextView textView1 = (TextView) view.findViewById(android.R.id.text1);
+        final TextView textView2 = (TextView) view.findViewById(android.R.id.text2);
+
+        final String url = String.format("http://gravatar.com/%s.json", AUTHOR.toLowerCase());
+        new WebServiceIon().getJsonObject(url, new WebServiceIon.Callback() {
             @Override
             public void webServiceCallback(final WebServiceIon.WebServiceException e, final Object result) {
                 if (e != null) {
-                    LogHelper.wtf(e);
-                    return;
+                    ActivityHelper.croutonRed(skeletonActivity(), e.getMessage());
+                    return ;
                 }
-                if (result == null) {
-                    LogHelper.warning("Bitmap was NULL");
-                    return;
-                }
-
-                final Bitmap bitmap = (Bitmap) result;
-                authorAvatar.setImageBitmap(ImageManipulator.circular(bitmap));
+                final JsonObject jsonObject = (JsonObject) result;
+                final JsonArray entries = GsonParser.array(jsonObject, "entry");
+                final JsonObject entry = entries.get(0).getAsJsonObject();
+                final String thumbnailUrl = GsonParser.string(entry, "thumbnailUrl");
+                new WebServiceIon().getImage(thumbnailUrl + "?size=480", new WebServiceIon.Callback() {
+                    @Override
+                    public void webServiceCallback(final WebServiceIon.WebServiceException e, final Object result) {
+                        if (e != null) {
+                            return ;
+                        }
+                        final Bitmap bitmap = (Bitmap) result;
+                        if (bitmap == null) {
+                            LogHelper.warning("Bitmap was NULL");
+                            return ;
+                        }
+                        imageview.setImageBitmap(ImageManipulator.circular(bitmap));
+                    }
+                });
+                final String displayName = GsonParser.string(entry, "displayName");
+                textView1.setText(displayName);
+                final String currentLocation = GsonParser.string(entry, "currentLocation");
+                textView2.setText(currentLocation);
             }
         });
-
-        final TextView applicationName = (TextView) view.findViewById(R.id.applicationName);
-        applicationName.setText(ApplicationHelper.name());
-
-        final TextView authorName = (TextView) view.findViewById(R.id.authorName);
-        authorName.setText(AUTHOR);
 
         final Button website = (Button) view.findViewById(R.id.website);
         website.setText(getResources().getString(R.string.website));

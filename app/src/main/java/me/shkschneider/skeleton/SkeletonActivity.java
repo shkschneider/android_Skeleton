@@ -88,7 +88,6 @@ public class SkeletonActivity extends ActionBarActivity {
             LogHelper.warning("ActionBar was NULL");
             return ;
         }
-
         actionBar.setDisplayHomeAsUpEnabled(b);
         actionBar.setDisplayShowHomeEnabled(b);
     }
@@ -101,7 +100,6 @@ public class SkeletonActivity extends ActionBarActivity {
             LogHelper.warning("ActionBar was NULL");
             return ;
         }
-
         actionBar.setDisplayUseLogoEnabled(b);
         if (! b) {
             actionBar.setIcon(getResources().getColor(android.R.color.transparent));
@@ -126,7 +124,6 @@ public class SkeletonActivity extends ActionBarActivity {
             LogHelper.warning("ActionBar was NULL");
             return ;
         }
-
         if (StringHelper.nullOrEmpty(title)) {
             actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setTitle(null);
@@ -144,7 +141,6 @@ public class SkeletonActivity extends ActionBarActivity {
             LogHelper.warning("ActionBar was NULL");
             return ;
         }
-
         if (title == null || title.length() == 0) {
             actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setTitle(null);

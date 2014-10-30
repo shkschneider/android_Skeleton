@@ -66,7 +66,7 @@ public class WebServiceVolley {
             public void onResponse(final String string) {
                 if (callback == null) {
                     LogHelper.warning("Callback was NULL");
-                    return;
+                    return ;
                 }
                 callback.webServiceCallback(null, string);
             }
@@ -76,7 +76,7 @@ public class WebServiceVolley {
                 LogHelper.wtf(volleyError);
                 if (callback == null) {
                     LogHelper.warning("Callback was NULL");
-                    return;
+                    return ;
                 }
                 callback.webServiceCallback(new WebServiceException(volleyError), null);
             }
@@ -91,7 +91,7 @@ public class WebServiceVolley {
             public void onResponse(final JSONObject jsonObject) {
                 if (callback == null) {
                     LogHelper.warning("Callback was NULL");
-                    return;
+                    return ;
                 }
                 callback.webServiceCallback(null, GsonParser.parse(jsonObject));
             }
@@ -101,7 +101,7 @@ public class WebServiceVolley {
                 LogHelper.wtf(volleyError);
                 if (callback == null) {
                     LogHelper.warning("Callback was NULL");
-                    return;
+                    return ;
                 }
                 callback.webServiceCallback(new WebServiceException(volleyError), null);
             }
@@ -116,7 +116,7 @@ public class WebServiceVolley {
             public void onResponse(final Bitmap bitmap) {
                 if (callback == null) {
                     LogHelper.warning("Callback was NULL");
-                    return;
+                    return ;
                 }
                 callback.webServiceCallback(null, bitmap);
             }
@@ -126,7 +126,7 @@ public class WebServiceVolley {
                 LogHelper.wtf(volleyError);
                 if (callback == null) {
                     LogHelper.warning("Callback was NULL");
-                    return;
+                    return ;
                 }
                 callback.webServiceCallback(new WebServiceException(volleyError), null);
             }
@@ -152,7 +152,12 @@ public class WebServiceVolley {
             mCode = volleyError.networkResponse.statusCode;
         }
 
-        public int getErrorCode() {
+        @Override
+        public String getMessage() {
+            return super.getMessage();
+        }
+
+        public int getCode() {
             return mCode;
         }
 
