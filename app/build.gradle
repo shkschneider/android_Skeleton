@@ -63,7 +63,7 @@ dependencies {
     // compile 'com.android.support:gridlayout-v7:21.+'
     // compile 'com.android.support:mediarouter-v7:21.+'
 
-    // compile 'com.github.castorflex.smoothprogressbar:library:+'
+    compile 'com.github.castorflex.smoothprogressbar:library:+'
     compile 'com.github.castorflex.smoothprogressbar:library-circular:+'
 
     // compile 'com.squareup.phrase:phrase:+@aar'

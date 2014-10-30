@@ -22,6 +22,8 @@
         <item name="android:listSeparatorTextViewStyle">@style/AppTheme.ListSeparatorTextViewStyle</item>
         <item name="android:buttonStyle">@style/AppTheme.ButtonStyle</item>
         <item name="android:imageButtonStyle">@style/AppTheme.ImageButtonStyle</item>
+        <item name="spbStyle">@style/AppTheme.SmoothProgressBarStyle</item>
+        <item name="cpbStyle">@style/AppTheme.CircularProgressBarStyle</item>
         <!-- ... -->
     </style>
 
@@ -72,6 +74,18 @@
         <item name="android:textAllCaps">true</item>
         <item name="android:background">@color/primaryColor</item>
         <item name="android:textColor">@color/actionBarForegroundColor</item>
+    </style>
+
+    <style name="AppTheme.SmoothProgressBarStyle" parent="Base.Widget.AppCompat.ProgressBar">
+        <item name="spb_sections_count">4</item>
+        <item name="spb_interpolator">spb_interpolator_acceleratedecelerate</item>
+        <item name="spb_mirror_mode">false</item>
+        <item name="spb_reversed">false</item>
+        <item name="spb_color">@color/accentColor</item>
+        <item name="spb_progressiveStart_activated">true</item>
+    </style>
+    <style name="AppTheme.CircularProgressBarStyle" parent="Base.Widget.AppCompat.ProgressBar">
+        <item name="cpb_color">@color/accentColor</item>
     </style>
 
     <!-- ... -->

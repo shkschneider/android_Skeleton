@@ -56,6 +56,6 @@
         android:id="@+id/website"
         android:layout_width="match_parent"
         android:layout_height="@dimen/spaceMedium"
-        android:text="@string/dots" />
+        android:text="@null" />
 
 </RelativeLayout>
