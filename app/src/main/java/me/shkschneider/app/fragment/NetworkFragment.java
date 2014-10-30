@@ -92,6 +92,7 @@ public class NetworkFragment extends SkeletonFragment {
     }
 
     public void refresh() {
+        mAdapter.clear();
         skeletonActivity().loading(+1);
         final long start1 = System.currentTimeMillis();
         new WebServiceIon().getString("http://ipecho.net/plain", new WebServiceIon.Callback() {
