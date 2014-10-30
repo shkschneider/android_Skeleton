@@ -75,6 +75,7 @@ public class WebServiceIon {
             final RawHeaders rawHeaders = response.getHeaders();
             final int responseCode = rawHeaders.getResponseCode();
             final String responseMessage = rawHeaders.getResponseMessage();
+            // All codes below 400 do not insures success...
             if (responseCode >= 400) {
                 callback.webServiceCallback(new WebServiceException(responseCode, responseMessage), null);
                 return true;

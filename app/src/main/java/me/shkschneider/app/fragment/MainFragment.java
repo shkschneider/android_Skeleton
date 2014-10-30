@@ -51,22 +51,22 @@ public class MainFragment extends SkeletonFragment {
             public void webServiceCallback(final WebServiceIon.WebServiceException e, final Object result) {
                 if (e != null) {
                     ActivityHelper.croutonRed(skeletonActivity(), e.getMessage());
-                    return;
+                    return ;
                 }
                 final JsonObject jsonObject = (JsonObject) result;
                 final JsonArray entries = GsonParser.array(jsonObject, "entry");
                 final JsonObject entry = entries.get(0).getAsJsonObject();
                 final String thumbnailUrl = GsonParser.string(entry, "thumbnailUrl");
-                new WebServiceIon().getImage(thumbnailUrl + "?size=480", new WebServiceIon.Callback() {
+                new WebServiceIon().getImage(thumbnailUrl + "?size=360", new WebServiceIon.Callback() {
                     @Override
                     public void webServiceCallback(final WebServiceIon.WebServiceException e, final Object result) {
                         if (e != null) {
-                            return;
+                            return ;
                         }
                         final Bitmap bitmap = (Bitmap) result;
                         if (bitmap == null) {
                             LogHelper.warning("Bitmap was NULL");
-                            return;
+                            return ;
                         }
                         loadingImageView.getImageView().setImageBitmap(ImageManipulator.circular(bitmap));
                         loadingImageView.showImageView();
