@@ -30,7 +30,6 @@ import me.shkschneider.skeleton.helper.LogHelper;
  * But, no retries (pay attention to the TIMEOUT).
  *
  * @see com.koushikdutta.ion.Ion
- * @see com.koushikdutta.async.future.Future
  */
 public class WebServiceIon {
 
@@ -79,7 +78,8 @@ public class WebServiceIon {
             final RawHeaders rawHeaders = response.getHeaders();
             final int responseCode = rawHeaders.getResponseCode();
             final String responseMessage = rawHeaders.getResponseMessage();
-            // All codes below 400 do not insures success...
+            // All codes below 400 do not imply success...
+            // <http://en.wikipedia.org/wiki/List_of_HTTP_status_codes>
             if (responseCode >= 400) {
                 callback.webServiceCallback(new WebServiceException(responseCode, responseMessage), null);
                 return true;
