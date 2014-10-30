@@ -1,6 +1,5 @@
 package me.shkschneider.app.fragment;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 
 import me.shkschneider.app.R;
-import me.shkschneider.skeleton.ImageManipulator;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.WebServiceIon;
 import me.shkschneider.skeleton.helper.ActivityHelper;
@@ -41,18 +39,7 @@ public class NetworkFragment extends SkeletonFragment {
                 if (convertView == null) {
                     convertView = layoutInflater.inflate(R.layout.listview_iconitem2, parent, false);
                 }
-                final ImageView imageView = (ImageView) convertView.findViewById(R.id.imageview);
-                new WebServiceIon().getImage("https://developer.android.com/images/resource-card-android-studio.png", new WebServiceIon.Callback() {
-                    @Override
-                    public void webServiceCallback(final WebServiceIon.WebServiceException e, final Object result) {
-                        if (e != null) {
-                            return;
-                        }
-
-                        final Bitmap bitmap = (Bitmap) result;
-                        imageView.setImageBitmap(ImageManipulator.circular(bitmap));
-                    }
-                });
+                ((ImageView) convertView.findViewById(R.id.imageview)).setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher));
                 final String string = getItem(position);
                 final String string1 = string.substring(0, string.indexOf(" "));
                 final String string2 = string.substring(string.indexOf(" ") + 1, string.length());
