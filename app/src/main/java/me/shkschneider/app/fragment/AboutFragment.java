@@ -19,7 +19,7 @@ public class AboutFragment extends SkeletonPreferenceFragment {
     }
 
     @Override
-    public void onViewCreated(final View view, final @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         // Application

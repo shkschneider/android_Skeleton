@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.JsonArray;
@@ -21,6 +20,7 @@ import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.GsonParser;
 import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.ui.LoadingImageView;
 
 public class MainFragment extends SkeletonFragment {
 
@@ -36,13 +36,14 @@ public class MainFragment extends SkeletonFragment {
     }
 
     @Override
-    public void onViewCreated(final View view, final @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final ImageView imageview = (ImageView) view.findViewById(R.id.imageview);
-        // imageview.setImageDrawable(IndeterminateDrawable.get());
+        final LoadingImageView loadingImageView = (LoadingImageView) view.findViewById(R.id.loadingimageview);
         final TextView textView1 = (TextView) view.findViewById(android.R.id.text1);
         final TextView textView2 = (TextView) view.findViewById(android.R.id.text2);
+        final Button website = (Button) view.findViewById(R.id.website);
+        website.setClickable(false);
 
         final String url = String.format("http://gravatar.com/%s.json", AUTHOR.toLowerCase());
         new WebServiceIon().getJsonObject(url, new WebServiceIon.Callback() {
@@ -67,22 +68,23 @@ public class MainFragment extends SkeletonFragment {
                             LogHelper.warning("Bitmap was NULL");
                             return ;
                         }
-                        imageview.setImageBitmap(ImageManipulator.circular(bitmap));
+                        loadingImageView.getImageView().setImageBitmap(ImageManipulator.circular(bitmap));
+                        loadingImageView.showImageView();
                     }
                 });
                 final String displayName = GsonParser.string(entry, "displayName");
                 textView1.setText(displayName);
                 final String currentLocation = GsonParser.string(entry, "currentLocation");
                 textView2.setText(currentLocation);
-            }
-        });
-
-        final Button website = (Button) view.findViewById(R.id.website);
-        website.setText(getResources().getString(R.string.website));
-        website.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                startActivity(IntentHelper.url(getResources().getString(R.string.website)));
+                final String profileUrl = GsonParser.string(entry, "profileUrl");
+                website.setText(profileUrl);
+                website.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View view) {
+                        startActivity(IntentHelper.url(profileUrl));
+                    }
+                });
+                website.setClickable(true);
             }
         });
     }

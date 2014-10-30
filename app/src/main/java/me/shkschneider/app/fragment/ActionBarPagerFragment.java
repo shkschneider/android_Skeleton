@@ -42,7 +42,7 @@ public class ActionBarPagerFragment extends SkeletonFragment {
     }
 
     @Override
-    public void onViewCreated(final View view, final @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         viewPager.setAdapter(mPagerAdapter);
