@@ -3,7 +3,7 @@
     <!-- Tweak for multiple implementations -->
     <style name="AppTheme" parent="@style/_AppTheme" />
 
-    <!-- Default implementation -->
+    <!-- Default implementation API-14+ -->
     <style name="_AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <!-- Material Design -->
         <item name="colorPrimary">@color/actionBarColor</item>
@@ -16,32 +16,37 @@
         <item name="android:textColorHighlight">@color/highlightColor</item>
         <item name="android:textColorHint">@color/textSecondaryColor</item>
         <item name="android:scrollingCache">false</item>
-        <!-- Custom styles -->
+        <!-- Automatic custom styles -->
         <item name="actionBarStyle">@style/AppTheme.ActionBarStyle</item>
         <item name="actionModeStyle">@style/AppTheme.ActionModeStyle</item>
+        <item name="actionModeCloseButtonStyle">@style/AppTheme.ActionModeCloseButton</item>
         <item name="android:listSeparatorTextViewStyle">@style/AppTheme.ListSeparatorTextViewStyle</item>
         <item name="android:buttonStyle">@style/AppTheme.ButtonStyle</item>
         <item name="android:imageButtonStyle">@style/AppTheme.ImageButtonStyle</item>
         <item name="spbStyle">@style/AppTheme.SmoothProgressBarStyle</item>
         <item name="cpbStyle">@style/AppTheme.CircularProgressBarStyle</item>
-        <!-- ... -->
     </style>
 
     <!-- Material Design -->
-    <style name="AppTheme.ActionBarStyle" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse" />
 
-    <style name="AppTheme.ActionModeStyle" parent="@style/AppTheme.ActionBarStyle">
+    <style name="AppTheme.ActionBarStyle" parent="Widget.AppCompat.Light.ActionBar.Solid.Inverse" />
+
+    <style name="AppTheme.ActionModeStyle" parent="Base.Widget.AppCompat.ActionMode">
         <item name="background">@color/actionBarColor</item>
     </style>
 
-    <!-- Android -->
+    <style name="AppTheme.ActionModeCloseButton" parent="Base.Widget.AppCompat.ActionButton.CloseMode">
+        <item name="android:visibility">visible</item>
+    </style>
 
-    <style name="AppTheme.ImageButtonStyle" parent="@style/Widget.AppCompat.Light.ActionButton">
+    <!-- Automatic custom styles -->
+
+    <style name="AppTheme.ImageButtonStyle" parent="Widget.AppCompat.Light.ActionButton">
         <item name="android:enabled">true</item>
         <item name="android:clickable">true</item>
         <item name="android:background">@color/transparent</item>
     </style>
-    <style name="AppTheme.ButtonStyle" parent="@style/Widget.AppCompat.Light.ActionButton">
+    <style name="AppTheme.ButtonStyle" parent="Widget.AppCompat.Light.ActionButton">
         <item name="android:enabled">true</item>
         <item name="android:clickable">true</item>
         <item name="android:background">?android:attr/selectableItemBackground</item>
@@ -66,16 +71,6 @@
         <item name="android:selectable">false</item>
     </style>
 
-    <style name="AppTheme.PagerTabStrip">
-        <item name="android:paddingTop">@dimen/spaceSmaller</item>
-        <item name="android:paddingBottom">@dimen/spaceSmaller</item>
-        <item name="android:textSize">@dimen/textSizeSmall</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:background">@color/primaryColor</item>
-        <item name="android:textColor">@color/actionBarForegroundColor</item>
-    </style>
-
     <style name="AppTheme.SmoothProgressBarStyle" parent="Base.Widget.AppCompat.ProgressBar">
         <item name="spb_sections_count">4</item>
         <item name="spb_interpolator">spb_interpolator_acceleratedecelerate</item>
@@ -88,6 +83,16 @@
         <item name="cpb_color">@color/accentColor</item>
     </style>
 
-    <!-- ... -->
+    <!-- Manual custom styles -->
+
+    <style name="AppTheme.PagerTabStrip">
+        <item name="android:paddingTop">@dimen/spaceSmaller</item>
+        <item name="android:paddingBottom">@dimen/spaceSmaller</item>
+        <item name="android:textSize">@dimen/textSizeSmall</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:background">@color/primaryColor</item>
+        <item name="android:textColor">@color/actionBarForegroundColor</item>
+    </style>
 
 </resources>
