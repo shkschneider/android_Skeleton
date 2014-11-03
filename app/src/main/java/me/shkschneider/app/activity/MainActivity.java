@@ -91,7 +91,7 @@ public class MainActivity extends NavigationDrawerActivity {
                 final TextView textView = ((TextView) convertView.findViewById(R.id.textview));
                 textView.setText(getItem(position).title());
                 if (position == navigationDrawer()) {
-                    textView.setTextColor(getResources().getColor(R.color.highlightColor));
+                    textView.setTextColor(getResources().getColor(R.color.secondaryColor));
                 }
                 else {
                     textView.setTextColor(getResources().getColor(R.color.textPrimaryColor));

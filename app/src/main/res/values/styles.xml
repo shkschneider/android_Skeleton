@@ -13,7 +13,7 @@
         <item name="android:windowBackground">@color/contentBackgroundColor</item>
         <item name="android:textColorPrimary">@color/textPrimaryColor</item>
         <item name="android:textColorSecondary">@color/textSecondaryColor</item>
-        <item name="android:textColorHighlight">@color/highlightColor</item>
+        <item name="android:textColorHighlight">@color/secondaryColor</item>
         <item name="android:textColorHint">@color/textSecondaryColor</item>
         <item name="android:scrollingCache">false</item>
         <!-- Automatic custom styles -->
@@ -63,7 +63,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/spaceSmall</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/highlightColor</item>
+        <item name="android:textColor">@color/secondaryColor</item>
         <item name="android:textSize">@dimen/textSizeSmall</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:padding">@dimen/spaceTiny</item>
