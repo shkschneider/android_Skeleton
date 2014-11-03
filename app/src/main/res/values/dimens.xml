@@ -6,6 +6,7 @@
     <dimen name="spacePico">2dp</dimen>
     <dimen name="spaceMicro">4dp</dimen>
     <dimen name="spaceTiny">8dp</dimen>
+    <dimen name="spaceTinish">12sp</dimen> <!-- bonus -->
     <dimen name="spaceSmaller">16dp</dimen>
     <dimen name="spaceSmall">32dp</dimen>
     <dimen name="spaceMedium">48dp</dimen>
