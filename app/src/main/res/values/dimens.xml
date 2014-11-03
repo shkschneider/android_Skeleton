@@ -1,6 +1,6 @@
 <resources>
 
-    <dimen name="actionBar">56dp</dimen> <!-- used to be 48 < API-21 -->
+    <dimen name="actionBar">48dp</dimen>
 
     <dimen name="spaceNull">0dp</dimen>
     <dimen name="spacePico">2dp</dimen>

@@ -2,8 +2,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
-    android:paddingRight="16dp"
+    android:layout_height="@dimen/actionBar"
+    android:paddingRight="@dimen/spaceSmaller"
     android:gravity="center_vertical">
 
     <TextView
@@ -19,8 +19,8 @@
     <fr.castorflex.android.circularprogressbar.CircularProgressBar
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="@dimen/spaceSmall"
+        android:layout_height="@dimen/spaceSmall"
         android:indeterminate="true"
         app:cpb_color="@color/actionBarForegroundColor" />
 
@@ -28,8 +28,8 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:id="@+id/loading"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="@dimen/spaceSmall"
+        android:layout_height="@dimen/spaceSmall"
         android:gravity="center"
         android:textColor="@color/actionBarForegroundColor" />
 
