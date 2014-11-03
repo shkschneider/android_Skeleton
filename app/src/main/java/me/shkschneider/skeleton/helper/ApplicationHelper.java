@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.helper;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -18,6 +19,7 @@ import java.util.List;
 
 import me.shkschneider.app.BuildConfig;
 import me.shkschneider.app.MainApplication;
+import me.shkschneider.skeleton.SkeletonApplication;
 
 public class ApplicationHelper {
 
@@ -168,12 +170,40 @@ public class ApplicationHelper {
     }
 
     public static boolean settings(final Activity activity) {
-        final int api = AndroidHelper.api();
         final Intent intent = new Intent();
         intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         intent.setData(Uri.fromParts("package", packageName(), null));
         activity.startActivity(intent);
         return true;
+    }
+
+    public static boolean fromMarket() {
+        if (AndroidHelper.api() >= AndroidHelper.API_21) {
+            return fromMarket21();
+        }
+        else if (AndroidHelper.api() >= AndroidHelper.API_17) {
+            return fromMarket17();
+        }
+        return fromMarket3();
+    }
+
+    @TargetApi(AndroidHelper.API_21)
+    public static boolean fromMarket21() {
+        // API-21+ Settings.Secure
+        return (Settings.Secure.getInt(SkeletonApplication.CONTEXT.getContentResolver(), Settings.Secure.INSTALL_NON_MARKET_APPS, 0) == 1);
+    }
+
+    @TargetApi(AndroidHelper.API_17)
+    @SuppressWarnings("deprecation")
+    public static boolean fromMarket17() {
+        // API-17+ Settings.Global
+        return (Settings.Global.getInt(SkeletonApplication.CONTEXT.getContentResolver(), Settings.Global.INSTALL_NON_MARKET_APPS, 0) == 1);
+    }
+
+    @TargetApi(AndroidHelper.API_3)
+    public static boolean fromMarket3() {
+        // API-3+ Settings.Secure
+        return (Settings.Secure.getInt(SkeletonApplication.CONTEXT.getContentResolver(), Settings.Secure.INSTALL_NON_MARKET_APPS, 0) == 1);
     }
 
 }
