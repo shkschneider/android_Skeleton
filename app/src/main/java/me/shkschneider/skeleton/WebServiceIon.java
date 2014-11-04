@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.async.http.libcore.RawHeaders;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.Response;
 import com.koushikdutta.ion.builder.Builders;
@@ -75,9 +74,8 @@ public class WebServiceIon {
             return true;
         }
         if (response != null) {
-            final RawHeaders rawHeaders = response.getHeaders();
-            final int responseCode = rawHeaders.getResponseCode();
-            final String responseMessage = rawHeaders.getResponseMessage();
+            final int responseCode = response.getHeaders().getResponseCode();
+            final String responseMessage = response.getHeaders().getResponseMessage();
             // All codes below 400 do not imply success...
             // <http://en.wikipedia.org/wiki/List_of_HTTP_status_codes>
             if (responseCode >= 400) {

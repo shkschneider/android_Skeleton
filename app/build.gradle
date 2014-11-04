@@ -26,8 +26,8 @@ android {
         }
     }
     lintOptions {
-        checkReleaseBuilds false
-        abortOnError false
+        checkReleaseBuilds true
+        abortOnError true
     }
     buildTypes {
         debug {
@@ -63,13 +63,13 @@ dependencies {
     // compile 'com.android.support:gridlayout-v7:21.+'
     // compile 'com.android.support:mediarouter-v7:21.+'
 
-    compile 'com.squareup.phrase:phrase:+'
-    compile 'com.github.castorflex.smoothprogressbar:library:+'
-    compile 'com.github.castorflex.smoothprogressbar:library-circular:+'
+    compile 'com.squareup.phrase:phrase:1.+'
+    compile 'com.github.castorflex.smoothprogressbar:library:1.+'
+    compile 'com.github.castorflex.smoothprogressbar:library-circular:1.+'
 
-    compile 'com.github.johnkil.android-appmsg:appmsg:+'
-    compile 'com.koushikdutta.ion:ion:+'
-    compile 'com.mcxiaoke.volley:library:+'
+    compile 'com.github.johnkil.android-appmsg:appmsg:1.+'
+    compile 'com.koushikdutta.ion:ion:1.+'
+    compile 'com.mcxiaoke.volley:library:1.+'
 
     compile(name: 'support-v4-preferencefragment', ext: 'aar')
     compile fileTree(dir: 'libs', include: '*.jar')
