@@ -1,5 +1,8 @@
 package me.shkschneider.skeleton.helper;
 
+import android.telephony.PhoneNumberUtils;
+import android.util.Patterns;
+
 import java.text.Normalizer;
 import java.util.Random;
 
@@ -36,6 +39,18 @@ public class StringHelper {
 
     public static boolean alphanumeric(final String string) {
         return chars(string.toLowerCase(), ALPHA_NUMERIC);
+    }
+
+    public static boolean url(final String string) {
+        return Patterns.WEB_URL.matcher(string).matches();
+    }
+
+    public static boolean email(final String string) {
+        return Patterns.EMAIL_ADDRESS.matcher(string).matches();
+    }
+
+    public static boolean phone(final String string) {
+        return PhoneNumberUtils.isGlobalPhoneNumber(string);
     }
 
     private static boolean chars(final String string, final String chars) {
