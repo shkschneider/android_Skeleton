@@ -11,7 +11,7 @@ import me.shkschneider.skeleton.helper.ClassHelper;
  * - onCreateView()
  * - onViewCreated()
  *
- * - boolean alive()
+ * - boolean isAlive()
  * - String title()
  * - void title(String)
  * - SkeletonActivity skeletonActivity()

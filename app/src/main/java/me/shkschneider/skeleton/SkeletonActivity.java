@@ -24,10 +24,9 @@ import me.shkschneider.skeleton.helper.LogHelper;
 /**
  * Base Activity you should use!
  *
- * - boolean alive()
+ * - boolean isAlive()
  * - void home(boolean)
  * - void logo(boolean)
- * - void title(String)
  * - void title(CharSequence)
  * - void searchable(String, SearchCallback)
  * - boolean loading()
@@ -57,6 +56,9 @@ public class SkeletonActivity extends ActionBarActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // setContentView()
+        home(false);
+        logo(false);
+        title(true);
     }
 
     // Alive
@@ -116,25 +118,13 @@ public class SkeletonActivity extends ActionBarActivity {
 
     // Title
 
-    public void title(final CharSequence title) {
-        mTitle = title;
+    public void title(final boolean b) {
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar == null) {
             LogHelper.warning("ActionBar was NULL");
             return ;
         }
-        if (title == null || title.length() == 0) {
-            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setTitle(null);
-        }
-        else {
-            actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setTitle(title);
-        }
-    }
-
-    public String title() {
-        return (String) mTitle;
+        actionBar.setDisplayShowTitleEnabled(b);
     }
 
     // Search

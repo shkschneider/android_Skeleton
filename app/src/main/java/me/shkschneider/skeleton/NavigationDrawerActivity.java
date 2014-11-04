@@ -139,7 +139,7 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
 
     private void onNavigationDrawerOpened() {
         mOpenedOrOpening = true;
-        title(ApplicationHelper.name());
+        setTitle(ApplicationHelper.name());
         supportInvalidateOptionsMenu();
     }
 
@@ -149,7 +149,7 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
 
     private void onNavigationDrawerClosed() {
         mOpenedOrOpening = false;
-        title(getFragment(navigationDrawer()).title());
+        setTitle(getFragment(navigationDrawer()).title());
         supportInvalidateOptionsMenu();
     }
 
