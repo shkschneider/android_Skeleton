@@ -2,6 +2,7 @@ package me.shkschneider.app.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,11 +24,13 @@ import me.shkschneider.skeleton.WebServiceIon;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.StringHelper;
+import me.shkschneider.skeleton.ui.MySwipeRefreshLayout;
 
 public class AndroidSdksFragment extends SkeletonFragment {
 
     private static final String URL = "https://dl-ssl.google.com/android/repository/repository-10.xml";
 
+    private MySwipeRefreshLayout mMySwipeRefreshLayout;
     private ArrayAdapter<AndroidSdk> mAdapter;
 
     public AndroidSdksFragment() {
@@ -62,12 +65,20 @@ public class AndroidSdksFragment extends SkeletonFragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_listview, container, false);
+        return inflater.inflate(R.layout.fragment_myswiperefreshlayout, container, false);
     }
 
     @Override
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mMySwipeRefreshLayout = (MySwipeRefreshLayout) view.findViewById(R.id.myswiperefreshlayout);
+        mMySwipeRefreshLayout.swipes(true);
+        mMySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+            }
+        });
         final ListView listView = (ListView) view.findViewById(R.id.listview);
         listView.setAdapter(mAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -85,11 +96,11 @@ public class AndroidSdksFragment extends SkeletonFragment {
     }
 
     public void refresh() {
-        skeletonActivity().loading(+1);
+        mMySwipeRefreshLayout.setRefreshing(true);
         new WebServiceIon().getInputStream(URL, new WebServiceIon.Callback() {
                     @Override
                     public void webServiceCallback(final WebServiceIon.WebServiceException e, final Object result) {
-                        skeletonActivity().loading(-1);
+                        mMySwipeRefreshLayout.setRefreshing(false);
                         if (e != null) {
                             ActivityHelper.croutonRed(skeletonActivity(), e.getMessage());
                             return ;
