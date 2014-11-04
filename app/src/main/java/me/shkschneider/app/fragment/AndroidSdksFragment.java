@@ -20,7 +20,7 @@ import java.util.Comparator;
 
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.SkeletonFragment;
-import me.shkschneider.skeleton.WebServiceIon;
+import me.shkschneider.skeleton.WebService;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.StringHelper;
@@ -97,9 +97,9 @@ public class AndroidSdksFragment extends SkeletonFragment {
 
     public void refresh() {
         mMySwipeRefreshLayout.setRefreshing(true);
-        new WebServiceIon().getInputStream(URL, new WebServiceIon.Callback() {
+        new WebService().getInputStream(URL, new WebService.Callback() {
                     @Override
-                    public void webServiceCallback(final WebServiceIon.WebServiceException e, final Object result) {
+                    public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
                         mMySwipeRefreshLayout.setRefreshing(false);
                         if (e != null) {
                             ActivityHelper.croutonRed(skeletonActivity(), e.getMessage());

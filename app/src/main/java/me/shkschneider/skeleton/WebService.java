@@ -30,7 +30,7 @@ import me.shkschneider.skeleton.helper.LogHelper;
  *
  * @see com.koushikdutta.ion.Ion
  */
-public class WebServiceIon {
+public class WebService {
 
     private static final int TIMEOUT = (int) TimeUnit.SECONDS.toMillis(5);
     // No retries
@@ -40,7 +40,7 @@ public class WebServiceIon {
 
     private LoadBuilder<Builders.Any.B> mIon;
 
-    public WebServiceIon() {
+    public WebService() {
         mIon = Ion.with(SkeletonApplication.CONTEXT);
     }
 

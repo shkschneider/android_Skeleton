@@ -15,7 +15,7 @@ import com.google.gson.JsonObject;
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.ImageManipulator;
 import me.shkschneider.skeleton.SkeletonFragment;
-import me.shkschneider.skeleton.WebServiceIon;
+import me.shkschneider.skeleton.WebService;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.GsonParser;
 import me.shkschneider.skeleton.helper.IntentHelper;
@@ -46,9 +46,9 @@ public class MainFragment extends SkeletonFragment {
         website.setClickable(false);
 
         final String url = String.format("http://gravatar.com/%s.json", AUTHOR.toLowerCase());
-        new WebServiceIon().getJsonObject(url, new WebServiceIon.Callback() {
+        new WebService().getJsonObject(url, new WebService.Callback() {
             @Override
-            public void webServiceCallback(final WebServiceIon.WebServiceException e, final Object result) {
+            public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
                 if (e != null) {
                     ActivityHelper.croutonRed(skeletonActivity(), e.getMessage());
                     return ;
@@ -57,9 +57,9 @@ public class MainFragment extends SkeletonFragment {
                 final JsonArray entries = GsonParser.array(jsonObject, "entry");
                 final JsonObject entry = entries.get(0).getAsJsonObject();
                 final String thumbnailUrl = GsonParser.string(entry, "thumbnailUrl");
-                new WebServiceIon().getImage(thumbnailUrl + "?size=360", new WebServiceIon.Callback() {
+                new WebService().getImage(thumbnailUrl + "?size=360", new WebService.Callback() {
                     @Override
-                    public void webServiceCallback(final WebServiceIon.WebServiceException e, final Object result) {
+                    public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
                         if (e != null) {
                             return ;
                         }

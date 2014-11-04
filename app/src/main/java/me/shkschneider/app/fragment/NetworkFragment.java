@@ -14,7 +14,7 @@ import com.google.gson.JsonObject;
 
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.SkeletonFragment;
-import me.shkschneider.skeleton.WebServiceIon;
+import me.shkschneider.skeleton.WebService;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.GsonParser;
 import me.shkschneider.skeleton.helper.StringHelper;
@@ -80,9 +80,9 @@ public class NetworkFragment extends SkeletonFragment {
     public void refresh() {
         mAdapter.clear();
         skeletonActivity().loading(+1);
-        new WebServiceIon().getJsonObject("http://ip.jsontest.com", new WebServiceIon.Callback() {
+        new WebService().getJsonObject("http://ip.jsontest.com", new WebService.Callback() {
             @Override
-            public void webServiceCallback(final WebServiceIon.WebServiceException e, final Object result) {
+            public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
                 skeletonActivity().loading(-1);
                 if (e != null) {
                     ActivityHelper.croutonRed(skeletonActivity(), e.getMessage());
@@ -95,9 +95,9 @@ public class NetworkFragment extends SkeletonFragment {
             }
         });
         skeletonActivity().loading(+1);
-        new WebServiceIon().getJsonObject("http://headers.jsontest.com", new WebServiceIon.Callback() {
+        new WebService().getJsonObject("http://headers.jsontest.com", new WebService.Callback() {
             @Override
-            public void webServiceCallback(final WebServiceIon.WebServiceException e, final Object result) {
+            public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
                 skeletonActivity().loading(-1);
                 if (e != null) {
                     ActivityHelper.croutonRed(skeletonActivity(), e.getMessage());
@@ -115,9 +115,9 @@ public class NetworkFragment extends SkeletonFragment {
             }
         });
         skeletonActivity().loading(+1);
-        new WebServiceIon().getJsonObject("http://date.jsontest.com", new WebServiceIon.Callback() {
+        new WebService().getJsonObject("http://date.jsontest.com", new WebService.Callback() {
             @Override
-            public void webServiceCallback(final WebServiceIon.WebServiceException e, final Object result) {
+            public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
                 skeletonActivity().loading(-1);
                 if (e != null) {
                     ActivityHelper.croutonRed(skeletonActivity(), e.getMessage());
@@ -135,9 +135,9 @@ public class NetworkFragment extends SkeletonFragment {
             }
         });
         skeletonActivity().loading(+1);
-        new WebServiceIon().getJsonObject("http://echo.jsontest.com/42/shkschneider", new WebServiceIon.Callback() {
+        new WebService().getJsonObject("http://echo.jsontest.com/42/shkschneider", new WebService.Callback() {
             @Override
-            public void webServiceCallback(final WebServiceIon.WebServiceException e, final Object result) {
+            public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
                 skeletonActivity().loading(-1);
                 if (e != null) {
                     ActivityHelper.croutonRed(skeletonActivity(), e.getMessage());
