@@ -20,7 +20,6 @@ import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.KeyboardHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.helper.StringHelper;
 
 /**
  * Base Activity you should use!
@@ -88,8 +87,8 @@ public class SkeletonActivity extends ActionBarActivity {
             LogHelper.warning("ActionBar was NULL");
             return ;
         }
-        actionBar.setDisplayHomeAsUpEnabled(b);
         actionBar.setDisplayShowHomeEnabled(b);
+        actionBar.setDisplayHomeAsUpEnabled(b);
     }
 
     // Logo
@@ -116,23 +115,6 @@ public class SkeletonActivity extends ActionBarActivity {
     }
 
     // Title
-
-    public void title(final String title) {
-        mTitle = title;
-        final ActionBar actionBar = getSupportActionBar();
-        if (actionBar == null) {
-            LogHelper.warning("ActionBar was NULL");
-            return ;
-        }
-        if (StringHelper.nullOrEmpty(title)) {
-            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setTitle(null);
-        }
-        else {
-            actionBar.setDisplayShowTitleEnabled(true);
-            actionBar.setTitle(title);
-        }
-    }
 
     public void title(final CharSequence title) {
         mTitle = title;
@@ -200,7 +182,8 @@ public class SkeletonActivity extends ActionBarActivity {
             }
             return ;
         }
-        if (! loading()) {
+        final boolean actionBarVisible = (getSupportActionBar() != null && getSupportActionBar().isShowing());
+        if (actionBarVisible && ! loading()) {
             mActionMode = startSupportActionMode(new ActionMode.Callback() {
                 @SuppressLint("InflateParams") // inflater has no ViewGroup
                 @Override
