@@ -57,7 +57,6 @@ public class SkeletonActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         // setContentView()
         home(false);
-        logo(false);
         title(true);
     }
 
@@ -95,6 +94,7 @@ public class SkeletonActivity extends ActionBarActivity {
 
     // Logo
 
+    @Deprecated
     public void logo(final boolean b) {
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar == null) {
