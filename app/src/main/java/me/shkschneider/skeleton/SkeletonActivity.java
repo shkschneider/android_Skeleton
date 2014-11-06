@@ -45,7 +45,6 @@ public class SkeletonActivity extends ActionBarActivity {
 
     private int mLoadingCount = 0;
     private TextView mLoadingView;
-    private CharSequence mTitle = null;
     private boolean mAlive = false;
     private ActionMode mActionMode = null;
     private String mSearchHint;
