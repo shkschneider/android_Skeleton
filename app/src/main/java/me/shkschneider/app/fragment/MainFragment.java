@@ -50,7 +50,7 @@ public class MainFragment extends SkeletonFragment {
             @Override
             public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
                 if (e != null) {
-                    ActivityHelper.croutonRed(skeletonActivity(), e.getMessage());
+                    ActivityHelper.toast(e.getMessage());
                     return ;
                 }
                 final JsonObject jsonObject = (JsonObject) result;

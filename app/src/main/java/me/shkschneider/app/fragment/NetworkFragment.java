@@ -2,6 +2,7 @@ package me.shkschneider.app.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +19,11 @@ import me.shkschneider.skeleton.WebService;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.GsonParser;
 import me.shkschneider.skeleton.helper.StringHelper;
+import me.shkschneider.skeleton.ui.MySwipeRefreshLayout;
 
 public class NetworkFragment extends SkeletonFragment {
 
+    private MySwipeRefreshLayout mMySwipeRefreshLayout;
     private ArrayAdapter<String> mAdapter;
 
     public NetworkFragment() {
@@ -61,12 +64,20 @@ public class NetworkFragment extends SkeletonFragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_listview, container, false);
+        return inflater.inflate(R.layout.fragment_myswiperefreshlayout, container, false);
     }
 
     @Override
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mMySwipeRefreshLayout = (MySwipeRefreshLayout) view.findViewById(R.id.myswiperefreshlayout);
+        mMySwipeRefreshLayout.swipes(true);
+        mMySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refresh();
+            }
+        });
         final ListView listView = (ListView) view.findViewById(R.id.listview);
         listView.setAdapter(mAdapter);
     }
@@ -77,6 +88,12 @@ public class NetworkFragment extends SkeletonFragment {
         refresh();
     }
 
+    private void updateLoading() {
+        if (! skeletonActivity().loading()) {
+            mMySwipeRefreshLayout.setRefreshing(false);
+        }
+    }
+
     public void refresh() {
         mAdapter.clear();
         skeletonActivity().loading(+1);
@@ -84,8 +101,9 @@ public class NetworkFragment extends SkeletonFragment {
             @Override
             public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
                 skeletonActivity().loading(-1);
+                updateLoading();
                 if (e != null) {
-                    ActivityHelper.croutonRed(skeletonActivity(), e.getMessage());
+                    ActivityHelper.toast(e.getMessage());
                     return ;
                 }
                 final JsonObject jsonObject = (JsonObject) result;
@@ -99,8 +117,9 @@ public class NetworkFragment extends SkeletonFragment {
             @Override
             public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
                 skeletonActivity().loading(-1);
+                updateLoading();
                 if (e != null) {
-                    ActivityHelper.croutonRed(skeletonActivity(), e.getMessage());
+                    ActivityHelper.toast(e.getMessage());
                     return ;
                 }
                 final JsonObject jsonObject = (JsonObject) result;
@@ -119,28 +138,9 @@ public class NetworkFragment extends SkeletonFragment {
             @Override
             public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
                 skeletonActivity().loading(-1);
+                updateLoading();
                 if (e != null) {
-                    ActivityHelper.croutonRed(skeletonActivity(), e.getMessage());
-                    return ;
-                }
-                final JsonObject jsonObject = (JsonObject) result;
-                for (final String key : GsonParser.keys(jsonObject)) {
-                    final String value = GsonParser.string(jsonObject, key);
-                    if (!StringHelper.nullOrEmpty(value)) {
-                        final String string = String.format("%s %s", key, value);
-                        mAdapter.add(string);
-                    }
-                }
-                mAdapter.notifyDataSetChanged();
-            }
-        });
-        skeletonActivity().loading(+1);
-        new WebService().getJsonObject("http://echo.jsontest.com/42/shkschneider", new WebService.Callback() {
-            @Override
-            public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
-                skeletonActivity().loading(-1);
-                if (e != null) {
-                    ActivityHelper.croutonRed(skeletonActivity(), e.getMessage());
+                    ActivityHelper.toast(e.getMessage());
                     return ;
                 }
                 final JsonObject jsonObject = (JsonObject) result;

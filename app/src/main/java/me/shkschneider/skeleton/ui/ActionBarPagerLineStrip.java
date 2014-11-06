@@ -1,44 +1,54 @@
 package me.shkschneider.skeleton.ui;
 
+/*
+ * Copyright (C) 2013 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import me.shkschneider.app.R;
-import me.shkschneider.skeleton.helper.AndroidHelper;
 
-public class ActionBarPagerTabStrip extends HorizontalScrollView {
+public class ActionBarPagerLineStrip extends HorizontalScrollView {
 
     private boolean mExpand;
     private int mTitleOffset;
     private int mLayoutId;
-    private int mTextViewId;
     private ViewPager mViewPager;
     private ViewPager.OnPageChangeListener mViewPagerPageChangeListener;
 
     private final ActionBarTabStripCell mTabStripCell;
 
-    public ActionBarPagerTabStrip(final Context context) {
+    public ActionBarPagerLineStrip(final Context context) {
         this(context, null);
     }
 
-    public ActionBarPagerTabStrip(final Context context, final AttributeSet attrs) {
+    public ActionBarPagerLineStrip(final Context context, final AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public ActionBarPagerTabStrip(final Context context, final AttributeSet attrs, final int defStyle) {
+    public ActionBarPagerLineStrip(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
         setHorizontalScrollBarEnabled(false);
         setFillViewport(true);
@@ -46,16 +56,15 @@ public class ActionBarPagerTabStrip extends HorizontalScrollView {
         mTitleOffset = (int) (24 * getResources().getDisplayMetrics().density);
         mTabStripCell = new ActionBarTabStripCell(context);
         addView(mTabStripCell, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        setBackgroundColor(getResources().getColor(R.color.primaryColor));
+        setBackgroundColor(getResources().getColor(R.color.actionBarColor));
     }
 
     public void setOnPageChangeListener(final ViewPager.OnPageChangeListener listener) {
         mViewPagerPageChangeListener = listener;
     }
 
-    public void setCustomTabView(final int layoutResId, final int textViewId) {
+    public void setCustomTabView(final int layoutResId) {
         mLayoutId = layoutResId;
-        mTextViewId = textViewId;
     }
 
     public void setViewPager(final ViewPager viewPager) {
@@ -63,7 +72,7 @@ public class ActionBarPagerTabStrip extends HorizontalScrollView {
         mViewPager = viewPager;
         if (viewPager != null) {
             viewPager.setOnPageChangeListener(new InternalViewPagerListener());
-            populateTabStrip();
+            populateLineStrip();
         }
     }
 
@@ -71,50 +80,29 @@ public class ActionBarPagerTabStrip extends HorizontalScrollView {
         mExpand = expand;
     }
 
-    @SuppressWarnings("NewApi")
-    protected TextView createDefaultTabView(final Context context) {
-        final TextView textView = new TextView(context);
-        textView.setGravity(Gravity.CENTER);
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
-        textView.setTypeface(Typeface.DEFAULT_BOLD);
-        if (AndroidHelper.api() >= AndroidHelper.API_11) {
-            final TypedValue outValue = new TypedValue();
-            getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
-            textView.setBackgroundResource(outValue.resourceId);
-        }
-        if (AndroidHelper.api() >= AndroidHelper.API_14) {
-            textView.setAllCaps(true);
-        }
+    protected View createDefaultLineView(final Context context) {
+        final View view = new View(context);
         final int padding = (int) (16 * getResources().getDisplayMetrics().density);
-        textView.setPadding(padding, padding, padding, padding);
-        textView.setTextColor(getResources().getColor(R.color.white));
-        return textView;
+        view.setPadding(padding, padding, padding, padding);
+        return view;
     }
 
-    private void populateTabStrip() {
+    private void populateLineStrip() {
         final PagerAdapter adapter = mViewPager.getAdapter();
-        final View.OnClickListener tabClickListener = new TabClickListener();
+        final OnClickListener tabClickListener = new TabClickListener();
         for (int i = 0; i < adapter.getCount(); i++) {
-            View tabView = null;
-            TextView tabTitleView = null;
+            View lineView = null;
             if (mLayoutId != 0) {
-                tabView = LayoutInflater.from(getContext()).inflate(mLayoutId, mTabStripCell, false);
-                tabTitleView = (TextView) tabView.findViewById(mTextViewId);
+                lineView = LayoutInflater.from(getContext()).inflate(mLayoutId, mTabStripCell, false);
             }
-            if (tabView == null) {
-                tabView = createDefaultTabView(getContext());
-            }
-            if (tabTitleView == null && (tabView instanceof TextView)) {
-                tabTitleView = (TextView) tabView;
-            }
-            if (tabTitleView != null) {
-                tabTitleView.setText(adapter.getPageTitle(i));
+            if (lineView == null) {
+                lineView = createDefaultLineView(getContext());
             }
             if (mExpand) {
-                tabView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F));
+                lineView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F));
             }
-            tabView.setOnClickListener(tabClickListener);
-            mTabStripCell.addView(tabView);
+            lineView.setOnClickListener(tabClickListener);
+            mTabStripCell.addView(lineView);
         }
     }
 
@@ -181,7 +169,7 @@ public class ActionBarPagerTabStrip extends HorizontalScrollView {
 
     }
 
-    private class TabClickListener implements View.OnClickListener {
+    private class TabClickListener implements OnClickListener {
 
         @Override
         public void onClick(final View view) {

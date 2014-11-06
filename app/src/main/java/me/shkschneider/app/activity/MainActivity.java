@@ -15,12 +15,9 @@ import java.util.ArrayList;
 
 import me.shkschneider.app.R;
 import me.shkschneider.app.fragment.ActionBarPagerFragment;
-import me.shkschneider.app.fragment.AndroidSdksFragment;
 import me.shkschneider.app.fragment.IndexedListFragment;
-import me.shkschneider.app.fragment.IndexedRecyclerFragment;
 import me.shkschneider.app.fragment.MainFragment;
 import me.shkschneider.app.fragment.NetworkFragment;
-import me.shkschneider.app.fragment.ViewPagerFragment;
 import me.shkschneider.skeleton.NavigationDrawerActivity;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.IntentHelper;
@@ -29,11 +26,8 @@ public class MainActivity extends NavigationDrawerActivity {
 
     public static final int NAVIGATION_MAIN = 0;
     public static final int NAVIGATION_LISTVIEW = 1;
-    public static final int NAVIGATION_RECYCLERVIEW = 2;
-    public static final int NAVIGATION_NETWORK = 3;
-    public static final int NAVIGATION_ANDROIDSDKS = 4;
-    public static final int NAVIGATION_ACTIONBARPAGER = 5;
-    public static final int NAVIGATION_VIEWPAGER = 6;
+    public static final int NAVIGATION_NETWORK = 2;
+    public static final int NAVIGATION_ACTIONBARPAGER = 3;
 
     public static Intent getInstance(final Activity activity) {
         return new Intent(activity, MainActivity.class).setFlags(IntentHelper.HOME_FLAGS);
@@ -49,8 +43,7 @@ public class MainActivity extends NavigationDrawerActivity {
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        if (navigationDrawer() != NAVIGATION_LISTVIEW
-                && navigationDrawer() != NAVIGATION_RECYCLERVIEW) {
+        if (navigationDrawer() != NAVIGATION_LISTVIEW) {
             searchable(null, null);
         }
         return super.onCreateOptionsMenu(menu);
@@ -75,11 +68,8 @@ public class MainActivity extends NavigationDrawerActivity {
             {
                 add(NAVIGATION_MAIN, new MainFragment());
                 add(NAVIGATION_LISTVIEW, new IndexedListFragment());
-                add(NAVIGATION_RECYCLERVIEW, new IndexedRecyclerFragment());
                 add(NAVIGATION_NETWORK, new NetworkFragment());
-                add(NAVIGATION_ANDROIDSDKS, new AndroidSdksFragment());
                 add(NAVIGATION_ACTIONBARPAGER, new ActionBarPagerFragment());
-                add(NAVIGATION_VIEWPAGER, new ViewPagerFragment());
             }
         }) {
             @Override

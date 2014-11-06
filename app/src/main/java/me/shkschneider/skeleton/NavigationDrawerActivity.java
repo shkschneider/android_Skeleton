@@ -2,6 +2,7 @@ package me.shkschneider.skeleton;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import org.jetbrains.annotations.NotNull;
 
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
@@ -35,10 +38,14 @@ import me.shkschneider.skeleton.helper.LogHelper;
  * - closeNavigationDrawer()
  *
  * Changing of item in the NavigationDrawer auto-cancel any loading in the Activity.
+ * <br />
+ * Restores the last tab upon rotation.
  *
  * @see me.shkschneider.skeleton.SkeletonActivity
  */
 public abstract class NavigationDrawerActivity extends SkeletonActivity {
+
+    public static final String TAB = "tab";
 
     private boolean mOpenedOrOpening = false;
     private DrawerLayout mDrawerLayout;
@@ -173,7 +180,7 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
-            if (! navigationDrawerOpened()) {
+            if (! navigationDrawerOpenedOrOpening()) {
                 onNavigationDrawerOpened();
             }
             else {
@@ -188,6 +195,19 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
     protected void onPause() {
         super.onPause();
         closeNavigationDrawer();
+    }
+
+    @Override
+    protected void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(TAB, navigationDrawer());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NotNull final Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        final int tab = savedInstanceState.getInt(TAB, 0);
+        navigationDrawer(tab);
     }
 
 }

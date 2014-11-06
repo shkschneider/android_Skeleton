@@ -22,6 +22,13 @@ release:
 	@$(GRADLE) assembleRelease installDebug
 	@$(CP) $(NAME)/build/outputs/apk/$(NAME)-release.apk "$(PACKAGE_NAME)-release-$(VERSION_NAME)-$(VERSION_CODE).apk"
 
+lint:
+	@echo "$(PACKAGE_NAME)-$(VERSION_NAME)-$(VERSION_CODE).apk"
+	@echo
+	@$(GRADLE) :app:lint
+	@echo "app/build/outputs/lint-results.html"
+	@echo "app/build/outputs/lint-results.xml"
+
 clean:
 	@$(GRADLE) clean
 
