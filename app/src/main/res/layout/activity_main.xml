@@ -1,5 +1,6 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,14 +10,14 @@
         android:id="@+id/loadingimageview"
         android:src="@null"
         android:contentDescription="@null"
-        android:layout_width="@dimen/spaceHuge"
-        android:layout_height="@dimen/spaceHuge"
+        android:layout_width="@dimen/spaceBig"
+        android:layout_height="@dimen/spaceBig"
         android:layout_gravity="center"
         android:padding="@dimen/spaceSmaller" />
 
     <LinearLayout
         android:layout_alignParentTop="true"
-        android:layout_marginTop="@dimen/spaceHuge"
+        android:layout_marginTop="@dimen/spaceBig"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -41,6 +42,16 @@
             android:textSize="@dimen/textSizeSmallish"
             android:textStyle="normal" />
 
+        <TextView
+            android:id="@+id/textview"
+            android:text="@null"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/spaceMedium"
+            android:gravity="top|center_horizontal"
+            android:textSize="@dimen/textSizeSmallish"
+            android:textStyle="normal" />
+
     </LinearLayout>
 
     <View
@@ -52,10 +63,9 @@
 
     <Button
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/website"
+        android:id="@+id/button"
+        android:text="@string/go"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/spaceMedium"
-        android:text="@null" />
+        android:layout_height="@dimen/spaceMedium" />
 
 </RelativeLayout>

@@ -3,36 +3,40 @@ package me.shkschneider.skeleton.ui;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.helper.ScreenHelper;
 
-public class ActionBarPagerLineStrip extends HorizontalScrollView {
+public class PagerTabStrip extends HorizontalScrollView {
 
-    private final int BACKGROUND_COLOR = R.color.actionBarColor;
-    private final int FOREGROUND_COLOR = R.color.actionBarForegroundColor;
-    private final int INDICATOR_HEIGHT = 8;
+    private final int BACKGROUND_COLOR = R.color.contentBackgroundColor;
+    private final int FOREGROUND_COLOR = R.color.primaryColor;
+    private final int INDICATOR_HEIGHT = 4;
 
     private ViewPager mViewPager;
     private ViewPager.OnPageChangeListener mViewPagerPageChangeListener;
     private TabStripCell mTabStripCell;
 
-    public ActionBarPagerLineStrip(final Context context) {
+    public PagerTabStrip(final Context context) {
         this(context, null);
     }
 
-    public ActionBarPagerLineStrip(final Context context, final AttributeSet attrs) {
+    public PagerTabStrip(final Context context, final AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public ActionBarPagerLineStrip(final Context context, final AttributeSet attrs, final int defStyle) {
+    public PagerTabStrip(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
         setHorizontalScrollBarEnabled(false);
         setFillViewport(true);
@@ -50,25 +54,34 @@ public class ActionBarPagerLineStrip extends HorizontalScrollView {
         mViewPager = viewPager;
         if (viewPager != null) {
             viewPager.setOnPageChangeListener(new InternalViewPagerListener());
-            populateLineStrip();
+            populateTabStrip();
         }
     }
 
-    private View createDefaultLineView(final Context context) {
-        final View view = new View(context);
-        final int padding = (int) (16 * getResources().getDisplayMetrics().density);
-        view.setPadding(padding, padding, padding, padding);
-        return view;
+    private TextView createDefaultTabView(final Context context) {
+        final TextView textView = new TextView(context);
+        textView.setGravity(Gravity.CENTER);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+        textView.setTypeface(Typeface.DEFAULT_BOLD);
+        final TypedValue typedValue = new TypedValue();
+        getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground, typedValue, true);
+        textView.setBackgroundResource(typedValue.resourceId);
+        textView.setAllCaps(true);
+        final int padding = (int) (16 * ScreenHelper.density());
+        textView.setPadding(padding, padding, padding, padding);
+        textView.setTextColor(getResources().getColor(FOREGROUND_COLOR));
+        return textView;
     }
 
-    private void populateLineStrip() {
+    private void populateTabStrip() {
         final PagerAdapter pagerAdapter = mViewPager.getAdapter();
-        final OnClickListener onClickListener = new TabClickListener();
+        final View.OnClickListener onClickListener = new TabClickListener();
         for (int i = 0; i < pagerAdapter.getCount(); i++) {
-            final View lineView = createDefaultLineView(getContext());
-            lineView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F));
-            lineView.setOnClickListener(onClickListener);
-            mTabStripCell.addView(lineView);
+            final View tabView = createDefaultTabView(getContext());
+            ((TextView) tabView).setText(pagerAdapter.getPageTitle(i));
+            tabView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F));
+            tabView.setOnClickListener(onClickListener);
+            mTabStripCell.addView(tabView);
         }
     }
 

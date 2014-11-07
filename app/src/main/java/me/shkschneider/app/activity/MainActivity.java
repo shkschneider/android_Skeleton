@@ -1,104 +1,76 @@
 package me.shkschneider.app.activity;
 
-import android.app.Activity;
-import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import me.shkschneider.app.R;
-import me.shkschneider.app.fragment.ActionBarPagerFragment;
-import me.shkschneider.app.fragment.IndexedListFragment;
-import me.shkschneider.app.fragment.MainFragment;
-import me.shkschneider.app.fragment.NetworkFragment;
-import me.shkschneider.skeleton.NavigationDrawerActivity;
-import me.shkschneider.skeleton.SkeletonFragment;
-import me.shkschneider.skeleton.helper.IntentHelper;
+import me.shkschneider.skeleton.ImageManipulator;
+import me.shkschneider.skeleton.SkeletonActivity;
+import me.shkschneider.skeleton.WebService;
+import me.shkschneider.skeleton.helper.ActivityHelper;
+import me.shkschneider.skeleton.helper.GsonParser;
+import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.ui.LoadingImageView;
 
-public class MainActivity extends NavigationDrawerActivity {
+public class MainActivity extends SkeletonActivity {
 
-    public static final int NAVIGATION_MAIN = 0;
-    public static final int NAVIGATION_LISTVIEW = 1;
-    public static final int NAVIGATION_NETWORK = 2;
-    public static final int NAVIGATION_ACTIONBARPAGER = 3;
-
-    public static Intent getInstance(final Activity activity) {
-        return new Intent(activity, MainActivity.class).setFlags(IntentHelper.HOME_FLAGS);
-    }
+    private static final String AUTHOR = "ShkSchneider";
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        navigationDrawer(0);
-    }
+        final LoadingImageView loadingImageView = (LoadingImageView) findViewById(R.id.loadingimageview);
+        final TextView textView1 = (TextView) findViewById(android.R.id.text1);
+        final TextView textView2 = (TextView) findViewById(android.R.id.text2);
+        final TextView textView = (TextView) findViewById(R.id.textview);
+        textView.setText(getResources().getString(R.string.dots));
 
-    @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        if (navigationDrawer() != NAVIGATION_LISTVIEW) {
-            searchable(null, null);
-        }
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
-        if (item.getItemId() == R.id.menu_about) {
-            startActivity(AboutActivity.getInstance(MainActivity.this));
-            return true;
-        }
-        if (item.getItemId() == R.id.menu_settings) {
-            startActivity(SettingsActivity.getInstance(MainActivity.this));
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected ArrayAdapter getAdapter() {
-        return new ArrayAdapter<SkeletonFragment>(this, R.layout.listview_navigationdrawer_item, new ArrayList<SkeletonFragment>() {
-            {
-                add(NAVIGATION_MAIN, new MainFragment());
-                add(NAVIGATION_LISTVIEW, new IndexedListFragment());
-                add(NAVIGATION_NETWORK, new NetworkFragment());
-                add(NAVIGATION_ACTIONBARPAGER, new ActionBarPagerFragment());
-            }
-        }) {
+        final String url = String.format("http://gravatar.com/%s.json", AUTHOR.toLowerCase());
+        new WebService().getJsonObject(url, new WebService.Callback() {
             @Override
-            public View getView(final int position, View convertView, final ViewGroup parent) {
-                if (convertView == null) {
-                    final LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
-                    convertView = layoutInflater.inflate(R.layout.listview_navigationdrawer_item, parent, false);
+            public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
+                if (e != null) {
+                    ActivityHelper.toast(e.getMessage());
+                    return ;
                 }
-                final TextView textView = ((TextView) convertView.findViewById(R.id.textview));
-                textView.setText(getItem(position).title());
-                if (position == navigationDrawer()) {
-                    textView.setTextColor(getResources().getColor(R.color.secondaryColor));
-                }
-                else {
-                    textView.setTextColor(getResources().getColor(R.color.textPrimaryColor));
-                }
-                return convertView;
+                final JsonObject jsonObject = (JsonObject) result;
+                final JsonArray entries = GsonParser.array(jsonObject, "entry");
+                final JsonObject entry = entries.get(0).getAsJsonObject();
+                final String thumbnailUrl = GsonParser.string(entry, "thumbnailUrl");
+                new WebService().getImage(thumbnailUrl + "?size=360", new WebService.Callback() {
+                    @Override
+                    public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
+                        if (e != null) {
+                            return ;
+                        }
+                        final Bitmap bitmap = (Bitmap) result;
+                        if (bitmap == null) {
+                            LogHelper.warning("Bitmap was NULL");
+                            return ;
+                        }
+                        loadingImageView.getImageView().setImageBitmap(ImageManipulator.circular(bitmap));
+                        loadingImageView.showImageView();
+                    }
+                });
+                final String displayName = GsonParser.string(entry, "displayName");
+                textView1.setText(displayName);
+                final String currentLocation = GsonParser.string(entry, "currentLocation");
+                textView2.setText(currentLocation);
             }
-
+        });
+        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean areAllItemsEnabled() {
-                return true;
+            public void onClick(final View view) {
+                startActivity(DashboardActivity.getInstance(MainActivity.this));
             }
-        };
-    }
-
-    @Override
-    protected SkeletonFragment getFragment(final int position) {
-        return (SkeletonFragment) getAdapter().getItem(position);
+        });
     }
 
 }

@@ -18,14 +18,14 @@ import me.shkschneider.app.R;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.StringHelper;
 import me.shkschneider.skeleton.ui.ActionBarPagerLineStrip;
-import me.shkschneider.skeleton.ui.ActionBarPagerTabStrip;
+import me.shkschneider.skeleton.ui.PagerTabStrip;
 
-public class ActionBarPagerFragment extends SkeletonFragment {
+public class PagerFragment extends SkeletonFragment {
 
     private static final int TABS = 10;
 
-    public ActionBarPagerFragment() {
-        title("ActionBarPager");
+    public PagerFragment() {
+        title("Pager");
     }
 
     private PagerAdapter mPagerAdapter;
@@ -39,7 +39,7 @@ public class ActionBarPagerFragment extends SkeletonFragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_actionbarpager, container, false);
+        return inflater.inflate(R.layout.fragment_pager, container, false);
     }
 
     @Override
@@ -47,13 +47,9 @@ public class ActionBarPagerFragment extends SkeletonFragment {
         super.onViewCreated(view, savedInstanceState);
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         viewPager.setAdapter(mPagerAdapter);
-        final ActionBarPagerTabStrip actionBarPagerTabStrip = (ActionBarPagerTabStrip) view.findViewById(R.id.actionbarpagertabstrip);
-        if (actionBarPagerTabStrip != null) {
-            actionBarPagerTabStrip.setViewPager(viewPager);
-        }
-        final ActionBarPagerLineStrip actionBarPagerLineStrip = (ActionBarPagerLineStrip) view.findViewById(R.id.actionbarpagerlinestrip);
-        if (actionBarPagerLineStrip != null) {
-            actionBarPagerLineStrip.setViewPager(viewPager);
+        final PagerTabStrip pagerTabStrip = (PagerTabStrip) view.findViewById(R.id.pagertabstrip);
+        if (pagerTabStrip != null) {
+            pagerTabStrip.setViewPager(viewPager);
         }
     }
 

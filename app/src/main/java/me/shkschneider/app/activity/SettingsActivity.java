@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import me.shkschneider.app.fragment.AboutFragment;
 import me.shkschneider.app.fragment.SettingsFragment;
 import me.shkschneider.skeleton.SkeletonActivity;
 import me.shkschneider.skeleton.SkeletonFragmentActivity;
@@ -26,7 +25,7 @@ public class SettingsActivity extends SkeletonFragmentActivity implements Skelet
 
     @Override
     public void onHomeAsUpPressed() {
-        startActivity(MainActivity.getInstance(SettingsActivity.this));
+        startActivity(DashboardActivity.getInstance(SettingsActivity.this));
     }
 
 }

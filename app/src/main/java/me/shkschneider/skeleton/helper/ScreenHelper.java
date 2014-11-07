@@ -50,10 +50,18 @@ public class ScreenHelper {
     }
 
     /**
-     * @return density dpi
+     * @return density (int)
      * @since 1.0
      */
-    public static int density() {
+    public static float density() {
+        return ApplicationHelper.resources().getDisplayMetrics().density;
+    }
+
+    /**
+     * @return density dpi (float)
+     * @since 1.0
+     */
+    public static int densityDpi() {
         return ApplicationHelper.resources().getDisplayMetrics().densityDpi;
     }
 
