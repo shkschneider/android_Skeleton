@@ -2,6 +2,7 @@ package me.shkschneider.app.activity;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -26,11 +27,21 @@ public class MainActivity extends SkeletonActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final CardView cardView1 = (CardView) findViewById(R.id.cardview1);
         final LoadingImageView loadingImageView = (LoadingImageView) findViewById(R.id.loadingimageview);
-        final TextView textView1 = (TextView) findViewById(android.R.id.text1);
-        final TextView textView2 = (TextView) findViewById(android.R.id.text2);
-        final TextView textView = (TextView) findViewById(R.id.textview);
-        textView.setText(getResources().getString(R.string.dots));
+        final TextView textView1 = (TextView) findViewById(R.id.textview1);
+        final TextView textView2 = (TextView) findViewById(R.id.textview2);
+
+        final CardView cardView2 = (CardView) findViewById(R.id.cardview2);
+        final TextView textView3 = (TextView) findViewById(R.id.textview3);
+        textView3.setText("This is a demo skeleton for any android application targeting API-14 +...");
+
+        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                startActivity(DashboardActivity.getInstance(MainActivity.this));
+            }
+        });
 
         final String url = String.format("http://gravatar.com/%s.json", AUTHOR.toLowerCase());
         new WebService().getJsonObject(url, new WebService.Callback() {
@@ -63,12 +74,6 @@ public class MainActivity extends SkeletonActivity {
                 textView1.setText(displayName);
                 final String currentLocation = GsonParser.string(entry, "currentLocation");
                 textView2.setText(currentLocation);
-            }
-        });
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View view) {
-                startActivity(DashboardActivity.getInstance(MainActivity.this));
             }
         });
     }
