@@ -20,13 +20,13 @@ import me.shkschneider.skeleton.helper.ScreenHelper;
 
 public class PagerTabStrip extends HorizontalScrollView {
 
-    private final int BACKGROUND_COLOR = R.color.contentBackgroundColor;
-    private final int FOREGROUND_COLOR = R.color.primaryColor;
-    private final int INDICATOR_HEIGHT = 4;
+    private int mBackgroundColor;
+    private int mForegroundColor;
+    private int mIndicatorHeight;
 
-    private ViewPager mViewPager;
-    private ViewPager.OnPageChangeListener mViewPagerPageChangeListener;
-    private TabStripCell mTabStripCell;
+    protected ViewPager mViewPager;
+    protected ViewPager.OnPageChangeListener mViewPagerPageChangeListener;
+    protected TabStripCell mTabStripCell;
 
     public PagerTabStrip(final Context context) {
         this(context, null);
@@ -38,11 +38,19 @@ public class PagerTabStrip extends HorizontalScrollView {
 
     public PagerTabStrip(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
+        init(context, R.color.contentBackgroundColor, R.color.primaryColor, 4);
+    }
+
+    protected void init(final Context context, final int backgroundColor, final int foregroundColor, final int indicatorHeight) {
+        removeAllViews();
+        mBackgroundColor = backgroundColor;
+        mForegroundColor = foregroundColor;
+        mIndicatorHeight = indicatorHeight;
         setHorizontalScrollBarEnabled(false);
         setFillViewport(true);
         mTabStripCell = new TabStripCell(context);
         addView(mTabStripCell, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        setBackgroundColor(getResources().getColor(BACKGROUND_COLOR));
+        setBackgroundColor(getResources().getColor(mBackgroundColor));
     }
 
     public void setOnPageChangeListener(final ViewPager.OnPageChangeListener onPageChangeListener) {
@@ -54,11 +62,11 @@ public class PagerTabStrip extends HorizontalScrollView {
         mViewPager = viewPager;
         if (viewPager != null) {
             viewPager.setOnPageChangeListener(new InternalViewPagerListener());
-            populateTabStrip();
+            populateStrip();
         }
     }
 
-    private TextView createDefaultTabView(final Context context) {
+    private TextView createDefaultStrip(final Context context) {
         final TextView textView = new TextView(context);
         textView.setGravity(Gravity.CENTER);
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
@@ -69,15 +77,15 @@ public class PagerTabStrip extends HorizontalScrollView {
         textView.setAllCaps(true);
         final int padding = (int) (16 * ScreenHelper.density());
         textView.setPadding(padding, padding, padding, padding);
-        textView.setTextColor(getResources().getColor(FOREGROUND_COLOR));
+        textView.setTextColor(getResources().getColor(mForegroundColor));
         return textView;
     }
 
-    private void populateTabStrip() {
+    protected void populateStrip() {
         final PagerAdapter pagerAdapter = mViewPager.getAdapter();
         final View.OnClickListener onClickListener = new TabClickListener();
         for (int i = 0; i < pagerAdapter.getCount(); i++) {
-            final View tabView = createDefaultTabView(getContext());
+            final View tabView = createDefaultStrip(getContext());
             ((TextView) tabView).setText(pagerAdapter.getPageTitle(i));
             tabView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F));
             tabView.setOnClickListener(onClickListener);
@@ -148,7 +156,7 @@ public class PagerTabStrip extends HorizontalScrollView {
 
     }
 
-    private class TabClickListener implements View.OnClickListener {
+    protected class TabClickListener implements View.OnClickListener {
 
         @Override
         public void onClick(final View view) {
@@ -162,7 +170,7 @@ public class PagerTabStrip extends HorizontalScrollView {
 
     }
 
-    private class TabStripCell extends LinearLayout {
+    protected class TabStripCell extends LinearLayout {
 
         private int mPosition;
         private float mPositionOffset;
@@ -176,9 +184,9 @@ public class PagerTabStrip extends HorizontalScrollView {
         public TabStripCell(final Context context, final AttributeSet attrs) {
             super(context, attrs);
             setWillNotDraw(false);
-            mIndicatorThickness = (int) (INDICATOR_HEIGHT * ScreenHelper.density());
+            mIndicatorThickness = (int) (mIndicatorHeight * ScreenHelper.density());
             mIndicatorPaint = new Paint();
-            mIndicatorPaint.setColor(getResources().getColor(FOREGROUND_COLOR));
+            mIndicatorPaint.setColor(getResources().getColor(mForegroundColor));
             mPosition = 0;
             mPositionOffset = 0;
         }
