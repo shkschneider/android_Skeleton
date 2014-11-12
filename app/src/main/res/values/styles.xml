@@ -94,5 +94,13 @@
         <item name="android:background">@color/primaryColor</item>
         <item name="android:textColor">@color/actionBarForegroundColor</item>
     </style>
+    
+    <style name="AppTheme.ShowCaseView">
+        <item name="sv_showcaseColor">@color/accentColor</item>
+        <item name="sv_titleTextAppearance">@style/AppTheme.ShowCaseView.Text</item>
+    </style>
+    <style name="AppTheme.ShowCaseView.Text">
+        <item name="android:textColor">@color/accentColor</item>
+    </style>
 
 </resources>

@@ -67,7 +67,7 @@ dependencies {
     compile 'com.koushikdutta.ion:ion:1.+'
     compile 'com.github.castorflex.smoothprogressbar:library:1.+'
     compile 'com.github.castorflex.smoothprogressbar:library-circular:1.+'
-    // compile 'com.github.amlcurran.showcaseview:library:5.+'
+    compile 'com.github.amlcurran.showcaseview:library:5.+'
     // compile 'cn.pedant.sweetalert:library:1.+'
     // compile 'lecho.lib.hellocharts:hellocharts-library:1.+'
     // compile 'com.github.johnkil.android-appmsg:appmsg:1.+'

@@ -4,8 +4,12 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.github.amlcurran.showcaseview.ShowcaseView;
+import com.github.amlcurran.showcaseview.targets.ActionViewTarget;
+import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
@@ -36,12 +40,20 @@ public class MainActivity extends SkeletonActivity {
         final TextView textView3 = (TextView) findViewById(R.id.textview3);
         textView3.setText("This is a demo skeleton for any android application targeting API-14 +...");
 
-        findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
+        final Button button = (Button) findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
                 startActivity(DashboardActivity.getInstance(MainActivity.this));
             }
         });
+        new ShowcaseView.Builder(this)
+                .setTarget(new ViewTarget(button))
+                .setContentTitle("Welcome")
+                .setContentText("Hit that button for me!")
+                .setStyle(R.style.AppTheme_ShowCaseView)
+                .hideOnTouchOutside()
+                .build();
 
         final String url = String.format("http://gravatar.com/%s.json", AUTHOR.toLowerCase());
         new WebService().getJsonObject(url, new WebService.Callback() {
