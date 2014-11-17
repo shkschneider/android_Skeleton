@@ -46,6 +46,7 @@ public class ActionBarPagerFragment extends SkeletonFragment {
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        // viewPager.setOffscreenPageLimit()
         viewPager.setAdapter(mPagerAdapter);
         final ActionBarPagerTabStrip actionBarPagerTabStrip = (ActionBarPagerTabStrip) view.findViewById(R.id.actionbarpagertabstrip);
         if (actionBarPagerTabStrip != null) {

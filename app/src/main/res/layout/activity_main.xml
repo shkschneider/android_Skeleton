@@ -3,75 +3,107 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
         android:layout_alignParentTop="true"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="49dp">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardview1"
+        <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:orientation="vertical"
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/spaceSmaller">
+                android:layout_height="wrap_content">
 
-                <me.shkschneider.skeleton.ui.LoadingImageView
-                    android:id="@+id/loadingimageview"
-                    android:src="@null"
-                    android:contentDescription="@null"
-                    android:layout_width="@dimen/spaceBig"
-                    android:layout_height="@dimen/spaceBig"
-                    android:layout_gravity="center" />
-
-                <TextView
-                    android:id="@+id/textview1"
-                    android:text="@null"
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="24dp"
-                    android:gravity="bottom|center_horizontal"
-                    android:textSize="@dimen/textSizeSmallish"
-                    android:textStyle="bold" />
+                    android:gravity="center_horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/spaceBig"
+                        android:layout_height="@dimen/spaceBig"
+                        android:src="@drawable/ic_web"
+                        android:contentDescription="@null"
+                        android:scaleType="fitCenter" />
+
+                    <TextView
+                        android:id="@+id/textview1"
+                        android:text="@null"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/spaceMedium"
+                        android:gravity="center"
+                        android:textSize="@dimen/textSizeSmallish"
+                        android:textStyle="normal"
+                        android:padding="@dimen/spaceSmaller" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal">
+
+                    <Button
+                        android:drawableLeft="@drawable/ic_github"
+                        android:id="@+id/github"
+                        android:text="@string/github"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/spaceMedium" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/textview2"
                     android:text="@null"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="24dp"
-                    android:gravity="top|center_horizontal"
+                    android:minHeight="@dimen/spaceMedium"
+                    android:gravity="center"
                     android:textSize="@dimen/textSizeSmallish"
-                    android:textStyle="normal" />
+                    android:textStyle="normal"
+                    android:padding="@dimen/spaceSmaller" />
 
-            </LinearLayout>
+            </android.support.v7.widget.CardView>
 
-        </android.support.v7.widget.CardView>
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardview2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/textview3"
-                android:text="@null"
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/spaceMedium"
-                android:gravity="center"
-                android:textSize="@dimen/textSizeSmallish"
-                android:textStyle="normal"
-                android:padding="@dimen/spaceSmaller" />
+                android:layout_height="wrap_content">
 
-        </android.support.v7.widget.CardView>
+                <TextView
+                    android:id="@+id/textview3"
+                    android:text="@null"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/spaceMedium"
+                    android:gravity="center"
+                    android:textSize="@dimen/textSizeSmallish"
+                    android:textStyle="normal"
+                    android:padding="@dimen/spaceSmaller" />
 
-    </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+    </ScrollView>
 
     <View
         android:layout_alignParentBottom="true"
@@ -82,7 +114,7 @@
 
     <Button
         android:layout_alignParentBottom="true"
-        android:id="@+id/button"
+        android:id="@+id/go"
         android:text="@string/go"
         android:layout_width="match_parent"
         android:layout_height="@dimen/spaceMedium" />

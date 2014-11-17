@@ -1,6 +1,9 @@
 package me.shkschneider.skeleton.helper;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.view.View;
 import android.widget.Toast;
@@ -19,30 +22,39 @@ public class ActivityHelper {
         Toast.makeText(MainApplication.CONTEXT, msg, Toast.LENGTH_SHORT).show();
     }
 
-//    private static void crouton(@NotNull final Activity activity, @NotNull final String msg, final AppMsg.Style style) {
-//        final AppMsg appMsg = AppMsg.makeText(activity, msg, style);
-//        appMsg.setLayoutGravity(Gravity.BOTTOM);
-//        appMsg.show();
-//    }
-//
-//    public static void croutonGreen(@NotNull final Activity activity, @NotNull final String msg) {
-//        crouton(activity, msg, AppMsg.STYLE_INFO);
-//    }
-//
-//    public static void croutonOrange(@NotNull final Activity activity, @NotNull final String msg) {
-//        crouton(activity, msg, AppMsg.STYLE_CONFIRM);
-//    }
-//
-//    public static void croutonRed(@NotNull final Activity activity, @NotNull final String msg) {
-//        crouton(activity, msg, AppMsg.STYLE_ALERT);
-//    }
-
     public static boolean portrait() {
         return (MainApplication.CONTEXT.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
     }
 
     public static boolean landscape() {
         return (MainApplication.CONTEXT.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
+    }
+
+    public static String title(final Activity activity) {
+        final ActivityInfo activityInfo = activityInfo(activity);
+        if (activityInfo == null) {
+            LogHelper.warning("ActivityInfo was NULL");
+            return null;
+        }
+
+        return activity.getResources().getString(activityInfo.labelRes);
+    }
+
+    public static ActivityInfo activityInfo(final Activity activity) {
+        if (activity == null) {
+            LogHelper.warning("Activity was NULL");
+            return null;
+        }
+
+        final PackageManager packageManager = activity.getPackageManager();
+        final ComponentName componentName = activity.getComponentName();
+        try {
+            return packageManager.getActivityInfo(componentName, 0);
+        }
+        catch (final Exception e) {
+            LogHelper.wtf(e);
+            return null;
+        }
     }
 
 }

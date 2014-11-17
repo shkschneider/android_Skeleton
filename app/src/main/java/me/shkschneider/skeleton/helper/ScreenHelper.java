@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.helper;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.graphics.Rect;
 import android.os.PowerManager;
@@ -46,7 +47,25 @@ public class ScreenHelper {
      * @since 1.0
      */
     public static boolean on() {
-        return ((PowerManager) SystemHelper.systemService(SystemHelper.SYSTEM_SERVICE_POWER_SERVICE)).isScreenOn();
+        final PowerManager powerManager = (PowerManager) SystemHelper.systemService(SystemHelper.SYSTEM_SERVICE_POWER_SERVICE);
+        if (AndroidHelper.api() >= AndroidHelper.API_20) {
+            return onNew(powerManager);
+        }
+        else {
+            return onOld(powerManager);
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    @SuppressLint("deprecation")
+    private static boolean onOld(final PowerManager powerManager) {
+        return powerManager.isScreenOn();
+    }
+
+    @SuppressWarnings("NewApi")
+    @SuppressLint("NewApi")
+    private static boolean onNew(final PowerManager powerManager) {
+        return powerManager.isInteractive();
     }
 
     /**
@@ -95,7 +114,7 @@ public class ScreenHelper {
      */
     public static int actionBarHeight(@NotNull final Window window) {
         int top = window.findViewById(Window.ID_ANDROID_CONTENT).getTop();
-        return top - statusBarHeight(window);
+        return (top - statusBarHeight(window));
     }
 
     /**
@@ -112,6 +131,8 @@ public class ScreenHelper {
      * Get device's screen orientation (in degrees).
      *
      * @return orientation degrees (0-360)
+     * @see me.shkschneider.skeleton.helper.ActivityHelper#portrait()
+     * @see me.shkschneider.skeleton.helper.ActivityHelper#landscape()
      * @since 1.0
      */
     public static int orientation() {

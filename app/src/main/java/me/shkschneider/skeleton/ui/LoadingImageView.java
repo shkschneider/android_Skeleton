@@ -21,8 +21,7 @@ public class LoadingImageView extends ViewSwitcher {
     private View mImageView;
 
     public LoadingImageView(final Context context) {
-        super(context);
-        init();
+        this(context, null);
     }
 
     public LoadingImageView(final Context context, final AttributeSet attrs) {

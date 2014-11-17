@@ -46,6 +46,7 @@ public class PagerFragment extends SkeletonFragment {
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
+        // viewPager.setOffscreenPageLimit()
         viewPager.setAdapter(mPagerAdapter);
         final PagerTabStrip pagerTabStrip = (PagerTabStrip) view.findViewById(R.id.pagertabstrip);
         if (pagerTabStrip != null) {

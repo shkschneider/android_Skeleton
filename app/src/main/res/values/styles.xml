@@ -20,6 +20,7 @@
         <item name="actionBarStyle">@style/AppTheme.ActionBarStyle</item>
         <item name="actionModeStyle">@style/AppTheme.ActionModeStyle</item>
         <item name="actionModeCloseButtonStyle">@style/AppTheme.ActionModeCloseButton</item>
+        <item name="android:listViewStyle">@style/AppTheme.ListViewStyle</item>
         <item name="android:listSeparatorTextViewStyle">@style/AppTheme.ListSeparatorTextViewStyle</item>
         <item name="android:buttonStyle">@style/AppTheme.ButtonStyle</item>
         <item name="android:imageButtonStyle">@style/AppTheme.ImageButtonStyle</item>
@@ -30,11 +31,9 @@
     <!-- Material Design -->
 
     <style name="AppTheme.ActionBarStyle" parent="Widget.AppCompat.Light.ActionBar.Solid.Inverse" />
-
     <style name="AppTheme.ActionModeStyle" parent="Base.Widget.AppCompat.ActionMode">
         <item name="background">@color/actionBarColor</item>
     </style>
-
     <style name="AppTheme.ActionModeCloseButton" parent="Base.Widget.AppCompat.ActionButton.CloseMode">
         <item name="android:visibility">visible</item>
     </style>
@@ -46,11 +45,13 @@
         <item name="android:clickable">true</item>
         <item name="android:background">@color/transparent</item>
     </style>
+
     <style name="AppTheme.ButtonStyle" parent="Widget.AppCompat.Light.ActionButton">
         <item name="android:enabled">true</item>
         <item name="android:clickable">true</item>
         <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
+
     <style name="AppTheme.DividerVertical">
         <item name="android:background">?android:attr/dividerVertical</item>
     </style>
@@ -58,6 +59,10 @@
         <item name="android:background">?android:attr/dividerHorizontal</item>
     </style>
 
+    <style name="AppTheme.ListViewStyle" parent="Widget.AppCompat.ListView.Menu">
+        <item name="android:fastScrollEnabled">true</item>
+        <item name="android:fastScrollAlwaysVisible">false</item>
+    </style>
     <style name="AppTheme.ListSeparatorTextViewStyle">
         <item name="android:background">@color/transparent</item>
         <item name="android:layout_width">match_parent</item>

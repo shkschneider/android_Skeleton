@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 
 public class MySwipeRefreshLayout extends SwipeRefreshLayout {
 
-    protected boolean mSwipes = true;
+    protected boolean mRefreshable = true;
 
     public MySwipeRefreshLayout(final Context context) {
         super(context);
@@ -17,17 +17,27 @@ public class MySwipeRefreshLayout extends SwipeRefreshLayout {
         super(context, attrs);
     }
 
-    public void swipes(final boolean b) {
-        mSwipes = b;
+    public void setRefreshable(final boolean refreshable) {
+        mRefreshable = refreshable;
     }
 
-    public boolean swipes() {
-        return mSwipes;
+    public boolean isRefreshable() {
+        return mRefreshable;
+    }
+
+    @Override
+    public void setRefreshing(final boolean refreshing) {
+        super.setRefreshing(refreshing);
+    }
+
+    @Override
+    public boolean isRefreshing() {
+        return super.isRefreshing();
     }
 
     @Override
     public boolean onTouchEvent(final MotionEvent motionEvent) {
-        if (! mSwipes) {
+        if (! mRefreshable) {
             return true;
         }
         return super.onTouchEvent(motionEvent);

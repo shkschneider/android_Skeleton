@@ -87,7 +87,7 @@ public class PagerTabStrip extends HorizontalScrollView {
         for (int i = 0; i < pagerAdapter.getCount(); i++) {
             final View tabView = createDefaultStrip(getContext());
             ((TextView) tabView).setText(pagerAdapter.getPageTitle(i));
-            tabView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F));
+            // tabView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F));
             tabView.setOnClickListener(onClickListener);
             mTabStripCell.addView(tabView);
         }
