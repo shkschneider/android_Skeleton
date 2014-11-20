@@ -25,6 +25,7 @@ public class LogHelper {
         final StackTraceElement[] elements = new Throwable().getStackTrace();
         String callerClassName = "?";
         String callerMethodName = "?";
+        String callerLineNumber = "?";
         if (elements.length >= 3) {
             callerClassName = elements[2].getClassName();
             callerClassName = callerClassName.substring(callerClassName.lastIndexOf('.') + 1);
@@ -36,9 +37,10 @@ public class LogHelper {
             if (callerMethodName.equals("<init>")) {
                 callerMethodName = callerClassName;
             }
+            callerLineNumber = String.valueOf(elements[2].getLineNumber());
         }
 
-        final String stack = callerClassName + " " + callerMethodName + "()";
+        final String stack = callerClassName + "." + callerMethodName + "():" + callerLineNumber;
         switch (level) {
             case VERBOSE: Log.v(TAG, "[" + stack + "] " + msg); break ;
             case DEBUG: Log.d(TAG, "[" + stack + "] " + msg); break ;
