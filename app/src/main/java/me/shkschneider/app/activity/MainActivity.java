@@ -1,13 +1,9 @@
 package me.shkschneider.app.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.github.amlcurran.showcaseview.targets.ViewTarget;
 
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.SkeletonActivity;
@@ -69,15 +65,15 @@ public class MainActivity extends SkeletonActivity {
             }
         });
 
-        if (savedInstanceState == null) {
-            new ShowcaseView.Builder(this)
-                    .setTarget(new ViewTarget(go))
-                    .setContentTitle("Welcome")
-                    .setContentText("Hit that button for me!")
-                    .setStyle(R.style.AppTheme_ShowCaseView)
-                    .hideOnTouchOutside()
-                    .build();
-        }
+//        if (savedInstanceState == null) {
+//            new ShowcaseView.Builder(this)
+//                    .setTarget(new ViewTarget(go))
+//                    .setContentTitle("Welcome")
+//                    .setContentText("Hit that button for me!")
+//                    .setStyle(R.style.AppTheme_ShowCaseView)
+//                    .hideOnTouchOutside()
+//                    .build();
+//        }
     }
 
 }

@@ -19,6 +19,7 @@ import me.shkschneider.app.fragment.IndexedListFragment;
 import me.shkschneider.app.fragment.MainFragment;
 import me.shkschneider.app.fragment.NetworkFragment;
 import me.shkschneider.app.fragment.PagerFragment;
+import me.shkschneider.app.fragment.RecyclerFragment;
 import me.shkschneider.skeleton.NavigationDrawerActivity;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.IntentHelper;
@@ -30,6 +31,7 @@ public class DashboardActivity extends NavigationDrawerActivity {
     public static final int NAVIGATION_ACTIONBARPAGER = 2;
     public static final int NAVIGATION_LISTVIEW = 3;
     public static final int NAVIGATION_NETWORK = 4;
+    public static final int NAVIGATION_RECYCLER = 5;
 
     public static Intent getInstance(final Activity activity) {
         return new Intent(activity, DashboardActivity.class).setFlags(IntentHelper.HOME_FLAGS);
@@ -73,6 +75,7 @@ public class DashboardActivity extends NavigationDrawerActivity {
                 add(NAVIGATION_ACTIONBARPAGER, new ActionBarPagerFragment());
                 add(NAVIGATION_LISTVIEW, new IndexedListFragment());
                 add(NAVIGATION_NETWORK, new NetworkFragment());
+                add(NAVIGATION_RECYCLER, new RecyclerFragment());
             }
         }) {
             @Override

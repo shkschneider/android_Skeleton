@@ -2,12 +2,12 @@ package me.shkschneider.app.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,19 +15,19 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
+import me.shkschneider.app.MyRecyclerAdapter;
 import me.shkschneider.app.R;
-import me.shkschneider.skeleton.adapter.IndexedListAdapter;
 import me.shkschneider.skeleton.SkeletonActivity;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.StringHelper;
 
-public class IndexedListFragment extends SkeletonFragment {
+public class RecyclerFragment extends SkeletonFragment {
 
-    private IndexedListAdapter<String> mAdapter;
+    private MyRecyclerAdapter mRecyclerAdapter;
 
-    public IndexedListFragment() {
-        title("IndexedList");
+    public RecyclerFragment() {
+        title("Recycler");
     }
 
     @Override
@@ -36,23 +36,19 @@ public class IndexedListFragment extends SkeletonFragment {
 
         // Adapter
 
-        final LayoutInflater layoutInflater = LayoutInflater.from(skeletonActivity());
-        mAdapter = new IndexedListAdapter<String>(skeletonActivity(), R.layout.listview_item1) {
+        mRecyclerAdapter = new MyRecyclerAdapter(R.layout.listview_item2);
+        mRecyclerAdapter.setCallback(new MyRecyclerAdapter.Callback() {
             @Override
-            public View getView(final int position, final View convertView, final ViewGroup parent) {
-                View view = super.getView(position, convertView, parent);
-                if (view == null) {
-                    view = layoutInflater.inflate(R.layout.listview_item1, parent, false);
-                    ((TextView) view.findViewById(android.R.id.text1)).setText(getItem(position));
-                }
-                return view;
+            public void onItemClick(final int position) {
+                final MyRecyclerAdapter.MyItem myItem = mRecyclerAdapter.myItems().get(position);
+                ActivityHelper.toast(String.format("%s: %s", myItem.text1, myItem.text2));
             }
 
             @Override
-            public boolean areAllItemsEnabled() {
-                return true;
+            public boolean onItemLongClick(final int position) {
+                return false;
             }
-        };
+        });
 
         // Search
 
@@ -74,7 +70,7 @@ public class IndexedListFragment extends SkeletonFragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_listview, container, false);
+        return inflater.inflate(R.layout.fragment_recyclerview, container, false);
     }
 
     // Bind
@@ -82,16 +78,11 @@ public class IndexedListFragment extends SkeletonFragment {
     @Override
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final ListView listView = (ListView) view.findViewById(R.id.listview);
-        mAdapter.withSections(listView);
-        listView.setAdapter(mAdapter);
-        listView.setFastScrollEnabled(true);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(final AdapterView<?> adapterView, final View view, final int position, final long id) {
-                ActivityHelper.toast(mAdapter.getItem(position));
-            }
-        });
+        final RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mRecyclerAdapter);
     }
 
     // Load
@@ -103,8 +94,8 @@ public class IndexedListFragment extends SkeletonFragment {
     }
 
     public void refresh(final String q) {
-        mAdapter.clear();
-        mAdapter.notifyDataSetChanged();
+        mRecyclerAdapter.myItems().clear();
+        mRecyclerAdapter.notifyDataSetChanged();
         final Locale[] locales = Locale.getAvailableLocales();
         final List<String> countries = new ArrayList<String>();
         for (final Locale locale : locales) {
@@ -121,8 +112,13 @@ public class IndexedListFragment extends SkeletonFragment {
                 return s1.compareTo(s2);
             }
         });
-        mAdapter.addAll(countries);
-        mAdapter.notifyDataSetChanged();
+        int position = mRecyclerAdapter.myItems().size();
+        for (final String country : countries) {
+            final String index = (position + 1) + "/" + countries.size();
+            mRecyclerAdapter.myItems().add(position, new MyRecyclerAdapter.MyItem(index, country));
+            mRecyclerAdapter.notifyItemInserted(position);
+            position++;
+        }
     }
 
 }

@@ -41,7 +41,7 @@ public class NetworkFragment extends SkeletonFragment {
                 if (convertView == null) {
                     convertView = layoutInflater.inflate(R.layout.listview_iconitem2, parent, false);
                 }
-                ((ImageView) convertView.findViewById(R.id.imageview)).setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher));
+                ((ImageView) convertView.findViewById(R.id.imageview)).setImageDrawable(getResources().getDrawable(R.drawable.ic_web));
                 final String string = getItem(position);
                 final String string1 = string.substring(0, string.indexOf(" "));
                 final String string2 = string.substring(string.indexOf(" ") + 1, string.length());
