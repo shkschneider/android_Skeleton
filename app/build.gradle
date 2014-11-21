@@ -27,7 +27,7 @@ android {
     }
     lintOptions {
         checkReleaseBuilds true
-        abortOnError true
+        abortOnError false
     }
     buildTypes {
         debug {
@@ -65,12 +65,13 @@ dependencies {
 
     compile 'com.squareup.phrase:phrase:1.+'
     compile 'com.koushikdutta.ion:ion:1.+'
-    compile 'com.github.castorflex.smoothprogressbar:library:1.+'
+    // compile 'com.github.castorflex.smoothprogressbar:library:1.+'
     compile 'com.github.castorflex.smoothprogressbar:library-circular:1.+'
     // compile 'com.github.amlcurran.showcaseview:library:5.+'
     // compile 'lecho.lib.hellocharts:hellocharts-library:1.+'
     // compile 'com.github.johnkil.android-appmsg:appmsg:1.+'
 
+    compile project(':skeleton')
     compile(name: 'support-v4-preferencefragment', ext: 'aar')
     compile fileTree(dir: 'libs', include: '*.jar')
 }

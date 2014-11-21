@@ -1,92 +1,8 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Tweak for multiple implementations -->
-    <style name="AppTheme" parent="@style/_AppTheme" />
+    <!-- Skeleton Material Design automatic styles -->
 
-    <!-- Default implementation API-14+ -->
-    <style name="_AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
-        <!-- Material Design -->
-        <item name="colorPrimary">@color/actionBarColor</item>
-        <item name="colorAccent">@color/accentColor</item>
-        <item name="android:windowContentOverlay">@null</item>
-        <!-- Android -->
-        <item name="android:windowBackground">@color/contentBackgroundColor</item>
-        <item name="android:textColorPrimary">@color/textPrimaryColor</item>
-        <item name="android:textColorSecondary">@color/textSecondaryColor</item>
-        <item name="android:textColorHighlight">@color/secondaryColor</item>
-        <item name="android:textColorHint">@color/textSecondaryColor</item>
-        <item name="android:scrollingCache">false</item>
-        <!-- Automatic custom styles -->
-        <item name="actionBarStyle">@style/AppTheme.ActionBarStyle</item>
-        <item name="actionModeStyle">@style/AppTheme.ActionModeStyle</item>
-        <item name="actionModeCloseButtonStyle">@style/AppTheme.ActionModeCloseButton</item>
-        <item name="android:listViewStyle">@style/AppTheme.ListViewStyle</item>
-        <item name="android:listSeparatorTextViewStyle">@style/AppTheme.ListSeparatorTextViewStyle</item>
-        <item name="android:buttonStyle">@style/AppTheme.ButtonStyle</item>
-        <item name="android:imageButtonStyle">@style/AppTheme.ImageButtonStyle</item>
-        <item name="spbStyle">@style/AppTheme.SmoothProgressBarStyle</item>
-        <item name="cpbStyle">@style/AppTheme.CircularProgressBarStyle</item>
-    </style>
-
-    <!-- Material Design -->
-
-    <style name="AppTheme.ActionBarStyle" parent="Widget.AppCompat.Light.ActionBar.Solid.Inverse" />
-    <style name="AppTheme.ActionModeStyle" parent="Base.Widget.AppCompat.ActionMode">
-        <item name="background">@color/actionBarColor</item>
-    </style>
-    <style name="AppTheme.ActionModeCloseButton" parent="Base.Widget.AppCompat.ActionButton.CloseMode">
-        <item name="android:visibility">visible</item>
-    </style>
-
-    <!-- Automatic custom styles -->
-
-    <style name="AppTheme.ImageButtonStyle" parent="Widget.AppCompat.Light.ActionButton">
-        <item name="android:enabled">true</item>
-        <item name="android:clickable">true</item>
-        <item name="android:background">@color/transparent</item>
-    </style>
-
-    <style name="AppTheme.ButtonStyle" parent="Widget.AppCompat.Light.ActionButton">
-        <item name="android:enabled">true</item>
-        <item name="android:clickable">true</item>
-        <item name="android:background">?android:attr/selectableItemBackground</item>
-    </style>
-
-    <style name="AppTheme.DividerVertical">
-        <item name="android:background">?android:attr/dividerVertical</item>
-    </style>
-    <style name="AppTheme.DividerHorizontal">
-        <item name="android:background">?android:attr/dividerHorizontal</item>
-    </style>
-
-    <style name="AppTheme.ListViewStyle" parent="Widget.AppCompat.ListView.Menu">
-        <item name="android:fastScrollEnabled">true</item>
-        <item name="android:fastScrollAlwaysVisible">false</item>
-    </style>
-    <style name="AppTheme.ListSeparatorTextViewStyle">
-        <item name="android:background">@color/transparent</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/spaceSmall</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/secondaryColor</item>
-        <item name="android:textSize">@dimen/textSizeSmall</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:padding">@dimen/spaceTiny</item>
-        <item name="android:shouldDisableView">false</item>
-        <item name="android:selectable">false</item>
-    </style>
-
-    <style name="AppTheme.SmoothProgressBarStyle" parent="Base.Widget.AppCompat.ProgressBar">
-        <item name="spb_sections_count">4</item>
-        <item name="spb_interpolator">spb_interpolator_acceleratedecelerate</item>
-        <item name="spb_mirror_mode">false</item>
-        <item name="spb_reversed">false</item>
-        <item name="spb_color">@color/accentColor</item>
-        <item name="spb_progressiveStart_activated">true</item>
-    </style>
-    <style name="AppTheme.CircularProgressBarStyle" parent="Base.Widget.AppCompat.ProgressBar">
-        <item name="cpb_color">@color/accentColor</item>
-    </style>
+    <style name="AppTheme" parent="@style/SkeletonTheme" />
 
     <!-- Manual custom styles -->
 
@@ -99,13 +15,5 @@
         <item name="android:background">@color/primaryColor</item>
         <item name="android:textColor">@color/actionBarForegroundColor</item>
     </style>
-    
-    <!--<style name="AppTheme.ShowCaseView">-->
-        <!--<item name="sv_showcaseColor">@color/accentColor</item>-->
-        <!--<item name="sv_titleTextAppearance">@style/AppTheme.ShowCaseView.Text</item>-->
-    <!--</style>-->
-    <!--<style name="AppTheme.ShowCaseView.Text">-->
-        <!--<item name="android:textColor">@color/accentColor</item>-->
-    <!--</style>-->
 
 </resources>

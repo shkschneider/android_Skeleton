@@ -10,7 +10,7 @@ import me.shkschneider.skeleton.SkeletonFragmentActivity;
 
 public class AboutActivity extends SkeletonFragmentActivity implements SkeletonActivity.NavigationCallback {
 
-    public static Intent getInstance(final Activity activity) {
+    public static Intent getIntent(final Activity activity) {
         return new Intent(activity, AboutActivity.class);
     }
 
@@ -25,7 +25,7 @@ public class AboutActivity extends SkeletonFragmentActivity implements SkeletonA
 
     @Override
     public void onHomeAsUpPressed() {
-        startActivity(DashboardActivity.getInstance(AboutActivity.this));
+        startActivity(MainActivity.getIntent(AboutActivity.this));
     }
 
 }

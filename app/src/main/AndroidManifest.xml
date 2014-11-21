@@ -40,10 +40,6 @@
         </activity>
 
         <activity
-            android:name=".activity.DashboardActivity"
-            android:label="@string/skeleton" />
-
-        <activity
             android:name=".activity.AboutActivity"
             android:label="@string/about" />
 

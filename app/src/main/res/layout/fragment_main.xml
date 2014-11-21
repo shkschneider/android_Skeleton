@@ -46,14 +46,15 @@
     <View
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/spaceMedium"
-        style="@style/AppTheme.DividerHorizontal"
+        style="@style/SkeletonTheme.DividerHorizontal"
         android:layout_width="match_parent"
         android:layout_height="1dp" />
 
     <Button
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/website"
+        android:drawableLeft="@drawable/ic_github"
+        android:id="@+id/github"
         android:layout_width="match_parent"
         android:layout_height="@dimen/spaceMedium"
         android:text="@null" />

@@ -1,11 +1,10 @@
 <resources>
 
     <!-- Theme colors (Material Design) -->
-    <color name="primaryColor">@color/color</color> <!-- lighter (500 tone) -->
-    <color name="primaryColorDark">@color/indigo</color> <!-- darker (700 tone) -->
-    <!-- Your theme is pretty much set now: the rest is optional tweaking -->
-    <color name="statusBarColor">@color/primaryColorDark</color> <!-- secondary or black -->
-    <color name="navigationBarColor">@color/black</color> <!-- secondary or black -->
+
+    <color name="primaryColor">@color/color</color>
+    <color name="primaryColorDark">@color/color</color>
+    <color name="accentColor">@color/cyan</color>
 
     <!-- ... -->
 

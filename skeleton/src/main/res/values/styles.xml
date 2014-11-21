@@ -1,0 +1,103 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Tweak for multiple implementations -->
+    <style name="SkeletonTheme" parent="@style/_SkeletonTheme" />
+
+    <!-- Default implementation API-14+ -->
+    <style name="_SkeletonTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <!-- Material Design -->
+        <item name="colorPrimary">@color/actionBarColor</item>
+        <item name="colorAccent">@color/accentColor</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!-- Android -->
+        <item name="android:windowBackground">@color/contentBackgroundColor</item>
+        <item name="android:textColorPrimary">@color/textPrimaryColor</item>
+        <item name="android:textColorSecondary">@color/textSecondaryColor</item>
+        <item name="android:textColorHighlight">@color/accentColor</item>
+        <item name="android:textColorHint">@color/textSecondaryColor</item>
+        <item name="android:scrollingCache">false</item>
+        <!-- Automatic custom styles -->
+        <item name="actionBarStyle">@style/SkeletonTheme.ActionBarStyle</item>
+        <item name="actionModeStyle">@style/SkeletonTheme.ActionModeStyle</item>
+        <item name="actionModeCloseButtonStyle">@style/SkeletonTheme.ActionModeCloseButton</item>
+        <item name="android:listViewStyle">@style/SkeletonTheme.ListViewStyle</item>
+        <item name="android:listSeparatorTextViewStyle">@style/SkeletonTheme.ListSeparatorTextViewStyle</item>
+        <item name="android:buttonStyle">@style/SkeletonTheme.ButtonStyle</item>
+        <item name="android:imageButtonStyle">@style/SkeletonTheme.ImageButtonStyle</item>
+        <item name="spbStyle">@style/SkeletonTheme.SmoothProgressBarStyle</item>
+        <item name="cpbStyle">@style/SkeletonTheme.CircularProgressBarStyle</item>
+    </style>
+
+    <!-- Material Design -->
+
+    <style name="SkeletonTheme.ActionBarStyle" parent="Widget.AppCompat.Light.ActionBar.Solid.Inverse" />
+    <style name="SkeletonTheme.ActionModeStyle" parent="Base.Widget.AppCompat.ActionMode">
+        <item name="background">@color/actionBarColor</item>
+    </style>
+    <style name="SkeletonTheme.ActionModeCloseButton" parent="Base.Widget.AppCompat.ActionButton.CloseMode">
+        <item name="android:visibility">visible</item>
+    </style>
+
+    <!-- Automatic custom styles -->
+
+    <style name="SkeletonTheme.ImageButtonStyle" parent="Widget.AppCompat.Light.ActionButton">
+        <item name="android:enabled">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">@color/transparent</item>
+    </style>
+
+    <style name="SkeletonTheme.ButtonStyle" parent="Widget.AppCompat.Light.ActionButton">
+        <item name="android:enabled">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="SkeletonTheme.DividerVertical">
+        <item name="android:background">?android:attr/dividerVertical</item>
+    </style>
+    <style name="SkeletonTheme.DividerHorizontal">
+        <item name="android:background">?android:attr/dividerHorizontal</item>
+    </style>
+
+    <style name="SkeletonTheme.ListViewStyle" parent="Widget.AppCompat.ListView.Menu">
+        <item name="android:fastScrollEnabled">true</item>
+        <item name="android:fastScrollAlwaysVisible">false</item>
+    </style>
+    <style name="SkeletonTheme.ListSeparatorTextViewStyle">
+        <item name="android:background">@color/transparent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/spaceSmall</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/accentColor</item>
+        <item name="android:textSize">@dimen/textSizeSmall</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">@dimen/spaceTiny</item>
+        <item name="android:shouldDisableView">false</item>
+        <item name="android:selectable">false</item>
+    </style>
+
+    <style name="SkeletonTheme.SmoothProgressBarStyle" parent="Base.Widget.AppCompat.ProgressBar">
+        <item name="spb_sections_count">4</item>
+        <item name="spb_interpolator">spb_interpolator_acceleratedecelerate</item>
+        <item name="spb_mirror_mode">false</item>
+        <item name="spb_reversed">false</item>
+        <item name="spb_color">@color/accentColor</item>
+        <item name="spb_progressiveStart_activated">true</item>
+    </style>
+    <style name="SkeletonTheme.CircularProgressBarStyle" parent="Base.Widget.AppCompat.ProgressBar">
+        <item name="cpb_color">@color/accentColor</item>
+    </style>
+
+    <!-- Manual custom styles -->
+
+    <style name="SkeletonTheme.PagerTabStrip">
+        <item name="android:paddingTop">@dimen/spaceSmaller</item>
+        <item name="android:paddingBottom">@dimen/spaceSmaller</item>
+        <item name="android:textSize">@dimen/textSizeSmall</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:background">@color/primaryColor</item>
+        <item name="android:textColor">@color/actionBarForegroundColor</item>
+    </style>
+
+</resources>

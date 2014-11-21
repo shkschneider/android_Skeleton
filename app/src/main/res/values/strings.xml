@@ -6,8 +6,8 @@
         @android:string/yes
         @android:string/no
         @android:string/loading
+        @string/dots
     -->
-    <string name="dots">"&#8230;"</string>
 
     <string name="skeleton">"Skeleton"</string>
     <string name="github">"GitHub"</string>

@@ -25,6 +25,7 @@ import me.shkschneider.skeleton.ui.LoadingImageView;
 public class MainFragment extends SkeletonFragment {
 
     private static final String AUTHOR = "ShkSchneider";
+    private static final String URL = "https://github.com/shkschneider/android-skeleton";
 
     public MainFragment() {
         title("Main");
@@ -42,8 +43,14 @@ public class MainFragment extends SkeletonFragment {
         final LoadingImageView loadingImageView = (LoadingImageView) view.findViewById(R.id.loadingimageview);
         final TextView textView1 = (TextView) view.findViewById(android.R.id.text1);
         final TextView textView2 = (TextView) view.findViewById(android.R.id.text2);
-        final Button website = (Button) view.findViewById(R.id.website);
-        website.setClickable(false);
+        final Button github = (Button) view.findViewById(R.id.github);
+        github.setText(URL.replaceFirst("https://github.com/", ""));
+        github.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                startActivity(IntentHelper.url(URL));
+            }
+        });
 
         final String url = String.format("http://gravatar.com/%s.json", AUTHOR.toLowerCase());
         new WebService().getJsonObject(url, new WebService.Callback() {
@@ -75,16 +82,7 @@ public class MainFragment extends SkeletonFragment {
                 final String displayName = GsonParser.string(entry, "displayName");
                 textView1.setText(displayName);
                 final String currentLocation = GsonParser.string(entry, "currentLocation");
-                textView2.setText(currentLocation);
-                final String profileUrl = GsonParser.string(entry, "profileUrl");
-                website.setText(profileUrl);
-                website.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(final View view) {
-                        startActivity(IntentHelper.url(profileUrl));
-                    }
-                });
-                website.setClickable(true);
+                textView2.setText(currentLocation);;
             }
         });
     }
