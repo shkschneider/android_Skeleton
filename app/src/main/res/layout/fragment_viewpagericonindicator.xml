@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <me.shkschneider.skeleton.ui.ActionBarPagerLineStrip
-        android:id="@+id/actionbarpagerlinestrip"
+    <me.shkschneider.skeleton.ui.ActionBarViewPagerIconIndicator
+        android:id="@+id/pagertabstrip"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/spaceTiny" />
+        android:layout_height="@dimen/spaceMedium" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"

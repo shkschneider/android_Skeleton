@@ -21,10 +21,10 @@ import me.shkschneider.skeleton.helper.ScreenHelper;
  * PagerTabStrip very Material Design-like.
  *
  * @see <https://github.com/google/iosched/blob/master/android/src/main/java/com/google/samples/apps/iosched/ui/widget/SlidingTabLayout.java>
- * @see me.shkschneider.skeleton.ui.ActionBarPagerTabStrip
- * @see me.shkschneider.skeleton.ui.ActionBarPagerLineStrip
+ * @see me.shkschneider.skeleton.ui.ActionBarViewPagerTextIndicator
+ * @see me.shkschneider.skeleton.ui.ActionBarViewPagerLineIndicator
  */
-public class PagerTabStrip extends HorizontalScrollView {
+public class ViewPagerIndicator extends HorizontalScrollView {
 
     private int mBackgroundColor;
     private int mForegroundColor;
@@ -34,17 +34,18 @@ public class PagerTabStrip extends HorizontalScrollView {
     protected ViewPager.OnPageChangeListener mViewPagerPageChangeListener;
     protected TabStripCell mTabStripCell;
 
-    public PagerTabStrip(final Context context) {
+    public ViewPagerIndicator(final Context context) {
         this(context, null);
     }
 
-    public PagerTabStrip(final Context context, final AttributeSet attrs) {
+    public ViewPagerIndicator(final Context context, final AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public PagerTabStrip(final Context context, final AttributeSet attrs, final int defStyle) {
+    public ViewPagerIndicator(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
-        init(context, R.color.contentBackgroundColor, R.color.primaryColor, 4);
+        final int viewPagerIndicatorHeight = getResources().getInteger(R.integer.viewPager_indicatorHeight);
+        init(context, R.color.contentBackgroundColor, R.color.primaryColor, viewPagerIndicatorHeight);
     }
 
     protected void init(final Context context, final int backgroundColor, final int foregroundColor, final int indicatorHeight) {

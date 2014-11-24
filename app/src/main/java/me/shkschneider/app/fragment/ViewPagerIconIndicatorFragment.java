@@ -1,10 +1,10 @@
 package me.shkschneider.app.fragment;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -16,15 +16,17 @@ import android.widget.TextView;
 
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.SkeletonFragment;
+import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.StringHelper;
-import me.shkschneider.skeleton.ui.ActionBarPagerTabStrip;
+import me.shkschneider.skeleton.ui.ViewPagerIndicatorAdapter;
+import me.shkschneider.skeleton.ui.ViewPagerIndicator;
 
-public class PagerFragment extends SkeletonFragment {
+public class ViewPagerIconIndicatorFragment extends SkeletonFragment {
 
     private static final int TABS = 10;
 
-    public PagerFragment() {
-        title("Pager");
+    public ViewPagerIconIndicatorFragment() {
+        title("ViewPagerIconIndicator");
     }
 
     private PagerAdapter mPagerAdapter;
@@ -33,12 +35,13 @@ public class PagerFragment extends SkeletonFragment {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mPagerAdapter = new MyPagerAdapter(getFragmentManager());
+        mPagerAdapter = new MyViewPagerAdapter(getFragmentManager());
     }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_pager, container, false);
+        final int layout = (ActivityHelper.portrait() ? R.layout.fragment_viewpagericonindicator : R.layout.fragment_viewpagerlineindicator);
+        return inflater.inflate(layout, container, false);
     }
 
     @Override
@@ -47,9 +50,9 @@ public class PagerFragment extends SkeletonFragment {
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         // viewPager.setOffscreenPageLimit()
         viewPager.setAdapter(mPagerAdapter);
-        final ActionBarPagerTabStrip actionBarPagerTabStrip = (ActionBarPagerTabStrip) view.findViewById(R.id.pagertabstrip);
-        if (actionBarPagerTabStrip != null) {
-            actionBarPagerTabStrip.setViewPager(viewPager);
+        final ViewPagerIndicator viewPagerIndicator = (ViewPagerIndicator) view.findViewById(R.id.pagertabstrip);
+        if (viewPagerIndicator != null) {
+            viewPagerIndicator.setViewPager(viewPager);
         }
     }
 
@@ -63,9 +66,9 @@ public class PagerFragment extends SkeletonFragment {
         mPagerAdapter.notifyDataSetChanged();
     }
 
-    private class MyPagerAdapter extends FragmentStatePagerAdapter {
+    private class MyViewPagerAdapter extends ViewPagerIndicatorAdapter {
 
-        public MyPagerAdapter(final FragmentManager fragmentManager) {
+        public MyViewPagerAdapter(final FragmentManager fragmentManager) {
             super(fragmentManager);
         }
 
@@ -76,7 +79,12 @@ public class PagerFragment extends SkeletonFragment {
 
         @Override
         public CharSequence getPageTitle(final int position) {
-            return ((DummyFragment) getItem(position)).title();
+            return null;
+        }
+
+        @Override
+        public Drawable getPageIcon(int position) {
+            return getResources().getDrawable(R.drawable.ic_launcher);
         }
 
         @Override
