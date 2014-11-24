@@ -73,7 +73,7 @@ public class FloatingActionButton extends ImageButton {
         mCircleSize = getResources().getDimension(R.dimen.floatingActionButtonNormal);
         mShadowRadius = getResources().getDimension(R.dimen.floatingActionButtonShadowRadius);
         mShadowOffset = getResources().getDimension(R.dimen.floatingActionButtonShadowOffset);
-        mDrawableSize = (int) (mCircleSize + 2 * mShadowRadius);
+        mDrawableSize = (int) (mCircleSize + (mShadowRadius * 2));
         updateBackground();
     }
 
@@ -91,7 +91,7 @@ public class FloatingActionButton extends ImageButton {
     public void setSize(final int size) {
         mSize = size;
         mCircleSize = ((mSize == SIZE_NORMAL) ? getResources().getDimension(R.dimen.floatingActionButtonNormal) : getResources().getDimension(R.dimen.floatingActionButtonMini));
-        mDrawableSize = (int) (mCircleSize + 2 * mShadowRadius);
+        mDrawableSize = (int) (mCircleSize + (mShadowRadius * 2));
         updateBackground();
     }
 
@@ -150,7 +150,7 @@ public class FloatingActionButton extends ImageButton {
     }
 
     private int opacityToAlpha(final float opacity) {
-        return (int) (255f * opacity);
+        return (int) (opacity * 255F);
     }
 
     private Drawable createStrokesDrawable(final RectF circleRect) {

@@ -33,7 +33,7 @@ public class ViewPagerIconIndicator extends ViewPagerIndicator {
 
     private View createDefaultStrip(final Context context) {
         final ImageView imageView = new ImageView(context);
-        final int padding = (int) (8 * getResources().getDisplayMetrics().density);
+        final int padding = (int) ((getResources().getInteger(R.integer.viewPager_padding) / 2) * getResources().getDisplayMetrics().density);
         imageView.setPadding(padding, padding, padding, padding);
         return imageView;
     }

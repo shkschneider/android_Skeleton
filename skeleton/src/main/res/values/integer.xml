@@ -1,6 +1,7 @@
 <resources>
 
     <integer name="viewPager_indicatorHeight">8</integer>
+    <integer name="viewPager_padding">16</integer>
 
     <integer name="animation_long">@android:integer/config_longAnimTime</integer>
     <integer name="animation_medium">@android:integer/config_mediumAnimTime</integer>

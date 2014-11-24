@@ -8,7 +8,11 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.View;
 
 /**
- * TODO override
+ * Adapter meant to be used with any me.shkschneider.skeleton.ui.*ViewPager*Indicator .
+ * Handles page titles and icons.
+ *
+ * @see me.shkschneider.skeleton.ui.ViewPagerTextIndicator
+ * @see me.shkschneider.skeleton.ui.ViewPagerIconIndicator
  */
 public class ViewPagerIndicatorAdapter extends FragmentStatePagerAdapter {
 

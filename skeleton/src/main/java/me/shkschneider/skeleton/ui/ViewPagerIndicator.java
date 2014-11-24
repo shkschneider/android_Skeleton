@@ -82,7 +82,7 @@ public class ViewPagerIndicator extends HorizontalScrollView {
         getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground, typedValue, true);
         textView.setBackgroundResource(typedValue.resourceId);
         textView.setAllCaps(true);
-        final int padding = (int) (16 * ScreenHelper.density());
+        final int padding = (int) (getResources().getInteger(R.integer.viewPager_padding) * ScreenHelper.density());
         textView.setPadding(padding, padding, padding, padding);
         textView.setTextColor(getResources().getColor(mForegroundColor));
         return textView;

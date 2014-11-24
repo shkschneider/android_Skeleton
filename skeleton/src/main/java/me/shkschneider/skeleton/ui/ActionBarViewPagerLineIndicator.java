@@ -33,7 +33,7 @@ public class ActionBarViewPagerLineIndicator extends ViewPagerIndicator {
 
     private View createDefaultStrip(final Context context) {
         final View view = new View(context);
-        final int padding = (int) (16 * getResources().getDisplayMetrics().density);
+        final int padding = (int) (getResources().getInteger(R.integer.viewPager_padding) * getResources().getDisplayMetrics().density);
         view.setPadding(padding, padding, padding, padding);
         return view;
     }
