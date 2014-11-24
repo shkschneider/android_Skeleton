@@ -12,17 +12,17 @@ import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.ui.FloatingActionButton;
 import me.shkschneider.skeleton.ui.FloatingActionMenu;
 
-public class FloatingActionFragment extends SkeletonFragment {
+public class FloatingActionButtonFragment extends SkeletonFragment {
 
-    public FloatingActionFragment() {
-        title("FloatingAction");
+    public FloatingActionButtonFragment() {
+        title("FloatingActionButton");
     }
 
     // Inflate
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_materialdesign, container, false);
+        return inflater.inflate(R.layout.fragment_floatingactionbutton, container, false);
     }
 
     // Bind
