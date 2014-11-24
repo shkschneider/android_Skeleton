@@ -18,7 +18,11 @@ import me.shkschneider.skeleton.R;
 import me.shkschneider.skeleton.helper.ScreenHelper;
 
 /**
+ * PagerTabStrip very Material Design-like.
+ *
  * @see <https://github.com/google/iosched/blob/master/android/src/main/java/com/google/samples/apps/iosched/ui/widget/SlidingTabLayout.java>
+ * @see me.shkschneider.skeleton.ui.ActionBarPagerTabStrip
+ * @see me.shkschneider.skeleton.ui.ActionBarPagerLineStrip
  */
 public class PagerTabStrip extends HorizontalScrollView {
 

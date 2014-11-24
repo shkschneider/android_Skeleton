@@ -22,6 +22,9 @@ import android.view.animation.OvershootInterpolator;
 import me.shkschneider.skeleton.R;
 
 /**
+ * FloatingActionButton that holds others FloatingActionButton.
+ * Its name is FloatingActionMenu for convenience.
+ *
  * @see <https://github.com/futuresimple/android-floating-action-button>
  */
 public class FloatingActionMenu extends ViewGroup {

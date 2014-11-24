@@ -6,6 +6,9 @@ import android.util.AttributeSet;
 import me.shkschneider.skeleton.R;
 
 /**
+ * PagerTabStrip that belongs just below the ActionBar.
+ * Best in portrait mode.
+ *
  * @see me.shkschneider.skeleton.ui.PagerTabStrip
  */
 public class ActionBarPagerTabStrip extends PagerTabStrip {

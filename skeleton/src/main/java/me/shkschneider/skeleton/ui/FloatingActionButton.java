@@ -24,6 +24,9 @@ import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
 /**
+ * FloatingActionButton that works inside a FloatingActionMenu and as a standalone Button.
+ * Design introduced with Material Design.
+ *
  * @see <https://github.com/futuresimple/android-floating-action-button>
  */
 public class FloatingActionButton extends ImageButton {

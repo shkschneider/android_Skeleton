@@ -20,6 +20,9 @@ import me.shkschneider.skeleton.R;
 import me.shkschneider.skeleton.helper.StringHelper;
 
 /**
+ * SnackBar is an enhanced and contextual Toast that can have a Button inside it.
+ * Introduced with Material Design.
+ *
  * @see <https://github.com/navasmdc/MaterialDesignLibrary>
  */
 public class SnackBar extends Dialog {

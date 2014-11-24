@@ -11,6 +11,12 @@ import android.widget.ViewSwitcher;
 import me.shkschneider.skeleton.R;
 import me.shkschneider.skeleton.SkeletonApplication;
 
+/**
+ * ImageView that contains an image from the network.
+ * Shows a indeterminate drawable while its loading.
+ *
+ * @see android.widget.ImageView
+ */
 public class LoadingImageView extends ViewSwitcher {
 
     private static final int VIEW_LOADING = 0;

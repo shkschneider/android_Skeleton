@@ -10,6 +10,9 @@ import android.widget.LinearLayout;
 import me.shkschneider.skeleton.R;
 
 /**
+ * PagerTabStrip that belongs just below the ActionBar.
+ * Best in landscape mode.
+ *
  * @see me.shkschneider.skeleton.ui.PagerTabStrip
  */
 public class ActionBarPagerLineStrip extends PagerTabStrip {
