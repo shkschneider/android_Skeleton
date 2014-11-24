@@ -11,6 +11,7 @@ import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.ui.FloatingActionButton;
 import me.shkschneider.skeleton.ui.FloatingActionMenu;
+import me.shkschneider.skeleton.ui.SnackBar;
 
 public class FloatingActionButtonFragment extends SkeletonFragment {
 
@@ -38,7 +39,15 @@ public class FloatingActionButtonFragment extends SkeletonFragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                ActivityHelper.toast("Button");
+                floatingActionButton.setVisibility(View.GONE);
+                new SnackBar(mActivity, "That FloatingActionButton is now gone!")
+                        .setButton(getResources().getString(android.R.string.cancel), new View.OnClickListener() {
+                            @Override
+                            public void onClick(final View view) {
+                                floatingActionButton.setVisibility(View.VISIBLE);
+                            }
+                        })
+                        .show();
             }
         });
 

@@ -40,7 +40,7 @@ public class SnackBar extends Dialog {
         setCanceledOnTouchOutside(false);
     }
 
-    public SnackBar setButton(@NotNull final String text, @NotNull final View.OnClickListener onClickListener) {
+    public SnackBar setButton(@NotNull final String text, final View.OnClickListener onClickListener) {
         mButtonText = text;
         mOnClickListener = onClickListener;
         return this;
@@ -55,17 +55,18 @@ public class SnackBar extends Dialog {
         mView = findViewById(R.id.snackbar);
         ((TextView) mView.findViewById(R.id.textview)).setText(mMessageText);
         final Button button = (Button) findViewById(R.id.button);
-        if (StringHelper.nullOrEmpty(mButtonText) || mOnClickListener == null) {
+        if (StringHelper.nullOrEmpty(mButtonText)) {
             button.setVisibility(View.GONE);
         }
         else {
             button.setText(mButtonText);
-            // FIXME mButton.setBackgroundColor(backgroundButton);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View view) {
                     dismiss();
-                    mOnClickListener.onClick(view);
+                    if (mOnClickListener != null) {
+                        mOnClickListener.onClick(view);
+                    }
                 }
             });
         }
