@@ -7,6 +7,16 @@
     <!-- TODO <http://www.google.com/design/spec/components/snackbars-toasts.html#snackbars-toasts-specs> -->
     <dimen name="snackBarSingle">48dp</dimen>
     <dimen name="snackBarMulti">80dp</dimen>
+    <!-- TODO <https://github.com/futuresimple/android-floating-action-button/> -->
+    <dimen name="floatingActionButtonNormal">56dp</dimen>
+    <dimen name="floatingActionButtonMini">40dp</dimen>
+    <dimen name="floatingActionButtonIconSize">24dp</dimen>
+    <dimen name="floatingActionButtonPlusIconSize">14dp</dimen>
+    <dimen name="floatingActionButtonPlusIconStroke">2dp</dimen>
+    <dimen name="floatingActionButtonShadowOffset">3dp</dimen>
+    <dimen name="floatingActionButtonShadowRadius">9dp</dimen>
+    <dimen name="floatingActionButtonStrokeWidth">0.5dp</dimen>
+    <dimen name="floatingActionButtonActionSpacing">16dp</dimen>
 
     <dimen name="spaceNull">0dp</dimen>
     <dimen name="spacePico">2dp</dimen>

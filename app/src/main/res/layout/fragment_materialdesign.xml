@@ -1,56 +1,32 @@
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <me.shkschneider.skeleton.ui.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true" />
 
-        <com.gc.materialdesign.views.ButtonFlat
-            android:id="@+id/buttonFlat"
+    <me.shkschneider.skeleton.ui.FloatingActionMenu
+        android:id="@+id/floatingActionMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true">
+
+        <me.shkschneider.skeleton.ui.FloatingActionButton
+            android:id="@+id/floatingActionButton1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="@dimen/spaceMedium"
-            android:background="@color/accentColor"
-            android:text="@string/skeleton" />
+            android:layout_height="wrap_content" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/spaceTiny" />
-
-        <com.gc.materialdesign.views.ButtonRectangle
-            android:id="@+id/buttonRectangle"
+        <me.shkschneider.skeleton.ui.FloatingActionButton
+            android:id="@+id/floatingActionButton2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="@dimen/spaceMedium"
-            android:background="@color/accentColor"
-            android:text="@string/skeleton" />
+            android:layout_height="wrap_content" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/spaceTiny" />
+    </me.shkschneider.skeleton.ui.FloatingActionMenu>
 
-        <com.gc.materialdesign.views.CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/accentColor"
-            app:check="true" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/spaceTiny" />
-
-        <com.gc.materialdesign.views.Switch
-            android:id="@+id/switchView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/accentColor"
-            app:check="true" />
-
-    </LinearLayout>
-
-</ScrollView>
+</RelativeLayout>
