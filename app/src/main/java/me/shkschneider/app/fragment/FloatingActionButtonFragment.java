@@ -48,6 +48,7 @@ public class FloatingActionButtonFragment extends SkeletonFragment {
         // floatingActionMenu.setExpandDirection();
 
         final FloatingActionButton floatingActionButton1 = (FloatingActionButton) view.findViewById(R.id.floatingActionButton1);
+        floatingActionButton1.setColors(R.color.primaryColor, R.color.accentColor);
         floatingActionButton1.setIcon(R.drawable.ic_launcher);
         floatingActionButton1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +59,7 @@ public class FloatingActionButtonFragment extends SkeletonFragment {
         });
 
         final FloatingActionButton floatingActionButton2 = (FloatingActionButton) view.findViewById(R.id.floatingActionButton2);
+        floatingActionButton2.setColors(R.color.primaryColor, R.color.accentColor);
         floatingActionButton2.setIcon(R.drawable.ic_launcher);
         floatingActionButton2.setOnClickListener(new View.OnClickListener() {
             @Override

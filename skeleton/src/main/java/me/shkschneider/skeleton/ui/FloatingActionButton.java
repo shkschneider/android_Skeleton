@@ -16,7 +16,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewParent;
 import android.widget.ImageButton;
 
 import me.shkschneider.skeleton.R;
@@ -53,33 +57,33 @@ public class FloatingActionButton extends ImageButton {
 
     public FloatingActionButton(final Context context, final AttributeSet attrs) {
         super(context, attrs);
-        init(context);
+        init();
     }
 
     public FloatingActionButton(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
-        init(context);
+        init();
     }
 
-    protected void init(final Context context) {
-        mColorNormal = context.getResources().getColor(R.color.primaryColor);
-        mColorPressed = context.getResources().getColor(R.color.accentColor);
+    protected void init() {
+        mColorNormal = getResources().getColor(R.color.accentColor);
+        mColorPressed = getResources().getColor(R.color.accentColor);
         mIcon = 0;
         mSize = SIZE_NORMAL;
-        mCircleSize = context.getResources().getDimension(R.dimen.floatingActionButtonNormal);
-        mShadowRadius = context.getResources().getDimension(R.dimen.floatingActionButtonShadowRadius);
-        mShadowOffset = context.getResources().getDimension(R.dimen.floatingActionButtonShadowOffset);
+        mCircleSize = getResources().getDimension(R.dimen.floatingActionButtonNormal);
+        mShadowRadius = getResources().getDimension(R.dimen.floatingActionButtonShadowRadius);
+        mShadowOffset = getResources().getDimension(R.dimen.floatingActionButtonShadowOffset);
         mDrawableSize = (int) (mCircleSize + 2 * mShadowRadius);
         updateBackground();
     }
 
-    public void setColors(final int colorNormal, final int colorPressed) {
-        mColorNormal = colorNormal;
-        mColorPressed = colorPressed;
+    public void setColors(@ColorRes final int colorNormal, @ColorRes final int colorPressed) {
+        mColorNormal = getResources().getColor(colorNormal);
+        mColorPressed = getResources().getColor(colorPressed);
         updateBackground();
     }
 
-    public void setIcon(final int icon) {
+    public void setIcon(@DrawableRes final int icon) {
         mIcon = icon;
         updateBackground();
     }
