@@ -11,15 +11,10 @@ import android.graphics.drawable.Drawable;
 import android.support.v7.graphics.Palette;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
-
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 
 import org.jetbrains.annotations.NotNull;
 
-import me.shkschneider.skeleton.R;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 

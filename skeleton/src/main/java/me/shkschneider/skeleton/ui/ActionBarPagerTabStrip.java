@@ -5,6 +5,9 @@ import android.util.AttributeSet;
 
 import me.shkschneider.skeleton.R;
 
+/**
+ * @see me.shkschneider.skeleton.ui.PagerTabStrip
+ */
 public class ActionBarPagerTabStrip extends PagerTabStrip {
 
     public ActionBarPagerTabStrip(final Context context) {

@@ -1,7 +1,6 @@
 package me.shkschneider.skeleton.helper;
 
 import android.annotation.TargetApi;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.ActionBar;
@@ -42,16 +41,16 @@ public final class SystemUiHelper {
         mHandler = new Handler(Looper.getMainLooper());
         mHideRunnable = new HideRunnable();
 
-        if (AndroidHelper.api() >= Build.VERSION_CODES.KITKAT) {
+        if (AndroidHelper.api() >= AndroidHelper.API_19) {
             mImpl = new SystemUiHelperImplKK(activity, level, flags, listener);
         }
-        else if (AndroidHelper.api() >= Build.VERSION_CODES.JELLY_BEAN) {
+        else if (AndroidHelper.api() >= AndroidHelper.API_16) {
             mImpl = new SystemUiHelperImplJB(activity, level, flags, listener);
         }
-        else if (AndroidHelper.api() >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+        else if (AndroidHelper.api() >= AndroidHelper.API_14) {
             mImpl = new SystemUiHelperImplICS(activity, level, flags, listener);
         }
-        else if (AndroidHelper.api() >= Build.VERSION_CODES.HONEYCOMB) {
+        else if (AndroidHelper.api() >= AndroidHelper.API_11) {
             mImpl = new SystemUiHelperImplHC(activity, level, flags, listener);
         }
         else {
@@ -166,7 +165,7 @@ public final class SystemUiHelper {
 
     // KITKAT
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
+    @TargetApi(AndroidHelper.API_19)
     class SystemUiHelperImplKK extends SystemUiHelperImplJB {
 
         public SystemUiHelperImplKK(final ActionBarActivity activity, final int level, final int flags, final SystemUiHelper.OnVisibilityChangeListener onVisibilityChangeListener) {
@@ -188,7 +187,7 @@ public final class SystemUiHelper {
 
     // JELLY_BEAN
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    @TargetApi(AndroidHelper.API_16)
     class SystemUiHelperImplJB extends SystemUiHelperImplICS {
 
         public SystemUiHelperImplJB(final ActionBarActivity activity, final int level, final int flags, final SystemUiHelper.OnVisibilityChangeListener onVisibilityChangeListener) {
@@ -247,7 +246,7 @@ public final class SystemUiHelper {
 
     // ICE_CREAM_SANDWICH
 
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+    @TargetApi(AndroidHelper.API_14)
     class SystemUiHelperImplICS extends SystemUiHelperImplHC {
 
         public SystemUiHelperImplICS(final ActionBarActivity activity, final int level, final int flags, final SystemUiHelper.OnVisibilityChangeListener onVisibilityChangeListener) {
@@ -280,7 +279,7 @@ public final class SystemUiHelper {
 
     // HONEYCOMB
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    @TargetApi(AndroidHelper.API_11)
     class SystemUiHelperImplHC extends SystemUiHelper.SystemUiHelperImpl implements View.OnSystemUiVisibilityChangeListener {
 
         private final View mDecorView;

@@ -9,6 +9,9 @@ import android.widget.LinearLayout;
 
 import me.shkschneider.skeleton.R;
 
+/**
+ * @see me.shkschneider.skeleton.ui.PagerTabStrip
+ */
 public class ActionBarPagerLineStrip extends PagerTabStrip {
 
     public ActionBarPagerLineStrip(final Context context) {

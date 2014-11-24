@@ -4,6 +4,9 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
+/**
+ * @see me.shkschneider.skeleton.ui.MySwipeRefreshLayout
+ */
 public class MySwipeRefreshRecyclerView extends MySwipeRefreshLayout {
 
     private RecyclerView mRecyclerView;

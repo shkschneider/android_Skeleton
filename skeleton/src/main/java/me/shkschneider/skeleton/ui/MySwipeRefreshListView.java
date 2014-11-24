@@ -4,6 +4,9 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ListView;
 
+/**
+ * @see me.shkschneider.skeleton.ui.MySwipeRefreshLayout
+ */
 public class MySwipeRefreshListView extends MySwipeRefreshLayout {
 
     private ListView mListView;

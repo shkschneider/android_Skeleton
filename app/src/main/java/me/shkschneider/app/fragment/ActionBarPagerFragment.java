@@ -48,13 +48,13 @@ public class ActionBarPagerFragment extends SkeletonFragment {
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         // viewPager.setOffscreenPageLimit()
         viewPager.setAdapter(mPagerAdapter);
-        final ActionBarPagerTabStrip actionBarPagerTabStrip = (ActionBarPagerTabStrip) view.findViewById(R.id.actionbarpagertabstrip);
-        if (actionBarPagerTabStrip != null) {
-            actionBarPagerTabStrip.setViewPager(viewPager);
+        final ActionBarPagerTabStrip actionBarActionBarPagerTabStrip = (ActionBarPagerTabStrip) view.findViewById(R.id.actionbarpagertabstrip);
+        if (actionBarActionBarPagerTabStrip != null) {
+            actionBarActionBarPagerTabStrip.setViewPager(viewPager);
         }
-        final ActionBarPagerLineStrip actionBarPagerLineStrip = (ActionBarPagerLineStrip) view.findViewById(R.id.actionbarpagerlinestrip);
-        if (actionBarPagerLineStrip != null) {
-            actionBarPagerLineStrip.setViewPager(viewPager);
+        final ActionBarPagerLineStrip pagerLineStrip = (ActionBarPagerLineStrip) view.findViewById(R.id.actionbarpagerlinestrip);
+        if (pagerLineStrip != null) {
+            pagerLineStrip.setViewPager(viewPager);
         }
     }
 

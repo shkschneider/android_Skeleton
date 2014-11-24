@@ -17,8 +17,7 @@ import android.widget.TextView;
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.StringHelper;
-import me.shkschneider.skeleton.ui.ActionBarPagerLineStrip;
-import me.shkschneider.skeleton.ui.PagerTabStrip;
+import me.shkschneider.skeleton.ui.ActionBarPagerTabStrip;
 
 public class PagerFragment extends SkeletonFragment {
 
@@ -48,9 +47,9 @@ public class PagerFragment extends SkeletonFragment {
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         // viewPager.setOffscreenPageLimit()
         viewPager.setAdapter(mPagerAdapter);
-        final PagerTabStrip pagerTabStrip = (PagerTabStrip) view.findViewById(R.id.pagertabstrip);
-        if (pagerTabStrip != null) {
-            pagerTabStrip.setViewPager(viewPager);
+        final ActionBarPagerTabStrip actionBarPagerTabStrip = (ActionBarPagerTabStrip) view.findViewById(R.id.pagertabstrip);
+        if (actionBarPagerTabStrip != null) {
+            actionBarPagerTabStrip.setViewPager(viewPager);
         }
     }
 

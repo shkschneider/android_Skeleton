@@ -17,6 +17,9 @@ import android.widget.TextView;
 import me.shkschneider.skeleton.R;
 import me.shkschneider.skeleton.helper.ScreenHelper;
 
+/**
+ * @see <https://github.com/google/iosched/blob/master/android/src/main/java/com/google/samples/apps/iosched/ui/widget/SlidingTabLayout.java>
+ */
 public class PagerTabStrip extends HorizontalScrollView {
 
     private int mBackgroundColor;

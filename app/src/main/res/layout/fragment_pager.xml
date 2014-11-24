@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <me.shkschneider.skeleton.ui.PagerTabStrip
+    <me.shkschneider.skeleton.ui.ActionBarPagerTabStrip
         android:id="@+id/pagertabstrip"
         android:layout_width="match_parent"
         android:layout_height="@dimen/spaceMedium" />

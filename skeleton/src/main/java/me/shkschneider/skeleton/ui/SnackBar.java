@@ -19,6 +19,9 @@ import me.shkschneider.skeleton.Executor;
 import me.shkschneider.skeleton.R;
 import me.shkschneider.skeleton.helper.StringHelper;
 
+/**
+ * @see <https://github.com/navasmdc/MaterialDesignLibrary>
+ */
 public class SnackBar extends Dialog {
 
     private String mMessageText;
