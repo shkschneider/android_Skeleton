@@ -56,6 +56,9 @@
     <!-- Android colors <http://developer.android.com/reference/android/graphics/Color.html> -->
 
     <color name="black">@android:color/black</color>
+    <color name="dkGray">#ff444444</color>
+    <color name="gray">#ff888888</color>
+    <color name="ltGray">#ffcccccc</color>
     <color name="white">@android:color/white</color>
     <color name="background">#fff3f3f3</color>
     <color name="transparent">@android:color/transparent</color>

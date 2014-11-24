@@ -1,0 +1,56 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.gc.materialdesign.views.ButtonFlat
+            android:id="@+id/buttonFlat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/spaceMedium"
+            android:background="@color/accentColor"
+            android:text="@string/skeleton" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceTiny" />
+
+        <com.gc.materialdesign.views.ButtonRectangle
+            android:id="@+id/buttonRectangle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/spaceMedium"
+            android:background="@color/accentColor"
+            android:text="@string/skeleton" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceTiny" />
+
+        <com.gc.materialdesign.views.CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/accentColor"
+            app:check="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceTiny" />
+
+        <com.gc.materialdesign.views.Switch
+            android:id="@+id/switchView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/accentColor"
+            app:check="true" />
+
+    </LinearLayout>
+
+</ScrollView>

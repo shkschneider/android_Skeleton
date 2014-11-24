@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import me.shkschneider.app.R;
 import me.shkschneider.app.fragment.ActionBarPagerFragment;
+import me.shkschneider.app.fragment.MaterialDesignFragment;
 import me.shkschneider.app.fragment.IndexedListFragment;
 import me.shkschneider.app.fragment.MainFragment;
 import me.shkschneider.app.fragment.NetworkFragment;
@@ -32,6 +33,7 @@ public class MainActivity extends NavigationDrawerActivity {
     public static final int NAVIGATION_LISTVIEW = 3;
     public static final int NAVIGATION_NETWORK = 4;
     public static final int NAVIGATION_RECYCLER = 5;
+    public static final int NAVIGATION_MATERIALDESIGN = 6;
 
     public static Intent getIntent(final Activity activity) {
         return new Intent(activity, MainActivity.class).setFlags(IntentHelper.HOME_FLAGS);
@@ -76,6 +78,7 @@ public class MainActivity extends NavigationDrawerActivity {
                 add(NAVIGATION_LISTVIEW, new IndexedListFragment());
                 add(NAVIGATION_NETWORK, new NetworkFragment());
                 add(NAVIGATION_RECYCLER, new RecyclerFragment());
+                add(NAVIGATION_MATERIALDESIGN, new MaterialDesignFragment());
             }
         }) {
             @Override
