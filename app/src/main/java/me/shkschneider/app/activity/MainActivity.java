@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import me.shkschneider.app.R;
+import me.shkschneider.app.fragment.SnackBarFragment;
 import me.shkschneider.app.fragment.ViewPagerIconIndicatorFragment;
 import me.shkschneider.app.fragment.ViewPagerTextIndicatorFragment;
 import me.shkschneider.app.fragment.FloatingActionButtonFragment;
@@ -34,6 +35,7 @@ public class MainActivity extends NavigationDrawerActivity {
     public static final int NAVIGATION_NETWORK = 4;
     public static final int NAVIGATION_RECYCLER = 5;
     public static final int NAVIGATION_FLOATINGACTIONBUTTON = 6;
+    public static final int NAVIGATION_SNACKBAR = 7;
 
     public static Intent getIntent(final Activity activity) {
         return new Intent(activity, MainActivity.class).setFlags(IntentHelper.HOME_FLAGS);
@@ -79,6 +81,7 @@ public class MainActivity extends NavigationDrawerActivity {
                 add(NAVIGATION_NETWORK, new NetworkFragment());
                 add(NAVIGATION_RECYCLER, new RecyclerFragment());
                 add(NAVIGATION_FLOATINGACTIONBUTTON, new FloatingActionButtonFragment());
+                add(NAVIGATION_SNACKBAR, new SnackBarFragment());
             }
         }) {
             @Override

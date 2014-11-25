@@ -1,0 +1,25 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/toast"
+        android:text="Toast"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceMedium" />
+
+    <Button
+        android:id="@+id/snackbar1"
+        android:text="SnackBar1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceMedium" />
+
+    <Button
+        android:id="@+id/snackbar2"
+        android:text="SnackBar2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceMedium" />
+
+</LinearLayout>
