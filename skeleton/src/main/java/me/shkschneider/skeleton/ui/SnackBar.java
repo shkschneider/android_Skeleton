@@ -39,11 +39,15 @@ public class SnackBar extends RelativeLayout {
     private boolean mShowing = false;
 
     @Deprecated
+    @SuppressWarnings("deprecation")
+    @SuppressLint("deprecation")
     public SnackBar(final Context context) {
         this(context, null);
     }
 
     @Deprecated
+    @SuppressWarnings("deprecation")
+    @SuppressLint("deprecation")
     public SnackBar(final Context context, final AttributeSet attrs) {
         this(context, attrs, 0);
     }

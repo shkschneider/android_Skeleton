@@ -41,7 +41,7 @@ public class FloatingActionButtonFragment extends SkeletonFragment {
             public void onClick(final View view) {
                 floatingActionButton.setVisibility(View.GONE);
                 SnackBar.with(mActivity, "That FloatingActionButton is now gone!")
-//                        .multiLine()
+                        .multiLine()
                         .action(getResources().getString(android.R.string.cancel), new View.OnClickListener() {
                             @Override
                             public void onClick(final View view) {
