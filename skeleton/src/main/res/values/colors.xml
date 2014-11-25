@@ -17,6 +17,8 @@
     <color name="navigationDrawerBackgroundColor">@color/white</color>
     <color name="textPrimaryColor">@color/black</color>
     <color name="textSecondaryColor">@color/grey</color>
+    <color name="snackBarBackgroundColor">#ff323232</color>
+    <color name="snackBarForegroundColor">@color/white</color>
 
     <!-- Material colors <http://www.google.com/design/spec/style/color.html#color-ui-color-palette> -->
 
