@@ -35,7 +35,7 @@ public class SnackBarFragment extends SkeletonFragment {
         toast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                ActivityHelper.toast(title());
+                ActivityHelper.toast("Toast");
             }
         });
 
@@ -43,7 +43,7 @@ public class SnackBarFragment extends SkeletonFragment {
         snackbar1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                SnackBar.with(skeletonActivity(), title())
+                SnackBar.with(skeletonActivity(), "Take some of that SnackBar!")
                         .singleLine()
                         .show();
             }
@@ -53,8 +53,19 @@ public class SnackBarFragment extends SkeletonFragment {
         snackbar2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                SnackBar.with(skeletonActivity(), title())
+                SnackBar.with(skeletonActivity(), "Take some of that SnackBar!")
                         .singleLine()
+                        .action(getResources().getString(android.R.string.ok), null)
+                        .show();
+            }
+        });
+
+        final Button snackbar3 = (Button) view.findViewById(R.id.snackbar3);
+        snackbar3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                SnackBar.with(skeletonActivity(), "Take some of that way bigger SnackBar, for free!")
+                        .multiLine()
                         .action(getResources().getString(android.R.string.ok), null)
                         .show();
             }

@@ -22,4 +22,10 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/spaceMedium" />
 
+    <Button
+        android:id="@+id/snackbar3"
+        android:text="SnackBar3"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceMedium" />
+
 </LinearLayout>

@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.FrameLayout;
@@ -18,6 +19,9 @@ import android.widget.TextView;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.concurrent.TimeUnit;
+
+import me.shkschneider.skeleton.Executor;
 import me.shkschneider.skeleton.R;
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ScreenHelper;
@@ -30,6 +34,9 @@ import me.shkschneider.skeleton.helper.StringHelper;
  * @see <https://github.com/navasmdc/MaterialDesignLibrary>
  */
 public class SnackBar extends RelativeLayout {
+
+    private static final int DURATION_SHORT = 2000;
+    private static final int DURATION_LONG = 3500;
 
     private Activity mActivity;
     private int mLines = 1;
@@ -95,7 +102,7 @@ public class SnackBar extends RelativeLayout {
         absListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(final AbsListView view, final int scrollState) {
-                hide();
+                dismiss();
             }
 
             @Override
@@ -112,7 +119,7 @@ public class SnackBar extends RelativeLayout {
             @Override
             public void onScrollStateChanged(final RecyclerView recyclerView, final int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                hide();
+                dismiss();
             }
         });
         return this;
@@ -131,10 +138,10 @@ public class SnackBar extends RelativeLayout {
             action.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(final View view) {
+                    dismiss();
                     if (mOnClickListener != null) {
                         mOnClickListener.onClick(view);
                     }
-                    hide();
                 }
             });
         }
@@ -153,19 +160,42 @@ public class SnackBar extends RelativeLayout {
         if (mShowing) {
             return ;
         }
-        setVisibility(View.VISIBLE);
-        build();
-        startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.snackbar_show_animation));
         mShowing = true;
+        build();
+        setVisibility(View.VISIBLE);
+        startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.snackbar_show_animation));
+        final int duration = ((! StringHelper.nullOrEmpty(mAction)) ? DURATION_LONG : DURATION_SHORT);
+        Executor.delayRunnable(new Runnable() {
+            @Override
+            public void run() {
+                dismiss();
+            }
+        }, duration, TimeUnit.MILLISECONDS);
     }
 
-    public void hide() {
+    public void dismiss() {
         if (! mShowing) {
             return ;
         }
-        startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.snackbar_hide_animation));
         mShowing = false;
-        setVisibility(View.GONE);
+        final Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.snackbar_hide_animation);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(final Animation animation) {
+                // Ignore
+            }
+
+            @Override
+            public void onAnimationEnd(final Animation animation) {
+                setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(final Animation animation) {
+                // Ignore
+            }
+        });
+        startAnimation(animation);
     }
 
     private void clear() {

@@ -12,6 +12,8 @@
         android:layout_alignParentRight="true"
         android:layout_marginLeft="@dimen/spaceSmallish"
         android:layout_marginRight="@dimen/spaceSmallish"
+        android:paddingLeft="@dimen/spaceTinish"
+        android:paddingRight="@dimen/spaceTinish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/textSizeSmall"
