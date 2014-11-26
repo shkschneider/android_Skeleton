@@ -37,8 +37,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         final MyItem myItem = mMyItems.get(position);
-        viewHolder.text1.setText(myItem.text1);
-        viewHolder.text2.setText(myItem.text2);
+        viewHolder.text1.setText(myItem.name);
     }
 
     @Override
@@ -49,12 +48,10 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView text1;
-        public TextView text2;
 
         public ViewHolder(final View view) {
             super(view);
             text1 = (TextView) view.findViewById(android.R.id.text1);
-            text2 = (TextView) view.findViewById(android.R.id.text2);
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -74,12 +71,10 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
 
     public static class MyItem {
 
-        public String text1;
-        public String text2;
+        public String name;
 
-        public MyItem(final String text1, final String text2) {
-            this.text1 = text1;
-            this.text2 = text2;
+        public MyItem(final String name) {
+            this.name = name;
         }
 
     }

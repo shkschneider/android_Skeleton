@@ -36,12 +36,12 @@ public class RecyclerFragment extends SkeletonFragment {
 
         // Adapter
 
-        mRecyclerAdapter = new MyRecyclerAdapter(R.layout.listview_item2);
+        mRecyclerAdapter = new MyRecyclerAdapter(R.layout.listview_item1);
         mRecyclerAdapter.setCallback(new MyRecyclerAdapter.Callback() {
             @Override
             public void onItemClick(final int position) {
                 final MyRecyclerAdapter.MyItem myItem = mRecyclerAdapter.myItems().get(position);
-                ActivityHelper.toast(String.format("%s: %s", myItem.text1, myItem.text2));
+                ActivityHelper.toast(myItem.name);
             }
 
             @Override
@@ -56,12 +56,12 @@ public class RecyclerFragment extends SkeletonFragment {
         skeletonActivity().searchable(getResources().getString(R.string.dots), new SkeletonActivity.SearchCallback() {
             @Override
             public void onSearchTextChange(final String q) {
-                // Ignore
+                refresh(q);
             }
 
             @Override
             public void onSearchTextSubmit(final String q) {
-                refresh(q);
+                // Ignore
             }
         });
     }
@@ -96,29 +96,39 @@ public class RecyclerFragment extends SkeletonFragment {
     public void refresh(final String q) {
         mRecyclerAdapter.myItems().clear();
         mRecyclerAdapter.notifyDataSetChanged();
-        final Locale[] locales = Locale.getAvailableLocales();
-        final List<String> countries = new ArrayList<String>();
-        for (final Locale locale : locales) {
-            final String country = StringHelper.withoutAccents(locale.getDisplayCountry().trim());
-            if (!StringHelper.nullOrEmpty(country)
-                    && (StringHelper.nullOrEmpty(q) || country.toLowerCase().contains(q.toLowerCase()))
-                    && !countries.contains(country)) {
-                countries.add(country);
-            }
-        }
-        Collections.sort(countries, new Comparator<String>() {
+        new Thread() {
             @Override
-            public int compare(final String s1, final String s2) {
-                return s1.compareTo(s2);
+            public void run() {
+                final Locale[] locales = Locale.getAvailableLocales();
+                final List<String> countries = new ArrayList<String>();
+                for (final Locale locale : locales) {
+                    final String country = StringHelper.withoutAccents(locale.getDisplayCountry().trim());
+                    if (!StringHelper.nullOrEmpty(country)
+                            && (StringHelper.nullOrEmpty(q) || country.toLowerCase().contains(q.toLowerCase()))
+                            && !countries.contains(country)) {
+                        countries.add(country);
+                    }
+                }
+                Collections.sort(countries, new Comparator<String>() {
+                    @Override
+                    public int compare(final String s1, final String s2) {
+                        return s1.compareTo(s2);
+                    }
+                });
+                int position = mRecyclerAdapter.myItems().size();
+                for (final String country : countries) {
+                    final int idx = position;
+                    mActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mRecyclerAdapter.myItems().add(idx, new MyRecyclerAdapter.MyItem(country));
+                            mRecyclerAdapter.notifyItemInserted(idx);
+                        }
+                    });
+                    position++;
+                }
             }
-        });
-        int position = mRecyclerAdapter.myItems().size();
-        for (final String country : countries) {
-            final String index = (position + 1) + "/" + countries.size();
-            mRecyclerAdapter.myItems().add(position, new MyRecyclerAdapter.MyItem(country, index));
-            mRecyclerAdapter.notifyItemInserted(position);
-            position++;
-        }
+        }.start();
     }
 
 }
