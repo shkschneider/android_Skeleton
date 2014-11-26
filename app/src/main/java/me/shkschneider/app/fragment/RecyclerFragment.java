@@ -115,7 +115,7 @@ public class RecyclerFragment extends SkeletonFragment {
         int position = mRecyclerAdapter.myItems().size();
         for (final String country : countries) {
             final String index = (position + 1) + "/" + countries.size();
-            mRecyclerAdapter.myItems().add(position, new MyRecyclerAdapter.MyItem(index, country));
+            mRecyclerAdapter.myItems().add(position, new MyRecyclerAdapter.MyItem(country, index));
             mRecyclerAdapter.notifyItemInserted(position);
             position++;
         }

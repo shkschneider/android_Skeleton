@@ -35,13 +35,12 @@ public class NetworkFragment extends SkeletonFragment {
         super.onCreate(savedInstanceState);
 
         final LayoutInflater layoutInflater = LayoutInflater.from(skeletonActivity());
-        mAdapter = new ArrayAdapter<String>(skeletonActivity(), R.layout.listview_iconitem2) {
+        mAdapter = new ArrayAdapter<String>(skeletonActivity(), R.layout.listview_item2) {
             @Override
             public View getView(final int position, View convertView, final ViewGroup parent) {
                 if (convertView == null) {
-                    convertView = layoutInflater.inflate(R.layout.listview_iconitem2, parent, false);
+                    convertView = layoutInflater.inflate(R.layout.listview_item2, parent, false);
                 }
-                ((ImageView) convertView.findViewById(R.id.imageview)).setImageDrawable(getResources().getDrawable(R.drawable.ic_web));
                 final String string = getItem(position);
                 final String string1 = string.substring(0, string.indexOf(" "));
                 final String string2 = string.substring(string.indexOf(" ") + 1, string.length());

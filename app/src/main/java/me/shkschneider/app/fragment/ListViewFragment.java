@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -16,18 +17,17 @@ import java.util.List;
 import java.util.Locale;
 
 import me.shkschneider.app.R;
-import me.shkschneider.skeleton.adapter.IndexedListAdapter;
 import me.shkschneider.skeleton.SkeletonActivity;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.StringHelper;
 
-public class IndexedListFragment extends SkeletonFragment {
+public class ListViewFragment extends SkeletonFragment {
 
-    private IndexedListAdapter<String> mAdapter;
+    private ArrayAdapter<String> mAdapter;
 
-    public IndexedListFragment() {
-        title("IndexedList");
+    public ListViewFragment() {
+        title("ListView");
     }
 
     @Override
@@ -37,20 +37,15 @@ public class IndexedListFragment extends SkeletonFragment {
         // Adapter
 
         final LayoutInflater layoutInflater = LayoutInflater.from(skeletonActivity());
-        mAdapter = new IndexedListAdapter<String>(skeletonActivity(), R.layout.listview_item1) {
+        mAdapter = new ArrayAdapter<String>(skeletonActivity(), R.layout.listview_item1) {
             @Override
-            public View getView(final int position, final View convertView, final ViewGroup parent) {
-                View view = super.getView(position, convertView, parent);
-                if (view == null) {
-                    view = layoutInflater.inflate(R.layout.listview_item1, parent, false);
-                    ((TextView) view.findViewById(android.R.id.text1)).setText(getItem(position));
+            public View getView(final int position, View convertView, final ViewGroup parent) {
+                if (convertView == null) {
+                    convertView = layoutInflater.inflate(R.layout.listview_item1, parent, false);
                 }
-                return view;
-            }
-
-            @Override
-            public boolean areAllItemsEnabled() {
-                return true;
+                final String item = getItem(position);
+                ((TextView) convertView.findViewById(android.R.id.text1)).setText(item);
+                return convertView;
             }
         };
 
@@ -83,7 +78,6 @@ public class IndexedListFragment extends SkeletonFragment {
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final ListView listView = (ListView) view.findViewById(R.id.listview);
-        mAdapter.withSections(listView);
         listView.setAdapter(mAdapter);
         listView.setFastScrollEnabled(true);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
