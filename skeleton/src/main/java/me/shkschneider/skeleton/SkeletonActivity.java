@@ -1,7 +1,10 @@
 package me.shkschneider.skeleton;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.app.ActivityManager;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -17,6 +20,7 @@ import android.widget.TextView;
 
 import com.koushikdutta.ion.Ion;
 
+import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.KeyboardHelper;
@@ -58,6 +62,26 @@ public class SkeletonActivity extends ActionBarActivity {
         // setContentView()
         home(false);
         title(true);
+
+        if (AndroidHelper.api() >= AndroidHelper.API_21) {
+            init21();
+        }
+    }
+
+    @SuppressWarnings("NewApi")
+    @SuppressLint("NewApi")
+    @TargetApi(AndroidHelper.API_21)
+    private void init21() {
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            getSupportActionBar().setElevation(0F);
+        }
+
+        final String name = ApplicationHelper.name();
+        final Bitmap icon = ApplicationHelper.icon();
+        final int color = getResources().getColor(R.color.primaryColor);
+        final ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(name, icon, color);
+        setTaskDescription(taskDescription);
     }
 
     // Alive

@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.Settings;
@@ -19,6 +20,7 @@ import java.util.Collections;
 import java.util.List;
 
 import me.shkschneider.skeleton.BuildConfig;
+import me.shkschneider.skeleton.ImageManipulator;
 import me.shkschneider.skeleton.SkeletonApplication;
 
 public class ApplicationHelper {
@@ -112,7 +114,7 @@ public class ApplicationHelper {
         }
     }
 
-    public static Drawable icon() {
+    public static Bitmap icon() {
         try {
             final PackageManager packageManager = packageManager();
             if (packageManager == null) {
@@ -126,7 +128,8 @@ public class ApplicationHelper {
                 return null;
             }
 
-            return applicationInfo.loadIcon(packageManager);
+            final Drawable drawable = applicationInfo.loadIcon(packageManager);
+            return ImageManipulator.fromDrawable(drawable);
         }
         catch (final Exception e) {
             LogHelper.wtf(e);
