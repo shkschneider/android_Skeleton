@@ -15,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.koushikdutta.ion.Ion;
+
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.KeyboardHelper;
@@ -196,7 +198,7 @@ public class SkeletonActivity extends ActionBarActivity {
 
                 @Override
                 public void onDestroyActionMode(final ActionMode actionMode) {
-                    // Ignore
+                    stopLoading();
                 }
             });
         }
@@ -291,6 +293,11 @@ public class SkeletonActivity extends ActionBarActivity {
         searchView.clearFocus();
         mSearchMenuItem.collapseActionView();
         KeyboardHelper.hide(searchView.getWindowToken());
+    }
+
+    protected void stopLoading() {
+        // cancels all network calls
+        Ion.getDefault(this).cancelAll();
     }
 
     @Override
