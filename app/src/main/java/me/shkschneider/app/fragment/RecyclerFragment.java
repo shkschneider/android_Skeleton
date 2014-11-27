@@ -94,6 +94,7 @@ public class RecyclerFragment extends SkeletonFragment {
     }
 
     public void refresh(final String q) {
+        skeletonActivity().loading(+1);
         mRecyclerAdapter.myItems().clear();
         mRecyclerAdapter.notifyDataSetChanged();
         new Thread() {
@@ -127,6 +128,12 @@ public class RecyclerFragment extends SkeletonFragment {
                     });
                     position++;
                 }
+                mActivity.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        skeletonActivity().loading(-1);
+                    }
+                });
             }
         }.start();
     }

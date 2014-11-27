@@ -97,6 +97,7 @@ public class ListViewFragment extends SkeletonFragment {
     }
 
     public void refresh(final String q) {
+        skeletonActivity().loading(+1);
         new Thread() {
             @Override
             public void run() {
@@ -122,6 +123,7 @@ public class ListViewFragment extends SkeletonFragment {
                         mAdapter.clear();
                         mAdapter.addAll(countries);
                         mAdapter.notifyDataSetChanged();
+                        skeletonActivity().loading(-1);
                     }
                 });
             }
