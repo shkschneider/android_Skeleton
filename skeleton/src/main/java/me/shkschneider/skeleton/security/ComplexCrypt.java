@@ -1,6 +1,6 @@
-package me.shkschneider.skeleton.helper;
+package me.shkschneider.skeleton.security;
 
-import org.jetbrains.annotations.NotNull;
+import android.support.annotation.NonNull;
 
 import java.util.Arrays;
 
@@ -9,6 +9,9 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
+
+import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.java.StringHelper;
 
 public class ComplexCrypt {
 
@@ -22,7 +25,7 @@ public class ComplexCrypt {
     private SecretKey mSecretKey;
     private Cipher mCipher;
 
-    public ComplexCrypt(@NotNull final byte[] secret) throws Exception {
+    public ComplexCrypt(@NonNull final byte[] secret) throws Exception {
         try {
             // salt
             mSecret = new String(secret).getBytes();
@@ -54,7 +57,7 @@ public class ComplexCrypt {
         return mSecretKey.getAlgorithm();
     }
 
-    public byte[] encrypt(@NotNull final byte[] bytes) {
+    public byte[] encrypt(@NonNull final byte[] bytes) {
         try {
             mCipher.init(Cipher.ENCRYPT_MODE, mSecretKeySpec, mIvParameterSpec);
             return mCipher.doFinal(pad(bytes));
@@ -65,7 +68,7 @@ public class ComplexCrypt {
         }
     }
 
-    public byte[] decrypt(@NotNull final byte[] bytes) {
+    public byte[] decrypt(@NonNull final byte[] bytes) {
         try {
             mCipher.init(Cipher.DECRYPT_MODE, mSecretKeySpec, mIvParameterSpec);
             byte[] decrypted = mCipher.doFinal(pad(bytes));
@@ -90,7 +93,7 @@ public class ComplexCrypt {
         }
     }
 
-    private byte[] pad(@NotNull final byte[] bytes) {
+    private byte[] pad(@NonNull final byte[] bytes) {
         final int extras = ALGORITHM_KEY_PAD - (bytes.length % ALGORITHM_KEY_PAD);
         if (extras == 0 || extras == ALGORITHM_KEY_PAD) {
             return bytes;

@@ -1,6 +1,6 @@
-package me.shkschneider.skeleton.helper;
+package me.shkschneider.skeleton.security;
 
-import org.jetbrains.annotations.NotNull;
+import android.support.annotation.NonNull;
 
 public class SimpleCrypt {
 
@@ -8,7 +8,7 @@ public class SimpleCrypt {
 
     private char[] mKey;
 
-    public SimpleCrypt(@NotNull final String key) {
+    public SimpleCrypt(@NonNull final String key) {
         mKey = key.toCharArray();
     }
 
@@ -20,7 +20,7 @@ public class SimpleCrypt {
         return new String(mKey);
     }
 
-    public String encrypt(@NotNull final String string) {
+    public String encrypt(@NonNull final String string) {
         final char[] chars = string.toCharArray();
         final char[] encrypted = new char[chars.length];
         for (int i = 0; i < chars.length; i++) {
@@ -29,7 +29,7 @@ public class SimpleCrypt {
         return Base64Helper.encrypt(new String(encrypted).getBytes());
     }
 
-    public String decrypt(@NotNull final String string) {
+    public String decrypt(@NonNull final String string) {
         char[] encrypted = Base64Helper.decrypt(string).toCharArray();
         char[] decrypted = new char[encrypted.length];
         for (int i = 0; i < encrypted.length; i++) {

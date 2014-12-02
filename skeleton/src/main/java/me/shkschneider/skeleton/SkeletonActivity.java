@@ -26,26 +26,6 @@ import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.KeyboardHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
-/**
- * Base Activity you should use!
- *
- * - boolean isAlive()
- * - void home(boolean)
- * - void logo(boolean)
- * - void title(CharSequence)
- * - void searchable(String, SearchCallback)
- * - boolean loading()
- * - void loading(int)
- * - void indeterminateLoading(boolean)
- * - int loadingCount()
- *
- * interface NavigationCallback
- * - void onHomeAsUpPressed()
- * - void onBackPressed()
- *
- * @see android.support.v7.app.ActionBarActivity
- * @see <http://developer.android.com/training/basics/activity-lifecycle/starting.html#lifecycle-states>
- */
 public class SkeletonActivity extends ActionBarActivity {
 
     private int mLoadingCount = 0;

@@ -5,12 +5,6 @@ import android.util.AttributeSet;
 
 import me.shkschneider.skeleton.R;
 
-/**
- * PagerTabStrip that shows text and belongs just below the ActionBar.
- * Best in portrait mode.
- *
- * @see ViewPagerIndicator
- */
 public class ViewPagerTextIndicator extends ViewPagerIndicator {
 
     public ViewPagerTextIndicator(final Context context) {

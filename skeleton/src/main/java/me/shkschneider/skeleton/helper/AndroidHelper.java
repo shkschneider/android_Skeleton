@@ -1,16 +1,6 @@
 package me.shkschneider.skeleton.helper;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.os.Build;
-import android.util.Patterns;
-
-import com.google.android.gms.auth.GoogleAuthUtil;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import me.shkschneider.skeleton.SkeletonApplication;
 
 public class AndroidHelper {
 
@@ -42,8 +32,7 @@ public class AndroidHelper {
     public static final int ANDROID_2 = API_5;
     public static final int ANDROID_3 = API_11;
     public static final int ANDROID_4 = API_14;
-
-    public static final String GOOGLE_ACCOUNT_TYPE = GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE;
+    public static final int ANDROID_5 = API_21;
 
     public static String platform() {
         return PLATFORM;
@@ -59,31 +48,6 @@ public class AndroidHelper {
 
     public static String versionCode() {
         return Build.VERSION.INCREMENTAL;
-    }
-
-    public static List<String> accounts() {
-        final List<String> accounts = new ArrayList<String>();
-        final AccountManager accountManager = AccountManager.get(SkeletonApplication.CONTEXT);
-        if (accountManager != null) {
-            for (Account account : accountManager.getAccountsByType(GOOGLE_ACCOUNT_TYPE)) {
-                if (Patterns.EMAIL_ADDRESS.matcher(account.name).matches()) {
-                    accounts.add(account.name);
-                }
-            }
-        }
-        else {
-            LogHelper.warning("AccountManager was NULL");
-        }
-        return accounts;
-    }
-
-    public static String account() {
-        final List<String> accounts = accounts();
-        if (accounts.size() == 0) {
-            return null;
-        }
-
-        return accounts.get(0);
     }
 
 }

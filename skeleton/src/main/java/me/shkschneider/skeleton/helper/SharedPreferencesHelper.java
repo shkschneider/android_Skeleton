@@ -3,8 +3,10 @@ package me.shkschneider.skeleton.helper;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 
 import me.shkschneider.skeleton.SkeletonApplication;
+import me.shkschneider.skeleton.java.StringHelper;
 
 public class SharedPreferencesHelper {
 
@@ -14,18 +16,18 @@ public class SharedPreferencesHelper {
         return PreferenceManager.getDefaultSharedPreferences(SkeletonApplication.CONTEXT);
     }
 
-    public static boolean putPublic(final String key, final String value) {
+    public static boolean putPublic(@NonNull final String key, final String value) {
         LogHelper.debug(key + " = " + value);
         return getPublic().edit().putString(key, value).commit();
     }
 
-    public static String getPublic(final String key, final String defaultValue) {
+    public static String getPublic(@NonNull final String key, final String defaultValue) {
         return getPublic().getString(key, defaultValue);
     }
 
     // Private
 
-    private static SharedPreferences getPrivate(final String name) {
+    private static SharedPreferences getPrivate(@NonNull final String name) {
         if (StringHelper.nullOrEmpty(name)) {
             LogHelper.warning("Name was NULL");
             return getPublic();
@@ -34,12 +36,12 @@ public class SharedPreferencesHelper {
         return SkeletonApplication.CONTEXT.getSharedPreferences(name, Context.MODE_PRIVATE);
     }
 
-    public static boolean putPrivate(final String name, final String key, final String value) {
+    public static boolean putPrivate(@NonNull final String name, @NonNull final String key, final String value) {
         LogHelper.debug(key + " = " + value);
         return getPrivate(name).edit().putString(key, value).commit();
     }
 
-    public static String getPrivate(final String name, final String key, final String defaultValue) {
+    public static String getPrivate(@NonNull final String name, @NonNull final String key, final String defaultValue) {
         return getPrivate(name).getString(key, defaultValue);
     }
 

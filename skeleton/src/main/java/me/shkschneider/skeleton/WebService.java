@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton;
 
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
@@ -9,27 +10,13 @@ import com.koushikdutta.ion.Response;
 import com.koushikdutta.ion.builder.Builders;
 import com.koushikdutta.ion.builder.LoadBuilder;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
 import me.shkschneider.skeleton.helper.ApplicationHelper;
-import me.shkschneider.skeleton.helper.ClassHelper;
+import me.shkschneider.skeleton.java.ClassHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
-/**
- * WebService calls handed by Ion library.
- *
- * Simpler yet easily more flexible than Volley.
- * Allows InputStream reading and easy per-request specific configurations (header, body...) and centralized error handling.
- *
- * Uses READ_EXTERNAL_STORAGE + WRITE_EXTERNAL_STORAGE permissions for caching.
- *
- * But, no retries (pay attention to the TIMEOUT).
- *
- * @see com.koushikdutta.ion.Ion
- */
 public class WebService {
 
     private static final int TIMEOUT = (int) TimeUnit.SECONDS.toMillis(5);
@@ -86,7 +73,7 @@ public class WebService {
         return false;
     }
 
-    public void getInputStream(@NotNull final String url, final Callback callback) {
+    public void getInputStream(@NonNull final String url, final Callback callback) {
         build(url).asInputStream()
                 .withResponse()
                 .setCallback(new FutureCallback<Response<InputStream>>() {
@@ -99,7 +86,7 @@ public class WebService {
                 });
     }
 
-    public void getString(@NotNull final String url, final Callback callback) {
+    public void getString(@NonNull final String url, final Callback callback) {
         build(url).asString()
                 .withResponse()
                 .setCallback(new FutureCallback<Response<String>>() {
@@ -112,7 +99,7 @@ public class WebService {
                 });
     }
 
-    public void getJsonObject(@NotNull final String url, final Callback callback) {
+    public void getJsonObject(@NonNull final String url, final Callback callback) {
         build(url).asJsonObject()
                 .withResponse()
                 .setCallback(new FutureCallback<Response<JsonObject>>() {
@@ -125,7 +112,7 @@ public class WebService {
                 });
     }
 
-    public void getImage(@NotNull final String url, final Callback callback) {
+    public void getImage(@NonNull final String url, final Callback callback) {
         build(url).asBitmap()
                 .setCallback(new FutureCallback<Bitmap>() {
                     @Override

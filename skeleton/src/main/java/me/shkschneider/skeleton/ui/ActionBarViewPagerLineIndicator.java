@@ -9,12 +9,6 @@ import android.widget.LinearLayout;
 
 import me.shkschneider.skeleton.R;
 
-/**
- * PagerTabStrip that show line and belongs just below the ActionBar.
- * Best in landscape mode.
- *
- * @see me.shkschneider.skeleton.ui.ViewPagerIndicator
- */
 public class ActionBarViewPagerLineIndicator extends ViewPagerIndicator {
 
     public ActionBarViewPagerLineIndicator(final Context context) {

@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -16,9 +15,10 @@ import com.google.gson.JsonObject;
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.WebService;
+import me.shkschneider.skeleton.data.GsonParser;
 import me.shkschneider.skeleton.helper.ActivityHelper;
-import me.shkschneider.skeleton.helper.GsonParser;
-import me.shkschneider.skeleton.helper.StringHelper;
+import me.shkschneider.skeleton.helper.NetworkHelper;
+import me.shkschneider.skeleton.java.StringHelper;
 import me.shkschneider.skeleton.ui.MySwipeRefreshLayout;
 
 public class NetworkFragment extends SkeletonFragment {
@@ -84,7 +84,11 @@ public class NetworkFragment extends SkeletonFragment {
     @Override
     public void onResume() {
         super.onResume();
-        refresh();
+
+        if (NetworkHelper.online()) {
+            refresh();
+        }
+        // TODO offline
     }
 
     private void updateLoading() {

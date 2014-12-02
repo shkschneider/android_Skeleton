@@ -2,6 +2,7 @@ package me.shkschneider.skeleton;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,35 +14,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import org.jetbrains.annotations.NotNull;
-
 import me.shkschneider.skeleton.R;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
-/**
- * This Activity handles everything needed for a NavigationDrawer in an Activity.
- * You implements a few methods and this class will do the work for you.
- *
- * - ArrayAdapter getAdapter()
- * - Fragment getFragment(int)
- *
- * And of course the getView() method from the Adapter you will create.
- * <br />
- * This class also comes with some handy methods:
- *
- * - void navigationDrawer(int)
- * - int navigationDrawer()
- * - boolean navigationDrawerOpenedOrOpening()
- * - openNavigationDrawer()
- * - closeNavigationDrawer()
- *
- * Changing of item in the NavigationDrawer auto-cancel any loading in the Activity.
- * <br />
- * Restores the last tab upon rotation.
- *
- * @see me.shkschneider.skeleton.SkeletonActivity
- */
 public abstract class NavigationDrawerActivity extends SkeletonActivity {
 
     public static final String TAB = "tab";
@@ -203,7 +179,7 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
     }
 
     @Override
-    protected void onRestoreInstanceState(@NotNull final Bundle savedInstanceState) {
+    protected void onRestoreInstanceState(@NonNull final Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         final int tab = savedInstanceState.getInt(TAB, 0);
         navigationDrawer(tab);

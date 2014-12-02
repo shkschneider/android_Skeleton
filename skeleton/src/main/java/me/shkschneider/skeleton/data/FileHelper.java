@@ -1,9 +1,8 @@
-package me.shkschneider.skeleton.helper;
+package me.shkschneider.skeleton.data;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-
-import org.jetbrains.annotations.NotNull;
+import android.support.annotation.NonNull;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,19 +13,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import me.shkschneider.skeleton.helper.ApplicationHelper;
+import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.SystemHelper;
+
 public class FileHelper {
 
-    public static final String ASSETS_PREFIX = "file:///android_asset/";
+    public static final String PREFIX_ASSETS = "file:///android_asset/";
+    public static final String PREFIX_RES = "file:///android_res/";
 
-    public static String join(@NotNull final String dirname, @NotNull final String basename) {
+    public static String join(@NonNull final String dirname, @NonNull final String basename) {
         return String.format("%s%s%s", dirname, SystemHelper.systemProperty(SystemHelper.SYSTEM_PROPERTY_PATH_SEPARATOR), basename);
     }
 
-    public static File get(@NotNull final String path) {
+    public static File get(@NonNull final String path) {
         return new File(path);
     }
 
-    public static InputStream openFile(@NotNull final File file) {
+    public static InputStream openFile(@NonNull final File file) {
         try {
             return new FileInputStream(file);
         }
@@ -46,7 +50,7 @@ public class FileHelper {
         }
     }
 
-    public static InputStream openAsset(@NotNull final String assetName) {
+    public static InputStream openAsset(@NonNull final String assetName) {
         try {
             return ApplicationHelper.assets().open(assetName);
         }
@@ -56,12 +60,12 @@ public class FileHelper {
         }
     }
 
-    public static String readString(@NotNull final InputStream inputStream) {
+    public static String readString(@NonNull final InputStream inputStream) {
         // TRICK: The stream gets tokenized, \A meaning the beginning, \\A means the second beginning... so its end.
         return new Scanner(inputStream).useDelimiter("\\A").next();
     }
 
-    public static String readString(@NotNull final File file) {
+    public static String readString(@NonNull final File file) {
         try {
             return readString(new FileInputStream(file));
         }
@@ -71,7 +75,7 @@ public class FileHelper {
         }
     }
 
-    public static Bitmap readBitmap(@NotNull final File file) {
+    public static Bitmap readBitmap(@NonNull final File file) {
         try {
             final BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
@@ -83,7 +87,7 @@ public class FileHelper {
         }
     }
 
-    public static boolean writeString(@NotNull final OutputStream outputStream, @NotNull final String content) {
+    public static boolean writeString(@NonNull final OutputStream outputStream, @NonNull final String content) {
         try {
             outputStream.write(content.getBytes());
             outputStream.close();
@@ -95,7 +99,7 @@ public class FileHelper {
         }
     }
 
-    public static boolean writeString(@NotNull final File file, @NotNull final String content) {
+    public static boolean writeString(@NonNull final File file, @NonNull final String content) {
         try {
             return writeString(new FileOutputStream(file), content);
         }
@@ -105,7 +109,7 @@ public class FileHelper {
         }
     }
 
-    public static boolean writeBitmap(@NotNull final File file, @NotNull final Bitmap bitmap) {
+    public static boolean writeBitmap(@NonNull final File file, @NonNull final Bitmap bitmap) {
         try {
             final FileOutputStream fileOutputStream = new FileOutputStream(file);
             return bitmap.compress(Bitmap.CompressFormat.PNG, 90, fileOutputStream);
@@ -116,7 +120,7 @@ public class FileHelper {
         }
     }
 
-    public static List<String> list(@NotNull final File file) {
+    public static List<String> list(@NonNull final File file) {
         if (! file.isDirectory()) {
             LogHelper.debug("File was not a directory");
             return null;
@@ -136,7 +140,7 @@ public class FileHelper {
         return list;
     }
 
-    public static boolean remove(@NotNull final File file) {
+    public static boolean remove(@NonNull final File file) {
         return file.delete();
     }
 

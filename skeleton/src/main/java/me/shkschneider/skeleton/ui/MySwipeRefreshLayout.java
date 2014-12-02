@@ -5,12 +5,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-/**
- * Official pull-to-refresh killer.
- * Introduced in support-v4.
- *
- * @see android.support.v4.widget.SwipeRefreshLayout
- */
 public class MySwipeRefreshLayout extends SwipeRefreshLayout {
 
     protected boolean mRefreshable = true;

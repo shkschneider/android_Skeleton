@@ -41,6 +41,7 @@ public class DeviceHelper {
         return Build.FINGERPRINT;
     }
 
+    @Deprecated
     public static TelephonyManager sim() {
         return (TelephonyManager) SystemHelper.systemService(SystemHelper.SYSTEM_SERVICE_TELEPHONY);
     }

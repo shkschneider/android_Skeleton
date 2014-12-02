@@ -185,14 +185,6 @@ public class ApplicationHelper {
         }
     }
 
-    public static boolean settings(final Activity activity) {
-        final Intent intent = new Intent();
-        intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        intent.setData(Uri.fromParts("package", packageName(), null));
-        activity.startActivity(intent);
-        return true;
-    }
-
     public static boolean fromMarket() {
         if (AndroidHelper.api() >= AndroidHelper.API_21) {
             return fromMarket21();

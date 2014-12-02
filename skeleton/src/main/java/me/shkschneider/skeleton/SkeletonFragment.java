@@ -3,22 +3,8 @@ package me.shkschneider.skeleton;
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 
-import me.shkschneider.skeleton.helper.ClassHelper;
+import me.shkschneider.skeleton.java.ClassHelper;
 
-/**
- * Base Fragment you should use!
- * - onCreate()
- * - onCreateView()
- * - onViewCreated()
- *
- * - boolean isAlive()
- * - String title()
- * - void title(String)
- * - SkeletonActivity skeletonActivity()
- *
- * @see android.support.v4.app.Fragment
- * @see <http://developer.android.com/guide/components/fragments.html#Creating>
- */
 public class SkeletonFragment extends Fragment {
 
     protected SkeletonActivity mActivity;

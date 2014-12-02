@@ -8,15 +8,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.WindowManager;
 
-/**
- * SystemUiHelper by Chris Banes
- * <https://gist.github.com/chrisbanes/73de18faffca571f7292>
- *
- * - KITKAT+
- * - JELLY_BEAN+
- * - ICE_CREAM_SANDWICH+
- * - HONEYCOMB+
- */
+// <https://gist.github.com/chrisbanes/73de18faffca571f7292>
 public final class SystemUiHelper {
 
     public static final int LEVEL_LOW_PROFILE = 0; // hides StatusBar's buttons & BottomBar's buttons, until triggered (restores all)

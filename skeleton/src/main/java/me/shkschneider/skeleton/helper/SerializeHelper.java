@@ -1,6 +1,6 @@
 package me.shkschneider.skeleton.helper;
 
-import org.jetbrains.annotations.NotNull;
+import android.support.annotation.NonNull;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,7 +10,7 @@ import java.io.ObjectOutputStream;
 
 public class SerializeHelper {
 
-    public static boolean write(@NotNull final Object object, @NotNull final File file) {
+    public static boolean write(@NonNull final Object object, @NonNull final File file) {
         try {
             final ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file));
             objectOutputStream.writeObject(object);
@@ -23,7 +23,7 @@ public class SerializeHelper {
         }
     }
 
-    public static Object read(@NotNull final File file) {
+    public static Object read(@NonNull final File file) {
         try {
             final ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file));
             final Object object = objectInputStream.readObject();

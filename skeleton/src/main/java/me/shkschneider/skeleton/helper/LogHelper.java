@@ -1,6 +1,9 @@
 package me.shkschneider.skeleton.helper;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
+
+import me.shkschneider.skeleton.java.StringHelper;
 
 public class LogHelper {
 
@@ -51,30 +54,27 @@ public class LogHelper {
         }
     }
 
-    public static void debug(final String msg) {
+    public static void debug(@NonNull final String msg) {
         LogHelper.log(DEBUG, msg);
     }
 
-    public static void verbose(final String msg) {
+    public static void verbose(@NonNull final String msg) {
         LogHelper.log(VERBOSE, msg);
     }
 
-    public static void info(final String msg) {
+    public static void info(@NonNull final String msg) {
         LogHelper.log(INFO, msg);
     }
 
-    public static void warning(final String msg) {
+    public static void warning(@NonNull final String msg) {
         LogHelper.log(WARN, msg);
     }
 
-    public static void error(final String msg) {
+    public static void error(@NonNull final String msg) {
         LogHelper.log(ERROR, msg);
     }
 
-    public static void wtf(final Throwable throwable) {
-        if (throwable == null) {
-            return ;
-        }
+    public static void wtf(@NonNull final Throwable throwable) {
         LogHelper.log(WTF, throwable.getClass().getName() + ": " + throwable.getMessage());
         if (ApplicationHelper.debug()) {
             throwable.printStackTrace();

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.Gravity;
@@ -17,22 +18,15 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.concurrent.TimeUnit;
 
 import me.shkschneider.skeleton.Executor;
 import me.shkschneider.skeleton.R;
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ScreenHelper;
-import me.shkschneider.skeleton.helper.StringHelper;
+import me.shkschneider.skeleton.java.StringHelper;
 
-/**
- * SnackBar is an enhanced and contextual Toast that can have a Button inside it.
- * Introduced with Material Design.
- *
- * @see <https://github.com/navasmdc/MaterialDesignLibrary>
- */
+// <https://github.com/navasmdc/MaterialDesignLibrary>
 public class SnackBar extends RelativeLayout {
 
     private static final int DURATION_SHORT = 2000;
@@ -45,16 +39,16 @@ public class SnackBar extends RelativeLayout {
     private OnClickListener mOnClickListener;
     private boolean mShowing = false;
 
-    @Deprecated
     @SuppressWarnings("deprecation")
     @SuppressLint("deprecation")
+    @Deprecated
     public SnackBar(final Context context) {
         this(context, null);
     }
 
-    @Deprecated
     @SuppressWarnings("deprecation")
     @SuppressLint("deprecation")
+    @Deprecated
     public SnackBar(final Context context, final AttributeSet attrs) {
         this(context, attrs, 0);
     }
@@ -64,17 +58,17 @@ public class SnackBar extends RelativeLayout {
         super(context, attrs, defStyleAttr);
     }
 
-    @Deprecated
     @SuppressWarnings("NewApi")
     @SuppressLint("NewApi")
     @TargetApi(AndroidHelper.API_21)
+    @Deprecated
     public SnackBar(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     @SuppressWarnings("deprecation")
     @SuppressLint("deprecation")
-    public static SnackBar with(@NotNull final Activity activity, @NotNull final String text) {
+    public static SnackBar with(@NonNull final Activity activity, @NonNull final String text) {
         final SnackBar snackBar = new SnackBar(activity);
         snackBar.mActivity = activity;
         snackBar.mText = text;

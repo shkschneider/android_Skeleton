@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.helper;
+package me.shkschneider.skeleton.security;
 
 import android.util.Base64;
 

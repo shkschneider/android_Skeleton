@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.helper;
 
 import android.os.IBinder;
+import android.support.annotation.NonNull;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -16,7 +17,7 @@ public class KeyboardHelper {
 
     public final static int ENTER = KeyEvent.KEYCODE_ENTER;
 
-    public static boolean show(final Window window, final EditText editText) {
+    public static boolean show(@NonNull final Window window, @NonNull final EditText editText) {
         LogHelper.verbose("onFocusChange()");
         editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
@@ -31,25 +32,25 @@ public class KeyboardHelper {
         return true;
     }
 
-    public static boolean show(final Window window) {
+    public static boolean show(@NonNull final Window window) {
         LogHelper.verbose("SOFT_INPUT_STATE_ALWAYS_VISIBLE");
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         return true;
     }
 
-    public static boolean hide(final Window window) {
+    public static boolean hide(@NonNull final Window window) {
         LogHelper.verbose("SOFT_INPUT_STATE_ALWAYS_HIDDEN");
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         return true;
     }
 
-    public static boolean hide(final IBinder windowToken) {
+    public static boolean hide(@NonNull final IBinder windowToken) {
         LogHelper.verbose("hideSoftInputFromWindow()");
         final InputMethodManager inputMethodManager = (InputMethodManager) SystemHelper.systemService(SystemHelper.SYSTEM_SERVICE_INPUT_METHOD);
         return inputMethodManager.hideSoftInputFromWindow(windowToken, 0);
     }
 
-    public static boolean keyboardCallback(final EditText editText, final Callback keyboardCallback, final boolean all) {
+    public static boolean keyboardCallback(@NonNull final EditText editText, final Callback keyboardCallback, final boolean all) {
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
             @Override
@@ -73,7 +74,9 @@ public class KeyboardHelper {
                         KeyEvent.KEYCODE_ENTER
                 };
                 if (all || Arrays.asList(enterKeys).contains(action)) {
-                    keyboardCallback.keyboardCallback(action);
+                    if (keyboardCallback != null) {
+                        keyboardCallback.keyboardCallback(action);
+                    }
                 }
 
                 return false;
@@ -83,7 +86,7 @@ public class KeyboardHelper {
         return true;
     }
 
-    public static boolean keyboardCallback(final EditText editText, final Callback keyboardCallback) {
+    public static boolean keyboardCallback(@NonNull final EditText editText, final Callback keyboardCallback) {
         return keyboardCallback(editText, keyboardCallback, false);
     }
 

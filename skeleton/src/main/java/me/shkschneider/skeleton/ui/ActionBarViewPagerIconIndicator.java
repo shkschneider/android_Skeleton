@@ -5,12 +5,6 @@ import android.util.AttributeSet;
 
 import me.shkschneider.skeleton.R;
 
-/**
- * PagerTabStrip that shows icons and belongs just below the ActionBar.
- * Best in portrait mode.
- *
- * @see me.shkschneider.skeleton.ui.ViewPagerIndicator
- */
 public class ActionBarViewPagerIconIndicator extends ViewPagerIconIndicator {
 
     public ActionBarViewPagerIconIndicator(final Context context) {

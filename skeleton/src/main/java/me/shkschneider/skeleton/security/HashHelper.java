@@ -1,6 +1,9 @@
-package me.shkschneider.skeleton.helper;
+package me.shkschneider.skeleton.security;
 
 import java.security.MessageDigest;
+
+import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.java.StringHelper;
 
 public class HashHelper {
 

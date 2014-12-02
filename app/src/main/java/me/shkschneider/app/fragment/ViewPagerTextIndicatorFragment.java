@@ -17,7 +17,7 @@ import android.widget.TextView;
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.ActivityHelper;
-import me.shkschneider.skeleton.helper.StringHelper;
+import me.shkschneider.skeleton.java.StringHelper;
 import me.shkschneider.skeleton.ui.ViewPagerIndicatorAdapter;
 import me.shkschneider.skeleton.ui.ViewPagerIndicator;
 

@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
@@ -8,34 +9,27 @@ import android.graphics.Paint;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.graphics.Palette;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import org.jetbrains.annotations.NotNull;
+import java.io.InputStream;
 
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.ScreenHelper;
 
-/**
- * Handles Bitmaps (locally).
- *
- * - Bitmap fromDrawable(Drawable)
- * - Bitmap circular(Bitmap)
- * - Bitmap rotate(Bitmap, float)
- * - Bitmap fromView(View)
- *
- * @see android.graphics.Bitmap
- */
 public class ImageManipulator {
 
     @Deprecated
-    public static Drawable fromBitmap(@NotNull final Bitmap bitmap) {
+    public static Drawable fromBitmap(@NonNull final Bitmap bitmap) {
         return new BitmapDrawable(bitmap);
     }
 
-    public static Bitmap fromDrawable(@NotNull final Drawable drawable) {
+    public static Bitmap fromDrawable(@NonNull final Drawable drawable) {
         if (drawable instanceof BitmapDrawable) {
             return ((BitmapDrawable) drawable).getBitmap();
         }
@@ -47,7 +41,7 @@ public class ImageManipulator {
         return bitmap;
     }
 
-    public static Bitmap circular(@NotNull final Bitmap bitmap) {
+    public static Bitmap circular(@NonNull final Bitmap bitmap) {
         final Bitmap circleBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
         final BitmapShader shader = new BitmapShader (bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         final Paint paint = new Paint();
@@ -57,13 +51,7 @@ public class ImageManipulator {
         return circleBitmap;
     }
 
-    public static Bitmap rotate(@NotNull final Bitmap bitmap, final float degrees) {
-        final Matrix matrix = new Matrix();
-        matrix.postRotate(degrees);
-        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-    }
-
-    public static Bitmap fromView(@NotNull final View view) {
+    public static Bitmap fromView(@NonNull final View view) {
         final DisplayMetrics displayMetrics = ApplicationHelper.resources().getDisplayMetrics();
         if (displayMetrics == null) {
             LogHelper.warning("DisplayMetrics was NULL");
@@ -81,12 +69,71 @@ public class ImageManipulator {
         return bitmap;
     }
 
-    public static int vibrantColor(@NotNull final Bitmap bitmap) {
+    // TODO check if both methods needed
+    public static Bitmap fromUri(@NonNull final Uri uri) {
+        try {
+            return BitmapFactory.decodeStream(SkeletonApplication.CONTEXT.getContentResolver().openInputStream(uri), null, new BitmapFactory.Options());
+        }
+        catch (final Exception e) {
+            LogHelper.wtf(e);
+            return null;
+        }
+    }
+
+    // TODO check if both methods needed
+    public static Bitmap decodeUri(@NonNull final Uri uri) {
+        final BitmapFactory.Options bitmapFactoryOptionsTmp = new BitmapFactory.Options();
+        bitmapFactoryOptionsTmp.inJustDecodeBounds = true;
+        try {
+            final InputStream inputStream = SkeletonApplication.CONTEXT.getContentResolver().openInputStream(uri);
+            if (inputStream == null) {
+                LogHelper.warning("InputStream was NULL");
+                return null;
+            }
+
+            BitmapFactory.decodeStream(inputStream, null, bitmapFactoryOptionsTmp);
+            int width = bitmapFactoryOptionsTmp.outWidth;
+            int height = bitmapFactoryOptionsTmp.outHeight;
+            int scale = 1;
+
+            final int downsample = (int) ScreenHelper.density();
+            if (downsample <= 0) {
+                LogHelper.warning("Downsample was invalid");
+                return null;
+            }
+
+            while (true) {
+                if (width / 2 < downsample || height / 2 < downsample) {
+                    break ;
+                }
+                width /= 2;
+                height /= 2;
+                scale *= 2;
+            }
+            final BitmapFactory.Options bitmapFactoryOptions = new BitmapFactory.Options();
+            bitmapFactoryOptions.inJustDecodeBounds = false;
+            bitmapFactoryOptions.inSampleSize = scale;
+            bitmapFactoryOptions.inPurgeable = true;
+            return BitmapFactory.decodeStream(inputStream, null, bitmapFactoryOptions);
+        }
+        catch (final Exception e) {
+            LogHelper.wtf(e);
+            return null;
+        }
+    }
+
+    public static Bitmap rotate(@NonNull final Bitmap bitmap, final float degrees) {
+        final Matrix matrix = new Matrix();
+        matrix.postRotate(degrees);
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+    }
+
+    public static int vibrantColor(@NonNull final Bitmap bitmap) {
         final Palette palette = Palette.generate(bitmap);
         return palette.getVibrantColor(ApplicationHelper.resources().getColor(R.color.transparent));
     }
 
-    public static int mutedColor(@NotNull final Bitmap bitmap) {
+    public static int mutedColor(@NonNull final Bitmap bitmap) {
         final Palette palette = Palette.generate(bitmap);
         return palette.getMutedColor(ApplicationHelper.resources().getColor(R.color.transparent));
     }

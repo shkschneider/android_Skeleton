@@ -3,11 +3,7 @@ package me.shkschneider.skeleton.ui;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-/**
- * ViewPager.setPageTransformer(true, new DepthPageTransformer());
- *
- * @see <http://developer.android.com/training/animation/screen-slide.html#pagetransformer>
- */
+// <http://developer.android.com/training/animation/screen-slide.html#pagetransformer>
 public class DepthPageTransformer implements ViewPager.PageTransformer {
 
     private static final float MIN_SCALE = 0.75F;

@@ -20,7 +20,7 @@ import me.shkschneider.app.R;
 import me.shkschneider.skeleton.SkeletonActivity;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.ActivityHelper;
-import me.shkschneider.skeleton.helper.StringHelper;
+import me.shkschneider.skeleton.java.StringHelper;
 
 public class ListViewFragment extends SkeletonFragment {
 

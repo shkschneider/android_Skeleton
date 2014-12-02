@@ -1,10 +1,13 @@
-package me.shkschneider.skeleton.helper;
+package me.shkschneider.skeleton.java;
 
+import android.support.annotation.NonNull;
 import android.telephony.PhoneNumberUtils;
 import android.util.Patterns;
 
 import java.text.Normalizer;
 import java.util.Random;
+
+import me.shkschneider.skeleton.helper.LogHelper;
 
 public class StringHelper {
 
@@ -17,43 +20,43 @@ public class StringHelper {
         return (string == null || (string.length() == 0));
     }
 
-    public static String capitalize(final String string) {
+    public static String capitalize(@NonNull final String string) {
         return string.substring(0, 1).toUpperCase() + string.substring(1).toLowerCase();
     }
 
-    public static String upper(final String string) {
+    public static String upper(@NonNull final String string) {
         return string.toUpperCase();
     }
 
-    public static String lower(final String string) {
+    public static String lower(@NonNull final String string) {
         return string.toLowerCase();
     }
 
-    public static boolean alpha(final String string) {
+    public static boolean alpha(@NonNull final String string) {
         return chars(string.toLowerCase(), ALPHA);
     }
 
-    public static boolean numeric(final String string) {
+    public static boolean numeric(@NonNull final String string) {
         return chars(string.toLowerCase(), NUMERIC);
     }
 
-    public static boolean alphanumeric(final String string) {
+    public static boolean alphanumeric(@NonNull final String string) {
         return chars(string.toLowerCase(), ALPHA_NUMERIC);
     }
 
-    public static boolean url(final String string) {
+    public static boolean url(@NonNull final String string) {
         return Patterns.WEB_URL.matcher(string).matches();
     }
 
-    public static boolean email(final String string) {
+    public static boolean email(@NonNull final String string) {
         return Patterns.EMAIL_ADDRESS.matcher(string).matches();
     }
 
-    public static boolean phone(final String string) {
+    public static boolean phone(@NonNull final String string) {
         return PhoneNumberUtils.isGlobalPhoneNumber(string);
     }
 
-    private static boolean chars(final String string, final String chars) {
+    private static boolean chars(@NonNull final String string, @NonNull final String chars) {
         for (char c : string.toCharArray()) {
             if (! chars.contains(String.valueOf(c))) {
                 return false;
@@ -63,18 +66,18 @@ public class StringHelper {
         return true;
     }
 
-    public static String[] split(final String string) {
+    public static String[] split(@NonNull final String string) {
         return string.split("(?!^)");
     }
 
-    public static String withoutAccents(String string) {
+    public static String withoutAccents(@NonNull String string) {
         string = Normalizer.normalize(string, Normalizer.Form.NFD);
         // string = string.replaceAll("[^\\p{ASCII}]", ""); // ascii
         string = string.replaceAll("\\p{M}", ""); // unicode
         return string;
     }
 
-    public static String random(final String characters, final int length) {
+    public static String random(@NonNull final String characters, final int length) {
         if (length <= 0) {
             LogHelper.warning("Length was invalid");
             return null;

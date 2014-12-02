@@ -18,8 +18,6 @@ android {
 }
 
 dependencies {
-    compile 'com.intellij:annotations:12.0'
-
     compile 'com.google.android.gms:play-services:6.1.71'
 
     compile 'com.android.support:appcompat-v7:21.0.2'
