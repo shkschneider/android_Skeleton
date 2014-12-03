@@ -11,6 +11,10 @@ android {
         versionCode 2
         versionName '2.0.0'
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
     lintOptions {
         checkReleaseBuilds true
         abortOnError false
