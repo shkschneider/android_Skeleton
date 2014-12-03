@@ -19,11 +19,9 @@ import me.shkschneider.skeleton.data.GsonParser;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.NetworkHelper;
 import me.shkschneider.skeleton.java.StringHelper;
-import me.shkschneider.skeleton.ui.MySwipeRefreshLayout;
 
-public class NetworkFragment extends SkeletonFragment {
+public class NetworkFragment extends SkeletonFragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    private MySwipeRefreshLayout mMySwipeRefreshLayout;
     private ArrayAdapter<String> mAdapter;
 
     public NetworkFragment() {
@@ -69,14 +67,7 @@ public class NetworkFragment extends SkeletonFragment {
     @Override
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mMySwipeRefreshLayout = (MySwipeRefreshLayout) view.findViewById(R.id.myswiperefreshlayout);
-        mMySwipeRefreshLayout.setRefreshable(true);
-        mMySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refresh();
-            }
-        });
+        skeletonActivity().setRefreshListener(this);
         final ListView listView = (ListView) view.findViewById(R.id.listview);
         listView.setAdapter(mAdapter);
     }
@@ -86,25 +77,19 @@ public class NetworkFragment extends SkeletonFragment {
         super.onResume();
 
         if (NetworkHelper.online()) {
-            refresh();
+            onRefresh();
         }
         // TODO offline
     }
 
-    private void updateLoading() {
-        if (! skeletonActivity().loading()) {
-            mMySwipeRefreshLayout.setRefreshing(false);
-        }
-    }
-
-    public void refresh() {
+    @Override
+    public void onRefresh() {
         mAdapter.clear();
         skeletonActivity().loading(+1);
         new WebService().getJsonObject("http://ip.jsontest.com", new WebService.Callback() {
             @Override
             public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
                 skeletonActivity().loading(-1);
-                updateLoading();
                 if (e != null) {
                     ActivityHelper.toast(e.getMessage());
                     return ;
@@ -120,7 +105,6 @@ public class NetworkFragment extends SkeletonFragment {
             @Override
             public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
                 skeletonActivity().loading(-1);
-                updateLoading();
                 if (e != null) {
                     ActivityHelper.toast(e.getMessage());
                     return ;
@@ -141,7 +125,6 @@ public class NetworkFragment extends SkeletonFragment {
             @Override
             public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
                 skeletonActivity().loading(-1);
-                updateLoading();
                 if (e != null) {
                     ActivityHelper.toast(e.getMessage());
                     return ;

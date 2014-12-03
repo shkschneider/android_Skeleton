@@ -3,7 +3,6 @@ package me.shkschneider.skeleton;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import me.shkschneider.skeleton.R;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
@@ -35,7 +33,6 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigationdrawer);
         home(true);
-        logo(false);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_drawerlayout);
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
@@ -79,18 +76,18 @@ public abstract class NavigationDrawerActivity extends SkeletonActivity {
     }
 
     public void navigationDrawer(final int position) {
-        final Fragment fragment = getFragment(position);
-        if (fragment == null) {
-            LogHelper.warning("Fragment was NULL");
+        final SkeletonFragment skeletonFragment = getFragment(position);
+        if (skeletonFragment == null) {
+            LogHelper.warning("SkeletonFragment was NULL");
             return ;
         }
 
         // Clears any loading
-        indeterminateLoading(false);
+        loading(false);
 
         // Switch Fragment
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.drawer_framelayout, fragment)
+                .replace(R.id.drawer_framelayout, skeletonFragment)
                 .commit();
 
         // Updates NavigationDrawer

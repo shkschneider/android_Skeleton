@@ -39,4 +39,8 @@ public class SkeletonFragment extends Fragment {
         return mActivity;
     }
 
+    public void onRefresh() {
+        // Implement
+    }
+
 }

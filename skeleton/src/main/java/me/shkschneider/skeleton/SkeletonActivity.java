@@ -7,18 +7,16 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.view.ActionMode;
 import android.support.v7.widget.SearchView;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
-
-import com.koushikdutta.ion.Ion;
+import android.view.ViewGroup;
 
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
@@ -29,18 +27,20 @@ import me.shkschneider.skeleton.helper.LogHelper;
 public class SkeletonActivity extends ActionBarActivity {
 
     private int mLoadingCount = 0;
-    private TextView mLoadingView;
+    private SwipeRefreshLayout mSwipeRefreshlayout;
     private boolean mAlive = false;
-    private ActionMode mActionMode = null;
     private String mSearchHint;
-    private SearchCallback mSearchCallback = null; // Activated if not null
+    private SearchCallback mSearchCallback = null;
     private MenuItem mSearchMenuItem;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        super.setContentView(R.layout.swiperefreshlayout);
+        mSwipeRefreshlayout = (SwipeRefreshLayout) findViewById(R.id.swiperefreshlayout);
         // setContentView()
         home(false);
+        // logo(false);
         title(true);
 
         if (AndroidHelper.api() >= AndroidHelper.API_21) {
@@ -54,6 +54,7 @@ public class SkeletonActivity extends ActionBarActivity {
     private void init21() {
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
+            // Material Design style
             getSupportActionBar().setElevation(0F);
         }
 
@@ -62,6 +63,60 @@ public class SkeletonActivity extends ActionBarActivity {
         final int color = getResources().getColor(R.color.primaryColor);
         final ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(name, icon, color);
         setTaskDescription(taskDescription);
+    }
+
+    // Refresh
+    // <https://gist.github.com/antoniolg/9837398>
+
+    @Override
+    public void setContentView(final int layoutResID) {
+        final View view = getLayoutInflater().inflate(layoutResID, mSwipeRefreshlayout, false);
+        setContentView(view);
+    }
+
+    @Override
+    public void setContentView(final View view) {
+        setContentView(view, view.getLayoutParams());
+    }
+
+    @Override
+    public void setContentView(final View view, final ViewGroup.LayoutParams params) {
+        mSwipeRefreshlayout.addView(view, params);
+        mSwipeRefreshlayout.setOnRefreshListener(null);
+        mSwipeRefreshlayout.setEnabled(false);
+        mSwipeRefreshlayout.setColorSchemeResources(R.color.primaryColor);
+        mSwipeRefreshlayout.setRefreshing(false);
+    }
+
+    public void setRefreshListener(@NonNull final SwipeRefreshLayout.OnRefreshListener onRefreshListener) {
+        // Resets loading count to avoid side-effects upon re-loading
+        mLoadingCount = 0;
+        mSwipeRefreshlayout.setOnRefreshListener(onRefreshListener);
+        mSwipeRefreshlayout.setEnabled(true);
+        mSwipeRefreshlayout.setRefreshing(false);
+    }
+
+    public boolean loading() {
+        return (mLoadingCount > 0);
+    }
+
+    public void loading(final int i) {
+        mLoadingCount += i;
+        if (mLoadingCount < 0) {
+            mLoadingCount = 0;
+        }
+        loading((mLoadingCount > 0));
+    }
+
+    public void loading(final boolean b) {
+        if (! b) {
+            // Resets loading count to avoid side-effects upon re-loading
+            mLoadingCount = 0;
+            mSwipeRefreshlayout.setRefreshing(false);
+        }
+        else if (! mSwipeRefreshlayout.isRefreshing()) {
+            mSwipeRefreshlayout.setRefreshing(true);
+        }
     }
 
     // Alive
@@ -132,86 +187,12 @@ public class SkeletonActivity extends ActionBarActivity {
     }
 
     // Search
+    // <http://stackoverflow.com/questions/18438890>
 
     public void searchable(final String hint, final SearchCallback searchCallback) {
         mSearchHint = hint;
         mSearchCallback = searchCallback;
         // AVOID supportInvalidateOptionsMenu()
-    }
-
-    // Loading
-
-    public boolean loading() {
-        // Checking ActionMode is more reliable as mLoadingCount
-        return (mActionMode != null);
-    }
-
-    // Increments or decrements the loading stack
-    public void loading(final int i) {
-        mLoadingCount += i;
-        updateLoading(ApplicationHelper.debug());
-    }
-
-    // Resets loading to true or false
-    public void indeterminateLoading(final boolean b) {
-        mLoadingCount = (b ? 1 : 0);
-        updateLoading(false);
-    }
-
-    public int loadingCount() {
-        return mLoadingCount;
-    }
-
-    private void updateLoading(final boolean showCount) {
-        // Just to be safe: can happen with loading(-1) after an indeterminateLoading(false)
-        if (mLoadingCount < 0) {
-            mLoadingCount = 0;
-        }
-        if (mLoadingCount == 0) {
-            if (mActionMode != null) {
-                mActionMode.finish();
-                mActionMode = null;
-                mLoadingView.setText("");
-                mLoadingView = null;
-            }
-            return ;
-        }
-         final boolean actionBarVisible = (getSupportActionBar() != null && getSupportActionBar().isShowing());
-        if (actionBarVisible && ! loading()) {
-            mActionMode = startSupportActionMode(new ActionMode.Callback() {
-                @SuppressLint("InflateParams") // inflater has no ViewGroup
-                @Override
-                public boolean onCreateActionMode(final ActionMode actionMode, final Menu menu) {
-                    final LayoutInflater layoutInflater = LayoutInflater.from(SkeletonActivity.this);
-                    final View view = layoutInflater.inflate(R.layout.actionmode_loading, null);
-                    ((TextView) view.findViewById(R.id.title)).setText(getSupportActionBar().getTitle());
-                    mLoadingView = (TextView) view.findViewById(R.id.loading);
-                    actionMode.setCustomView(view);
-                    return true;
-                }
-
-                @Override
-                public boolean onPrepareActionMode(final ActionMode actionMode, final Menu menu) {
-                    return false;
-                }
-
-                @Override
-                public boolean onActionItemClicked(final ActionMode actionMode, final MenuItem menuItem) {
-                    return false;
-                }
-
-                @Override
-                public void onDestroyActionMode(final ActionMode actionMode) {
-                    stopLoading();
-                }
-            });
-        }
-        if (showCount) {
-            mLoadingView.setText(String.valueOf(mLoadingCount));
-        }
-        else {
-            mLoadingView.setText("");
-        }
     }
 
     @Override
@@ -299,21 +280,18 @@ public class SkeletonActivity extends ActionBarActivity {
         KeyboardHelper.hide(searchView.getWindowToken());
     }
 
-    protected void stopLoading() {
-        // cancels all network calls
-        Ion.getDefault(this).cancelAll();
-    }
-
-    @Override
-    public void onBackPressed() {
-        finish();
-    }
-
     public static interface SearchCallback {
 
         public void onSearchTextChange(final String q);
         public void onSearchTextSubmit(final String q);
 
+    }
+
+    // Navigation
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 
     public static interface NavigationCallback {
