@@ -39,6 +39,19 @@ public class ScreenHelper {
         }
     }
 
+    public static float brightness(@NonNull final Window window) {
+        // from 0 (dark) to 1 (bright)
+        return window.getAttributes().screenBrightness;
+    }
+
+    public static boolean brightness(@NonNull final Window window, final float brightness) {
+        // -1 resets to default
+        final WindowManager.LayoutParams layoutParams = window.getAttributes();
+        layoutParams.screenBrightness = brightness;
+        window.setAttributes(layoutParams);
+        return true;
+    }
+
     @SuppressWarnings("deprecation")
     @SuppressLint("deprecation")
     private static boolean onOld(@NonNull final PowerManager powerManager) {
