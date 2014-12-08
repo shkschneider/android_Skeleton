@@ -38,19 +38,21 @@ android {
             // applicationIdSuffix '.debug'
             // versionNameSuffix '-DEBUG'
             debuggable true
-            jniDebugBuild true
-            zipAlign false
-            runProguard false
-            // proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            jniDebuggable false
+            zipAlignEnabled true
             signingConfig signingConfigs.debug
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt')
+            shrinkResources false
         }
         release {
             debuggable false
-            jniDebugBuild false
-            zipAlign true
-            runProguard false
-            // proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            jniDebuggable false
+            zipAlignEnabled true
             signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt')
+            shrinkResources true
         }
     }
 }
