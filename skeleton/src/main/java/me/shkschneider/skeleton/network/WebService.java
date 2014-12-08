@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton;
+package me.shkschneider.skeleton.network;
 
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
@@ -13,6 +13,7 @@ import com.koushikdutta.ion.builder.LoadBuilder;
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
+import me.shkschneider.skeleton.SkeletonApplication;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
 import me.shkschneider.skeleton.helper.LogHelper;

@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.ui;
+package me.shkschneider.skeleton.ui.viewpager;
 
 import android.content.Context;
 import android.util.AttributeSet;

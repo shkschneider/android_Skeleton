@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.ui;
+package me.shkschneider.skeleton.ui.viewpager;
 
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;

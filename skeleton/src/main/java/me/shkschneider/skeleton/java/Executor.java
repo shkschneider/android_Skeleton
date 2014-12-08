@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton;
+package me.shkschneider.skeleton.java;
 
 import android.os.Handler;
 import android.support.annotation.NonNull;

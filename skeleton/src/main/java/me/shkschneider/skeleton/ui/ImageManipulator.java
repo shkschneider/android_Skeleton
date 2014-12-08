@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton;
+package me.shkschneider.skeleton.ui;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,6 +18,8 @@ import android.widget.RelativeLayout;
 
 import java.io.InputStream;
 
+import me.shkschneider.skeleton.R;
+import me.shkschneider.skeleton.SkeletonApplication;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.ScreenHelper;

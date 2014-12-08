@@ -22,11 +22,11 @@ import me.shkschneider.app.fragment.FloatingActionButtonFragment;
 import me.shkschneider.app.fragment.MainFragment;
 import me.shkschneider.app.fragment.NetworkFragment;
 import me.shkschneider.app.fragment.RecyclerFragment;
-import me.shkschneider.skeleton.NavigationDrawerActivity;
+import me.shkschneider.skeleton.SkeletonNavigationDrawerActivity;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.IntentHelper;
 
-public class MainActivity extends NavigationDrawerActivity {
+public class MainActivity extends SkeletonNavigationDrawerActivity {
 
     public static final int NAVIGATION_MAIN = 0;
     public static final int NAVIGATION_VIEWPAGERTEXTINDICATOR = 1;

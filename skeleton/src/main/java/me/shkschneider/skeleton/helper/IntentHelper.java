@@ -13,7 +13,8 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import me.shkschneider.skeleton.ImageManipulator;
+import me.shkschneider.skeleton.network.NetworkHelper;
+import me.shkschneider.skeleton.ui.ImageManipulator;
 import me.shkschneider.skeleton.SkeletonApplication;
 import me.shkschneider.skeleton.data.MimeTypeHelper;
 

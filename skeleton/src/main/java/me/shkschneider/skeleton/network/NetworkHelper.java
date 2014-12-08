@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.helper;
+package me.shkschneider.skeleton.network;
 
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -19,6 +19,8 @@ import java.util.Enumeration;
 import java.util.List;
 
 import me.shkschneider.skeleton.SkeletonApplication;
+import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.SystemHelper;
 import me.shkschneider.skeleton.java.StringHelper;
 
 public class NetworkHelper {

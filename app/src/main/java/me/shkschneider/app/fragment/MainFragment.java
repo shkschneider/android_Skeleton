@@ -13,14 +13,15 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import me.shkschneider.app.R;
-import me.shkschneider.skeleton.ImageManipulator;
+import me.shkschneider.skeleton.ui.ImageManipulator;
 import me.shkschneider.skeleton.SkeletonFragment;
-import me.shkschneider.skeleton.WebService;
+import me.shkschneider.skeleton.network.WebService;
 import me.shkschneider.skeleton.data.GsonParser;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.ui.LoadingImageView;
+import me.shkschneider.skeleton.ui.TooltipView;
 
 public class MainFragment extends SkeletonFragment {
 
@@ -51,6 +52,8 @@ public class MainFragment extends SkeletonFragment {
                 startActivity(IntentHelper.url(URL));
             }
         });
+        TooltipView.showToolTip(view.getContext(), github, "test");
+        // TooltipView.with(github).color(R.color.primaryColor);
 
         final String url = String.format("http://gravatar.com/%s.json", AUTHOR.toLowerCase());
         new WebService().getJsonObject(url, new WebService.Callback() {

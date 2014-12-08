@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import java.util.concurrent.TimeUnit;
 
-import me.shkschneider.skeleton.Executor;
+import me.shkschneider.skeleton.java.Executor;
 import me.shkschneider.skeleton.R;
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ScreenHelper;

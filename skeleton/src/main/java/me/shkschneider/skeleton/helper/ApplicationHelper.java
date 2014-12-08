@@ -1,8 +1,6 @@
 package me.shkschneider.skeleton.helper;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -11,7 +9,6 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.provider.Settings;
 
 import java.lang.reflect.Field;
@@ -20,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 import me.shkschneider.skeleton.BuildConfig;
-import me.shkschneider.skeleton.ImageManipulator;
+import me.shkschneider.skeleton.ui.ImageManipulator;
 import me.shkschneider.skeleton.SkeletonApplication;
 
 public class ApplicationHelper {

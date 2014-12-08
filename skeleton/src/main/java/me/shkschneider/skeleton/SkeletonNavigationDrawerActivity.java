@@ -16,7 +16,7 @@ import android.widget.ListView;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
-public abstract class NavigationDrawerActivity extends SkeletonActivity {
+public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity {
 
     public static final String TAB = "tab";
 

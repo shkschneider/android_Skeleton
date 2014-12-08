@@ -18,8 +18,8 @@ import me.shkschneider.app.R;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.java.StringHelper;
-import me.shkschneider.skeleton.ui.ViewPagerIndicatorAdapter;
-import me.shkschneider.skeleton.ui.ViewPagerIndicator;
+import me.shkschneider.skeleton.ui.viewpager.ViewPagerIndicatorAdapter;
+import me.shkschneider.skeleton.ui.viewpager.ViewPagerIndicator;
 
 public class ViewPagerIconIndicatorFragment extends SkeletonFragment {
 

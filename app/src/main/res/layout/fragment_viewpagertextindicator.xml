@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <me.shkschneider.skeleton.ui.ActionBarViewPagerTextIndicator
+    <me.shkschneider.skeleton.ui.viewpager.ActionBarViewPagerTextIndicator
         android:id="@+id/pagertabstrip"
         android:layout_width="match_parent"
         android:layout_height="@dimen/spaceMedium" />

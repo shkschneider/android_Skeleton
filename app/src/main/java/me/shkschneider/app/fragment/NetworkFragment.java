@@ -14,10 +14,10 @@ import com.google.gson.JsonObject;
 
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.SkeletonFragment;
-import me.shkschneider.skeleton.WebService;
+import me.shkschneider.skeleton.network.WebService;
 import me.shkschneider.skeleton.data.GsonParser;
 import me.shkschneider.skeleton.helper.ActivityHelper;
-import me.shkschneider.skeleton.helper.NetworkHelper;
+import me.shkschneider.skeleton.network.NetworkHelper;
 import me.shkschneider.skeleton.java.StringHelper;
 
 public class NetworkFragment extends SkeletonFragment implements SwipeRefreshLayout.OnRefreshListener {
