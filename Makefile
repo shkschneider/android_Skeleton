@@ -1,38 +1,44 @@
-PACKAGE_NAME=$(shell grep applicationId app/build.gradle | rev | cut -d' ' -f1 | rev | tr -d \')
-VERSION_NAME=$(shell grep versionName app/build.gradle | rev | cut -d' ' -f1 | rev | tr -d \')
-VERSION_CODE=$(shell grep versionCode app/build.gradle | rev | cut -d' ' -f1 | rev | tr -d \')
-GRADLE = bash gradlew
-CP = cp
-RM = rm -f
+# Makefile
+
+NAME		= app
+PACKAGE_NAME	= $(shell grep 'applicationId' $(NAME)/build.gradle | head -1 | rev | cut -d' ' -f1 | rev | tr -d \' | tr -d \")
+MIN_SDK		= $(shell grep 'minSdkVersion' $(NAME)/build.gradle | head -1 | rev | cut -d' ' -f1 | rev)
+TARGET_SDK	= $(shell grep 'targetSdkVersion' $(NAME)/build.gradle | head -1 | rev | cut -d' ' -f1 | rev)
+VERSION_NAME	= $(shell grep 'versionName' $(NAME)/build.gradle | head -1 | rev | cut -d' ' -f1 | rev | tr -d \' | tr -d \")
+VERSION_CODE	= $(shell grep 'versionCode' $(NAME)/build.gradle | head -1 | rev | cut -d' ' -f1 | rev | tr -d \' | tr -d \")
+VERSION		= "v$(VERSION_NAME)r$(VERSION_CODE)"
+GRADLE		= bash gradlew
 
 all:
-	@echo "$(PACKAGE_NAME) v$(VERSION_NAME) r$(VERSION_CODE)"
-	@echo
-	@echo "debug release clean distclean"
+	@echo "[ $(PACKAGE_NAME) $(VERSION) ]"
+	@echo "debug release lint clean distclean"
 
 debug:
-	@echo "$(PACKAGE_NAME)-$(VERSION_NAME)-$(VERSION_CODE).apk"
-	@echo
-	@$(GRADLE) assembleDebug installDebug
-	@$(CP) $(NAME)/build/outputs/apk/$(NAME)-debug.apk "$(PACKAGE_NAME)-debug-$(VERSION_NAME)-$(VERSION_CODE).apk"
+	@echo "[ $(PACKAGE_NAME) $(VERSION) ]"
+	@$(GRADLE) assembleDebug #installDebug
+	@cp "$(NAME)/build/outputs/apk/$(NAME)-debug.apk" "$(PACKAGE_NAME)-debug-$(VERSION).apk"
+	@echo "$(PACKAGE_NAME)-debug-$(VERSION).apk"
 
 release:
-	@echo "$(PACKAGE_NAME)-$(VERSION_NAME)-$(VERSION_CODE).apk"
-	@echo
-	@$(GRADLE) assembleRelease installDebug
-	@$(CP) $(NAME)/build/outputs/apk/$(NAME)-release.apk "$(PACKAGE_NAME)-release-$(VERSION_NAME)-$(VERSION_CODE).apk"
+	@echo "[ $(PACKAGE_NAME) $(VERSION) ]"
+	@$(GRADLE) assembleRelease #installDebug
+	@cp "$(NAME)/build/outputs/apk/$(NAME)-release.apk" "$(PACKAGE_NAME)-release-$(VERSION).apk"
+	@echo "$(PACKAGE_NAME)-release-$(VERSION).apk"
 
 lint:
-	@echo "$(PACKAGE_NAME)-$(VERSION_NAME)-$(VERSION_CODE).apk"
-	@echo
+	@echo "[ $(PACKAGE_NAME) $(VERSION) ]"
 	@$(GRADLE) :app:lint
 	@echo "app/build/outputs/lint-results.html"
 	@echo "app/build/outputs/lint-results.xml"
 
 clean:
+	@echo "[ $(PACKAGE_NAME) $(VERSION) ]"
 	@$(GRADLE) clean
 
-distclean: clean
-	@$(RM) *.apk
+distclean:
+	@echo "[ $(PACKAGE_NAME) $(VERSION) ]"
+	@rm -f "*.apk"
 
-.PHONE: all debug release clean distclean
+.PHONE: all debug release lint clean distclean
+
+# EOF

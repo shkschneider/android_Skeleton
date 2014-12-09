@@ -42,8 +42,6 @@ android {
             zipAlignEnabled true
             signingConfig signingConfigs.debug
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt')
-            shrinkResources false
         }
         release {
             debuggable false
@@ -51,8 +49,8 @@ android {
             zipAlignEnabled true
             signingConfig signingConfigs.release
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt')
-            shrinkResources true
+            // proguardFiles getDefaultProguardFile('proguard-android.txt')
+            // shrinkResources true
         }
     }
 }
@@ -77,6 +75,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
 }
 
+// FIXME
 task run(type: Exec) {
     def rootDir = project.rootDir
     def localProperties = new File(rootDir, "local.properties")
