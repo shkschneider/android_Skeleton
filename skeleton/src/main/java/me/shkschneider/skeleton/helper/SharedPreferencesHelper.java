@@ -18,7 +18,8 @@ public class SharedPreferencesHelper {
 
     public static boolean putPublic(@NonNull final String key, final String value) {
         LogHelper.debug(key + " = " + value);
-        return getPublic().edit().putString(key, value).commit();
+        getPublic().edit().putString(key, value).apply();
+        return true;
     }
 
     public static String getPublic(@NonNull final String key, final String defaultValue) {
@@ -38,7 +39,8 @@ public class SharedPreferencesHelper {
 
     public static boolean putPrivate(@NonNull final String name, @NonNull final String key, final String value) {
         LogHelper.debug(key + " = " + value);
-        return getPrivate(name).edit().putString(key, value).commit();
+        getPrivate(name).edit().putString(key, value).apply();
+        return true;
     }
 
     public static String getPrivate(@NonNull final String name, @NonNull final String key, final String defaultValue) {
