@@ -18,3 +18,4 @@ proguard_logs/
 *.iws
 .idea/
 *.log
+me.shkschneider.*
