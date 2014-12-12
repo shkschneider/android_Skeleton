@@ -39,6 +39,7 @@ public class NetworkHelper {
     }
 
     public static String userAgent() {
+        // System.getProperty("http.agent");
         return new WebView(SkeletonApplication.CONTEXT).getSettings().getUserAgentString();
     }
 
