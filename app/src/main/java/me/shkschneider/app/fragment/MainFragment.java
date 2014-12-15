@@ -52,7 +52,7 @@ public class MainFragment extends SkeletonFragment {
                 startActivity(IntentHelper.url(URL));
             }
         });
-        TooltipView.showToolTip(view.getContext(), github, "test");
+        // TooltipView.showToolTip(getActivity(), github, "test");
         // TooltipView.with(github).color(R.color.primaryColor);
 
         final String url = String.format("http://gravatar.com/%s.json", AUTHOR.toLowerCase());
@@ -85,7 +85,7 @@ public class MainFragment extends SkeletonFragment {
                 final String displayName = GsonParser.string(entry, "displayName");
                 textView1.setText(displayName);
                 final String currentLocation = GsonParser.string(entry, "currentLocation");
-                textView2.setText(currentLocation);;
+                textView2.setText(currentLocation);
             }
         });
     }
