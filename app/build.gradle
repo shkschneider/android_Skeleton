@@ -1,25 +1,15 @@
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion '19.1.0'
+    compileSdkVersion 21
+    buildToolsVersion '21.1.2'
 
     defaultConfig {
-        minSdkVersion 10
-        targetSdkVersion 19
+        applicationId 'me.shkschneider.app'
+        minSdkVersion 14
+        targetSdkVersion 21
         versionCode 300
-        versionName "3.0.0"
-    }
-    sourceSets.main {
-        manifest.srcFile 'AndroidManifest.xml'
-        assets.srcDirs = ['assets']
-        // libs
-        jniLibs.srcDirs = ['native-libs']
-        aidl.srcDirs = ['res']
-        res.srcDirs = ['res']
-        renderscript.srcDirs = ['src']
-        resources.srcDirs = ['src']
-        java.srcDirs = ['src']
+        versionName '3.0.0'
     }
     signingConfigs {
         main {
@@ -29,26 +19,33 @@ android {
             keyPassword 'android'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
     lintOptions {
         checkReleaseBuilds false
         abortOnError false
     }
     buildTypes {
         debug {
+            // applicationIdSuffix '.debug'
+            // versionNameSuffix '-DEBUG'
+            // buildConfigField BOOLEAN, IS_DEV, TRUE
             debuggable true
-            jniDebugBuild true
-            zipAlign true
-            runProguard false
-            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            jniDebuggable false
+            zipAlignEnabled true
             signingConfig signingConfigs.main
+            minifyEnabled false
         }
         release {
             debuggable false
-            jniDebugBuild false
-            zipAlign true
-            runProguard false
-            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            jniDebuggable false
+            zipAlignEnabled true
             signingConfig signingConfigs.main
+            minifyEnabled false
+            // proguardFiles getDefaultProguardFile('proguard-android.txt')
+            // shrinkResources true
         }
     }
 }

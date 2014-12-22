@@ -1,0 +1,21 @@
+<resources>
+
+    <!-- Theme colors (Material Design) -->
+
+    <color name="primaryColor">@color/color</color> <!-- lighter (500 tone) -->
+    <color name="primaryColorDark">@color/color</color> <!-- darker (700 tone) -->
+    <!--
+        statusBarColor
+        navigationBarColor
+        actionBarColor
+        actionBarForegroundColor
+        contentBackgroundColor
+        cellBackgroundColor
+        navigationDrawerBackgroundColor
+        textPrimaryColor
+        textSecondaryColor
+    -->
+
+    <!-- ... -->
+
+</resources>

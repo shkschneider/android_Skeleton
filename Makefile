@@ -63,6 +63,6 @@ distclean: clean
 	@echo "$(DIST)/*.aar"
 	@rm -rf $(DIST)/*.aar
 
-.PHONY: bump debug release clean distclean
+.PHONY: debug release clean distclean
 
 # EOF

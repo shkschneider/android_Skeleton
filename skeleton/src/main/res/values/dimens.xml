@@ -1,0 +1,57 @@
+<resources>
+
+    <dimen name="statusBar">24dp</dimen>
+    <dimen name="actionBar">48dp</dimen>
+    <dimen name="navigationBar">48dp</dimen>
+
+    <dimen name="viewPagerIndicatorHeight">8dp</dimen>
+    <!-- <http://www.google.com/design/spec/components/snackbars-toasts.html#snackbars-toasts-specs> -->
+    <dimen name="snackBarSingle">48dp</dimen>
+    <dimen name="snackBarMulti">80dp</dimen>
+    <!-- <http://www.google.com/design/spec/components/buttons.html#buttons-floating-action-button> -->
+    <dimen name="floatingActionButtonNormal">56dp</dimen>
+    <dimen name="floatingActionButtonMini">40dp</dimen>
+    <dimen name="floatingActionButtonIconSize">24dp</dimen>
+    <dimen name="floatingActionButtonPlusIconSize">14dp</dimen>
+    <dimen name="floatingActionButtonPlusIconStroke">2dp</dimen>
+    <dimen name="floatingActionButtonShadowOffset">3dp</dimen>
+    <dimen name="floatingActionButtonShadowRadius">9dp</dimen>
+    <dimen name="floatingActionButtonStrokeWidth">0.5dp</dimen>
+    <dimen name="floatingActionButtonActionSpacing">16dp</dimen>
+
+    <dimen name="spaceNull">0dp</dimen>
+    <dimen name="spacePico">2dp</dimen>
+    <dimen name="spaceMicro">4dp</dimen>
+    <dimen name="spaceTiny">8dp</dimen>
+    <dimen name="spaceTinish">12sp</dimen> <!-- bonus -->
+    <dimen name="spaceSmaller">16dp</dimen>
+    <dimen name="spaceSmallerish">18dp</dimen> <!-- bonus -->
+    <dimen name="spaceSmallish">24dp</dimen> <!-- bonus -->
+    <dimen name="spaceSmall">32dp</dimen>
+    <dimen name="spaceMedium">48dp</dimen>
+    <dimen name="spaceLarge">72dp</dimen>
+    <dimen name="spaceLarger">96dp</dimen>
+    <dimen name="spaceBig">144dp</dimen>
+    <dimen name="spaceHuge">192dp</dimen>
+
+    <dimen name="screenLdpi">120dp</dimen>
+    <dimen name="screenMdpi">160dp</dimen>
+    <dimen name="screenHdpi">240dp</dimen>
+    <dimen name="screenXhdpi">360dp</dimen>
+    <dimen name="screenXxhdpi">480dp</dimen>
+    <dimen name="screenXXXhdpi">640dp</dimen>
+
+    <dimen name="textSizePico">6sp</dimen>
+    <dimen name="textSizeMicro">8sp</dimen>
+    <dimen name="textSizeTiny">10sp</dimen>
+    <dimen name="textSizeSmaller">12sp</dimen>
+    <dimen name="textSizeSmall">14sp</dimen>
+    <dimen name="textSizeSmallish">16sp</dimen> <!-- bonus -->
+    <dimen name="textSizeMedium">18sp</dimen>
+    <dimen name="textSizeMediumish">20sp</dimen> <!-- bonus -->
+    <dimen name="textSizeLarge">22sp</dimen>
+    <dimen name="textSizeLarger">24sp</dimen>
+    <dimen name="textSizeBig">26sp</dimen>
+    <dimen name="textSizeHuge">28sp</dimen>
+
+</resources>

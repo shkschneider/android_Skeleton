@@ -1,0 +1,11 @@
+<resources>
+
+    <dimen name="actionBar">56dp</dimen>
+
+    <dimen name="elevation1">1dp</dimen>
+    <dimen name="elevation2">2dp</dimen>
+    <dimen name="elevation3">3dp</dimen>
+    <dimen name="elevation4">4dp</dimen>
+    <dimen name="elevation5">5dp</dimen>
+
+</resources>
