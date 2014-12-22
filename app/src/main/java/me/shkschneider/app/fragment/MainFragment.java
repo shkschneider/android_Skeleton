@@ -21,7 +21,8 @@ import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.ui.LoadingImageView;
-import me.shkschneider.skeleton.ui.TooltipView;
+import me.shkschneider.skeleton.ui.TooltipView1;
+import me.shkschneider.skeleton.ui.TooltipView2;
 
 public class MainFragment extends SkeletonFragment {
 
@@ -52,8 +53,7 @@ public class MainFragment extends SkeletonFragment {
                 startActivity(IntentHelper.url(URL));
             }
         });
-        // TooltipView.showToolTip(getActivity(), github, "test");
-        // TooltipView.with(github).color(R.color.primaryColor);
+        TooltipView1.showToolTip(getActivity(), github, "test");
 
         final String url = String.format("http://gravatar.com/%s.json", AUTHOR.toLowerCase());
         new WebService().getJsonObject(url, new WebService.Callback() {
@@ -61,7 +61,7 @@ public class MainFragment extends SkeletonFragment {
             public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
                 if (e != null) {
                     ActivityHelper.toast(e.getMessage());
-                    return ;
+                    return;
                 }
                 final JsonObject jsonObject = (JsonObject) result;
                 final JsonArray entries = GsonParser.array(jsonObject, "entry");
@@ -71,12 +71,12 @@ public class MainFragment extends SkeletonFragment {
                     @Override
                     public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
                         if (e != null) {
-                            return ;
+                            return;
                         }
                         final Bitmap bitmap = (Bitmap) result;
                         if (bitmap == null) {
                             LogHelper.warning("Bitmap was NULL");
-                            return ;
+                            return;
                         }
                         loadingImageView.getImageView().setImageBitmap(ImageManipulator.circular(bitmap));
                         loadingImageView.showImageView();

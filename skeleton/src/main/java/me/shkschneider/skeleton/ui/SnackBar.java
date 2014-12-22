@@ -20,9 +20,9 @@ import android.widget.TextView;
 
 import java.util.concurrent.TimeUnit;
 
-import me.shkschneider.skeleton.java.Executor;
 import me.shkschneider.skeleton.R;
 import me.shkschneider.skeleton.helper.AndroidHelper;
+import me.shkschneider.skeleton.helper.RunnableHelper;
 import me.shkschneider.skeleton.helper.ScreenHelper;
 import me.shkschneider.skeleton.java.StringHelper;
 
@@ -159,7 +159,7 @@ public class SnackBar extends RelativeLayout {
         setVisibility(View.VISIBLE);
         startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.snackbar_show_animation));
         final int duration = ((! StringHelper.nullOrEmpty(mAction)) ? DURATION_LONG : DURATION_SHORT);
-        Executor.delayRunnable(new Runnable() {
+        RunnableHelper.delayRunnable(new Runnable() {
             @Override
             public void run() {
                 dismiss();
