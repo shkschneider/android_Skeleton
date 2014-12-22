@@ -2,7 +2,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
-    <me.shkschneider.skeleton.ui.SwitchCompatPreference
+    <SwitchPreference
         android:key="switch"
         android:title="Switch"
         android:summary="@null" />
