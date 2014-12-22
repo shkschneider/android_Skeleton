@@ -53,7 +53,8 @@ public class MainFragment extends SkeletonFragment {
                 startActivity(IntentHelper.url(URL));
             }
         });
-        TooltipView1.showToolTip(getActivity(), github, "test");
+        // FIXME TooltipView1.showToolTip(getActivity(), github, "test");
+        // FIXME TooltipView2.with(github);
 
         final String url = String.format("http://gravatar.com/%s.json", AUTHOR.toLowerCase());
         new WebService().getJsonObject(url, new WebService.Callback() {
