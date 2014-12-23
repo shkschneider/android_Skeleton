@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <me.shkschneider.skeleton.ui.viewpager.ActionBarViewPagerLineIndicator
-        android:id="@+id/pagertabstrip"
+        android:id="@+id/viewpagerindicator"
         android:layout_width="match_parent"
         android:layout_height="@dimen/viewPagerIndicatorHeight" />
 

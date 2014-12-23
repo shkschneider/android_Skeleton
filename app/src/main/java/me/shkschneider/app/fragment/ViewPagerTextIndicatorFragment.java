@@ -50,7 +50,7 @@ public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         // viewPager.setOffscreenPageLimit()
         viewPager.setAdapter(mPagerAdapter);
-        final ViewPagerIndicator viewPagerIndicator = (ViewPagerIndicator) view.findViewById(R.id.pagertabstrip);
+        final ViewPagerIndicator viewPagerIndicator = (ViewPagerIndicator) view.findViewById(R.id.viewpagerindicator);
         if (viewPagerIndicator != null) {
             viewPagerIndicator.setViewPager(viewPager);
         }
@@ -59,10 +59,12 @@ public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
     @Override
     public void onResume() {
         super.onResume();
-        refresh();
+        onRefresh();
     }
 
-    public void refresh() {
+    @Override
+    public void onRefresh() {
+        super.onRefresh();
         mPagerAdapter.notifyDataSetChanged();
     }
 
@@ -99,13 +101,11 @@ public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
         public static DummyFragment newInstance(final int position) {
             final DummyFragment dummyFragment = new DummyFragment();
             final Bundle bundle = new Bundle();
-            bundle.putString(TITLE, String.format("Page #%d", position).toUpperCase());
             bundle.putInt(POSITION, position);
             dummyFragment.setArguments(bundle);
             return dummyFragment;
         }
 
-        private static final String TITLE = "title";
         private static final String POSITION = "position";
 
         private ArrayAdapter<String> mAdapter;
@@ -114,7 +114,7 @@ public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
-            title(getArguments().getString(TITLE));
+            title(title());
             final LayoutInflater layoutInflater = LayoutInflater.from(skeletonActivity());
             mAdapter = new ArrayAdapter<String>(skeletonActivity(), R.layout.listview_item1) {
                 @Override
@@ -135,6 +135,7 @@ public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
                 public boolean isEnabled(final int position) {
                     return false;
                 }
+
             };
         }
 
@@ -148,16 +149,18 @@ public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
 
         @Override
         public String title() {
-            return getArguments().getString(TITLE);
+            return String.format("Page #%d", getArguments().getInt(POSITION)).toUpperCase();
         }
 
         @Override
         public void onResume() {
             super.onResume();
-            refresh();
+            onRefresh();
         }
 
-        public void refresh() {
+        @Override
+        public void onRefresh() {
+            super.onRefresh();
             final int position = getArguments().getInt(POSITION);
             final int n = 16;
             mAdapter.clear();
