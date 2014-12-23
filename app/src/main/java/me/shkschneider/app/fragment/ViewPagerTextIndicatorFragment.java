@@ -1,5 +1,6 @@
 package me.shkschneider.app.fragment;
 
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -141,10 +142,13 @@ public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
 
         @Override
         public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-            final View view = inflater.inflate(R.layout.fragment_listview, container, false);
-            final ListView listView = (ListView) view.findViewById(R.id.listview);
-            listView.setAdapter(mAdapter);
-            return view;
+            return inflater.inflate(R.layout.fragment_listview, container, false);
+        }
+
+        @Override
+        public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+            ((ListView) view.findViewById(R.id.listview)).setAdapter(mAdapter);
         }
 
         @Override

@@ -4,7 +4,6 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.view.View;
 
 public class ViewPagerIndicatorAdapter extends FragmentStatePagerAdapter {
 
@@ -29,11 +28,6 @@ public class ViewPagerIndicatorAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(final int position) {
         return null;
-    }
-
-    @Override
-    public boolean isViewFromObject(final View view, final Object o) {
-        return false;
     }
 
 }
