@@ -2,6 +2,7 @@ package me.shkschneider.skeleton.ui;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -20,6 +21,7 @@ import android.view.animation.Interpolator;
 import android.view.animation.OvershootInterpolator;
 
 import me.shkschneider.skeleton.R;
+import me.shkschneider.skeleton.helper.AndroidHelper;
 
 // <https://github.com/futuresimple/android-floating-action-button>
 public class FloatingActionMenu extends ViewGroup {
@@ -49,12 +51,17 @@ public class FloatingActionMenu extends ViewGroup {
     }
 
     public FloatingActionMenu(final Context context, final AttributeSet attrs) {
-        super(context, attrs);
-        init();
+        this(context, attrs, 0);
     }
 
     public FloatingActionMenu(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
+        init();
+    }
+
+    @TargetApi(AndroidHelper.API_21)
+    public FloatingActionMenu(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
         init();
     }
 

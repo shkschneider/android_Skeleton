@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.ui;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -19,8 +20,6 @@ import android.graphics.drawable.StateListDrawable;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
-import android.view.View;
-import android.view.ViewParent;
 import android.widget.ImageButton;
 
 import me.shkschneider.skeleton.R;
@@ -51,12 +50,17 @@ public class FloatingActionButton extends ImageButton {
     }
 
     public FloatingActionButton(final Context context, final AttributeSet attrs) {
-        super(context, attrs);
-        init();
+        this(context, attrs, 0);
     }
 
     public FloatingActionButton(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
+        init();
+    }
+
+    @TargetApi(AndroidHelper.API_21)
+    public FloatingActionButton(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
         init();
     }
 
