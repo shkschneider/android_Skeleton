@@ -46,6 +46,22 @@ public class FloatingActionButtonFragment extends SkeletonFragment {
         // floatingActionMenu.setButtonColor()
         // floatingActionMenu.setPlusColor()
         // floatingActionMenu.setExpandDirection()
+        floatingActionMenu.setOnFloatingActionsMenuUpdateListener(new FloatingActionMenu.OnFloatingActionsMenuUpdateListener() {
+            private int count = 0;
+
+            @Override
+            public void onMenuExpanded() {
+                count++;
+                if (count == 5) {
+                    ActivityHelper.toast("Easter Egg");
+                }
+            }
+
+            @Override
+            public void onMenuCollapsed() {
+                // Ignore
+            }
+        });
 
         final FloatingActionButton floatingActionButton1 = (FloatingActionButton) view.findViewById(R.id.floatingActionButton1);
         floatingActionButton1.setColors(R.color.primaryColor, R.color.accentColor);

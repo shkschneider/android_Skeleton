@@ -41,7 +41,7 @@ public class FloatingActionMenu extends ViewGroup {
     private AnimatorSet mExpandAnimation = new AnimatorSet().setDuration(ANIMATION_DURATION);
     private AnimatorSet mCollapseAnimation = new AnimatorSet().setDuration(ANIMATION_DURATION);
     private AddFloatingActionButton mAddButton;
-    private RotatingDrawable mRotatingDrawable;
+    private OnFloatingActionsMenuUpdateListener mListener;
 
     public FloatingActionMenu(final Context context) {
         this(context, null);
@@ -140,7 +140,6 @@ public class FloatingActionMenu extends ViewGroup {
             @Override
             protected Drawable getIconDrawable() {
                 final RotatingDrawable rotatingDrawable = new RotatingDrawable(super.getIconDrawable());
-                mRotatingDrawable = rotatingDrawable;
                 final OvershootInterpolator interpolator = new OvershootInterpolator();
                 final ObjectAnimator collapseAnimator = ObjectAnimator.ofFloat(rotatingDrawable, "rotation", EXPANDED_PLUS_ROTATION, COLLAPSED_PLUS_ROTATION);
                 final ObjectAnimator expandAnimator = ObjectAnimator.ofFloat(rotatingDrawable, "rotation", COLLAPSED_PLUS_ROTATION, EXPANDED_PLUS_ROTATION);
@@ -270,6 +269,9 @@ public class FloatingActionMenu extends ViewGroup {
             mExpanded = false;
             mCollapseAnimation.start();
             mExpandAnimation.cancel();
+            if (mListener != null) {
+                mListener.onMenuCollapsed();
+            }
         }
     }
 
@@ -287,6 +289,9 @@ public class FloatingActionMenu extends ViewGroup {
             mExpanded = true;
             mCollapseAnimation.cancel();
             mExpandAnimation.start();
+            if (mListener != null) {
+                mListener.onMenuExpanded();
+            }
         }
     }
 
@@ -390,5 +395,15 @@ public class FloatingActionMenu extends ViewGroup {
 
     }
 
+    public void setOnFloatingActionsMenuUpdateListener(final OnFloatingActionsMenuUpdateListener listener) {
+        mListener = listener;
+    }
+
+    public interface OnFloatingActionsMenuUpdateListener {
+
+        void onMenuExpanded();
+        void onMenuCollapsed();
+
+    }
 
 }
