@@ -10,9 +10,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.Shape;
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,6 +84,7 @@ public class FloatingActionMenu extends ViewGroup {
         mExpandDirection = direction;
         if (mAddButton != null) {
             removeView(mAddButton);
+            mAddButton = null;
         }
         createAddButton();
     }
@@ -153,7 +151,6 @@ public class FloatingActionMenu extends ViewGroup {
                 return rotatingDrawable;
             }
         };
-        mAddButton.setId(R.id.fab_expand_menu_button);
         mAddButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,84 +167,37 @@ public class FloatingActionMenu extends ViewGroup {
         int height = 0;
         for (int i = 0; i < getChildCount(); i++) {
             final View child = getChildAt(i);
-            switch (mExpandDirection) {
-                case EXPAND_UP:
-                case EXPAND_DOWN:
-                    width = Math.max(width, child.getMeasuredWidth());
-                    height += child.getMeasuredHeight();
-                    break ;
-//                case EXPAND_LEFT:
-//                case EXPAND_RIGHT:
-//                    width += child.getMeasuredWidth();
-//                    height = Math.max(height, child.getMeasuredHeight());
-            }
+            width = Math.max(width, child.getMeasuredWidth());
+            height += child.getMeasuredHeight();
         }
-        switch (mExpandDirection) {
-            case EXPAND_UP:
-            case EXPAND_DOWN:
-                height += mButtonSpacing * (getChildCount() - 1);
-                height = height * 12 / 10; // overshoots
-                break ;
-//            case EXPAND_LEFT:
-//            case EXPAND_RIGHT:
-//                width += mButtonSpacing * (getChildCount() - 1);
-//                width = width * 12 / 10; // overshoots
-        }
+        height += mButtonSpacing * (getChildCount() - 1);
+        height = height * 12 / 10; // overshoots
         setMeasuredDimension(width, height);
     }
 
     @Override
     protected void onLayout(final boolean changed, final int l, final int t, final int r, final int b) {
-        switch (mExpandDirection) {
-            case EXPAND_UP:
-            case EXPAND_DOWN:
-                final boolean expandUp = mExpandDirection == EXPAND_UP;
-                final int addButtonY = expandUp ? b - t - mAddButton.getMeasuredHeight() : 0;
-                mAddButton.layout(0, addButtonY, mAddButton.getMeasuredWidth(), addButtonY + mAddButton.getMeasuredHeight());
-                int nextY = (expandUp ? (addButtonY - mButtonSpacing) : (addButtonY + mAddButton.getMeasuredHeight() + mButtonSpacing));
-                for (int i = getChildCount() - 1; i >= 0; i--) {
-                    final View child = getChildAt(i);
-                    if (child == mAddButton) {
-                        continue ;
-                    }
-                    final int childX = (mAddButton.getMeasuredWidth() - child.getMeasuredWidth()) / 2;
-                    final int childY = (expandUp ? (nextY - child.getMeasuredHeight()) : nextY);
-                    child.layout(childX, childY, childX + child.getMeasuredWidth(), childY + child.getMeasuredHeight());
-                    float collapsedTranslation = addButtonY - childY;
-                    float expandedTranslation = 0F;
-                    child.setTranslationY((mExpanded ? expandedTranslation : collapsedTranslation));
-                    child.setAlpha((mExpanded ? 1F : 0f));
-                    final LayoutParams layoutParams = (LayoutParams) child.getLayoutParams();
-                    layoutParams.mCollapseDir.setFloatValues(expandedTranslation, collapsedTranslation);
-                    layoutParams.mExpandDir.setFloatValues(collapsedTranslation, expandedTranslation);
-                    layoutParams.setAnimationsTarget(child);
-                    nextY = (expandUp ? (childY - mButtonSpacing) : (childY + child.getMeasuredHeight() + mButtonSpacing));
-                }
-                break ;
-//            case EXPAND_LEFT:
-//            case EXPAND_RIGHT:
-//                final boolean expandLeft = mExpandDirection == EXPAND_LEFT;
-//                final int addButtonX = (expandLeft ? (r - l - mAddButton.getMeasuredWidth()) : 0);
-//                mAddButton.layout(addButtonX, 0, addButtonX + mAddButton.getMeasuredWidth(), mAddButton.getMeasuredHeight());
-//                int nextX = (expandLeft ? (addButtonX - mButtonSpacing) : (addButtonX + mAddButton.getMeasuredWidth() + mButtonSpacing));
-//                for (int i = getChildCount() - 1; i >= 0; i--) {
-//                    final View child = getChildAt(i);
-//                    if (child == mAddButton) {
-//                        continue ;
-//                    }
-//                    final int childX = (expandLeft ? (nextX - child.getMeasuredWidth()) : nextX);
-//                    final int childY = (mAddButton.getMeasuredHeight() - child.getMeasuredHeight()) / 2;
-//                    child.layout(childX, childY, childX + child.getMeasuredWidth(), childY + child.getMeasuredHeight());
-//                    final float collapsedTranslation = addButtonX - childX;
-//                    final float expandedTranslation = 0F;
-//                    child.setTranslationX((mExpanded ? expandedTranslation : collapsedTranslation));
-//                    child.setAlpha((mExpanded ? 1F : 0F));
-//                    final LayoutParams layoutParams = (LayoutParams) child.getLayoutParams();
-//                    layoutParams.mCollapseDir.setFloatValues(expandedTranslation, collapsedTranslation);
-//                    layoutParams.mExpandDir.setFloatValues(collapsedTranslation, expandedTranslation);
-//                    layoutParams.setAnimationsTarget(child);
-//                    nextX = (expandLeft ? (childX - mButtonSpacing) : (childX + child.getMeasuredWidth()) + mButtonSpacing);
-//                }
+        final boolean expandUp = mExpandDirection == EXPAND_UP;
+        final int addButtonY = expandUp ? b - t - mAddButton.getMeasuredHeight() : 0;
+        mAddButton.layout(0, addButtonY, mAddButton.getMeasuredWidth(), addButtonY + mAddButton.getMeasuredHeight());
+        int nextY = (expandUp ? (addButtonY - mButtonSpacing) : (addButtonY + mAddButton.getMeasuredHeight() + mButtonSpacing));
+        for (int i = getChildCount() - 1; i >= 0; i--) {
+            final View child = getChildAt(i);
+            if (child == mAddButton) {
+                continue ;
+            }
+            final int childX = (mAddButton.getMeasuredWidth() - child.getMeasuredWidth()) / 2;
+            final int childY = (expandUp ? (nextY - child.getMeasuredHeight()) : nextY);
+            child.layout(childX, childY, childX + child.getMeasuredWidth(), childY + child.getMeasuredHeight());
+            float collapsedTranslation = addButtonY - childY;
+            float expandedTranslation = 0F;
+            child.setTranslationY((mExpanded ? expandedTranslation : collapsedTranslation));
+            child.setAlpha((mExpanded ? 1F : 0f));
+            final LayoutParams layoutParams = (LayoutParams) child.getLayoutParams();
+            layoutParams.mCollapseDir.setFloatValues(expandedTranslation, collapsedTranslation);
+            layoutParams.mExpandDir.setFloatValues(collapsedTranslation, expandedTranslation);
+            layoutParams.setAnimationsTarget(child);
+            nextY = (expandUp ? (childY - mButtonSpacing) : (childY + child.getMeasuredHeight() + mButtonSpacing));
         }
     }
 
@@ -292,17 +242,8 @@ public class FloatingActionMenu extends ViewGroup {
             mCollapseAlpha.setFloatValues(1F, 0F);
             mExpandAlpha.setProperty(View.ALPHA);
             mExpandAlpha.setFloatValues(0F, 1F);
-            switch (mExpandDirection) {
-                case EXPAND_UP:
-                case EXPAND_DOWN:
-                    mCollapseDir.setProperty(View.TRANSLATION_Y);
-                    mExpandDir.setProperty(View.TRANSLATION_Y);
-                    break ;
-//                case EXPAND_LEFT:
-//                case EXPAND_RIGHT:
-//                    mCollapseDir.setProperty(View.TRANSLATION_X);
-//                    mExpandDir.setProperty(View.TRANSLATION_X);
-            }
+            mCollapseDir.setProperty(View.TRANSLATION_Y);
+            mExpandDir.setProperty(View.TRANSLATION_Y);
             mExpandAnimation.play(mExpandAlpha);
             mExpandAnimation.play(mExpandDir);
             mCollapseAnimation.play(mCollapseAlpha);
@@ -349,61 +290,61 @@ public class FloatingActionMenu extends ViewGroup {
         }
     }
 
-    @Override
-    public Parcelable onSaveInstanceState() {
-        final Parcelable superState = super.onSaveInstanceState();
-        final SavedState savedState = new SavedState(superState);
-        savedState.mExpanded = mExpanded;
-        return savedState;
-    }
-
-    @Override
-    public void onRestoreInstanceState(final Parcelable state) {
-        if (state instanceof SavedState) {
-            final SavedState savedState = (SavedState) state;
-            mExpanded = savedState.mExpanded;
-            if (mRotatingDrawable != null) {
-                mRotatingDrawable.setRotation(mExpanded ? EXPANDED_PLUS_ROTATION : COLLAPSED_PLUS_ROTATION);
-            }
-            super.onRestoreInstanceState(savedState.getSuperState());
-        }
-        else {
-            super.onRestoreInstanceState(state);
-        }
-    }
-
-    public static class SavedState extends BaseSavedState {
-
-        public boolean mExpanded;
-
-        public SavedState(final Parcelable parcelable) {
-            super(parcelable);
-        }
-
-        private SavedState(final Parcel parcel) {
-            super(parcel);
-            mExpanded = (parcel.readInt() == 1);
-        }
-
-        @Override
-        public void writeToParcel(@NonNull final Parcel parcel, final int flags) {
-            super.writeToParcel(parcel, flags);
-            parcel.writeInt((mExpanded ? 1 : 0));
-        }
-
-        public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
-            @Override
-            public SavedState createFromParcel(final Parcel parcel) {
-                return new SavedState(parcel);
-            }
-
-            @Override
-            public SavedState[] newArray(final int size) {
-                return new SavedState[size];
-            }
-        };
-
-    }
+//    @Override
+//    public Parcelable onSaveInstanceState() {
+//        final Parcelable superState = super.onSaveInstanceState();
+//        final SavedState savedState = new SavedState(superState);
+//        savedState.mExpanded = mExpanded;
+//        return savedState;
+//    }
+//
+//    @Override
+//    public void onRestoreInstanceState(final Parcelable state) {
+//        if (state instanceof SavedState) {
+//            final SavedState savedState = (SavedState) state;
+//            mExpanded = savedState.mExpanded;
+//            if (mRotatingDrawable != null) {
+//                mRotatingDrawable.setRotation(mExpanded ? EXPANDED_PLUS_ROTATION : COLLAPSED_PLUS_ROTATION);
+//            }
+//            super.onRestoreInstanceState(savedState.getSuperState());
+//        }
+//        else {
+//            super.onRestoreInstanceState(state);
+//        }
+//    }
+//
+//    public static class SavedState extends BaseSavedState {
+//
+//        public boolean mExpanded;
+//
+//        public SavedState(final Parcelable parcelable) {
+//            super(parcelable);
+//        }
+//
+//        private SavedState(final Parcel parcel) {
+//            super(parcel);
+//            mExpanded = (parcel.readInt() == 1);
+//        }
+//
+//        @Override
+//        public void writeToParcel(@NonNull final Parcel parcel, final int flags) {
+//            super.writeToParcel(parcel, flags);
+//            parcel.writeInt((mExpanded ? 1 : 0));
+//        }
+//
+//        public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
+//            @Override
+//            public SavedState createFromParcel(final Parcel parcel) {
+//                return new SavedState(parcel);
+//            }
+//
+//            @Override
+//            public SavedState[] newArray(final int size) {
+//                return new SavedState[size];
+//            }
+//        };
+//
+//    }
 
     private class AddFloatingActionButton extends FloatingActionButton {
 
