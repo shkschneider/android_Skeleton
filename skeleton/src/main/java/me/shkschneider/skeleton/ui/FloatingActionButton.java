@@ -3,20 +3,18 @@ package me.shkschneider.skeleton.ui;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
-import android.graphics.RectF;
+import android.graphics.Shader;
 import android.graphics.Shader.TileMode;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.StateListDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
@@ -101,21 +99,24 @@ public class FloatingActionButton extends ImageButton {
     }
 
     protected void updateBackground() {
-        final float circleLeft = mShadowRadius;
-        final float circleTop = mShadowRadius - mShadowOffset;
-        final RectF circleRect = new RectF(circleLeft, circleTop, circleLeft + mCircleSize, circleTop + mCircleSize);
+        final float strokeWidth = getResources().getDimension(R.dimen.floatingActionButtonStrokeWidth);
+        final float halfStrokeWidth = strokeWidth / 2F;
         final LayerDrawable layerDrawable = new LayerDrawable(
                 new Drawable[] {
                         getResources().getDrawable((mSize == SIZE_NORMAL) ? R.drawable.fab_bg_normal : R.drawable.fab_bg_mini),
-                        createFillDrawable(circleRect),
-                        createStrokesDrawable(circleRect),
+                        createFillDrawable(),
+                        createOuterStrokeDrawable(strokeWidth),
+                        createInnerStrokesDrawable(strokeWidth),
                         getIconDrawable()
                 });
-        final float iconOffset = (mCircleSize - getResources().getDimension(R.dimen.floatingActionButtonIconSize)) / 2F;
-        final int iconInsetHorizontal = (int) (mShadowRadius + iconOffset);
-        final int iconInsetTop = (int) (circleTop + iconOffset);
-        final int iconInsetBottom = (int) (mShadowRadius + mShadowOffset + iconOffset);
-        layerDrawable.setLayerInset(3, iconInsetHorizontal, iconInsetTop, iconInsetHorizontal, iconInsetBottom);
+        final int iconOffset = (int) (mCircleSize - getResources().getDimension(R.dimen.floatingActionButtonIconSize)) / 2;
+        final int circleInsetHorizontal = (int) (mShadowRadius);
+        final int circleInsetTop = (int) (mShadowRadius - mShadowOffset);
+        final int circleInsetBottom = (int) (mShadowRadius + mShadowOffset);
+        layerDrawable.setLayerInset(1, circleInsetHorizontal, circleInsetTop, circleInsetHorizontal, circleInsetBottom);
+        layerDrawable.setLayerInset(2, (int) (circleInsetHorizontal - halfStrokeWidth), (int) (circleInsetTop - halfStrokeWidth), (int) (circleInsetHorizontal - halfStrokeWidth), (int) (circleInsetBottom - halfStrokeWidth));
+        layerDrawable.setLayerInset(3, (int) (circleInsetHorizontal - halfStrokeWidth), (int) (circleInsetTop - halfStrokeWidth), (int) (circleInsetHorizontal - halfStrokeWidth), (int) (circleInsetBottom - halfStrokeWidth));
+        layerDrawable.setLayerInset(4, circleInsetHorizontal + iconOffset, circleInsetTop + iconOffset, circleInsetHorizontal + iconOffset, circleInsetBottom + iconOffset);
         setBackgroundCompat(layerDrawable);
     }
 
@@ -131,69 +132,68 @@ public class FloatingActionButton extends ImageButton {
         return new ColorDrawable(Color.TRANSPARENT);
     }
 
-    private StateListDrawable createFillDrawable(final RectF circleRect) {
+    private StateListDrawable createFillDrawable() {
         final StateListDrawable drawable = new StateListDrawable();
-        drawable.addState(new int[] { android.R.attr.state_pressed }, createCircleDrawable(circleRect, mColorPressed));
-        drawable.addState(new int[] { }, createCircleDrawable(circleRect, mColorNormal));
+        drawable.addState(new int[]{android.R.attr.state_pressed}, createCircleDrawable(mColorPressed));
+        drawable.addState(new int[]{}, createCircleDrawable(mColorNormal));
         return drawable;
     }
 
-    private Drawable createCircleDrawable(final RectF circleRect, final int color) {
-        final Bitmap bitmap = Bitmap.createBitmap(mDrawableSize, mDrawableSize, Config.ARGB_8888);
-        final Canvas canvas = new Canvas(bitmap);
-        final Paint paint = new Paint();
+    private Drawable createCircleDrawable(final int color) {
+        final ShapeDrawable shapeDrawable = new ShapeDrawable(new OvalShape());
+        final Paint paint = shapeDrawable.getPaint();
         paint.setAntiAlias(true);
         paint.setColor(color);
-        canvas.drawOval(circleRect, paint);
-        return new BitmapDrawable(getResources(), bitmap);
+        return shapeDrawable;
+    }
+
+    private Drawable createOuterStrokeDrawable(float strokeWidth) {
+        final ShapeDrawable shapeDrawable = new ShapeDrawable(new OvalShape());
+        final Paint paint = shapeDrawable.getPaint();
+        paint.setAntiAlias(true);
+        paint.setStrokeWidth(strokeWidth);
+        paint.setStyle(Style.STROKE);
+        paint.setColor(Color.BLACK);
+        paint.setAlpha(opacityToAlpha(0.02F));
+        return shapeDrawable;
     }
 
     private int opacityToAlpha(final float opacity) {
         return (int) (opacity * 255F);
     }
 
-    private Drawable createStrokesDrawable(final RectF circleRect) {
-        final Bitmap bitmap = Bitmap.createBitmap(mDrawableSize, mDrawableSize, Config.ARGB_8888);
-        final Canvas canvas = new Canvas(bitmap);
-        final float strokeWidth = getResources().getDimension(R.dimen.floatingActionButtonStrokeWidth);
-        final float halfStrokeWidth = strokeWidth / 2F;
-        final RectF outerStrokeRect = new RectF(
-                circleRect.left - halfStrokeWidth,
-                circleRect.top - halfStrokeWidth,
-                circleRect.right + halfStrokeWidth,
-                circleRect.bottom + halfStrokeWidth
-        );
-        final RectF innerStrokeRect = new RectF(
-                circleRect.left + halfStrokeWidth,
-                circleRect.top + halfStrokeWidth,
-                circleRect.right - halfStrokeWidth,
-                circleRect.bottom - halfStrokeWidth
-        );
-        final Paint paint = new Paint();
-        paint.setAntiAlias(true);
-        paint.setStrokeWidth(strokeWidth);
-        paint.setStyle(Style.STROKE);
-        // outer
-        paint.setColor(Color.BLACK);
-        paint.setAlpha(opacityToAlpha(0.02F));
-        canvas.drawOval(outerStrokeRect, paint);
-        // inner bottom
-        paint.setShader(new LinearGradient(innerStrokeRect.centerX(), innerStrokeRect.top, innerStrokeRect.centerX(), innerStrokeRect.bottom,
-                new int[] { Color.TRANSPARENT, HALF_TRANSPARENT_BLACK, Color.BLACK },
-                new float[] { 0F, 0.8F, 1F },
-                TileMode.CLAMP
-        ));
-        paint.setAlpha(opacityToAlpha(0.04f));
-        canvas.drawOval(innerStrokeRect, paint);
-        // inner top
-        paint.setShader(new LinearGradient(innerStrokeRect.centerX(), innerStrokeRect.top, innerStrokeRect.centerX(), innerStrokeRect.bottom,
-                new int[] { Color.WHITE, HALF_TRANSPARENT_WHITE, Color.TRANSPARENT },
-                new float[] { 0F, 0.2F, 1F },
-                TileMode.CLAMP
-        ));
-        paint.setAlpha(opacityToAlpha(0.8F));
-        canvas.drawOval(innerStrokeRect, paint);
-        return new BitmapDrawable(getResources(), bitmap);
+    private Drawable createInnerStrokesDrawable(float strokeWidth) {
+        final ShapeDrawable innerBottom = new ShapeDrawable(new OvalShape());
+        final Paint bottomPaint = innerBottom.getPaint();
+        bottomPaint.setAntiAlias(true);
+        bottomPaint.setStrokeWidth(strokeWidth);
+        bottomPaint.setStyle(Style.STROKE);
+        bottomPaint.setAlpha(opacityToAlpha(0.04F));
+        innerBottom.setShaderFactory(new ShapeDrawable.ShaderFactory() {
+            @Override
+            public Shader resize(int width, int height) {
+                return new LinearGradient(width / 2, 0, width / 2, height,
+                        new int[] { Color.TRANSPARENT, HALF_TRANSPARENT_BLACK, Color.BLACK },
+                        new float[] { 0F, 0.8F, 1F },
+                        TileMode.CLAMP);
+            }
+        });
+        final ShapeDrawable innerTop = new ShapeDrawable(new OvalShape());
+        final Paint topPaint = innerTop.getPaint();
+        topPaint.setAntiAlias(true);
+        topPaint.setStrokeWidth(strokeWidth);
+        topPaint.setStyle(Style.STROKE);
+        topPaint.setAlpha(opacityToAlpha(0.8F));
+        innerTop.setShaderFactory(new ShapeDrawable.ShaderFactory() {
+            @Override
+            public Shader resize(int width, int height) {
+                return new LinearGradient(width / 2, 0, width / 2, height,
+                        new int[] { Color.WHITE, HALF_TRANSPARENT_WHITE, Color.TRANSPARENT },
+                        new float[] { 0F, 0.2F, 1F },
+                        TileMode.CLAMP);
+            }
+        });
+        return new LayerDrawable(new Drawable[] { innerBottom, innerTop });
     }
 
     @SuppressWarnings("deprecation")
