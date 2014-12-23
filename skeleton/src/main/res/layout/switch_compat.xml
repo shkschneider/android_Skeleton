@@ -1,9 +1,0 @@
-<android.support.v7.widget.SwitchCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/switchcompat"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/spaceTiny"
-    android:paddingRight="@dimen/spaceTiny"
-    android:background="@color/transparent"
-    android:gravity="center" />
