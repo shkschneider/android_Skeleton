@@ -8,6 +8,7 @@
         android:summary="@null" />
 
     <Preference
+        android:dependency="switch"
         android:key="notifications"
         android:selectable="true"
         android:title="@null"

@@ -191,7 +191,7 @@ public class FloatingActionMenu extends ViewGroup {
             float collapsedTranslation = addButtonY - childY;
             float expandedTranslation = 0F;
             child.setTranslationY((mExpanded ? expandedTranslation : collapsedTranslation));
-            child.setAlpha((mExpanded ? 1F : 0f));
+            child.setAlpha((mExpanded ? 1F : 0F));
             final LayoutParams layoutParams = (LayoutParams) child.getLayoutParams();
             layoutParams.mCollapseDir.setFloatValues(expandedTranslation, collapsedTranslation);
             layoutParams.mExpandDir.setFloatValues(collapsedTranslation, expandedTranslation);
