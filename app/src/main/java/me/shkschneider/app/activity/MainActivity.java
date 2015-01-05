@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import me.shkschneider.app.R;
 import me.shkschneider.app.fragment.ListViewFragment;
 import me.shkschneider.app.fragment.SnackBarFragment;
+import me.shkschneider.app.fragment.ViewPagerCircleIndicatorFragment;
 import me.shkschneider.app.fragment.ViewPagerIconIndicatorFragment;
 import me.shkschneider.app.fragment.ViewPagerTextIndicatorFragment;
 import me.shkschneider.app.fragment.FloatingActionButtonFragment;
@@ -31,11 +32,12 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
     public static final int NAVIGATION_MAIN = 0;
     public static final int NAVIGATION_VIEWPAGERTEXTINDICATOR = 1;
     public static final int NAVIGATION_VIEWPAGERICONINDICATOR = 2;
-    public static final int NAVIGATION_NETWORK = 3;
-    public static final int NAVIGATION_LISTVIEW = 4;
-    public static final int NAVIGATION_RECYCLER = 5;
-    public static final int NAVIGATION_FLOATINGACTIONBUTTON = 6;
-    public static final int NAVIGATION_SNACKBAR = 7;
+    public static final int NAVIGATION_VIEWPAGERCIRCLEINDICATOR = 3;
+    public static final int NAVIGATION_NETWORK = 4;
+    public static final int NAVIGATION_LISTVIEW = 5;
+    public static final int NAVIGATION_RECYCLER = 6;
+    public static final int NAVIGATION_FLOATINGACTIONBUTTON = 7;
+    public static final int NAVIGATION_SNACKBAR = 8;
 
     public static Intent getIntent(final Activity activity) {
         return new Intent(activity, MainActivity.class).setFlags(IntentHelper.HOME_FLAGS);
@@ -77,6 +79,7 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
                 add(NAVIGATION_MAIN, new MainFragment());
                 add(NAVIGATION_VIEWPAGERTEXTINDICATOR, new ViewPagerTextIndicatorFragment());
                 add(NAVIGATION_VIEWPAGERICONINDICATOR, new ViewPagerIconIndicatorFragment());
+                add(NAVIGATION_VIEWPAGERCIRCLEINDICATOR, new ViewPagerCircleIndicatorFragment());
                 add(NAVIGATION_NETWORK, new NetworkFragment());
                 add(NAVIGATION_LISTVIEW, new ListViewFragment());
                 add(NAVIGATION_RECYCLER, new RecyclerFragment());

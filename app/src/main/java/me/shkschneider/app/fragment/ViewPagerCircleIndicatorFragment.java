@@ -16,17 +16,16 @@ import android.widget.TextView;
 
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.SkeletonFragment;
-import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.java.StringHelper;
+import me.shkschneider.skeleton.ui.viewpager.ViewPagerCircleIndicator;
 import me.shkschneider.skeleton.ui.viewpager.ViewPagerIndicatorAdapter;
-import me.shkschneider.skeleton.ui.viewpager.ViewPagerIndicator;
 
-public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
+public class ViewPagerCircleIndicatorFragment extends SkeletonFragment {
 
-    private static final int TABS = 10;
+    private static final int TABS = 3;
 
-    public ViewPagerTextIndicatorFragment() {
-        title("ViewPagerTextIndicator");
+    public ViewPagerCircleIndicatorFragment() {
+        title("ViewPagerCircleIndicator");
     }
 
     private PagerAdapter mPagerAdapter;
@@ -40,8 +39,7 @@ public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        final int layout = (ActivityHelper.portrait() ? R.layout.fragment_viewpagertextindicator : R.layout.fragment_viewpagerlineindicator);
-        return inflater.inflate(layout, container, false);
+        return inflater.inflate(R.layout.fragment_viewpagercircleindicator, container, false);
     }
 
     @Override
@@ -51,9 +49,9 @@ public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
         // viewPager.setOffscreenPageLimit()
         viewPager.setAdapter(mPagerAdapter);
 
-        final ViewPagerIndicator viewPagerIndicator = (ViewPagerIndicator) view.findViewById(R.id.viewpagerindicator);
-        if (viewPagerIndicator != null) {
-            viewPagerIndicator.setViewPager(viewPager);
+        final ViewPagerCircleIndicator viewPagerCircleIndicator = (ViewPagerCircleIndicator) view.findViewById(R.id.viewpagercircleindicator);
+        if (viewPagerCircleIndicator != null) {
+            viewPagerCircleIndicator.setViewPager(viewPager);
         }
     }
 
@@ -65,7 +63,6 @@ public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
 
     @Override
     public void onRefresh() {
-        super.onRefresh();
         mPagerAdapter.notifyDataSetChanged();
     }
 
@@ -82,12 +79,12 @@ public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
 
         @Override
         public CharSequence getPageTitle(final int position) {
-            return ((DummyFragment) getItem(position)).title();
+            return null;
         }
 
         @Override
         public Drawable getPageIcon(int position) {
-            return null;
+            return getResources().getDrawable(R.drawable.ic_launcher);
         }
 
         @Override
@@ -136,7 +133,6 @@ public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
                 public boolean isEnabled(final int position) {
                     return false;
                 }
-
             };
         }
 
@@ -159,12 +155,10 @@ public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
         @Override
         public void onResume() {
             super.onResume();
-            onRefresh();
+            refresh();
         }
 
-        @Override
-        public void onRefresh() {
-            super.onRefresh();
+        public void refresh() {
             final int position = getArguments().getInt(POSITION);
             final int n = 16;
             mAdapter.clear();

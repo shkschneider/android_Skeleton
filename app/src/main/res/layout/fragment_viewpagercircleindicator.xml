@@ -4,15 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <me.shkschneider.skeleton.ui.viewpager.ActionBarViewPagerIconIndicator
-        android:id="@+id/viewpagerindicator"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/spaceMedium" />
-
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1.0" />
+
+    <me.shkschneider.skeleton.ui.viewpager.ViewPagerCircleIndicator
+        android:id="@+id/viewpagercircleindicator"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/spaceSmallish" />
 
 </LinearLayout>

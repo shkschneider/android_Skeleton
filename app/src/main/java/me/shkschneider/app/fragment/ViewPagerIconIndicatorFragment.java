@@ -50,6 +50,7 @@ public class ViewPagerIconIndicatorFragment extends SkeletonFragment {
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         // viewPager.setOffscreenPageLimit()
         viewPager.setAdapter(mPagerAdapter);
+
         final ViewPagerIndicator viewPagerIndicator = (ViewPagerIndicator) view.findViewById(R.id.viewpagerindicator);
         if (viewPagerIndicator != null) {
             viewPagerIndicator.setViewPager(viewPager);
