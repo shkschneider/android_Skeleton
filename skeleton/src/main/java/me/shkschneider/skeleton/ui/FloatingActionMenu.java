@@ -23,18 +23,12 @@ import me.shkschneider.skeleton.helper.AndroidHelper;
 // <https://github.com/futuresimple/android-floating-action-button>
 public class FloatingActionMenu extends ViewGroup {
 
-    public static final int EXPAND_UP = 0;
-    public static final int EXPAND_DOWN = 1;
-    // FIXME public static final int EXPAND_LEFT = 2;
-    // FIXME public static final int EXPAND_RIGHT = 3;
-
     private static final int ANIMATION_DURATION = 300;
     private static final float COLLAPSED_PLUS_ROTATION = 0F;
     private static final float EXPANDED_PLUS_ROTATION = 90F + 45F;
 
     private int mAddButtonPlusColor;
     private int mAddButtonColor;
-    private int mExpandDirection;
     private int mButtonSpacing;
     private boolean mExpanded;
 
@@ -65,7 +59,6 @@ public class FloatingActionMenu extends ViewGroup {
     protected void init() {
         mAddButtonPlusColor = getResources().getColor(R.color.white);
         mAddButtonColor = getResources().getColor(R.color.accentColor);
-        mExpandDirection = EXPAND_UP;
         mButtonSpacing = (int) (getResources().getDimension(R.dimen.floatingActionButtonActionSpacing) - getResources().getDimension(R.dimen.floatingActionButtonShadowRadius) - getResources().getDimension(R.dimen.floatingActionButtonShadowOffset));
         createAddButton();
     }
@@ -78,15 +71,6 @@ public class FloatingActionMenu extends ViewGroup {
     public void setPlusColor(final int color) {
         mAddButtonPlusColor = color;
         updateAddButton();
-    }
-
-    public void setExpandDirection(final int direction) {
-        mExpandDirection = direction;
-        if (mAddButton != null) {
-            removeView(mAddButton);
-            mAddButton = null;
-        }
-        createAddButton();
     }
 
     private static class RotatingDrawable extends LayerDrawable {
@@ -176,17 +160,16 @@ public class FloatingActionMenu extends ViewGroup {
 
     @Override
     protected void onLayout(final boolean changed, final int l, final int t, final int r, final int b) {
-        final boolean expandUp = mExpandDirection == EXPAND_UP;
-        final int addButtonY = expandUp ? b - t - mAddButton.getMeasuredHeight() : 0;
+        final int addButtonY = (b - t - mAddButton.getMeasuredHeight());
         mAddButton.layout(0, addButtonY, mAddButton.getMeasuredWidth(), addButtonY + mAddButton.getMeasuredHeight());
-        int nextY = (expandUp ? (addButtonY - mButtonSpacing) : (addButtonY + mAddButton.getMeasuredHeight() + mButtonSpacing));
+        int nextY = (addButtonY - mButtonSpacing);
         for (int i = getChildCount() - 1; i >= 0; i--) {
             final View child = getChildAt(i);
             if (child == mAddButton) {
                 continue ;
             }
             final int childX = (mAddButton.getMeasuredWidth() - child.getMeasuredWidth()) / 2;
-            final int childY = (expandUp ? (nextY - child.getMeasuredHeight()) : nextY);
+            final int childY = (nextY - child.getMeasuredHeight());
             child.layout(childX, childY, childX + child.getMeasuredWidth(), childY + child.getMeasuredHeight());
             float collapsedTranslation = addButtonY - childY;
             float expandedTranslation = 0F;
@@ -196,7 +179,7 @@ public class FloatingActionMenu extends ViewGroup {
             layoutParams.mCollapseDir.setFloatValues(expandedTranslation, collapsedTranslation);
             layoutParams.mExpandDir.setFloatValues(collapsedTranslation, expandedTranslation);
             layoutParams.setAnimationsTarget(child);
-            nextY = (expandUp ? (childY - mButtonSpacing) : (childY + child.getMeasuredHeight() + mButtonSpacing));
+            nextY = (childY - mButtonSpacing);
         }
     }
 
@@ -294,62 +277,6 @@ public class FloatingActionMenu extends ViewGroup {
             }
         }
     }
-
-//    @Override
-//    public Parcelable onSaveInstanceState() {
-//        final Parcelable superState = super.onSaveInstanceState();
-//        final SavedState savedState = new SavedState(superState);
-//        savedState.mExpanded = mExpanded;
-//        return savedState;
-//    }
-//
-//    @Override
-//    public void onRestoreInstanceState(final Parcelable state) {
-//        if (state instanceof SavedState) {
-//            final SavedState savedState = (SavedState) state;
-//            mExpanded = savedState.mExpanded;
-//            if (mRotatingDrawable != null) {
-//                mRotatingDrawable.setRotation(mExpanded ? EXPANDED_PLUS_ROTATION : COLLAPSED_PLUS_ROTATION);
-//            }
-//            super.onRestoreInstanceState(savedState.getSuperState());
-//        }
-//        else {
-//            super.onRestoreInstanceState(state);
-//        }
-//    }
-//
-//    public static class SavedState extends BaseSavedState {
-//
-//        public boolean mExpanded;
-//
-//        public SavedState(final Parcelable parcelable) {
-//            super(parcelable);
-//        }
-//
-//        private SavedState(final Parcel parcel) {
-//            super(parcel);
-//            mExpanded = (parcel.readInt() == 1);
-//        }
-//
-//        @Override
-//        public void writeToParcel(@NonNull final Parcel parcel, final int flags) {
-//            super.writeToParcel(parcel, flags);
-//            parcel.writeInt((mExpanded ? 1 : 0));
-//        }
-//
-//        public static final Creator<SavedState> CREATOR = new Creator<SavedState>() {
-//            @Override
-//            public SavedState createFromParcel(final Parcel parcel) {
-//                return new SavedState(parcel);
-//            }
-//
-//            @Override
-//            public SavedState[] newArray(final int size) {
-//                return new SavedState[size];
-//            }
-//        };
-//
-//    }
 
     private class AddFloatingActionButton extends FloatingActionButton {
 

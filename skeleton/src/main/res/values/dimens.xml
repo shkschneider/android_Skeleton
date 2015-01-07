@@ -16,7 +16,7 @@
     <dimen name="floatingActionButtonPlusIconStroke">2dp</dimen>
     <dimen name="floatingActionButtonShadowOffset">3dp</dimen>
     <dimen name="floatingActionButtonShadowRadius">9dp</dimen>
-    <dimen name="floatingActionButtonStrokeWidth">0.5dp</dimen>
+    <dimen name="floatingActionButtonStrokeWidth">1dp</dimen>
     <dimen name="floatingActionButtonActionSpacing">16dp</dimen>
 
     <dimen name="spaceNull">0dp</dimen>
