@@ -21,13 +21,12 @@ import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.ui.LoadingImageView;
-import me.shkschneider.skeleton.ui.TooltipView1;
-import me.shkschneider.skeleton.ui.TooltipView2;
+import me.shkschneider.skeleton.ui.TooltipView;
 
 public class MainFragment extends SkeletonFragment {
 
     private static final String AUTHOR = "ShkSchneider";
-    private static final String URL = "https://github.com/shkschneider/android-skeleton";
+    private static final String URL = "https://github.com/shkschneider/android_Skeleton";
 
     public MainFragment() {
         title("Main");
@@ -53,8 +52,7 @@ public class MainFragment extends SkeletonFragment {
                 startActivity(IntentHelper.url(URL));
             }
         });
-        // FIXME TooltipView1.showToolTip(getActivity(), github, "test");
-        // FIXME TooltipView2.with(github);
+        TooltipView.showToolTip(skeletonActivity(), github, URL, TooltipView.LENGTH_SHORT);
 
         final String url = String.format("http://gravatar.com/%s.json", AUTHOR.toLowerCase());
         new WebService().getJsonObject(url, new WebService.Callback() {
