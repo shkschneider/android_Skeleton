@@ -5,6 +5,8 @@ import android.telephony.PhoneNumberUtils;
 import android.util.Patterns;
 
 import java.text.Normalizer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import me.shkschneider.skeleton.helper.LogHelper;
@@ -74,6 +76,45 @@ public class StringHelper {
         string = Normalizer.normalize(string, Normalizer.Form.NFD);
         // string = string.replaceAll("[^\\p{ASCII}]", ""); // ascii
         string = string.replaceAll("\\p{M}", ""); // unicode
+        return string;
+    }
+
+    public static String[] split(@NonNull final String string, final char delimiter) {
+        final List<String> list = new ArrayList<String>();
+        final int size = string.length();
+        int start = 0;
+        for (int i = 0; i < size; i++) {
+            if (string.charAt(i) == delimiter) {
+                if (start < i) {
+                    list.add(string.substring(start, i));
+                }
+                else {
+                    list.add("");
+                }
+                start = i + 1;
+            }
+            else if (i == size - 1) {
+                list.add(string.substring(start, size));
+            }
+        }
+        final String[] array = new String[list.size()];
+        list.toArray(array);
+        return array;
+    }
+
+    public static String[] lines(@NonNull final String string, final boolean skipEmptyLines) {
+        if (skipEmptyLines) {
+            return string.split("[\n\r]+");
+        }
+        else {
+            return string.split("\\r?\\n");
+        }
+    }
+
+    public static String ellipsize(@NonNull final String string, final int maxLength) {
+        if (string.length() > maxLength) {
+            return string.substring(0, maxLength - 3) + "...";
+        }
         return string;
     }
 
