@@ -5,12 +5,16 @@ import android.os.Vibrator;
 public class VibratorHelper {
 
     public static boolean hasVibrator() {
-        final Vibrator vibrator = (Vibrator) SystemHelper.systemService(SystemHelper.SYSTEM_SERVICE_VIBRATOR);
+        final Vibrator vibrator = SystemServices.vibrator();
+        if (vibrator == null) {
+            LogHelper.warning("Vibrator was NULL");
+            return false;
+        }
         return vibrator.hasVibrator();
     }
 
     public static boolean vibrate(final long[] durations, final boolean repeat) {
-        final Vibrator vibrator = (Vibrator) SystemHelper.systemService(SystemHelper.SYSTEM_SERVICE_VIBRATOR);
+        final Vibrator vibrator = SystemServices.vibrator();
         if (! hasVibrator()) {
             LogHelper.warning("No vibrator");
             return false;

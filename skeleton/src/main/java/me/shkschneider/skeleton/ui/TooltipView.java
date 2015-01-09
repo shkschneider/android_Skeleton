@@ -2,7 +2,6 @@ package me.shkschneider.skeleton.ui;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Handler;
@@ -18,13 +17,13 @@ import android.widget.TextView;
 import me.shkschneider.skeleton.R;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.ScreenHelper;
-import me.shkschneider.skeleton.helper.SystemHelper;
+import me.shkschneider.skeleton.helper.SystemServices;
 import me.shkschneider.skeleton.java.StringHelper;
 
 public class TooltipView {
 
     public static final int LENGTH_SHORT = 1500;
-    public static final int LENGTH_LONG = 3000;
+    public static final int LENGTH_LONG = 33000;
 
     public static void showToolTip(final Activity activity, final View anchor, final String text, final int duration) {
         if (activity == null) {
@@ -87,19 +86,21 @@ public class TooltipView {
                 viewGroup.measure(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 int viewGroupMeasuredWidth = viewGroup.getMeasuredWidth();
                 int viewGroupMeasuredHeight = viewGroup.getMeasuredHeight();
-                final WindowManager windowManager = (WindowManager) SystemHelper.systemService(SystemHelper.SYSTEM_SERVICE_WINDOW);
+                final WindowManager windowManager = SystemServices.windowManager();
+                if (windowManager == null) {
+                    LogHelper.warning("WindowManager was NULL");
+                    return ;
+                }
                 final Point point = new Point();
                 windowManager.getDefaultDisplay().getSize(point);
                 if ((rect.left + viewGroupMeasuredWidth) > point.x) {
                     posX = rect.left - (viewGroupMeasuredWidth - anchor.getWidth());
                     posX = (posX < 0) ? 0 : posX;
                     posArrow = rect.centerX() - posX;
-                }
-                else {
+                } else {
                     if (anchor.getWidth() > viewGroupMeasuredWidth) {
                         posX = rect.centerX() - (viewGroupMeasuredWidth / 2);
-                    }
-                    else {
+                    } else {
                         posX = rect.left;
                     }
                     posArrow = rect.centerX() - posX;

@@ -46,7 +46,11 @@ public class KeyboardHelper {
 
     public static boolean hide(@NonNull final IBinder windowToken) {
         LogHelper.verbose("hideSoftInputFromWindow()");
-        final InputMethodManager inputMethodManager = (InputMethodManager) SystemHelper.systemService(SystemHelper.SYSTEM_SERVICE_INPUT_METHOD);
+        final InputMethodManager inputMethodManager = SystemServices.inputMethodManager();
+        if (inputMethodManager == null) {
+            LogHelper.warning("InputMethodManager was NULL");
+            return false;
+        }
         return inputMethodManager.hideSoftInputFromWindow(windowToken, 0);
     }
 

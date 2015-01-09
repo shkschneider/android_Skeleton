@@ -43,7 +43,7 @@ public class DeviceHelper {
 
     @Deprecated
     public static TelephonyManager sim() {
-        return (TelephonyManager) SystemHelper.systemService(SystemHelper.SYSTEM_SERVICE_TELEPHONY);
+        return SystemServices.telephonyManager();
     }
 
 }

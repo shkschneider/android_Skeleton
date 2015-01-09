@@ -30,7 +30,11 @@ public class ScreenHelper {
     }
 
     public static boolean on() {
-        final PowerManager powerManager = (PowerManager) SystemHelper.systemService(SystemHelper.SYSTEM_SERVICE_POWER);
+        final PowerManager powerManager = SystemServices.powerManager();
+        if (powerManager == null) {
+            LogHelper.warning("PowerManager was NULL");
+            return true;
+        }
         if (AndroidHelper.api() >= AndroidHelper.API_20) {
             return onNew(powerManager);
         }
@@ -95,7 +99,11 @@ public class ScreenHelper {
     }
 
     public static int orientation() {
-        final WindowManager windowManager = (WindowManager) SystemHelper.systemService(SystemHelper.SYSTEM_SERVICE_WINDOW);
+        final WindowManager windowManager = SystemServices.windowManager();
+        if (windowManager == null) {
+            LogHelper.warning("WindowManager was NULL");
+            return 0;
+        }
         final Display display = windowManager.getDefaultDisplay();
         if (display == null) {
             LogHelper.warning("Display was NULL");

@@ -5,7 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.helper.SystemHelper;
+import me.shkschneider.skeleton.helper.SystemServices;
 
 public class UiHelper {
 
@@ -18,7 +18,11 @@ public class UiHelper {
 
     public static View inflate(final ViewGroup container, final int layout) {
         try {
-            final LayoutInflater layoutInflater = (LayoutInflater) SystemHelper.systemService(SystemHelper.SYSTEM_SERVICE_LAYOUT_INFLATER);
+            final LayoutInflater layoutInflater = SystemServices.layoutInflater();
+            if (layoutInflater == null) {
+                LogHelper.warning("LayoutInflater was NULL");
+                return null;
+            }
             return layoutInflater.inflate(layout, container, false);
         }
         catch (final Exception e) {

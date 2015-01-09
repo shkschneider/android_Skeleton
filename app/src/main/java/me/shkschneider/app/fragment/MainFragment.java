@@ -52,7 +52,7 @@ public class MainFragment extends SkeletonFragment {
                 startActivity(IntentHelper.url(URL));
             }
         });
-        TooltipView.showToolTip(skeletonActivity(), github, URL, TooltipView.LENGTH_SHORT);
+        TooltipView.showToolTip(skeletonActivity(), github, URL, TooltipView.LENGTH_LONG);
 
         final String url = String.format("http://gravatar.com/%s.json", AUTHOR.toLowerCase());
         new WebService().getJsonObject(url, new WebService.Callback() {
