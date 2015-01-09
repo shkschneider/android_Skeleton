@@ -23,7 +23,7 @@ import me.shkschneider.skeleton.java.StringHelper;
 public class TooltipView {
 
     public static final int LENGTH_SHORT = 1500;
-    public static final int LENGTH_LONG = 33000;
+    public static final int LENGTH_LONG = 3000;
 
     public static void showToolTip(final Activity activity, final View anchor, final String text, final int duration) {
         if (activity == null) {
