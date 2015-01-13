@@ -11,7 +11,7 @@
         android:dependency="switch"
         android:key="notifications"
         android:selectable="true"
-        android:title="@null"
+        android:title="Notifications"
         android:summary="@null" />
 
 </PreferenceScreen>

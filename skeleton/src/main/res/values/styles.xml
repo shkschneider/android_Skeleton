@@ -11,7 +11,7 @@
         <item name="android:windowContentOverlay">@null</item>
         <!-- Android -->
         <item name="android:windowBackground">@color/contentBackgroundColor</item>
-        <item name="android:textColorPrimary">@color/textPrimaryColor</item>
+        <item name="android:textColorPrimary">@color/text_selector</item>
         <item name="android:textColorSecondary">@color/textSecondaryColor</item>
         <item name="android:textColorHighlight">@color/accentColor</item>
         <item name="android:textColorHint">@color/textSecondaryColor</item>

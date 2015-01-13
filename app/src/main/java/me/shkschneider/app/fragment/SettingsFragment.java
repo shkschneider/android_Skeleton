@@ -26,6 +26,7 @@ public class SettingsFragment extends SkeletonPreferenceFragment {
         // Switch
 
         final SwitchPreference switchPreference = (SwitchPreference) findPreference("switch");
+        switchPreference.setSummary(getResources().getString(R.string.dots));
         switchPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(final Preference preference, final Object key) {
@@ -38,9 +39,10 @@ public class SettingsFragment extends SkeletonPreferenceFragment {
 
         // Notifications
 
-        final Preference notifications = findPreference("notifications");
-        notifications.setTitle("notifications");
-        notifications.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        final Preference notificationsPreference = findPreference("notifications");
+        notificationsPreference.setSummary(getResources().getString(R.string.dots));
+        notificationsPreference.setTitle("notifications");
+        notificationsPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(final Preference preference) {
                 startActivity(IntentHelper.settings());
