@@ -21,7 +21,6 @@ import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.ui.LoadingImageView;
-import me.shkschneider.skeleton.ui.TooltipView;
 
 public class MainFragment extends SkeletonFragment {
 
@@ -52,7 +51,6 @@ public class MainFragment extends SkeletonFragment {
                 startActivity(IntentHelper.url(URL));
             }
         });
-        TooltipView.showToolTip(skeletonActivity(), github, URL, TooltipView.LENGTH_LONG);
 
         final String url = String.format("http://gravatar.com/%s.json", AUTHOR.toLowerCase());
         new WebService().getJsonObject(url, new WebService.Callback() {
