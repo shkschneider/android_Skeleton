@@ -18,7 +18,6 @@ public class SettingsActivity extends SkeletonFragmentActivity implements Skelet
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         home(true);
-        logo(false);
 
         setFragment(new SettingsFragment());
     }
