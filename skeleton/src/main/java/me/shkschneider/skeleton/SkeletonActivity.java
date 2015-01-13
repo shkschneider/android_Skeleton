@@ -36,6 +36,7 @@ public class SkeletonActivity extends ActionBarActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // FIXME This super.setContentView() works badly with a child ListView (going up refreshes...)
         super.setContentView(R.layout.swiperefreshlayout);
         mSwipeRefreshlayout = (SwipeRefreshLayout) findViewById(R.id.swiperefreshlayout);
         // setContentView()
