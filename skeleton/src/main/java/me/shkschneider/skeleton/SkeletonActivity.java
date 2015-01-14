@@ -17,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.ListView;
 
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
@@ -87,6 +89,32 @@ public class SkeletonActivity extends ActionBarActivity {
         mSwipeRefreshlayout.setEnabled(false);
         mSwipeRefreshlayout.setColorSchemeResources(R.color.primaryColor);
         mSwipeRefreshlayout.setRefreshing(false);
+
+        // <http://nlopez.io/swiperefreshlayout-with-listview-done-right/>
+        if (view instanceof AbsListView) {
+            listViewCompat((AbsListView) view);
+        }
+        for (int i = 0; i < ((ViewGroup) view).getChildCount(); ++i) {
+            final View v = ((ViewGroup) view).getChildAt(i);
+            if (v instanceof AbsListView) {
+                listViewCompat((AbsListView) v);
+            }
+        }
+    }
+
+    public void listViewCompat(final AbsListView absListView) {
+        absListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(final AbsListView view, final int scrollState) {
+                // Ignore
+            }
+
+            @Override
+            public void onScroll(final AbsListView view, final int firstVisibleItem, final int visibleItemCount, final int totalItemCount) {
+                final int topRowVerticalPosition = ((absListView.getChildCount() == 0) ? 0 : absListView.getChildAt(0).getTop());
+                mSwipeRefreshlayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+            }
+        });
     }
 
     public void setRefreshListener(@NonNull final SwipeRefreshLayout.OnRefreshListener onRefreshListener) {
@@ -248,8 +276,7 @@ public class SkeletonActivity extends ActionBarActivity {
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            final Intent intent = getPackageManager().getLaunchIntentForPackage(ApplicationHelper.packageName());
-            startActivity(intent.setFlags(IntentHelper.HOME_FLAGS));
+            onHomeAsUpPressed();
             return true;
         }
 
@@ -290,16 +317,14 @@ public class SkeletonActivity extends ActionBarActivity {
 
     // Navigation
 
+    public void onHomeAsUpPressed() {
+        final Intent intent = getPackageManager().getLaunchIntentForPackage(ApplicationHelper.packageName());
+        startActivity(intent.setFlags(IntentHelper.HOME_FLAGS));
+    }
+
     @Override
     public void onBackPressed() {
         finish();
-    }
-
-    public static interface NavigationCallback {
-
-        public void onHomeAsUpPressed();
-        public void onBackPressed();
-
     }
 
 }

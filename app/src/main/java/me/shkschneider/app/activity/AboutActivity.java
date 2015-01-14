@@ -5,10 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import me.shkschneider.app.fragment.AboutFragment;
-import me.shkschneider.skeleton.SkeletonActivity;
 import me.shkschneider.skeleton.SkeletonFragmentActivity;
 
-public class AboutActivity extends SkeletonFragmentActivity implements SkeletonActivity.NavigationCallback {
+public class AboutActivity extends SkeletonFragmentActivity {
 
     public static Intent getIntent(final Activity activity) {
         return new Intent(activity, AboutActivity.class);
@@ -20,11 +19,6 @@ public class AboutActivity extends SkeletonFragmentActivity implements SkeletonA
         home(true);
 
         setFragment(new AboutFragment());
-    }
-
-    @Override
-    public void onHomeAsUpPressed() {
-        startActivity(MainActivity.getIntent(AboutActivity.this));
     }
 
 }

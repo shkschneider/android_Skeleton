@@ -61,7 +61,7 @@ public class NetworkFragment extends SkeletonFragment implements SwipeRefreshLay
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_myswiperefreshlayout, container, false);
+        return inflater.inflate(R.layout.fragment_listview, container, false);
     }
 
     @Override
