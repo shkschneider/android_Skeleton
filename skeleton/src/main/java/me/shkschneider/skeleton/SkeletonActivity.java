@@ -18,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.ListView;
 
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
@@ -38,12 +37,10 @@ public class SkeletonActivity extends ActionBarActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // FIXME This super.setContentView() works badly with a child ListView (going up refreshes...)
         super.setContentView(R.layout.swiperefreshlayout);
         mSwipeRefreshlayout = (SwipeRefreshLayout) findViewById(R.id.swiperefreshlayout);
         // setContentView()
         home(false);
-        // logo(false);
         title(true);
 
         if (AndroidHelper.api() >= AndroidHelper.API_21) {
