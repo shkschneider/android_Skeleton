@@ -1,31 +1,45 @@
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/toast"
-        android:text="Toast"
+    <LinearLayout
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/spaceMedium" />
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/snackbar1"
-        android:text="SnackBar1"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/spaceMedium" />
+        <Button
+            android:id="@+id/toast"
+            android:text="Toast"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceMedium" />
 
-    <Button
-        android:id="@+id/snackbar2"
-        android:text="SnackBar2"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/spaceMedium" />
+        <Button
+            android:id="@+id/snackbar1"
+            android:text="SnackBar1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceMedium" />
 
-    <Button
-        android:id="@+id/snackbar3"
-        android:text="SnackBar3"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/spaceMedium" />
+        <Button
+            android:id="@+id/snackbar2"
+            android:text="SnackBar2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceMedium" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/snackbar3"
+            android:text="SnackBar3"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceMedium" />
+
+    </LinearLayout>
+
+    <me.shkschneider.skeleton.ui.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

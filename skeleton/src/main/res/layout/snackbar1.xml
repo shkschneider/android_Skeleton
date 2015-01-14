@@ -2,9 +2,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="@dimen/snackBarSingle"
-    android:background="@color/snackBarBackgroundColor"
-    android:paddingTop="@dimen/spaceSmaller"
-    android:paddingBottom="@dimen/spaceTinish">
+    android:background="@color/snackBarBackgroundColor">
 
     <TextView
         android:id="@+id/action"
@@ -12,8 +10,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginLeft="@dimen/spaceSmallish"
         android:layout_marginRight="@dimen/spaceSmallish"
-        android:paddingLeft="@dimen/spaceTinish"
-        android:paddingRight="@dimen/spaceTinish"
+        android:padding="@dimen/spaceTinish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/textSizeSmall"
@@ -25,6 +22,8 @@
         android:gravity="right|top" />
 
     <TextView
+        android:paddingTop="@dimen/spaceSmaller"
+        android:paddingBottom="@dimen/spaceTinish"
         android:id="@+id/textview"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@id/action"

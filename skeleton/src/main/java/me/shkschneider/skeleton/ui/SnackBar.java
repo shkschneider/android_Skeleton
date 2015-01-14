@@ -23,7 +23,6 @@ import java.util.concurrent.TimeUnit;
 import me.shkschneider.skeleton.R;
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.RunnableHelper;
-import me.shkschneider.skeleton.helper.ScreenHelper;
 import me.shkschneider.skeleton.java.StringHelper;
 
 // <https://github.com/navasmdc/MaterialDesignLibrary>
@@ -37,13 +36,14 @@ public class SnackBar extends RelativeLayout {
     private Activity mActivity;
     private int mLines = 1;
     private int mDuration = DURATION_SHORT;
+    private int mBackgroundColor = getResources().getColor(R.color.snackBarBackgroundColor);
+    private int mTextColor = getResources().getColor(R.color.snackBarForegroundColor);
+    private int mActionColor = getResources().getColor(R.color.accentColor);
     private String mText;
     private String mAction;
+    private View mAttachedView;
     private OnClickListener mOnClickListener;
     private boolean mShowing = false;
-    private int mBackgroundColor = R.color.snackBarBackgroundColor;
-    private int mTextColor = R.color.snackBarForegroundColor;
-    private int mActionColor = R.color.accentColor;
 
     @SuppressWarnings("deprecation")
     @SuppressLint("deprecation")
@@ -81,11 +81,10 @@ public class SnackBar extends RelativeLayout {
         return snackBar;
     }
 
-    public static SnackBar with(@NonNull final Activity activity, @NonNull final String text, final int backgroundColor, final int textColor, final int actionColor) {
+    public static SnackBar with(@NonNull final Activity activity, @NonNull final String text, final int backgroundColor, final int textColor) {
         final SnackBar snackBar = SnackBar.with(activity, text);
         snackBar.mBackgroundColor = backgroundColor;
         snackBar.mTextColor = textColor;
-        snackBar.mActionColor = actionColor;
         return snackBar;
     }
 
@@ -112,12 +111,10 @@ public class SnackBar extends RelativeLayout {
     }
 
     public SnackBar action(final String action, final OnClickListener listener) {
-        return action(action, listener, R.color.accentColor);
+        return action(action, listener, getResources().getColor(R.color.accentColor));
     }
 
-    // TODO public SnackBar event(final EventListener eventListener)
-
-    public SnackBar attachToAbsListView(final AbsListView absListView) {
+    public SnackBar watchForAbsListView(final AbsListView absListView) {
         absListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(final AbsListView view, final int scrollState) {
@@ -132,7 +129,7 @@ public class SnackBar extends RelativeLayout {
         return this;
     }
 
-    public SnackBar attachToRecyclerView(final RecyclerView recyclerView) {
+    public SnackBar watchForRecyclerView(final RecyclerView recyclerView) {
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(final RecyclerView recyclerView, final int newState) {
@@ -143,14 +140,28 @@ public class SnackBar extends RelativeLayout {
         return this;
     }
 
+    public SnackBar attachToView(final View view) {
+        mAttachedView = view;
+        return this;
+    }
+
+    public int height() {
+        return  (int) ((mLines == 1)
+                ? getResources().getDimension(R.dimen.snackBarSingle)
+                : getResources().getDimension(R.dimen.snackBarMulti));
+    }
+
     private void build() {
         final LayoutInflater layoutInflater = LayoutInflater.from(mActivity);
         final int layout = ((mLines == 1) ? R.layout.snackbar1 : R.layout.snackbar2);
         final RelativeLayout relativeLayout = (RelativeLayout) layoutInflater.inflate(layout, this, true);
+        relativeLayout.setBackgroundColor(mBackgroundColor);
         final TextView textView = (TextView) relativeLayout.findViewById(R.id.textview);
+        textView.setTextColor(mTextColor);
         textView.setText(mText);
         if (! StringHelper.nullOrEmpty(mAction)) {
             final TextView action = (TextView) relativeLayout.findViewById(R.id.action);
+            action.setTextColor(mActionColor);
             action.setText(mAction);
             action.setClickable(true);
             action.setOnClickListener(new OnClickListener() {
@@ -167,8 +178,7 @@ public class SnackBar extends RelativeLayout {
         requestLayout(); // invalidates this class' layout
 
         final ViewGroup viewGroup = (ViewGroup) mActivity.findViewById(android.R.id.content);
-        final int height = ScreenHelper.pixelsFromDp(((mLines == 1) ? 48 : 80));
-        final FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
+        final FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height());
         layoutParams.gravity = Gravity.BOTTOM;
         relativeLayout.setLayoutParams(layoutParams);
         viewGroup.addView(relativeLayout, layoutParams);
@@ -182,6 +192,9 @@ public class SnackBar extends RelativeLayout {
         build();
         setVisibility(View.VISIBLE);
         startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.snackbar_show_animation));
+        if (mAttachedView != null) {
+            mAttachedView.animate().translationYBy(height() * -1);
+        }
         if (mDuration != DURATION_INFINITE) {
             RunnableHelper.delayRunnable(new Runnable() {
                 @Override
@@ -215,6 +228,9 @@ public class SnackBar extends RelativeLayout {
             }
         });
         startAnimation(animation);
+        if (mAttachedView != null) {
+            mAttachedView.animate().translationYBy(height());
+        }
     }
 
     private void clear() {

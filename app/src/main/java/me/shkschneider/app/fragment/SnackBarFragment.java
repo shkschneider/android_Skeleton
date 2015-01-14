@@ -10,6 +10,7 @@ import android.widget.Button;
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.ActivityHelper;
+import me.shkschneider.skeleton.ui.FloatingActionButton;
 import me.shkschneider.skeleton.ui.SnackBar;
 
 public class SnackBarFragment extends SkeletonFragment {
@@ -31,6 +32,16 @@ public class SnackBarFragment extends SkeletonFragment {
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        final FloatingActionButton floatingActionButton = (FloatingActionButton) view.findViewById(R.id.floatingActionButton);
+        floatingActionButton.setColors(R.color.primaryColor, R.color.accentColor);
+        floatingActionButton.setIcon(R.drawable.ic_launcher);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                ActivityHelper.toast("FloatingActionButton");
+            }
+        });
+
         final Button toast = (Button) view.findViewById(R.id.toast);
         toast.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +57,7 @@ public class SnackBarFragment extends SkeletonFragment {
                 SnackBar.with(skeletonActivity(), "Take some of that SnackBar!")
                         .duration(SnackBar.DURATION_SHORT)
                         .singleLine()
+                        .attachToView(floatingActionButton)
                         .show();
             }
         });
@@ -54,10 +66,11 @@ public class SnackBarFragment extends SkeletonFragment {
         snackbar2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                SnackBar.with(skeletonActivity(), "Take some of that SnackBar!")
+                SnackBar.with(skeletonActivity(), "Take some of that SnackBar too!")
                         .duration(SnackBar.DURATION_LONG)
                         .singleLine()
                         .action(getResources().getString(android.R.string.ok), null)
+                        .attachToView(floatingActionButton)
                         .show();
             }
         });
@@ -70,6 +83,7 @@ public class SnackBarFragment extends SkeletonFragment {
                         .duration(SnackBar.DURATION_INFINITE)
                         .multiLine()
                         .action(getResources().getString(android.R.string.ok), null)
+                        .attachToView(floatingActionButton)
                         .show();
             }
         });
