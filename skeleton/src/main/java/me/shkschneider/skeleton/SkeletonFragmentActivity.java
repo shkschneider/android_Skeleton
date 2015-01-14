@@ -18,4 +18,9 @@ public class SkeletonFragmentActivity extends SkeletonActivity {
                 .commit();
     }
 
+    @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+    }
+
 }
