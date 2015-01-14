@@ -29,15 +29,12 @@ public class SkeletonFragment extends Fragment {
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // <http://nlopez.io/swiperefreshlayout-with-listview-done-right/>
+        // <http://stackoverflow.com/a/8395263>
         if (view != null) {
-            if (view instanceof AbsListView) {
-                skeletonActivity().listViewCompat((AbsListView) view);
-            }
             for (int i = 0; i < ((ViewGroup) view).getChildCount(); ++i) {
                 final View v = ((ViewGroup) view).getChildAt(i);
                 if (v instanceof AbsListView) {
-                    skeletonActivity().listViewCompat((AbsListView) v);
+                    skeletonActivity().swipeRefreshLayoutListViewCompat((AbsListView) v);
                 }
             }
         }

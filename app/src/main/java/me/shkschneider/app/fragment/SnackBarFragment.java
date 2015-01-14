@@ -19,6 +19,13 @@ public class SnackBarFragment extends SkeletonFragment {
         title("SnackBar");
     }
 
+    @Override
+    public void onCreate(final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        skeletonActivity().refreshable(false);
+    }
+
     // Inflate
 
     @Override

@@ -32,6 +32,10 @@ public class NetworkFragment extends SkeletonFragment implements SwipeRefreshLay
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        skeletonActivity().refreshable(true);
+
+        // Adapter
+
         final LayoutInflater layoutInflater = LayoutInflater.from(skeletonActivity());
         mAdapter = new ArrayAdapter<String>(skeletonActivity(), R.layout.listview_item2) {
             @Override

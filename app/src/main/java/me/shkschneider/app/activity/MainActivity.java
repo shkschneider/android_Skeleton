@@ -22,7 +22,6 @@ import me.shkschneider.app.fragment.ViewPagerTextIndicatorFragment;
 import me.shkschneider.app.fragment.FloatingActionButtonFragment;
 import me.shkschneider.app.fragment.MainFragment;
 import me.shkschneider.app.fragment.NetworkFragment;
-import me.shkschneider.app.fragment.RecyclerFragment;
 import me.shkschneider.skeleton.SkeletonNavigationDrawerActivity;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.IntentHelper;
@@ -35,9 +34,8 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
     public static final int NAVIGATION_VIEWPAGERCIRCLEINDICATOR = 3;
     public static final int NAVIGATION_NETWORK = 4;
     public static final int NAVIGATION_LISTVIEW = 5;
-    public static final int NAVIGATION_RECYCLER = 6;
-    public static final int NAVIGATION_FLOATINGACTIONBUTTON = 7;
-    public static final int NAVIGATION_SNACKBAR = 8;
+    public static final int NAVIGATION_FLOATINGACTIONBUTTON = 6;
+    public static final int NAVIGATION_SNACKBAR = 7;
 
     public static Intent getIntent(final Activity activity) {
         return new Intent(activity, MainActivity.class).setFlags(IntentHelper.HOME_FLAGS);
@@ -53,7 +51,7 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        if (navigationDrawer() != NAVIGATION_LISTVIEW && navigationDrawer() != NAVIGATION_RECYCLER) {
+        if (navigationDrawer() != NAVIGATION_LISTVIEW) {
             searchable(null, null);
         }
         return super.onCreateOptionsMenu(menu);
@@ -82,7 +80,6 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
                 add(NAVIGATION_VIEWPAGERCIRCLEINDICATOR, new ViewPagerCircleIndicatorFragment());
                 add(NAVIGATION_NETWORK, new NetworkFragment());
                 add(NAVIGATION_LISTVIEW, new ListViewFragment());
-                add(NAVIGATION_RECYCLER, new RecyclerFragment());
                 add(NAVIGATION_FLOATINGACTIONBUTTON, new FloatingActionButtonFragment());
                 add(NAVIGATION_SNACKBAR, new SnackBarFragment());
             }

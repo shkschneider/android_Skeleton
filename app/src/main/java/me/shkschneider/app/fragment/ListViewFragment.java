@@ -34,6 +34,8 @@ public class ListViewFragment extends SkeletonFragment {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        skeletonActivity().refreshable(true);
+
         // Adapter
 
         final LayoutInflater layoutInflater = LayoutInflater.from(skeletonActivity());

@@ -35,6 +35,8 @@ public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        skeletonActivity().refreshable(false);
+
         mPagerAdapter = new MyViewPagerAdapter(getFragmentManager());
     }
 
