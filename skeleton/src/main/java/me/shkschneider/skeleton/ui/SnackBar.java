@@ -33,6 +33,8 @@ public class SnackBar extends RelativeLayout {
     public static final int DURATION_LONG = 3500;
     public static final int DURATION_INFINITE = -1;
 
+    private static SnackBar mSnackBar = null;
+
     private Activity mActivity;
     private int mLines = 1;
     private int mDuration = DURATION_SHORT;
@@ -185,9 +187,15 @@ public class SnackBar extends RelativeLayout {
     }
 
     public void show() {
+        // Prevent multiple SnackBars
+        if (mSnackBar != null && mSnackBar.isShown()) {
+            return ;
+        }
         if (mShowing) {
             return ;
         }
+        mSnackBar = this;
+
         mShowing = true;
         build();
         setVisibility(View.VISIBLE);
@@ -231,6 +239,8 @@ public class SnackBar extends RelativeLayout {
         if (mAttachedView != null) {
             mAttachedView.animate().translationYBy(height());
         }
+
+        mSnackBar = null;
     }
 
     private void clear() {
