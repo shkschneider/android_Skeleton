@@ -27,17 +27,23 @@ import me.shkschneider.skeleton.helper.ScreenHelper;
 import me.shkschneider.skeleton.java.StringHelper;
 
 // <https://github.com/navasmdc/MaterialDesignLibrary>
+// <https://github.com/nispok/snackbar>
 public class SnackBar extends RelativeLayout {
 
-    private static final int DURATION_SHORT = 2000;
-    private static final int DURATION_LONG = 3500;
+    public static final int DURATION_SHORT = 2000;
+    public static final int DURATION_LONG = 3500;
+    public static final int DURATION_INFINITE = -1;
 
     private Activity mActivity;
     private int mLines = 1;
+    private int mDuration = DURATION_SHORT;
     private String mText;
     private String mAction;
     private OnClickListener mOnClickListener;
     private boolean mShowing = false;
+    private int mBackgroundColor = R.color.snackBarBackgroundColor;
+    private int mTextColor = R.color.snackBarForegroundColor;
+    private int mActionColor = R.color.accentColor;
 
     @SuppressWarnings("deprecation")
     @SuppressLint("deprecation")
@@ -75,6 +81,19 @@ public class SnackBar extends RelativeLayout {
         return snackBar;
     }
 
+    public static SnackBar with(@NonNull final Activity activity, @NonNull final String text, final int backgroundColor, final int textColor, final int actionColor) {
+        final SnackBar snackBar = SnackBar.with(activity, text);
+        snackBar.mBackgroundColor = backgroundColor;
+        snackBar.mTextColor = textColor;
+        snackBar.mActionColor = actionColor;
+        return snackBar;
+    }
+
+    public SnackBar duration(final int duration) {
+        mDuration = duration;
+        return this;
+    }
+
     public SnackBar singleLine() {
         mLines = 1;
         return this;
@@ -85,13 +104,19 @@ public class SnackBar extends RelativeLayout {
         return this;
     }
 
-    public SnackBar action(final String action, final OnClickListener listener) {
+    public SnackBar action(final String action, final OnClickListener listener, final int color) {
         mAction = action;
+        mActionColor = color;
         mOnClickListener = listener;
         return this;
     }
 
-    // TODO test
+    public SnackBar action(final String action, final OnClickListener listener) {
+        return action(action, listener, R.color.accentColor);
+    }
+
+    // TODO public SnackBar event(final EventListener eventListener)
+
     public SnackBar attachToAbsListView(final AbsListView absListView) {
         absListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -107,7 +132,6 @@ public class SnackBar extends RelativeLayout {
         return this;
     }
 
-    // TODO test
     public SnackBar attachToRecyclerView(final RecyclerView recyclerView) {
         recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -158,13 +182,14 @@ public class SnackBar extends RelativeLayout {
         build();
         setVisibility(View.VISIBLE);
         startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.snackbar_show_animation));
-        final int duration = ((! StringHelper.nullOrEmpty(mAction)) ? DURATION_LONG : DURATION_SHORT);
-        RunnableHelper.delayRunnable(new Runnable() {
-            @Override
-            public void run() {
-                dismiss();
-            }
-        }, duration, TimeUnit.MILLISECONDS);
+        if (mDuration != DURATION_INFINITE) {
+            RunnableHelper.delayRunnable(new Runnable() {
+                @Override
+                public void run() {
+                    dismiss();
+                }
+            }, mDuration, TimeUnit.MILLISECONDS);
+        }
     }
 
     public void dismiss() {

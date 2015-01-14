@@ -44,6 +44,7 @@ public class SnackBarFragment extends SkeletonFragment {
             @Override
             public void onClick(final View view) {
                 SnackBar.with(skeletonActivity(), "Take some of that SnackBar!")
+                        .duration(SnackBar.DURATION_SHORT)
                         .singleLine()
                         .show();
             }
@@ -54,6 +55,7 @@ public class SnackBarFragment extends SkeletonFragment {
             @Override
             public void onClick(final View view) {
                 SnackBar.with(skeletonActivity(), "Take some of that SnackBar!")
+                        .duration(SnackBar.DURATION_LONG)
                         .singleLine()
                         .action(getResources().getString(android.R.string.ok), null)
                         .show();
@@ -65,6 +67,7 @@ public class SnackBarFragment extends SkeletonFragment {
             @Override
             public void onClick(final View view) {
                 SnackBar.with(skeletonActivity(), "Take some of that way bigger SnackBar, for free!")
+                        .duration(SnackBar.DURATION_INFINITE)
                         .multiLine()
                         .action(getResources().getString(android.R.string.ok), null)
                         .show();
