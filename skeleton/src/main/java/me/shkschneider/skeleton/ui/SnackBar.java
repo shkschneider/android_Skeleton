@@ -130,7 +130,7 @@ public class SnackBar {
     }
 
     private void build() {
-        SNACKBAR.relativeLayout = new RelativeLayout(activity);
+        SNACKBAR.relativeLayout = new RelativeLayout(SNACKBAR.activity);
         final LayoutInflater layoutInflater = LayoutInflater.from(SNACKBAR.activity);
         final int layout = ((SNACKBAR.lines == 1) ? R.layout.snackbar1 : R.layout.snackbar2);
         final RelativeLayout relativeLayout = (RelativeLayout) layoutInflater.inflate(layout, SNACKBAR.relativeLayout, true);
