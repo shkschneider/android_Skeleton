@@ -45,6 +45,11 @@ public class SnackBar {
     private View.OnClickListener onClickListener;
     private boolean showing;
 
+    // Prevents direct initialization
+    private SnackBar() {
+        // Empty
+    }
+
     public static SnackBar with(@NonNull final Activity activity, @NonNull final String text) {
         if (SNACKBAR == null) {
             SNACKBAR = new SnackBar();
