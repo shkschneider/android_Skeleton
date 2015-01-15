@@ -61,6 +61,7 @@ public class SnackBarFragment extends SkeletonFragment {
         snackbar1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
+                new SnackBar().show();
                 SnackBar.with(skeletonActivity(), "Take some of that SnackBar!")
                         .duration(SnackBar.DURATION_SHORT)
                         .singleLine()
