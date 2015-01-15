@@ -45,7 +45,6 @@ public class SnackBar extends RelativeLayout {
     private String mAction;
     private View mAttachedView;
     private OnClickListener mOnClickListener;
-    private boolean mShowing = false;
 
     @SuppressWarnings("deprecation")
     @SuppressLint("deprecation")
@@ -187,16 +186,11 @@ public class SnackBar extends RelativeLayout {
     }
 
     public void show() {
-        // Prevent multiple SnackBars
-        if (mSnackBar != null && mSnackBar.isShown()) {
-            return ;
-        }
-        if (mShowing) {
+        if (mSnackBar != null) {
             return ;
         }
         mSnackBar = this;
 
-        mShowing = true;
         build();
         setVisibility(View.VISIBLE);
         startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.snackbar_show_animation));
@@ -214,9 +208,10 @@ public class SnackBar extends RelativeLayout {
     }
 
     public void dismiss() {
-        if (! mShowing) {
+        if (mSnackBar == null) {
             return ;
         }
+
         final Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.snackbar_hide_animation);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -227,8 +222,8 @@ public class SnackBar extends RelativeLayout {
             @Override
             public void onAnimationEnd(final Animation animation) {
                 setVisibility(View.GONE);
+                // Prevents multiple instances
                 mSnackBar = null;
-                mShowing = false;
             }
 
             @Override
