@@ -217,7 +217,6 @@ public class SnackBar extends RelativeLayout {
         if (! mShowing) {
             return ;
         }
-        mShowing = false;
         final Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.snackbar_hide_animation);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -228,6 +227,8 @@ public class SnackBar extends RelativeLayout {
             @Override
             public void onAnimationEnd(final Animation animation) {
                 setVisibility(View.GONE);
+                mSnackBar = null;
+                mShowing = false;
             }
 
             @Override
@@ -239,8 +240,6 @@ public class SnackBar extends RelativeLayout {
         if (mAttachedView != null) {
             mAttachedView.animate().translationYBy(height());
         }
-
-        mSnackBar = null;
     }
 
     private void clear() {
