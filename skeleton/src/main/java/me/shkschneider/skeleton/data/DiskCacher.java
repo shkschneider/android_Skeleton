@@ -5,6 +5,11 @@ import android.support.annotation.NonNull;
 import java.io.File;
 import java.io.Serializable;
 
+import me.shkschneider.skeleton.helper.LogHelper;
+
+// <http://developer.android.com/reference/java/io/Serializable.html>
+// <http://developer.android.com/guide/topics/data/data-storage.html#filesInternal>
+// <http://developer.android.com/guide/topics/data/data-storage.html#filesExternal>
 public class DiskCacher {
 
     // Prevents direct initialization
@@ -38,6 +43,11 @@ public class DiskCacher {
         }
 
         synchronized public boolean put(@NonNull final String key, final Serializable value) {
+            if (DIR == null) {
+                LogHelper.warning("Dir was NULL");
+                return false;
+            }
+
             if (DIR.exists()) {
                 final String path = FileHelper.join(DIR.getAbsolutePath(), key);
                 final File file = FileHelper.get(path);
@@ -49,18 +59,28 @@ public class DiskCacher {
             return false;
         }
 
-        synchronized public Object get(@NonNull final String key) {
+        synchronized public Serializable get(@NonNull final String key) {
+            if (DIR == null) {
+                LogHelper.warning("Dir was NULL");
+                return null;
+            }
+
             if (DIR.exists()) {
                 final String path = FileHelper.join(DIR.getAbsolutePath(), key);
                 final File file = FileHelper.get(path);
                 if (file.exists()) {
-                    return Serializer.read(file);
+                    return (Serializable) Serializer.read(file);
                 }
             }
             return null;
         }
 
         synchronized public void clear() {
+            if (DIR == null) {
+                LogHelper.warning("Dir was NULL");
+                return ;
+            }
+
             if (DIR.exists()) {
                 final String[] files = DIR.list();
                 for (int i = 0; i < files.length; i++) {
@@ -72,6 +92,11 @@ public class DiskCacher {
         }
 
         public int size() {
+            if (DIR == null) {
+                LogHelper.warning("Dir was NULL");
+                return 0;
+            }
+
             final File dir = ExternalDataHelper.cache();
             if (dir.exists()) {
                 return dir.list().length;
