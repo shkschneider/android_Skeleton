@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.helper;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -11,16 +12,22 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.provider.Settings;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import me.shkschneider.skeleton.BuildConfig;
+import me.shkschneider.skeleton.data.FileHelper;
 import me.shkschneider.skeleton.ui.ImageManipulator;
 import me.shkschneider.skeleton.SkeletonApplication;
 
 public class ApplicationHelper {
+
+    public static Context context() {
+        return SkeletonApplication.CONTEXT;
+    }
 
     public static boolean debug() {
         // Workaround to get DEBUG value of the android application and not that android-library
@@ -36,19 +43,36 @@ public class ApplicationHelper {
     }
 
     public static Resources resources() {
-        return SkeletonApplication.CONTEXT.getResources();
+        return ApplicationHelper.context().getResources();
     }
 
     public static AssetManager assets() {
-        return SkeletonApplication.CONTEXT.getAssets();
+        return ApplicationHelper.context().getAssets();
+    }
+
+    public static String[] files() {
+        return ApplicationHelper.context().fileList();
+    }
+
+    public static int wipe() {
+        int i = 0;
+        for (final String path : files()) {
+            final File file = FileHelper.get(path);
+            if (file.exists()) {
+                if (file.delete()) {
+                    i++;
+                }
+            }
+        }
+        return i;
     }
 
     public static String packageName() {
-        return SkeletonApplication.CONTEXT.getPackageName();
+        return ApplicationHelper.context().getPackageName();
     }
 
     public static PackageManager packageManager() {
-        return SkeletonApplication.CONTEXT.getPackageManager();
+        return ApplicationHelper.context().getPackageManager();
     }
 
     public static String name() {
@@ -195,20 +219,20 @@ public class ApplicationHelper {
     @TargetApi(AndroidHelper.API_21)
     public static boolean fromMarket21() {
         // API-21+ Settings.Secure
-        return (Settings.Secure.getInt(SkeletonApplication.CONTEXT.getContentResolver(), Settings.Secure.INSTALL_NON_MARKET_APPS, 0) == 1);
+        return (Settings.Secure.getInt(ApplicationHelper.context().getContentResolver(), Settings.Secure.INSTALL_NON_MARKET_APPS, 0) == 1);
     }
 
     @TargetApi(AndroidHelper.API_17)
     @SuppressWarnings("deprecation")
     public static boolean fromMarket17() {
         // API-17+ Settings.Global
-        return (Settings.Global.getInt(SkeletonApplication.CONTEXT.getContentResolver(), Settings.Global.INSTALL_NON_MARKET_APPS, 0) == 1);
+        return (Settings.Global.getInt(ApplicationHelper.context().getContentResolver(), Settings.Global.INSTALL_NON_MARKET_APPS, 0) == 1);
     }
 
     @TargetApi(AndroidHelper.API_3)
     public static boolean fromMarket3() {
         // API-3+ Settings.Secure
-        return (Settings.Secure.getInt(SkeletonApplication.CONTEXT.getContentResolver(), Settings.Secure.INSTALL_NON_MARKET_APPS, 0) == 1);
+        return (Settings.Secure.getInt(ApplicationHelper.context().getContentResolver(), Settings.Secure.INSTALL_NON_MARKET_APPS, 0) == 1);
     }
 
 }
