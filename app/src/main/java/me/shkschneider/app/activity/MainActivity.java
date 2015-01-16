@@ -24,6 +24,10 @@ import me.shkschneider.app.fragment.MainFragment;
 import me.shkschneider.app.fragment.NetworkFragment;
 import me.shkschneider.skeleton.SkeletonNavigationDrawerActivity;
 import me.shkschneider.skeleton.SkeletonFragment;
+import me.shkschneider.skeleton.data.DiskCacher;
+import me.shkschneider.skeleton.data.MemoryCacher;
+import me.shkschneider.skeleton.helper.ActivityHelper;
+import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
 
 public class MainActivity extends SkeletonNavigationDrawerActivity {
@@ -37,6 +41,10 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
     public static final int NAVIGATION_FLOATINGACTIONBUTTON = 6;
     public static final int NAVIGATION_SNACKBAR = 7;
 
+    private MemoryCacher mMemoryCacher;
+    private DiskCacher.Internal mDiskCacherInternal;
+    private DiskCacher.External mDiskCacherExternal;
+
     public static Intent getIntent(final Activity activity) {
         return new Intent(activity, MainActivity.class).setFlags(IntentHelper.HOME_FLAGS);
     }
@@ -46,6 +54,32 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
         super.onCreate(savedInstanceState);
 
         navigationDrawer(0);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        mMemoryCacher = new MemoryCacher();
+        mMemoryCacher.put("MainActivity", MainActivity.this);
+        ActivityHelper.toast(mMemoryCacher.get("MainActivity").toString());
+
+        mDiskCacherInternal = new DiskCacher.Internal();
+        mDiskCacherInternal.put("DiskCacher", new String("Internal"));
+        ActivityHelper.toast(mDiskCacherInternal.get("DiskCacher").toString());
+
+        mDiskCacherExternal = new DiskCacher.External();
+        mDiskCacherExternal.put("DiskCacher", new String("External"));
+        ActivityHelper.toast(mDiskCacherExternal.get("DiskCacher").toString());
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        mMemoryCacher.clear();
+        mDiskCacherInternal.clear();
+        mDiskCacherExternal.clear();
     }
 
     @Override
