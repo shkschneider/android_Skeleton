@@ -2,14 +2,12 @@ package me.shkschneider.skeleton.ui;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AbsListView;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -35,6 +33,7 @@ public class SnackBar {
     private RelativeLayout relativeLayout;
     private Activity activity;
     private int lines;
+    private int height;
     private int duration;
     private int backgroundColor;
     private int textColor;
@@ -128,13 +127,10 @@ public class SnackBar {
         return this;
     }
 
-    public int height() {
-        return  (int) ((SNACKBAR.lines == 1)
+    private void build() {
+        SNACKBAR.height = (int) ((SNACKBAR.lines == 1)
                 ? ApplicationHelper.resources().getDimension(R.dimen.snackBarSingle)
                 : ApplicationHelper.resources().getDimension(R.dimen.snackBarMulti));
-    }
-
-    private void build() {
         SNACKBAR.relativeLayout = new RelativeLayout(SNACKBAR.activity);
         final LayoutInflater layoutInflater = LayoutInflater.from(SNACKBAR.activity);
         final int layout = ((SNACKBAR.lines == 1) ? R.layout.snackbar1 : R.layout.snackbar2);
@@ -162,7 +158,7 @@ public class SnackBar {
         SNACKBAR.relativeLayout.requestLayout(); // invalidates this class' layout
 
         final ViewGroup viewGroup = (ViewGroup) SNACKBAR.activity.findViewById(android.R.id.content);
-        final FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height());
+        final FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, SNACKBAR.height);
         layoutParams.gravity = Gravity.BOTTOM;
         relativeLayout.setLayoutParams(layoutParams);
         viewGroup.addView(relativeLayout, layoutParams);
@@ -172,13 +168,13 @@ public class SnackBar {
         if (SNACKBAR.showing) {
             return ;
         }
+        SNACKBAR.showing = true;
         build();
 
-        SNACKBAR.showing = true;
         SNACKBAR.relativeLayout.setVisibility(View.VISIBLE);
         SNACKBAR.relativeLayout.startAnimation(AnimationUtils.loadAnimation(SkeletonApplication.CONTEXT, R.anim.snackbar_show_animation));
         if (SNACKBAR.attachedView != null) {
-            SNACKBAR.attachedView.animate().translationYBy(height() * -1);
+            SNACKBAR.attachedView.animate().translationYBy(SNACKBAR.height * -1);
         }
         if (SNACKBAR.duration != DURATION_INFINITE) {
             RunnableHelper.delayRunnable(new Runnable() {
@@ -220,7 +216,7 @@ public class SnackBar {
         });
         SNACKBAR.relativeLayout.startAnimation(animation);
         if (SNACKBAR.attachedView != null) {
-            SNACKBAR.attachedView.animate().translationYBy(height());
+            SNACKBAR.attachedView.animate().translationYBy(SNACKBAR.height);
         }
     }
 
