@@ -9,9 +9,11 @@ public class MemoryCacher<K, V> {
     private LruCache<K, V> mCache;
 
     public MemoryCacher() {
-        // One 8th of the available memory is safe
-        // and should be enough for 2.5 pages of images in a GridView (800x480x4)
-        // <http://stackoverflow.com/a/15763477>
+        // One eighth of the application memory is allocated for our cache.
+        // On a normal/hdpi device this is a minimum of around 4MB (32/8).
+        // A full screen GridView filled with images on a device with
+        // 800x480 resolution would use around 1.5MB (800*480*4 bytes),
+        // so this would cache a minimum of around 2.5 pages of images in memory.
         final int size = (int) (Runtime.getRuntime().maxMemory() / 1024) / 8;
         mCache = new LruCache<>(size);
     }
