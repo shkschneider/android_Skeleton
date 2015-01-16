@@ -16,7 +16,7 @@ public class SkeletonFragment extends Fragment {
     protected String mTitle;
 
     public SkeletonFragment() {
-        title(ClassHelper.name(SkeletonFragment.class));
+        title(ClassHelper.simpleName(SkeletonFragment.class));
     }
 
     @Override

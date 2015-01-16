@@ -53,7 +53,7 @@ public class WebService {
                 LogHelper.warning("Callback was NULL");
                 return true;
             }
-            callback.webServiceCallback(new WebServiceException(666, ClassHelper.name(e.getClass())), null);
+            callback.webServiceCallback(new WebServiceException(666, ClassHelper.simpleName(e.getClass())), null);
             return true;
         }
         if (callback == null) {

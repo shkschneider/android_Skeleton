@@ -28,6 +28,7 @@ import me.shkschneider.skeleton.data.DiskCacher;
 import me.shkschneider.skeleton.data.MemoryCacher;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
+import me.shkschneider.skeleton.java.ClassHelper;
 
 public class MainActivity extends SkeletonNavigationDrawerActivity {
 
@@ -40,7 +41,9 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
     public static final int NAVIGATION_FLOATINGACTIONBUTTON = 6;
     public static final int NAVIGATION_SNACKBAR = 7;
 
-    private MemoryCacher mMemoryCacher;
+    // Anything as key, anything as value (LRU algorithm)
+    private MemoryCacher<String, Activity> mMemoryCacher;
+    // String as key, Serializable as value (Serialization)
     private DiskCacher.Internal mDiskCacherInternal;
     private DiskCacher.External mDiskCacherExternal;
 
@@ -59,13 +62,13 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
     protected void onResume() {
         super.onResume();
 
-        mMemoryCacher = new MemoryCacher();
+        mMemoryCacher = new MemoryCacher<>();
         mMemoryCacher.put("MainActivity", MainActivity.this);
         mDiskCacherInternal = new DiskCacher.Internal();
         mDiskCacherInternal.put("DiskCacher", "Internal");
         mDiskCacherExternal = new DiskCacher.External();
         mDiskCacherExternal.put("DiskCacher", "External");
-        ActivityHelper.toast(mMemoryCacher.get("MainActivity").getClass().getSimpleName());
+        ActivityHelper.toast(ClassHelper.packagename(mMemoryCacher.get("MainActivity").getClass()));
         ActivityHelper.toast(mDiskCacherInternal.get("DiskCacher").toString());
         ActivityHelper.toast(mDiskCacherExternal.get("DiskCacher").toString());
     }
