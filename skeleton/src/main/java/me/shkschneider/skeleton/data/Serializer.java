@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.helper;
+package me.shkschneider.skeleton.data;
 
 import android.support.annotation.NonNull;
 
@@ -8,7 +8,9 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-public class SerializeHelper {
+import me.shkschneider.skeleton.helper.LogHelper;
+
+public class Serializer {
 
     public static boolean write(@NonNull final Object object, @NonNull final File file) {
         try {
