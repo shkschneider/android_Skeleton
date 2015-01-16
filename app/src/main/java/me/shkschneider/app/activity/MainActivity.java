@@ -65,11 +65,11 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
         ActivityHelper.toast(mMemoryCacher.get("MainActivity").toString());
 
         mDiskCacherInternal = new DiskCacher.Internal();
-        mDiskCacherInternal.put("DiskCacher", new String("Internal"));
+        mDiskCacherInternal.put("DiskCacher", "Internal");
         ActivityHelper.toast(mDiskCacherInternal.get("DiskCacher").toString());
 
         mDiskCacherExternal = new DiskCacher.External();
-        mDiskCacherExternal.put("DiskCacher", new String("External"));
+        mDiskCacherExternal.put("DiskCacher", "External");
         ActivityHelper.toast(mDiskCacherExternal.get("DiskCacher").toString());
     }
 

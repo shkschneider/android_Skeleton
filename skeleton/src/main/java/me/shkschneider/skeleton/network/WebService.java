@@ -61,8 +61,8 @@ public class WebService {
             return true;
         }
         if (response != null) {
-            final int responseCode = response.getHeaders().getResponseCode();
-            final String responseMessage = response.getHeaders().getResponseMessage();
+            final int responseCode = response.getHeaders().code();
+            final String responseMessage = response.getHeaders().message();
             // All codes below 400 do not imply success...
             // <http://en.wikipedia.org/wiki/List_of_HTTP_status_codes>
             if (responseCode >= 400) {
