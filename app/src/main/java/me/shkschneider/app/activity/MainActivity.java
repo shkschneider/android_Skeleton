@@ -27,7 +27,6 @@ import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.data.DiskCacher;
 import me.shkschneider.skeleton.data.MemoryCacher;
 import me.shkschneider.skeleton.helper.ActivityHelper;
-import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
 
 public class MainActivity extends SkeletonNavigationDrawerActivity {
@@ -66,7 +65,7 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
         mDiskCacherInternal.put("DiskCacher", "Internal");
         mDiskCacherExternal = new DiskCacher.External();
         mDiskCacherExternal.put("DiskCacher", "External");
-        ActivityHelper.toast(mMemoryCacher.get("MainActivity").toString());
+        ActivityHelper.toast(mMemoryCacher.get("MainActivity").getClass().getSimpleName());
         ActivityHelper.toast(mDiskCacherInternal.get("DiskCacher").toString());
         ActivityHelper.toast(mDiskCacherExternal.get("DiskCacher").toString());
     }
