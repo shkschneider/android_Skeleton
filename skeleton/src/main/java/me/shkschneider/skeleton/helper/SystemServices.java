@@ -35,12 +35,10 @@ import android.view.accessibility.AccessibilityManager;
 import android.view.inputmethod.InputMethodManager;
 import android.view.textservice.TextServicesManager;
 
-import me.shkschneider.skeleton.SkeletonApplication;
-
 public class SystemServices {
 
     private static Object service(@NonNull final String service) {
-        return SkeletonApplication.CONTEXT.getSystemService(service);
+        return ApplicationHelper.context().getSystemService(service);
     }
 
     public static AccessibilityManager accessibilityManager() {

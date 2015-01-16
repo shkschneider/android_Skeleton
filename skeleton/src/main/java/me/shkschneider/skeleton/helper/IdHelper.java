@@ -4,13 +4,12 @@ import android.provider.Settings;
 
 import java.util.UUID;
 
-import me.shkschneider.skeleton.SkeletonApplication;
 import me.shkschneider.skeleton.java.StringHelper;
 
 public class IdHelper {
 
     public static String androidId() {
-        final String androidId = Settings.Secure.getString(SkeletonApplication.CONTEXT.getContentResolver(), Settings.Secure.ANDROID_ID);
+        final String androidId = Settings.Secure.getString(ApplicationHelper.context().getContentResolver(), Settings.Secure.ANDROID_ID);
         if (StringHelper.nullOrEmpty(androidId)) {
             LogHelper.warning("AndroidId was NULL");
             return null;

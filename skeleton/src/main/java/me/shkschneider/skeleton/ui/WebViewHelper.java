@@ -5,11 +5,11 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.webkit.WebView;
 
-import me.shkschneider.skeleton.SkeletonApplication;
 import me.shkschneider.skeleton.data.CharsetHelper;
 import me.shkschneider.skeleton.data.MimeTypeHelper;
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.data.FileHelper;
+import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
 public class WebViewHelper {
@@ -19,7 +19,7 @@ public class WebViewHelper {
     public static final String MIME_TYPE = MimeTypeHelper.TEXT_HTML;
 
     public static WebView getInstance() {
-        final WebView webView = new WebView(SkeletonApplication.CONTEXT);
+        final WebView webView = new WebView(ApplicationHelper.context());
         if (AndroidHelper.api() >= AndroidHelper.API_21) {
             webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }

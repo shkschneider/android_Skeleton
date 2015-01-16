@@ -9,8 +9,6 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Toast;
 
-import me.shkschneider.skeleton.SkeletonApplication;
-
 public class ActivityHelper {
 
     public static View contentView(@NonNull final Activity activity) {
@@ -18,15 +16,15 @@ public class ActivityHelper {
     }
 
     public static void toast(@NonNull final String msg) {
-        Toast.makeText(SkeletonApplication.CONTEXT, msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(ApplicationHelper.context(), msg, Toast.LENGTH_SHORT).show();
     }
 
     public static boolean portrait() {
-        return (SkeletonApplication.CONTEXT.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
+        return (ApplicationHelper.context().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
     }
 
     public static boolean landscape() {
-        return (SkeletonApplication.CONTEXT.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
+        return (ApplicationHelper.context().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
     }
 
     public static String title(@NonNull final Activity activity) {

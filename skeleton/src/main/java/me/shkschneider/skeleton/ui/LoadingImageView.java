@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.ViewSwitcher;
 
 import me.shkschneider.skeleton.R;
-import me.shkschneider.skeleton.SkeletonApplication;
+import me.shkschneider.skeleton.helper.ApplicationHelper;
 
 public class LoadingImageView extends ViewSwitcher {
 
@@ -30,7 +30,7 @@ public class LoadingImageView extends ViewSwitcher {
 
     @SuppressLint("InflateParams")
     private void init() {
-        final LayoutInflater layoutInflater = LayoutInflater.from(SkeletonApplication.CONTEXT);
+        final LayoutInflater layoutInflater = LayoutInflater.from(ApplicationHelper.context());
         mLoadingView = layoutInflater.inflate(R.layout.loadingimageview_loadingview, null, false);
         addView(mLoadingView, VIEW_LOADING);
         mImageView = layoutInflater.inflate(R.layout.loadingimageview_imageview, null, false);

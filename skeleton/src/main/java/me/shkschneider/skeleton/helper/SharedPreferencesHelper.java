@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 
-import me.shkschneider.skeleton.SkeletonApplication;
 import me.shkschneider.skeleton.java.StringHelper;
 
 public class SharedPreferencesHelper {
@@ -13,7 +12,7 @@ public class SharedPreferencesHelper {
     // Public
 
     private static SharedPreferences getPublic() {
-        return PreferenceManager.getDefaultSharedPreferences(SkeletonApplication.CONTEXT);
+        return PreferenceManager.getDefaultSharedPreferences(ApplicationHelper.context());
     }
 
     public static boolean putPublic(@NonNull final String key, final String value) {
@@ -34,7 +33,7 @@ public class SharedPreferencesHelper {
             return getPublic();
         }
 
-        return SkeletonApplication.CONTEXT.getSharedPreferences(name, Context.MODE_PRIVATE);
+        return ApplicationHelper.context().getSharedPreferences(name, Context.MODE_PRIVATE);
     }
 
     public static boolean putPrivate(@NonNull final String name, @NonNull final String key, final String value) {

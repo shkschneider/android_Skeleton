@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 
 import java.io.File;
 
-import me.shkschneider.skeleton.SkeletonApplication;
+import me.shkschneider.skeleton.helper.ApplicationHelper;
 
 public class ExternalDataHelper {
 
@@ -14,7 +14,7 @@ public class ExternalDataHelper {
     }
 
     public static File cache() {
-        return SkeletonApplication.CONTEXT.getExternalCacheDir();
+        return ApplicationHelper.context().getExternalCacheDir();
     }
 
     public static File dir() {
@@ -22,11 +22,11 @@ public class ExternalDataHelper {
     }
 
     public static File file(@NonNull final String name) {
-        return SkeletonApplication.CONTEXT.getExternalFilesDir(name);
+        return ApplicationHelper.context().getExternalFilesDir(name);
     }
 
     public static boolean delete(@NonNull final String name) {
-        return SkeletonApplication.CONTEXT.deleteFile(name);
+        return ApplicationHelper.context().deleteFile(name);
     }
 
 }

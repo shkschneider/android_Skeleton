@@ -15,7 +15,6 @@ import android.widget.TextView;
 import java.util.concurrent.TimeUnit;
 
 import me.shkschneider.skeleton.R;
-import me.shkschneider.skeleton.SkeletonApplication;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.RunnableHelper;
 import me.shkschneider.skeleton.java.StringHelper;
@@ -172,7 +171,7 @@ public class SnackBar {
         build();
 
         SNACKBAR.relativeLayout.setVisibility(View.VISIBLE);
-        SNACKBAR.relativeLayout.startAnimation(AnimationUtils.loadAnimation(SkeletonApplication.CONTEXT, R.anim.snackbar_show_animation));
+        SNACKBAR.relativeLayout.startAnimation(AnimationUtils.loadAnimation(ApplicationHelper.context(), R.anim.snackbar_show_animation));
         if (SNACKBAR.attachedView != null) {
             SNACKBAR.attachedView.animate().translationYBy(SNACKBAR.height * -1);
         }
@@ -195,7 +194,7 @@ public class SnackBar {
             return ;
         }
 
-        final Animation animation = AnimationUtils.loadAnimation(SkeletonApplication.CONTEXT, R.anim.snackbar_hide_animation);
+        final Animation animation = AnimationUtils.loadAnimation(ApplicationHelper.context(), R.anim.snackbar_hide_animation);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(final Animation animation) {

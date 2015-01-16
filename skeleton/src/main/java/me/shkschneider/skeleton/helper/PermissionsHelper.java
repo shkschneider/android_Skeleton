@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 
-import me.shkschneider.skeleton.SkeletonApplication;
-
 // <http://developer.android.com/reference/android/Manifest.permission.html>
 public class PermissionsHelper {
 
@@ -198,7 +196,7 @@ public class PermissionsHelper {
     public static final String WRITE_VOICEMAIL = android.Manifest.permission.WRITE_VOICEMAIL;
 
     public static boolean permission(@NonNull final String permission) {
-        final PackageManager packageManager = SkeletonApplication.CONTEXT.getPackageManager();
+        final PackageManager packageManager = ApplicationHelper.context().getPackageManager();
         if (packageManager == null) {
             LogHelper.warning("PackageManager was NULL");
             return false;

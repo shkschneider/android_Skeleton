@@ -19,7 +19,6 @@ import android.widget.RelativeLayout;
 import java.io.InputStream;
 
 import me.shkschneider.skeleton.R;
-import me.shkschneider.skeleton.SkeletonApplication;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.ScreenHelper;
@@ -74,7 +73,7 @@ public class ImageManipulator {
     // TODO check if both methods needed
     public static Bitmap fromUri(@NonNull final Uri uri) {
         try {
-            return BitmapFactory.decodeStream(SkeletonApplication.CONTEXT.getContentResolver().openInputStream(uri), null, new BitmapFactory.Options());
+            return BitmapFactory.decodeStream(ApplicationHelper.context().getContentResolver().openInputStream(uri), null, new BitmapFactory.Options());
         }
         catch (final Exception e) {
             LogHelper.wtf(e);
@@ -87,7 +86,7 @@ public class ImageManipulator {
         final BitmapFactory.Options bitmapFactoryOptionsTmp = new BitmapFactory.Options();
         bitmapFactoryOptionsTmp.inJustDecodeBounds = true;
         try {
-            final InputStream inputStream = SkeletonApplication.CONTEXT.getContentResolver().openInputStream(uri);
+            final InputStream inputStream = ApplicationHelper.context().getContentResolver().openInputStream(uri);
             if (inputStream == null) {
                 LogHelper.warning("InputStream was NULL");
                 return null;

@@ -15,14 +15,12 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.shkschneider.skeleton.SkeletonApplication;
-
 public class GooglePlayServicesHelper {
 
     public static final String GOOGLE_ACCOUNT_TYPE = GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE;
 
     public static int status() {
-        return GooglePlayServicesUtil.isGooglePlayServicesAvailable(SkeletonApplication.CONTEXT);
+        return GooglePlayServicesUtil.isGooglePlayServicesAvailable(ApplicationHelper.context());
     }
 
     public static boolean check() {
@@ -59,7 +57,7 @@ public class GooglePlayServicesHelper {
 
     public static List<String> accounts() {
         final List<String> accounts = new ArrayList<String>();
-        final AccountManager accountManager = AccountManager.get(SkeletonApplication.CONTEXT);
+        final AccountManager accountManager = AccountManager.get(ApplicationHelper.context());
         if (accountManager != null) {
             for (Account account : accountManager.getAccountsByType(GOOGLE_ACCOUNT_TYPE)) {
                 if (Patterns.EMAIL_ADDRESS.matcher(account.name).matches()) {

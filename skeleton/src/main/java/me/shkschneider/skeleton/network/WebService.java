@@ -13,7 +13,6 @@ import com.koushikdutta.ion.builder.LoadBuilder;
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
-import me.shkschneider.skeleton.SkeletonApplication;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
@@ -29,7 +28,7 @@ public class WebService {
     private LoadBuilder<Builders.Any.B> mIon;
 
     public WebService() {
-        mIon = Ion.with(SkeletonApplication.CONTEXT);
+        mIon = Ion.with(ApplicationHelper.context());
     }
 
     private Builders.Any.B build(final String url) {
@@ -126,11 +125,11 @@ public class WebService {
     }
 
     public void clearCache() {
-        Ion.getDefault(SkeletonApplication.CONTEXT).getCache().clear();
+        Ion.getDefault(ApplicationHelper.context()).getCache().clear();
     }
 
     public void cancelAll() {
-        Ion.getDefault(SkeletonApplication.CONTEXT).cancelAll();
+        Ion.getDefault(ApplicationHelper.context()).cancelAll();
     }
 
     public static class WebServiceException extends Exception {

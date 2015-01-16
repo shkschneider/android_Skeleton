@@ -15,7 +15,6 @@ import java.util.List;
 
 import me.shkschneider.skeleton.network.NetworkHelper;
 import me.shkschneider.skeleton.ui.ImageManipulator;
-import me.shkschneider.skeleton.SkeletonApplication;
 import me.shkschneider.skeleton.data.MimeTypeHelper;
 
 public class IntentHelper {
@@ -58,7 +57,7 @@ public class IntentHelper {
     }
 
     public static boolean canHandle(@NonNull final Intent intent) {
-        final PackageManager packageManager = SkeletonApplication.CONTEXT.getPackageManager();
+        final PackageManager packageManager = ApplicationHelper.context().getPackageManager();
         if (packageManager == null) {
             LogHelper.warning("PackageManager was NULL");
             return false;

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-import me.shkschneider.skeleton.SkeletonApplication;
+import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.SystemServices;
 import me.shkschneider.skeleton.java.StringHelper;
@@ -40,7 +40,7 @@ public class NetworkHelper {
 
     public static String userAgent() {
         // System.getProperty("http.agent");
-        return new WebView(SkeletonApplication.CONTEXT).getSettings().getUserAgentString();
+        return new WebView(ApplicationHelper.context()).getSettings().getUserAgentString();
     }
 
     public static boolean online() {

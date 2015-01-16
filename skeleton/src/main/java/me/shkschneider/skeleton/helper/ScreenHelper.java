@@ -11,8 +11,6 @@ import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
 
-import me.shkschneider.skeleton.SkeletonApplication;
-
 public class ScreenHelper {
 
     public static final int DENSITY_LDPI = 120;
@@ -95,7 +93,7 @@ public class ScreenHelper {
     }
 
     public static int width() {
-        return SkeletonApplication.CONTEXT.getResources().getDisplayMetrics().widthPixels;
+        return ApplicationHelper.context().getResources().getDisplayMetrics().widthPixels;
     }
 
     public static int orientation() {
@@ -118,7 +116,7 @@ public class ScreenHelper {
             LogHelper.warning("Dp was too low");
             return 0;
         }
-        return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, SkeletonApplication.CONTEXT.getResources().getDisplayMetrics()));
+        return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, ApplicationHelper.context().getResources().getDisplayMetrics()));
     }
 
 }

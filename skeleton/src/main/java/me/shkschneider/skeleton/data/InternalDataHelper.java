@@ -8,14 +8,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
-import me.shkschneider.skeleton.SkeletonApplication;
+import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
 public class InternalDataHelper {
 
     public static FileInputStream openInput(@NonNull final String name) {
         try {
-            return SkeletonApplication.CONTEXT.openFileInput(name);
+            return ApplicationHelper.context().openFileInput(name);
         }
         catch (final Exception e) {
             LogHelper.wtf(e);
@@ -25,7 +25,7 @@ public class InternalDataHelper {
 
     public static FileOutputStream openOutput(@NonNull final String name) {
         try {
-            return SkeletonApplication.CONTEXT.openFileOutput(name, Context.MODE_PRIVATE);
+            return ApplicationHelper.context().openFileOutput(name, Context.MODE_PRIVATE);
         }
         catch (final Exception e) {
             LogHelper.wtf(e);
@@ -38,11 +38,11 @@ public class InternalDataHelper {
     }
 
     public static File cache() {
-        return SkeletonApplication.CONTEXT.getCacheDir();
+        return ApplicationHelper.context().getCacheDir();
     }
 
     public static File dir() {
-        return SkeletonApplication.CONTEXT.getFilesDir();
+        return ApplicationHelper.context().getFilesDir();
     }
 
     public static File file(@NonNull final String name) {
@@ -61,7 +61,7 @@ public class InternalDataHelper {
     }
 
     public static boolean delete(@NonNull final String name) {
-        return SkeletonApplication.CONTEXT.deleteFile(name);
+        return ApplicationHelper.context().deleteFile(name);
     }
 
 }

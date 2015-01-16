@@ -9,13 +9,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import me.shkschneider.skeleton.SkeletonApplication;
 import me.shkschneider.skeleton.data.InternalDataHelper;
 
 public class AssetsHelper {
 
     public static AssetManager assetManager() {
-        return SkeletonApplication.CONTEXT.getAssets();
+        return ApplicationHelper.context().getAssets();
     }
 
     public static List<String> list() {
