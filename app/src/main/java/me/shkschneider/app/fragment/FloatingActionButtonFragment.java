@@ -41,7 +41,7 @@ public class FloatingActionButtonFragment extends SkeletonFragment {
         final FloatingActionButton floatingActionButton = (FloatingActionButton) view.findViewById(R.id.floatingActionButton);
         // floatingActionButton.setColors()
         floatingActionButton.setIcon(R.drawable.ic_launcher);
-        floatingActionButton.setSize(FloatingActionButton.SIZE_MINI);
+        floatingActionButton.setSize(FloatingActionButton.SIZE_NORMAL);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -73,7 +73,7 @@ public class FloatingActionButtonFragment extends SkeletonFragment {
         final FloatingActionButton floatingActionButton1 = (FloatingActionButton) view.findViewById(R.id.floatingActionButton1);
         floatingActionButton1.setColors(R.color.primaryColor, R.color.accentColor);
         floatingActionButton1.setIcon(R.drawable.ic_launcher);
-        // floatingActionButton.setSize()
+        floatingActionButton1.setSize(FloatingActionButton.SIZE_MINI);
         floatingActionButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
@@ -85,12 +85,48 @@ public class FloatingActionButtonFragment extends SkeletonFragment {
         final FloatingActionButton floatingActionButton2 = (FloatingActionButton) view.findViewById(R.id.floatingActionButton2);
         floatingActionButton2.setColors(R.color.primaryColor, R.color.accentColor);
         floatingActionButton2.setIcon(R.drawable.ic_launcher);
-        // floatingActionButton.setSize()
+        floatingActionButton2.setSize(FloatingActionButton.SIZE_MINI);
         floatingActionButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
                 floatingActionMenu.collapse();
                 ActivityHelper.toast("Menu.Button2");
+            }
+        });
+
+        final FloatingActionButton floatingActionButton3 = (FloatingActionButton) view.findViewById(R.id.floatingActionButton3);
+        floatingActionButton3.setColors(R.color.primaryColor, R.color.accentColor);
+        floatingActionButton3.setIcon(R.drawable.ic_launcher);
+        floatingActionButton3.setSize(FloatingActionButton.SIZE_MINI);
+        floatingActionButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                floatingActionMenu.collapse();
+                ActivityHelper.toast("Menu.Button3");
+            }
+        });
+
+        final FloatingActionButton floatingActionButton4 = (FloatingActionButton) view.findViewById(R.id.floatingActionButton4);
+        floatingActionButton4.setColors(R.color.primaryColor, R.color.accentColor);
+        floatingActionButton4.setIcon(R.drawable.ic_launcher);
+        floatingActionButton4.setSize(FloatingActionButton.SIZE_MINI);
+        floatingActionButton4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                floatingActionMenu.collapse();
+                ActivityHelper.toast("Menu.Button4");
+            }
+        });
+
+        final FloatingActionButton floatingActionButton5 = (FloatingActionButton) view.findViewById(R.id.floatingActionButton5);
+        floatingActionButton5.setColors(R.color.primaryColor, R.color.accentColor);
+        floatingActionButton5.setIcon(R.drawable.ic_launcher);
+        floatingActionButton5.setSize(FloatingActionButton.SIZE_MINI);
+        floatingActionButton5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View view) {
+                floatingActionMenu.collapse();
+                ActivityHelper.toast("Menu.Button5");
             }
         });
 
