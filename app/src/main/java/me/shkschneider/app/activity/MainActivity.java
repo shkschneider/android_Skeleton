@@ -56,11 +56,6 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
         super.onCreate(savedInstanceState);
 
         navigationDrawer(0);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
 
         mMemoryCacher = new MemoryCacher<>();
         mMemoryCacher.put("MainActivity", MainActivity.this);
@@ -68,21 +63,15 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
         mDiskCacherInternal.put("DiskCacher", "Internal");
         mDiskCacherExternal = new DiskCacher.External();
         mDiskCacherExternal.put("DiskCacher", "External");
-        ActivityHelper.toast(ClassHelper.packageName(mMemoryCacher.get("MainActivity").getClass()));
-        ActivityHelper.toast(mDiskCacherInternal.get("DiskCacher").toString());
-        ActivityHelper.toast(mDiskCacherExternal.get("DiskCacher").toString());
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onResume() {
+        super.onResume();
 
-        mMemoryCacher.clear();
-        mMemoryCacher = null;
-        mDiskCacherInternal.clear();
-        mDiskCacherInternal = null;
-        mDiskCacherExternal.clear();
-        mDiskCacherExternal = null;
+        ActivityHelper.toast(ClassHelper.packageName(mMemoryCacher.get("MainActivity").getClass()));
+        ActivityHelper.toast(mDiskCacherInternal.get("DiskCacher").toString());
+        ActivityHelper.toast(mDiskCacherExternal.get("DiskCacher").toString());
     }
 
     @Override
@@ -148,6 +137,18 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
     @Override
     protected SkeletonFragment getFragment(final int position) {
         return (SkeletonFragment) getAdapter().getItem(position);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        mMemoryCacher.clear();
+        mMemoryCacher = null;
+        mDiskCacherInternal.clear();
+        mDiskCacherInternal = null;
+        mDiskCacherExternal.clear();
+        mDiskCacherExternal = null;
     }
 
 }
