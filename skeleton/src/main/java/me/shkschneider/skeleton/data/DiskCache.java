@@ -10,10 +10,10 @@ import me.shkschneider.skeleton.helper.LogHelper;
 // <http://developer.android.com/reference/java/io/Serializable.html>
 // <http://developer.android.com/guide/topics/data/data-storage.html#filesInternal>
 // <http://developer.android.com/guide/topics/data/data-storage.html#filesExternal>
-public class DiskCacher {
+public class DiskCache {
 
     // Prevents direct initialization
-    private DiskCacher() {
+    private DiskCache() {
         // Empty
     }
 

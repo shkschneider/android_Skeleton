@@ -4,11 +4,11 @@ import android.support.annotation.NonNull;
 import android.support.v4.util.LruCache;
 
 // <http://developer.android.com/training/displaying-bitmaps/cache-bitmap.html#memory-cache>
-public class MemoryCacher<K, V> {
+public class MemoryCache<K, V> {
 
     private LruCache<K, V> mCache;
 
-    public MemoryCacher() {
+    public MemoryCache() {
         // One eighth of the application memory is allocated for our cache.
         // On a normal/hdpi device this is a minimum of around 4MB (32/8).
         // A full screen GridView filled with images on a device with
