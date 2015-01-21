@@ -15,7 +15,13 @@ public class MemoryCacher<K, V> {
         // 800x480 resolution would use around 1.5MB (800*480*4 bytes),
         // so this would cache a minimum of around 2.5 pages of images in memory.
         final int size = (int) (Runtime.getRuntime().maxMemory() / 1024) / 8;
-        mCache = new LruCache<>(size);
+        mCache = new LruCache<K, V>(size) {
+            @Override
+            protected int sizeOf(final K key, final V value) {
+                // TODO
+                return super.sizeOf(key, value);
+            }
+        };
     }
 
     synchronized public boolean put(@NonNull final K key, final V value) {
