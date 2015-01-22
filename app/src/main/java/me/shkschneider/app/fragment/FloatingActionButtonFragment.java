@@ -71,7 +71,7 @@ public class FloatingActionButtonFragment extends SkeletonFragment {
             }
         });
 
-        final FloatingActionButton floatingActionButton1 = (FloatingActionButton) view.findViewById(R.id.floatingActionButton1);
+        final FloatingActionButton floatingActionButton1 = new FloatingActionButton(getActivity());
         floatingActionButton1.setColors(R.color.primaryColor, R.color.accentColor);
         floatingActionButton1.setIcon(R.drawable.ic_launcher);
         floatingActionButton1.setSize(FloatingActionButton.SIZE_MINI);
@@ -82,8 +82,9 @@ public class FloatingActionButtonFragment extends SkeletonFragment {
                 ActivityHelper.toast("Menu.Button1");
             }
         });
+        floatingActionMenu.addButton(floatingActionButton1);
 
-        final FloatingActionButton floatingActionButton2 = (FloatingActionButton) view.findViewById(R.id.floatingActionButton2);
+        final FloatingActionButton floatingActionButton2 = new FloatingActionButton(getActivity());
         floatingActionButton2.setColors(R.color.primaryColor, R.color.accentColor);
         floatingActionButton2.setIcon(R.drawable.ic_launcher);
         floatingActionButton2.setSize(FloatingActionButton.SIZE_MINI);
@@ -94,8 +95,9 @@ public class FloatingActionButtonFragment extends SkeletonFragment {
                 ActivityHelper.toast("Menu.Button2");
             }
         });
+        floatingActionMenu.addButton(floatingActionButton2);
 
-        final FloatingActionButton floatingActionButton3 = (FloatingActionButton) view.findViewById(R.id.floatingActionButton3);
+        final FloatingActionButton floatingActionButton3 = new FloatingActionButton(getActivity());
         floatingActionButton3.setColors(R.color.primaryColor, R.color.accentColor);
         floatingActionButton3.setIcon(R.drawable.ic_launcher);
         floatingActionButton3.setSize(FloatingActionButton.SIZE_MINI);
@@ -106,8 +108,9 @@ public class FloatingActionButtonFragment extends SkeletonFragment {
                 ActivityHelper.toast("Menu.Button3");
             }
         });
+        floatingActionMenu.addButton(floatingActionButton3);
 
-        final FloatingActionButton floatingActionButton4 = (FloatingActionButton) view.findViewById(R.id.floatingActionButton4);
+        final FloatingActionButton floatingActionButton4 = new FloatingActionButton(getActivity());
         floatingActionButton4.setColors(R.color.primaryColor, R.color.accentColor);
         floatingActionButton4.setIcon(R.drawable.ic_launcher);
         floatingActionButton4.setSize(FloatingActionButton.SIZE_MINI);
@@ -118,8 +121,9 @@ public class FloatingActionButtonFragment extends SkeletonFragment {
                 ActivityHelper.toast("Menu.Button4");
             }
         });
+        floatingActionMenu.addButton(floatingActionButton4);
 
-        final FloatingActionButton floatingActionButton5 = (FloatingActionButton) view.findViewById(R.id.floatingActionButton5);
+        final FloatingActionButton floatingActionButton5 = new FloatingActionButton(getActivity());
         floatingActionButton5.setColors(R.color.primaryColor, R.color.accentColor);
         floatingActionButton5.setIcon(R.drawable.ic_launcher);
         floatingActionButton5.setSize(FloatingActionButton.SIZE_MINI);
@@ -130,6 +134,7 @@ public class FloatingActionButtonFragment extends SkeletonFragment {
                 ActivityHelper.toast("Menu.Button5");
             }
         });
+        floatingActionMenu.addButton(floatingActionButton5);
 
     }
 
