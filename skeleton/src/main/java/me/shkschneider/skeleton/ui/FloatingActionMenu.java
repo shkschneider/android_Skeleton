@@ -19,6 +19,9 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.OvershootInterpolator;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import me.shkschneider.skeleton.R;
 import me.shkschneider.skeleton.helper.AndroidHelper;
 
@@ -33,12 +36,12 @@ public class FloatingActionMenu extends ViewGroup {
     private int mAddButtonSize;
     private int mButtonSpacing;
     private boolean mExpanded;
-    private int mButtonsCount;
 
     private AnimatorSet mExpandAnimation = new AnimatorSet().setDuration(ANIMATION_DURATION);
     private AnimatorSet mCollapseAnimation = new AnimatorSet().setDuration(ANIMATION_DURATION);
     private AddFloatingActionButton mAddButton;
     private OnFloatingActionsMenuUpdateListener mListener;
+    private List<FloatingActionButton> mButtons;
 
     public FloatingActionMenu(final Context context) {
         this(context, null);
@@ -63,7 +66,7 @@ public class FloatingActionMenu extends ViewGroup {
         mAddButtonColor = R.color.accentColor;
         mAddButtonSize = FloatingActionButton.SIZE_NORMAL;
         mButtonSpacing = (int) (getResources().getDimension(R.dimen.floatingActionButtonActionSpacing) - getResources().getDimension(R.dimen.floatingActionButtonShadowRadius) - getResources().getDimension(R.dimen.floatingActionButtonShadowOffset));
-        mButtonsCount = 0;
+        mButtons = new ArrayList<>();
         createAddButton();
     }
 
@@ -78,13 +81,19 @@ public class FloatingActionMenu extends ViewGroup {
     }
 
     public void addButton(@NonNull final FloatingActionButton floatingActionButton) {
-        addView(floatingActionButton, mButtonsCount - 1);
-        mButtonsCount++;
+        mButtons.add(floatingActionButton);
+        addView(floatingActionButton, mButtons.size() - 1);
     }
 
     public void removeButton(@NonNull final FloatingActionButton floatingActionButton) {
+        mButtons.remove(floatingActionButton);
         removeView(floatingActionButton);
-        mButtonsCount--;
+    }
+
+    public void clear() {
+        for (final FloatingActionButton floatingActionButton : mButtons) {
+            removeButton(floatingActionButton);
+        }
     }
 
     private static class RotatingDrawable extends LayerDrawable {
@@ -254,7 +263,6 @@ public class FloatingActionMenu extends ViewGroup {
     protected void onFinishInflate() {
         super.onFinishInflate();
         bringChildToFront(mAddButton);
-        mButtonsCount = getChildCount();
     }
 
     public void collapse() {
