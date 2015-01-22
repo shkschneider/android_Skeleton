@@ -10,6 +10,8 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.Shape;
+import android.support.annotation.ColorRes;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +29,11 @@ public class FloatingActionMenu extends ViewGroup {
     private static final float COLLAPSED_PLUS_ROTATION = 0F;
     private static final float EXPANDED_PLUS_ROTATION = 90F + 45F;
 
-    private int mAddButtonPlusColor;
     private int mAddButtonColor;
+    private int mAddButtonSize;
     private int mButtonSpacing;
     private boolean mExpanded;
+    private int mButtonsCount;
 
     private AnimatorSet mExpandAnimation = new AnimatorSet().setDuration(ANIMATION_DURATION);
     private AnimatorSet mCollapseAnimation = new AnimatorSet().setDuration(ANIMATION_DURATION);
@@ -57,20 +60,31 @@ public class FloatingActionMenu extends ViewGroup {
     }
 
     protected void init() {
-        mAddButtonPlusColor = getResources().getColor(R.color.white);
-        mAddButtonColor = getResources().getColor(R.color.accentColor);
+        mAddButtonColor = R.color.accentColor;
+        mAddButtonSize = FloatingActionButton.SIZE_NORMAL;
         mButtonSpacing = (int) (getResources().getDimension(R.dimen.floatingActionButtonActionSpacing) - getResources().getDimension(R.dimen.floatingActionButtonShadowRadius) - getResources().getDimension(R.dimen.floatingActionButtonShadowOffset));
+        mButtonsCount = 0;
         createAddButton();
     }
 
-    public void setButtonColor(final int color) {
+    public void setButtonColor(@ColorRes final int color) {
         mAddButtonColor = color;
         updateAddButton();
     }
 
-    public void setPlusColor(final int color) {
-        mAddButtonPlusColor = color;
+    public void setSize(final int size) {
+        mAddButtonSize = size;
         updateAddButton();
+    }
+
+    public void addButton(@NonNull final FloatingActionButton floatingActionButton) {
+        addView(floatingActionButton, mButtonsCount - 1);
+        mButtonsCount++;
+    }
+
+    public void removeButton(@NonNull final FloatingActionButton floatingActionButton) {
+        removeView(floatingActionButton);
+        mButtonsCount--;
     }
 
     private static class RotatingDrawable extends LayerDrawable {
@@ -104,23 +118,13 @@ public class FloatingActionMenu extends ViewGroup {
 
     private void updateAddButton() {
         if (mAddButton != null) {
-            mAddButton.mPlusColor = mAddButtonPlusColor;
-            mAddButton.mColorNormal = mAddButtonColor;
-            mAddButton.mColorPressed = mAddButtonColor;
-            mAddButton.updateBackground();
+            mAddButton.setColors(mAddButtonColor, mAddButtonColor);
+            mAddButton.setSize(mAddButtonSize);
         }
     }
 
     private void createAddButton() {
         mAddButton = new AddFloatingActionButton(getContext()) {
-            @Override
-            protected void updateBackground() {
-                mPlusColor = mAddButtonPlusColor;
-                mColorNormal = mAddButtonColor;
-                mColorPressed = mAddButtonColor;
-                super.updateBackground();
-            }
-
             @Override
             protected Drawable getIconDrawable() {
                 final RotatingDrawable rotatingDrawable = new RotatingDrawable(super.getIconDrawable());
@@ -134,9 +138,10 @@ public class FloatingActionMenu extends ViewGroup {
                 return rotatingDrawable;
             }
         };
+        mAddButton.setSize(mAddButtonSize);
         mAddButton.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
                 toggle();
             }
         });
@@ -213,6 +218,7 @@ public class FloatingActionMenu extends ViewGroup {
         private ObjectAnimator mExpandAlpha = new ObjectAnimator();
         private ObjectAnimator mCollapseDir = new ObjectAnimator();
         private ObjectAnimator mCollapseAlpha = new ObjectAnimator();
+        private boolean animationsSetToPlay;
 
         public LayoutParams(final ViewGroup.LayoutParams layoutParams) {
             super(layoutParams);
@@ -226,10 +232,6 @@ public class FloatingActionMenu extends ViewGroup {
             mExpandAlpha.setFloatValues(0F, 1F);
             mCollapseDir.setProperty(View.TRANSLATION_Y);
             mExpandDir.setProperty(View.TRANSLATION_Y);
-            mExpandAnimation.play(mExpandAlpha);
-            mExpandAnimation.play(mExpandDir);
-            mCollapseAnimation.play(mCollapseAlpha);
-            mCollapseAnimation.play(mCollapseDir);
         }
 
         public void setAnimationsTarget(final View view) {
@@ -237,6 +239,13 @@ public class FloatingActionMenu extends ViewGroup {
             mCollapseDir.setTarget(view);
             mExpandAlpha.setTarget(view);
             mExpandDir.setTarget(view);
+            if (! animationsSetToPlay) {
+                mCollapseAnimation.play(mCollapseAlpha);
+                mCollapseAnimation.play(mCollapseDir);
+                mExpandAnimation.play(mExpandAlpha);
+                mExpandAnimation.play(mExpandDir);
+                animationsSetToPlay = true;
+            }
         }
 
     }
@@ -245,6 +254,7 @@ public class FloatingActionMenu extends ViewGroup {
     protected void onFinishInflate() {
         super.onFinishInflate();
         bringChildToFront(mAddButton);
+        mButtonsCount = getChildCount();
     }
 
     public void collapse() {
@@ -280,22 +290,21 @@ public class FloatingActionMenu extends ViewGroup {
 
     private class AddFloatingActionButton extends FloatingActionButton {
 
-        protected int mPlusColor;
-
         public AddFloatingActionButton(final Context context) {
             this(context, null);
         }
 
         public AddFloatingActionButton(final Context context, final AttributeSet attrs) {
-            super(context, attrs);
+            this(context, attrs, 0);
         }
 
         public AddFloatingActionButton(final Context context, final AttributeSet attrs, final int defStyle) {
             super(context, attrs, defStyle);
         }
 
-        public void setPlusColor(final int color) {
-            mPlusColor = color;
+        @TargetApi(AndroidHelper.API_21)
+        public AddFloatingActionButton(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
+            super(context, attrs, defStyleAttr, defStyleRes);
         }
 
         @Override
@@ -314,7 +323,7 @@ public class FloatingActionMenu extends ViewGroup {
             };
             final ShapeDrawable drawable = new ShapeDrawable(shape);
             final Paint paint = drawable.getPaint();
-            paint.setColor(mPlusColor);
+            paint.setColor(getResources().getColor(R.color.white));
             paint.setStyle(Paint.Style.FILL);
             paint.setAntiAlias(true);
             return drawable;
