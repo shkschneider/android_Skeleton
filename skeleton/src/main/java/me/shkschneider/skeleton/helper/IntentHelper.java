@@ -7,53 +7,125 @@ import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 
+import java.io.File;
 import java.util.List;
 
+import me.shkschneider.skeleton.java.StringHelper;
 import me.shkschneider.skeleton.network.NetworkHelper;
 import me.shkschneider.skeleton.ui.ImageManipulator;
 import me.shkschneider.skeleton.data.MimeTypeHelper;
 
 public class IntentHelper {
 
-    public static final int HOME_FLAGS = (Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+    public static final int MAIN_FLAGS = (Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+    public static final int HOME_FLAGS = (Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
     private static final int REQUEST_CODE_CAMERA = 111;
     private static final int REQUEST_CODE_GALLERY = 222;
 
-    public static Intent uri(final Uri uri) {
+    public static Intent view(@NonNull final Uri uri) {
         return new Intent(Intent.ACTION_VIEW, uri);
     }
 
-    public static Intent url(final String url) {
+    public static Intent web(@NonNull final String url) {
+        if (! NetworkHelper.validUrl(url)) {
+            LogHelper.warning("Url was invalid");
+            return null;
+        }
+
         return new Intent(Intent.ACTION_VIEW, Uri.parse(url));
     }
 
-    public static Intent share(final String subject, final String body) {
+    public static Intent share(final String subject, final String text) {
         final Intent intent = new Intent(Intent.ACTION_SEND)
-                .setType(MimeTypeHelper.TEXT_PLAIN)
-                .putExtra(Intent.EXTRA_TEXT, body)
-                .putExtra(Intent.EXTRA_SUBJECT, subject);
+                .setType(MimeTypeHelper.TEXT_PLAIN);
+        if (! StringHelper.nullOrEmpty(subject)) {
+            intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        }
+        if (! StringHelper.nullOrEmpty(text)) {
+            intent.putExtra(Intent.EXTRA_TEXT, text);
+        }
         return Intent.createChooser(intent, null);
     }
 
-    public static Intent settings() {
+    public static Intent applicationSettings() {
         return new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                 .setData(Uri.parse("package:" + ApplicationHelper.packageName()));
     }
 
-    public static Intent picture() {
-        return new Intent(Intent.ACTION_PICK)
-                .setType(MimeTypeHelper.IMAGE)
-                .setAction(Intent.ACTION_GET_CONTENT);
+    public static Intent systemSettings() {
+        return new Intent(Settings.ACTION_SETTINGS);
     }
 
-    public static Intent camera() {
-        return new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+    public static Intent text(@NonNull final Uri uri) {
+        return new Intent(Intent.ACTION_VIEW)
+                .setDataAndType(uri, MimeTypeHelper.TEXT_PLAIN);
+    }
+
+    public static Intent audio(@NonNull final Uri uri) {
+        return new Intent(Intent.ACTION_VIEW)
+                .setDataAndType(uri, MimeTypeHelper.AUDIO);
+    }
+
+    public static Intent video(@NonNull final Uri uri) {
+        return new Intent(Intent.ACTION_VIEW)
+                .setDataAndType(uri, MimeTypeHelper.VIDEO);
+    }
+
+    public static Intent picture(@NonNull final Uri uri) {
+        return new Intent(Intent.ACTION_VIEW)
+                .setDataAndType(uri, MimeTypeHelper.IMAGE);
+    }
+
+    public static Intent gallery() {
+        return new Intent(Intent.ACTION_PICK)
+                .setType(MimeTypeHelper.IMAGE);
+    }
+
+    public static Intent camera(@NonNull final File file) {
+        if (! FeaturesHelper.feature(FeaturesHelper.FEATURE_CAMERA)) {
+            LogHelper.warning("Camera was unavailable");
+            return null;
+        }
+
+        final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                .putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file))
                 .putExtra(MediaStore.EXTRA_SHOW_ACTION_ICONS, true);
+        if (! canHandle(intent)) {
+            LogHelper.warning("Cannot handle Intent");
+            return null;
+        }
+
+        return intent;
+    }
+
+    public static Intent file() {
+        return new Intent(Intent.ACTION_GET_CONTENT)
+                .setType(MimeTypeHelper.FILE);
+    }
+
+    public static Intent dial(@NonNull final String phone) {
+        return new Intent(Intent.ACTION_DIAL)
+                .setData(Uri.parse("tel:" + phone));
+    }
+
+    public static Intent call(@NonNull final String phone) {
+        return new Intent(Intent.ACTION_CALL)
+                .setData(Uri.parse("tel:" + phone));
+    }
+
+    public static Intent contact() {
+        return new Intent(Intent.ACTION_PICK, Uri.parse("content://com.android.contacts/contacts"))
+                .setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+    }
+
+    public static Intent googlePlay() {
+        return new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + ApplicationHelper.packageName()));
     }
 
     public static boolean canHandle(@NonNull final Intent intent) {
@@ -65,52 +137,6 @@ public class IntentHelper {
 
         final List<ResolveInfo> resolveInfos = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
         return (resolveInfos.size() > 0);
-    }
-
-    public static boolean web(@NonNull final Activity activity, @NonNull final String url) {
-        if (! NetworkHelper.validUrl(url)) {
-            LogHelper.warning("Url was invalid");
-            return false;
-        }
-
-        activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
-        return true;
-    }
-
-    public static boolean image(@NonNull final Activity activity, @NonNull final Uri uri) {
-        final Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        intent.setDataAndType(uri, MimeTypeHelper.IMAGE);
-        activity.startActivity(intent);
-        return true;
-    }
-
-    public static boolean gallery(@NonNull final Activity activity) {
-        final Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType(MimeTypeHelper.IMAGE);
-        activity.startActivityForResult(intent, REQUEST_CODE_GALLERY);
-        return true;
-    }
-
-    public static boolean camera(@NonNull final Activity activity) {
-        if (! FeaturesHelper.feature(FeaturesHelper.FEATURE_CAMERA)) {
-            LogHelper.warning("Camera was unavailable");
-            return false;
-        }
-
-        final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (! canHandle(intent)) {
-            LogHelper.warning("Cannot handle Intent");
-            return false;
-        }
-
-        activity.startActivityForResult(intent, REQUEST_CODE_CAMERA);
-        return true;
-    }
-
-    public static boolean settings(@NonNull final Activity activity) {
-        activity.startActivity(new Intent(Settings.ACTION_SETTINGS));
-        return true;
     }
 
     public static Bitmap onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
