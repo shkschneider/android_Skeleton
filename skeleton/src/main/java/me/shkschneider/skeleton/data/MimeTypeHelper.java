@@ -2,6 +2,8 @@ package me.shkschneider.skeleton.data;
 
 public class MimeTypeHelper {
 
+    public static final String FILE = "file/*";
+
     public static final String TEXT = "text/*";
     public static final String TEXT_PLAIN = "text/plain";
     public static final String TEXT_HTML = "text/html";
@@ -18,5 +20,9 @@ public class MimeTypeHelper {
     public static final String IMAGE_GIF = "image/gif";
     public static final String IMAGE_JPEG = "image/jpeg";
     public static final String IMAGE_PNG = "image/png";
+
+    public static final String AUDIO = "audio/*";
+
+    public static final String VIDEO = "video/*";
 
 }
