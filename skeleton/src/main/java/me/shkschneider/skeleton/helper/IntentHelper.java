@@ -25,6 +25,21 @@ public class IntentHelper {
     public static final int MAIN_FLAGS = (Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
     public static final int HOME_FLAGS = (Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
+    public static final String BROADCAST_TIME_TICK = Intent.ACTION_TIME_TICK;
+    public static final String BROADCAST_TIME_CHANGED = Intent.ACTION_TIME_CHANGED;
+    public static final String BROADCAST_TIMEZONE_CHANGED = Intent.ACTION_TIMEZONE_CHANGED;
+    public static final String BROADCAST_BOOT_COMPLETED = Intent.ACTION_BOOT_COMPLETED;
+    public static final String BROADCAST_PACKAGE_ADDED = Intent.ACTION_PACKAGE_ADDED;
+    public static final String BROADCAST_PACKAGE_CHANGED = Intent.ACTION_PACKAGE_CHANGED;
+    public static final String BROADCAST_PACKAGE_REMOVED = Intent.ACTION_PACKAGE_REMOVED;
+    public static final String BROADCAST_PACKAGE_RESTARTED = Intent.ACTION_PACKAGE_RESTARTED;
+    public static final String BROADCAST_PACKAGE_DATA_CLEARED = Intent.ACTION_PACKAGE_DATA_CLEARED;
+    public static final String BROADCAST_UID_REMOVED = Intent.ACTION_UID_REMOVED;
+    public static final String BROADCAST_BATTERY_CHANGED = Intent.ACTION_BATTERY_CHANGED;
+    public static final String BROADCAST_POWER_CONNECTED = Intent.ACTION_POWER_CONNECTED;
+    public static final String BROADCAST_POWER_DISCONNECTED = Intent.ACTION_POWER_DISCONNECTED;
+    public static final String BROADCAST_SHUTDOWN = Intent.ACTION_SHUTDOWN;
+
     private static final int REQUEST_CODE_CAMERA = 111;
     private static final int REQUEST_CODE_GALLERY = 222;
 
