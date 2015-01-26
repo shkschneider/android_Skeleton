@@ -28,7 +28,6 @@ public class SettingsFragment extends SkeletonPreferenceFragment {
         // Switch
 
         final SwitchPreference switchPreference = (SwitchPreference) findPreference("switch");
-        switchPreference.setSummary(getResources().getString(R.string.dots));
         switchPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(final Preference preference, final Object key) {
@@ -42,12 +41,21 @@ public class SettingsFragment extends SkeletonPreferenceFragment {
         // Notifications
 
         final Preference notificationsPreference = findPreference("notifications");
-        notificationsPreference.setSummary(getResources().getString(R.string.dots));
-        notificationsPreference.setTitle("notifications");
         notificationsPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(final Preference preference) {
-                startActivity(IntentHelper.settings());
+                startActivity(IntentHelper.applicationSettings());
+                return true;
+            }
+        });
+
+        // Google Play
+
+        final Preference googlePlayPreference = findPreference("googleplay");
+        googlePlayPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(final Preference preference) {
+                startActivity(IntentHelper.googlePlay());
                 return true;
             }
         });

@@ -5,13 +5,19 @@
     <SwitchPreference
         android:key="switch"
         android:title="Switch"
-        android:summary="@null" />
+        android:summary="@string/dots" />
 
     <Preference
         android:dependency="switch"
         android:key="notifications"
         android:selectable="true"
         android:title="Notifications"
-        android:summary="@null" />
+        android:summary="@string/dots" />
+
+    <Preference
+        android:key="googleplay"
+        android:selectable="true"
+        android:title="Goole Play"
+        android:summary="@string/dots" />
 
 </PreferenceScreen>

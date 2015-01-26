@@ -55,7 +55,7 @@ public class MainFragment extends SkeletonFragment {
         github.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                startActivity(IntentHelper.url(URL));
+                startActivity(IntentHelper.web(URL));
             }
         });
 
