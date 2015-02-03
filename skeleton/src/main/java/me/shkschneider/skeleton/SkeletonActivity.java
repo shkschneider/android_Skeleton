@@ -107,7 +107,7 @@ public class SkeletonActivity extends ActionBarActivity {
     }
 
     public void swipeRefreshLayoutListViewCompat(@NonNull final AbsListView absListView) {
-       MySwipeRefreshLayout.listViewCompat(mMySwipeRefreshlayout, absListView);
+        mMySwipeRefreshlayout.listViewCompat(absListView);
     }
 
     public void setRefreshListener(@NonNull final SwipeRefreshLayout.OnRefreshListener onRefreshListener) {

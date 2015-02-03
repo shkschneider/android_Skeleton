@@ -12,11 +12,16 @@ public class MySwipeRefreshLayout extends SwipeRefreshLayout {
     protected boolean mRefreshable = true;
 
     public MySwipeRefreshLayout(final Context context) {
-        super(context);
+        this(context, null);
     }
 
     public MySwipeRefreshLayout(final Context context, final AttributeSet attrs) {
         super(context, attrs);
+        init();
+    }
+
+    private void init() {
+        // setColorsSchemeColors(...)
     }
 
     public void setRefreshable(final boolean refreshable) {
@@ -46,8 +51,9 @@ public class MySwipeRefreshLayout extends SwipeRefreshLayout {
     }
 
     // <http://nlopez.io/swiperefreshlayout-with-listview-done-right/>
-    public static void listViewCompat(@NonNull final MySwipeRefreshLayout mySwipeRefreshLayout, @NonNull final AbsListView absListView) {
+    public void listViewCompat(@NonNull final AbsListView absListView) {
         absListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
             @Override
             public void onScrollStateChanged(final AbsListView view, final int scrollState) {
                 // Ignore
@@ -56,8 +62,9 @@ public class MySwipeRefreshLayout extends SwipeRefreshLayout {
             @Override
             public void onScroll(final AbsListView view, final int firstVisibleItem, final int visibleItemCount, final int totalItemCount) {
                 final int topRowVerticalPosition = ((absListView.getChildCount() == 0) ? 0 : absListView.getChildAt(0).getTop());
-                mySwipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+                setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
             }
+
         });
     }
 
