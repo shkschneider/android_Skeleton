@@ -30,8 +30,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_7
     }
     lintOptions {
+        quiet true
         checkReleaseBuilds true
         abortOnError false
+        ignoreWarnings true
     }
     buildTypes {
         debug {
@@ -81,11 +83,9 @@ dependencies {
     // compile 'com.daimajia.androidanimations:library:1.1.3'
 
     compile project(':skeleton')
-    compile(name: 'support-v4-preferencefragment', ext: 'aar')
     compile fileTree(dir: 'libs', include: '*.jar')
 }
 
-// FIXME
 task run(type: Exec) {
     def rootDir = project.rootDir
     def localProperties = new File(rootDir, "local.properties")
@@ -96,6 +96,6 @@ task run(type: Exec) {
         }
         def sdkDir = properties.getProperty('sdk.dir')
         def adb = "$sdkDir/platform-tools/adb"
-        commandLine "$adb", 'shell', 'am', 'start', '-n', android.defaultConfig.applicationId + '/.MainActivity'
+        commandLine "$adb", 'shell', 'am', 'start', '-n', android.defaultConfig.applicationId + '/.activity.MainActivity'
     }
 }
