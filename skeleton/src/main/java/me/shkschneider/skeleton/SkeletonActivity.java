@@ -29,7 +29,7 @@ import me.shkschneider.skeleton.ui.MySwipeRefreshLayout;
 public class SkeletonActivity extends ActionBarActivity {
 
     private int mLoadingCount = 0;
-    private MySwipeRefreshLayout mMySwipeRefreshlayout;
+    private MySwipeRefreshLayout mMySwipeRefreshLayout;
     private boolean mAlive = false;
     private String mSearchHint;
     private SearchCallback mSearchCallback = null;
@@ -39,7 +39,7 @@ public class SkeletonActivity extends ActionBarActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.swiperefreshlayout);
-        mMySwipeRefreshlayout = (MySwipeRefreshLayout) findViewById(R.id.myswiperefreshlayout);
+        mMySwipeRefreshLayout = (MySwipeRefreshLayout) findViewById(R.id.myswiperefreshlayout);
         // setContentView()
         home(false);
         title(true);
@@ -72,7 +72,7 @@ public class SkeletonActivity extends ActionBarActivity {
 
     @Override
     public void setContentView(final int layoutResID) {
-        final View view = getLayoutInflater().inflate(layoutResID, mMySwipeRefreshlayout, false);
+        final View view = getLayoutInflater().inflate(layoutResID, mMySwipeRefreshLayout, false);
         setContentView(view);
     }
 
@@ -83,11 +83,11 @@ public class SkeletonActivity extends ActionBarActivity {
 
     @Override
     public void setContentView(final View view, final ViewGroup.LayoutParams params) {
-        mMySwipeRefreshlayout.addView(view, params);
-        mMySwipeRefreshlayout.setOnRefreshListener(null);
-        mMySwipeRefreshlayout.setEnabled(false);
-        mMySwipeRefreshlayout.setColorSchemeResources(R.color.primaryColor);
-        mMySwipeRefreshlayout.setRefreshing(false);
+        mMySwipeRefreshLayout.addView(view, params);
+        mMySwipeRefreshLayout.setOnRefreshListener(null);
+        mMySwipeRefreshLayout.setEnabled(false);
+        mMySwipeRefreshLayout.setColorSchemeResources(R.color.primaryColor);
+        mMySwipeRefreshLayout.setRefreshing(false);
 
         // <http://stackoverflow.com/a/8395263>
         for (int i = 0; i < ((ViewGroup) view).getChildCount(); ++i) {
@@ -99,23 +99,23 @@ public class SkeletonActivity extends ActionBarActivity {
     }
 
     public boolean refreshable() {
-        return mMySwipeRefreshlayout.isRefreshable();
+        return mMySwipeRefreshLayout.isRefreshable();
     }
 
     public void refreshable(final boolean b) {
-        mMySwipeRefreshlayout.setRefreshable(b);
+        mMySwipeRefreshLayout.setRefreshable(b);
     }
 
     public void swipeRefreshLayoutListViewCompat(@NonNull final AbsListView absListView) {
-        mMySwipeRefreshlayout.listViewCompat(absListView);
+        mMySwipeRefreshLayout.listViewCompat(absListView);
     }
 
     public void setRefreshListener(@NonNull final SwipeRefreshLayout.OnRefreshListener onRefreshListener) {
         // Resets loading count to avoid side-effects upon re-loading
         mLoadingCount = 0;
-        mMySwipeRefreshlayout.setOnRefreshListener(onRefreshListener);
-        mMySwipeRefreshlayout.setEnabled(true);
-        mMySwipeRefreshlayout.setRefreshing(false);
+        mMySwipeRefreshLayout.setOnRefreshListener(onRefreshListener);
+        mMySwipeRefreshLayout.setEnabled(true);
+        mMySwipeRefreshLayout.setRefreshing(false);
     }
 
     public boolean loading() {
@@ -134,10 +134,10 @@ public class SkeletonActivity extends ActionBarActivity {
         if (! b) {
             // Resets loading count to avoid side-effects upon re-loading
             mLoadingCount = 0;
-            mMySwipeRefreshlayout.setRefreshing(false);
+            mMySwipeRefreshLayout.setRefreshing(false);
         }
-        else if (! mMySwipeRefreshlayout.isRefreshing()) {
-            mMySwipeRefreshlayout.setRefreshing(true);
+        else if (! mMySwipeRefreshLayout.isRefreshing()) {
+            mMySwipeRefreshLayout.setRefreshing(true);
         }
     }
 
