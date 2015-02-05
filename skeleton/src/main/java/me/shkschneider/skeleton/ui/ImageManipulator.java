@@ -25,9 +25,8 @@ import me.shkschneider.skeleton.helper.ScreenHelper;
 
 public class ImageManipulator {
 
-    @Deprecated
     public static Drawable fromBitmap(@NonNull final Bitmap bitmap) {
-        return new BitmapDrawable(bitmap);
+        return new BitmapDrawable(ApplicationHelper.resources(), bitmap);
     }
 
     public static Bitmap fromDrawable(@NonNull final Drawable drawable) {
