@@ -17,8 +17,6 @@ public class SettingsFragment extends SkeletonPreferenceFragment {
     public void onCreate(final Bundle paramBundle) {
         super.onCreate(paramBundle);
         addPreferencesFromResource(R.xml.fragment_settings);
-
-        skeletonActivity().refreshable(false);
     }
 
     @Override

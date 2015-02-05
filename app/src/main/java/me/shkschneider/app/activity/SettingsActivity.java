@@ -18,7 +18,7 @@ public class SettingsActivity extends SkeletonFragmentActivity {
         super.onCreate(savedInstanceState);
         home(true);
 
-        setFragment(new SettingsFragment());
+        setContentFragment(new SettingsFragment());
     }
 
 }

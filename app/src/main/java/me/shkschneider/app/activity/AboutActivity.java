@@ -18,7 +18,7 @@ public class AboutActivity extends SkeletonFragmentActivity {
         super.onCreate(savedInstanceState);
         home(true);
 
-        setFragment(new AboutFragment());
+        setContentFragment(new AboutFragment());
     }
 
 }

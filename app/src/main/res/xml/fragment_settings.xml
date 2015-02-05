@@ -17,7 +17,7 @@
     <Preference
         android:key="googleplay"
         android:selectable="true"
-        android:title="Goole Play"
+        android:title="Google Play"
         android:summary="@string/dots" />
 
 </PreferenceScreen>
