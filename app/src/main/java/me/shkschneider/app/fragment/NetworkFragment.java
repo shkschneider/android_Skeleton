@@ -32,8 +32,6 @@ public class NetworkFragment extends SkeletonFragment implements SwipeRefreshLay
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        skeletonActivity().refreshable(true);
-
         // Adapter
 
         final LayoutInflater layoutInflater = LayoutInflater.from(skeletonActivity());
@@ -71,7 +69,6 @@ public class NetworkFragment extends SkeletonFragment implements SwipeRefreshLay
     @Override
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        skeletonActivity().setRefreshListener(this);
         final ListView listView = (ListView) view.findViewById(R.id.listview);
         listView.setAdapter(mAdapter);
     }
@@ -79,6 +76,8 @@ public class NetworkFragment extends SkeletonFragment implements SwipeRefreshLay
     @Override
     public void onResume() {
         super.onResume();
+
+        skeletonActivity().refreshable(true, this);
 
         if (NetworkHelper.online()) {
             onRefresh();

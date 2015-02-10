@@ -23,7 +23,7 @@ public class MySwipeRefreshLayout extends SwipeRefreshLayout {
     }
 
     private void init() {
-        setEnabled(true);
+        setEnabled(false);
         setColorSchemeResources(R.color.primaryColor);
     }
 

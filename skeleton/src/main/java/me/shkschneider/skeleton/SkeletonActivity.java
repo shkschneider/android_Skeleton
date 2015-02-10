@@ -5,7 +5,6 @@ import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.MenuItemCompat;
@@ -33,12 +32,10 @@ public class SkeletonActivity extends ActionBarActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.swiperefreshlayout);
-        mMySwipeRefreshLayout = (MySwipeRefreshLayout) findViewById(R.id.myswiperefreshlayout);
+        mMySwipeRefreshLayout = (MySwipeRefreshLayout) findViewById(R.id.mySwipeRefreshLayout);
         // setContentView()
-
         home(false);
         title(true);
-        refreshable(false);
 
         if (AndroidHelper.api() >= AndroidHelper.API_21) {
             init21();
@@ -142,29 +139,19 @@ public class SkeletonActivity extends ActionBarActivity {
     @Override
     public void setContentView(final View view, final ViewGroup.LayoutParams params) {
         mMySwipeRefreshLayout.addView(view, params);
-        mMySwipeRefreshLayout.setOnRefreshListener(null);
-        mMySwipeRefreshLayout.setEnabled(false);
         mMySwipeRefreshLayout.setColorSchemeResources(R.color.primaryColor);
-        mMySwipeRefreshLayout.setRefreshing(false);
-
-        // <http://stackoverflow.com/a/8395263>
-        for (int i = 0; i < ((ViewGroup) view).getChildCount(); ++i) {
-            final View v = ((ViewGroup) view).getChildAt(i);
-            if (v instanceof AbsListView) {
-                swipeRefreshLayoutAbsListViewCompat((AbsListView) v);
-            }
-            if (v instanceof ScrollView) {
-                swipeRefreshLayoutScrollViewCompat((ScrollView) v);
-            }
-        }
     }
 
     public boolean refreshable() {
         return mMySwipeRefreshLayout.isEnabled();
     }
 
-    public void refreshable(final boolean b) {
+    public void refreshable(final boolean b, final SwipeRefreshLayout.OnRefreshListener onRefreshListener) {
+        // Resets loading count to avoid side-effects upon re-loading
+        loading(false);
         mMySwipeRefreshLayout.setEnabled(b);
+        mMySwipeRefreshLayout.setRefreshing(false);
+        mMySwipeRefreshLayout.setOnRefreshListener(onRefreshListener);
     }
 
     public void swipeRefreshLayoutAbsListViewCompat(@NonNull final AbsListView absListView) {
@@ -173,14 +160,6 @@ public class SkeletonActivity extends ActionBarActivity {
 
     public void swipeRefreshLayoutScrollViewCompat(@NonNull final ScrollView scrollView) {
         mMySwipeRefreshLayout.scrollViewCompat(scrollView);
-    }
-
-    public void setRefreshListener(@NonNull final SwipeRefreshLayout.OnRefreshListener onRefreshListener) {
-        // Resets loading count to avoid side-effects upon re-loading
-        mLoadingCount = 0;
-        mMySwipeRefreshLayout.setOnRefreshListener(onRefreshListener);
-        mMySwipeRefreshLayout.setEnabled(true);
-        mMySwipeRefreshLayout.setRefreshing(false);
     }
 
     public boolean loading() {

@@ -34,8 +34,6 @@ public class MainFragment extends SkeletonFragment {
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        skeletonActivity().refreshable(false);
     }
 
     @Override

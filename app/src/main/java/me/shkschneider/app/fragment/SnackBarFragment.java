@@ -22,8 +22,6 @@ public class SnackBarFragment extends SkeletonFragment {
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        skeletonActivity().refreshable(false);
     }
 
     // Inflate

@@ -35,7 +35,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
         setContentView(R.layout.activity_navigationdrawer);
         home(true);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_drawerlayout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_drawerLayout);
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // Detects states for Callbacks
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, android.R.string.ok, android.R.string.cancel) {
@@ -50,7 +50,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-        mDrawerList = (ListView) findViewById(R.id.drawer_listview);
+        mDrawerList = (ListView) findViewById(R.id.drawer_listView);
         mDrawerList.setAdapter(getAdapter());
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -96,27 +96,23 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
     }
 
     public void navigationDrawer(final int position) {
+        // Clears any loading state and capability
+        refreshable(false, null);
+
+        // Switch Fragment
         final SkeletonFragment skeletonFragment = getFragment(position);
         if (skeletonFragment == null) {
             LogHelper.warning("SkeletonFragment was NULL");
             return ;
         }
-
-        // Clears any loading
-        loading(false);
-
-        // Switch Fragment
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.drawer_framelayout, skeletonFragment)
+                .replace(R.id.drawer_frameLayout, skeletonFragment)
                 .commit();
 
         // Updates NavigationDrawer
         mDrawerList.setItemChecked(position, true);
         closeNavigationDrawer();
         onNavigationDrawerClosed();
-
-        // Updates menu
-        supportInvalidateOptionsMenu();
     }
 
     public int navigationDrawer() {
@@ -136,7 +132,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
         mDrawerLayout.openDrawer(mDrawerList);
     }
 
-    private void onNavigationDrawerOpened() {
+    protected void onNavigationDrawerOpened() {
         mOpenedOrOpening = true;
         setTitle(ApplicationHelper.name());
         supportInvalidateOptionsMenu();
@@ -146,7 +142,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
         mDrawerLayout.closeDrawer(mDrawerList);
     }
 
-    private void onNavigationDrawerClosed() {
+    protected void onNavigationDrawerClosed() {
         mOpenedOrOpening = false;
         setTitle(getFragment(navigationDrawer()).title());
         supportInvalidateOptionsMenu();

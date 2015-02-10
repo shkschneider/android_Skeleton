@@ -34,8 +34,6 @@ public class ViewPagerCircleIndicatorFragment extends SkeletonFragment {
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        skeletonActivity().refreshable(false);
-
         mPagerAdapter = new MyViewPagerAdapter(getFragmentManager());
     }
 
@@ -60,11 +58,10 @@ public class ViewPagerCircleIndicatorFragment extends SkeletonFragment {
     @Override
     public void onResume() {
         super.onResume();
-        onRefresh();
+        refresh();
     }
 
-    @Override
-    public void onRefresh() {
+    public void refresh() {
         mPagerAdapter.notifyDataSetChanged();
     }
 

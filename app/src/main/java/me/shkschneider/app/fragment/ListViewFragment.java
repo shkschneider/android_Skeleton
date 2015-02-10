@@ -2,6 +2,7 @@ package me.shkschneider.app.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.java.StringHelper;
 
-public class ListViewFragment extends SkeletonFragment {
+public class ListViewFragment extends SkeletonFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     private ArrayAdapter<String> mAdapter;
 
@@ -33,8 +34,6 @@ public class ListViewFragment extends SkeletonFragment {
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        skeletonActivity().refreshable(true);
 
         // Adapter
 
@@ -95,6 +94,14 @@ public class ListViewFragment extends SkeletonFragment {
     @Override
     public void onResume() {
         super.onResume();
+
+        skeletonActivity().refreshable(true, this);
+
+        onRefresh();
+    }
+
+    @Override
+    public void onRefresh() {
         refresh(null);
     }
 
