@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ScrollView;
 
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
@@ -150,7 +151,10 @@ public class SkeletonActivity extends ActionBarActivity {
         for (int i = 0; i < ((ViewGroup) view).getChildCount(); ++i) {
             final View v = ((ViewGroup) view).getChildAt(i);
             if (v instanceof AbsListView) {
-                swipeRefreshLayoutListViewCompat((AbsListView) v);
+                swipeRefreshLayoutAbsListViewCompat((AbsListView) v);
+            }
+            if (v instanceof ScrollView) {
+                swipeRefreshLayoutScrollViewCompat((ScrollView) v);
             }
         }
     }
@@ -163,8 +167,12 @@ public class SkeletonActivity extends ActionBarActivity {
         mMySwipeRefreshLayout.setRefreshable(b);
     }
 
-    public void swipeRefreshLayoutListViewCompat(@NonNull final AbsListView absListView) {
-        mMySwipeRefreshLayout.listViewCompat(absListView);
+    public void swipeRefreshLayoutAbsListViewCompat(@NonNull final AbsListView absListView) {
+        mMySwipeRefreshLayout.absListViewCompat(absListView);
+    }
+
+    public void swipeRefreshLayoutScrollViewCompat(@NonNull final ScrollView scrollView) {
+        mMySwipeRefreshLayout.scrollViewCompat(scrollView);
     }
 
     public void setRefreshListener(@NonNull final SwipeRefreshLayout.OnRefreshListener onRefreshListener) {

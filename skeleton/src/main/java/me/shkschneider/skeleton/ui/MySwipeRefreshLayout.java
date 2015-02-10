@@ -5,7 +5,9 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
+import android.widget.ScrollView;
 
 public class MySwipeRefreshLayout extends SwipeRefreshLayout {
 
@@ -51,7 +53,7 @@ public class MySwipeRefreshLayout extends SwipeRefreshLayout {
     }
 
     // <http://nlopez.io/swiperefreshlayout-with-listview-done-right/>
-    public void listViewCompat(@NonNull final AbsListView absListView) {
+    public void absListViewCompat(@NonNull final AbsListView absListView) {
         absListView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
             @Override
@@ -65,6 +67,16 @@ public class MySwipeRefreshLayout extends SwipeRefreshLayout {
                 setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
             }
 
+        });
+    }
+
+    // <http://stackoverflow.com/a/26296897>
+    public void scrollViewCompat(@NonNull final ScrollView scrollView) {
+        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+            @Override
+            public void onScrollChanged() {
+                setEnabled(scrollView.getScrollY() == 0);
+            }
         });
     }
 
