@@ -154,12 +154,12 @@ public class SkeletonActivity extends ActionBarActivity {
         mMySwipeRefreshLayout.setOnRefreshListener(onRefreshListener);
     }
 
-    public void swipeRefreshLayoutAbsListViewCompat(@NonNull final AbsListView absListView) {
-        mMySwipeRefreshLayout.absListViewCompat(absListView);
+    public void swipeRefreshLayoutCompat(@NonNull final AbsListView absListView) {
+        MySwipeRefreshLayout.absListViewCompat(mMySwipeRefreshLayout, absListView);
     }
 
-    public void swipeRefreshLayoutScrollViewCompat(@NonNull final ScrollView scrollView) {
-        mMySwipeRefreshLayout.scrollViewCompat(scrollView);
+    public void swipeRefreshLayoutCompat(@NonNull final ScrollView scrollView) {
+        MySwipeRefreshLayout.scrollViewCompat(mMySwipeRefreshLayout, scrollView);
     }
 
     public boolean loading() {

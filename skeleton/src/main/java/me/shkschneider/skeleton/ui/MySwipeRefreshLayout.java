@@ -82,8 +82,7 @@ public class MySwipeRefreshLayout extends SwipeRefreshLayout {
 
     // Prevents gesture conflicts with AbsListView
     // <http://nlopez.io/swiperefreshlayout-with-listview-done-right/>
-    // TODO tests
-    public void absListViewCompat(@NonNull final AbsListView absListView) {
+    public static void absListViewCompat(@NonNull final MySwipeRefreshLayout mySwipeRefreshLayout, @NonNull final AbsListView absListView) {
         absListView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
             @Override
@@ -94,7 +93,7 @@ public class MySwipeRefreshLayout extends SwipeRefreshLayout {
             @Override
             public void onScroll(final AbsListView view, final int firstVisibleItem, final int visibleItemCount, final int totalItemCount) {
                 final int topRowVerticalPosition = ((absListView.getChildCount() == 0) ? 0 : absListView.getChildAt(0).getTop());
-                setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+                mySwipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
             }
 
         });
@@ -102,12 +101,11 @@ public class MySwipeRefreshLayout extends SwipeRefreshLayout {
 
     // Prevents gesture conflicts with ScrollView
     // <http://stackoverflow.com/a/26296897>
-    // TODO tests
-    public void scrollViewCompat(@NonNull final ScrollView scrollView) {
+    public static void scrollViewCompat(@NonNull final MySwipeRefreshLayout mySwipeRefreshLayout, @NonNull final ScrollView scrollView) {
         scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
             public void onScrollChanged() {
-                setEnabled(scrollView.getScrollY() == 0);
+                mySwipeRefreshLayout.setEnabled(scrollView.getScrollY() == 0);
             }
         });
     }

@@ -71,6 +71,7 @@ public class NetworkFragment extends SkeletonFragment implements SwipeRefreshLay
         super.onViewCreated(view, savedInstanceState);
         final ListView listView = (ListView) view.findViewById(R.id.listview);
         listView.setAdapter(mAdapter);
+        skeletonActivity().swipeRefreshLayoutCompat(listView);
     }
 
     @Override

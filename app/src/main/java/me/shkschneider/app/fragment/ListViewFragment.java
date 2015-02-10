@@ -87,6 +87,7 @@ public class ListViewFragment extends SkeletonFragment implements SwipeRefreshLa
                 ActivityHelper.toast(mAdapter.getItem(position));
             }
         });
+        skeletonActivity().swipeRefreshLayoutCompat(listView);
     }
 
     // Load
