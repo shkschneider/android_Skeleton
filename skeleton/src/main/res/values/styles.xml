@@ -30,7 +30,11 @@
 
     <!-- Material Design -->
 
-    <style name="SkeletonTheme.ActionBarStyle" parent="Widget.AppCompat.Light.ActionBar.Solid.Inverse" />
+    <style name="SkeletonTheme.ActionBarStyle" parent="@style/_SkeletonTheme.ActionBarStyle" />
+    <style name="_SkeletonTheme.ActionBarStyle" parent="Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="android:background">@color/actionBarColor</item>
+        <item name="android:textColor">@color/actionBarForegroundColor</item>
+    </style>
     <style name="SkeletonTheme.ActionModeStyle" parent="Base.Widget.AppCompat.ActionMode">
         <item name="background">@color/actionBarColor</item>
     </style>

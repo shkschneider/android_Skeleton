@@ -28,19 +28,13 @@ import me.shkschneider.skeleton.ui.MySwipeRefreshLayout;
 
 public class SkeletonActivity extends ActionBarActivity {
 
-    private int mLoadingCount = 0;
-    private MySwipeRefreshLayout mMySwipeRefreshLayout;
-    private boolean mAlive = false;
-    private String mSearchHint;
-    private SearchCallback mSearchCallback = null;
-    private MenuItem mSearchMenuItem;
-
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         super.setContentView(R.layout.swiperefreshlayout);
         mMySwipeRefreshLayout = (MySwipeRefreshLayout) findViewById(R.id.myswiperefreshlayout);
         // setContentView()
+
         home(false);
         title(true);
         refreshable(false);
@@ -54,12 +48,6 @@ public class SkeletonActivity extends ActionBarActivity {
     @SuppressLint("NewApi")
     @TargetApi(AndroidHelper.API_21)
     private void init21() {
-        final ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            // Material Design style
-            getSupportActionBar().setElevation(0F);
-        }
-
         final String name = ApplicationHelper.name();
         final Bitmap icon = ApplicationHelper.icon();
         final int color = getResources().getColor(R.color.primaryColor);
@@ -67,8 +55,77 @@ public class SkeletonActivity extends ActionBarActivity {
         setTaskDescription(taskDescription);
     }
 
+    public View view() {
+        return findViewById(android.R.id.content);
+    }
+
+    // Lifecycle
+
+    private boolean mAlive = false;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        mAlive = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        mAlive = false;
+    }
+
+    public boolean alive() {
+        return mAlive;
+    }
+
+    // ActionBar
+
+    public void home(final boolean b) {
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar == null) {
+            LogHelper.warning("ActionBar was NULL");
+            return ;
+        }
+        actionBar.setDisplayShowHomeEnabled(b);
+        actionBar.setDisplayHomeAsUpEnabled(b);
+    }
+
+    public void icon(final boolean b) {
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar == null) {
+            LogHelper.warning("ActionBar was NULL");
+            return ;
+        }
+        actionBar.setDisplayShowHomeEnabled(b);
+    }
+
+    @Deprecated
+    public void logo(final boolean b) {
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar == null) {
+            LogHelper.warning("ActionBar was NULL");
+            return ;
+        }
+        actionBar.setDisplayUseLogoEnabled(b);
+    }
+
+    public void title(final boolean b) {
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar == null) {
+            LogHelper.warning("ActionBar was NULL");
+            return ;
+        }
+        actionBar.setDisplayShowTitleEnabled(b);
+    }
+
     // Refresh
     // <https://gist.github.com/antoniolg/9837398>
+
+    private int mLoadingCount = 0;
+    private MySwipeRefreshLayout mMySwipeRefreshLayout;
 
     @Override
     public void setContentView(final int layoutResID) {
@@ -141,75 +198,13 @@ public class SkeletonActivity extends ActionBarActivity {
         }
     }
 
-    // Alive
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        mAlive = true;
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        mAlive = false;
-    }
-
-    public boolean alive() {
-        return mAlive;
-    }
-
-    // Home
-
-    public void home(final boolean b) {
-        final ActionBar actionBar = getSupportActionBar();
-        if (actionBar == null) {
-            LogHelper.warning("ActionBar was NULL");
-            return ;
-        }
-        actionBar.setDisplayShowHomeEnabled(b);
-        actionBar.setDisplayHomeAsUpEnabled(b);
-    }
-
-    // Logo
-
-    @Deprecated
-    public void logo(final boolean b) {
-        final ActionBar actionBar = getSupportActionBar();
-        if (actionBar == null) {
-            LogHelper.warning("ActionBar was NULL");
-            return ;
-        }
-        actionBar.setDisplayUseLogoEnabled(b);
-        if (! b) {
-            actionBar.setIcon(getResources().getColor(android.R.color.transparent));
-        }
-        else {
-            try {
-                final Drawable icon = getPackageManager().getActivityIcon(getComponentName());
-                actionBar.setIcon(icon);
-            }
-            catch (final Exception e) {
-                LogHelper.wtf(e);
-            }
-        }
-    }
-
-    // Title
-
-    public void title(final boolean b) {
-        final ActionBar actionBar = getSupportActionBar();
-        if (actionBar == null) {
-            LogHelper.warning("ActionBar was NULL");
-            return ;
-        }
-        actionBar.setDisplayShowTitleEnabled(b);
-    }
-
     // Search
     // <http://stackoverflow.com/questions/18438890>
+
+    private String mSearchHint;
+    private SearchCallback mSearchCallback = null;
+    private MenuItem mSearchMenuItem;
+    private SearchView mSearchView;
 
     public void searchable(final String hint, final SearchCallback searchCallback) {
         mSearchHint = hint;
@@ -230,27 +225,25 @@ public class SkeletonActivity extends ActionBarActivity {
             LogHelper.warning("SearchMenuItem was NULL");
             return super.onCreateOptionsMenu(menu);
         }
-
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(mSearchMenuItem);
-        if (searchView == null) {
+        mSearchView = (SearchView) MenuItemCompat.getActionView(mSearchMenuItem);
+        if (mSearchView == null) {
             LogHelper.warning("SearchView was NULL");
             return super.onCreateOptionsMenu(menu);
         }
-        searchView.setIconifiedByDefault(true);
-        searchView.setQueryHint(mSearchHint);
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+        mSearchView.setIconifiedByDefault(true);
+        mSearchView.setQueryHint(mSearchHint);
+        mSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
                 mSearchCallback.onSearchTextChange("");
                 return false;
             }
         });
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
 
             @Override
             public boolean onQueryTextSubmit(final String q) {
                 stopSearch();
-                searchView.clearFocus();
                 mSearchCallback.onSearchTextSubmit(q);
                 return true;
             }
@@ -262,7 +255,6 @@ public class SkeletonActivity extends ActionBarActivity {
             }
 
         });
-
         return true;
     }
 
@@ -272,33 +264,24 @@ public class SkeletonActivity extends ActionBarActivity {
             onHomeAsUpPressed();
             return true;
         }
-
         if (mSearchCallback == null) {
             return super.onOptionsItemSelected(item);
         }
-
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
         if (searchView == null) {
             return false;
         }
-
         if (item.getItemId() == R.id.menu_search) {
             searchView.setIconified(false);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     private void stopSearch() {
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(mSearchMenuItem);
-        if (searchView == null) {
-            return ;
-        }
-
-        searchView.clearFocus();
         mSearchMenuItem.collapseActionView();
-        KeyboardHelper.hide(searchView.getWindowToken());
+        KeyboardHelper.hide(mSearchView.getWindowToken());
+        mSearchView.clearFocus();
     }
 
     public static interface SearchCallback {
@@ -317,7 +300,12 @@ public class SkeletonActivity extends ActionBarActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
+        if (mSearchView != null && ! mSearchView.isIconified()) {
+            stopSearch();
+        }
+        else {
+            finish();
+        }
     }
 
 }

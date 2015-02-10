@@ -20,4 +20,10 @@
         <item name="android:listSeparatorTextViewStyle">?android:attr/listSeparatorTextViewStyle</item>
     </style>
 
+    <!-- Material Design -->
+
+    <style name="SkeletonTheme.ActionBarStyle" parent="@style/_SkeletonTheme.ActionBarStyle">
+        <item name="android:elevation">@dimen/elevation0</item>
+    </style>
+
 </resources>
