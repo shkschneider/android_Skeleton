@@ -9,9 +9,9 @@ import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
 import android.widget.ScrollView;
 
-public class MySwipeRefreshLayout extends SwipeRefreshLayout {
+import me.shkschneider.skeleton.R;
 
-    protected boolean mRefreshable = true;
+public class MySwipeRefreshLayout extends SwipeRefreshLayout {
 
     public MySwipeRefreshLayout(final Context context) {
         this(context, null);
@@ -23,15 +23,18 @@ public class MySwipeRefreshLayout extends SwipeRefreshLayout {
     }
 
     private void init() {
-        // setColorsSchemeColors(...)
+        setEnabled(true);
+        setColorSchemeResources(R.color.primaryColor);
     }
 
-    public void setRefreshable(final boolean refreshable) {
-        mRefreshable = refreshable;
+    @Override
+    public void setEnabled(final boolean enabled) {
+        super.setEnabled(enabled);
     }
 
-    public boolean isRefreshable() {
-        return mRefreshable;
+    @Override
+    public boolean isEnabled() {
+        return super.isEnabled();
     }
 
     @Override
@@ -46,7 +49,7 @@ public class MySwipeRefreshLayout extends SwipeRefreshLayout {
 
     @Override
     public boolean onTouchEvent(final MotionEvent motionEvent) {
-        if (! mRefreshable) {
+        if (! isEnabled()) {
             return true;
         }
         return super.onTouchEvent(motionEvent);

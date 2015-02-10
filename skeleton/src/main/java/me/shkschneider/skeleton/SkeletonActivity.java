@@ -160,11 +160,11 @@ public class SkeletonActivity extends ActionBarActivity {
     }
 
     public boolean refreshable() {
-        return mMySwipeRefreshLayout.isRefreshable();
+        return mMySwipeRefreshLayout.isEnabled();
     }
 
     public void refreshable(final boolean b) {
-        mMySwipeRefreshLayout.setRefreshable(b);
+        mMySwipeRefreshLayout.setEnabled(b);
     }
 
     public void swipeRefreshLayoutAbsListViewCompat(@NonNull final AbsListView absListView) {

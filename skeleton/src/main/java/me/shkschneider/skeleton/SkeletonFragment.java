@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ScrollView;
 
 import me.shkschneider.skeleton.java.ClassHelper;
 
@@ -34,7 +35,10 @@ public class SkeletonFragment extends Fragment {
             for (int i = 0; i < ((ViewGroup) view).getChildCount(); ++i) {
                 final View v = ((ViewGroup) view).getChildAt(i);
                 if (v instanceof AbsListView) {
-                    skeletonActivity().swipeRefreshLayoutListViewCompat((AbsListView) v);
+                    skeletonActivity().swipeRefreshLayoutAbsListViewCompat((AbsListView) v);
+                }
+                if (v instanceof ScrollView) {
+                    skeletonActivity().swipeRefreshLayoutScrollViewCompat((ScrollView) v);
                 }
             }
         }
