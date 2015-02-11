@@ -60,19 +60,22 @@ public class MySwipeRefreshLayout extends SwipeRefreshLayout {
 
     private int mTouchSlop;
     private float mX;
+    private boolean mDeclined;
 
     // Prevents gesture conflicts with NavigationDrawer
-    // <http://stackoverflow.com/a/23989911>
+    // <http://stackoverflow.com/a/24453194>
     @Override
     public boolean onInterceptTouchEvent(final MotionEvent motionEvent) {
         switch (motionEvent.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mX = MotionEvent.obtain(motionEvent).getX();
+                mDeclined = false;
                 break ;
             case MotionEvent.ACTION_MOVE:
                 final float x = motionEvent.getX();
                 final float diff = Math.abs(x - mX);
-                if (diff > mTouchSlop) {
+                if (mDeclined || diff > mTouchSlop) {
+                    mDeclined = true;
                     return false;
                 }
                 break ;
