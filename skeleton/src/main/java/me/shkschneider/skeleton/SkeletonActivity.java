@@ -147,7 +147,7 @@ public class SkeletonActivity extends ActionBarActivity {
 
     public void refreshable(final boolean b, final SwipeRefreshLayout.OnRefreshListener onRefreshListener) {
         // Resets loading count to avoid side-effects upon re-loading
-        loading(false);
+        mLoadingCount = 0;
         mMySwipeRefreshLayout.setEnabled(b);
         mMySwipeRefreshLayout.setRefreshing(false);
         mMySwipeRefreshLayout.setOnRefreshListener(onRefreshListener);
