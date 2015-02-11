@@ -12,13 +12,14 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.File;
 import java.util.List;
 
-import me.shkschneider.skeleton.SkeletonApplication;
 import me.shkschneider.skeleton.java.StringHelper;
 import me.shkschneider.skeleton.network.NetworkHelper;
-import me.shkschneider.skeleton.ui.ImageManipulator;
+import me.shkschneider.skeleton.ui.BitmapHelper;
 import me.shkschneider.skeleton.data.MimeTypeHelper;
 
 public class IntentHelper {
@@ -45,7 +46,7 @@ public class IntentHelper {
     private static final int REQUEST_CODE_GALLERY = 222;
 
     public static Intent home() {
-        final PackageManager packageManager = SkeletonApplication.CONTEXT.getPackageManager();
+        final PackageManager packageManager = ApplicationHelper.context().getPackageManager();
         if (packageManager == null) {
             LogHelper.warning("PackageManager was NULL");
             return null;
@@ -83,6 +84,13 @@ public class IntentHelper {
             intent.putExtra(Intent.EXTRA_TEXT, text);
         }
         return Intent.createChooser(intent, null);
+    }
+
+    public static Intent directions(@NonNull final LatLng from, @NonNull final LatLng to) {
+        return new Intent(android.content.Intent.ACTION_VIEW,
+                Uri.parse(String.format("http://maps.google.com/maps?saddr=%s,%s&daddr=%s,%s",
+                        from.latitude, from.longitude,
+                        to.latitude, to.longitude)));
     }
 
     public static Intent applicationSettings() {
@@ -157,7 +165,11 @@ public class IntentHelper {
     }
 
     public static Intent googlePlay() {
-        return new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + ApplicationHelper.packageName()));
+        return googlePlay(ApplicationHelper.packageName());
+    }
+
+    public static Intent googlePlay(@NonNull final String packageName) {
+        return new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName));
     }
 
     public static boolean canHandle(@NonNull final Intent intent) {
@@ -201,7 +213,7 @@ public class IntentHelper {
                 return null;
             }
 
-            return ImageManipulator.decodeUri(uri);
+            return BitmapHelper.decodeUri(uri);
         }
         return null;
     }

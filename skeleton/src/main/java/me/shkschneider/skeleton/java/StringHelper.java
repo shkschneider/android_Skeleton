@@ -22,6 +22,22 @@ public class StringHelper {
         return (string == null || (string.length() == 0));
     }
 
+    public static String camelCase(@NonNull final String[] strings) {
+        String camelCase = "";
+        for (final String string : strings) {
+            if (nullOrEmpty(string)) {
+                continue ;
+            }
+            if (nullOrEmpty(camelCase)) {
+                camelCase += lower(string);
+            }
+            else {
+                camelCase += capitalize(string);
+            }
+        }
+        return camelCase;
+    }
+
     public static String capitalize(@NonNull final String string) {
         return string.substring(0, 1).toUpperCase() + string.substring(1).toLowerCase();
     }

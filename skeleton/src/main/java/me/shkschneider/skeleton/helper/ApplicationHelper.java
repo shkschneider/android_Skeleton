@@ -20,7 +20,7 @@ import java.util.List;
 
 import me.shkschneider.skeleton.BuildConfig;
 import me.shkschneider.skeleton.data.FileHelper;
-import me.shkschneider.skeleton.ui.ImageManipulator;
+import me.shkschneider.skeleton.ui.BitmapHelper;
 import me.shkschneider.skeleton.SkeletonApplication;
 
 public class ApplicationHelper {
@@ -150,7 +150,7 @@ public class ApplicationHelper {
             }
 
             final Drawable drawable = applicationInfo.loadIcon(packageManager);
-            return ImageManipulator.fromDrawable(drawable);
+            return BitmapHelper.fromDrawable(drawable);
         }
         catch (final Exception e) {
             LogHelper.wtf(e);
