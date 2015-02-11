@@ -4,9 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/mySwipeRefreshLayout_frameLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <include layout="@layout/framelayout" />
 
 </me.shkschneider.skeleton.ui.MySwipeRefreshLayout>

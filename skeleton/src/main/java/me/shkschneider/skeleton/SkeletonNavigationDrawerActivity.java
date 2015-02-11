@@ -34,7 +34,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
         setContentView(R.layout.activity_navigationdrawer);
         home(true);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_drawerLayout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.navigationDrawer_drawerLayout);
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // Detects states for Callbacks
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, android.R.string.ok, android.R.string.cancel) {
@@ -49,7 +49,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-        mDrawerList = (ListView) findViewById(R.id.drawer_listView);
+        mDrawerList = (ListView) findViewById(R.id.navigationDrawer_listView);
         mDrawerList.setAdapter(getAdapter());
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -87,7 +87,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
             return ;
         }
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.drawer_frameLayout, skeletonFragment)
+                .replace(R.id.navigationDrawer_frameLayout, skeletonFragment)
                 .commit();
 
         // Updates NavigationDrawer

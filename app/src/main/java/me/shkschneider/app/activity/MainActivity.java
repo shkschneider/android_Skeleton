@@ -119,7 +119,7 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
                     final LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
                     convertView = layoutInflater.inflate(R.layout.listview_navigationdrawer_item, parent, false);
                 }
-                final TextView textView = ((TextView) convertView.findViewById(R.id.textview));
+                final TextView textView = ((TextView) convertView.findViewById(R.id.navigationDrawer_textView));
                 textView.setText(getItem(position).title());
                 if (position == navigationDrawer()) {
                     textView.setTextColor(getResources().getColor(R.color.accentColor));

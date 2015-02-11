@@ -7,7 +7,7 @@
     android:paddingBottom="@dimen/spaceSmallerish">
 
     <TextView
-        android:id="@+id/action"
+        android:id="@+id/snackBar_action"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_marginLeft="@dimen/spaceTinish"
@@ -24,9 +24,9 @@
         android:gravity="right|top" />
 
     <TextView
-        android:id="@+id/textview"
+        android:id="@+id/snackBar_textView"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@id/action"
+        android:layout_toLeftOf="@id/snackBar_action"
         android:layout_marginLeft="@dimen/spaceSmallish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

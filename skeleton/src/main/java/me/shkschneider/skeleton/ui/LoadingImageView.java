@@ -52,7 +52,7 @@ public class LoadingImageView extends ViewSwitcher {
 //    }
 
     public ImageView getImageView() {
-        return (ImageView) mImageView.findViewById(R.id.imageview);
+        return (ImageView) mImageView.findViewById(R.id.loadingImageView_imageView);
     }
 
 }

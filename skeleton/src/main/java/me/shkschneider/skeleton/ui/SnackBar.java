@@ -135,11 +135,11 @@ public class SnackBar {
         final int layout = ((SNACKBAR.lines == 1) ? R.layout.snackbar1 : R.layout.snackbar2);
         final RelativeLayout relativeLayout = (RelativeLayout) layoutInflater.inflate(layout, SNACKBAR.relativeLayout, true);
         relativeLayout.setBackgroundColor(SNACKBAR.backgroundColor);
-        final TextView textView = (TextView) relativeLayout.findViewById(R.id.textview);
+        final TextView textView = (TextView) relativeLayout.findViewById(R.id.snackBar_textView);
         textView.setTextColor(SNACKBAR.textColor);
         textView.setText(SNACKBAR.text);
         if (! StringHelper.nullOrEmpty(SNACKBAR.action)) {
-            final TextView action = (TextView) relativeLayout.findViewById(R.id.action);
+            final TextView action = (TextView) relativeLayout.findViewById(R.id.snackBar_action);
             action.setTextColor(SNACKBAR.actionColor);
             action.setText(SNACKBAR.action);
             action.setClickable(true);
