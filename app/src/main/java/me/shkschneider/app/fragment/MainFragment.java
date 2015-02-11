@@ -13,7 +13,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import me.shkschneider.app.R;
-import me.shkschneider.skeleton.ui.ImageManipulator;
+import me.shkschneider.skeleton.ui.BitmapHelper;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.network.WebService;
 import me.shkschneider.skeleton.data.GsonParser;
@@ -80,7 +80,7 @@ public class MainFragment extends SkeletonFragment {
                             LogHelper.warning("Bitmap was NULL");
                             return;
                         }
-                        loadingImageView.getImageView().setImageBitmap(ImageManipulator.circular(bitmap));
+                        loadingImageView.getImageView().setImageBitmap(BitmapHelper.circular(bitmap));
                         loadingImageView.showImageView();
                     }
                 });

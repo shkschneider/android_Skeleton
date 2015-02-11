@@ -23,11 +23,7 @@ import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.ScreenHelper;
 
-public class ImageManipulator {
-
-    public static Drawable fromBitmap(@NonNull final Bitmap bitmap) {
-        return new BitmapDrawable(ApplicationHelper.resources(), bitmap);
-    }
+public class BitmapHelper {
 
     public static Bitmap fromDrawable(@NonNull final Drawable drawable) {
         if (drawable instanceof BitmapDrawable) {
