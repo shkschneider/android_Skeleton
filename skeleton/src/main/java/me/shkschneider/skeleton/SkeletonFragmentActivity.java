@@ -7,7 +7,7 @@ public class SkeletonFragmentActivity extends SkeletonActivity {
 
     protected void setContentFragment(@NonNull final Fragment fragment) {
         getSupportFragmentManager().beginTransaction()
-                .replace(android.R.id.content, fragment)
+                .replace(R.id.mySwipeRefreshLayout_frameLayout, fragment)
                 .commit();
     }
 

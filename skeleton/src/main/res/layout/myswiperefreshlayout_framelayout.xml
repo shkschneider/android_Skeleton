@@ -1,0 +1,12 @@
+<me.shkschneider.skeleton.ui.MySwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mySwipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/mySwipeRefreshLayout_frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</me.shkschneider.skeleton.ui.MySwipeRefreshLayout>

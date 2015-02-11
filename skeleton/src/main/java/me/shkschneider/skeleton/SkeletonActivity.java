@@ -30,7 +30,8 @@ public class SkeletonActivity extends ActionBarActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.setContentView(R.layout.myswiperefreshlayout);
+        final int layout = (this instanceof SkeletonFragmentActivity ? R.layout.myswiperefreshlayout_framelayout : R.layout.myswiperefreshlayout);
+        super.setContentView(layout);
         mMySwipeRefreshLayout = (MySwipeRefreshLayout) findViewById(R.id.mySwipeRefreshLayout);
         // setContentView()
         home(false);

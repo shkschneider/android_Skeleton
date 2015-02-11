@@ -28,6 +28,7 @@ import me.shkschneider.skeleton.data.DiskCache;
 import me.shkschneider.skeleton.data.MemoryCache;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
+import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
 
 public class MainActivity extends SkeletonNavigationDrawerActivity {
@@ -65,10 +66,15 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
         mDiskCacheInternal.put("DiskCacher", "Internal");
         mDiskCacheExternal = new DiskCache.External();
         mDiskCacheExternal.put("DiskCacher", "External");
+    }
 
-        ActivityHelper.toast(ClassHelper.packageName(mMemoryCache.get("MainActivity").getClass()));
-        ActivityHelper.toast(mDiskCacheInternal.get("DiskCacher").toString());
-        ActivityHelper.toast(mDiskCacheExternal.get("DiskCacher").toString());
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        LogHelper.info("MemoryCache:" + ClassHelper.packageName(mMemoryCache.get("MainActivity").getClass()));
+        LogHelper.info("DiskCacheInternal:" + mDiskCacheInternal.get("DiskCacher").toString());
+        LogHelper.info("DiskCacheExternal:" + mDiskCacheExternal.get("DiskCacher").toString());
     }
 
     @Override
