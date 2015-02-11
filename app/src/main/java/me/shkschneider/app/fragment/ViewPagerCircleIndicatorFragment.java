@@ -58,10 +58,7 @@ public class ViewPagerCircleIndicatorFragment extends SkeletonFragment {
     @Override
     public void onResume() {
         super.onResume();
-        refresh();
-    }
 
-    public void refresh() {
         mPagerAdapter.notifyDataSetChanged();
     }
 
@@ -154,10 +151,7 @@ public class ViewPagerCircleIndicatorFragment extends SkeletonFragment {
         @Override
         public void onResume() {
             super.onResume();
-            refresh();
-        }
 
-        public void refresh() {
             final int position = getArguments().getInt(POSITION);
             final int n = 16;
             mAdapter.clear();
