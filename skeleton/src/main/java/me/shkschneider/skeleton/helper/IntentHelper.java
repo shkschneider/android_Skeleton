@@ -15,6 +15,7 @@ import android.support.annotation.NonNull;
 import java.io.File;
 import java.util.List;
 
+import me.shkschneider.skeleton.SkeletonApplication;
 import me.shkschneider.skeleton.java.StringHelper;
 import me.shkschneider.skeleton.network.NetworkHelper;
 import me.shkschneider.skeleton.ui.ImageManipulator;
@@ -42,6 +43,22 @@ public class IntentHelper {
 
     private static final int REQUEST_CODE_CAMERA = 111;
     private static final int REQUEST_CODE_GALLERY = 222;
+
+    public static Intent home() {
+        final PackageManager packageManager = SkeletonApplication.CONTEXT.getPackageManager();
+        if (packageManager == null) {
+            LogHelper.warning("PackageManager was NULL");
+            return null;
+        }
+
+        final Intent intent = packageManager.getLaunchIntentForPackage(ApplicationHelper.packageName());
+        if (intent == null) {
+            LogHelper.warning("Intent was NULL");
+            return null;
+        }
+
+        return intent.setFlags(HOME_FLAGS);
+    }
 
     public static Intent view(@NonNull final Uri uri) {
         return new Intent(Intent.ACTION_VIEW, uri);

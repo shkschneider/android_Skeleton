@@ -47,6 +47,8 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
     private DiskCache.Internal mDiskCacheInternal;
     private DiskCache.External mDiskCacheExternal;
 
+    // SkeletonActivity.onHomeAsUpPressed()
+    // IntentHelper.home()
     public static Intent getIntent(final Activity activity) {
         return new Intent(activity, MainActivity.class).setFlags(IntentHelper.HOME_FLAGS);
     }
@@ -63,11 +65,6 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
         mDiskCacheInternal.put("DiskCacher", "Internal");
         mDiskCacheExternal = new DiskCache.External();
         mDiskCacheExternal.put("DiskCacher", "External");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
 
         ActivityHelper.toast(ClassHelper.packageName(mMemoryCache.get("MainActivity").getClass()));
         ActivityHelper.toast(mDiskCacheInternal.get("DiskCacher").toString());

@@ -281,8 +281,7 @@ public class SkeletonActivity extends ActionBarActivity {
     // Navigation
 
     public void onHomeAsUpPressed() {
-        final Intent intent = getPackageManager().getLaunchIntentForPackage(ApplicationHelper.packageName());
-        startActivity(intent.setFlags(IntentHelper.HOME_FLAGS));
+        startActivity(IntentHelper.home());
     }
 
     @Override
