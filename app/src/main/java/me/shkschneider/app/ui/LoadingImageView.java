@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.ui;
+package me.shkschneider.app.ui;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -8,7 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ViewSwitcher;
 
-import me.shkschneider.skeleton.R;
+import fr.castorflex.android.circularprogressbar.CircularProgressBar;
+import me.shkschneider.app.R;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 
 public class LoadingImageView extends ViewSwitcher {
@@ -46,10 +47,9 @@ public class LoadingImageView extends ViewSwitcher {
         setDisplayedChild(VIEW_IMAGE);
     }
 
-    // FIXME
-//    public CircularProgressBar getLoadingView() {
-//        return (CircularProgressBar) mLoadingView.findViewById(R.id.loadingview);
-//    }
+    public CircularProgressBar getLoadingView() {
+        return (CircularProgressBar) mLoadingView.findViewById(R.id.loadingImageView_loadingView);
+    }
 
     public ImageView getImageView() {
         return (ImageView) mImageView.findViewById(R.id.loadingImageView_imageView);

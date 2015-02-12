@@ -20,7 +20,7 @@ import me.shkschneider.skeleton.data.GsonParser;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.ui.LoadingImageView;
+import me.shkschneider.app.ui.LoadingImageView;
 
 public class MainFragment extends SkeletonFragment {
 

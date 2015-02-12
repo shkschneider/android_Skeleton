@@ -24,8 +24,6 @@
         <item name="android:listSeparatorTextViewStyle">@style/SkeletonTheme.ListSeparatorTextViewStyle</item>
         <item name="android:buttonStyle">@style/SkeletonTheme.ButtonStyle</item>
         <item name="android:imageButtonStyle">@style/SkeletonTheme.ImageButtonStyle</item>
-        <item name="spbStyle">@style/SkeletonTheme.SmoothProgressBarStyle</item>
-        <item name="cpbStyle">@style/SkeletonTheme.CircularProgressBarStyle</item>
     </style>
 
     <!-- Material Design -->
@@ -78,18 +76,6 @@
         <item name="android:padding">@dimen/spaceTiny</item>
         <item name="android:shouldDisableView">false</item>
         <item name="android:selectable">false</item>
-    </style>
-
-    <style name="SkeletonTheme.SmoothProgressBarStyle" parent="Base.Widget.AppCompat.ProgressBar">
-        <item name="spb_sections_count">4</item>
-        <item name="spb_interpolator">spb_interpolator_acceleratedecelerate</item>
-        <item name="spb_mirror_mode">false</item>
-        <item name="spb_reversed">false</item>
-        <item name="spb_color">@color/accentColor</item>
-        <item name="spb_progressiveStart_activated">true</item>
-    </style>
-    <style name="SkeletonTheme.CircularProgressBarStyle" parent="Base.Widget.AppCompat.ProgressBar">
-        <item name="cpb_color">@color/accentColor</item>
     </style>
 
     <!-- Manual custom styles -->

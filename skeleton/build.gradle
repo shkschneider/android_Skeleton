@@ -32,9 +32,8 @@ dependencies {
     // compile 'com.android.support:mediarouter-v7:21.0.2'
 
     compile 'com.squareup.phrase:phrase:1.0.3'
+
     compile 'com.koushikdutta.ion:ion:2.0.5'
-    compile 'com.github.castorflex.smoothprogressbar:library:1.0.0'
-    compile 'com.github.castorflex.smoothprogressbar:library-circular:1.0.1'
 
     compile(name: 'support-v4-preferencefragment', ext: 'aar')
     compile fileTree(dir: 'libs', include: '*.jar')
