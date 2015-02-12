@@ -2,6 +2,7 @@ package me.shkschneider.skeleton.ui;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewConfigurationCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.AttributeSet;
@@ -41,29 +42,56 @@ public class MySwipeRefreshLayout extends SwipeRefreshLayout {
     }
 
     @Override
-    public void setRefreshing(final boolean refreshing) {
-        super.setRefreshing(refreshing);
-    }
-
-    @Override
     public boolean isRefreshing() {
         return super.isRefreshing();
     }
 
+    // Bugfix <https://code.google.com/p/android/issues/detail?id=77712>
+
+    @Override
+    public void setRefreshing(final boolean refreshing) {
+        post(new Runnable() {
+            @Override
+            public void run() {
+                MySwipeRefreshLayout.super.setRefreshing(refreshing);
+            }
+        });
+    }
+
+    // Bugfix <https://code.google.com/p/android/issues/detail?id=87789>
+
+    private boolean mHandleTouch = true;
+
     @Override
     public boolean onTouchEvent(final MotionEvent motionEvent) {
-        if (! isEnabled()) {
-            return true;
+        final int action = MotionEventCompat.getActionMasked(motionEvent);
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                mHandleTouch = false;
+                break ;
+            default:
+                if (mHandleTouch) {
+                    return super.onTouchEvent(motionEvent);
+                }
+                mHandleTouch = onInterceptTouchEvent(motionEvent);
+                switch (action) {
+                    case MotionEvent.ACTION_UP:
+                    case MotionEvent.ACTION_CANCEL:
+                        mHandleTouch = true;
+                        break ;
+                }
+                break ;
         }
-        return super.onTouchEvent(motionEvent);
+        return true;
     }
+
+    // Prevents gesture conflicts with NavigationDrawer
+    // <http://stackoverflow.com/a/24453194>
 
     private int mTouchSlop;
     private float mX;
     private boolean mDeclined;
 
-    // Prevents gesture conflicts with NavigationDrawer
-    // <http://stackoverflow.com/a/24453194>
     @Override
     public boolean onInterceptTouchEvent(final MotionEvent motionEvent) {
         switch (motionEvent.getAction()) {
@@ -85,6 +113,7 @@ public class MySwipeRefreshLayout extends SwipeRefreshLayout {
 
     // Prevents gesture conflicts with AbsListView
     // <http://nlopez.io/swiperefreshlayout-with-listview-done-right/>
+
     public static void absListViewCompat(@NonNull final MySwipeRefreshLayout mySwipeRefreshLayout, @NonNull final AbsListView absListView) {
         absListView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
@@ -104,6 +133,7 @@ public class MySwipeRefreshLayout extends SwipeRefreshLayout {
 
     // Prevents gesture conflicts with ScrollView
     // <http://stackoverflow.com/a/26296897>
+
     public static void scrollViewCompat(@NonNull final MySwipeRefreshLayout mySwipeRefreshLayout, @NonNull final ScrollView scrollView) {
         scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
