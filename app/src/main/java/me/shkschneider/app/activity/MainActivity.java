@@ -27,6 +27,7 @@ import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.data.DiskCache;
 import me.shkschneider.skeleton.data.MemoryCache;
 import me.shkschneider.skeleton.helper.ActivityHelper;
+import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
@@ -44,6 +45,8 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
 
     // Anything as key, anything as value (LRU algorithm)
     private MemoryCache<String, Activity> mMemoryCache;
+    // Anything as key, Bitmap as value (LRU algorithm)
+    private MemoryCache.Bitmap mMemoryCacheBitmap;
     // String as key, Serializable as value (Serialization)
     private DiskCache.Internal mDiskCacheInternal;
     private DiskCache.External mDiskCacheExternal;
@@ -62,6 +65,8 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
 
         mMemoryCache = new MemoryCache<>();
         mMemoryCache.put("MainActivity", MainActivity.this);
+        mMemoryCacheBitmap = new MemoryCache.Bitmap();
+        mMemoryCacheBitmap.put("Bitmap", ApplicationHelper.icon());
         mDiskCacheInternal = new DiskCache.Internal();
         mDiskCacheInternal.put("DiskCacher", "Internal");
         mDiskCacheExternal = new DiskCache.External();
@@ -72,7 +77,8 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
     protected void onResume() {
         super.onResume();
 
-        LogHelper.info("MemoryCache:" + ClassHelper.packageName(mMemoryCache.get("MainActivity").getClass()));
+        LogHelper.info("MemoryCache:" + ClassHelper.canonicalName(mMemoryCache.get("MainActivity").getClass()));
+        LogHelper.info("MemoryCacheBitmap:" + ClassHelper.canonicalName(mMemoryCacheBitmap.get("Bitmap").getClass()));
         LogHelper.info("DiskCacheInternal:" + mDiskCacheInternal.get("DiskCacher").toString());
         LogHelper.info("DiskCacheExternal:" + mDiskCacheExternal.get("DiskCacher").toString());
     }
@@ -148,6 +154,8 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
 
         mMemoryCache.clear();
         mMemoryCache = null;
+        mMemoryCacheBitmap.clear();
+        mMemoryCacheBitmap = null;
         mDiskCacheInternal.clear();
         mDiskCacheInternal = null;
         mDiskCacheExternal.clear();

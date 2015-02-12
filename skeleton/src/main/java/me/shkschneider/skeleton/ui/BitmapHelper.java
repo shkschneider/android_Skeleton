@@ -65,7 +65,6 @@ public class BitmapHelper {
         return bitmap;
     }
 
-    // TODO check if both methods needed
     public static Bitmap fromUri(@NonNull final Uri uri) {
         try {
             return BitmapFactory.decodeStream(ApplicationHelper.context().getContentResolver().openInputStream(uri), null, new BitmapFactory.Options());
@@ -76,7 +75,6 @@ public class BitmapHelper {
         }
     }
 
-    // TODO check if both methods needed
     public static Bitmap decodeUri(@NonNull final Uri uri) {
         final BitmapFactory.Options bitmapFactoryOptionsTmp = new BitmapFactory.Options();
         bitmapFactoryOptionsTmp.inJustDecodeBounds = true;
