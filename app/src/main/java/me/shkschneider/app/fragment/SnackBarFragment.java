@@ -38,8 +38,9 @@ public class SnackBarFragment extends SkeletonFragment {
         super.onViewCreated(view, savedInstanceState);
 
         final FloatingActionButton floatingActionButton = (FloatingActionButton) view.findViewById(R.id.floatingActionButton);
-        floatingActionButton.setColors(R.color.primaryColor, R.color.accentColor);
+        // floatingActionButton.setColors()
         floatingActionButton.setIcon(R.drawable.ic_launcher);
+        floatingActionButton.setSize(FloatingActionButton.SIZE_NORMAL);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {

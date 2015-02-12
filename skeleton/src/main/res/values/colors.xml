@@ -2,14 +2,10 @@
 
     <!-- Theme colors (Material Design) -->
 
-    <color name="color">@color/teal</color>
-    <color name="accentColor">@color/cyan</color>
+    <color name="accentColor">@color/orange</color>
+    <color name="primaryColor">@color/orange500</color>
+    <color name="primaryColorDark">@color/orange700</color>
     <!-- Your theme is pretty much set now: the rest is optional tweaking -->
-    <color name="primaryColor">@color/color</color>
-    <color name="primaryColorDark">@color/color</color>
-    <color name="statusBarColor">@color/black</color> <!-- primaryColorDark or black -->
-    <color name="navigationBarColor">@color/black</color> <!-- usually black -->
-    <!-- You should not have to edit anything below this line, but you can -->
     <color name="actionBarColor">@color/primaryColor</color>
     <color name="actionBarForegroundColor">@color/white</color>
     <color name="contentBackgroundColor">@color/background</color>
@@ -20,40 +16,98 @@
     <color name="snackBarBackgroundColor">#ff323232</color>
     <color name="snackBarForegroundColor">@color/white</color>
 
-    <!-- Material colors <http://www.google.com/design/spec/style/color.html#color-ui-color-palette> -->
+    <!-- Material colors <http://www.google.com/design/spec/style/color.html#color-color-palette> -->
 
-    <color name="red">#e51c23</color>
-    <color name="pink">#e91e63</color>
-    <color name="purple">#9c27b0</color>
-    <color name="deepPurple">#673ab7</color>
-    <color name="indigo">#3f51b5</color>
-    <color name="blue">#5677fc</color>
-    <color name="lightBlue">#03a9f4</color>
-    <color name="cyan">#00bcd4</color>
-    <color name="teal">#009688</color>
-    <color name="green">#259b24</color>
-    <color name="lightGreen">#8bc34a</color>
-    <color name="lime">#cddc39</color>
-    <color name="yellow">#ffeb3b</color>
-    <color name="amber">#ffc107</color>
-    <color name="orange">#ff9800</color>
-    <color name="deepOrange">#ff5722</color>
-    <color name="brown">#795548</color>
-    <color name="grey">#9e9e9e</color>
-    <color name="blueGrey">#607d8b</color>
+    <color name="red">@color/red500</color>
+    <color name="pink">@color/pink500</color>
+    <color name="purple">@color/purple500</color>
+    <color name="deepPurple">@color/deepPurple500</color>
+    <color name="indigo">@color/indigo500</color>
+    <color name="blue">@color/blue500</color>
+    <color name="lightBlue">@color/lightBlue500</color>
+    <color name="cyan">@color/cyan500</color>
+    <color name="teal">@color/teal500</color>
+    <color name="green">@color/green500</color>
+    <color name="lightGreen">@color/lightGreen500</color>
+    <color name="lime">@color/lime500</color>
+    <color name="yellow">@color/yellow500</color>
+    <color name="amber">@color/amber500</color>
+    <color name="orange">@color/orange500</color>
+    <color name="deepOrange">@color/deepOrange500</color>
+    <color name="brown">@color/brown500</color>
+    <color name="grey">@color/grey500</color>
+    <color name="blueGrey">@color/blueGrey500</color>
+
+    <color name="red500">#f44336</color>
+    <color name="red700">#d32f2f</color>
+    <color name="red900">#b71c1c</color>
+    <color name="pink500">#e91e63</color>
+    <color name="pink700">#c2185b</color>
+    <color name="pink900">#880e4f</color>
+    <color name="purple500">#9c27b0</color>
+    <color name="purple700">#7b1fa2</color>
+    <color name="purple900">#4a148c</color>
+    <color name="deepPurple500">#673ab7</color>
+    <color name="deepPurple700">#512da8</color>
+    <color name="deepPurple900">#311b92</color>
+    <color name="indigo500">#3f51b5</color>
+    <color name="indigo700">#303f9f</color>
+    <color name="indigo900">#1a237e</color>
+    <color name="blue500">#2196f3</color>
+    <color name="blue700">#1976d2</color>
+    <color name="blue900">#0d47a1</color>
+    <color name="lightBlue500">#03a9f4</color>
+    <color name="lightBlue700">#0288d1</color>
+    <color name="lightBlue900">#01579b</color>
+    <color name="cyan500">#00bcd4</color>
+    <color name="cyan700">#0097a7</color>
+    <color name="cyan900">#006064</color>
+    <color name="teal500">#009688</color>
+    <color name="teal700">#00796b</color>
+    <color name="teal900">#004d40</color>
+    <color name="green500">#4caf50</color>
+    <color name="green700">#388e3c</color>
+    <color name="green900">#1b5e20</color>
+    <color name="lightGreen500">#8bc34a</color>
+    <color name="lightGreen700">#689f38</color>
+    <color name="lightGreen900">#33691e</color>
+    <color name="lime500">#cddc39</color>
+    <color name="lime700">#afb42b</color>
+    <color name="lime900">#827717</color>
+    <color name="yellow500">#ffeb3b</color>
+    <color name="yellow700">#fbc02d</color>
+    <color name="yellow900">#f57f17</color>
+    <color name="amber500">#ffc107</color>
+    <color name="amber700">#ffa000</color>
+    <color name="amber900">#ff6f00</color>
+    <color name="orange500">#ff9800</color>
+    <color name="orange700">#f57c00</color>
+    <color name="orange900">#e65100</color>
+    <color name="deepOrange500">#ff5722</color>
+    <color name="deepOrange700">#e64a19</color>
+    <color name="deepOrange900">#bf360c</color>
+    <color name="brown500">#795548</color>
+    <color name="brown700">#5d4037</color>
+    <color name="brown900">#3e2723</color>
+    <color name="grey500">#9e9e9e</color>
+    <color name="grey700">#616161</color>
+    <color name="grey900">#212121</color>
+    <color name="blueGrey500">#607d8b</color>
+    <color name="blueGrey700">#455a64</color>
+    <color name="blueGrey900">#263238</color>
 
     <!-- Holo colors <http://developer.android.com/design/style/color.html> -->
 
-    <color name="blueLight">#33B5E5</color>
-    <color name="blueDark">#0099CC</color>
-    <color name="purpleLight">#AA66CC</color>
-    <color name="purpleDark">#9933CC</color>
-    <color name="greenLight">#99CC00</color>
+    <color name="blueLight">#33b5e5</color>
+    <color name="blueDark">#0099cc</color>
+    <color name="purpleLight">#aa66cc</color>
+    <color name="purpleDark">#9933cc</color>
+    <color name="greenLight">#99cc00</color>
     <color name="greenDark">#669900</color>
-    <color name="orangeLight">#FFBB33</color>
-    <color name="orangeDark">#FF8800</color>
-    <color name="redLight">#FF4444</color>
-    <color name="redDark">#CC0000</color>
+    <color name="orangeLight">#ffbb33</color>
+    <color name="orangeDark">#ff8800</color>
+    <color name="redLight">#ff4444</color>
+    <color name="redDark">#cc0000</color>
 
     <!-- Android colors <http://developer.android.com/reference/android/graphics/Color.html> -->
 

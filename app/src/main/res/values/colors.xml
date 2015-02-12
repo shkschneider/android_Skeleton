@@ -2,8 +2,9 @@
 
     <!-- Theme colors (Material Design) -->
 
-    <color name="color">@color/teal</color>
-    <color name="accentColor">@color/cyan</color>
+    <color name="accentColor">@color/orange</color>
+    <color name="primaryColor">@color/orange500</color>
+    <color name="primaryColorDark">@color/orange700</color>
 
     <!-- ... -->
 
