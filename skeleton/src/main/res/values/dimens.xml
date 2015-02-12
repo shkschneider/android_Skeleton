@@ -5,10 +5,8 @@
     <dimen name="navigationBar">48dp</dimen>
 
     <dimen name="viewPagerIndicatorHeight">8dp</dimen>
-    <!-- TODO <http://www.google.com/design/spec/components/snackbars-toasts.html#snackbars-toasts-specs> -->
     <dimen name="snackBarSingle">48dp</dimen>
     <dimen name="snackBarMulti">80dp</dimen>
-    <!-- TODO <https://github.com/futuresimple/android-floating-action-button/> -->
     <dimen name="floatingActionButtonNormal">56dp</dimen>
     <dimen name="floatingActionButtonMini">40dp</dimen>
     <dimen name="floatingActionButtonIconSize">24dp</dimen>
