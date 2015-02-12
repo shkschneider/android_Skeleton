@@ -54,7 +54,7 @@ public class DiskCache {
                 if (file.exists()) {
                     file.delete();
                 }
-                return Serializer.write(value, file);
+                return SerializeHelper.write(value, file);
             }
             return false;
         }
@@ -69,7 +69,7 @@ public class DiskCache {
                 final String path = FileHelper.join(DIR.getAbsolutePath(), key);
                 final File file = FileHelper.get(path);
                 if (file.exists()) {
-                    return (Serializable) Serializer.read(file);
+                    return (Serializable) SerializeHelper.read(file);
                 }
             }
             return null;

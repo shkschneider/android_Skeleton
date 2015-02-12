@@ -10,7 +10,7 @@ import java.io.ObjectOutputStream;
 
 import me.shkschneider.skeleton.helper.LogHelper;
 
-public class Serializer {
+public class SerializeHelper {
 
     public static boolean write(@NonNull final Object object, @NonNull final File file) {
         try {
