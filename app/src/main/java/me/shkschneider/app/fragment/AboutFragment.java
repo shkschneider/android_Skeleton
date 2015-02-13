@@ -36,6 +36,10 @@ public class AboutFragment extends SkeletonPreferenceFragment {
         appVersionCode.setTitle("versionCode");
         appVersionCode.setSummary(String.valueOf(ApplicationHelper.versionCode()));
 
+        final Preference appDebug = findPreference("app_debug");
+        appDebug.setTitle("debug");
+        appDebug.setSummary(String.valueOf(ApplicationHelper.debug()));
+
         // OS
 
         final Preference osVersion = findPreference("os_version");

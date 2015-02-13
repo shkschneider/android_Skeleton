@@ -13,7 +13,6 @@ import android.graphics.drawable.Drawable;
 import android.provider.Settings;
 
 import java.io.File;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,15 +29,6 @@ public class ApplicationHelper {
     }
 
     public static boolean debug() {
-        // Workaround to get DEBUG value of the android application and not that android-library
-        try {
-            final Class<?> cls = Class.forName(packageName() + ".BuildConfig");
-            final Field field = cls.getField("DEBUG");
-            return (Boolean) field.get(false);
-        }
-        catch (final Exception e) {
-            LogHelper.wtf(e);
-        }
         return BuildConfig.DEBUG;
     }
 

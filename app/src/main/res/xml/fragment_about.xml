@@ -23,6 +23,12 @@
             android:title="@null"
             android:summary="@null" />
 
+        <Preference
+            android:key="app_debug"
+            android:selectable="false"
+            android:title="@null"
+            android:summary="@null" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
