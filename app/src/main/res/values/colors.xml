@@ -2,9 +2,9 @@
 
     <!-- Theme colors (Material Design) -->
 
-    <color name="accentColor">@color/orange</color>
-    <color name="primaryColor">@color/orange500</color>
-    <color name="primaryColorDark">@color/orange700</color>
+    <color name="accentColor">@color/green</color>
+    <color name="primaryColor">@color/green500</color>
+    <color name="primaryColorDark">@color/green700</color>
 
     <!-- ... -->
 
