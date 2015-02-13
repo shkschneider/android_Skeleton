@@ -107,7 +107,6 @@ public class BitmapHelper {
             final BitmapFactory.Options bitmapFactoryOptions = new BitmapFactory.Options();
             bitmapFactoryOptions.inJustDecodeBounds = false;
             bitmapFactoryOptions.inSampleSize = scale;
-            bitmapFactoryOptions.inPurgeable = true;
             return BitmapFactory.decodeStream(inputStream, null, bitmapFactoryOptions);
         }
         catch (final Exception e) {
