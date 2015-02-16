@@ -1,0 +1,118 @@
+<me.shkschneider.skeleton.ui.MyScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/myScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceHuge"
+            android:scaleType="centerCrop"
+            android:src="@null"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceMedium"
+            android:gravity="center"
+            android:text="@string/skeleton" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceMedium"
+            android:gravity="center"
+            android:text="@string/skeleton" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceMedium"
+            android:gravity="center"
+            android:text="@string/skeleton" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceMedium"
+            android:gravity="center"
+            android:text="@string/skeleton" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceMedium"
+            android:gravity="center"
+            android:text="@string/skeleton" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceMedium"
+            android:gravity="center"
+            android:text="@string/skeleton" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceMedium"
+            android:gravity="center"
+            android:text="@string/skeleton" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceMedium"
+            android:gravity="center"
+            android:text="@string/skeleton" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceMedium"
+            android:gravity="center"
+            android:text="@string/skeleton" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceMedium"
+            android:gravity="center"
+            android:text="@string/skeleton" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceMedium"
+            android:gravity="center"
+            android:text="@string/skeleton" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceMedium"
+            android:gravity="center"
+            android:text="@string/skeleton" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceMedium"
+            android:gravity="center"
+            android:text="@string/skeleton" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceMedium"
+            android:gravity="center"
+            android:text="@string/skeleton" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceMedium"
+            android:gravity="center"
+            android:text="@string/skeleton" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceMedium"
+            android:gravity="center"
+            android:text="@string/skeleton" />
+
+    </LinearLayout>
+
+</me.shkschneider.skeleton.ui.MyScrollView>

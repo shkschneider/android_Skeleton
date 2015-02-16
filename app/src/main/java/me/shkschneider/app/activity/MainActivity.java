@@ -14,6 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import me.shkschneider.app.R;
+import me.shkschneider.app.fragment.FadingActionBarFragment;
 import me.shkschneider.app.fragment.ListViewFragment;
 import me.shkschneider.app.fragment.SnackBarFragment;
 import me.shkschneider.app.fragment.ViewPagerCircleIndicatorFragment;
@@ -26,7 +27,6 @@ import me.shkschneider.skeleton.SkeletonNavigationDrawerActivity;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.data.DiskCache;
 import me.shkschneider.skeleton.data.MemoryCache;
-import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
@@ -42,6 +42,7 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
     public static final int NAVIGATION_LISTVIEW = 5;
     public static final int NAVIGATION_FLOATINGACTIONBUTTON = 6;
     public static final int NAVIGATION_SNACKBAR = 7;
+    public static final int NAVIGATION_FADINGACTIONBAR = 8;
 
     // Anything as key, anything as value (LRU algorithm)
     private MemoryCache<String, Activity> mMemoryCache;
@@ -54,14 +55,12 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
     // SkeletonActivity.onHomeAsUpPressed()
     // IntentHelper.home()
     public static Intent getIntent(final Activity activity) {
-        return new Intent(activity, MainActivity.class).setFlags(IntentHelper.HOME_FLAGS);
+        return IntentHelper.home();
     }
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        navigationDrawer(0);
 
         mMemoryCache = new MemoryCache<>();
         mMemoryCache.put("MainActivity", MainActivity.this);
@@ -77,6 +76,7 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
     protected void onResume() {
         super.onResume();
 
+        navigationDrawer(0);
         LogHelper.info("MemoryCache:" + ClassHelper.canonicalName(mMemoryCache.get("MainActivity").getClass()));
         LogHelper.info("MemoryCacheBitmap:" + ClassHelper.canonicalName(mMemoryCacheBitmap.get("Bitmap").getClass()));
         LogHelper.info("DiskCacheInternal:" + mDiskCacheInternal.get("DiskCacher").toString());
@@ -106,6 +106,16 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
     }
 
     @Override
+    public void navigationDrawer(final int position) {
+        if (position == NAVIGATION_FADINGACTIONBAR) {
+            startActivity(FadingActionBarActivity.getIntent(MainActivity.this));
+        }
+        else {
+            super.navigationDrawer(position);
+        }
+    }
+
+    @Override
     protected ArrayAdapter getAdapter() {
         return new ArrayAdapter<SkeletonFragment>(this, R.layout.listview_navigationdrawer_item, new ArrayList<SkeletonFragment>() {
             {
@@ -117,6 +127,7 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
                 add(NAVIGATION_LISTVIEW, new ListViewFragment());
                 add(NAVIGATION_FLOATINGACTIONBUTTON, new FloatingActionButtonFragment());
                 add(NAVIGATION_SNACKBAR, new SnackBarFragment());
+                add(NAVIGATION_FADINGACTIONBAR, new FadingActionBarFragment());
             }
         }) {
             @Override

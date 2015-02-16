@@ -26,6 +26,11 @@
         <item name="android:imageButtonStyle">@style/SkeletonTheme.ImageButtonStyle</item>
     </style>
 
+    <style name="SkeletonTheme.ActionBarOverlay" parent="@style/SkeletonTheme">
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
+    </style>
+
     <!-- Material Design -->
 
     <style name="SkeletonTheme.ActionBarStyle" parent="@style/_SkeletonTheme.ActionBarStyle" />
