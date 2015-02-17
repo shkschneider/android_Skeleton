@@ -28,7 +28,7 @@ public class ActivityTransitionHelper {
     }
 
     @SafeVarargs
-    public static void transition(@NonNull final Activity activity, @NonNull final Intent intent, @NonNull final Pair<View, String> ... pairs) {
+    public static void transition(@NonNull final Activity activity, @NonNull final Intent intent, @NonNull final Pair<View, String>... pairs) {
         final ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, pairs);
         ActivityCompat.startActivity(activity, intent, activityOptionsCompat.toBundle());
     }

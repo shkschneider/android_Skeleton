@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.SkeletonFadingActionBarActivity;
+import me.shkschneider.skeleton.helper.ActivityTransitionHelper;
 import me.shkschneider.skeleton.ui.BitmapHelper;
 import me.shkschneider.skeleton.ui.MyScrollView;
 
@@ -30,6 +31,8 @@ public class FadingActionBarActivity extends SkeletonFadingActionBarActivity {
 
         fadingActionBar(new ColorDrawable(BitmapHelper.mutedColor(bitmap)));
         fadingActionBar((MyScrollView) findViewById(R.id.myScrollView), imageView);
+
+        ActivityTransitionHelper.tag(imageView, "NewYork");
     }
 
 }
