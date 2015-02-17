@@ -4,14 +4,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.webkit.URLUtil;
 import android.webkit.WebView;
 
 import org.apache.http.conn.util.InetAddressUtils;
 
-import java.lang.reflect.Method;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.ArrayList;
@@ -28,11 +26,14 @@ public class NetworkHelper {
     @Deprecated
     public static String hostname() {
         try {
-            final Method getString = Build.class.getDeclaredMethod("getString", String.class);
-            getString.setAccessible(true);
-            return getString.invoke(null, "net.hostname").toString();
+            final InetAddress inetAddress = InetAddress.getLocalHost();
+            if (inetAddress == null) {
+                LogHelper.warning("InetAddress was NULL");
+                return null;
+            }
+            return inetAddress.getHostName();
         }
-        catch (Exception e) {
+        catch (final Exception e) {
             LogHelper.wtf(e);
             return null;
         }
