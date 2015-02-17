@@ -1,7 +1,5 @@
 package me.shkschneider.skeleton.helper;
 
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -12,19 +10,8 @@ import android.view.View;
 
 public class ActivityTransitionHelper {
 
-    public static boolean tag(@NonNull final View view, @NonNull final String transitionName) {
-        if (AndroidHelper.api() >= AndroidHelper.API_21) {
-            tag21(view, transitionName);
-            return true;
-        }
-        return false;
-    }
-
-    @TargetApi(AndroidHelper.API_21)
-    @SuppressWarnings("NewApi")
-    @SuppressLint("NewApi")
-    private static void tag21(@NonNull final View view, @NonNull final String transitionName) {
-        view.setTransitionName(transitionName);
+    public static void tag(@NonNull final View view, @NonNull final String transitionName) {
+        ViewCompat.setTransitionName(view, transitionName);
     }
 
     @SafeVarargs
