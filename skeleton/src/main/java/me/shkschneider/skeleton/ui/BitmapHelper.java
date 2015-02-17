@@ -11,6 +11,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.graphics.Palette;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -37,13 +39,15 @@ public class BitmapHelper {
         return bitmap;
     }
 
+    @Deprecated
     public static Bitmap circular(@NonNull final Bitmap bitmap) {
         final Bitmap circleBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-        final BitmapShader shader = new BitmapShader (bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        final BitmapShader shader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
         final Paint paint = new Paint();
         paint.setShader(shader);
         final Canvas canvas = new Canvas(circleBitmap);
         canvas.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint);
+        bitmap.recycle();
         return circleBitmap;
     }
 

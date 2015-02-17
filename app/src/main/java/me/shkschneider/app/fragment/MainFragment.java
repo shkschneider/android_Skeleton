@@ -7,20 +7,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import me.shkschneider.app.R;
-import me.shkschneider.skeleton.ui.BitmapHelper;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.network.WebService;
 import me.shkschneider.skeleton.data.GsonParser;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.app.ui.LoadingImageView;
+import me.shkschneider.skeleton.ui.DrawableHelper;
 
 public class MainFragment extends SkeletonFragment {
 
@@ -45,7 +45,7 @@ public class MainFragment extends SkeletonFragment {
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final LoadingImageView loadingImageView = (LoadingImageView) view.findViewById(R.id.loadingimageview);
+        final ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
         final TextView textView1 = (TextView) view.findViewById(android.R.id.text1);
         final TextView textView2 = (TextView) view.findViewById(android.R.id.text2);
         final Button github = (Button) view.findViewById(R.id.github);
@@ -80,8 +80,7 @@ public class MainFragment extends SkeletonFragment {
                             LogHelper.warning("Bitmap was NULL");
                             return;
                         }
-                        loadingImageView.getImageView().setImageBitmap(BitmapHelper.circular(bitmap));
-                        loadingImageView.showImageView();
+                        imageView.setImageDrawable(DrawableHelper.circular(bitmap));
                     }
                 });
                 final String displayName = GsonParser.string(entry, "displayName");
