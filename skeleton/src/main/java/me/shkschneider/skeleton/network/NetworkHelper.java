@@ -40,7 +40,7 @@ public class NetworkHelper {
     }
 
     public static String userAgent() {
-        // System.getProperty("http.agent");
+        // SystemProperties.httpAgent();
         return new WebView(ApplicationHelper.context()).getSettings().getUserAgentString();
     }
 
