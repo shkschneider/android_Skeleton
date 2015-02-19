@@ -8,29 +8,30 @@ import android.os.Bundle;
 import android.widget.ImageView;
 
 import me.shkschneider.app.R;
-import me.shkschneider.skeleton.SkeletonFadingActionBarActivity;
+import me.shkschneider.skeleton.SkeletonOverlayActivity;
 import me.shkschneider.skeleton.helper.ActivityTransitionHelper;
 import me.shkschneider.skeleton.ui.BitmapHelper;
 import me.shkschneider.skeleton.ui.MyScrollView;
 
-public class FadingActionBarActivity extends SkeletonFadingActionBarActivity {
+public class OverlayActivity extends SkeletonOverlayActivity {
 
     public static Intent getIntent(final Activity activity) {
-        return new Intent(activity, FadingActionBarActivity.class);
+        return new Intent(activity, OverlayActivity.class);
     }
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fadingactionbar);
+        setContentView(R.layout.activity_overlay);
         home(true);
+        subtitle("Overlay");
 
         final Bitmap bitmap = BitmapHelper.fromDrawable(getResources().getDrawable(R.drawable.newyork));
         final ImageView imageView = (ImageView) findViewById(R.id.imageView);
         imageView.setImageBitmap(bitmap);
 
-        fadingActionBar(new ColorDrawable(BitmapHelper.mutedColor(bitmap)));
-        fadingActionBar((MyScrollView) findViewById(R.id.myScrollView), imageView);
+        overlay(new ColorDrawable(BitmapHelper.mutedColor(bitmap)));
+        overlay((MyScrollView) findViewById(R.id.myScrollView), imageView);
 
         ActivityTransitionHelper.tag(imageView, "NewYork");
     }

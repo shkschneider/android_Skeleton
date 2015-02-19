@@ -14,7 +14,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import me.shkschneider.app.R;
-import me.shkschneider.app.activity.FadingActionBarActivity;
+import me.shkschneider.app.activity.OverlayActivity;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.ActivityTransitionHelper;
 import me.shkschneider.skeleton.helper.SystemServices;
@@ -54,7 +54,7 @@ public class TransitionFragment extends SkeletonFragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
-                final Intent intent = FadingActionBarActivity.getIntent(skeletonActivity());
+                final Intent intent = OverlayActivity.getIntent(skeletonActivity());
                 ActivityTransitionHelper.tag(view, "NewYork");
                 ActivityTransitionHelper.transition(skeletonActivity(), intent, Pair.create(view, "NewYork"));
             }

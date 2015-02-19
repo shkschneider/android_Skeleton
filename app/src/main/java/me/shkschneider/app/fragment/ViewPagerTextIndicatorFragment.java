@@ -143,7 +143,7 @@ public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
         @Override
         public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
-            ((ListView) view.findViewById(R.id.listview)).setAdapter(mAdapter);
+            ((ListView) view.findViewById(R.id.listView)).setAdapter(mAdapter);
         }
 
         @Override

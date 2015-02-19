@@ -1,6 +1,7 @@
 <resources>
 
     <dimen name="actionBar">56dp</dimen>
+    <dimen name="actionBar2">112dp</dimen>
 
     <dimen name="elevation0">0dp</dimen>
     <dimen name="elevation1">1dp</dimen>

@@ -6,6 +6,8 @@
     <!-- Default implementation API-14+ -->
     <style name="_SkeletonTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <!-- Material Design -->
+        <!--<item name="android:windowNoTitle">true</item>-->
+        <item name="windowActionBar">false</item>
         <item name="colorPrimary">@color/actionBarColor</item>
         <item name="colorAccent">@color/accentColor</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -17,33 +19,18 @@
         <item name="android:textColorHint">@color/textSecondaryColor</item>
         <item name="android:scrollingCache">false</item>
         <!-- Automatic custom styles -->
-        <item name="actionBarStyle">@style/SkeletonTheme.ActionBarStyle</item>
-        <item name="actionModeStyle">@style/SkeletonTheme.ActionModeStyle</item>
-        <item name="actionModeCloseButtonStyle">@style/SkeletonTheme.ActionModeCloseButton</item>
         <item name="android:listViewStyle">@style/SkeletonTheme.ListViewStyle</item>
         <item name="android:listSeparatorTextViewStyle">@style/SkeletonTheme.ListSeparatorTextViewStyle</item>
         <item name="android:buttonStyle">@style/SkeletonTheme.ButtonStyle</item>
         <item name="android:imageButtonStyle">@style/SkeletonTheme.ImageButtonStyle</item>
     </style>
 
-    <style name="SkeletonTheme.ActionBarOverlay" parent="@style/SkeletonTheme">
+    <style name="SkeletonTheme.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="SkeletonTheme.Toolbar.Overlay" parent="@style/SkeletonTheme.Toolbar">
         <item name="android:windowActionBarOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
     </style>
-
-    <!-- Material Design -->
-
-    <style name="SkeletonTheme.ActionBarStyle" parent="@style/_SkeletonTheme.ActionBarStyle" />
-    <style name="_SkeletonTheme.ActionBarStyle" parent="Widget.AppCompat.Light.ActionBar.Solid">
-        <item name="android:background">@color/actionBarColor</item>
-        <item name="android:textColor">@color/actionBarForegroundColor</item>
-    </style>
-    <style name="SkeletonTheme.ActionModeStyle" parent="Base.Widget.AppCompat.ActionMode">
-        <item name="background">@color/actionBarColor</item>
-    </style>
-    <style name="SkeletonTheme.ActionModeCloseButton" parent="Base.Widget.AppCompat.ActionButton.CloseMode">
-        <item name="android:visibility">visible</item>
-    </style>
+    <style name="SkeletonTheme.Toolbar.Popup" parent="@style/ThemeOverlay.AppCompat.Light" />
 
     <!-- Automatic custom styles -->
 

@@ -1,7 +1,6 @@
 package me.shkschneider.app.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,9 +27,7 @@ import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.data.DiskCache;
 import me.shkschneider.skeleton.data.MemoryCache;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
-import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.helper.SharedPreferencesHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
 
 public class MainActivity extends SkeletonNavigationDrawerActivity {
@@ -53,12 +50,6 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
     private DiskCache.Internal mDiskCacheInternal;
     private DiskCache.External mDiskCacheExternal;
 
-    // SkeletonActivity.onHomeAsUpPressed()
-    // IntentHelper.home()
-    public static Intent getIntent(final Activity activity) {
-        return IntentHelper.home();
-    }
-
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,15 +62,12 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
         mDiskCacheInternal.put("DiskCacher", "Internal");
         mDiskCacheExternal = new DiskCache.External();
         mDiskCacheExternal.put("DiskCacher", "External");
-
-        SharedPreferencesHelper.putPublic(TAB, String.valueOf(0));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        navigationDrawer(Integer.valueOf(SharedPreferencesHelper.getPublic(TAB, String.valueOf(0))));
         LogHelper.info("MemoryCache:" + ClassHelper.canonicalName(mMemoryCache.get("MainActivity").getClass()));
         LogHelper.info("MemoryCacheBitmap:" + ClassHelper.canonicalName(mMemoryCacheBitmap.get("Bitmap").getClass()));
         LogHelper.info("DiskCacheInternal:" + mDiskCacheInternal.get("DiskCacher").toString());
@@ -153,10 +141,9 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-
-        SharedPreferencesHelper.putPublic(TAB, String.valueOf(navigationDrawer()));
+    public void navigationDrawer(final int position) {
+        super.navigationDrawer(position);
+        subtitle(getFragment(position).title());
     }
 
     @Override

@@ -78,7 +78,7 @@ public class ListViewFragment extends SkeletonFragment implements SwipeRefreshLa
     @Override
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        final ListView listView = (ListView) view.findViewById(R.id.listview);
+        final ListView listView = (ListView) view.findViewById(R.id.listView);
         listView.setAdapter(mAdapter);
         listView.setFastScrollEnabled(true);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

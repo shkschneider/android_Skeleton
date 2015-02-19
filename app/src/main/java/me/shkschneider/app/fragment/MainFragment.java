@@ -45,6 +45,7 @@ public class MainFragment extends SkeletonFragment {
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        skeletonActivity().loading(+1);
         final ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
         final TextView textView1 = (TextView) view.findViewById(android.R.id.text1);
         final TextView textView2 = (TextView) view.findViewById(android.R.id.text2);
@@ -61,6 +62,7 @@ public class MainFragment extends SkeletonFragment {
         new WebService().getJsonObject(url, new WebService.Callback() {
             @Override
             public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
+                skeletonActivity().loading(-1);
                 if (e != null) {
                     ActivityHelper.toast(e.getMessage());
                     return;

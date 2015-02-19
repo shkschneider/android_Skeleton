@@ -13,8 +13,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.SharedPreferencesHelper;
 
 public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity {
 
@@ -34,9 +34,19 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
         setContentView(R.layout.activity_navigationdrawer);
         home(true);
 
+        SharedPreferencesHelper.putPublic(TAB, String.valueOf(0));
+    }
+
+    @Override
+    protected void onViewCreated() {
+        super.onViewCreated();
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.navigationDrawer_drawerLayout);
+        if (mDrawerLayout == null) {
+            LogHelper.warning("DrawerLayout was NULL");
+            return ;
+        }
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        // Detects states for Callbacks
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, android.R.string.ok, android.R.string.cancel) {
             @Override
             public void onDrawerOpened(final View view) {
@@ -57,9 +67,14 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
                 navigationDrawer(position);
             }
         });
-        if (savedInstanceState == null) {
-            navigationDrawer(0);
-        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        final int tab = Integer.valueOf(SharedPreferencesHelper.getPublic(TAB, String.valueOf(0)));
+        navigationDrawer(tab);
     }
 
     @Override
@@ -97,7 +112,9 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
     }
 
     public int navigationDrawer() {
-        return mDrawerList.getCheckedItemPosition();
+        final int tab = mDrawerList.getCheckedItemPosition();
+        // default value might be -1
+        return (tab < 0 ? 0 : tab);
     }
 
     @Deprecated
@@ -115,7 +132,6 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
 
     protected void onNavigationDrawerOpened() {
         mOpenedOrOpening = true;
-        setTitle(ApplicationHelper.name());
         supportInvalidateOptionsMenu();
     }
 
@@ -125,7 +141,6 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
 
     protected void onNavigationDrawerClosed() {
         mOpenedOrOpening = false;
-        setTitle(getFragment(navigationDrawer()).title());
         supportInvalidateOptionsMenu();
     }
 
@@ -164,12 +179,18 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
     protected void onPause() {
         super.onPause();
         closeNavigationDrawer();
+
+        final int tab = navigationDrawer();
+        SharedPreferencesHelper.putPublic(TAB, String.valueOf(tab));
     }
 
     @Override
     protected void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(TAB, navigationDrawer());
+
+        final int tab = navigationDrawer();
+        outState.putInt(TAB, tab);
+        SharedPreferencesHelper.putPublic(TAB, String.valueOf(tab));
     }
 
     @Override

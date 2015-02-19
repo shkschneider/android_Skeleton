@@ -1,62 +1,69 @@
-<RelativeLayout
+<me.shkschneider.skeleton.ui.MySwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mySwipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/imageView"
-        android:src="@null"
-        android:contentDescription="@null"
-        android:layout_width="@dimen/spaceHuge"
-        android:layout_height="@dimen/spaceHuge"
-        android:layout_gravity="center"
-        android:padding="@dimen/spaceSmaller" />
-
-    <LinearLayout
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="@dimen/spaceHuge"
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@android:id/text1"
-            android:text="@null"
+        <ImageView
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/imageView"
+            android:src="@null"
+            android:contentDescription="@null"
+            android:layout_width="@dimen/spaceHuge"
+            android:layout_height="@dimen/spaceHuge"
+            android:layout_gravity="center"
+            android:padding="@dimen/spaceSmaller" />
+
+        <LinearLayout
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="@dimen/spaceHuge"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="24dp"
-            android:gravity="bottom|center_horizontal"
-            android:textSize="@dimen/textSizeSmallish"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@android:id/text2"
-            android:text="@null"
+            <TextView
+                android:id="@android:id/text1"
+                android:text="@null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="24dp"
+                android:gravity="bottom|center_horizontal"
+                android:textSize="@dimen/textSizeSmallish"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@android:id/text2"
+                android:text="@null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="24dp"
+                android:gravity="top|center_horizontal"
+                android:textSize="@dimen/textSizeSmallish"
+                android:textStyle="normal" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/spaceMedium"
+            style="@style/SkeletonTheme.DividerHorizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="24dp"
-            android:gravity="top|center_horizontal"
-            android:textSize="@dimen/textSizeSmallish"
-            android:textStyle="normal" />
+            android:layout_height="1dp" />
 
-    </LinearLayout>
+        <Button
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:drawableLeft="@drawable/ic_github"
+            android:id="@+id/github"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spaceMedium"
+            android:text="@null" />
 
-    <View
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/spaceMedium"
-        style="@style/SkeletonTheme.DividerHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="1dp" />
+    </RelativeLayout>
 
-    <Button
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:drawableLeft="@drawable/ic_github"
-        android:id="@+id/github"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/spaceMedium"
-        android:text="@null" />
-
-</RelativeLayout>
+</me.shkschneider.skeleton.ui.MySwipeRefreshLayout>

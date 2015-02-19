@@ -1,7 +1,14 @@
-<ListView
+<me.shkschneider.skeleton.ui.MySwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/listview"
+    android:id="@+id/mySwipeRefreshLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:divider="@color/transparent"
-    android:dividerHeight="0dp" />
+    android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/transparent"
+        android:dividerHeight="0dp" />
+
+</me.shkschneider.skeleton.ui.MySwipeRefreshLayout>
