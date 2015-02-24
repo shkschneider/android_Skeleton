@@ -60,38 +60,7 @@ refreshing layout, webservice calls, refreshable content, fading `ActionBar`, `F
 Usage
 -----
 
-You can clone this repository and modify *app* to get started with a new project, or just add *skeleton* as a library project.
-
-**Setup**
-
-Your Application class MUST extend `SkeletonApplication` or set a global `Context` to it:
-
-    SkeletonApplication.CONTEXT = getApplicationContext();
-
-**Start coding**
-
-- Use or extend `SkeletonApplication` for `Application` class.
-- Use or extend `SkeletonActivity` for `(ActionBar)Activity` classes.
-- Use or extend `SkeletonFragmentActivity` for `FragmentActivity` classes.
-- Use or extend `SkeletonNavigationDrawerActivity` for an `Activity` with a `NavigationDrawer`.
-- Use or extend `SkeletonPreferenceFragment` for `PreferenceFragment` classes.
-- Use or extend `SkeletonOvrlayActivity` for an `Activity` with a fading `Toolbar`.
-
-**Styling**
-
-Change the main colors by creating/modifying *res/values/colors.xml*:
-
-    <color name="accentColor">@color/green</color>
-    <color name="primaryColor">@color/green500</color>
-    <color name="primaryColorDark">@color/green700</color>
-
-The default application's theme is `AppTheme` from skeleton's `SkeletonTheme` itself from `Theme.AppCompat.Light.DarkActionBar` from AppCompat library (with customizations for API-21+).
-
-**Building**
-
-Use your IDE or Gradle from CLI or the provided Makefile:
-
-    $ make <debug|release|lint|clean|distclean>
+[Usage](https://github.com/shkschneider/android_Skeleton/wiki/Usage)
 
 
 Packages and classes
