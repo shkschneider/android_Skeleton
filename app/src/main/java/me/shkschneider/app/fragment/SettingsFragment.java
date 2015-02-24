@@ -9,6 +9,7 @@ import android.view.View;
 import me.shkschneider.app.R;
 import me.shkschneider.skeleton.SkeletonPreferenceFragment;
 import me.shkschneider.skeleton.helper.ActivityHelper;
+import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
 
 public class SettingsFragment extends SkeletonPreferenceFragment {
@@ -53,7 +54,7 @@ public class SettingsFragment extends SkeletonPreferenceFragment {
         googlePlayPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(final Preference preference) {
-                startActivity(IntentHelper.googlePlay());
+                startActivity(IntentHelper.GooglePlay.application(ApplicationHelper.packageName()));
                 return true;
             }
         });
