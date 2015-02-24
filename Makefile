@@ -43,6 +43,7 @@ clean:
 
 distclean:
 	@echo "[ $(APP_ID) $(VERSION) ]"
+	@rm -f "*.aar"
 	@rm -f "*.apk"
 
 .PHONE: all debug release lint clean distclean
