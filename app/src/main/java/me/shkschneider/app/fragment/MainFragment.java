@@ -71,7 +71,7 @@ public class MainFragment extends SkeletonFragment {
                 final JsonArray entries = GsonParser.array(jsonObject, "entry");
                 final JsonObject entry = entries.get(0).getAsJsonObject();
                 final String thumbnailUrl = GsonParser.string(entry, "thumbnailUrl");
-                new WebService().getImage(thumbnailUrl + "?size=360", new WebService.Callback() {
+                new WebService().getBitmap(thumbnailUrl + "?size=360", new WebService.Callback() {
                     @Override
                     public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
                         if (e != null) {

@@ -34,10 +34,6 @@ public class AndroidHelper {
     public static final int ANDROID_4 = API_14;
     public static final int ANDROID_5 = API_21;
 
-    public static String platform() {
-        return PLATFORM;
-    }
-
     public static int api() {
         return Build.VERSION.SDK_INT;
     }
@@ -46,8 +42,8 @@ public class AndroidHelper {
         return Build.VERSION.RELEASE;
     }
 
-    public static String versionCode() {
-        return Build.VERSION.INCREMENTAL;
+    public static int versionCode() {
+        return Integer.valueOf(Build.VERSION.INCREMENTAL);
     }
 
 }

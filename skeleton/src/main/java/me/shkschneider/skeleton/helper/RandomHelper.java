@@ -10,7 +10,7 @@ public class RandomHelper {
         return min + (int) (Math.random() * ((max - min) + 1));
     }
 
-    public static int exclusive(int min, int max) {
+    public static int exclusive(final int min, final int max) {
         return inclusive(min + 1, max - 1);
     }
 

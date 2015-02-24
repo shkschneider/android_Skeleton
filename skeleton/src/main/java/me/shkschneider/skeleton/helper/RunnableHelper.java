@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 public class RunnableHelper {
 
-    public static void delayRunnable(@NonNull final Runnable runnable, final int amount, final TimeUnit timeUnit) {
+    public static void delay(@NonNull final Runnable runnable, final int amount, final TimeUnit timeUnit) {
         new Handler().postDelayed(runnable, timeUnit.toMillis(amount));
     }
 

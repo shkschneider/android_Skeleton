@@ -44,7 +44,7 @@ public class NetworkHelper {
         return new WebView(ApplicationHelper.context()).getSettings().getUserAgentString();
     }
 
-    public static boolean online() {
+    public static boolean connectedOrConnecting() {
         final ConnectivityManager connectivityManager = SystemServices.connectivityManager();
         if (connectivityManager == null) {
             LogHelper.warning("ConnectivityManager was NULL");

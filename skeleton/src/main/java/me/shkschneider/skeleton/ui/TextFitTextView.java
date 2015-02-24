@@ -34,7 +34,7 @@ public class TextFitTextView extends TextView {
     }
 
     @Override
-    protected void onDraw (@NonNull final Canvas canvas) {
+    protected void onDraw(@NonNull final Canvas canvas) {
         super.onDraw(canvas);
         sizeToFit();
     }

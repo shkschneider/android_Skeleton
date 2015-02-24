@@ -2,14 +2,14 @@ package me.shkschneider.skeleton.helper;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.graphics.Rect;
 import android.os.PowerManager;
 import android.support.annotation.NonNull;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
+
+import me.shkschneider.skeleton.R;
 
 public class ScreenHelper {
 
@@ -20,10 +20,18 @@ public class ScreenHelper {
     public static final int DENSITY_XHDPI = 320;
     public static final int DENSITY_XXHDPI = 480;
     public static final int DENSITY_XXXHDPI = 640;
-    public static final int DENSITY_TV = 213;
 
-    public static boolean wakeLock(@NonNull final Activity activity) {
-        activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    public static final float BRIGHTNESS_MIN = 0F;
+    public static final float BRIGHTNESS_MAX = 1F;
+    public static final float BRIGHTNESS_RESET = -1F;
+
+    public static final int ROTATION_0 = 0;
+    public static final int ROTATION_90 = 1; // 90 counter-clockwise
+    public static final int ROTATION_180 = 2; // upside-down
+    public static final int ROTATION_240 = 3; // 90 clockwise
+
+    public static boolean wakeLock(@NonNull final Window window) {
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         return true;
     }
 
@@ -34,42 +42,48 @@ public class ScreenHelper {
             return true;
         }
         if (AndroidHelper.api() >= AndroidHelper.API_20) {
-            return onNew(powerManager);
+            return on20(powerManager);
         }
         else {
-            return onOld(powerManager);
+            return on7(powerManager);
         }
     }
 
+    @TargetApi(AndroidHelper.API_20)
+    private static boolean on20(@NonNull final PowerManager powerManager) {
+        return powerManager.isInteractive();
+    }
+
+    @SuppressWarnings("deprecation")
+    @SuppressLint("deprecation")
+    private static boolean on7(@NonNull final PowerManager powerManager) {
+        return powerManager.isScreenOn();
+    }
+
     public static float brightness(@NonNull final Window window) {
-        // from 0 (dark) to 1 (bright)
         return window.getAttributes().screenBrightness;
     }
 
     public static boolean brightness(@NonNull final Window window, final float brightness) {
-        // -1 resets to default
+        if (brightness > BRIGHTNESS_MAX) {
+            LogHelper.warning("Brightness was too big");
+            return false;
+        }
+        else if (brightness < BRIGHTNESS_MIN && brightness != BRIGHTNESS_RESET) {
+            LogHelper.warning("Brightness was too low");
+            return false;
+        }
         final WindowManager.LayoutParams layoutParams = window.getAttributes();
         layoutParams.screenBrightness = brightness;
         window.setAttributes(layoutParams);
         return true;
     }
 
-    @SuppressWarnings("deprecation")
-    @SuppressLint("deprecation")
-    private static boolean onOld(@NonNull final PowerManager powerManager) {
-        return powerManager.isScreenOn();
-    }
-
-    @TargetApi(AndroidHelper.API_20)
-    private static boolean onNew(@NonNull final PowerManager powerManager) {
-        return powerManager.isInteractive();
-    }
-
     public static float density() {
         return ApplicationHelper.resources().getDisplayMetrics().density;
     }
 
-    public static int densityDpi() {
+    public static int dpi() {
         return ApplicationHelper.resources().getDisplayMetrics().densityDpi;
     }
 
@@ -77,25 +91,21 @@ public class ScreenHelper {
         return ApplicationHelper.resources().getDisplayMetrics().heightPixels;
     }
 
-    @Deprecated
-    public static int statusBarHeight(@NonNull final Window window) {
-        final Rect rect = new Rect();
-        window.getDecorView().getWindowVisibleDisplayFrame(rect);
-        return rect.top;
-    }
-
-    @SuppressWarnings("deprecation")
-    @SuppressLint("deprecation")
-    @Deprecated
-    public static int actionBarHeight(@NonNull final Window window) {
-        int top = window.findViewById(Window.ID_ANDROID_CONTENT).getTop();
-        return (top - statusBarHeight(window));
-    }
-
     public static int width() {
         return ApplicationHelper.context().getResources().getDisplayMetrics().widthPixels;
     }
 
+    @Deprecated
+    public static int statusBarHeight() {
+        return (int) ApplicationHelper.resources().getDimension(R.dimen.statusBar);
+    }
+
+    @Deprecated
+    public static int actionBarHeight(@NonNull final Window window) {
+        return (int) ApplicationHelper.resources().getDimension(R.dimen.actionBar);
+    }
+
+    @Deprecated
     public static int orientation() {
         final WindowManager windowManager = SystemServices.windowManager();
         if (windowManager == null) {

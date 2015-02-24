@@ -15,7 +15,7 @@ public class BundleHelper {
         return bundle;
     }
 
-    public static Object unpack(@NonNull final String key, final Bundle bundle) {
+    public static Serializable unpack(final Bundle bundle, @NonNull final String key) {
         if (bundle == null) {
             LogHelper.warning("Bundle was NULL");
             return null;

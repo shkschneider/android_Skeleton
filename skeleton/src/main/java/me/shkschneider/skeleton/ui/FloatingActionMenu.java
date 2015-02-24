@@ -40,7 +40,7 @@ public class FloatingActionMenu extends ViewGroup {
     private AnimatorSet mExpandAnimation = new AnimatorSet().setDuration(ANIMATION_DURATION);
     private AnimatorSet mCollapseAnimation = new AnimatorSet().setDuration(ANIMATION_DURATION);
     private AddFloatingActionButton mAddButton;
-    private OnFloatingActionsMenuUpdateListener mListener;
+    private OnFloatingActionMenuListener mListener;
     private List<FloatingActionButton> mButtons;
 
     public FloatingActionMenu(final Context context) {
@@ -339,11 +339,11 @@ public class FloatingActionMenu extends ViewGroup {
 
     }
 
-    public void setOnFloatingActionsMenuUpdateListener(final OnFloatingActionsMenuUpdateListener listener) {
+    public void setOnFloatingActionsMenuUpdateListener(final OnFloatingActionMenuListener listener) {
         mListener = listener;
     }
 
-    public interface OnFloatingActionsMenuUpdateListener {
+    public interface OnFloatingActionMenuListener {
 
         void onMenuExpanded();
         void onMenuCollapsed();

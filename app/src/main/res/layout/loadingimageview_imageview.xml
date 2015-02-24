@@ -1,7 +1,0 @@
-<ImageView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/loadingImageView_imageView"
-    android:src="@null"
-    android:contentDescription="@null"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />

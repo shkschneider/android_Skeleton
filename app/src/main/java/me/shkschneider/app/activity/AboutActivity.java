@@ -29,7 +29,7 @@ public class AboutActivity extends SkeletonFragmentActivity {
             @Override
             public void onRefresh() {
                 ActivityHelper.toast("Reloading...");
-                RunnableHelper.delayRunnable(new Runnable() {
+                RunnableHelper.delay(new Runnable() {
                     @Override
                     public void run() {
                         loading(false);

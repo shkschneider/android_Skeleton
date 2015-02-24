@@ -36,7 +36,7 @@ public class ApplicationHelper {
         return ApplicationHelper.context().getResources();
     }
 
-    public static AssetManager assets() {
+    public static AssetManager assetManager() {
         return ApplicationHelper.context().getAssets();
     }
 

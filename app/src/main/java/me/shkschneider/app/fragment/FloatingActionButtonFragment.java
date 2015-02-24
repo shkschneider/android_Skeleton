@@ -52,7 +52,7 @@ public class FloatingActionButtonFragment extends SkeletonFragment {
         // floatingActionMenu.setPlusColor()
         // floatingActionMenu.setExpandDirection()
         floatingActionMenu.setSize(FloatingActionButton.SIZE_MINI);
-        floatingActionMenu.setOnFloatingActionsMenuUpdateListener(new FloatingActionMenu.OnFloatingActionsMenuUpdateListener() {
+        floatingActionMenu.setOnFloatingActionsMenuUpdateListener(new FloatingActionMenu.OnFloatingActionMenuListener() {
             private int count = 0;
 
             @Override

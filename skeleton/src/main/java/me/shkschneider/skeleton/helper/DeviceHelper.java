@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
 
 public class DeviceHelper {
 
-    public static Boolean tablet() {
+    public static boolean tablet() {
         final Configuration configuration = ApplicationHelper.resources().getConfiguration();
         if (configuration == null) {
             LogHelper.warning("Configuration was NULL");

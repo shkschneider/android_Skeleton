@@ -80,7 +80,7 @@ public class NetworkFragment extends SkeletonFragment implements SwipeRefreshLay
 
         skeletonActivity().refreshable(true, this);
 
-        if (NetworkHelper.online()) {
+        if (NetworkHelper.connectedOrConnecting()) {
             onRefresh();
         }
         // TODO offline

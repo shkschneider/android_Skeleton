@@ -62,10 +62,6 @@ public class ViewPagerIndicator extends HorizontalScrollView {
         setBackgroundColor(getResources().getColor(mBackgroundColor));
     }
 
-    public void setOnPageChangeListener(final ViewPager.OnPageChangeListener onPageChangeListener) {
-        mViewPagerPageChangeListener = onPageChangeListener;
-    }
-
     public void setViewPager(final ViewPager viewPager) {
         mTabStripCell.removeAllViews();
         mViewPager = viewPager;
@@ -73,6 +69,10 @@ public class ViewPagerIndicator extends HorizontalScrollView {
             viewPager.setOnPageChangeListener(new InternalViewPagerListener());
             populateStrip();
         }
+    }
+
+    public void setOnPageChangeListener(final ViewPager.OnPageChangeListener onPageChangeListener) {
+        mViewPagerPageChangeListener = onPageChangeListener;
     }
 
     private TextView createDefaultStrip(final Context context) {

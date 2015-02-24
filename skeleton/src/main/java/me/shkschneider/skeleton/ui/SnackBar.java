@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.ui;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.view.Gravity;
@@ -62,6 +63,7 @@ public class SnackBar {
         return SNACKBAR;
     }
 
+    @Deprecated
     public static SnackBar with(@NonNull final Activity activity, @NonNull final String text, final int backgroundColor, final int textColor) {
         SNACKBAR = with(activity, text);
         SNACKBAR.backgroundColor = backgroundColor;
@@ -84,6 +86,7 @@ public class SnackBar {
         return this;
     }
 
+    @Deprecated
     public SnackBar action(final String action, final View.OnClickListener listener, final int color) {
         SNACKBAR.action = action;
         SNACKBAR.actionColor = color;
@@ -91,6 +94,8 @@ public class SnackBar {
         return this;
     }
 
+    @SuppressWarnings("deprecation")
+    @SuppressLint("deprecation")
     public SnackBar action(final String action, final View.OnClickListener listener) {
         return action(action, listener, ApplicationHelper.resources().getColor(R.color.accentColor));
     }
@@ -176,7 +181,7 @@ public class SnackBar {
             SNACKBAR.attachedView.animate().translationYBy(SNACKBAR.height * -1);
         }
         if (SNACKBAR.duration != DURATION_INFINITE) {
-            RunnableHelper.delayRunnable(new Runnable() {
+            RunnableHelper.delay(new Runnable() {
                 @Override
                 public void run() {
                     dismiss();
@@ -219,6 +224,7 @@ public class SnackBar {
         }
     }
 
+    @Deprecated
     private void clear() {
         SNACKBAR.relativeLayout.clearAnimation();
         final ViewGroup parent = (ViewGroup) SNACKBAR.relativeLayout.getParent();

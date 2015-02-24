@@ -42,8 +42,8 @@ public class IntentHelper {
     public static final String BROADCAST_POWER_DISCONNECTED = Intent.ACTION_POWER_DISCONNECTED;
     public static final String BROADCAST_SHUTDOWN = Intent.ACTION_SHUTDOWN;
 
-    private static final int REQUEST_CODE_CAMERA = 111;
-    private static final int REQUEST_CODE_GALLERY = 222;
+    public static final int REQUEST_CODE_CAMERA = 111;
+    public static final int REQUEST_CODE_GALLERY = 222;
 
     public static Intent home() {
         final PackageManager packageManager = ApplicationHelper.context().getPackageManager();
@@ -164,12 +164,24 @@ public class IntentHelper {
                 .setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
     }
 
-    public static Intent googlePlay() {
-        return googlePlay(ApplicationHelper.packageName());
-    }
+    public static class GooglePlay {
 
-    public static Intent googlePlay(@NonNull final String packageName) {
-        return new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName));
+        public static Intent application(@NonNull final String packageName) {
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName));
+        }
+
+        public static Intent publisher(@NonNull final String pub) {
+            final Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("market://search?pub:" + pub));
+            return intent;
+        }
+
+        public static Intent search(@NonNull final String q) {
+            final Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse("market://search?q=" + q));
+            return intent;
+        }
+
     }
 
     public static boolean canHandle(@NonNull final Intent intent) {

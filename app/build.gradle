@@ -72,9 +72,6 @@ dependencies {
 
     compile 'com.koushikdutta.ion:ion:1.4.1'
 
-    compile 'com.github.castorflex.smoothprogressbar:library:1.0.0'
-    compile 'com.github.castorflex.smoothprogressbar:library-circular:1.0.1'
-
     // compile 'de.greenrobot:eventbus:2.4.0'
 
     // compile 'lecho.lib.hellocharts:hellocharts-library:1.1'

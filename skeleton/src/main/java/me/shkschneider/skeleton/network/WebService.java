@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.network;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -112,7 +113,20 @@ public class WebService {
                 });
     }
 
-    public void getImage(@NonNull final String url, final Callback callback) {
+    public void getJsonArray(@NonNull final String url, final Callback callback) {
+        build(url).asJsonArray()
+                .withResponse()
+                .setCallback(new FutureCallback<Response<JsonArray>>() {
+                    @Override
+                    public void onCompleted(final Exception e, final Response<JsonArray> response) {
+                        if (! error(e, response, callback)) {
+                            callback.webServiceCallback(null, response.getResult());
+                        }
+                    }
+                });
+    }
+
+    public void getBitmap(@NonNull final String url, final Callback callback) {
         build(url).asBitmap()
                 .setCallback(new FutureCallback<Bitmap>() {
                     @Override
@@ -141,13 +155,13 @@ public class WebService {
             mCode = responseCode;
         }
 
+        public int getCode() {
+            return mCode;
+        }
+
         @Override
         public String getMessage() {
             return super.getMessage();
-        }
-
-        public int getCode() {
-            return mCode;
         }
 
     }

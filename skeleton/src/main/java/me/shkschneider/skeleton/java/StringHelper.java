@@ -15,7 +15,7 @@ public class StringHelper {
 
     public static final String ALPHA = "abcdefghijklmnopqrstuvwxyz";
     public static final String NUMERIC = "0123456789";
-    public final static String HEX = NUMERIC + ALPHA.substring(0, 6);
+    public static final String HEX = NUMERIC + ALPHA.substring(0, 6);
     public static final String ALPHA_NUMERIC = ALPHA + NUMERIC;
 
     public static boolean nullOrEmpty(final String string) {

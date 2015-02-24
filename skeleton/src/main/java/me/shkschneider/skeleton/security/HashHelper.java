@@ -12,6 +12,7 @@ public class HashHelper {
     public static final int MD5_LENGTH = 32;
     public static final int SHA_LENGTH = 40;
 
+    // FIXME
     protected static String hash(final String algorithm, final String string, final int length) {
         try {
             final MessageDigest messageDigest = MessageDigest.getInstance(algorithm);

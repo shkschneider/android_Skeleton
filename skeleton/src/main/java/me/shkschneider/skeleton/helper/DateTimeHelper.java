@@ -20,7 +20,7 @@ public class DateTimeHelper {
         return Calendar.getInstance().get(Calendar.YEAR);
     }
 
-    public static String format(final String format, final Calendar calendar) {
+    public static String format(final Calendar calendar, final String format) {
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
         return simpleDateFormat.format(calendar.getTime());
     }
@@ -29,12 +29,12 @@ public class DateTimeHelper {
         return Calendar.getInstance().getTimeInMillis() / 1000;
     }
 
-    public static long millitimestamp() {
+    public static long milliTimestamp() {
         return Calendar.getInstance().getTimeInMillis();
     }
 
     private static int gmtOffset() {
-        return Math.round(TimeZone.getDefault().getOffset(millitimestamp()) / DateUtils.SECOND_IN_MILLIS);
+        return Math.round(TimeZone.getDefault().getOffset(milliTimestamp()) / DateUtils.SECOND_IN_MILLIS);
     }
 
     public static String relative(final long time) {
