@@ -30,6 +30,7 @@ public class OverlayActivity extends SkeletonOverlayActivity {
         final ImageView imageView = (ImageView) findViewById(R.id.imageView);
         imageView.setImageBitmap(bitmap);
 
+        statusBarColor(getWindow(), BitmapHelper.mutedColor(bitmap));
         overlay(new ColorDrawable(BitmapHelper.mutedColor(bitmap)));
         overlay((MyScrollView) findViewById(R.id.myScrollView), imageView);
 

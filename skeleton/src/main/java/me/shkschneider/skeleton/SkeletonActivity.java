@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -17,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AbsListView;
 import android.widget.ScrollView;
 
@@ -78,6 +80,21 @@ public class SkeletonActivity extends ActionBarActivity {
     private void bindViews() {
         bindToolbar();
         bindMySwipeRefreshLayout();
+    }
+
+    @TargetApi(AndroidHelper.API_21)
+    public int statusBarColor(@NonNull final Window window) {
+        if (AndroidHelper.api() >= AndroidHelper.API_21) {
+            return window.getStatusBarColor();
+        }
+        return Color.TRANSPARENT;
+    }
+
+    @TargetApi(AndroidHelper.API_21)
+    public void statusBarColor(@NonNull final Window window, final int color) {
+        if (AndroidHelper.api() >= AndroidHelper.API_21) {
+            window.setStatusBarColor(color);
+        }
     }
 
     protected void bindToolbar() {
