@@ -19,3 +19,4 @@ proguard_logs/
 .idea/
 *.log
 me.shkschneider.*
+release.keystore

@@ -1,7 +1,7 @@
 Skeleton
 ========
 
-> Android library with usefull classes to be used as a "Skeleton" for an application.
+> Android library with useful classes to be used as a "Skeleton" for an application.
 
 Current version: **4.0.0**
 
