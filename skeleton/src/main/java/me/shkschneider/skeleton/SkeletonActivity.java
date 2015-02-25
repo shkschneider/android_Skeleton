@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.ScrollView;
 
@@ -93,6 +94,7 @@ public class SkeletonActivity extends ActionBarActivity {
     @TargetApi(AndroidHelper.API_21)
     public void statusBarColor(@NonNull final Window window, final int color) {
         if (AndroidHelper.api() >= AndroidHelper.API_21) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(color);
         }
     }
