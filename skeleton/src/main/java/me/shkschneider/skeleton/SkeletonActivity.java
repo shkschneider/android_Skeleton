@@ -212,6 +212,9 @@ public class SkeletonActivity extends ActionBarActivity {
     private int mLoadingCount;
 
     public boolean refreshable() {
+        if (mMySwipeRefreshLayout == null) {
+            return false;
+        }
         return mMySwipeRefreshLayout.isEnabled();
     }
 
