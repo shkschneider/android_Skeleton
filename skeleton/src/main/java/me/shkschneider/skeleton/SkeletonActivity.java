@@ -99,6 +99,39 @@ public class SkeletonActivity extends ActionBarActivity {
         }
     }
 
+    public void actionBarColor(final int color) {
+        mToolbar.setBackgroundColor(color);
+    }
+
+    public boolean actionBarDrawable(final Drawable drawable) {
+        if (AndroidHelper.api() >= AndroidHelper.API_16) {
+            return actionBarDrawable16(drawable);
+        }
+        else {
+            return actionBarDrawable1(drawable);
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    private boolean actionBarDrawable1(final Drawable drawable) {
+        if (mToolbar == null) {
+            LogHelper.warning("Toolbar was NULL");
+            return false;
+        }
+        mToolbar.setBackgroundDrawable(drawable);
+        return true;
+    }
+
+    @TargetApi(AndroidHelper.API_16)
+    private boolean actionBarDrawable16(final Drawable drawable) {
+        if (mToolbar == null) {
+            LogHelper.warning("Toolbar was NULL");
+            return false;
+        }
+        mToolbar.setBackground(drawable);
+        return true;
+    }
+
     protected void bindToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
