@@ -136,6 +136,7 @@ public class SkeletonActivity extends ActionBarActivity {
         super.onPause();
 
         mAlive = false;
+        loading(false);
     }
 
     public boolean alive() {
