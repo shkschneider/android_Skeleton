@@ -61,8 +61,8 @@ public class ViewPagerCircleIndicator extends LinearLayout implements ViewPager.
         mIndicatorMargin = ScreenHelper.pixelsFromDp(DEFAULT_INDICATOR_WIDTH);
         mIndicatorWidth = ScreenHelper.pixelsFromDp(DEFAULT_INDICATOR_WIDTH);
         mIndicatorHeight = ScreenHelper.pixelsFromDp(DEFAULT_INDICATOR_WIDTH);
-        mAnimatorResId = R.animator.viewpager_circleindicator_scalealpha;
-        mIndicatorBackground = R.drawable.viewpager_circleindicator;
+        mAnimatorResId = R.animator.sk_viewpager_circleindicator;
+        mIndicatorBackground = R.drawable.sk_viewpager_circleindicator;
         mCurrentPosition = 0;
         mAnimationOut = (AnimatorSet) AnimatorInflater.loadAnimator(context, mAnimatorResId);
         mAnimationOut.setInterpolator(new LinearInterpolator());

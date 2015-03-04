@@ -98,7 +98,7 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
 
     @Override
     protected ArrayAdapter getAdapter() {
-        return new ArrayAdapter<SkeletonFragment>(this, R.layout.listview_navigationdrawer_item, new ArrayList<SkeletonFragment>() {
+        return new ArrayAdapter<SkeletonFragment>(this, R.layout.sk_listview_navigationdrawer_item, new ArrayList<SkeletonFragment>() {
             {
                 add(NAVIGATION_MAIN, new MainFragment());
                 add(NAVIGATION_VIEWPAGERTEXTINDICATOR, new ViewPagerTextIndicatorFragment());
@@ -115,7 +115,7 @@ public class MainActivity extends SkeletonNavigationDrawerActivity {
             public View getView(final int position, View convertView, final ViewGroup parent) {
                 if (convertView == null) {
                     final LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
-                    convertView = layoutInflater.inflate(R.layout.listview_navigationdrawer_item, parent, false);
+                    convertView = layoutInflater.inflate(R.layout.sk_listview_navigationdrawer_item, parent, false);
                 }
                 final TextView textView = ((TextView) convertView.findViewById(R.id.navigationDrawer_textView));
                 textView.setText(getItem(position).title());

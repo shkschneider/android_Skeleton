@@ -137,7 +137,7 @@ public class SnackBar {
                 : ApplicationHelper.resources().getDimension(R.dimen.snackBarMulti));
         SNACKBAR.relativeLayout = new RelativeLayout(SNACKBAR.activity);
         final LayoutInflater layoutInflater = LayoutInflater.from(SNACKBAR.activity);
-        final int layout = ((SNACKBAR.lines == 1) ? R.layout.snackbar1 : R.layout.snackbar2);
+        final int layout = ((SNACKBAR.lines == 1) ? R.layout.sk_snackbar1 : R.layout.sk_snackbar2);
         final RelativeLayout relativeLayout = (RelativeLayout) layoutInflater.inflate(layout, SNACKBAR.relativeLayout, true);
         relativeLayout.setBackgroundColor(SNACKBAR.backgroundColor);
         final TextView textView = (TextView) relativeLayout.findViewById(R.id.snackBar_textView);
@@ -176,7 +176,7 @@ public class SnackBar {
         build();
 
         SNACKBAR.relativeLayout.setVisibility(View.VISIBLE);
-        SNACKBAR.relativeLayout.startAnimation(AnimationUtils.loadAnimation(ApplicationHelper.context(), R.anim.snackbar_show_animation));
+        SNACKBAR.relativeLayout.startAnimation(AnimationUtils.loadAnimation(ApplicationHelper.context(), R.anim.sk_snackbar_show));
         if (SNACKBAR.attachedView != null) {
             SNACKBAR.attachedView.animate().translationYBy(SNACKBAR.height * -1);
         }
@@ -199,7 +199,7 @@ public class SnackBar {
             return ;
         }
 
-        final Animation animation = AnimationUtils.loadAnimation(ApplicationHelper.context(), R.anim.snackbar_hide_animation);
+        final Animation animation = AnimationUtils.loadAnimation(ApplicationHelper.context(), R.anim.sk_snackbar_hide);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(final Animation animation) {

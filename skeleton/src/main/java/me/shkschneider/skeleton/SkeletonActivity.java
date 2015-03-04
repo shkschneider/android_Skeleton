@@ -304,7 +304,7 @@ public class SkeletonActivity extends ActionBarActivity {
             return super.onCreateOptionsMenu(menu);
         }
 
-        getMenuInflater().inflate(R.menu.search, menu);
+        getMenuInflater().inflate(R.menu.sk_search, menu);
 
         mSearchMenuItem = menu.findItem(R.id.menu_search);
         if (mSearchMenuItem == null) {

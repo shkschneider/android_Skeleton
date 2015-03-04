@@ -38,11 +38,11 @@ public class ListViewFragment extends SkeletonFragment implements SwipeRefreshLa
         // Adapter
 
         final LayoutInflater layoutInflater = LayoutInflater.from(skeletonActivity());
-        mAdapter = new ArrayAdapter<String>(skeletonActivity(), R.layout.listview_item1) {
+        mAdapter = new ArrayAdapter<String>(skeletonActivity(), R.layout.sk_listview_item1) {
             @Override
             public View getView(final int position, View convertView, final ViewGroup parent) {
                 if (convertView == null) {
-                    convertView = layoutInflater.inflate(R.layout.listview_item1, parent, false);
+                    convertView = layoutInflater.inflate(R.layout.sk_listview_item1, parent, false);
                 }
                 final String item = getItem(position);
                 ((TextView) convertView.findViewById(android.R.id.text1)).setText(item);

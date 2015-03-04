@@ -35,11 +35,11 @@ public class NetworkFragment extends SkeletonFragment implements SwipeRefreshLay
         // Adapter
 
         final LayoutInflater layoutInflater = LayoutInflater.from(skeletonActivity());
-        mAdapter = new ArrayAdapter<String>(skeletonActivity(), R.layout.listview_item2) {
+        mAdapter = new ArrayAdapter<String>(skeletonActivity(), R.layout.sk_listview_item2) {
             @Override
             public View getView(final int position, View convertView, final ViewGroup parent) {
                 if (convertView == null) {
-                    convertView = layoutInflater.inflate(R.layout.listview_item2, parent, false);
+                    convertView = layoutInflater.inflate(R.layout.sk_listview_item2, parent, false);
                 }
                 final String string = getItem(position);
                 final String string1 = string.substring(0, string.indexOf(" "));

@@ -121,6 +121,6 @@
 
     </me.shkschneider.skeleton.ui.MyScrollView>
 
-    <include layout="@layout/toolbar" />
+    <include layout="@layout/sk_toolbar" />
 
 </RelativeLayout>
