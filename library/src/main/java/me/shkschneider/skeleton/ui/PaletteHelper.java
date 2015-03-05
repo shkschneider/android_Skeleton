@@ -9,7 +9,7 @@ import me.shkschneider.skeleton.helper.ApplicationHelper;
 
 public class PaletteHelper {
 
-    private static final int DEFAULT_COLOR = ApplicationHelper.resources().getColor(R.color.transparent);
+    private static final int DEFAULT_COLOR = ApplicationHelper.resources().getColor(R.color.sk_android_transparent);
 
     public static int vibrantColor(@NonNull final Bitmap bitmap) {
         return Palette.generate(bitmap).getVibrantColor(DEFAULT_COLOR);

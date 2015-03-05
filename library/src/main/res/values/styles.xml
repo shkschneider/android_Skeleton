@@ -37,7 +37,7 @@
     <style name="SkeletonTheme.ImageButtonStyle" parent="Widget.AppCompat.Light.ActionButton">
         <item name="android:enabled">true</item>
         <item name="android:clickable">true</item>
-        <item name="android:background">@color/transparent</item>
+        <item name="android:background">@color/sk_android_transparent</item>
     </style>
 
     <style name="SkeletonTheme.ButtonStyle" parent="Widget.AppCompat.Light.ActionButton">
@@ -58,7 +58,7 @@
         <item name="android:fastScrollAlwaysVisible">false</item>
     </style>
     <style name="SkeletonTheme.ListSeparatorTextViewStyle">
-        <item name="android:background">@color/transparent</item>
+        <item name="android:background">@color/sk_android_transparent</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/spaceSmall</item>
         <item name="android:textStyle">bold</item>

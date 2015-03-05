@@ -8,7 +8,7 @@
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@color/transparent"
+        android:divider="@color/sk_android_transparent"
         android:dividerHeight="0dp" />
 
 </me.shkschneider.skeleton.ui.MySwipeRefreshLayout>

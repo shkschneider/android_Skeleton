@@ -7,9 +7,9 @@
         <!--<item name="windowActionBar">false</item>-->
         <item name="android:colorPrimaryDark">@color/primaryColorDark</item>
         <item name="android:navigationBarColor">@color/navigationBarColor</item>
-        <item name="colorControlNormal">@color/white</item>
-        <item name="colorControlActivated">@color/white</item>
-        <item name="colorControlHighlight">@color/white</item>
+        <item name="colorControlNormal">@color/sk_android_white</item>
+        <item name="colorControlActivated">@color/sk_android_white</item>
+        <item name="colorControlHighlight">@color/sk_android_white</item>
         <!--<item name="android:colorEdgeEffect">@color/accentColor</item>-->
         <!--<item name="colorSwitchThumbNormal">@color/accentColor</item>-->
         <item name="android:windowContentTransitions">true</item>

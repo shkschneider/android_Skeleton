@@ -331,7 +331,7 @@ public class FloatingActionMenu extends ViewGroup {
             };
             final ShapeDrawable drawable = new ShapeDrawable(shape);
             final Paint paint = drawable.getPaint();
-            paint.setColor(getResources().getColor(R.color.white));
+            paint.setColor(getResources().getColor(R.color.sk_android_white));
             paint.setStyle(Paint.Style.FILL);
             paint.setAntiAlias(true);
             return drawable;
