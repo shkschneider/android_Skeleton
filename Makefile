@@ -1,8 +1,8 @@
 # Makefile
 
-APP		= app
-APP_ID	= $(shell grep 'applicationId' $(APP)/build.gradle | head -1 | rev | cut -d' ' -f1 | rev | tr -d \' | tr -d \")
-SKELETON	= skeleton
+APP		= demo
+APP_ID		= $(shell grep 'applicationId' $(APP)/build.gradle | head -1 | rev | cut -d' ' -f1 | rev | tr -d \' | tr -d \")
+SKELETON	= library
 SKELETON_ID	= me.shkschneider.skeleton
 MIN_SDK		= $(shell grep 'minSdkVersion' $(APP)/build.gradle | head -1 | rev | cut -d' ' -f1 | rev)
 TARGET_SDK	= $(shell grep 'targetSdkVersion' $(APP)/build.gradle | head -1 | rev | cut -d' ' -f1 | rev)
@@ -43,8 +43,8 @@ clean:
 
 distclean:
 	@echo "[ $(APP_ID) $(VERSION) ]"
-	@rm -f "*.aar"
-	@rm -f "*.apk"
+	@rm -f *.aar
+	@rm -f *.apk
 
 .PHONE: all debug release lint clean distclean
 
