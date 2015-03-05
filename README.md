@@ -3,9 +3,9 @@ Skeleton
 
 > Android library with useful classes to be used as a "Skeleton" for an application.
 
-Current version: **4.0.2**
+Current version: **4.0.4**
 
-Release date: 02-2015
+Release date: 03-2015
 
 Specifications
 --------------
