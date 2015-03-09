@@ -24,7 +24,6 @@ Specifications
 - [com.android.support:palette-v7](https://developer.android.com/tools/support-library/features.html#v7-palette)
 - [com.squareup.phrase:phrase](https://github.com/square/phrase)
 - [com.koushikdutta.ion:ion](https://github.com/koush/ion)
-- [support-v4-preferencefragment](https://github.com/kolavar/android-support-v4-preferencefragment)
 
 **Uses**
 

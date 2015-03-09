@@ -39,7 +39,7 @@ public class SkeletonActivity extends ActionBarActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity);
+        setContentView(R.layout.sk_activity);
 
         if (AndroidHelper.api() >= AndroidHelper.API_21) {
             init21();

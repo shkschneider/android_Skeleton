@@ -1,0 +1,6 @@
+<resources>
+
+    <!-- android.support.v4.PreferenceFragment -->
+    <dimen name="preference_fragment_padding_side">@dimen/spaceSmall</dimen>
+
+</resources>

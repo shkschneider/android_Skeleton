@@ -1,8 +1,8 @@
 package me.shkschneider.skeleton;
 
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 
 public class SkeletonFragmentActivity extends SkeletonActivity {
 

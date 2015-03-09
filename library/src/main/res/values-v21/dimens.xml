@@ -10,4 +10,7 @@
     <dimen name="elevation4">4dp</dimen>
     <dimen name="elevation5">5dp</dimen>
 
+    <!-- android.support.v4.PreferenceFragment -->
+    <dimen name="preference_fragment_padding_side">@dimen/spaceTiny</dimen>
+
 </resources>

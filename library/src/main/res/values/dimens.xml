@@ -53,4 +53,8 @@
     <dimen name="textSizeBig">26sp</dimen>
     <dimen name="textSizeHuge">28sp</dimen>
 
+    <!-- android.support.v4.PreferenceFragment -->
+    <dimen name="preference_fragment_padding_bottom">@dimen/spaceNull</dimen>
+    <dimen name="preference_fragment_padding_side">@dimen/spaceSmaller</dimen>
+
 </resources>

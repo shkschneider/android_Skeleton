@@ -31,7 +31,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navigationdrawer);
+        setContentView(R.layout.sk_activity_navigationdrawer);
         home(true);
 
         SharedPreferencesHelper.putPublic(TAB, String.valueOf(0));

@@ -9,4 +9,9 @@
     -->
     <string name="dots">"&#8230;"</string>
 
+    <!-- android.support.v4.PreferenceFragment -->
+    <string name="preference_fragment_back">"Back"</string>
+    <string name="preference_fragment_skip">"Skip"</string>
+    <string name="preference_fragment_next">"Next"</string>
+
 </resources>
