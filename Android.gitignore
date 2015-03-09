@@ -1,7 +1,4 @@
 *.apk
-*.ap_
-*.dex
-*.class
 bin/
 gen/
 out/
@@ -18,3 +15,5 @@ proguard_logs/
 *.iws
 .idea/
 *.log
+*.aar
+release.keystore
