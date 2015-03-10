@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.ui;
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
 import me.shkschneider.skeleton.data.CharsetHelper;
@@ -11,6 +12,7 @@ import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.data.FileHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.java.ClassHelper;
 
 public class WebViewHelper {
 
@@ -51,13 +53,12 @@ public class WebViewHelper {
     }
 
     @SuppressLint("AddJavascriptInterface") // Dangerous below API-17
-    public static boolean javascriptInterface(@NonNull final WebView webView, @NonNull final Object javascriptInterface, @NonNull final String name) {
+    public static boolean javascriptInterface(@NonNull final WebView webView, @NonNull final JavaScriptInterface javascriptInterface, @NonNull final String name) {
         webView.addJavascriptInterface(javascriptInterface, name);
         return true;
     }
 
-    @SuppressLint("AddJavascriptInterface") // Dangerous below API-17
-    public static boolean javascriptInterface(@NonNull final WebView webView, @NonNull final Object javascriptInterface) {
+    public static boolean javascriptInterface(@NonNull final WebView webView, @NonNull final JavaScriptInterface javascriptInterface) {
         return javascriptInterface(webView, javascriptInterface, AndroidHelper.PLATFORM);
     }
 
@@ -83,6 +84,15 @@ public class WebViewHelper {
 
     public static String original(@NonNull final WebView webView) {
         return webView.getOriginalUrl();
+    }
+
+    public static class JavaScriptInterface {
+
+        @JavascriptInterface
+        public void test() {
+            LogHelper.debug(ClassHelper.simpleName(this.getClass()));
+        }
+
     }
 
 }

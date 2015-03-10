@@ -4,6 +4,7 @@ import android.text.format.DateUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.TimeZone;
 
 public class DateTimeHelper {
@@ -21,8 +22,7 @@ public class DateTimeHelper {
     }
 
     public static String format(final Calendar calendar, final String format) {
-        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
-        return simpleDateFormat.format(calendar.getTime());
+        return new SimpleDateFormat(format, Locale.US).format(calendar.getTime());
     }
 
     public static long timestamp() {

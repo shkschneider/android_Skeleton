@@ -15,7 +15,7 @@ public class IdHelper {
             return null;
         }
 
-        return (androidId != null ? androidId.toLowerCase() : null);
+        return (androidId != null ? StringHelper.lower(androidId) : null);
     }
 
     public static String uuid() {

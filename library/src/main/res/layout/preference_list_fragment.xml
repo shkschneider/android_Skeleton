@@ -45,14 +45,18 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true">
 
-            <Button android:id="@+id/skip_button"
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:id="@+id/skip_button"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="@string/preference_fragment_skip"
                 android:visibility="gone" />
 
-            <Button android:id="@+id/next_button"
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
+                android:id="@+id/next_button"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"

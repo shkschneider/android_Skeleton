@@ -7,6 +7,7 @@ import android.util.Patterns;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import me.shkschneider.skeleton.helper.LogHelper;
@@ -39,27 +40,27 @@ public class StringHelper {
     }
 
     public static String capitalize(@NonNull final String string) {
-        return string.substring(0, 1).toUpperCase() + string.substring(1).toLowerCase();
+        return upper(string.substring(0, 1)) + lower(string.substring(1));
     }
 
     public static String upper(@NonNull final String string) {
-        return string.toUpperCase();
+        return string.toUpperCase(Locale.US);
     }
 
     public static String lower(@NonNull final String string) {
-        return string.toLowerCase();
+        return string.toLowerCase(Locale.US);
     }
 
     public static boolean alpha(@NonNull final String string) {
-        return chars(string.toLowerCase(), ALPHA);
+        return chars(lower(string), ALPHA);
     }
 
     public static boolean numeric(@NonNull final String string) {
-        return chars(string.toLowerCase(), NUMERIC);
+        return chars(lower(string), NUMERIC);
     }
 
     public static boolean alphanumeric(@NonNull final String string) {
-        return chars(string.toLowerCase(), ALPHA_NUMERIC);
+        return chars(lower(string), ALPHA_NUMERIC);
     }
 
     public static boolean url(@NonNull final String string) {
@@ -149,7 +150,7 @@ public class StringHelper {
     }
 
     public static String random(final int length) {
-        return random(HEX.toLowerCase(), length);
+        return random(lower(HEX), length);
     }
 
 }
