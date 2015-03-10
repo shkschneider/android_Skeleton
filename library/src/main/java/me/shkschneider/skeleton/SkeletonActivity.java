@@ -92,15 +92,22 @@ public class SkeletonActivity extends ActionBarActivity {
     }
 
     @TargetApi(AndroidHelper.API_21)
-    public void statusBarColor(@NonNull final Window window, final int color) {
+    public boolean statusBarColor(@NonNull final Window window, final int color) {
         if (AndroidHelper.api() >= AndroidHelper.API_21) {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(color);
+            return true;
         }
+        return false;
     }
 
-    public void actionBarColor(final int color) {
+    public boolean actionBarColor(final int color) {
+        if (mToolbar == null) {
+            LogHelper.warning("Toolbar was NULL");
+            return false;
+        }
         mToolbar.setBackgroundColor(color);
+        return true;
     }
 
     public boolean actionBarDrawable(final Drawable drawable) {
