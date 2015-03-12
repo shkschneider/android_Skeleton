@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.ui;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -52,12 +51,6 @@ public class FloatingActionButton extends ImageButton {
 
     public FloatingActionButton(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
-        init();
-    }
-
-    @TargetApi(AndroidHelper.API_21)
-    public FloatingActionButton(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
         init();
     }
 
@@ -114,7 +107,7 @@ public class FloatingActionButton extends ImageButton {
         layerDrawable.setLayerInset(1, circleInsetHorizontal, circleInsetTop, circleInsetHorizontal, circleInsetBottom);
         layerDrawable.setLayerInset(2, (int) (circleInsetHorizontal - halfStrokeWidth), (int) (circleInsetTop - halfStrokeWidth), (int) (circleInsetHorizontal - halfStrokeWidth), (int) (circleInsetBottom - halfStrokeWidth));
         layerDrawable.setLayerInset(3, circleInsetHorizontal + iconOffset, circleInsetTop + iconOffset, circleInsetHorizontal + iconOffset, circleInsetBottom + iconOffset);
-        setBackgroundCompat(layerDrawable);
+        setBackground(layerDrawable);
     }
 
     protected Drawable getIconDrawable() {
@@ -232,15 +225,24 @@ public class FloatingActionButton extends ImageButton {
         return shapeDrawable;
     }
 
-    @SuppressWarnings("deprecation")
-    @SuppressLint("NewApi")
-    private void setBackgroundCompat(final Drawable drawable) {
+    @Override
+    public void setBackground(final Drawable drawable) {
         if (AndroidHelper.api() >= AndroidHelper.API_16) {
-            setBackground(drawable);
+            setBackground16(drawable);
         }
         else {
-            setBackgroundDrawable(drawable);
+            setBackground1(drawable);
         }
+    }
+
+    @SuppressWarnings("deprecation")
+    private void setBackground1(final Drawable drawable) {
+        super.setBackgroundDrawable(drawable);
+    }
+
+    @TargetApi(AndroidHelper.API_16)
+    private void setBackground16(final Drawable drawable) {
+        super.setBackground(drawable);
     }
 
 }

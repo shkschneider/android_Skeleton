@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.ui.viewpager;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -16,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import me.shkschneider.skeleton.R;
-import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ScreenHelper;
 
 public class ViewPagerIndicator extends HorizontalScrollView {
@@ -39,13 +37,6 @@ public class ViewPagerIndicator extends HorizontalScrollView {
 
     public ViewPagerIndicator(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
-        final int viewPagerIndicatorHeight = getResources().getInteger(R.integer.viewPager_indicatorHeight);
-        init(context, R.color.contentBackgroundColor, R.color.primaryColor, viewPagerIndicatorHeight);
-    }
-
-    @TargetApi(AndroidHelper.API_21)
-    public ViewPagerIndicator(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
         final int viewPagerIndicatorHeight = getResources().getInteger(R.integer.viewPager_indicatorHeight);
         init(context, R.color.contentBackgroundColor, R.color.primaryColor, viewPagerIndicatorHeight);
     }

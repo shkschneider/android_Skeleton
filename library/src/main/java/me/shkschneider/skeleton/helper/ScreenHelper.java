@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.helper;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.os.PowerManager;
 import android.support.annotation.NonNull;
@@ -55,7 +54,6 @@ public class ScreenHelper {
     }
 
     @SuppressWarnings("deprecation")
-    @SuppressLint("deprecation")
     private static boolean on7(@NonNull final PowerManager powerManager) {
         return powerManager.isScreenOn();
     }

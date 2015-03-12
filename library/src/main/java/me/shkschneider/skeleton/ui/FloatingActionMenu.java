@@ -56,12 +56,6 @@ public class FloatingActionMenu extends ViewGroup {
         init();
     }
 
-    @TargetApi(AndroidHelper.API_21)
-    public FloatingActionMenu(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init();
-    }
-
     protected void init() {
         mAddButtonColor = R.color.accentColor;
         mAddButtonSize = FloatingActionButton.SIZE_NORMAL;
@@ -308,11 +302,6 @@ public class FloatingActionMenu extends ViewGroup {
 
         public AddFloatingActionButton(final Context context, final AttributeSet attrs, final int defStyle) {
             super(context, attrs, defStyle);
-        }
-
-        @TargetApi(AndroidHelper.API_21)
-        public AddFloatingActionButton(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-            super(context, attrs, defStyleAttr, defStyleRes);
         }
 
         @Override

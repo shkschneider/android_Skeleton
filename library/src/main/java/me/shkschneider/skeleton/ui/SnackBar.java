@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.ui;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.view.Gravity;
@@ -95,7 +94,6 @@ public class SnackBar {
     }
 
     @SuppressWarnings("deprecation")
-    @SuppressLint("deprecation")
     public SnackBar action(final String action, final View.OnClickListener listener) {
         return action(action, listener, ApplicationHelper.resources().getColor(R.color.accentColor));
     }

@@ -1,12 +1,8 @@
 package me.shkschneider.skeleton.ui;
 
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.ScrollView;
-
-import me.shkschneider.skeleton.helper.AndroidHelper;
 
 // <http://cyrilmottier.com/2013/05/24/pushing-the-actionbar-to-the-next-level/>
 public class MyScrollView extends ScrollView {
@@ -23,13 +19,6 @@ public class MyScrollView extends ScrollView {
 
     public MyScrollView(final Context context, final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-    }
-
-    @TargetApi(AndroidHelper.API_21)
-    @SuppressWarnings("NewApi")
-    @SuppressLint("NewApi")
-    public MyScrollView(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     public void setOnScrollViewListener(final OnScrollViewListener onScrollViewListener) {

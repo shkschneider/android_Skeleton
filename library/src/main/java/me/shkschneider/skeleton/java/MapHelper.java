@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.java;
 
-import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 
 import java.util.Arrays;
@@ -17,13 +16,11 @@ public class MapHelper {
     }
 
     @SuppressWarnings("unchecked")
-    @SuppressLint("unchecked")
     public static <K, V> List<K> keys(@NonNull final Map<K, V> objects) {
         return Arrays.asList((K[]) objects.keySet().toArray());
     }
 
     @SuppressWarnings("unchecked")
-    @SuppressLint("unchecked")
     public static <K, V> List<V> values(@NonNull final Map<K, V> objects) {
         return Arrays.asList((V[]) objects.values().toArray());
     }

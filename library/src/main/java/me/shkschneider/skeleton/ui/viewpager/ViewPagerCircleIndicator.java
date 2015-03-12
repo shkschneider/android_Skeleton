@@ -2,8 +2,6 @@ package me.shkschneider.skeleton.ui.viewpager;
 
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -14,7 +12,6 @@ import android.view.animation.LinearInterpolator;
 import android.widget.LinearLayout;
 
 import me.shkschneider.skeleton.R;
-import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.ScreenHelper;
 
@@ -44,14 +41,6 @@ public class ViewPagerCircleIndicator extends LinearLayout implements ViewPager.
 
     public ViewPagerCircleIndicator(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
-    }
-
-    @SuppressWarnings("NewApi")
-    @SuppressLint("NewApi")
-    @TargetApi(AndroidHelper.API_21)
-    public ViewPagerCircleIndicator(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
         init(context);
     }
 

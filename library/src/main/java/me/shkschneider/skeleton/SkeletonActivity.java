@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
 import android.graphics.Bitmap;
@@ -46,8 +45,6 @@ public class SkeletonActivity extends ActionBarActivity {
         }
     }
 
-    @SuppressWarnings("NewApi")
-    @SuppressLint("NewApi")
     @TargetApi(AndroidHelper.API_21)
     private void init21() {
         final String name = ApplicationHelper.name();

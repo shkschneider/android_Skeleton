@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -36,7 +35,6 @@ public class SkeletonOverlayActivity extends SkeletonActivity {
 
     @TargetApi(AndroidHelper.API_16)
     @SuppressWarnings("NewApi")
-    @SuppressLint("NewApi")
     private void overlay16(@NonNull final Drawable drawable) {
         if (mToolbar == null) {
             LogHelper.warning("Toolbar was NULL");
@@ -46,7 +44,6 @@ public class SkeletonOverlayActivity extends SkeletonActivity {
     }
 
     @SuppressWarnings("deprecation")
-    @SuppressLint("deprecation")
     private void overlay14(@NonNull final Drawable drawable) {
         if (mToolbar == null) {
             LogHelper.warning("Toolbar was NULL");
