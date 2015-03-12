@@ -98,12 +98,10 @@ public class FloatingActionMenu extends ViewGroup {
             super(new Drawable[] { drawable });
         }
 
-        @SuppressWarnings("UnusedDeclaration")
         public float getRotation() {
             return mRotation;
         }
 
-        @SuppressWarnings("UnusedDeclaration")
         public void setRotation(final float rotation) {
             mRotation = rotation;
             invalidateSelf();

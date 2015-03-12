@@ -34,7 +34,6 @@ public class SkeletonOverlayActivity extends SkeletonActivity {
     }
 
     @TargetApi(AndroidHelper.API_16)
-    @SuppressWarnings("NewApi")
     private void overlay16(@NonNull final Drawable drawable) {
         if (mToolbar == null) {
             LogHelper.warning("Toolbar was NULL");
