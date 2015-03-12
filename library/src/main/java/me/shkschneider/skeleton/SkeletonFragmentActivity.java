@@ -15,7 +15,7 @@ public class SkeletonFragmentActivity extends SkeletonActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.framelayout);
+        setContentView(R.layout.sk_fragmentactivity);
     }
 
     @Override

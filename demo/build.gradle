@@ -30,6 +30,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_7
     }
     lintOptions {
+        quiet true
         checkReleaseBuilds true
         abortOnError false
     }

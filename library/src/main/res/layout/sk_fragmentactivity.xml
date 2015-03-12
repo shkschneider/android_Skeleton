@@ -4,10 +4,10 @@
     android:layout_height="match_parent">
 
     <FrameLayout
+        android:layout_marginTop="?attr/actionBarSize"
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize" />
+        android:layout_height="match_parent" />
 
     <include layout="@layout/sk_toolbar" />
 
