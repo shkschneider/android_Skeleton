@@ -13,11 +13,11 @@ import android.graphics.drawable.Drawable;
 import android.provider.Settings;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import me.shkschneider.skeleton.BuildConfig;
 import me.shkschneider.skeleton.data.FileHelper;
 import me.shkschneider.skeleton.ui.BitmapHelper;
 import me.shkschneider.skeleton.SkeletonApplication;
@@ -29,7 +29,15 @@ public class ApplicationHelper {
     }
 
     public static boolean debug() {
-        return BuildConfig.DEBUG;
+        try {
+            final Class<?> clazz = Class.forName(packageName() + ".BuildConfig");
+            final Field field = clazz.getField("DEBUG");
+            return (Boolean) field.get(null);
+        }
+        catch (final Exception e) {
+            LogHelper.wtf(e);
+            return false;
+        }
     }
 
     public static Resources resources() {

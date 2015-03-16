@@ -30,7 +30,7 @@ import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
 
-public class MainActivity extends SkeletonNavigationDrawerActivity {
+public class  MainActivity extends SkeletonNavigationDrawerActivity {
 
     public static final int NAVIGATION_MAIN = 0;
     public static final int NAVIGATION_VIEWPAGERTEXTINDICATOR = 1;
