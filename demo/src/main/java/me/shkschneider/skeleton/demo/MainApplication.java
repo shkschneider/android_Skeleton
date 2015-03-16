@@ -4,6 +4,12 @@ import me.shkschneider.skeleton.SkeletonApplication;
 
 public class MainApplication extends SkeletonApplication {
 
-    // CONTEXT
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        DEBUG = BuildConfig.DEBUG;
+        CONTEXT = getApplicationContext();
+    }
 
 }

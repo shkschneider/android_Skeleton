@@ -11,7 +11,6 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.provider.Settings;
-import android.support.v4.BuildConfig;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -28,9 +27,8 @@ public class ApplicationHelper {
         return SkeletonApplication.CONTEXT;
     }
 
-    @Deprecated
     public static boolean debug() {
-        return BuildConfig.DEBUG;
+        return SkeletonApplication.DEBUG;
     }
 
     public static Resources resources() {
