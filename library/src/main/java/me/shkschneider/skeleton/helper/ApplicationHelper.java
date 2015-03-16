@@ -11,9 +11,9 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.provider.Settings;
+import android.support.v4.BuildConfig;
 
 import java.io.File;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,16 +28,9 @@ public class ApplicationHelper {
         return SkeletonApplication.CONTEXT;
     }
 
+    @Deprecated
     public static boolean debug() {
-        try {
-            final Class<?> clazz = Class.forName(packageName() + ".BuildConfig");
-            final Field field = clazz.getField("DEBUG");
-            return (Boolean) field.get(null);
-        }
-        catch (final Exception e) {
-            LogHelper.wtf(e);
-            return false;
-        }
+        return BuildConfig.DEBUG;
     }
 
     public static Resources resources() {
