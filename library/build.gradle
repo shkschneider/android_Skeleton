@@ -23,12 +23,11 @@ android {
 
 dependencies {
     compile 'com.google.android.gms:play-services:6.5.87'
+    compile 'com.google.code.gson:gson:2.3.1'
 
     compile 'com.android.support:support-v4:22.0.0'
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.android.support:palette-v7:22.0.0'
-
-    compile 'com.koushikdutta.ion:ion:2.1.0'
 }
 
 task sourcesJar(type: Jar) {

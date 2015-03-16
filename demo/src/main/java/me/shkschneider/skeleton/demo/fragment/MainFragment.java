@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.demo.fragment;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.squareup.picasso.Picasso;
 
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.demo.R;
@@ -19,8 +19,7 @@ import me.shkschneider.skeleton.network.WebService;
 import me.shkschneider.skeleton.data.GsonParser;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
-import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.ui.DrawableHelper;
+import me.shkschneider.skeleton.network.WebServiceException;
 
 public class MainFragment extends SkeletonFragment {
 
@@ -59,38 +58,24 @@ public class MainFragment extends SkeletonFragment {
         });
 
         final String url = String.format("http://gravatar.com/%s.json", AUTHOR.toLowerCase());
-        new WebService().getJsonObject(url, new WebService.Callback() {
+        new WebService(WebService.Method.GET, url, null, new WebService.Callback() {
             @Override
-            public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
+            public void webServiceCallback(final WebServiceException e, final JsonObject jsonObject) {
                 skeletonActivity().loading(-1);
                 if (e != null) {
                     ActivityHelper.toast(e.getMessage());
                     return;
                 }
-                final JsonObject jsonObject = (JsonObject) result;
                 final JsonArray entries = GsonParser.array(jsonObject, "entry");
                 final JsonObject entry = entries.get(0).getAsJsonObject();
                 final String thumbnailUrl = GsonParser.string(entry, "thumbnailUrl");
-                new WebService().getBitmap(thumbnailUrl + "?size=360", new WebService.Callback() {
-                    @Override
-                    public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
-                        if (e != null) {
-                            return;
-                        }
-                        final Bitmap bitmap = (Bitmap) result;
-                        if (bitmap == null) {
-                            LogHelper.warning("Bitmap was NULL");
-                            return;
-                        }
-                        imageView.setImageDrawable(DrawableHelper.circular(bitmap));
-                    }
-                });
+                Picasso.with(getActivity()).load(thumbnailUrl + "?size=360").into(imageView);
                 final String displayName = GsonParser.string(entry, "displayName");
                 textView1.setText(displayName);
                 final String currentLocation = GsonParser.string(entry, "currentLocation");
                 textView2.setText(currentLocation);
             }
-        });
+        }).run();
     }
 
 }

@@ -1,176 +1,168 @@
 package me.shkschneider.skeleton.network;
 
-import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
-import com.koushikdutta.ion.Response;
-import com.koushikdutta.ion.builder.Builders;
-import com.koushikdutta.ion.builder.LoadBuilder;
 
+import java.io.BufferedInputStream;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import me.shkschneider.skeleton.helper.ApplicationHelper;
-import me.shkschneider.skeleton.java.ClassHelper;
+import me.shkschneider.skeleton.data.GsonParser;
 import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.java.ClassHelper;
+import me.shkschneider.skeleton.java.MapHelper;
 
-public class WebService {
+// http://developer.android.com/reference/java/net/HttpURLConnection.html
+public class WebService extends AsyncTask<WebService.Callback, Void, Object> {
 
-    public static final int CODE_FATAL = 666;
+    private static final int TIMEOUT_CONNECT = (int) TimeUnit.SECONDS.toMillis(3);
+    private static final int TIMEOUT_READ = (int) TimeUnit.SECONDS.toMillis(5);
+    private static final int CACHE = (int) TimeUnit.HOURS.toMillis(24);
 
-    private static final int TIMEOUT = (int) TimeUnit.SECONDS.toMillis(5);
-    // No retries
-    // Automatic cache GET requests (never in DEBUG)
-    private static final String CACHE_CONTROL = "min-fresh=60";
-    // Automatic GZip
+    private Method mMethod;
+    private String mUrl;
+    private Map<String, String> mBody;
+    private Callback mCallback;
 
-    private LoadBuilder<Builders.Any.B> mIon;
-
-    public WebService() {
-        mIon = Ion.with(ApplicationHelper.context());
+    public WebService(@NonNull final Method method, @NonNull final String url, final Map<String, String> body, final Callback callback) {
+        mMethod = method;
+        mUrl = url;
+        mBody = body;
+        mCallback = callback;
     }
 
-    private Builders.Any.B build(final String url) {
-        LogHelper.info("url:" + url);
-        final Builders.Any.B builder = mIon.load(url);
-        builder.setTimeout(TIMEOUT);
-        // builder.setHeader()
-        // builder.setBodyParameter()
-        if (ApplicationHelper.debug()) {
-            builder.noCache();
-        }
-        else {
-            builder.setHeader("Cache-Control", CACHE_CONTROL);
-        }
-        return builder;
+    public String method() {
+        return mMethod.toString();
     }
 
-    private boolean error(final Exception e, final Response response, final Callback callback) {
-        if (e != null) {
+    public String url() {
+        return mUrl;
+    }
+
+    public Map<String, String> body() {
+        return mBody;
+    }
+
+    public void run() {
+        execute(mCallback);
+    }
+
+    public void cancel() {
+        cancel(true);
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+    @Override
+    protected Object doInBackground(final Callback... callbacks) {
+        // OkHttp
+        HttpURLConnection httpURLConnection = null;
+        try {
+            // URL
+            final URL url = new URL(mUrl);
+            // Connection
+            httpURLConnection = (HttpURLConnection) url.openConnection();
+            // Timeouts
+            httpURLConnection.setConnectTimeout(TIMEOUT_CONNECT);
+            httpURLConnection.setReadTimeout(TIMEOUT_READ);
+            // Method
+            final String method = mMethod.toString();
+            if (method == null) {
+                return new WebServiceException(WebServiceException.INTERNAL_ERROR, "Bad method");
+            }
+            httpURLConnection.setRequestMethod(method);
+            httpURLConnection.setDoOutput(httpURLConnection.getRequestMethod().equals("POST"));
+            // Cache
+            httpURLConnection.addRequestProperty("Cache-Control", (CACHE < 0 ? "no-cache" : "max-stale=" + CACHE));
+            // Parameters
+            if (mBody != null) {
+                for (final String key : MapHelper.keys(mBody)) {
+                    httpURLConnection.addRequestProperty(key, mBody.get(key));
+                }
+            }
+            // Buffered for performance
+            final InputStream inputStream = new BufferedInputStream(httpURLConnection.getInputStream());
+            // Response
+            final int responseCode = httpURLConnection.getResponseCode();
+            final String responseMessage = httpURLConnection.getResponseMessage();
+            LogHelper.debug(String.format(Locale.US, "%d: %s", responseCode, responseMessage));
+            switch (responseCode) {
+                case HttpURLConnection.HTTP_OK:
+                case HttpURLConnection.HTTP_CREATED:
+                case HttpURLConnection.HTTP_ACCEPTED:
+                    return GsonParser.parse(inputStream);
+                default:
+                    return new WebServiceException(responseCode, responseMessage);
+            }
+        }
+        catch (final Exception e) {
             LogHelper.wtf(e);
-            if (callback == null) {
-                LogHelper.warning("Callback was NULL");
-                return true;
-            }
-            callback.webServiceCallback(new WebServiceException(CODE_FATAL, ClassHelper.simpleName(e.getClass())), null);
-            return true;
+            return new WebServiceException(WebServiceException.INTERNAL_ERROR, ClassHelper.simpleName(e.getClass()));
         }
-        if (callback == null) {
-            LogHelper.warning("Callback was NULL");
-            return true;
-        }
-        if (response != null) {
-            final int responseCode = response.getHeaders().code();
-            final String responseMessage = response.getHeaders().message();
-            // All codes below 400 do not imply success...
-            // <http://en.wikipedia.org/wiki/List_of_HTTP_status_codes>
-            if (responseCode >= 400) {
-                callback.webServiceCallback(new WebServiceException(responseCode, responseMessage), null);
-                return true;
+        finally {
+            if (httpURLConnection != null) {
+                httpURLConnection.disconnect();
             }
         }
-        return false;
     }
 
-    public void getInputStream(@NonNull final String url, final Callback callback) {
-        build(url).asInputStream()
-                .withResponse()
-                .setCallback(new FutureCallback<Response<InputStream>>() {
-                    @Override
-                    public void onCompleted(final Exception e, final Response<InputStream> response) {
-                        if (! error(e, response, callback)) {
-                            callback.webServiceCallback(null, response.getResult());
-                        }
-                    }
-                });
-    }
-
-    public void getString(@NonNull final String url, final Callback callback) {
-        build(url).asString()
-                .withResponse()
-                .setCallback(new FutureCallback<Response<String>>() {
-                    @Override
-                    public void onCompleted(final Exception e, final Response<String> response) {
-                        if (! error(e, response, callback)) {
-                            callback.webServiceCallback(null, response.getResult());
-                        }
-                    }
-                });
-    }
-
-    public void getJsonObject(@NonNull final String url, final Callback callback) {
-        build(url).asJsonObject()
-                .withResponse()
-                .setCallback(new FutureCallback<Response<JsonObject>>() {
-                    @Override
-                    public void onCompleted(final Exception e, final Response<JsonObject> response) {
-                        if (! error(e, response, callback)) {
-                            callback.webServiceCallback(null, response.getResult());
-                        }
-                    }
-                });
-    }
-
-    public void getJsonArray(@NonNull final String url, final Callback callback) {
-        build(url).asJsonArray()
-                .withResponse()
-                .setCallback(new FutureCallback<Response<JsonArray>>() {
-                    @Override
-                    public void onCompleted(final Exception e, final Response<JsonArray> response) {
-                        if (! error(e, response, callback)) {
-                            callback.webServiceCallback(null, response.getResult());
-                        }
-                    }
-                });
-    }
-
-    public void getBitmap(@NonNull final String url, final Callback callback) {
-        build(url).asBitmap()
-                .setCallback(new FutureCallback<Bitmap>() {
-                    @Override
-                    public void onCompleted(final Exception e, final Bitmap response) {
-                        if (! error(e, null, callback)) {
-                            callback.webServiceCallback(null, response);
-                        }
-                    }
-                });
-    }
-
-    public static void clearCache() {
-        Ion.getDefault(ApplicationHelper.context()).getCache().clear();
-    }
-
-    public static void cancelAll() {
-        Ion.getDefault(ApplicationHelper.context()).cancelAll();
-    }
-
-    public static class WebServiceException extends Exception {
-
-        private int mCode;
-
-        public WebServiceException(final int responseCode, final String responseMessage) {
-            super(responseMessage);
-            mCode = responseCode;
+    @Override
+    protected void onPostExecute(final Object o) {
+        // Should not happen
+        if (o == null) {
+            LogHelper.warning("Nothing");
+            final WebServiceException webServiceException = new WebServiceException(WebServiceException.INTERNAL_ERROR, "Nothing");
+            mCallback.webServiceCallback(webServiceException, null);
         }
-
-        public int getCode() {
-            return mCode;
+        // Could happen
+        else if (o instanceof WebServiceException) {
+            final WebServiceException webServiceException = (WebServiceException) o;
+            mCallback.webServiceCallback(webServiceException, null);
         }
+        // Should happen
+        else if (o instanceof JsonObject) {
+            final JsonObject jsonObject = (JsonObject) o;
+            mCallback.webServiceCallback(null, jsonObject);
+        }
+        // Should never happen
+        else {
+            LogHelper.error("Invalid");
+            final WebServiceException webServiceException = new WebServiceException(WebServiceException.INTERNAL_ERROR, "Invalid");
+            mCallback.webServiceCallback(webServiceException, null);
+        }
+    }
+
+    public static enum Method {
+
+        GET,
+        POST;
 
         @Override
-        public String getMessage() {
-            return super.getMessage();
+        public String toString() {
+            switch (this) {
+                case GET:
+                    return "GET";
+                case POST:
+                    return "POST";
+                default:
+                    return null;
+            }
         }
 
     }
 
     public interface Callback {
 
-        public void webServiceCallback(final WebServiceException e, final Object result);
+        public void webServiceCallback(final WebServiceException e, final JsonObject jsonObject);
 
     }
 

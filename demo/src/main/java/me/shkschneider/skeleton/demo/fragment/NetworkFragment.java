@@ -19,6 +19,7 @@ import me.shkschneider.skeleton.data.GsonParser;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.network.NetworkHelper;
 import me.shkschneider.skeleton.java.StringHelper;
+import me.shkschneider.skeleton.network.WebServiceException;
 
 public class NetworkFragment extends SkeletonFragment implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -90,30 +91,28 @@ public class NetworkFragment extends SkeletonFragment implements SwipeRefreshLay
     public void onRefresh() {
         mAdapter.clear();
         skeletonActivity().loading(+1);
-        new WebService().getJsonObject("http://ip.jsontest.com", new WebService.Callback() {
+        new WebService(WebService.Method.GET, "http://ip.jsontest.com", null, new WebService.Callback() {
             @Override
-            public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
+            public void webServiceCallback(final WebServiceException e, final JsonObject jsonObject) {
                 skeletonActivity().loading(-1);
                 if (e != null) {
                     ActivityHelper.toast(e.getMessage());
-                    return ;
+                    return;
                 }
-                final JsonObject jsonObject = (JsonObject) result;
                 final String ip = GsonParser.string(jsonObject, "ip");
                 mAdapter.add("ip " + ip);
                 mAdapter.notifyDataSetChanged();
             }
         });
         skeletonActivity().loading(+1);
-        new WebService().getJsonObject("http://headers.jsontest.com", new WebService.Callback() {
+        new WebService(WebService.Method.GET, "http://headers.jsontest.com", null, new WebService.Callback() {
             @Override
-            public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
+            public void webServiceCallback(final WebServiceException e, final JsonObject jsonObject) {
                 skeletonActivity().loading(-1);
                 if (e != null) {
                     ActivityHelper.toast(e.getMessage());
                     return ;
                 }
-                final JsonObject jsonObject = (JsonObject) result;
                 for (final String key : GsonParser.keys(jsonObject)) {
                     final String value = GsonParser.string(jsonObject, key);
                     if (!StringHelper.nullOrEmpty(value)) {
@@ -125,15 +124,14 @@ public class NetworkFragment extends SkeletonFragment implements SwipeRefreshLay
             }
         });
         skeletonActivity().loading(+1);
-        new WebService().getJsonObject("http://date.jsontest.com", new WebService.Callback() {
+        new WebService(WebService.Method.GET, "http://date.jsontest.com", null, new WebService.Callback() {
             @Override
-            public void webServiceCallback(final WebService.WebServiceException e, final Object result) {
+            public void webServiceCallback(final WebServiceException e, final JsonObject jsonObject) {
                 skeletonActivity().loading(-1);
                 if (e != null) {
                     ActivityHelper.toast(e.getMessage());
                     return ;
                 }
-                final JsonObject jsonObject = (JsonObject) result;
                 for (final String key : GsonParser.keys(jsonObject)) {
                     final String value = GsonParser.string(jsonObject, key);
                     if (!StringHelper.nullOrEmpty(value)) {
