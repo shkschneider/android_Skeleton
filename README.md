@@ -1,9 +1,9 @@
-Skeleton [![Maven](https://img.shields.io/github/tag/shkschneider/android_Skeleton.svg?label=maven)](https://jitpack.io/#shkschneider/android_Skeleton/4.0.5)
+Skeleton [![Maven](https://img.shields.io/github/tag/shkschneider/android_Skeleton.svg?label=maven)](https://jitpack.io/#shkschneider/android_Skeleton/4.0.6)
 ========
 
 > Android library with useful classes to be used as a "Skeleton" for an application.
 
-Current version: **4.0.5**
+Current version: **4.0.6**
 
 Release date: 03-2015
 
@@ -15,7 +15,7 @@ Specifications
 **API**
 
 - minSdkVersion [**14**](https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#ICE_CREAM_SANDWICH)
-- targetSdkVersion [21](https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#LOLLIPOP)
+- targetSdkVersion [22](https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#LOLLIPOP_MR1)
 
 **Libraries**
 
@@ -24,13 +24,11 @@ Specifications
 - [com.android.support:appcompat-v7](https://developer.android.com/tools/support-library/features.html#v7-appcompat)
 - [com.android.support:cardview-v7](https://developer.android.com/tools/support-library/features.html#v7-cardview)
 - [com.android.support:palette-v7](https://developer.android.com/tools/support-library/features.html#v7-palette)
-- [com.squareup.phrase:phrase](https://github.com/square/phrase)
-- [com.koushikdutta.ion:ion](https://github.com/koush/ion)
 
 **Uses**
 
-- Gradle 1.0.0
-- [Android Studio 1.0.0](https://developer.android.com/sdk/index.html)
+- Gradle 1.1.0
+- [Android Studio 1.1.0](https://developer.android.com/sdk/index.html)
 - [android.support.v7.app.ActionBarActivity](https://developer.android.com/reference/android/support/v7/app/ActionBarActivity.html)
 - [android.support.v7.widget.Toolbar](https://developer.android.com/reference/android/support/v7/widget/Toolbar.html)
 - [android.support.v4.app.Fragment](https://developer.android.com/reference/android/support/v4/app/Fragment.html)
