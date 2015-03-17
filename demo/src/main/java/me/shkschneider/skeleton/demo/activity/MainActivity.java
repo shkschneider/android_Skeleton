@@ -26,9 +26,11 @@ import me.shkschneider.skeleton.SkeletonNavigationDrawerActivity;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.data.DiskCache;
 import me.shkschneider.skeleton.data.MemoryCache;
+import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
+import me.shkschneider.skeleton.java.StringHelper;
 
 public class  MainActivity extends SkeletonNavigationDrawerActivity {
 
@@ -72,6 +74,8 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
         LogHelper.info("MemoryCacheBitmap:" + ClassHelper.canonicalName(mMemoryCacheBitmap.get("Bitmap").getClass()));
         LogHelper.info("DiskCacheInternal:" + mDiskCacheInternal.get("DiskCacher").toString());
         LogHelper.info("DiskCacheExternal:" + mDiskCacheExternal.get("DiskCacher").toString());
+
+        ActivityHelper.toast(String.format("DEBUG: %s", StringHelper.capitalize(String.valueOf(ApplicationHelper.debug()))));
     }
 
     @Override

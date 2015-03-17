@@ -8,7 +8,7 @@ import me.shkschneider.skeleton.helper.LogHelper;
 public class SkeletonApplication extends Application {
 
     public static Boolean DEBUG = false;
-    public static Context CONTEXT;
+    public static Context CONTEXT = null;
 
     @Override
     public void onCreate() {

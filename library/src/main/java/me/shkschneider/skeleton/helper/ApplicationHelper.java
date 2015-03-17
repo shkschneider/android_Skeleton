@@ -28,6 +28,7 @@ public class ApplicationHelper {
     }
 
     public static boolean debug() {
+        // https://stackoverflow.com/a/25517680/603270
         return SkeletonApplication.DEBUG;
     }
 

@@ -8,8 +8,8 @@ public class MainApplication extends SkeletonApplication {
     public void onCreate() {
         super.onCreate();
 
-        DEBUG = BuildConfig.DEBUG;
-        CONTEXT = getApplicationContext();
+        SkeletonApplication.DEBUG = BuildConfig.DEBUG;
+        SkeletonApplication.CONTEXT = getApplicationContext();
     }
 
 }
