@@ -103,8 +103,7 @@ public class ScreenHelper {
         return (int) ApplicationHelper.resources().getDimension(R.dimen.actionBar);
     }
 
-    @Deprecated
-    public static int orientation() {
+    public static int rotation() {
         final WindowManager windowManager = SystemServices.windowManager();
         if (windowManager == null) {
             LogHelper.warning("WindowManager was NULL");
@@ -117,6 +116,11 @@ public class ScreenHelper {
         }
 
         return display.getRotation();
+    }
+
+    @Deprecated
+    public static int orientation() {
+        return rotation();
     }
 
     public static int pixelsFromDp(final float dp) {
