@@ -29,7 +29,7 @@ public class ComplexCrypt {
         try {
             // salt
             mSecret = new String(secret).getBytes();
-            // initialzation vector
+            // initialization vector
             mIvParameterSpec = new IvParameterSpec(StringHelper.random(ALGORITHM_KEY_PAD).getBytes());
             // key
             final KeyGenerator keyGenerator = KeyGenerator.getInstance(ALGORITHM.split("/")[0]);
@@ -98,7 +98,6 @@ public class ComplexCrypt {
         if (extras == 0 || extras == ALGORITHM_KEY_PAD) {
             return bytes;
         }
-
         byte[] padded = new byte[bytes.length + extras];
         Arrays.fill(padded, (byte) 0x00);
         System.arraycopy(bytes, 0, padded, 0, bytes.length);

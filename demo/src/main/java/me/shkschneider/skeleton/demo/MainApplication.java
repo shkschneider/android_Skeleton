@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.demo;
 
 import me.shkschneider.skeleton.SkeletonApplication;
+import me.shkschneider.skeleton.helper.LogHelper;
 
 public class MainApplication extends SkeletonApplication {
 
@@ -10,6 +11,8 @@ public class MainApplication extends SkeletonApplication {
 
         SkeletonApplication.DEBUG = BuildConfig.DEBUG;
         SkeletonApplication.CONTEXT = getApplicationContext();
+
+        LogHelper.verbose("Hello, world!");
     }
 
 }
