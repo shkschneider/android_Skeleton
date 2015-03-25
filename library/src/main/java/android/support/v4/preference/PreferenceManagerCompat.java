@@ -16,7 +16,7 @@ import android.preference.PreferenceScreen;
 import me.shkschneider.skeleton.helper.LogHelper;
 
 // https://github.com/kolavar/android-support-v4-preferencefragment
-public class PreferenceManagerCompat {
+public final class PreferenceManagerCompat {
 	
     public static PreferenceManager newInstance(final Activity activity, final int firstRequestCode) {
 		try {

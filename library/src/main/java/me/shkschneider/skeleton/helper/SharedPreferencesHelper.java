@@ -25,8 +25,6 @@ public class SharedPreferencesHelper {
         return getPublic().getString(key, defaultValue);
     }
 
-    // TODO <http://stackoverflow.com/questions/13596250/how-to-listen-for-preference-changes-within-a-preferencefragment>
-
     // Private
 
     private static SharedPreferences getPrivate(@NonNull final String name) {

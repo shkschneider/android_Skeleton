@@ -23,7 +23,7 @@ public class FileHelper {
     public static final String PREFIX_RES = "file:///android_res/";
 
     public static String join(@NonNull final String dirname, @NonNull final String basename) {
-        return String.format("%s%s%s", dirname, SystemProperties.pathSeparator(), basename);
+        return String.format("%s%s%s", dirname, SystemProperties.property(SystemProperties.SYSTEM_PROPERTY_PATH_SEPARATOR), basename);
     }
 
     public static File get(@NonNull final String path) {

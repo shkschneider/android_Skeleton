@@ -13,7 +13,7 @@ import me.shkschneider.skeleton.ui.MyScrollView;
 // <http://cyrilmottier.com/2013/05/24/pushing-the-actionbar-to-the-next-level>
 public class SkeletonOverlayActivity extends SkeletonActivity {
 
-    private Drawable mActionBarBackgroundDrawable;
+    protected Drawable mActionBarBackgroundDrawable;
 
     @Override
     protected void onViewCreated() {

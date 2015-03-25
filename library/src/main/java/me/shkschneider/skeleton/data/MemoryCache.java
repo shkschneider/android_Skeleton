@@ -3,7 +3,7 @@ package me.shkschneider.skeleton.data;
 import android.support.annotation.NonNull;
 import android.support.v4.util.LruCache;
 
-public class MemoryCache<K, V> {
+public final class MemoryCache<K, V> {
 
     public static final int DEFAULT_SIZE = 42;
 
@@ -39,7 +39,7 @@ public class MemoryCache<K, V> {
     }
 
     // <http://developer.android.com/training/displaying-bitmaps/cache-bitmap.html#memory-cache>
-    public static class Bitmap extends LruCache<String, android.graphics.Bitmap> {
+    public static final class Bitmap extends LruCache<String, android.graphics.Bitmap> {
 
         public Bitmap() {
             // One eighth of the application memory is allocated for our cache.

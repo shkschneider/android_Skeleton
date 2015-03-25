@@ -4,8 +4,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.support.annotation.NonNull;
-import android.webkit.URLUtil;
 import android.webkit.WebView;
 
 import org.apache.http.conn.util.InetAddressUtils;
@@ -40,7 +38,6 @@ public class NetworkHelper {
     }
 
     public static String userAgent() {
-        // SystemProperties.httpAgent();
         return new WebView(ApplicationHelper.context()).getSettings().getUserAgentString();
     }
 
@@ -89,10 +86,6 @@ public class NetworkHelper {
         }
 
         return macAddress;
-    }
-
-    public static boolean validUrl(@NonNull final String url) {
-        return URLUtil.isValidUrl(url);
     }
 
     public static List<String> ipAddresses() {

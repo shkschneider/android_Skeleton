@@ -17,13 +17,7 @@ public class LogHelper {
     private static String TAG = ApplicationHelper.packageName();
     private static int LEVEL = (ApplicationHelper.debug() ? VERBOSE : WARN);
 
-    private static void log(final int level, final String msg) {
-        if (level < LEVEL) {
-            return ;
-        }
-        if (StringHelper.nullOrEmpty(msg)) {
-            return ;
-        }
+    protected static String prefix() {
         // Uses StackTrace to build the log tag
         final StackTraceElement[] elements = new Throwable().getStackTrace();
         String callerClassName = "?";
@@ -42,14 +36,23 @@ public class LogHelper {
             }
             callerLineNumber = String.valueOf(elements[2].getLineNumber());
         }
+        return "[" + callerClassName + "." + callerMethodName + "():" + callerLineNumber + "] ";
+    }
 
-        final String stack = callerClassName + "." + callerMethodName + "():" + callerLineNumber;
+    private static void log(final int level, final String msg) {
+        if (level < LEVEL) {
+            return ;
+        }
+        if (StringHelper.nullOrEmpty(msg)) {
+            return ;
+        }
+        final String prefix = prefix();
         switch (level) {
-            case VERBOSE: Log.v(TAG, "[" + stack + "] " + msg); break ;
-            case DEBUG: Log.d(TAG, "[" + stack + "] " + msg); break ;
-            case INFO: Log.i(TAG, "[" + stack + "] " + msg); break ;
-            case WARN: Log.w(TAG, "[" + stack + "] " + msg); break ;
-            case ERROR: Log.e(TAG, "[" + stack + "] " + msg); break ;
+            case VERBOSE: Log.v(TAG, prefix + msg); break ;
+            case DEBUG: Log.d(TAG, prefix + msg); break ;
+            case INFO: Log.i(TAG, prefix + msg); break ;
+            case WARN: Log.w(TAG, prefix + msg); break ;
+            case ERROR: Log.e(TAG, prefix + msg); break ;
             default: break ;
         }
     }

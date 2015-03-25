@@ -7,8 +7,8 @@ import me.shkschneider.skeleton.java.StringHelper;
 
 public class HashHelper {
 
-    private static final String MD5 = "MD5";
-    private static final String SHA = "SHA";
+    protected static final String MD5 = "MD5";
+    protected static final String SHA = "SHA";
 
     private static String hash(final String algorithm, final String string) {
         try {

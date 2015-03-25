@@ -8,6 +8,7 @@ import java.lang.reflect.Method;
 
 public class DeviceHelper {
 
+    @Deprecated
     public static boolean tablet() {
         final Configuration configuration = ApplicationHelper.resources().getConfiguration();
         if (configuration == null) {

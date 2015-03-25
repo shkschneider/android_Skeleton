@@ -2,6 +2,7 @@ package me.shkschneider.skeleton.network;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.webkit.URLUtil;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -17,6 +18,10 @@ public class UrlHelper {
 
     public static Uri.Builder builder(@NonNull final String url) {
         return Uri.parse(url).buildUpon();
+    }
+
+    public static boolean valid(@NonNull final String url) {
+        return URLUtil.isValidUrl(url);
     }
 
     public static String encode(@NonNull final String string) {

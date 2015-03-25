@@ -24,7 +24,8 @@ public class AndroidHelper {
     public static final int API_18 = Build.VERSION_CODES.JELLY_BEAN_MR2; // 4.3.x
     public static final int API_19 = Build.VERSION_CODES.KITKAT; // 4.4-4.4.x
     public static final int API_20 = Build.VERSION_CODES.KITKAT_WATCH; // 4.4.x
-    public static final int API_21 = Build.VERSION_CODES.LOLLIPOP; // 5.0+
+    public static final int API_21 = Build.VERSION_CODES.LOLLIPOP; // 5.0
+    public static final int API_22 = Build.VERSION_CODES.LOLLIPOP_MR1; // 5.1
 
     public static final String PLATFORM = "Android";
 

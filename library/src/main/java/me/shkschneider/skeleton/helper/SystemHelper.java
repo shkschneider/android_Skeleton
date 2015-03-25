@@ -20,6 +20,7 @@ public class SystemHelper {
         return SystemClock.currentThreadTimeMillis();
     }
 
+    @Deprecated
     public static void safeSleep(final long milliseconds) {
         SystemClock.sleep(milliseconds);
     }

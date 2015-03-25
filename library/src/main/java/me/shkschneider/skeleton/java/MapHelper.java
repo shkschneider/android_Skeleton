@@ -10,7 +10,7 @@ import java.util.Map;
 public class MapHelper {
 
     public static <K, V> Map<K, V> item(@NonNull final K key, final V value) {
-        Map<K, V> item = new HashMap<K, V>();
+        Map<K, V> item = new HashMap<>();
         item.put(key, value);
         return item;
     }

@@ -15,15 +15,15 @@ import me.shkschneider.skeleton.java.StringHelper;
 
 public class ComplexCrypt {
 
-    private static final String ALGORITHM = "AES/CTR/NoPadding"; // CFB OFB CTR
-    private static final int ALGORITHM_KEY_LENGTH = 128;
-    private static final int ALGORITHM_KEY_PAD = 16;
+    protected static final String ALGORITHM = "AES/CTR/NoPadding"; // CFB OFB CTR
+    protected static final int ALGORITHM_KEY_LENGTH = 128;
+    protected static final int ALGORITHM_KEY_PAD = 16;
 
-    private byte[] mSecret;
-    private IvParameterSpec mIvParameterSpec;
-    private SecretKeySpec mSecretKeySpec;
-    private SecretKey mSecretKey;
-    private Cipher mCipher;
+    protected byte[] mSecret;
+    protected IvParameterSpec mIvParameterSpec;
+    protected SecretKeySpec mSecretKeySpec;
+    protected SecretKey mSecretKey;
+    protected Cipher mCipher;
 
     public ComplexCrypt(@NonNull final byte[] secret) throws Exception {
         try {

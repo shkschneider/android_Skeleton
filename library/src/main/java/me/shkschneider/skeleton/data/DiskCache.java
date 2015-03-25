@@ -8,8 +8,6 @@ import java.io.Serializable;
 import me.shkschneider.skeleton.helper.LogHelper;
 
 // <http://developer.android.com/reference/java/io/Serializable.html>
-// <http://developer.android.com/guide/topics/data/data-storage.html#filesInternal>
-// <http://developer.android.com/guide/topics/data/data-storage.html#filesExternal>
 public class DiskCache {
 
     // Prevents direct initialization
@@ -17,6 +15,7 @@ public class DiskCache {
         // Empty
     }
 
+    // <http://developer.android.com/guide/topics/data/data-storage.html#filesInternal>
     public static class Internal extends Cache {
 
         public Internal() {
@@ -25,6 +24,7 @@ public class DiskCache {
 
     }
 
+    // <http://developer.android.com/guide/topics/data/data-storage.html#filesExternal>
     public static class External extends Cache {
 
         public External() {

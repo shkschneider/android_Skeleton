@@ -20,10 +20,10 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
 
     public static final String TAB = "tab";
 
-    private boolean mOpenedOrOpening = false;
-    private DrawerLayout mDrawerLayout;
-    private ActionBarDrawerToggle mDrawerToggle;
-    private ListView mDrawerList;
+    protected boolean mOpenedOrOpening = false;
+    protected DrawerLayout mDrawerLayout;
+    protected ActionBarDrawerToggle mDrawerToggle;
+    protected ListView mDrawerList;
 
     protected abstract ArrayAdapter getAdapter();
     protected abstract SkeletonFragment getFragment(final int position);
