@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.helper;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -18,7 +19,6 @@ import java.io.File;
 import java.util.List;
 
 import me.shkschneider.skeleton.java.StringHelper;
-import me.shkschneider.skeleton.network.NetworkHelper;
 import me.shkschneider.skeleton.network.UrlHelper;
 import me.shkschneider.skeleton.ui.BitmapHelper;
 import me.shkschneider.skeleton.data.MimeTypeHelper;
@@ -63,7 +63,7 @@ public class IntentHelper {
     }
 
     public static Intent view(@NonNull final Uri uri) {
-        return new Intent(Intent.ACTION_VIEW, uri);
+        return external(new Intent(Intent.ACTION_VIEW, uri));
     }
 
     public static Intent web(@NonNull final String url) {
@@ -72,7 +72,7 @@ public class IntentHelper {
             return null;
         }
 
-        return new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        return external(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
     }
 
     public static Intent share(final String subject, final String text) {
@@ -88,44 +88,44 @@ public class IntentHelper {
     }
 
     public static Intent directions(@NonNull final LatLng from, @NonNull final LatLng to) {
-        return new Intent(android.content.Intent.ACTION_VIEW,
+        return external(new Intent(android.content.Intent.ACTION_VIEW,
                 Uri.parse(String.format("http://maps.google.com/maps?saddr=%s,%s&daddr=%s,%s",
                         from.latitude, from.longitude,
-                        to.latitude, to.longitude)));
+                        to.latitude, to.longitude))));
     }
 
     public static Intent applicationSettings() {
-        return new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                .setData(Uri.parse("package:" + ApplicationHelper.packageName()));
+        return external(new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                .setData(Uri.parse("package:" + ApplicationHelper.packageName())));
     }
 
     public static Intent systemSettings() {
-        return new Intent(Settings.ACTION_SETTINGS);
+        return external(new Intent(Settings.ACTION_SETTINGS));
     }
 
     public static Intent text(@NonNull final Uri uri) {
-        return new Intent(Intent.ACTION_VIEW)
-                .setDataAndType(uri, MimeTypeHelper.TEXT_PLAIN);
+        return external(new Intent(Intent.ACTION_VIEW)
+                .setDataAndType(uri, MimeTypeHelper.TEXT_PLAIN));
     }
 
     public static Intent audio(@NonNull final Uri uri) {
-        return new Intent(Intent.ACTION_VIEW)
-                .setDataAndType(uri, MimeTypeHelper.AUDIO);
+        return external(new Intent(Intent.ACTION_VIEW)
+                .setDataAndType(uri, MimeTypeHelper.AUDIO));
     }
 
     public static Intent video(@NonNull final Uri uri) {
-        return new Intent(Intent.ACTION_VIEW)
-                .setDataAndType(uri, MimeTypeHelper.VIDEO);
+        return external(new Intent(Intent.ACTION_VIEW)
+                .setDataAndType(uri, MimeTypeHelper.VIDEO));
     }
 
     public static Intent picture(@NonNull final Uri uri) {
-        return new Intent(Intent.ACTION_VIEW)
-                .setDataAndType(uri, MimeTypeHelper.IMAGE);
+        return external(new Intent(Intent.ACTION_VIEW)
+                .setDataAndType(uri, MimeTypeHelper.IMAGE));
     }
 
     public static Intent gallery() {
-        return new Intent(Intent.ACTION_PICK)
-                .setType(MimeTypeHelper.IMAGE);
+        return external(new Intent(Intent.ACTION_PICK)
+                .setType(MimeTypeHelper.IMAGE));
     }
 
     public static Intent camera(@NonNull final File file) {
@@ -142,45 +142,45 @@ public class IntentHelper {
             return null;
         }
 
-        return intent;
+        return external(intent);
     }
 
     public static Intent file() {
-        return new Intent(Intent.ACTION_GET_CONTENT)
-                .setType(MimeTypeHelper.FILE);
+        return external(new Intent(Intent.ACTION_GET_CONTENT)
+                .setType(MimeTypeHelper.FILE));
     }
 
     public static Intent dial(@NonNull final String phone) {
-        return new Intent(Intent.ACTION_DIAL)
-                .setData(Uri.parse("tel:" + phone));
+        return external(new Intent(Intent.ACTION_DIAL)
+                .setData(Uri.parse("tel:" + phone)));
     }
 
     public static Intent call(@NonNull final String phone) {
-        return new Intent(Intent.ACTION_CALL)
-                .setData(Uri.parse("tel:" + phone));
+        return external(new Intent(Intent.ACTION_CALL)
+                .setData(Uri.parse("tel:" + phone)));
     }
 
     public static Intent contact() {
-        return new Intent(Intent.ACTION_PICK, Uri.parse("content://com.android.contacts/contacts"))
-                .setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+        return external(new Intent(Intent.ACTION_PICK, Uri.parse("content://com.android.contacts/contacts"))
+                .setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE));
     }
 
     public static class GooglePlay {
 
         public static Intent application(@NonNull final String packageName) {
-            return new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName));
+            return external(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName)));
         }
 
         public static Intent publisher(@NonNull final String pub) {
             final Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse("market://search?pub:" + pub));
-            return intent;
+            return external(intent);
         }
 
         public static Intent search(@NonNull final String q) {
             final Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse("market://search?q=" + q));
-            return intent;
+            return external(intent);
         }
 
     }
@@ -229,6 +229,29 @@ public class IntentHelper {
             return BitmapHelper.decodeUri(uri);
         }
         return null;
+    }
+
+    // http://developer.android.com/training/implementing-navigation/descendant.html#external-activities
+    private static Intent external(@NonNull final Intent intent) {
+        if (AndroidHelper.api() >= AndroidHelper.API_21) {
+            external21(intent);
+        }
+        else {
+            external3(intent);
+        }
+        return intent;
+    }
+
+    @TargetApi(AndroidHelper.API_21)
+    private static Intent external21(@NonNull final Intent intent) {
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
+        return intent;
+    }
+
+    @SuppressWarnings("deprecation")
+    private static Intent external3(@NonNull final Intent intent) {
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        return intent;
     }
 
 }
