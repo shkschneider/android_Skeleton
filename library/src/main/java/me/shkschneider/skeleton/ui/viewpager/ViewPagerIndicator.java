@@ -44,16 +44,21 @@ public class ViewPagerIndicator extends HorizontalScrollView {
     }
 
     protected void init(final Context context, final int backgroundColor, final int foregroundColor, final int indicatorHeight) {
-        mFillViewPort = false;
         removeAllViews();
         mBackgroundColor = backgroundColor;
         mForegroundColor = foregroundColor;
         mIndicatorHeight = indicatorHeight;
         setHorizontalScrollBarEnabled(false);
-        setFillViewport(true);
+        setFillViewport(false);
         mTabStripCell = new TabStripCell(context);
         addView(mTabStripCell, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         setBackgroundColor(getResources().getColor(mBackgroundColor));
+    }
+
+    @Override
+    public void setFillViewport(final boolean fillViewport) {
+        super.setFillViewport(fillViewport);
+        mFillViewPort = fillViewport;
     }
 
     public void setViewPager(final ViewPager viewPager) {

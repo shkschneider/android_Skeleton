@@ -23,7 +23,7 @@ public class ActionBarViewPagerLineIndicator extends ViewPagerIndicator {
         super(context, attrs, defStyle);
         final int viewPagerIndicatorHeight = getResources().getInteger(R.integer.viewPager_indicatorHeight);
         init(context, R.color.actionBarColor, R.color.actionBarForegroundColor, viewPagerIndicatorHeight);
-        mFillViewPort = true;
+        setFillViewport(true);
     }
 
     private View createDefaultStrip(final Context context) {
