@@ -19,6 +19,7 @@ import java.util.List;
 
 import me.shkschneider.skeleton.java.StringHelper;
 import me.shkschneider.skeleton.network.NetworkHelper;
+import me.shkschneider.skeleton.network.UrlHelper;
 import me.shkschneider.skeleton.ui.BitmapHelper;
 import me.shkschneider.skeleton.data.MimeTypeHelper;
 
@@ -66,7 +67,7 @@ public class IntentHelper {
     }
 
     public static Intent web(@NonNull final String url) {
-        if (! NetworkHelper.validUrl(url)) {
+        if (! UrlHelper.valid(url)) {
             LogHelper.warning("Url was invalid");
             return null;
         }
