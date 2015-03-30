@@ -23,7 +23,7 @@ import me.shkschneider.skeleton.ui.viewpager.ViewPagerIndicator;
 
 public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
 
-    private static final int TABS = 10;
+    private static final int TABS = 3;
 
     public ViewPagerTextIndicatorFragment() {
         title("ViewPagerTextIndicator");

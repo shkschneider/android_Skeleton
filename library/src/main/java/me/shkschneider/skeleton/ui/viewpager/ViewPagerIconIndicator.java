@@ -39,7 +39,9 @@ public class ViewPagerIconIndicator extends ViewPagerIndicator {
         for (int i = 0; i < viewPagerIndicatorAdapter.getCount(); i++) {
             final View tabView = createDefaultStrip(getContext());
             ((ImageView) tabView).setImageDrawable(viewPagerIndicatorAdapter.getPageIcon(i));
-            tabView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F));
+            if (mFillViewPort) {
+                tabView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F));
+            }
             tabView.setOnClickListener(onClickListener);
             mTabStripCell.addView(tabView);
         }

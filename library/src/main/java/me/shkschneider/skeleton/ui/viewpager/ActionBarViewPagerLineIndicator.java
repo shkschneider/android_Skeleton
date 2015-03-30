@@ -23,6 +23,7 @@ public class ActionBarViewPagerLineIndicator extends ViewPagerIndicator {
         super(context, attrs, defStyle);
         final int viewPagerIndicatorHeight = getResources().getInteger(R.integer.viewPager_indicatorHeight);
         init(context, R.color.actionBarColor, R.color.actionBarForegroundColor, viewPagerIndicatorHeight);
+        mFillViewPort = true;
     }
 
     private View createDefaultStrip(final Context context) {
@@ -38,7 +39,9 @@ public class ActionBarViewPagerLineIndicator extends ViewPagerIndicator {
         final View.OnClickListener onClickListener = new TabClickListener();
         for (int i = 0; i < pagerAdapter.getCount(); i++) {
             final View tabView = createDefaultStrip(getContext());
-            tabView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F));
+            if (mFillViewPort) {
+                tabView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F));
+            }
             tabView.setOnClickListener(onClickListener);
             mTabStripCell.addView(tabView);
         }

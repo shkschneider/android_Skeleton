@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ public class ViewPagerIndicator extends HorizontalScrollView {
     protected ViewPager mViewPager;
     protected ViewPager.OnPageChangeListener mViewPagerPageChangeListener;
     protected TabStripCell mTabStripCell;
+    protected boolean mFillViewPort;
 
     public ViewPagerIndicator(final Context context) {
         this(context, null);
@@ -42,6 +44,7 @@ public class ViewPagerIndicator extends HorizontalScrollView {
     }
 
     protected void init(final Context context, final int backgroundColor, final int foregroundColor, final int indicatorHeight) {
+        mFillViewPort = false;
         removeAllViews();
         mBackgroundColor = backgroundColor;
         mForegroundColor = foregroundColor;
@@ -87,7 +90,9 @@ public class ViewPagerIndicator extends HorizontalScrollView {
         for (int i = 0; i < pagerAdapter.getCount(); i++) {
             final View tabView = createDefaultStrip(getContext());
             ((TextView) tabView).setText(pagerAdapter.getPageTitle(i));
-            // tabView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F));
+            if (mFillViewPort) {
+                tabView.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1F));
+            }
             tabView.setOnClickListener(onClickListener);
             mTabStripCell.addView(tabView);
         }
