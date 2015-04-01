@@ -15,7 +15,6 @@ public class LogHelper {
     private static final int WTF = Log.ASSERT;
 
     private static String TAG = ApplicationHelper.packageName();
-    private static int LEVEL = (ApplicationHelper.debug() ? VERBOSE : WARN);
 
     protected static String prefix() {
         // Uses StackTrace to build the log tag
@@ -40,9 +39,6 @@ public class LogHelper {
     }
 
     private static void log(final int level, final String msg) {
-        if (level < LEVEL) {
-            return ;
-        }
         if (StringHelper.nullOrEmpty(msg)) {
             return ;
         }

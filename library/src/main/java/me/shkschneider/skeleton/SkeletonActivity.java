@@ -182,6 +182,10 @@ public class SkeletonActivity extends ActionBarActivity {
 
     // ToolBar
 
+    public Toolbar getToolbar() {
+        return mToolbar;
+    }
+
     public void toolbar(final boolean b) {
         if (mToolbar == null) {
             LogHelper.warning("Toolbar was NULL");
