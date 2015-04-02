@@ -1,9 +1,9 @@
-Skeleton [![Maven](https://img.shields.io/github/tag/shkschneider/android_Skeleton.svg?label=maven)](https://jitpack.io/#shkschneider/android_Skeleton/4.0.11)
+Skeleton [![Maven](https://img.shields.io/github/tag/shkschneider/android_Skeleton.svg?label=maven)](https://jitpack.io/#shkschneider/android_Skeleton/4.0.12)
 ========
 
 > Android library with useful classes to be used as a "Skeleton" for an application.
 
-Current version: **4.0.11**
+Current version: **4.0.12**
 
 Release date: 04-2015
 

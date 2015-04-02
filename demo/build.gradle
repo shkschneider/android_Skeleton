@@ -8,8 +8,8 @@ android {
         applicationId 'me.shkschneider.skeleton.demo'
         minSdkVersion 14
         targetSdkVersion 22
-        versionCode 15
-        versionName '4.0.11'
+        versionCode 16
+        versionName '4.0.12'
     }
     signingConfigs {
         debug {
