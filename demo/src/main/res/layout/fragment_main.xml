@@ -8,6 +8,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <me.shkschneider.skeleton.ui.SvgView
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/svgView"
+            android:src="@raw/avatar"
+            android:contentDescription="@null"
+            android:layout_width="@dimen/spaceHuge"
+            android:layout_height="@dimen/spaceHuge"
+            android:layout_gravity="center"
+            android:padding="@dimen/spaceSmaller" />
+
         <ImageView
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
