@@ -5,10 +5,12 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.demo.R;
 import me.shkschneider.skeleton.helper.ActivityHelper;
+import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.ui.FloatingActionButton;
 import me.shkschneider.skeleton.ui.FloatingActionMenu;
 
@@ -46,6 +48,7 @@ public class FloatingActionButtonFragment extends SkeletonFragment {
                 ActivityHelper.toast("Button");
             }
         });
+        floatingActionButton.startAnimation(AnimationUtils.loadAnimation(ApplicationHelper.context(), R.anim.sk_scale_up));
 
         final FloatingActionMenu floatingActionMenu = (FloatingActionMenu) view.findViewById(R.id.floatingActionMenu);
         // floatingActionMenu.setButtonColor()
@@ -53,6 +56,7 @@ public class FloatingActionButtonFragment extends SkeletonFragment {
         // floatingActionMenu.setExpandDirection()
         floatingActionMenu.setSize(FloatingActionButton.SIZE_MINI);
         floatingActionMenu.setOnFloatingActionsMenuUpdateListener(new FloatingActionMenu.OnFloatingActionMenuListener() {
+
             private int count = 0;
 
             @Override
@@ -67,7 +71,9 @@ public class FloatingActionButtonFragment extends SkeletonFragment {
             public void onMenuCollapsed() {
                 // Ignore
             }
+
         });
+        floatingActionMenu.startAnimation(AnimationUtils.loadAnimation(ApplicationHelper.context(), R.anim.sk_scale_up));
 
         final FloatingActionButton floatingActionButton1 = new FloatingActionButton(getActivity());
         floatingActionButton1.setColors(R.color.primaryColor, R.color.accentColor);

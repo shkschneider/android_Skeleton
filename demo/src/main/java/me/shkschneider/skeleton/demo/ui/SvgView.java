@@ -1,7 +1,6 @@
-package me.shkschneider.skeleton.ui;
+package me.shkschneider.skeleton.demo.ui;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -53,7 +52,7 @@ public class SvgView extends ImageView {
         try {
             mSvg = SVG.getFromResource(getContext(), mResId);
         }
-        catch (SVGParseException e) {
+        catch (final SVGParseException e) {
             LogHelper.wtf(e);
         }
         if (getLayoutParams() != null
