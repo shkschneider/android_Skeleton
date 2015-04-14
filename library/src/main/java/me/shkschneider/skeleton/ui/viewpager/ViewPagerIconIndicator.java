@@ -21,13 +21,13 @@ public class ViewPagerIconIndicator extends ViewPagerIndicator {
 
     public ViewPagerIconIndicator(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
-        final int viewPagerIndicatorHeight = getResources().getInteger(R.integer.viewPager_indicatorHeight);
+        final int viewPagerIndicatorHeight = getResources().getInteger(R.integer.sk_viewPager_indicatorHeight);
         init(context, R.color.contentBackgroundColor, R.color.primaryColor, viewPagerIndicatorHeight);
     }
 
     private View createDefaultStrip(final Context context) {
         final ImageView imageView = new ImageView(context);
-        final int padding = (int) ((getResources().getInteger(R.integer.viewPager_padding) / 2) * getResources().getDisplayMetrics().density);
+        final int padding = (int) ((getResources().getInteger(R.integer.sk_viewPager_padding) / 2) * getResources().getDisplayMetrics().density);
         imageView.setPadding(padding, padding, padding, padding);
         return imageView;
     }

@@ -174,7 +174,7 @@ public class SnackBar {
         build();
 
         SNACKBAR.relativeLayout.setVisibility(View.VISIBLE);
-        SNACKBAR.relativeLayout.startAnimation(AnimationUtils.loadAnimation(ApplicationHelper.context(), R.anim.sk_snackbar_show));
+        SNACKBAR.relativeLayout.startAnimation(AnimationUtils.loadAnimation(ApplicationHelper.context(), R.anim.sk_show));
         if (SNACKBAR.attachedView != null) {
             SNACKBAR.attachedView.animate().translationYBy(SNACKBAR.height * -1);
         }
@@ -197,7 +197,7 @@ public class SnackBar {
             return ;
         }
 
-        final Animation animation = AnimationUtils.loadAnimation(ApplicationHelper.context(), R.anim.sk_snackbar_hide);
+        final Animation animation = AnimationUtils.loadAnimation(ApplicationHelper.context(), R.anim.sk_hide);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(final Animation animation) {

@@ -56,16 +56,6 @@
     public static *** verbose(...);
 }
 
-# support v4
--dontwarn android.support.v7.**
--keep class android.support.v7.** { *; }
--keep interface android.support.v7.** { *; }
-
-# support v7 appcompat
--dontwarn android.support.v7.**
--keep class android.support.v7.** { *; }
--keep interface android.support.v7.** { *; }
-
 # play services
 -keep class * extends java.util.ListResourceBundle {
     protected Object[][] getContents();
@@ -81,3 +71,25 @@
     public static final ** CREATOR;
 }
 -dontwarn com.google.android.gms.**
+
+# gson
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class sun.misc.Unsafe { *; }
+-keep class com.google.gson. ** { *; }
+-keep interface com.google.gson.** { *; }
+
+# support v4
+-dontwarn android.support.v7.**
+-keep class android.support.v7.** { *; }
+-keep interface android.support.v7.** { *; }
+
+# support v7 appcompat
+-dontwarn android.support.v7.**
+-keep class android.support.v7.** { *; }
+-keep interface android.support.v7.** { *; }
+
+# palette v4
+-dontwarn android.palette.v7.**
+-keep class android.palette.v7.** { *; }
+-keep interface android.palette.v7.** { *; }

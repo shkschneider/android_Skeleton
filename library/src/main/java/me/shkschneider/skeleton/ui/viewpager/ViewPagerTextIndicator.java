@@ -17,7 +17,7 @@ public class ViewPagerTextIndicator extends ViewPagerIndicator {
 
     public ViewPagerTextIndicator(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
-        final int viewPagerIndicatorHeight = getResources().getInteger(R.integer.viewPager_indicatorHeight);
+        final int viewPagerIndicatorHeight = getResources().getInteger(R.integer.sk_viewPager_indicatorHeight);
         init(context, R.color.contentBackgroundColor, R.color.primaryColor, viewPagerIndicatorHeight);
     }
 

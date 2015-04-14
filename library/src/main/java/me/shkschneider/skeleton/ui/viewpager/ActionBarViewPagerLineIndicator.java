@@ -21,14 +21,14 @@ public class ActionBarViewPagerLineIndicator extends ViewPagerIndicator {
 
     public ActionBarViewPagerLineIndicator(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
-        final int viewPagerIndicatorHeight = getResources().getInteger(R.integer.viewPager_indicatorHeight);
+        final int viewPagerIndicatorHeight = getResources().getInteger(R.integer.sk_viewPager_indicatorHeight);
         init(context, R.color.actionBarColor, R.color.actionBarForegroundColor, viewPagerIndicatorHeight);
         setFillViewport(true);
     }
 
     private View createDefaultStrip(final Context context) {
         final View view = new View(context);
-        final int padding = (int) (getResources().getInteger(R.integer.viewPager_padding) * getResources().getDisplayMetrics().density);
+        final int padding = (int) (getResources().getInteger(R.integer.sk_viewPager_padding) * getResources().getDisplayMetrics().density);
         view.setPadding(padding, padding, padding, padding);
         return view;
     }

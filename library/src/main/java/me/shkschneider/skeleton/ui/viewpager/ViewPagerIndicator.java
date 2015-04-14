@@ -39,7 +39,7 @@ public class ViewPagerIndicator extends HorizontalScrollView {
 
     public ViewPagerIndicator(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
-        final int viewPagerIndicatorHeight = getResources().getInteger(R.integer.viewPager_indicatorHeight);
+        final int viewPagerIndicatorHeight = getResources().getInteger(R.integer.sk_viewPager_indicatorHeight);
         init(context, R.color.contentBackgroundColor, R.color.primaryColor, viewPagerIndicatorHeight);
     }
 
@@ -83,7 +83,7 @@ public class ViewPagerIndicator extends HorizontalScrollView {
         getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground, typedValue, true);
         textView.setBackgroundResource(typedValue.resourceId);
         textView.setAllCaps(true);
-        final int padding = (int) (getResources().getInteger(R.integer.viewPager_padding) * ScreenHelper.density());
+        final int padding = (int) (getResources().getInteger(R.integer.sk_viewPager_padding) * ScreenHelper.density());
         textView.setPadding(padding, padding, padding, padding);
         textView.setTextColor(getResources().getColor(mForegroundColor));
         return textView;

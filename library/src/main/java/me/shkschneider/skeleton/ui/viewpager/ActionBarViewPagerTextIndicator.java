@@ -18,7 +18,7 @@ public class ActionBarViewPagerTextIndicator extends ViewPagerTextIndicator {
 
     public ActionBarViewPagerTextIndicator(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
-        final int viewPagerIndicatorHeight = getResources().getInteger(R.integer.viewPager_indicatorHeight);
+        final int viewPagerIndicatorHeight = getResources().getInteger(R.integer.sk_viewPager_indicatorHeight);
         init(context, R.color.actionBarColor, R.color.actionBarForegroundColor, viewPagerIndicatorHeight);
         setFillViewport(true);
     }
