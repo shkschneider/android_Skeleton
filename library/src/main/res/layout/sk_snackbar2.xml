@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/snackBarMulti"
+    android:layout_height="@dimen/snackBar2"
     android:background="@color/snackBarBackgroundColor"
     android:paddingTop="@dimen/spaceSmallerish"
     android:paddingBottom="@dimen/spaceSmallerish">

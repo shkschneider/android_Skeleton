@@ -17,6 +17,7 @@ import android.widget.TextView;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.demo.R;
 import me.shkschneider.skeleton.helper.ActivityHelper;
+import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.java.StringHelper;
 import me.shkschneider.skeleton.ui.viewpager.ViewPagerIndicatorAdapter;
 import me.shkschneider.skeleton.ui.viewpager.ViewPagerIndicator;
@@ -111,8 +112,8 @@ public class ViewPagerIconIndicatorFragment extends SkeletonFragment {
             super.onCreate(savedInstanceState);
 
             title(title());
-            final LayoutInflater layoutInflater = LayoutInflater.from(skeletonActivity());
-            mAdapter = new ArrayAdapter<String>(skeletonActivity(), R.layout.sk_listview_item1) {
+            final LayoutInflater layoutInflater = LayoutInflater.from(ApplicationHelper.context());
+            mAdapter = new ArrayAdapter<String>(ApplicationHelper.context(), R.layout.sk_listview_item1) {
                 @Override
                 public View getView(final int position, View convertView, final ViewGroup parent) {
                     if (convertView == null) {

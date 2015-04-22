@@ -131,8 +131,8 @@ public class SnackBar {
 
     private void build() {
         SNACKBAR.height = (int) ((SNACKBAR.lines == 1)
-                ? ApplicationHelper.resources().getDimension(R.dimen.snackBarSingle)
-                : ApplicationHelper.resources().getDimension(R.dimen.snackBarMulti));
+                ? ApplicationHelper.resources().getDimension(R.dimen.snackBar)
+                : ApplicationHelper.resources().getDimension(R.dimen.snackBar2));
         SNACKBAR.relativeLayout = new RelativeLayout(SNACKBAR.activity);
         final LayoutInflater layoutInflater = LayoutInflater.from(SNACKBAR.activity);
         final int layout = ((SNACKBAR.lines == 1) ? R.layout.sk_snackbar1 : R.layout.sk_snackbar2);

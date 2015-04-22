@@ -60,7 +60,9 @@ public class KeyboardHelper {
             @Override
             public boolean onEditorAction(final TextView textView, final int i, final KeyEvent keyEvent) {
                 // Must return false
-
+                if (keyEvent == null) {
+                    return false;
+                }
                 final int action = keyEvent.getAction();
                 if (action == EditorInfo.IME_NULL) {
                     return false;

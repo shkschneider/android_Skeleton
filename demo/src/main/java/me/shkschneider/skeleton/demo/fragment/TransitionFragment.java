@@ -17,6 +17,7 @@ import me.shkschneider.skeleton.demo.R;
 import me.shkschneider.skeleton.demo.activity.OverlayActivity;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.ActivityTransitionHelper;
+import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.SystemServices;
 
 public class TransitionFragment extends SkeletonFragment {
@@ -35,7 +36,7 @@ public class TransitionFragment extends SkeletonFragment {
         super.onViewCreated(view, savedInstanceState);
 
         final GridView gridView = (GridView) view.findViewById(R.id.gridView);
-        gridView.setAdapter(new ArrayAdapter<Drawable>(skeletonActivity(), R.layout.gridview_item) {
+        gridView.setAdapter(new ArrayAdapter<Drawable>(ApplicationHelper.context(), R.layout.gridview_item) {
             @Override
             public View getView(final int position, View convertView, final ViewGroup parent) {
                 if (convertView == null) {

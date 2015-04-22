@@ -10,7 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -30,7 +30,7 @@ import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.StringHelper;
 import me.shkschneider.skeleton.ui.MySwipeRefreshLayout;
 
-public class SkeletonActivity extends ActionBarActivity {
+public class SkeletonActivity extends AppCompatActivity {
 
     protected Toolbar mToolbar;
     protected MySwipeRefreshLayout mMySwipeRefreshLayout;
@@ -387,10 +387,6 @@ public class SkeletonActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onHomeAsUpPressed();
-            return true;
-        }
         if (mSearchCallback == null) {
             return super.onOptionsItemSelected(item);
         }
@@ -420,8 +416,11 @@ public class SkeletonActivity extends ActionBarActivity {
 
     // Navigation
 
-    public void onHomeAsUpPressed() {
+
+    @Override
+    public boolean onSupportNavigateUp() {
         startActivity(IntentHelper.home());
+        return true;
     }
 
     @Override

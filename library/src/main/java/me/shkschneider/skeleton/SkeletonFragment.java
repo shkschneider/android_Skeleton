@@ -15,6 +15,7 @@ public class SkeletonFragment extends Fragment {
 
     public SkeletonFragment() {
         title(ClassHelper.simpleName(SkeletonFragment.class));
+        mActivity = (SkeletonActivity) getActivity();
     }
 
     @Override
@@ -43,7 +44,7 @@ public class SkeletonFragment extends Fragment {
 
     public SkeletonActivity skeletonActivity() {
         if (mActivity == null) {
-            return (SkeletonActivity) getActivity();
+            mActivity = (SkeletonActivity) getActivity();
         }
         return mActivity;
     }

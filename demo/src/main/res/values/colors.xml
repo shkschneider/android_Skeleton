@@ -2,7 +2,7 @@
 
     <!-- Theme colors (Material Design) -->
 
-    <color name="accentColor">@color/sk_material_green</color>
+    <color name="accentColor">@color/sk_material_lightGreen</color>
     <color name="primaryColor">@color/sk_material_green500</color>
     <color name="primaryColorDark">@color/sk_material_green700</color>
 

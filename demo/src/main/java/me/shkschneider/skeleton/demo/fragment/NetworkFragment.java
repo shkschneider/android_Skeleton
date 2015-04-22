@@ -14,6 +14,7 @@ import com.google.gson.JsonObject;
 
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.demo.R;
+import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.network.WebService;
 import me.shkschneider.skeleton.data.GsonParser;
 import me.shkschneider.skeleton.helper.ActivityHelper;
@@ -35,8 +36,8 @@ public class NetworkFragment extends SkeletonFragment implements SwipeRefreshLay
 
         // Adapter
 
-        final LayoutInflater layoutInflater = LayoutInflater.from(skeletonActivity());
-        mAdapter = new ArrayAdapter<String>(skeletonActivity(), R.layout.sk_listview_item2) {
+        final LayoutInflater layoutInflater = LayoutInflater.from(ApplicationHelper.context());
+        mAdapter = new ArrayAdapter<String>(ApplicationHelper.context(), R.layout.sk_listview_item2) {
             @Override
             public View getView(final int position, View convertView, final ViewGroup parent) {
                 if (convertView == null) {
@@ -97,7 +98,7 @@ public class NetworkFragment extends SkeletonFragment implements SwipeRefreshLay
                 skeletonActivity().loading(-1);
                 if (e != null) {
                     ActivityHelper.toast(e.getMessage());
-                    return;
+                    return ;
                 }
                 final String ip = GsonParser.string(jsonObject, "ip");
                 mAdapter.add("ip " + ip);

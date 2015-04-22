@@ -13,6 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import me.shkschneider.skeleton.demo.R;
+import me.shkschneider.skeleton.demo.fragment.InputsFragment;
 import me.shkschneider.skeleton.demo.fragment.ListViewFragment;
 import me.shkschneider.skeleton.demo.fragment.SnackBarFragment;
 import me.shkschneider.skeleton.demo.fragment.TransitionFragment;
@@ -41,6 +42,7 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
     public static final int NAVIGATION_FLOATINGACTIONBUTTON = 6;
     public static final int NAVIGATION_SNACKBAR = 7;
     public static final int NAVIGATION_TRANSITION = 8;
+    public static final int NAVIGATION_INPUTS = 9;
 
     // Anything as key, anything as value (LRU algorithm)
     private MemoryCache<String, Activity> mMemoryCache;
@@ -59,9 +61,9 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
         mMemoryCacheBitmap = new MemoryCache.Bitmap();
         mMemoryCacheBitmap.put("Bitmap", ApplicationHelper.icon());
         mDiskCacheInternal = new DiskCache.Internal();
-        mDiskCacheInternal.put("DiskCacher", "Internal");
+        mDiskCacheInternal.put("DiskCache", "Internal");
         mDiskCacheExternal = new DiskCache.External();
-        mDiskCacheExternal.put("DiskCacher", "External");
+        mDiskCacheExternal.put("DiskCache", "External");
     }
 
     @Override
@@ -70,8 +72,8 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
 
         LogHelper.info("MemoryCache:" + ClassHelper.canonicalName(mMemoryCache.get("MainActivity").getClass()));
         LogHelper.info("MemoryCacheBitmap:" + ClassHelper.canonicalName(mMemoryCacheBitmap.get("Bitmap").getClass()));
-        LogHelper.info("DiskCacheInternal:" + mDiskCacheInternal.get("DiskCacher").toString());
-        LogHelper.info("DiskCacheExternal:" + mDiskCacheExternal.get("DiskCacher").toString());
+        LogHelper.info("DiskCacheInternal:" + mDiskCacheInternal.get("DiskCache").toString());
+        LogHelper.info("DiskCacheExternal:" + mDiskCacheExternal.get("DiskCache").toString());
     }
 
     @Override
@@ -109,6 +111,7 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
                 add(NAVIGATION_FLOATINGACTIONBUTTON, new FloatingActionButtonFragment());
                 add(NAVIGATION_SNACKBAR, new SnackBarFragment());
                 add(NAVIGATION_TRANSITION, new TransitionFragment());
+                add(NAVIGATION_INPUTS, new InputsFragment());
             }
         }) {
             @Override
@@ -117,7 +120,7 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
                     final LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
                     convertView = layoutInflater.inflate(R.layout.sk_listview_navigationdrawer_item, parent, false);
                 }
-                final TextView textView = ((TextView) convertView.findViewById(R.id.navigationDrawer_textView));
+                final TextView textView = (TextView) convertView.findViewById(R.id.navigationDrawer_textView);
                 textView.setText(getItem(position).title());
                 if (position == navigationDrawer()) {
                     textView.setTextColor(getResources().getColor(R.color.accentColor));

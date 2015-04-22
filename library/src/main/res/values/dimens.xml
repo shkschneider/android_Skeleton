@@ -3,12 +3,13 @@
 
     <dimen name="statusBar">24dp</dimen>
     <dimen name="actionBar">48dp</dimen>
-    <dimen name="actionBar2">96dp</dimen>
+    <dimen name="toolbar">56dp</dimen>
+    <dimen name="toolbar2">96dp</dimen>
     <dimen name="navigationBar">48dp</dimen>
 
     <dimen name="viewPagerIndicatorHeight">8dp</dimen>
-    <dimen name="snackBarSingle">48dp</dimen>
-    <dimen name="snackBarMulti">80dp</dimen>
+    <dimen name="snackBar">48dp</dimen>
+    <dimen name="snackBar2">80dp</dimen>
     <dimen name="floatingActionButtonNormal">56dp</dimen>
     <dimen name="floatingActionButtonMini">40dp</dimen>
     <dimen name="floatingActionButtonIconSize">24dp</dimen>
@@ -18,6 +19,7 @@
     <dimen name="floatingActionButtonShadowRadius">9dp</dimen>
     <dimen name="floatingActionButtonStrokeWidth">1dp</dimen>
     <dimen name="floatingActionButtonActionSpacing">16dp</dimen>
+    <dimen name="divider">1dp</dimen>
 
     <dimen name="spaceNull">0dp</dimen>
     <dimen name="spacePico">2dp</dimen>

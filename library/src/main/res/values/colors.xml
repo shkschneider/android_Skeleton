@@ -3,7 +3,7 @@
 
     <!-- Theme colors (Material Design) -->
 
-    <color name="accentColor">@color/sk_material_deepOrange</color>
+    <color name="accentColor">@color/sk_material_amber</color>
     <color name="primaryColor">@color/sk_material_orange500</color>
     <color name="primaryColorDark">@color/sk_material_orange700</color>
     <!-- Your theme is pretty much set now: the rest is optional tweaking -->
@@ -16,6 +16,9 @@
     <color name="textSecondaryColor">@color/sk_android_gray</color>
     <color name="snackBarBackgroundColor">#ff323232</color>
     <color name="snackBarForegroundColor">@color/sk_android_white</color>
+    <color name="controlOff">#727272</color>
+    <color name="controlOn">@color/accentColor</color>
+    <color name="divider">#1f000000</color>
 
     <!-- Material colors <http://www.google.com/design/spec/style/color.html#color-color-palette> -->
 
