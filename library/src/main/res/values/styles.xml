@@ -13,9 +13,6 @@
         <item name="android:windowContentOverlay">@null</item>
         <!-- Android -->
         <item name="android:windowBackground">@color/contentBackgroundColor</item>
-        <item name="colorControlNormal">@color/sk_material_grey</item>
-        <item name="colorControlActivated">@color/primaryColor</item>
-        <item name="colorControlHighlight">@color/accentColor</item>
         <item name="android:scrollingCache">false</item>
         <!-- Automatic custom styles -->
         <item name="android:listViewStyle">@style/SkeletonTheme.ListViewStyle</item>

@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.demo.fragment;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -78,11 +77,6 @@ public class MainFragment extends SkeletonFragment {
                 textView2.setText(currentLocation);
             }
         }).run();
-    }
-
-    @Override
-    public void onAttach(final Activity activity) {
-        super.onAttach(activity);
     }
 
 }
