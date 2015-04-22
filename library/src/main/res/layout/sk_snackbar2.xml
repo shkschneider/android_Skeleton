@@ -1,40 +1,46 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="@dimen/snackBar2"
     android:background="@color/snackBarBackgroundColor"
-    android:paddingTop="@dimen/spaceSmallerish"
-    android:paddingBottom="@dimen/spaceSmallerish">
+    android:paddingRight="@dimen/spaceSmallish"
+    android:paddingLeft="@dimen/spaceSmallish"
+    android:gravity="center_vertical">
+
+    <TextView
+        android:id="@+id/snackBar_textView"
+        android:layout_width="0dp"
+        android:layout_weight="1.0"
+        android:layout_height="match_parent"
+        android:textSize="@dimen/textSizeSmall"
+        android:textColor="@color/snackBarForegroundColor"
+        android:singleLine="false"
+        android:maxLines="2"
+        android:ellipsize="marquee"
+        android:gravity="left|center_vertical"
+        android:text="@string/dots" />
+
+    <Space
+        android:layout_width="@dimen/spaceTinish"
+        android:layout_height="match_parent" />
 
     <TextView
         android:id="@+id/snackBar_action"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="@dimen/spaceTinish"
-        android:layout_marginRight="@dimen/spaceTinish"
-        android:padding="@dimen/spaceTinish"
         android:layout_width="wrap_content"
+        android:minWidth="@dimen/spaceSmallish"
         android:layout_height="wrap_content"
+        android:minHeight="@dimen/spaceSmallish"
+        android:paddingTop="@dimen/spaceMicro"
+        android:paddingRight="@dimen/spaceTinish"
+        android:paddingBottom="@dimen/spaceMicro"
+        android:paddingLeft="@dimen/spaceTinish"
         android:textSize="@dimen/textSizeSmall"
         android:textAllCaps="true"
         android:textColor="@color/accentColor"
         android:singleLine="true"
         android:maxLines="1"
         android:ellipsize="marquee"
-        android:gravity="right|top" />
+        android:gravity="center"
+        android:text="@string/dots" />
 
-    <TextView
-        android:id="@+id/snackBar_textView"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@id/snackBar_action"
-        android:layout_marginLeft="@dimen/spaceSmallish"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/textSizeSmall"
-        android:textColor="@color/snackBarForegroundColor"
-        android:singleLine="false"
-        android:maxLines="2"
-        android:ellipsize="marquee"
-        android:gravity="left|top" />
-
-</RelativeLayout>
+</LinearLayout>
