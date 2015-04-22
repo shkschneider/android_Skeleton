@@ -3,7 +3,7 @@ Skeleton [![Maven](https://img.shields.io/github/tag/shkschneider/android_Skelet
 
 > Android library with useful classes to be used as a "Skeleton" for an application.
 
-Current version: **4.0.12**
+Current version: **4.1.0**
 
 Release date: 04-2015
 
@@ -19,17 +19,18 @@ Specifications
 
 **Libraries**
 
+
 - [com.google.android.gms:play-services](https://developer.android.com/google/play-services/index.html)
+- [com.google.code.gson:gson](https://github.com/google/gson)
 - [com.android.support:support-v4](https://developer.android.com/tools/support-library/features.html#v4)
 - [com.android.support:appcompat-v7](https://developer.android.com/tools/support-library/features.html#v7-appcompat)
-- [com.android.support:cardview-v7](https://developer.android.com/tools/support-library/features.html#v7-cardview)
 - [com.android.support:palette-v7](https://developer.android.com/tools/support-library/features.html#v7-palette)
 
 **Uses**
 
-- Gradle 1.1.0
+- Gradle 1.1.3
 - [Android Studio 1.1.0](https://developer.android.com/sdk/index.html)
-- [android.support.v7.app.ActionBarActivity](https://developer.android.com/reference/android/support/v7/app/ActionBarActivity.html)
+- [android.support.v7.app.AppCompatActivity](https://developer.android.com/reference/android/support/v7/app/AppCompatActivity.html)
 - [android.support.v7.widget.Toolbar](https://developer.android.com/reference/android/support/v7/widget/Toolbar.html)
 - [android.support.v4.app.Fragment](https://developer.android.com/reference/android/support/v4/app/Fragment.html)
 - [Material Design](http://www.google.com/design/spec/material-design/introduction.html)
