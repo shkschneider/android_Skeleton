@@ -6,5 +6,5 @@
     android:layout_height="@dimen/toolbar"
     android:minHeight="?attr/actionBarSize"
     android:background="?attr/colorPrimary"
-    app:theme="@style/SkeletonTheme.Toolbar"
+    android:theme="@style/SkeletonTheme.Toolbar"
     app:popupTheme="@style/SkeletonTheme.Toolbar.Popup" />

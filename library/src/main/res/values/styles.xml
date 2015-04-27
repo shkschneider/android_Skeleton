@@ -17,8 +17,8 @@
         <!-- Automatic custom styles -->
         <item name="android:listViewStyle">@style/SkeletonTheme.ListViewStyle</item>
         <item name="android:listSeparatorTextViewStyle">@style/SkeletonTheme.ListSeparatorTextViewStyle</item>
-        <item name="android:buttonStyle">@style/SkeletonTheme.ButtonStyle</item>
         <item name="android:imageButtonStyle">@style/SkeletonTheme.ImageButtonStyle</item>
+        <item name="buttonStyle">@style/SkeletonTheme.ButtonStyle</item>
     </style>
 
     <style name="SkeletonTheme.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
