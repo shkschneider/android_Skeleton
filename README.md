@@ -1,11 +1,7 @@
-Skeleton [![Maven](https://img.shields.io/github/tag/shkschneider/android_Skeleton.svg?label=maven)](https://jitpack.io/#shkschneider/android_Skeleton/4.1.1)
+Skeleton [![JitPack%20Maven](https://img.shields.io/github/tag/shkschneider/android_Skeleton.svg?label=JitPack%20Maven)](https://jitpack.io/#shkschneider/android_Skeleton/4.1.1)
 ========
 
 > Android library with useful classes to be used as a "Skeleton" for an application.
-
-Current version: **4.1.1**
-
-Release date: 04-2015
 
 [![Google Play](https://developer.android.com/images/brand/en_generic_rgb_wo_45.png)](https://play.google.com/store/apps/details?id=me.shkschneider.skeleton.demo)
 
@@ -28,8 +24,8 @@ Specifications
 
 **Uses**
 
-- Gradle 1.1.3
-- [Android Studio 1.1.0](https://developer.android.com/sdk/index.html)
+- [Gradle 1.1.3](http://tools.android.com/tech-docs/new-build-system)
+- [Android Studio 1.2.0](https://developer.android.com/sdk/index.html)
 - [android.support.v7.app.AppCompatActivity](https://developer.android.com/reference/android/support/v7/app/AppCompatActivity.html)
 - [android.support.v7.widget.Toolbar](https://developer.android.com/reference/android/support/v7/widget/Toolbar.html)
 - [android.support.v4.app.Fragment](https://developer.android.com/reference/android/support/v4/app/Fragment.html)
