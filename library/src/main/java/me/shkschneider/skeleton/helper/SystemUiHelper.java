@@ -1,10 +1,10 @@
 package me.shkschneider.skeleton.helper;
 
 import android.annotation.TargetApi;
+import android.app.ActionBar;
+import android.app.Activity;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -25,11 +25,11 @@ public final class SystemUiHelper {
     private final Handler mHandler;
     private final Runnable mHideRunnable;
 
-    public SystemUiHelper(final ActionBarActivity activity, final int level, final int flags) {
+    public SystemUiHelper(final Activity activity, final int level, final int flags) {
         this(activity, level, flags, null);
     }
 
-    public SystemUiHelper(final ActionBarActivity activity, final int level, final int flags, final OnVisibilityChangeListener listener) {
+    public SystemUiHelper(final Activity activity, final int level, final int flags, final OnVisibilityChangeListener listener) {
         mHandler = new Handler(Looper.getMainLooper());
         mHideRunnable = new HideRunnable();
 
@@ -84,19 +84,19 @@ public final class SystemUiHelper {
 
     public interface OnVisibilityChangeListener {
 
-        public void onVisibilityChange(final boolean visible);
+        void onVisibilityChange(final boolean visible);
 
     }
 
     static abstract class SystemUiHelperImpl {
 
-        protected final ActionBarActivity mActivity;
+        protected final Activity mActivity;
         protected final int mLevel;
         protected final int mFlags;
         protected final OnVisibilityChangeListener mOnVisibilityChangeListener;
         protected boolean mIsShowing = true;
 
-        public SystemUiHelperImpl(final ActionBarActivity activity, final int level, final int flags, final OnVisibilityChangeListener onVisibilityChangeListener) {
+        public SystemUiHelperImpl(final Activity activity, final int level, final int flags, final OnVisibilityChangeListener onVisibilityChangeListener) {
             mActivity = activity;
             mLevel = level;
             mFlags = flags;
@@ -121,7 +121,7 @@ public final class SystemUiHelper {
 
     static class SystemUiHelperImplBase extends SystemUiHelperImpl {
 
-        public SystemUiHelperImplBase(final ActionBarActivity activity, final int level, final int flags, final OnVisibilityChangeListener onVisibilityChangeListener) {
+        public SystemUiHelperImplBase(final Activity activity, final int level, final int flags, final OnVisibilityChangeListener onVisibilityChangeListener) {
             super(activity, level, flags, onVisibilityChangeListener);
             if ((mFlags & SystemUiHelper.FLAG_LAYOUT_IN_SCREEN_OLDER_DEVICES) != 0) {
                 mActivity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
@@ -160,7 +160,7 @@ public final class SystemUiHelper {
     @TargetApi(AndroidHelper.API_19)
     class SystemUiHelperImplKK extends SystemUiHelperImplJB {
 
-        public SystemUiHelperImplKK(final ActionBarActivity activity, final int level, final int flags, final SystemUiHelper.OnVisibilityChangeListener onVisibilityChangeListener) {
+        public SystemUiHelperImplKK(final Activity activity, final int level, final int flags, final SystemUiHelper.OnVisibilityChangeListener onVisibilityChangeListener) {
             super(activity, level, flags, onVisibilityChangeListener);
         }
 
@@ -182,7 +182,7 @@ public final class SystemUiHelper {
     @TargetApi(AndroidHelper.API_16)
     class SystemUiHelperImplJB extends SystemUiHelperImplICS {
 
-        public SystemUiHelperImplJB(final ActionBarActivity activity, final int level, final int flags, final SystemUiHelper.OnVisibilityChangeListener onVisibilityChangeListener) {
+        public SystemUiHelperImplJB(final Activity activity, final int level, final int flags, final SystemUiHelper.OnVisibilityChangeListener onVisibilityChangeListener) {
             super(activity, level, flags, onVisibilityChangeListener);
         }
 
@@ -215,7 +215,7 @@ public final class SystemUiHelper {
         @Override
         protected void onSystemUiShown() {
             if (mLevel == SystemUiHelper.LEVEL_LOW_PROFILE) {
-                final ActionBar actionBar = mActivity.getSupportActionBar();
+                final ActionBar actionBar = mActivity.getActionBar();
                 if (actionBar != null) {
                     actionBar.show();
                 }
@@ -226,7 +226,7 @@ public final class SystemUiHelper {
         @Override
         protected void onSystemUiHidden() {
             if (mLevel == SystemUiHelper.LEVEL_LOW_PROFILE) {
-                final ActionBar actionBar = mActivity.getSupportActionBar();
+                final ActionBar actionBar = mActivity.getActionBar();
                 if (actionBar != null) {
                     actionBar.hide();
                 }
@@ -241,7 +241,7 @@ public final class SystemUiHelper {
     @TargetApi(AndroidHelper.API_14)
     class SystemUiHelperImplICS extends SystemUiHelperImplHC {
 
-        public SystemUiHelperImplICS(final ActionBarActivity activity, final int level, final int flags, final SystemUiHelper.OnVisibilityChangeListener onVisibilityChangeListener) {
+        public SystemUiHelperImplICS(final Activity activity, final int level, final int flags, final SystemUiHelper.OnVisibilityChangeListener onVisibilityChangeListener) {
             super(activity, level, flags, onVisibilityChangeListener);
         }
 
@@ -271,12 +271,13 @@ public final class SystemUiHelper {
 
     // HONEYCOMB
 
+    @Deprecated
     @TargetApi(AndroidHelper.API_11)
     class SystemUiHelperImplHC extends SystemUiHelper.SystemUiHelperImpl implements View.OnSystemUiVisibilityChangeListener {
 
         private final View mDecorView;
 
-        public SystemUiHelperImplHC(final ActionBarActivity activity, final int level, final int flags, final SystemUiHelper.OnVisibilityChangeListener onVisibilityChangeListener) {
+        public SystemUiHelperImplHC(final Activity activity, final int level, final int flags, final SystemUiHelper.OnVisibilityChangeListener onVisibilityChangeListener) {
             super(activity, level, flags, onVisibilityChangeListener);
             mDecorView = activity.getWindow().getDecorView();
             mDecorView.setOnSystemUiVisibilityChangeListener(this);
@@ -304,7 +305,7 @@ public final class SystemUiHelper {
         }
 
         protected void onSystemUiShown() {
-            final ActionBar actionBar = mActivity.getSupportActionBar();
+            final ActionBar actionBar = mActivity.getActionBar();
             if (actionBar != null) {
                 actionBar.show();
             }
@@ -313,7 +314,7 @@ public final class SystemUiHelper {
         }
 
         protected void onSystemUiHidden() {
-            final ActionBar actionBar = mActivity.getSupportActionBar();
+            final ActionBar actionBar = mActivity.getActionBar();
             if (actionBar != null) {
                 actionBar.hide();
             }

@@ -18,7 +18,7 @@ public class AssetsHelper {
     }
 
     public static List<String> list() {
-        final List<String> list = new ArrayList<String>();
+        final List<String> list = new ArrayList<>();
         try {
             Collections.addAll(list, assetManager().list(""));
             return list;
@@ -42,22 +42,34 @@ public class AssetsHelper {
 
     public static boolean dump() {
         int errors = 0;
-        for (final String asset : list()) {
-            try {
-                final InputStream inputStream = open(asset);
-                final OutputStream outputStream = InternalDataHelper.openOutput(asset);
-                byte[] buffer = new byte[1024];
-                int read;
-                while ((read = inputStream.read(buffer)) != -1) {
-                    outputStream.write(buffer, 0, read);
+        final List<String> assets = list();
+        if (assets == null) {
+            errors++;
+        }
+        else {
+            for (final String asset : assets) {
+                try {
+                    final InputStream inputStream = open(asset);
+                    if (inputStream == null) {
+                        throw new NullPointerException();
+                    }
+                    final OutputStream outputStream = InternalDataHelper.openOutput(asset);
+                    if (outputStream == null) {
+                        throw new NullPointerException();
+                    }
+                    byte[] buffer = new byte[1024];
+                    int read;
+                    while ((read = inputStream.read(buffer)) != -1) {
+                        outputStream.write(buffer, 0, read);
+                    }
+                    inputStream.close();
+                    outputStream.flush();
+                    outputStream.close();
                 }
-                inputStream.close();
-                outputStream.flush();
-                outputStream.close();
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-                errors++;
+                catch (final Exception e) {
+                    LogHelper.wtf(e);
+                    errors++;
+                }
             }
         }
         return (errors == 0);

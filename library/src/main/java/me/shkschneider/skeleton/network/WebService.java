@@ -141,7 +141,7 @@ public class WebService extends AsyncTask<WebService.Callback, Void, Object> {
         }
     }
 
-    public static enum Method {
+    public enum Method {
 
         GET,
         POST;
@@ -162,7 +162,7 @@ public class WebService extends AsyncTask<WebService.Callback, Void, Object> {
 
     public interface Callback {
 
-        public void webServiceCallback(final WebServiceException e, final JsonObject jsonObject);
+        void webServiceCallback(final WebServiceException e, final JsonObject jsonObject);
 
     }
 

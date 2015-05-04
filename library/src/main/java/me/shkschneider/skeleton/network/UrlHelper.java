@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 
+import me.shkschneider.skeleton.data.CharsetHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
 public class UrlHelper {
@@ -26,7 +27,7 @@ public class UrlHelper {
 
     public static String encode(@NonNull final String string) {
         try {
-            return URLEncoder.encode(string, "UTF-8");
+            return URLEncoder.encode(string, CharsetHelper.UTF8);
         }
         catch (final UnsupportedEncodingException e) {
             LogHelper.wtf(e);
@@ -36,7 +37,7 @@ public class UrlHelper {
 
     public static String decode(@NonNull final String string) {
         try {
-            return URLDecoder.decode(string, "UTF-8");
+            return URLDecoder.decode(string, CharsetHelper.UTF8);
         }
         catch (UnsupportedEncodingException e) {
             LogHelper.wtf(e);
