@@ -11,6 +11,10 @@ import me.shkschneider.skeleton.helper.ApplicationHelper;
 
 public class DrawableHelper {
 
+    public static Drawable getDrawable(final int id) {
+        return ApplicationHelper.resources().getDrawable(id, null);
+    }
+
     public static Drawable fromBitmap(@NonNull final Bitmap bitmap) {
         return new BitmapDrawable(ApplicationHelper.resources(), bitmap);
     }

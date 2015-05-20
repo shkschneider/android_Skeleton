@@ -403,14 +403,14 @@ public class SkeletonActivity extends AppCompatActivity {
 
     private void stopSearch() {
         mSearchMenuItem.collapseActionView();
-        KeyboardHelper.hide(mSearchView.getWindowToken());
+        KeyboardHelper.hide(this);
         mSearchView.clearFocus();
     }
 
-    public static interface SearchCallback {
+    public interface SearchCallback {
 
-        public void onSearchTextChange(final String q);
-        public void onSearchTextSubmit(final String q);
+        void onSearchTextChange(final String q);
+        void onSearchTextSubmit(final String q);
 
     }
 

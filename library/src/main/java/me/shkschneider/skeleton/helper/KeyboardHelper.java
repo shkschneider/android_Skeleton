@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.helper;
 
+import android.app.Activity;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.view.KeyEvent;
@@ -17,54 +18,37 @@ public class KeyboardHelper {
 
     public final static int ENTER = KeyEvent.KEYCODE_ENTER;
 
-    public static boolean show(@NonNull final Window window, @NonNull final EditText editText) {
-        LogHelper.verbose("onFocusChange()");
-        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-
-            @Override
-            public void onFocusChange(final View v, final boolean hasFocus) {
-                if (hasFocus) {
-                    show(window);
-                }
-            }
-
-        });
-        return true;
-    }
-
-    public static boolean show(@NonNull final Window window) {
+    public static boolean show(@NonNull final Activity activity) {
         LogHelper.verbose("SOFT_INPUT_STATE_ALWAYS_VISIBLE");
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         return true;
     }
 
+    public static boolean hide(@NonNull final Activity activity) {
+        LogHelper.verbose("hideSoftInputFromWindow()");
+        InputMethodManager inputMethodManager = SystemServices.inputMethodManager();
+        if (inputMethodManager == null) {
+            LogHelper.warning("InputMethodManager was NULL");
+            return false;
+        }
+        else {
+            return inputMethodManager.hideSoftInputFromWindow(ActivityHelper.contentView(activity).getWindowToken(), 0);
+        }
+    }
+
+    @Deprecated
     public static boolean hide(@NonNull final Window window) {
         LogHelper.verbose("SOFT_INPUT_STATE_ALWAYS_HIDDEN");
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         return true;
     }
 
-    public static boolean hide(@NonNull final IBinder windowToken) {
-        LogHelper.verbose("hideSoftInputFromWindow()");
-        final InputMethodManager inputMethodManager = SystemServices.inputMethodManager();
-        if (inputMethodManager == null) {
-            LogHelper.warning("InputMethodManager was NULL");
-            return false;
-        }
-        return inputMethodManager.hideSoftInputFromWindow(windowToken, 0);
-    }
-
     public static boolean keyboardCallback(@NonNull final EditText editText, final Callback keyboardCallback, final boolean all) {
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
             @Override
-            public boolean onEditorAction(final TextView textView, final int i, final KeyEvent keyEvent) {
-                // Must return false
-                if (keyEvent == null) {
-                    return false;
-                }
-                final int action = keyEvent.getAction();
-                if (action == EditorInfo.IME_NULL) {
+            public boolean onEditorAction(final TextView textView, final int actionId, final KeyEvent keyEvent) {
+                if (actionId == EditorInfo.IME_NULL) {
                     return false;
                 }
 
@@ -79,9 +63,9 @@ public class KeyboardHelper {
                         // Enter
                         KeyEvent.KEYCODE_ENTER
                 };
-                if (all || Arrays.asList(enterKeys).contains(action)) {
+                if (all || Arrays.asList(enterKeys).contains(actionId)) {
                     if (keyboardCallback != null) {
-                        keyboardCallback.keyboardCallback(action);
+                        keyboardCallback.keyboardCallback(actionId);
                     }
                 }
 
@@ -96,9 +80,9 @@ public class KeyboardHelper {
         return keyboardCallback(editText, keyboardCallback, false);
     }
 
-    public static interface Callback {
+    public interface Callback {
 
-        public void keyboardCallback(final int action);
+        void keyboardCallback(final int action);
 
     }
 

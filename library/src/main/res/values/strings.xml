@@ -8,6 +8,7 @@
         @android:string/loading
     -->
     <string name="dots">"&#8230;"</string>
+    <string name="lorem_ipsum">"Lorem ipsum dolor sit amet"</string>
 
     <!-- android.support.v4.PreferenceFragment -->
     <string name="preference_fragment_back">"Back"</string>
