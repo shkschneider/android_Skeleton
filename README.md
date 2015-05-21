@@ -5,6 +5,32 @@ Skeleton [![JitPack%20Maven](https://img.shields.io/github/tag/shkschneider/andr
 
 [![Google Play](https://developer.android.com/images/brand/en_generic_rgb_wo_45.png)](https://play.google.com/store/apps/details?id=me.shkschneider.skeleton.demo)
 
+Setup
+-----
+
+**Gradle**
+
+Top-level *build.gradle*:
+
+<pre>allprojects {
+    repositories {
+        jcenter()
+        maven {
+            url 'https://jitpack.io'
+        }
+    }
+}</pre>
+
+Application-level *build.gradle*:
+
+<pre>dependencies {
+    compile 'com.github.shkschneider:android_Skeleton:4.1.2@aar'
+}</pre>
+
+**AAR**
+
+https://jitpack.io/com/github/shkschneider/android_Skeleton/4.1.2/android_Skeleton-4.1.2.aar
+
 Specifications
 --------------
 
