@@ -18,7 +18,7 @@
         <ListView
             android:id="@+id/navigationDrawer_listView"
             android:layout_width="240dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:choiceMode="singleChoice"
             android:divider="@color/sk_android_transparent"

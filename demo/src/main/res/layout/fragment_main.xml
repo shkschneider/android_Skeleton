@@ -8,72 +8,162 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <me.shkschneider.skeleton.demo.ui.SvgView
+        <ScrollView
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/svgView"
-            android:src="@raw/avatar"
-            android:contentDescription="@null"
-            android:layout_width="@dimen/spaceHuge"
-            android:layout_height="@dimen/spaceHuge"
-            android:layout_gravity="center"
-            android:padding="@dimen/spaceSmaller" />
+            android:layout_above="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageView
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/imageView"
-            android:src="@null"
-            android:contentDescription="@null"
-            android:layout_width="@dimen/spaceHuge"
-            android:layout_height="@dimen/spaceHuge"
-            android:layout_gravity="center"
-            android:padding="@dimen/spaceSmaller" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spaceHuge">
+
+                    <me.shkschneider.skeleton.demo.ui.SvgView
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/svgView"
+                        android:src="@raw/avatar"
+                        android:contentDescription="@null"
+                        android:layout_width="@dimen/spaceHuge"
+                        android:layout_height="@dimen/spaceHuge"
+                        android:layout_gravity="center"
+                        android:padding="@dimen/spaceSmaller" />
+
+                    <ImageView
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/imageView"
+                        android:src="@null"
+                        android:contentDescription="@null"
+                        android:layout_width="@dimen/spaceHuge"
+                        android:layout_height="@dimen/spaceHuge"
+                        android:layout_gravity="center"
+                        android:padding="@dimen/spaceSmaller" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@android:id/text1"
+                        android:text="@null"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="24dp"
+                        android:gravity="bottom|center_horizontal"
+                        android:textSize="@dimen/textSizeSmallish"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@android:id/text2"
+                        android:text="@null"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="24dp"
+                        android:gravity="top|center_horizontal"
+                        android:textSize="@dimen/textSizeSmallish"
+                        android:textStyle="normal" />
+
+                    <me.shkschneider.skeleton.ui.AutoGridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/skeleton" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/lorem_ipsum" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/skeleton" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/skeleton" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/lorem_ipsum" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/skeleton" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/skeleton" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/lorem_ipsum" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/lorem_ipsum" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/lorem_ipsum" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/lorem_ipsum" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/skeleton" />
+
+                    </me.shkschneider.skeleton.ui.AutoGridLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+        
         <LinearLayout
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="@dimen/spaceHuge"
+            android:id="@+id/linearLayout"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@android:id/text1"
-                android:text="@null"
+            <View
+                style="@style/SkeletonTheme.DividerHorizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="24dp"
-                android:gravity="bottom|center_horizontal"
-                android:textSize="@dimen/textSizeSmallish"
-                android:textStyle="bold" />
+                android:layout_height="1dp" />
 
-            <TextView
-                android:id="@android:id/text2"
-                android:text="@null"
+            <Button
+                android:drawableLeft="@drawable/ic_github"
+                android:id="@+id/github"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="24dp"
-                android:gravity="top|center_horizontal"
-                android:textSize="@dimen/textSizeSmallish"
-                android:textStyle="normal" />
+                android:layout_height="@dimen/spaceMedium"
+                android:text="@null" />
 
         </LinearLayout>
-
-        <View
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/spaceMedium"
-            style="@style/SkeletonTheme.DividerHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="1dp" />
-
-        <Button
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:drawableLeft="@drawable/ic_github"
-            android:id="@+id/github"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/spaceMedium"
-            android:text="@null" />
 
     </RelativeLayout>
 

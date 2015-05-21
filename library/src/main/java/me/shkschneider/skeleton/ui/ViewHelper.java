@@ -9,6 +9,9 @@ import java.util.List;
 
 public class ViewHelper {
 
+    final static String ANDROIDXML = "http://schemas.android.com/apk/res/android";
+    final static String RESAUTOXML = "http://schemas.android.com/apk/res-auto";
+
     public static List<View> children(@NonNull final View view) {
         final List<View> views = new ArrayList<>();
         final ViewGroup viewGroup = (ViewGroup) view;
