@@ -30,6 +30,23 @@ dependencies {
     compile 'com.android.support:palette-v7:22.0.0'
 }
 
+
+task javadoc(type: Javadoc) {
+    title = "Skeleton"
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    destinationDir = file('build/docs/javadoc/')
+    options {
+        links 'http://docs.oracle.com/javase/7/docs/api/'
+        linksOffline 'http://d.android.com/reference', "${android.sdkDirectory}/docs/reference"
+        // overview = 'overview.html'
+        memberLevel = JavadocMemberLevel.PACKAGE
+    }
+    include '**/me/shkschneider/skeleton/**'
+    exclude '**/BuildConfig.java'
+    exclude '**/R.java'
+}
+
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
     classifier = 'sources'
