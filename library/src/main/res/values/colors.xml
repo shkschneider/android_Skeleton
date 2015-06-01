@@ -12,6 +12,7 @@
     <color name="contentBackgroundColor">@color/sk_android_background</color>
     <color name="cellBackgroundColor">@color/sk_android_white</color>
     <color name="navigationDrawerBackgroundColor">@color/sk_android_white</color>
+    <color name="navigationDrawerForegroundColor">@color/sk_navigation_drawer</color>
     <color name="textPrimaryColor">@color/sk_android_black</color>
     <color name="textSecondaryColor">@color/sk_android_gray</color>
     <color name="snackBarBackgroundColor">#ff323232</color>

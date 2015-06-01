@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.demo.fragment;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -56,9 +55,9 @@ public class ViewPagerIconIndicatorFragment extends SkeletonFragment {
         if (tabLayout != null) {
             tabLayout.setBackgroundColor(getResources().getColor(R.color.actionBarColor));
             tabLayout.setTabMode(TabLayout.MODE_FIXED);
-            tabLayout.addTab(tabLayout.newTab().setIcon(getResources().getDrawable(R.drawable.ic_launcher)));
-            tabLayout.addTab(tabLayout.newTab().setIcon(getResources().getDrawable(R.drawable.ic_launcher)));
-            tabLayout.addTab(tabLayout.newTab().setIcon(getResources().getDrawable(R.drawable.ic_launcher)));
+            tabLayout.addTab(tabLayout.newTab().setIcon(getResources().getDrawable(R.drawable.ic_tab)));
+            tabLayout.addTab(tabLayout.newTab().setIcon(getResources().getDrawable(R.drawable.ic_tab)));
+            tabLayout.addTab(tabLayout.newTab().setIcon(getResources().getDrawable(R.drawable.ic_tab)));
             viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         }
     }

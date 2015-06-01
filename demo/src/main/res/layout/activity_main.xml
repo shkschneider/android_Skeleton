@@ -18,14 +18,15 @@
 
         <android.support.design.widget.NavigationView
             android:id="@+id/navigationDrawer_navigationView"
-            android:layout_width="240dp"
+            android:layout_width="@dimen/navigationDrawer"
             android:layout_height="match_parent"
-            android:layout_gravity="start"
+            android:layout_gravity="left"
             android:choiceMode="singleChoice"
             android:divider="@color/sk_android_transparent"
-            android:dividerHeight="0dp"
+            android:dividerHeight="@dimen/spaceNull"
             android:background="@color/navigationDrawerBackgroundColor"
-            app:headerLayout="@layout/sk_navigationdrawer_header"
+            app:itemTextColor="@color/navigationDrawerForegroundColor"
+            app:headerLayout="@layout/navigationdrawer_header"
             app:menu="@menu/navigationdrawer" />
 
     </android.support.v4.widget.DrawerLayout>
