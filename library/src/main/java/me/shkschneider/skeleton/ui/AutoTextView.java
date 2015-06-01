@@ -8,17 +8,17 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 // <http://jeffreysambells.com/2010/04/04/android-textview-with-auto-sized-content>
-public class TextFitTextView extends TextView {
+public class AutoTextView extends TextView {
 
-    public TextFitTextView(final Context context) {
+    public AutoTextView(final Context context) {
         this(context, null);
     }
 
-    public TextFitTextView(final Context context, final AttributeSet attrs) {
+    public AutoTextView(final Context context, final AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public TextFitTextView(final Context context, final AttributeSet attrs, final int defStyleAttr) {
+    public AutoTextView(final Context context, final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -32,7 +32,7 @@ public class TextFitTextView extends TextView {
         final int height = getHeight();
         final int lines = getLineCount();
         final Rect rect = new Rect();
-        final int y1 = getLineBounds(0, rect);
+        // final int y1 = getLineBounds(0, rect);
         final int y2 = getLineBounds(lines - 1, rect);
         final float size = getTextSize();
         if (y2 > height && size >= 8.0F) {
