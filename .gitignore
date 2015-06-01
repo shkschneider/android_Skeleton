@@ -1,19 +1,23 @@
-*.apk
+# IDE files
+.idea/workspace.xml
+.idea/libraries/
+
+# Generated files
 bin/
 gen/
-out/
-build/
-dist/
-local.properties
-.gradle/
-.classpath
-.project
-proguard/
-proguard_logs/
-*.iml
-*.ipr
-*.iws
-.idea/
-*.log
 *.aar
+*.apk
+
+# Gradle files
+.gradle/
+build/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Local private files
 release.keystore
+
+# Log Files
+*.log
+captures/
