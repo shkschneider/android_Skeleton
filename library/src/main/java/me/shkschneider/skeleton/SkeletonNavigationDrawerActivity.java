@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import me.shkschneider.skeleton.helper.KeyboardHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
 public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity {
@@ -124,6 +125,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
     protected void onNavigationDrawerOpened() {
         mOpenedOrOpening = true;
         supportInvalidateOptionsMenu();
+        KeyboardHelper.hide(SkeletonNavigationDrawerActivity.this);
     }
 
     public void closeNavigationDrawer() {
