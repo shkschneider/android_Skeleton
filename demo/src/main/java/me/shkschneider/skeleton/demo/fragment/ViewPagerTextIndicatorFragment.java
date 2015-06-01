@@ -3,8 +3,10 @@ package me.shkschneider.skeleton.demo.fragment;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -19,8 +21,6 @@ import me.shkschneider.skeleton.demo.R;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.java.StringHelper;
-import me.shkschneider.skeleton.ui.viewpager.ViewPagerIndicatorAdapter;
-import me.shkschneider.skeleton.ui.viewpager.ViewPagerIndicator;
 
 public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
 
@@ -49,12 +49,17 @@ public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
-        // viewPager.setOffscreenPageLimit()
+        viewPager.setOffscreenPageLimit(TABS);
         viewPager.setAdapter(mPagerAdapter);
 
-        final ViewPagerIndicator viewPagerIndicator = (ViewPagerIndicator) view.findViewById(R.id.viewpagerindicator);
-        if (viewPagerIndicator != null) {
-            viewPagerIndicator.setViewPager(viewPager);
+        final TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
+        if (tabLayout != null) {
+            tabLayout.setBackgroundColor(getResources().getColor(R.color.actionBarColor));
+            tabLayout.setTabTextColors(getResources().getColor(R.color.primaryColorDark), getResources().getColor(R.color.actionBarForegroundColor));
+            tabLayout.addTab(tabLayout.newTab().setText("Tab 1"));
+            tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
+            tabLayout.addTab(tabLayout.newTab().setText("Tab 3"));
+            viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         }
     }
 
@@ -65,7 +70,7 @@ public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
         mPagerAdapter.notifyDataSetChanged();
     }
 
-    private class MyViewPagerAdapter extends ViewPagerIndicatorAdapter {
+    private class MyViewPagerAdapter extends FragmentStatePagerAdapter {
 
         public MyViewPagerAdapter(final FragmentManager fragmentManager) {
             super(fragmentManager);
@@ -79,11 +84,6 @@ public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
         @Override
         public CharSequence getPageTitle(final int position) {
             return ((DummyFragment) getItem(position)).title();
-        }
-
-        @Override
-        public Drawable getPageIcon(int position) {
-            return null;
         }
 
         @Override
