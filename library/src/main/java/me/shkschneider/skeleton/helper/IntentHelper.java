@@ -230,7 +230,7 @@ public class IntentHelper {
         return null;
     }
 
-    // http://developer.android.com/training/implementing-navigation/descendant.html#external-activities
+    // <http://developer.android.com/training/implementing-navigation/descendant.html#external-activities>
     private static Intent external(@NonNull final Intent intent) {
         if (AndroidHelper.api() >= AndroidHelper.API_21) {
             external21(intent);

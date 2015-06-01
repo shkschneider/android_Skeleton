@@ -1,8 +1,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- API-21+ implementation -->
     <style name="SkeletonTheme" parent="@style/_SkeletonTheme">
-        <!-- Material Design -->
         <item name="android:colorPrimaryDark">@color/primaryColorDark</item>
         <item name="android:navigationBarColor">@color/navigationBarColor</item>
         <item name="colorControlNormal">@color/controlOff</item>

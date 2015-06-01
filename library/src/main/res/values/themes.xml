@@ -1,0 +1,26 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="SkeletonTheme" parent="@style/_SkeletonTheme" />
+
+    <style name="_SkeletonTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorAccent">@color/accentColor</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowBackground">@color/contentBackgroundColor</item>
+        <item name="android:scrollingCache">false</item>
+        <item name="android:listViewStyle">@style/SkeletonTheme.ListViewStyle</item>
+        <item name="android:listSeparatorTextViewStyle">@style/SkeletonTheme.ListSeparatorTextViewStyle</item>
+        <item name="android:imageButtonStyle">@style/SkeletonTheme.ImageButtonStyle</item>
+        <item name="buttonStyle">@style/SkeletonTheme.ButtonStyle</item>
+    </style>
+
+    <style name="SkeletonTheme.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="SkeletonTheme.Toolbar.Overlay" parent="@style/SkeletonTheme.Toolbar">
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="windowActionBarOverlay">true</item>
+    </style>
+    <style name="SkeletonTheme.Toolbar.Popup" parent="@style/ThemeOverlay.AppCompat.Light" />
+
+</resources>

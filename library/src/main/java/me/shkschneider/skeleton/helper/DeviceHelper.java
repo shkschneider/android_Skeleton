@@ -2,7 +2,6 @@ package me.shkschneider.skeleton.helper;
 
 import android.content.res.Configuration;
 import android.os.Build;
-import android.telephony.TelephonyManager;
 
 import java.lang.reflect.Method;
 
@@ -40,11 +39,6 @@ public class DeviceHelper {
 
     public static String fingerprint() {
         return Build.FINGERPRINT;
-    }
-
-    @Deprecated
-    public static TelephonyManager sim() {
-        return SystemServices.telephonyManager();
     }
 
 }

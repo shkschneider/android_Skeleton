@@ -51,6 +51,8 @@ public class ActivityHelper {
         return activity.getResources().getString(activityInfo.labelRes);
     }
 
+    // TODO subtitle()
+
     public static ActivityInfo activityInfo(@NonNull final Activity activity) {
         final PackageManager packageManager = activity.getPackageManager();
         final ComponentName componentName = activity.getComponentName();

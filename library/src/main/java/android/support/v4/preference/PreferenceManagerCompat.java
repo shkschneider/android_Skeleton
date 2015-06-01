@@ -15,9 +15,9 @@ import android.preference.PreferenceScreen;
 
 import me.shkschneider.skeleton.helper.LogHelper;
 
-// https://github.com/kolavar/android-support-v4-preferencefragment
+// <https://github.com/kolavar/android-support-v4-preferencefragment>
 public final class PreferenceManagerCompat {
-	
+
     public static PreferenceManager newInstance(final Activity activity, final int firstRequestCode) {
 		try {
 			final Constructor<PreferenceManager> constructor = PreferenceManager.class.getDeclaredConstructor(Activity.class, int.class);
@@ -148,5 +148,5 @@ public final class PreferenceManagerCompat {
         boolean onPreferenceTreeClick(final PreferenceScreen preferenceScreen, final Preference preference);
 
     }
-	
+
 }

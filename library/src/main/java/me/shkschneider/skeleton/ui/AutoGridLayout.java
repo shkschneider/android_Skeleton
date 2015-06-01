@@ -10,10 +10,9 @@ import android.widget.FrameLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-// https://github.com/AlbertGrobas/AutoLinearLayout
+// <https://github.com/AlbertGrobas/AutoLinearLayout>
 public class AutoGridLayout extends FrameLayout {
 
-    private static final String ANDROIDXML = "http://schemas.android.com/apk/res/android";
     public static final int HORIZONTAL = 0;
     public static final int VERTICAL = 1;
 
@@ -36,7 +35,7 @@ public class AutoGridLayout extends FrameLayout {
     }
 
     private void init(final AttributeSet attrs) {
-        final int orientation = ((attrs != null) ? attrs.getAttributeResourceValue(ANDROIDXML, "orientation", -1) : -1);
+        final int orientation = ((attrs != null) ? attrs.getAttributeResourceValue(ViewHelper.ANDROIDXML, "orientation", -1) : -1);
         if (orientation == HORIZONTAL) {
             setHorizontalGravity(Gravity.CENTER_HORIZONTAL);
         }

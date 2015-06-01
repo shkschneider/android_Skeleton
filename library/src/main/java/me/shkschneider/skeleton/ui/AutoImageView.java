@@ -5,7 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-// http://stackoverflow.com/a/12283909
+// <http://stackoverflow.com/a/12283909>
 public class AutoImageView extends ImageView {
 
     public AutoImageView(final Context context) {
