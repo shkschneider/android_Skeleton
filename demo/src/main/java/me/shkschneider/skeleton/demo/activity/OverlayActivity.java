@@ -11,7 +11,6 @@ import me.shkschneider.skeleton.SkeletonOverlayActivity;
 import me.shkschneider.skeleton.demo.R;
 import me.shkschneider.skeleton.helper.ActivityTransitionHelper;
 import me.shkschneider.skeleton.ui.BitmapHelper;
-import me.shkschneider.skeleton.ui.MyScrollView;
 import me.shkschneider.skeleton.ui.PaletteHelper;
 
 public class OverlayActivity extends SkeletonOverlayActivity {
@@ -25,7 +24,7 @@ public class OverlayActivity extends SkeletonOverlayActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_overlay);
         home(true);
-        subtitle("Overlay");
+        title("Overlay");
 
         final Bitmap bitmap = BitmapHelper.fromDrawable(getResources().getDrawable(R.drawable.newyork));
         final ImageView imageView = (ImageView) findViewById(R.id.imageView);
@@ -33,7 +32,6 @@ public class OverlayActivity extends SkeletonOverlayActivity {
 
         statusBarColor(getWindow(), PaletteHelper.mutedColor(bitmap));
         overlay(new ColorDrawable(PaletteHelper.mutedColor(bitmap)));
-        overlay((MyScrollView) findViewById(R.id.myScrollView), imageView);
 
         ActivityTransitionHelper.tag(imageView, "NewYork");
     }

@@ -1,0 +1,7 @@
+<resources>
+
+    <item type="id" name="toolbar" />
+    <item type="id" name="mySwipeRefreshLayout" />
+    <item type="id" name="collapsingToolbarLayout" />
+
+</resources>
