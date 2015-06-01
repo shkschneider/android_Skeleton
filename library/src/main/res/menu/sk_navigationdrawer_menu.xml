@@ -1,0 +1,67 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/menu_main"
+            android:checked="false"
+            android:icon="@android:drawable/ic_dialog_dialer"
+            android:title="Main" />
+
+        <item
+            android:id="@+id/menu_viewPagerTextIndicator"
+            android:checked="false"
+            android:icon="@android:drawable/ic_dialog_dialer"
+            android:title="ViewPagerTextIndicator" />
+
+        <item
+            android:id="@+id/menu_viewPagerIconIndicator"
+            android:checked="false"
+            android:icon="@android:drawable/ic_dialog_dialer"
+            android:title="ViewPagerIconIndicator" />
+
+        <item
+            android:id="@+id/menu_viewPagerCircleIndicator"
+            android:checked="false"
+            android:icon="@android:drawable/ic_dialog_dialer"
+            android:title="ViewPagerCircleIndicator" />
+
+        <item
+            android:id="@+id/menu_network"
+            android:checked="false"
+            android:icon="@android:drawable/ic_dialog_dialer"
+            android:title="Network" />
+
+        <item
+            android:id="@+id/menu_listView"
+            android:checked="false"
+            android:icon="@android:drawable/ic_dialog_dialer"
+            android:title="ListView" />
+
+        <item
+            android:id="@+id/menu_floatingActionButton"
+            android:checked="false"
+            android:icon="@android:drawable/ic_dialog_dialer"
+            android:title="FloatingActionButton" />
+
+        <item
+            android:id="@+id/menu_snackBar"
+            android:checked="false"
+            android:icon="@android:drawable/ic_dialog_dialer"
+            android:title="SnackBar" />
+
+        <item
+            android:id="@+id/menu_transition"
+            android:checked="false"
+            android:icon="@android:drawable/ic_dialog_dialer"
+            android:title="Transition" />
+
+        <item
+            android:id="@+id/menu_inputs"
+            android:checked="false"
+            android:icon="@android:drawable/ic_dialog_dialer"
+            android:title="Inputs" />
+
+    </group>
+
+</menu>

@@ -3,18 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <me.shkschneider.skeleton.ui.FloatingActionButton
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true" />
-
-    <me.shkschneider.skeleton.ui.FloatingActionMenu
-        android:id="@+id/floatingActionMenu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/spaceTiny" />
 
 </RelativeLayout>

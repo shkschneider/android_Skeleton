@@ -2,39 +2,29 @@ package me.shkschneider.skeleton;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.view.GravityCompat;
+import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.helper.SharedPreferencesHelper;
 
 public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity {
 
-    public static final String TAB = "tab";
-
+    protected ActionBarDrawerToggle mDrawerToggle;
     protected boolean mOpenedOrOpening = false;
     protected DrawerLayout mDrawerLayout;
-    protected ActionBarDrawerToggle mDrawerToggle;
-    protected ListView mDrawerList;
+    private NavigationView mNavigationView;
 
-    protected abstract ArrayAdapter getAdapter();
-    protected abstract SkeletonFragment getFragment(final int position);
+    protected abstract SkeletonFragment getFragment(final int itemId);
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sk_activity_navigationdrawer);
         home(true);
-
-        SharedPreferencesHelper.putPublic(TAB, String.valueOf(0));
     }
 
     @Override
@@ -46,7 +36,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
             LogHelper.warning("DrawerLayout was NULL");
             return ;
         }
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, android.R.string.ok, android.R.string.cancel) {
             @Override
             public void onDrawerOpened(final View view) {
@@ -59,22 +49,21 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-        mDrawerList = (ListView) findViewById(R.id.navigationDrawer_listView);
-        mDrawerList.setAdapter(getAdapter());
-        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        mNavigationView = (NavigationView) findViewById(R.id.navigationDrawer_navigationView);
+        if (mNavigationView == null) {
+            LogHelper.warning("NavigationView was NULL");
+            return ;
+        }
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
             @Override
-            public void onItemClick(final AdapterView<?> adapterView, final View view, final int position, final long id) {
-                navigationDrawer(position);
+            public boolean onNavigationItemSelected(final MenuItem menuItem) {
+                navigationDrawer(menuItem.getItemId());
+                return true;
             }
+
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        final int tab = Integer.valueOf(SharedPreferencesHelper.getPublic(TAB, String.valueOf(0)));
-        navigationDrawer(tab);
     }
 
     @Override
@@ -91,12 +80,12 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
         mDrawerToggle.syncState();
     }
 
-    public void navigationDrawer(final int position) {
+    public void navigationDrawer(final int itemId) {
         // Clears any loading state and capability
         refreshable(false, null);
 
         // Switch Fragment
-        final SkeletonFragment skeletonFragment = getFragment(position);
+        final SkeletonFragment skeletonFragment = getFragment(itemId);
         if (skeletonFragment == null) {
             LogHelper.warning("SkeletonFragment was NULL");
             return ;
@@ -106,20 +95,21 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
                 .commit();
 
         // Updates NavigationDrawer
-        mDrawerList.setItemChecked(position, true);
+        // FIXME mDrawerList.setItemChecked(position, true);
         closeNavigationDrawer();
         onNavigationDrawerClosed();
     }
 
     public int navigationDrawer() {
-        final int tab = mDrawerList.getCheckedItemPosition();
+        // FIXME final int tab = mDrawerList.getCheckedItemPosition();
         // default value might be -1
-        return (tab < 0 ? 0 : tab);
+        // FIXME return (tab < 0 ? 0 : tab);
+        return 0;
     }
 
     @Deprecated
     public boolean navigationDrawerOpened() {
-        return mDrawerLayout.isDrawerOpen(mDrawerList);
+        return mDrawerLayout.isDrawerOpen(mNavigationView);
     }
 
     public boolean navigationDrawerOpenedOrOpening() {
@@ -127,7 +117,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
     }
 
     public void openNavigationDrawer() {
-        mDrawerLayout.openDrawer(mDrawerList);
+        mDrawerLayout.openDrawer(mNavigationView);
     }
 
     protected void onNavigationDrawerOpened() {
@@ -136,7 +126,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
     }
 
     public void closeNavigationDrawer() {
-        mDrawerLayout.closeDrawer(mDrawerList);
+        mDrawerLayout.closeDrawer(mNavigationView);
     }
 
     protected void onNavigationDrawerClosed() {
@@ -173,31 +163,6 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        closeNavigationDrawer();
-
-        final int tab = navigationDrawer();
-        SharedPreferencesHelper.putPublic(TAB, String.valueOf(tab));
-    }
-
-    @Override
-    protected void onSaveInstanceState(final Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        final int tab = navigationDrawer();
-        outState.putInt(TAB, tab);
-        SharedPreferencesHelper.putPublic(TAB, String.valueOf(tab));
-    }
-
-    @Override
-    protected void onRestoreInstanceState(@NonNull final Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        final int tab = savedInstanceState.getInt(TAB, 0);
-        navigationDrawer(tab);
     }
 
 }

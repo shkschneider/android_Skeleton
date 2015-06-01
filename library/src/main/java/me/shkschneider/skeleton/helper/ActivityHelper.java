@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Toast;
 
@@ -15,8 +16,21 @@ public class ActivityHelper {
         return activity.getWindow().getDecorView().findViewById(android.R.id.content);
     }
 
+    @Deprecated
     public static void toast(@NonNull final String msg) {
         Toast.makeText(ApplicationHelper.context(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Deprecated
+    public static void snackBar(@NonNull final Activity activity, @NonNull final String msg) {
+        Snackbar.make(contentView(activity), msg, Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Deprecated
+    public static void snackBar(@NonNull final Activity activity, @NonNull final String msg, @NonNull final String action, @NonNull final View.OnClickListener onClickListener) {
+        Snackbar.make(contentView(activity), msg, Snackbar.LENGTH_SHORT)
+                .setAction(action, onClickListener)
+                .show();
     }
 
     public static boolean portrait() {

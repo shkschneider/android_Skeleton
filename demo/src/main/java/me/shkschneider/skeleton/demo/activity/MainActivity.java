@@ -2,31 +2,24 @@ package me.shkschneider.skeleton.demo.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
-
-import java.util.ArrayList;
 
 import me.shkschneider.skeleton.demo.R;
+import me.shkschneider.skeleton.demo.fragment.FloatingActionButtonFragment;
 import me.shkschneider.skeleton.demo.fragment.InputsFragment;
 import me.shkschneider.skeleton.demo.fragment.ListViewFragment;
+import me.shkschneider.skeleton.demo.fragment.MainFragment;
+import me.shkschneider.skeleton.SkeletonNavigationDrawerActivity;
+import me.shkschneider.skeleton.SkeletonFragment;
+import me.shkschneider.skeleton.data.DiskCache;
+import me.shkschneider.skeleton.data.MemoryCache;
+import me.shkschneider.skeleton.demo.fragment.NetworkFragment;
 import me.shkschneider.skeleton.demo.fragment.SnackBarFragment;
 import me.shkschneider.skeleton.demo.fragment.TransitionFragment;
 import me.shkschneider.skeleton.demo.fragment.ViewPagerCircleIndicatorFragment;
 import me.shkschneider.skeleton.demo.fragment.ViewPagerIconIndicatorFragment;
 import me.shkschneider.skeleton.demo.fragment.ViewPagerTextIndicatorFragment;
-import me.shkschneider.skeleton.demo.fragment.FloatingActionButtonFragment;
-import me.shkschneider.skeleton.demo.fragment.MainFragment;
-import me.shkschneider.skeleton.demo.fragment.NetworkFragment;
-import me.shkschneider.skeleton.SkeletonNavigationDrawerActivity;
-import me.shkschneider.skeleton.SkeletonFragment;
-import me.shkschneider.skeleton.data.DiskCache;
-import me.shkschneider.skeleton.data.MemoryCache;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
@@ -64,6 +57,8 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
         mDiskCacheInternal.put("DiskCache", "Internal");
         mDiskCacheExternal = new DiskCache.External();
         mDiskCacheExternal.put("DiskCache", "External");
+
+        navigationDrawer(R.id.menu_main);
     }
 
     @Override
@@ -87,66 +82,79 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        if (item.getItemId() == R.id.menu_about) {
-            startActivity(AboutActivity.getIntent(MainActivity.this));
-            return true;
-        }
-        if (item.getItemId() == R.id.menu_settings) {
-            startActivity(SettingsActivity.getIntent(MainActivity.this));
-            return true;
+        switch (item.getItemId()) {
+            case R.id.menu_about:
+                startActivity(AboutActivity.getIntent(MainActivity.this));
+                return true;
+            case R.id.menu_settings:
+                startActivity(SettingsActivity.getIntent(MainActivity.this));
+                return true;
+            case R.id.menu_main:
+                navigationDrawer(NAVIGATION_MAIN);
+                return true;
+            case R.id.menu_viewPagerTextIndicator:
+                navigationDrawer(NAVIGATION_VIEWPAGERTEXTINDICATOR);
+                return true;
+            case R.id.menu_viewPagerIconIndicator:
+                navigationDrawer(NAVIGATION_VIEWPAGERICONINDICATOR);
+                return true;
+            case R.id.menu_viewPagerCircleIndicator:
+                navigationDrawer(NAVIGATION_VIEWPAGERCIRCLEINDICATOR);
+                return true;
+            case R.id.menu_network:
+                navigationDrawer(NAVIGATION_NETWORK);
+                return true;
+            case R.id.menu_listView:
+                navigationDrawer(NAVIGATION_LISTVIEW);
+                return true;
+            case R.id.menu_floatingActionButton:
+                navigationDrawer(NAVIGATION_FLOATINGACTIONBUTTON);
+                return true;
+            case R.id.menu_snackBar:
+                navigationDrawer(NAVIGATION_SNACKBAR);
+                return true;
+            case R.id.menu_transition:
+                navigationDrawer(NAVIGATION_TRANSITION);
+                return true;
+            case R.id.menu_inputs:
+                navigationDrawer(NAVIGATION_INPUTS);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    protected ArrayAdapter getAdapter() {
-        return new ArrayAdapter<SkeletonFragment>(this, R.layout.sk_listview_navigationdrawer_item, new ArrayList<SkeletonFragment>() {
-            {
-                add(NAVIGATION_MAIN, new MainFragment());
-                add(NAVIGATION_VIEWPAGERTEXTINDICATOR, new ViewPagerTextIndicatorFragment());
-                add(NAVIGATION_VIEWPAGERICONINDICATOR, new ViewPagerIconIndicatorFragment());
-                add(NAVIGATION_VIEWPAGERCIRCLEINDICATOR, new ViewPagerCircleIndicatorFragment());
-                add(NAVIGATION_NETWORK, new NetworkFragment());
-                add(NAVIGATION_LISTVIEW, new ListViewFragment());
-                add(NAVIGATION_FLOATINGACTIONBUTTON, new FloatingActionButtonFragment());
-                add(NAVIGATION_SNACKBAR, new SnackBarFragment());
-                add(NAVIGATION_TRANSITION, new TransitionFragment());
-                add(NAVIGATION_INPUTS, new InputsFragment());
-            }
-        }) {
-            @Override
-            public View getView(final int position, View convertView, final ViewGroup parent) {
-                if (convertView == null) {
-                    final LayoutInflater layoutInflater = LayoutInflater.from(MainActivity.this);
-                    convertView = layoutInflater.inflate(R.layout.sk_listview_navigationdrawer_item, parent, false);
-                }
-                final TextView textView = (TextView) convertView.findViewById(R.id.navigationDrawer_textView);
-                textView.setText(getItem(position).title());
-                if (position == navigationDrawer()) {
-                    textView.setTextColor(getResources().getColor(R.color.accentColor));
-                }
-                else {
-                    textView.setTextColor(getResources().getColor(R.color.textPrimaryColor));
-                }
-                return convertView;
-            }
-
-            @Override
-            public boolean areAllItemsEnabled() {
-                return true;
-            }
-        };
+    protected SkeletonFragment getFragment(final int itemId) {
+        switch (itemId) {
+            case R.id.menu_main:
+                return new MainFragment();
+            case R.id.menu_viewPagerTextIndicator:
+                return new ViewPagerTextIndicatorFragment();
+            case R.id.menu_viewPagerIconIndicator:
+                return new ViewPagerIconIndicatorFragment();
+            case R.id.menu_viewPagerCircleIndicator:
+                return new ViewPagerCircleIndicatorFragment();
+            case R.id.menu_network:
+                return new NetworkFragment();
+            case R.id.menu_listView:
+                return new ListViewFragment();
+            case R.id.menu_floatingActionButton:
+                return new FloatingActionButtonFragment();
+            case R.id.menu_snackBar:
+                return new SnackBarFragment();
+            case R.id.menu_transition:
+                return new TransitionFragment();
+            case R.id.menu_inputs:
+                return new InputsFragment();
+            default:
+                return null;
+        }
     }
 
     @Override
-    protected SkeletonFragment getFragment(final int position) {
-        return (SkeletonFragment) getAdapter().getItem(position);
-    }
-
-    @Override
-    public void navigationDrawer(final int position) {
-        super.navigationDrawer(position);
-        subtitle(getFragment(position).title());
+    public void navigationDrawer(final int itemId) {
+        super.navigationDrawer(itemId);
+        // FIXME subtitle(getFragment(itemId).title());
     }
 
     @Override
