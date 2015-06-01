@@ -10,17 +10,17 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/spaceMicro"
         android:layout_marginLeft="@dimen/spaceMicro"
-        android:text="@string/dots" />
+        android:text="@string/lorem_ipsum" />
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <EditText
+        <android.support.v7.widget.AppCompatEditText
             android:layout_width="match_parent"
             android:layout_height="@dimen/spaceMedium"
-            android:inputType="text"
-            android:hint="@string/dots" />
+            android:inputType="textNoSuggestions"
+            android:hint="@string/lorem_ipsum" />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -28,11 +28,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <EditText
+        <android.support.v7.widget.AppCompatEditText
             android:layout_width="match_parent"
             android:layout_height="@dimen/spaceMedium"
-            android:inputType="text"
-            android:hint="@string/dots" />
+            android:inputType="textNoSuggestions"
+            android:hint="@string/lorem_ipsum" />
 
     </android.support.design.widget.TextInputLayout>
 
