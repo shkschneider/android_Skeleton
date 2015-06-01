@@ -17,7 +17,6 @@ import me.shkschneider.skeleton.data.MemoryCache;
 import me.shkschneider.skeleton.demo.fragment.NetworkFragment;
 import me.shkschneider.skeleton.demo.fragment.SnackBarFragment;
 import me.shkschneider.skeleton.demo.fragment.TransitionFragment;
-import me.shkschneider.skeleton.demo.fragment.ViewPagerCircleIndicatorFragment;
 import me.shkschneider.skeleton.demo.fragment.ViewPagerIconIndicatorFragment;
 import me.shkschneider.skeleton.demo.fragment.ViewPagerTextIndicatorFragment;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
@@ -29,11 +28,10 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
     public static final int NAVIGATION_MAIN = 0;
     public static final int NAVIGATION_VIEWPAGERTEXTINDICATOR = 1;
     public static final int NAVIGATION_VIEWPAGERICONINDICATOR = 2;
-    public static final int NAVIGATION_VIEWPAGERCIRCLEINDICATOR = 3;
-    public static final int NAVIGATION_NETWORK = 4;
-    public static final int NAVIGATION_LISTVIEW = 5;
-    public static final int NAVIGATION_FLOATINGACTIONBUTTON = 6;
-    public static final int NAVIGATION_SNACKBAR = 7;
+    public static final int NAVIGATION_NETWORK = 3;
+    public static final int NAVIGATION_LISTVIEW = 4;
+    public static final int NAVIGATION_FLOATINGACTIONBUTTON = 5;
+    public static final int NAVIGATION_SNACKBAR = 6;
     public static final int NAVIGATION_TRANSITION = 8;
     public static final int NAVIGATION_INPUTS = 9;
 
@@ -48,6 +46,8 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        home(true);
 
         mMemoryCache = new MemoryCache<>();
         mMemoryCache.put("MainActivity", MainActivity.this);
@@ -98,9 +98,6 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
             case R.id.menu_viewPagerIconIndicator:
                 navigationDrawer(NAVIGATION_VIEWPAGERICONINDICATOR);
                 return true;
-            case R.id.menu_viewPagerCircleIndicator:
-                navigationDrawer(NAVIGATION_VIEWPAGERCIRCLEINDICATOR);
-                return true;
             case R.id.menu_network:
                 navigationDrawer(NAVIGATION_NETWORK);
                 return true;
@@ -132,8 +129,6 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
                 return new ViewPagerTextIndicatorFragment();
             case R.id.menu_viewPagerIconIndicator:
                 return new ViewPagerIconIndicatorFragment();
-            case R.id.menu_viewPagerCircleIndicator:
-                return new ViewPagerCircleIndicatorFragment();
             case R.id.menu_network:
                 return new NetworkFragment();
             case R.id.menu_listView:
@@ -154,7 +149,7 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
     @Override
     public void navigationDrawer(final int itemId) {
         super.navigationDrawer(itemId);
-        // FIXME subtitle(getFragment(itemId).title());
+        subtitle(getFragment(itemId).title());
     }
 
     @Override

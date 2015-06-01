@@ -21,12 +21,6 @@
             android:title="ViewPagerIconIndicator" />
 
         <item
-            android:id="@+id/menu_viewPagerCircleIndicator"
-            android:checked="false"
-            android:icon="@android:drawable/ic_dialog_dialer"
-            android:title="ViewPagerCircleIndicator" />
-
-        <item
             android:id="@+id/menu_network"
             android:checked="false"
             android:icon="@android:drawable/ic_dialog_dialer"

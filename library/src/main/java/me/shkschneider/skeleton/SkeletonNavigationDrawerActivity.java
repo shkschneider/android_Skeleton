@@ -17,17 +17,14 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
     protected boolean mOpenedOrOpening = false;
     protected DrawerLayout mDrawerLayout;
     protected NavigationView mNavigationView;
-    protected int mItemId;
 
     protected abstract SkeletonFragment getFragment(final int itemId);
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sk_activity_navigationdrawer);
+        setContentView(R.layout.sk_navigationdraweractivity);
         home(true);
-
-        mItemId = -1;
     }
 
     @Override
@@ -78,25 +75,21 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
     @Override
     protected void onPostCreate(final Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        // Fix for lower APIs where the ic_navigation_drawer drawable was not showed
         mDrawerToggle.syncState();
     }
 
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        // Fix for lower APIs where the ic_navigation_drawer drawable was not showed
         mDrawerToggle.syncState();
     }
 
     public void navigationDrawer(final int itemId) {
-        mItemId = itemId;
-
         // Clears any loading state and capability
         refreshable(false, null);
 
         // Switch Fragment
-        final SkeletonFragment skeletonFragment = getFragment(mItemId);
+        final SkeletonFragment skeletonFragment = getFragment(itemId);
         if (skeletonFragment == null) {
             LogHelper.warning("SkeletonFragment was NULL");
             return ;
@@ -106,13 +99,13 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
                 .commit();
 
         // Updates NavigationDrawer
-        mNavigationView.getMenu().findItem(mItemId).setChecked(true);
+        mNavigationView.getMenu().findItem(itemId).setChecked(true);
         closeNavigationDrawer();
         onNavigationDrawerClosed();
     }
 
     public int navigationDrawer() {
-        return mItemId;
+        return mNavigationView.getMenu().getItem(0).getItemId();
     }
 
     @Deprecated

@@ -26,7 +26,7 @@
             android:dividerHeight="0dp"
             android:background="@color/navigationDrawerBackgroundColor"
             app:headerLayout="@layout/sk_navigationdrawer_header"
-            app:menu="@menu/sk_navigationdrawer_menu" />
+            app:menu="@menu/sk_navigationdrawer" />
 
     </android.support.v4.widget.DrawerLayout>
 
