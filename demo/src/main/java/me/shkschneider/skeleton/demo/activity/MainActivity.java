@@ -58,7 +58,7 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
         mDiskCacheExternal = new DiskCache.External();
         mDiskCacheExternal.put("DiskCache", "External");
 
-        navigationDrawer(R.id.menu_main);
+        // navigationDrawer(R.id.menu_main);
     }
 
     @Override

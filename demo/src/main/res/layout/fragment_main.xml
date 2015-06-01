@@ -1,5 +1,6 @@
 <me.shkschneider.skeleton.ui.MySwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/mySwipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -31,18 +32,16 @@
                         android:contentDescription="@null"
                         android:layout_width="@dimen/spaceHuge"
                         android:layout_height="@dimen/spaceHuge"
-                        android:layout_gravity="center"
-                        android:padding="@dimen/spaceSmaller" />
+                        android:layout_gravity="center" />
 
-                    <ImageView
+                    <me.shkschneider.skeleton.ui.AutoImageView
                         android:layout_centerHorizontal="true"
                         android:id="@+id/imageView"
                         android:src="@null"
                         android:contentDescription="@null"
-                        android:layout_width="@dimen/spaceHuge"
-                        android:layout_height="@dimen/spaceHuge"
-                        android:layout_gravity="center"
-                        android:padding="@dimen/spaceSmaller" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center" />
 
                 </RelativeLayout>
 

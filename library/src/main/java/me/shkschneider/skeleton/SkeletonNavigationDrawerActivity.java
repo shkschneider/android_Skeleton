@@ -16,7 +16,8 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
     protected ActionBarDrawerToggle mDrawerToggle;
     protected boolean mOpenedOrOpening = false;
     protected DrawerLayout mDrawerLayout;
-    private NavigationView mNavigationView;
+    protected NavigationView mNavigationView;
+    protected int mItemId;
 
     protected abstract SkeletonFragment getFragment(final int itemId);
 
@@ -25,6 +26,8 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sk_activity_navigationdrawer);
         home(true);
+
+        mItemId = -1;
     }
 
     @Override
@@ -59,11 +62,17 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
 
             @Override
             public boolean onNavigationItemSelected(final MenuItem menuItem) {
+                menuItem.setChecked(true);
                 navigationDrawer(menuItem.getItemId());
                 return true;
             }
 
         });
+
+        final MenuItem menuItem = mNavigationView.getMenu().getItem(0);
+        if (menuItem != null) {
+            navigationDrawer(menuItem.getItemId());
+        }
     }
 
     @Override
@@ -81,11 +90,13 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
     }
 
     public void navigationDrawer(final int itemId) {
+        mItemId = itemId;
+
         // Clears any loading state and capability
         refreshable(false, null);
 
         // Switch Fragment
-        final SkeletonFragment skeletonFragment = getFragment(itemId);
+        final SkeletonFragment skeletonFragment = getFragment(mItemId);
         if (skeletonFragment == null) {
             LogHelper.warning("SkeletonFragment was NULL");
             return ;
@@ -95,16 +106,13 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
                 .commit();
 
         // Updates NavigationDrawer
-        // FIXME mDrawerList.setItemChecked(position, true);
+        mNavigationView.getMenu().findItem(mItemId).setChecked(true);
         closeNavigationDrawer();
         onNavigationDrawerClosed();
     }
 
     public int navigationDrawer() {
-        // FIXME final int tab = mDrawerList.getCheckedItemPosition();
-        // default value might be -1
-        // FIXME return (tab < 0 ? 0 : tab);
-        return 0;
+        return mItemId;
     }
 
     @Deprecated
