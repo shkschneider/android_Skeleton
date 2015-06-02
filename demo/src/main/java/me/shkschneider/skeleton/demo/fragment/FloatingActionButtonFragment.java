@@ -43,7 +43,7 @@ public class FloatingActionButtonFragment extends SkeletonFragment {
 
             @Override
             public void onClick(final View view) {
-                ActivityHelper.snackBar(view, "Button");
+                ActivityHelper.snackBar(view, "SnackBar");
             }
 
         });
