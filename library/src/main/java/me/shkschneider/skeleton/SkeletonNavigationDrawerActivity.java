@@ -39,6 +39,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
         }
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, android.R.string.ok, android.R.string.cancel) {
+
             @Override
             public void onDrawerOpened(final View view) {
                 onNavigationDrawerOpened();
@@ -48,6 +49,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
             public void onDrawerClosed(final View view) {
                 onNavigationDrawerClosed();
             }
+
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
@@ -95,8 +97,10 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
             LogHelper.warning("SkeletonFragment was NULL");
             return ;
         }
+        getSupportFragmentManager().popBackStackImmediate();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.navigationDrawer_frameLayout, skeletonFragment)
+                .addToBackStack(null)
                 .commit();
 
         // Updates NavigationDrawer
