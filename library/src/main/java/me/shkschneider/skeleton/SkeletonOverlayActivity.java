@@ -1,13 +1,10 @@
 package me.shkschneider.skeleton;
 
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
+import android.support.annotation.ColorRes;
 import android.support.design.widget.CollapsingToolbarLayout;
 
 import me.shkschneider.skeleton.helper.LogHelper;
 
-// <http://cyrilmottier.com/2013/05/24/pushing-the-actionbar-to-the-next-level>
 // <https://github.com/chrisbanes/cheesesquare>
 public class SkeletonOverlayActivity extends SkeletonActivity {
 
@@ -20,9 +17,8 @@ public class SkeletonOverlayActivity extends SkeletonActivity {
         mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
         if (mCollapsingToolbarLayout != null) {
             LogHelper.verbose("Found a CollapsingToolbarLayout");
+            overlay(getResources().getColor(R.color.actionBarColor));
         }
-
-        overlay(new ColorDrawable(getResources().getColor(R.color.actionBarColor)));
     }
 
     @Override
@@ -35,9 +31,11 @@ public class SkeletonOverlayActivity extends SkeletonActivity {
         }
     }
 
-    public void overlay(@NonNull final Drawable drawable) {
+    public void overlay(@ColorRes final int color) {
         if (mCollapsingToolbarLayout != null) {
-            mCollapsingToolbarLayout.setContentScrim(drawable);
+            statusBarColor(getWindow(), color);
+            // FIXME mCollapsingToolbarLayout.setStatusBarScrimColor(color);
+            mCollapsingToolbarLayout.setContentScrimColor(color);
         }
     }
 

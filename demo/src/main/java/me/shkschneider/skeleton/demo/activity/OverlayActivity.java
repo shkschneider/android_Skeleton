@@ -3,7 +3,6 @@ package me.shkschneider.skeleton.demo.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.ImageView;
 
@@ -30,8 +29,7 @@ public class OverlayActivity extends SkeletonOverlayActivity {
         final ImageView imageView = (ImageView) findViewById(R.id.imageView);
         imageView.setImageBitmap(bitmap);
 
-        statusBarColor(getWindow(), PaletteHelper.mutedColor(bitmap));
-        overlay(new ColorDrawable(PaletteHelper.mutedColor(bitmap)));
+        overlay(PaletteHelper.mutedColor(bitmap));
 
         ActivityTransitionHelper.tag(imageView, "NewYork");
     }
