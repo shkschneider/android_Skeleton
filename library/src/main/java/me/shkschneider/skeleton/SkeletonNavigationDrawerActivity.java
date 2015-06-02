@@ -172,4 +172,14 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (mOpenedOrOpening) {
+            closeNavigationDrawer();
+        }
+        else {
+            super.onBackPressed();
+        }
+    }
+
 }
