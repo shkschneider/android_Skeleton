@@ -22,13 +22,13 @@ public class ActivityHelper {
     }
 
     @Deprecated
-    public static void snackBar(@NonNull final Activity activity, @NonNull final String msg) {
-        Snackbar.make(contentView(activity), msg, Snackbar.LENGTH_SHORT).show();
+    public static void snackBar(@NonNull final View view, @NonNull final String msg) {
+        Snackbar.make(view, msg, Snackbar.LENGTH_SHORT).show();
     }
 
     @Deprecated
-    public static void snackBar(@NonNull final Activity activity, @NonNull final String msg, @NonNull final String action, @NonNull final View.OnClickListener onClickListener) {
-        Snackbar.make(contentView(activity), msg, Snackbar.LENGTH_SHORT)
+    public static void snackBar(@NonNull final View view, @NonNull final String msg, @NonNull final String action, @NonNull final View.OnClickListener onClickListener) {
+        Snackbar.make(view, msg, Snackbar.LENGTH_SHORT)
                 .setAction(action, onClickListener)
                 .show();
     }

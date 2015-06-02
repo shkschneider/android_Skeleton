@@ -38,12 +38,14 @@ public class FloatingActionButtonFragment extends SkeletonFragment {
         super.onViewCreated(view, savedInstanceState);
 
         final FloatingActionButton floatingActionButton = (FloatingActionButton) view.findViewById(R.id.floatingActionButton);
-        floatingActionButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher));
+        floatingActionButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_plus));
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(final View view) {
-                ActivityHelper.toast("Button");
+                ActivityHelper.snackBar(view, "Button");
             }
+
         });
         floatingActionButton.startAnimation(AnimationUtils.loadAnimation(ApplicationHelper.context(), R.anim.sk_scale_up));
     }
