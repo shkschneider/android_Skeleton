@@ -56,9 +56,28 @@ public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
         if (tabLayout != null) {
             tabLayout.setBackgroundColor(getResources().getColor(R.color.actionBarColor));
             tabLayout.setTabTextColors(getResources().getColor(R.color.primaryColorDark), getResources().getColor(R.color.actionBarForegroundColor));
+            tabLayout.setTabMode(TabLayout.MODE_FIXED);
             tabLayout.addTab(tabLayout.newTab().setText("Tab 1"));
             tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
             tabLayout.addTab(tabLayout.newTab().setText("Tab 3"));
+            tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+                @Override
+                public void onTabSelected(final TabLayout.Tab tab) {
+                    viewPager.setCurrentItem(tab.getPosition(), true);
+                }
+
+                @Override
+                public void onTabUnselected(final TabLayout.Tab tab) {
+                    // Ignore
+                }
+
+                @Override
+                public void onTabReselected(final TabLayout.Tab tab) {
+                    // Ignore
+                }
+
+            });
             viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         }
     }

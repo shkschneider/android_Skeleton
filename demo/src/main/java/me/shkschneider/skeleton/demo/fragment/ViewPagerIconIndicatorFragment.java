@@ -58,6 +58,24 @@ public class ViewPagerIconIndicatorFragment extends SkeletonFragment {
             tabLayout.addTab(tabLayout.newTab().setIcon(getResources().getDrawable(R.drawable.ic_tab)));
             tabLayout.addTab(tabLayout.newTab().setIcon(getResources().getDrawable(R.drawable.ic_tab)));
             tabLayout.addTab(tabLayout.newTab().setIcon(getResources().getDrawable(R.drawable.ic_tab)));
+            tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+                @Override
+                public void onTabSelected(final TabLayout.Tab tab) {
+                    viewPager.setCurrentItem(tab.getPosition(), true);
+                }
+
+                @Override
+                public void onTabUnselected(final TabLayout.Tab tab) {
+                    // Ignore
+                }
+
+                @Override
+                public void onTabReselected(final TabLayout.Tab tab) {
+                    // Ignore
+                }
+
+            });
             viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         }
     }
