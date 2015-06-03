@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import com.google.gson.JsonObject;
 
 import java.io.BufferedInputStream;
+import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -13,10 +14,12 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import me.shkschneider.skeleton.data.CharsetHelper;
 import me.shkschneider.skeleton.data.GsonParser;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
 import me.shkschneider.skeleton.java.MapHelper;
+import me.shkschneider.skeleton.java.StringHelper;
 
 // http://developer.android.com/reference/java/net/HttpURLConnection.html
 public class WebService extends AsyncTask<WebService.Callback, Void, Object> {
@@ -85,9 +88,15 @@ public class WebService extends AsyncTask<WebService.Callback, Void, Object> {
             httpURLConnection.addRequestProperty("Cache-Control", (CACHE < 0 ? "no-cache" : "max-stale=" + CACHE));
             // Parameters
             if (mBody != null) {
-                for (final String key : MapHelper.keys(mBody)) {
-                    httpURLConnection.addRequestProperty(key, mBody.get(key));
+                final DataOutputStream dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
+                String params = "";
+                for (final String key : mBody.keySet()) {
+                    if (! StringHelper.nullOrEmpty(params)) {
+                        params += "&";
+                    }
+                    params += key + "=" + UrlHelper.encode(mBody.get(key));
                 }
+                dataOutputStream.write(params.getBytes(CharsetHelper.UTF8));
             }
             // Buffered for performance
             final InputStream inputStream = new BufferedInputStream(httpURLConnection.getInputStream());
