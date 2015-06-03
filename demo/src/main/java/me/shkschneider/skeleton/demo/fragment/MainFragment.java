@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.demo.R;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
+import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.network.WebService;
 import me.shkschneider.skeleton.data.GsonParser;
 import me.shkschneider.skeleton.helper.ActivityHelper;
@@ -60,6 +61,7 @@ public class MainFragment extends SkeletonFragment {
 
         final String url = String.format("http://gravatar.com/%s.json", AUTHOR.toLowerCase());
         new WebService(WebService.Method.GET, url, null, new WebService.Callback() {
+
             @Override
             public void webServiceCallback(final WebServiceException e, final JsonObject jsonObject) {
                 skeletonActivity().loading(-1);
@@ -68,6 +70,10 @@ public class MainFragment extends SkeletonFragment {
                     return ;
                 }
                 final JsonArray entries = GsonParser.array(jsonObject, "entry");
+                if (entries == null) {
+                    LogHelper.warning("No entries");
+                    return ;
+                }
                 final JsonObject entry = entries.get(0).getAsJsonObject();
                 final String thumbnailUrl = GsonParser.string(entry, "thumbnailUrl");
                 Picasso.with(ApplicationHelper.context()).load(thumbnailUrl + "?size=360").into(imageView);
@@ -76,6 +82,7 @@ public class MainFragment extends SkeletonFragment {
                 final String currentLocation = GsonParser.string(entry, "currentLocation");
                 textView2.setText(currentLocation);
             }
+
         }).run();
     }
 
