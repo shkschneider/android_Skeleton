@@ -145,6 +145,12 @@ public class SkeletonActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void setSupportActionBar(final Toolbar toolbar) {
+        super.setSupportActionBar(toolbar);
+        mToolbar = toolbar;
+    }
+
     protected void bindMySwipeRefreshLayout() {
         mMySwipeRefreshLayout = (MySwipeRefreshLayout) findViewById(R.id.mySwipeRefreshLayout);
         if (mMySwipeRefreshLayout != null) {
