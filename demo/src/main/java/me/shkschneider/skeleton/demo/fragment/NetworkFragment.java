@@ -104,7 +104,7 @@ public class NetworkFragment extends SkeletonFragment implements SwipeRefreshLay
                 mAdapter.add("ip " + ip);
                 mAdapter.notifyDataSetChanged();
             }
-        });
+        }).execute();
         skeletonActivity().loading(+1);
         new WebService(WebService.Method.GET, "http://headers.jsontest.com", null, new WebService.Callback() {
             @Override
@@ -123,7 +123,7 @@ public class NetworkFragment extends SkeletonFragment implements SwipeRefreshLay
                 }
                 mAdapter.notifyDataSetChanged();
             }
-        });
+        }).execute();
         skeletonActivity().loading(+1);
         new WebService(WebService.Method.GET, "http://date.jsontest.com", null, new WebService.Callback() {
             @Override
@@ -142,7 +142,7 @@ public class NetworkFragment extends SkeletonFragment implements SwipeRefreshLay
                 }
                 mAdapter.notifyDataSetChanged();
             }
-        });
+        }).execute();
     }
 
 }
