@@ -40,8 +40,7 @@ public class ViewPagerIconIndicatorFragment extends SkeletonFragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        final int layout = (ActivityHelper.portrait() ? R.layout.fragment_viewpagericonindicator : R.layout.fragment_viewpagerlineindicator);
-        return inflater.inflate(layout, container, false);
+        return inflater.inflate(R.layout.fragment_viewpagericonindicator, container, false);
     }
 
     @Override

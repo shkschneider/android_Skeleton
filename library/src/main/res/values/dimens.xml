@@ -8,7 +8,6 @@
     <dimen name="navigationBar">48dp</dimen>
     <dimen name="navigationDrawer">240dp</dimen>
 
-    <dimen name="viewPagerIndicatorHeight">8dp</dimen>
     <dimen name="snackBar">48dp</dimen>
     <dimen name="snackBar2">80dp</dimen>
     <dimen name="floatingActionButtonNormal">56dp</dimen>

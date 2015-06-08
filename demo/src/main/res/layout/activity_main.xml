@@ -1,36 +1,36 @@
-<RelativeLayout
+<android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigationDrawer_drawerLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/navigationDrawer_drawerLayout"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="?attr/actionBarSize">
+        android:orientation="vertical">
+
+        <include layout="@layout/sk_toolbar" />
 
         <FrameLayout
             android:id="@+id/navigationDrawer_frameLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <android.support.design.widget.NavigationView
-            android:id="@+id/navigationDrawer_navigationView"
-            android:layout_width="@dimen/navigationDrawer"
-            android:layout_height="match_parent"
-            android:layout_gravity="left"
-            android:choiceMode="singleChoice"
-            android:divider="@color/sk_android_transparent"
-            android:dividerHeight="@dimen/spaceNull"
-            android:background="@color/navigationDrawerBackgroundColor"
-            app:itemTextColor="@color/navigationDrawerForegroundColor"
-            app:headerLayout="@layout/navigationdrawer_header"
-            app:menu="@menu/navigationdrawer" />
+    </LinearLayout>
 
-    </android.support.v4.widget.DrawerLayout>
+    <android.support.design.widget.NavigationView
+        android:id="@+id/navigationDrawer_navigationView"
+        android:layout_width="@dimen/navigationDrawer"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:choiceMode="singleChoice"
+        android:divider="@color/sk_android_transparent"
+        android:dividerHeight="@dimen/spaceNull"
+        android:background="@color/navigationDrawerBackgroundColor"
+        app:itemTextColor="@color/navigationDrawerForegroundColor"
+        app:headerLayout="@layout/navigationdrawer_header"
+        app:menu="@menu/navigationdrawer" />
 
-    <include layout="@layout/sk_toolbar" />
-
-</RelativeLayout>
+</android.support.v4.widget.DrawerLayout>

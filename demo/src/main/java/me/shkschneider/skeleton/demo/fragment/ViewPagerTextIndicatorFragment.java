@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.demo.fragment;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -41,8 +40,7 @@ public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        final int layout = (ActivityHelper.portrait() ? R.layout.fragment_viewpagertextindicator : R.layout.fragment_viewpagerlineindicator);
-        return inflater.inflate(layout, container, false);
+        return inflater.inflate(R.layout.fragment_viewpagertextindicator, container, false);
     }
 
     @Override

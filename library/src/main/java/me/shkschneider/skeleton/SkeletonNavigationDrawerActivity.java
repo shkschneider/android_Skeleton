@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.KeyboardHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
@@ -27,6 +28,13 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sk_navigationdraweractivity);
         home(true);
+
+        if (savedInstanceState == null) {
+            final MenuItem menuItem = mNavigationView.getMenu().getItem(0);
+            if (menuItem != null) {
+                navigationDrawer(menuItem.getItemId());
+            }
+        }
     }
 
     @Override
@@ -59,6 +67,9 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
             LogHelper.warning("NavigationView was NULL");
             return ;
         }
+        if (AndroidHelper.api() >= AndroidHelper.API_21) {
+            mNavigationView.setPadding(0, (int) getResources().getDimension(R.dimen.statusBar), 0, 0);
+        }
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             @Override
@@ -69,11 +80,6 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
             }
 
         });
-
-        final MenuItem menuItem = mNavigationView.getMenu().getItem(0);
-        if (menuItem != null) {
-            navigationDrawer(menuItem.getItemId());
-        }
     }
 
     @Override

@@ -6,6 +6,8 @@ import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.concurrent.TimeUnit;
+
 import me.shkschneider.skeleton.demo.R;
 import me.shkschneider.skeleton.demo.fragment.FloatingActionButtonFragment;
 import me.shkschneider.skeleton.demo.fragment.InputsFragment;
@@ -22,6 +24,7 @@ import me.shkschneider.skeleton.demo.fragment.ViewPagerIconIndicatorFragment;
 import me.shkschneider.skeleton.demo.fragment.ViewPagerTextIndicatorFragment;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.RunnableHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
 
 public class  MainActivity extends SkeletonNavigationDrawerActivity {
@@ -60,6 +63,23 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
         LogHelper.info("MemoryCacheBitmap:" + ClassHelper.canonicalName(mMemoryCacheBitmap.get("Bitmap").getClass()));
         LogHelper.info("DiskCacheInternal:" + mDiskCacheInternal.get("DiskCache").toString());
         LogHelper.info("DiskCacheExternal:" + mDiskCacheExternal.get("DiskCache").toString());
+
+        // FIXME overlap
+//        RunnableHelper.delay(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                runOnUiThread(new Runnable() {
+//
+//                    @Override
+//                    public void run() {
+//                        navigationDrawer(R.id.menu_viewPagerTextIndicator);
+//                    }
+//
+//                });
+//            }
+//
+//        }, 800, TimeUnit.MILLISECONDS);
     }
 
     @Override
