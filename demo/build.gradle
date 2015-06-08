@@ -40,6 +40,7 @@ android {
             debuggable true
             jniDebuggable false
             zipAlignEnabled true
+            multiDexEnabled true
             signingConfig signingConfigs.debug
             minifyEnabled false
         }
@@ -47,6 +48,7 @@ android {
             debuggable false
             jniDebuggable false
             zipAlignEnabled true
+            multiDexEnabled true
             signingConfig signingConfigs.release
             minifyEnabled false
             // proguardFiles getDefaultProguardFile('proguard-android.txt')
@@ -56,6 +58,8 @@ android {
 }
 
 dependencies {
+    compile 'com.android.support:multidex:1.0.0'
+
     compile 'com.google.android.gms:play-services:7.5.0'
     compile 'com.google.code.gson:gson:2.3.1'
 
