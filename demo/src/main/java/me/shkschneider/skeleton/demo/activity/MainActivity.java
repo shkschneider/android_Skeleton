@@ -2,6 +2,7 @@ package me.shkschneider.skeleton.demo.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -24,16 +25,6 @@ import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
 
 public class  MainActivity extends SkeletonNavigationDrawerActivity {
-
-    public static final int NAVIGATION_MAIN = 0;
-    public static final int NAVIGATION_VIEWPAGERTEXTINDICATOR = 1;
-    public static final int NAVIGATION_VIEWPAGERICONINDICATOR = 2;
-    public static final int NAVIGATION_NETWORK = 3;
-    public static final int NAVIGATION_LISTVIEW = 4;
-    public static final int NAVIGATION_FLOATINGACTIONBUTTON = 5;
-    public static final int NAVIGATION_SNACKBAR = 6;
-    public static final int NAVIGATION_TRANSITION = 8;
-    public static final int NAVIGATION_INPUTS = 9;
 
     // Anything as key, anything as value (LRU algorithm)
     private MemoryCache<String, Activity> mMemoryCache;
@@ -74,7 +65,7 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        if (navigationDrawer() != NAVIGATION_LISTVIEW) {
+        if (navigationDrawer() != R.id.menu_listView) {
             searchable(null, null);
         }
         return super.onCreateOptionsMenu(menu);
@@ -90,60 +81,37 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
                 startActivity(SettingsActivity.getIntent(MainActivity.this));
                 return true;
             case R.id.menu_main:
-                navigationDrawer(NAVIGATION_MAIN);
-                return true;
             case R.id.menu_viewPagerTextIndicator:
-                navigationDrawer(NAVIGATION_VIEWPAGERTEXTINDICATOR);
-                return true;
             case R.id.menu_viewPagerIconIndicator:
-                navigationDrawer(NAVIGATION_VIEWPAGERICONINDICATOR);
-                return true;
             case R.id.menu_network:
-                navigationDrawer(NAVIGATION_NETWORK);
-                return true;
             case R.id.menu_listView:
-                navigationDrawer(NAVIGATION_LISTVIEW);
-                return true;
             case R.id.menu_floatingActionButton:
-                navigationDrawer(NAVIGATION_FLOATINGACTIONBUTTON);
-                return true;
             case R.id.menu_snackBar:
-                navigationDrawer(NAVIGATION_SNACKBAR);
-                return true;
             case R.id.menu_transition:
-                navigationDrawer(NAVIGATION_TRANSITION);
-                return true;
             case R.id.menu_inputs:
-                navigationDrawer(NAVIGATION_INPUTS);
+                navigationDrawer(item.getItemId());
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
+    private SparseArray<SkeletonFragment> mFragments = new SparseArray<SkeletonFragment>() {
+        {
+            put(R.id.menu_main, new MainFragment());
+            put(R.id.menu_viewPagerTextIndicator, new ViewPagerTextIndicatorFragment());
+            put(R.id.menu_viewPagerIconIndicator, new ViewPagerIconIndicatorFragment());
+            put(R.id.menu_network, new NetworkFragment());
+            put(R.id.menu_listView, new ListViewFragment());
+            put(R.id.menu_floatingActionButton, new FloatingActionButtonFragment());
+            put(R.id.menu_snackBar, new SnackBarFragment());
+            put(R.id.menu_transition, new TransitionFragment());
+            put(R.id.menu_inputs, new InputsFragment());
+        }
+    };
+
     @Override
     protected SkeletonFragment getFragment(final int itemId) {
-        switch (itemId) {
-            case R.id.menu_main:
-                return new MainFragment();
-            case R.id.menu_viewPagerTextIndicator:
-                return new ViewPagerTextIndicatorFragment();
-            case R.id.menu_viewPagerIconIndicator:
-                return new ViewPagerIconIndicatorFragment();
-            case R.id.menu_network:
-                return new NetworkFragment();
-            case R.id.menu_listView:
-                return new ListViewFragment();
-            case R.id.menu_floatingActionButton:
-                return new FloatingActionButtonFragment();
-            case R.id.menu_snackBar:
-                return new SnackBarFragment();
-            case R.id.menu_transition:
-                return new TransitionFragment();
-            case R.id.menu_inputs:
-                return new InputsFragment();
-            default:
-                return null;
-        }
+        return mFragments.get(itemId, null);
     }
 
     @Override

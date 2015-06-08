@@ -3,6 +3,7 @@ package me.shkschneider.skeleton;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
@@ -38,7 +39,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
             return ;
         }
 
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, android.R.string.ok, android.R.string.cancel) {
+        mDrawerToggle = new ActionBarDrawerToggle(SkeletonNavigationDrawerActivity.this, mDrawerLayout, android.R.string.ok, android.R.string.cancel) {
 
             @Override
             public void onDrawerOpened(final View view) {
@@ -97,7 +98,8 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
             LogHelper.warning("SkeletonFragment was NULL");
             return ;
         }
-        getSupportFragmentManager().popBackStackImmediate();
+        // FIXME overlap
+        getSupportFragmentManager().popBackStackImmediate(0, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.navigationDrawer_frameLayout, skeletonFragment)
                 .addToBackStack(null)
