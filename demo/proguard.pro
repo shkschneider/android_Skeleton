@@ -1,15 +1,22 @@
+# <https://code.google.com/p/android/issues/detail?id=78377#c188>
+# <https://stackoverflow.com/questions/30526173>
+-keepattributes **
+-keep class !android.support.v7.internal.view.menu.**, ** {
+    !private <fields>;
+    protected <field>;
+    public <fields>;
+    <methods>;
+}
+#-dontpreverify
+#-dontobfuscate
+#-dontoptimize
+#-dontshrink
+-dontwarn **
+-dontnote **
+
 # <https://github.com/Pixplicity/Proguard-rules/blob/master/proguard-rules.pro>
--optimizationpasses 5
--dontusemixedcaseclassnames
--dontskipnonpubliclibraryclasses
--dontskipnonpubliclibraryclassmembers
--dontpreverify
--verbose
--optimizations !code/simplification/arithmetic,!field/*,!class/merging/*,!method/propagation/parameter
--keepattributes SourceFile,LineNumberTable,InnerClasses
 
 # android
--dontwarn android.**
 -keep class android.**
 -keep public class * extends android.app.Activity
 -keep public class * extends android.app.Application
@@ -70,26 +77,24 @@
 -keepnames class * implements android.os.Parcelable {
     public static final ** CREATOR;
 }
--dontwarn com.google.android.gms.**
 
 # gson
--keepattributes Signature
--keepattributes *Annotation*
 -keep class sun.misc.Unsafe { *; }
--keep class com.google.gson. ** { *; }
+-keep class com.google.gson.** { *; }
 -keep interface com.google.gson.** { *; }
 
 # support v4
--dontwarn android.support.v7.**
 -keep class android.support.v7.** { *; }
 -keep interface android.support.v7.** { *; }
 
 # support v7 appcompat
--dontwarn android.support.v7.**
 -keep class android.support.v7.** { *; }
 -keep interface android.support.v7.** { *; }
 
 # palette v4
--dontwarn android.palette.v7.**
 -keep class android.palette.v7.** { *; }
 -keep interface android.palette.v7.** { *; }
+
+# design
+-keep class android.design.** { *; }
+-keep interface android.design.** { *; }
