@@ -21,7 +21,7 @@ import me.shkschneider.skeleton.java.ClassHelper;
 import me.shkschneider.skeleton.java.MapHelper;
 import me.shkschneider.skeleton.java.StringHelper;
 
-// http://developer.android.com/reference/java/net/HttpURLConnection.html
+// <http://developer.android.com/reference/java/net/HttpURLConnection.html>
 public class WebService extends AsyncTask<WebService.Callback, Void, Object> {
 
     private static final int TIMEOUT_CONNECT = (int) TimeUnit.SECONDS.toMillis(3);
@@ -99,7 +99,7 @@ public class WebService extends AsyncTask<WebService.Callback, Void, Object> {
                 dataOutputStream.write(params.getBytes(CharsetHelper.UTF8));
             }
             // Buffered for performance
-            final InputStream inputStream = new BufferedInputStream(httpURLConnection.getInputStream());
+            InputStream inputStream = new BufferedInputStream(httpURLConnection.getInputStream());
             // Response
             final int responseCode = httpURLConnection.getResponseCode();
             final String responseMessage = httpURLConnection.getResponseMessage();
@@ -110,6 +110,7 @@ public class WebService extends AsyncTask<WebService.Callback, Void, Object> {
                 case HttpURLConnection.HTTP_ACCEPTED:
                     return GsonParser.parse(inputStream);
                 default:
+                    // inputStream = new BufferedInputStream(httpURLConnection.getErrorStream());
                     return new WebServiceException(responseCode, responseMessage);
             }
         }
