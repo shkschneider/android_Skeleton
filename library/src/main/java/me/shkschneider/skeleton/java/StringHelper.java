@@ -16,6 +16,7 @@ public class StringHelper {
 
     public static final String ALPHA = "abcdefghijklmnopqrstuvwxyz";
     public static final String NUMERIC = "0123456789";
+    public static final String NUMERIC_DECIMAL = "0123456789,.";
     public static final String HEX = NUMERIC + ALPHA.substring(0, 6);
     public static final String ALPHA_NUMERIC = ALPHA + NUMERIC;
 
@@ -59,6 +60,10 @@ public class StringHelper {
         return chars(lower(string), NUMERIC);
     }
 
+    public static boolean numericDecimal(@NonNull final String string) {
+        return chars(lower(string), NUMERIC_DECIMAL);
+    }
+
     public static boolean alphanumeric(@NonNull final String string) {
         return chars(lower(string), ALPHA_NUMERIC);
     }
@@ -73,6 +78,10 @@ public class StringHelper {
 
     public static boolean phone(@NonNull final String string) {
         return PhoneNumberUtils.isGlobalPhoneNumber(string);
+    }
+
+    public static int count(@NonNull final String string, @NonNull final String s) {
+        return string.length() - string.replace(s, "").length();
     }
 
     private static boolean chars(@NonNull final String string, @NonNull final String chars) {
