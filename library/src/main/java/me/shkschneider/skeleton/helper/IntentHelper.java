@@ -25,7 +25,8 @@ import me.shkschneider.skeleton.data.MimeTypeHelper;
 
 public class IntentHelper {
 
-    public static final int CLEAR_FLAGS = (Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+    public static final int FLAGS_HOME = (Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+    public static final int FLAGS_CLEAR = (Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
     public static final String BROADCAST_TIME_TICK = Intent.ACTION_TIME_TICK;
     public static final String BROADCAST_TIME_CHANGED = Intent.ACTION_TIME_CHANGED;
@@ -58,7 +59,7 @@ public class IntentHelper {
             return null;
         }
 
-        return intent.setFlags(CLEAR_FLAGS);
+        return intent.setFlags(FLAGS_HOME);
     }
 
     public static Intent view(@NonNull final Uri uri) {
