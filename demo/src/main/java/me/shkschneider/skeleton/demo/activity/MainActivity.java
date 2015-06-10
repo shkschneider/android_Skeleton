@@ -40,8 +40,8 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        home(true);
+        setNavigationHeader(R.layout.navigationdrawer_header);
+        setNavigationMenu(R.menu.navigationdrawer);
 
         mMemoryCache = new MemoryCache<>();
         mMemoryCache.put("MainActivity", MainActivity.this);
@@ -51,8 +51,6 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
         mDiskCacheInternal.put("DiskCache", "Internal");
         mDiskCacheExternal = new DiskCache.External();
         mDiskCacheExternal.put("DiskCache", "External");
-
-        // navigationDrawer(R.id.menu_main);
     }
 
     @Override
@@ -65,21 +63,21 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
         LogHelper.info("DiskCacheExternal:" + mDiskCacheExternal.get("DiskCache").toString());
 
         // FIXME overlap
-//        RunnableHelper.delay(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                runOnUiThread(new Runnable() {
-//
-//                    @Override
-//                    public void run() {
-//                        navigationDrawer(R.id.menu_viewPagerTextIndicator);
-//                    }
-//
-//                });
-//            }
-//
-//        }, 800, TimeUnit.MILLISECONDS);
+        RunnableHelper.delay(new Runnable() {
+
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        navigationDrawer(R.id.menu_viewPagerTextIndicator);
+                    }
+
+                });
+            }
+
+        }, 800, TimeUnit.MILLISECONDS);
     }
 
     @Override

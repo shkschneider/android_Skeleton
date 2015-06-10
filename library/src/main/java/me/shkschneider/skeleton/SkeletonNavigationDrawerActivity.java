@@ -2,8 +2,9 @@ package me.shkschneider.skeleton;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.MenuRes;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.Menu;
@@ -28,18 +29,6 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sk_navigationdraweractivity);
         home(true);
-
-        if (savedInstanceState == null) {
-            final MenuItem menuItem = mNavigationView.getMenu().getItem(0);
-            if (menuItem != null) {
-                navigationDrawer(menuItem.getItemId());
-            }
-        }
-    }
-
-    @Override
-    protected void onViewCreated() {
-        super.onViewCreated();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.navigationDrawer_drawerLayout);
         if (mDrawerLayout == null) {
@@ -74,12 +63,27 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
 
             @Override
             public boolean onNavigationItemSelected(final MenuItem menuItem) {
-                menuItem.setChecked(true);
                 navigationDrawer(menuItem.getItemId());
                 return true;
             }
 
         });
+
+        if (savedInstanceState == null) {
+            final MenuItem menuItem = mNavigationView.getMenu().getItem(0);
+            if (menuItem != null) {
+                navigationDrawer(menuItem.getItemId());
+            }
+        }
+    }
+
+    public void setNavigationHeader(@LayoutRes final int id) {
+        mNavigationView.inflateHeaderView(id);
+    }
+
+    public void setNavigationMenu(@MenuRes final int id) {
+        mNavigationView.getMenu().clear();
+        mNavigationView.inflateMenu(id);
     }
 
     @Override
@@ -104,8 +108,9 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
             LogHelper.warning("SkeletonFragment was NULL");
             return ;
         }
+
         // FIXME overlap
-        getSupportFragmentManager().popBackStackImmediate(0, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        getSupportFragmentManager().executePendingTransactions();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.navigationDrawer_frameLayout, skeletonFragment)
                 .addToBackStack(null)
