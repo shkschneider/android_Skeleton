@@ -73,5 +73,5 @@ dependencies {
     compile 'com.caverock:androidsvg:1.2.1'
 
     compile project(':library')
-    // compile(name: 'skeleton', ext: 'aar')
+    // compile 'com.github.shkschneider:android_Skeleton:{VERSION}@aar'
 }
