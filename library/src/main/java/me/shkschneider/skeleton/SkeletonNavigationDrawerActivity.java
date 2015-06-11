@@ -13,7 +13,7 @@ import android.view.View;
 
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.KeyboardHelper;
-import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.Log;
 
 public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity {
 
@@ -32,7 +32,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.navigationDrawer_drawerLayout);
         if (mDrawerLayout == null) {
-            LogHelper.warning("DrawerLayout was NULL");
+            Log.w("DrawerLayout was NULL");
             return ;
         }
 
@@ -53,7 +53,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
 
         mNavigationView = (NavigationView) findViewById(R.id.navigationDrawer_navigationView);
         if (mNavigationView == null) {
-            LogHelper.warning("NavigationView was NULL");
+            Log.w("NavigationView was NULL");
             return ;
         }
         if (AndroidHelper.api() >= AndroidHelper.API_21) {
@@ -105,7 +105,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
         // Switch Fragment
         final SkeletonFragment skeletonFragment = getFragment(itemId);
         if (skeletonFragment == null) {
-            LogHelper.warning("SkeletonFragment was NULL");
+            Log.w("SkeletonFragment was NULL");
             return ;
         }
 

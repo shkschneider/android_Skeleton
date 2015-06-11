@@ -8,7 +8,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.Log;
 
 public class SerializeHelper {
 
@@ -20,7 +20,7 @@ public class SerializeHelper {
             return true;
         }
         catch (final Exception e) {
-            LogHelper.wtf(e);
+            Log.wtf(null, e);
             return false;
         }
     }
@@ -33,7 +33,7 @@ public class SerializeHelper {
             return object;
         }
         catch (final Exception e) {
-            LogHelper.wtf(e);
+            Log.wtf(null, e);
             return null;
         }
     }

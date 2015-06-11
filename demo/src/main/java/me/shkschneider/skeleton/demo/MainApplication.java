@@ -4,7 +4,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import me.shkschneider.skeleton.SkeletonApplication;
-import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.Log;
 
 public class MainApplication extends SkeletonApplication {
 
@@ -15,7 +15,7 @@ public class MainApplication extends SkeletonApplication {
         SkeletonApplication.DEBUG = BuildConfig.DEBUG;
         SkeletonApplication.CONTEXT = getApplicationContext();
 
-        LogHelper.verbose("Hello, world!");
+        Log.v("Hello, world!");
     }
 
     @Override

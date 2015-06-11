@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import java.io.File;
 import java.io.Serializable;
 
-import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.Log;
 
 // <http://developer.android.com/reference/java/io/Serializable.html>
 public class DiskCache {
@@ -44,7 +44,7 @@ public class DiskCache {
 
         synchronized public boolean put(@NonNull final String key, final Serializable value) {
             if (DIR == null) {
-                LogHelper.warning("Dir was NULL");
+                Log.w("Dir was NULL");
                 return false;
             }
 
@@ -61,7 +61,7 @@ public class DiskCache {
 
         synchronized public Serializable get(@NonNull final String key) {
             if (DIR == null) {
-                LogHelper.warning("Dir was NULL");
+                Log.w("Dir was NULL");
                 return null;
             }
 
@@ -77,7 +77,7 @@ public class DiskCache {
 
         synchronized public void clear() {
             if (DIR == null) {
-                LogHelper.warning("Dir was NULL");
+                Log.w("Dir was NULL");
                 return ;
             }
 
@@ -93,7 +93,7 @@ public class DiskCache {
 
         public int size() {
             if (DIR == null) {
-                LogHelper.warning("Dir was NULL");
+                Log.w("Dir was NULL");
                 return 0;
             }
 

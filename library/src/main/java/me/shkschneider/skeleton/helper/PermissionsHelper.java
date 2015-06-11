@@ -201,7 +201,7 @@ public class PermissionsHelper {
     public static boolean permission(@NonNull final String permission) {
         final PackageManager packageManager = ApplicationHelper.context().getPackageManager();
         if (packageManager == null) {
-            LogHelper.warning("PackageManager was NULL");
+            Log.w("PackageManager was NULL");
             return false;
         }
 

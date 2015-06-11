@@ -23,7 +23,7 @@ import me.shkschneider.skeleton.demo.fragment.TransitionFragment;
 import me.shkschneider.skeleton.demo.fragment.ViewPagerIconIndicatorFragment;
 import me.shkschneider.skeleton.demo.fragment.ViewPagerTextIndicatorFragment;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
-import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.Log;
 import me.shkschneider.skeleton.helper.RunnableHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
 
@@ -57,10 +57,10 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
     protected void onResume() {
         super.onResume();
 
-        LogHelper.info("MemoryCache:" + ClassHelper.canonicalName(mMemoryCache.get("MainActivity").getClass()));
-        LogHelper.info("MemoryCacheBitmap:" + ClassHelper.canonicalName(mMemoryCacheBitmap.get("Bitmap").getClass()));
-        LogHelper.info("DiskCacheInternal:" + mDiskCacheInternal.get("DiskCache").toString());
-        LogHelper.info("DiskCacheExternal:" + mDiskCacheExternal.get("DiskCache").toString());
+        Log.i("MemoryCache:" + ClassHelper.canonicalName(mMemoryCache.get("MainActivity").getClass()));
+        Log.i("MemoryCacheBitmap:" + ClassHelper.canonicalName(mMemoryCacheBitmap.get("Bitmap").getClass()));
+        Log.i("DiskCacheInternal:" + mDiskCacheInternal.get("DiskCache").toString());
+        Log.i("DiskCacheExternal:" + mDiskCacheExternal.get("DiskCache").toString());
 
         // FIXME overlap
         RunnableHelper.delay(new Runnable() {

@@ -11,7 +11,7 @@ import me.shkschneider.skeleton.data.MimeTypeHelper;
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.data.FileHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
-import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.Log;
 import me.shkschneider.skeleton.java.ClassHelper;
 
 public class WebViewHelper {
@@ -64,7 +64,7 @@ public class WebViewHelper {
 
     public static boolean back(@NonNull final WebView webView) {
         if (! webView.canGoBack()) {
-            LogHelper.info("WebView cannot go back");
+            Log.i("WebView cannot go back");
             return false;
         }
 
@@ -74,7 +74,7 @@ public class WebViewHelper {
 
     public static boolean forward(@NonNull final WebView webView) {
         if (! webView.canGoForward()) {
-            LogHelper.info("WebView cannot go forward");
+            Log.i("WebView cannot go forward");
             return false;
         }
 
@@ -90,7 +90,7 @@ public class WebViewHelper {
 
         @JavascriptInterface
         public void test() {
-            LogHelper.debug(ClassHelper.simpleName(this.getClass()));
+            Log.d(ClassHelper.simpleName(this.getClass()));
         }
 
     }

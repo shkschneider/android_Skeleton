@@ -3,7 +3,7 @@ package me.shkschneider.skeleton;
 import android.app.Application;
 import android.content.Context;
 
-import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.Log;
 
 public class SkeletonApplication extends Application {
 
@@ -16,7 +16,7 @@ public class SkeletonApplication extends Application {
 
         CONTEXT = getApplicationContext();
 
-        LogHelper.verbose("Hello, world!");
+        Log.v("Hello, world!");
     }
 
 }

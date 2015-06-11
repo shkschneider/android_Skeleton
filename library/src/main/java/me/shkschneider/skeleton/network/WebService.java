@@ -16,9 +16,8 @@ import java.util.concurrent.TimeUnit;
 
 import me.shkschneider.skeleton.data.CharsetHelper;
 import me.shkschneider.skeleton.data.GsonParser;
-import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.Log;
 import me.shkschneider.skeleton.java.ClassHelper;
-import me.shkschneider.skeleton.java.MapHelper;
 import me.shkschneider.skeleton.java.StringHelper;
 
 // <http://developer.android.com/reference/java/net/HttpURLConnection.html>
@@ -103,7 +102,7 @@ public class WebService extends AsyncTask<WebService.Callback, Void, Object> {
             // Response
             final int responseCode = httpURLConnection.getResponseCode();
             final String responseMessage = httpURLConnection.getResponseMessage();
-            LogHelper.debug(String.format(Locale.US, "%d: %s", responseCode, responseMessage));
+            Log.d(String.format(Locale.US, "%d: %s", responseCode, responseMessage));
             switch (responseCode) {
                 case HttpURLConnection.HTTP_OK:
                 case HttpURLConnection.HTTP_CREATED:
@@ -115,7 +114,7 @@ public class WebService extends AsyncTask<WebService.Callback, Void, Object> {
             }
         }
         catch (final Exception e) {
-            LogHelper.wtf(e);
+            Log.wtf(null, e);
             return new WebServiceException(WebServiceException.INTERNAL_ERROR, ClassHelper.simpleName(e.getClass()));
         }
         finally {
@@ -129,7 +128,7 @@ public class WebService extends AsyncTask<WebService.Callback, Void, Object> {
     protected void onPostExecute(final Object o) {
         // Should not happen
         if (o == null) {
-            LogHelper.warning("Nothing");
+            Log.w("Nothing");
             final WebServiceException webServiceException = new WebServiceException(WebServiceException.INTERNAL_ERROR, "Nothing");
             mCallback.webServiceCallback(webServiceException, null);
         }
@@ -145,7 +144,7 @@ public class WebService extends AsyncTask<WebService.Callback, Void, Object> {
         }
         // Should never happen
         else {
-            LogHelper.error("Invalid");
+            Log.e("Invalid");
             final WebServiceException webServiceException = new WebServiceException(WebServiceException.INTERNAL_ERROR, "Invalid");
             mCallback.webServiceCallback(webServiceException, null);
         }

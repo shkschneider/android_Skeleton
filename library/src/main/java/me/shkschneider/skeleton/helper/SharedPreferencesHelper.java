@@ -16,7 +16,7 @@ public class SharedPreferencesHelper {
     }
 
     public static boolean putPublic(@NonNull final String key, final String value) {
-        LogHelper.debug(key + " = " + value);
+        Log.d(key + " = " + value);
         getPublic().edit().putString(key, value).apply();
         return true;
     }
@@ -29,7 +29,7 @@ public class SharedPreferencesHelper {
 
     private static SharedPreferences getPrivate(@NonNull final String name) {
         if (StringHelper.nullOrEmpty(name)) {
-            LogHelper.warning("Name was NULL");
+            Log.w("Name was NULL");
             return getPublic();
         }
 
@@ -37,7 +37,7 @@ public class SharedPreferencesHelper {
     }
 
     public static boolean putPrivate(@NonNull final String name, @NonNull final String key, final String value) {
-        LogHelper.debug(key + " = " + value);
+        Log.d(key + " = " + value);
         getPrivate(name).edit().putString(key, value).apply();
         return true;
     }

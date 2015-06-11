@@ -44,7 +44,7 @@ public class ActivityHelper {
     public static String title(@NonNull final Activity activity) {
         final ActivityInfo activityInfo = activityInfo(activity);
         if (activityInfo == null) {
-            LogHelper.warning("ActivityInfo was NULL");
+            Log.w("ActivityInfo was NULL");
             return null;
         }
 
@@ -60,7 +60,7 @@ public class ActivityHelper {
             return packageManager.getActivityInfo(componentName, 0);
         }
         catch (final Exception e) {
-            LogHelper.wtf(e);
+            Log.wtf(null, e);
             return null;
         }
     }

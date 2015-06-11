@@ -17,11 +17,11 @@ public class BundleHelper {
 
     public static Serializable unpack(final Bundle bundle, @NonNull final String key) {
         if (bundle == null) {
-            LogHelper.warning("Bundle was NULL");
+            Log.w("Bundle was NULL");
             return null;
         }
         if (! bundle.containsKey(key)) {
-            LogHelper.warning("Bundle has no such key");
+            Log.w("Bundle has no such key");
             return null;
         }
 

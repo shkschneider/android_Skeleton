@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
-import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.Log;
 
 public class StringHelper {
 
@@ -146,7 +146,7 @@ public class StringHelper {
 
     public static String random(@NonNull final String characters, final int length) {
         if (length <= 0) {
-            LogHelper.warning("Length was invalid");
+            Log.w("Length was invalid");
             return null;
         }
 

@@ -11,7 +11,7 @@ public class DeviceHelper {
     public static boolean tablet() {
         final Configuration configuration = ApplicationHelper.resources().getConfiguration();
         if (configuration == null) {
-            LogHelper.warning("Configuration was NULL");
+            Log.w("Configuration was NULL");
             return false;
         }
 
@@ -20,7 +20,7 @@ public class DeviceHelper {
             return (Boolean) method.invoke(configuration, Configuration.SCREENLAYOUT_SIZE_XLARGE);
         }
         catch (final Exception e) {
-            LogHelper.wtf(e);
+            Log.wtf(null, e);
             return false;
         }
     }

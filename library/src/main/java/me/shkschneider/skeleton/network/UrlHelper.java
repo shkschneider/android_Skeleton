@@ -9,7 +9,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 
 import me.shkschneider.skeleton.data.CharsetHelper;
-import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.Log;
 
 public class UrlHelper {
 
@@ -30,7 +30,7 @@ public class UrlHelper {
             return URLEncoder.encode(string, CharsetHelper.UTF8);
         }
         catch (final UnsupportedEncodingException e) {
-            LogHelper.wtf(e);
+            Log.wtf(null, e);
             return null;
         }
     }
@@ -40,7 +40,7 @@ public class UrlHelper {
             return URLDecoder.decode(string, CharsetHelper.UTF8);
         }
         catch (UnsupportedEncodingException e) {
-            LogHelper.wtf(e);
+            Log.wtf(null, e);
             return null;
         }
     }

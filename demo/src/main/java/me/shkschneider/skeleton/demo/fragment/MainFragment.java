@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.demo.R;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
-import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.Log;
 import me.shkschneider.skeleton.network.WebService;
 import me.shkschneider.skeleton.data.GsonParser;
 import me.shkschneider.skeleton.helper.ActivityHelper;
@@ -71,7 +71,7 @@ public class MainFragment extends SkeletonFragment {
                 }
                 final JsonArray entries = GsonParser.array(jsonObject, "entry");
                 if (entries == null) {
-                    LogHelper.warning("No entries");
+                    Log.w("No entries");
                     return ;
                 }
                 final JsonObject entry = entries.get(0).getAsJsonObject();

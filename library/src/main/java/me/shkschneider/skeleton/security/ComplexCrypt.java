@@ -10,7 +10,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.Log;
 import me.shkschneider.skeleton.java.StringHelper;
 
 public class ComplexCrypt {
@@ -40,7 +40,7 @@ public class ComplexCrypt {
             mCipher = Cipher.getInstance(ALGORITHM);
         }
         catch (final Exception e) {
-            LogHelper.wtf(e);
+            Log.wtf(null, e);
             throw e;
         }
     }
@@ -63,7 +63,7 @@ public class ComplexCrypt {
             return mCipher.doFinal(pad(bytes));
         }
         catch (final Exception e) {
-            LogHelper.wtf(e);
+            Log.wtf(null, e);
             return null;
         }
     }
@@ -88,7 +88,7 @@ public class ComplexCrypt {
             return decrypted;
         }
         catch (final Exception e) {
-            LogHelper.wtf(e);
+            Log.wtf(null, e);
             return null;
         }
     }

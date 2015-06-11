@@ -15,7 +15,7 @@ import java.util.Enumeration;
 import java.util.List;
 
 import me.shkschneider.skeleton.helper.ApplicationHelper;
-import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.Log;
 import me.shkschneider.skeleton.helper.SystemServices;
 import me.shkschneider.skeleton.java.StringHelper;
 
@@ -26,13 +26,13 @@ public class NetworkHelper {
         try {
             final InetAddress inetAddress = InetAddress.getLocalHost();
             if (inetAddress == null) {
-                LogHelper.warning("InetAddress was NULL");
+                Log.w("InetAddress was NULL");
                 return null;
             }
             return inetAddress.getHostName();
         }
         catch (final Exception e) {
-            LogHelper.wtf(e);
+            Log.wtf(null, e);
             return null;
         }
     }
@@ -44,12 +44,12 @@ public class NetworkHelper {
     public static boolean connectedOrConnecting() {
         final ConnectivityManager connectivityManager = SystemServices.connectivityManager();
         if (connectivityManager == null) {
-            LogHelper.warning("ConnectivityManager was NULL");
+            Log.w("ConnectivityManager was NULL");
             return false;
         }
         final NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo == null) {
-            LogHelper.warning("NetworkInfo was NULL");
+            Log.w("NetworkInfo was NULL");
             return false;
         }
 
@@ -59,7 +59,7 @@ public class NetworkHelper {
     public static boolean wifi() {
         final WifiManager wifiManager = SystemServices.wifiManager();
         if (wifiManager == null) {
-            LogHelper.warning("wifiManager was NULL");
+            Log.w("wifiManager was NULL");
             return false;
         }
 
@@ -69,19 +69,19 @@ public class NetworkHelper {
     public static String macAddress() {
         final WifiManager wifiManager = SystemServices.wifiManager();
         if (wifiManager == null) {
-            LogHelper.warning("wifiManager was NULL");
+            Log.w("wifiManager was NULL");
             return null;
         }
 
         final WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         if (wifiInfo == null) {
-            LogHelper.warning("WifiInfo was NULL");
+            Log.w("WifiInfo was NULL");
             return null;
         }
 
         final String macAddress = wifiInfo.getMacAddress();
         if (StringHelper.nullOrEmpty(macAddress)) {
-            LogHelper.warning("MacAddress was NULL");
+            Log.w("MacAddress was NULL");
             return null;
         }
 
@@ -104,7 +104,7 @@ public class NetworkHelper {
             return ipAddresses;
         }
         catch (final Exception e) {
-            LogHelper.wtf(e);
+            Log.wtf(null, e);
             return null;
         }
     }
@@ -124,7 +124,7 @@ public class NetworkHelper {
             return null;
         }
         catch (final Exception e) {
-            LogHelper.wtf(e);
+            Log.wtf(null, e);
             return null;
         }
     }

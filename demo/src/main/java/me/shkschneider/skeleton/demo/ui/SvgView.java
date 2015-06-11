@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 
-import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.Log;
 
 public class SvgView extends ImageView {
 
@@ -53,7 +53,7 @@ public class SvgView extends ImageView {
             mSvg = SVG.getFromResource(getContext(), mResId);
         }
         catch (final SVGParseException e) {
-            LogHelper.wtf(e);
+            Log.wtf(null, e);
         }
         if (getLayoutParams() != null
                 && (MeasureSpec.getMode(getLayoutParams().width) == MeasureSpec.UNSPECIFIED

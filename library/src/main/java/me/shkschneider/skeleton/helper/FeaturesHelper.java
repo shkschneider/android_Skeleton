@@ -114,7 +114,7 @@ public class FeaturesHelper {
     public static boolean feature(@NonNull final String feature) {
         final PackageManager packageManager = ApplicationHelper.context().getPackageManager();
         if (packageManager == null) {
-            LogHelper.warning("PackageManager was NULL");
+            Log.w("PackageManager was NULL");
             return false;
         }
 

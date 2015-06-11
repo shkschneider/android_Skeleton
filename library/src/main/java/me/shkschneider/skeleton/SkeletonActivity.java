@@ -26,7 +26,7 @@ import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.KeyboardHelper;
-import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.Log;
 import me.shkschneider.skeleton.java.StringHelper;
 import me.shkschneider.skeleton.ui.MySwipeRefreshLayout;
 
@@ -100,7 +100,7 @@ public class SkeletonActivity extends AppCompatActivity {
 
     public boolean actionBarColor(final int color) {
         if (mToolbar == null) {
-            LogHelper.warning("Toolbar was NULL");
+            Log.w("Toolbar was NULL");
             return false;
         }
         mToolbar.setBackgroundColor(color);
@@ -119,7 +119,7 @@ public class SkeletonActivity extends AppCompatActivity {
     @SuppressWarnings("deprecation")
     private boolean actionBarDrawable1(final Drawable drawable) {
         if (mToolbar == null) {
-            LogHelper.warning("Toolbar was NULL");
+            Log.w("Toolbar was NULL");
             return false;
         }
         mToolbar.setBackgroundDrawable(drawable);
@@ -129,7 +129,7 @@ public class SkeletonActivity extends AppCompatActivity {
     @TargetApi(AndroidHelper.API_16)
     private boolean actionBarDrawable16(final Drawable drawable) {
         if (mToolbar == null) {
-            LogHelper.warning("Toolbar was NULL");
+            Log.w("Toolbar was NULL");
             return false;
         }
         mToolbar.setBackground(drawable);
@@ -139,7 +139,7 @@ public class SkeletonActivity extends AppCompatActivity {
     protected void bindToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
-            LogHelper.verbose("Found a Toolbar");
+            Log.v("Found a Toolbar");
             setSupportActionBar(mToolbar);
             title(ApplicationHelper.name());
         }
@@ -154,7 +154,7 @@ public class SkeletonActivity extends AppCompatActivity {
     protected void bindMySwipeRefreshLayout() {
         mMySwipeRefreshLayout = (MySwipeRefreshLayout) findViewById(R.id.mySwipeRefreshLayout);
         if (mMySwipeRefreshLayout != null) {
-            LogHelper.verbose("Found a MySwipeRefreshLayout");
+            Log.v("Found a MySwipeRefreshLayout");
             mMySwipeRefreshLayout.setColorSchemeResources(R.color.primaryColor);
         }
     }
@@ -194,7 +194,7 @@ public class SkeletonActivity extends AppCompatActivity {
 
     public void toolbar(final boolean b) {
         if (mToolbar == null) {
-            LogHelper.warning("Toolbar was NULL");
+            Log.w("Toolbar was NULL");
             return ;
         }
         final int visibility = (b ? View.VISIBLE : View.GONE);
@@ -204,7 +204,7 @@ public class SkeletonActivity extends AppCompatActivity {
     public void home(final boolean b) {
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar == null) {
-            LogHelper.warning("ActionBar was NULL");
+            Log.w("ActionBar was NULL");
             return ;
         }
         actionBar.setDisplayShowHomeEnabled(b);
@@ -213,7 +213,7 @@ public class SkeletonActivity extends AppCompatActivity {
 
     public void home(final Drawable drawable) {
         if (mToolbar == null) {
-            LogHelper.warning("Toolbar was NULL");
+            Log.w("Toolbar was NULL");
             return ;
         }
         mToolbar.setNavigationIcon(drawable);
@@ -222,7 +222,7 @@ public class SkeletonActivity extends AppCompatActivity {
     public void title(final String title) {
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar == null) {
-            LogHelper.warning("ActionBar was NULL");
+            Log.w("ActionBar was NULL");
             return ;
         }
         actionBar.setDisplayShowTitleEnabled(! StringHelper.nullOrEmpty(title));
@@ -232,7 +232,7 @@ public class SkeletonActivity extends AppCompatActivity {
     public void subtitle(final String subtitle) {
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar == null) {
-            LogHelper.warning("ActionBar was NULL");
+            Log.w("ActionBar was NULL");
             return ;
         }
         actionBar.setDisplayShowTitleEnabled(! StringHelper.nullOrEmpty(subtitle));
@@ -242,7 +242,7 @@ public class SkeletonActivity extends AppCompatActivity {
     public void logo(final Drawable drawable) {
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar == null) {
-            LogHelper.warning("ActionBar was NULL");
+            Log.w("ActionBar was NULL");
             return ;
         }
         actionBar.setDisplayUseLogoEnabled(! (drawable == null));
@@ -271,7 +271,7 @@ public class SkeletonActivity extends AppCompatActivity {
         mLoadingCount = 0;
         if (mMySwipeRefreshLayout == null) {
             if (b) {
-                LogHelper.warning("MySwipeRefreshLayout was NULL");
+                Log.w("MySwipeRefreshLayout was NULL");
             }
             return ;
         }
@@ -282,7 +282,7 @@ public class SkeletonActivity extends AppCompatActivity {
 
     public void swipeRefreshLayoutCompat(@NonNull final AbsListView absListView) {
         if (mMySwipeRefreshLayout == null) {
-            LogHelper.warning("MySwipeRefreshLayout was NULL");
+            Log.w("MySwipeRefreshLayout was NULL");
             return ;
         }
         MySwipeRefreshLayout.absListViewCompat(mMySwipeRefreshLayout, absListView);
@@ -290,7 +290,7 @@ public class SkeletonActivity extends AppCompatActivity {
 
     public void swipeRefreshLayoutCompat(@NonNull final ScrollView scrollView) {
         if (mMySwipeRefreshLayout == null) {
-            LogHelper.warning("MySwipeRefreshLayout was NULL");
+            Log.w("MySwipeRefreshLayout was NULL");
             return ;
         }
         MySwipeRefreshLayout.scrollViewCompat(mMySwipeRefreshLayout, scrollView);
@@ -319,7 +319,7 @@ public class SkeletonActivity extends AppCompatActivity {
         }
         if (mMySwipeRefreshLayout == null) {
             if (b) {
-                LogHelper.warning("MySwipeRefreshLayout was NULL");
+                Log.w("MySwipeRefreshLayout was NULL");
             }
             return ;
         }
@@ -355,12 +355,12 @@ public class SkeletonActivity extends AppCompatActivity {
 
         mSearchMenuItem = menu.findItem(R.id.menu_search);
         if (mSearchMenuItem == null) {
-            LogHelper.warning("SearchMenuItem was NULL");
+            Log.w("SearchMenuItem was NULL");
             return super.onCreateOptionsMenu(menu);
         }
         mSearchView = (SearchView) MenuItemCompat.getActionView(mSearchMenuItem);
         if (mSearchView == null) {
-            LogHelper.warning("SearchView was NULL");
+            Log.w("SearchView was NULL");
             return super.onCreateOptionsMenu(menu);
         }
         mSearchView.setIconifiedByDefault(true);

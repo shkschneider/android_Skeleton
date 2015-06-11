@@ -37,7 +37,7 @@ public class ScreenHelper {
     public static boolean on() {
         final PowerManager powerManager = SystemServices.powerManager();
         if (powerManager == null) {
-            LogHelper.warning("PowerManager was NULL");
+            Log.w("PowerManager was NULL");
             return true;
         }
         if (AndroidHelper.api() >= AndroidHelper.API_20) {
@@ -64,11 +64,11 @@ public class ScreenHelper {
 
     public static boolean brightness(@NonNull final Window window, final float brightness) {
         if (brightness > BRIGHTNESS_MAX) {
-            LogHelper.warning("Brightness was too big");
+            Log.w("Brightness was too big");
             return false;
         }
         else if (brightness < BRIGHTNESS_MIN && brightness != BRIGHTNESS_RESET) {
-            LogHelper.warning("Brightness was too low");
+            Log.w("Brightness was too low");
             return false;
         }
         final WindowManager.LayoutParams layoutParams = window.getAttributes();
@@ -106,12 +106,12 @@ public class ScreenHelper {
     public static int rotation() {
         final WindowManager windowManager = SystemServices.windowManager();
         if (windowManager == null) {
-            LogHelper.warning("WindowManager was NULL");
+            Log.w("WindowManager was NULL");
             return 0;
         }
         final Display display = windowManager.getDefaultDisplay();
         if (display == null) {
-            LogHelper.warning("Display was NULL");
+            Log.w("Display was NULL");
             return 0;
         }
 
@@ -125,7 +125,7 @@ public class ScreenHelper {
 
     public static int pixelsFromDp(final float dp) {
         if (dp <= 0F) {
-            LogHelper.warning("Dp was too low");
+            Log.w("Dp was too low");
             return 0;
         }
         return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, ApplicationHelper.context().getResources().getDisplayMetrics()));
