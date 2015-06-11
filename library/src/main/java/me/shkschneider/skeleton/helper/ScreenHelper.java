@@ -90,7 +90,7 @@ public class ScreenHelper {
     }
 
     public static int width() {
-        return ApplicationHelper.context().getResources().getDisplayMetrics().widthPixels;
+        return ApplicationHelper.resources().getDisplayMetrics().widthPixels;
     }
 
     @Deprecated
@@ -128,7 +128,7 @@ public class ScreenHelper {
             Log.w("Dp was too low");
             return 0;
         }
-        return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, ApplicationHelper.context().getResources().getDisplayMetrics()));
+        return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, ApplicationHelper.resources().getDisplayMetrics()));
     }
 
 }

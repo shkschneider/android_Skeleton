@@ -1,14 +1,14 @@
 package me.shkschneider.skeleton.helper;
 
 import android.app.Activity;
-import android.content.ComponentName;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.Toast;
+
+import me.shkschneider.skeleton.SkeletonActivity;
 
 public class ActivityHelper {
 
@@ -34,35 +34,38 @@ public class ActivityHelper {
     }
 
     public static boolean portrait() {
-        return (ApplicationHelper.context().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
+        return (ApplicationHelper.resources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
     }
 
     public static boolean landscape() {
-        return (ApplicationHelper.context().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
+        return (ApplicationHelper.resources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
     }
 
     public static String title(@NonNull final Activity activity) {
-        final ActivityInfo activityInfo = activityInfo(activity);
-        if (activityInfo == null) {
-            Log.w("ActivityInfo was NULL");
-            return null;
+        if (activity instanceof SkeletonActivity) {
+            final ActionBar actionBar = ((SkeletonActivity) activity).getSupportActionBar();
+            if (actionBar != null) {
+                final CharSequence charSequence = actionBar.getTitle();
+                if (charSequence != null) {
+                    return charSequence.toString();
+                }
+            }
         }
-
-        return activity.getResources().getString(activityInfo.labelRes);
+        return null;
     }
 
-    // TODO subtitle()
-
-    public static ActivityInfo activityInfo(@NonNull final Activity activity) {
-        final PackageManager packageManager = activity.getPackageManager();
-        final ComponentName componentName = activity.getComponentName();
-        try {
-            return packageManager.getActivityInfo(componentName, 0);
+    @Deprecated
+    public static String subtitle(@NonNull final Activity activity) {
+        if (activity instanceof SkeletonActivity) {
+            final ActionBar actionBar = ((SkeletonActivity) activity).getSupportActionBar();
+            if (actionBar != null) {
+                final CharSequence charSequence = actionBar.getSubtitle();
+                if (charSequence != null) {
+                    return charSequence.toString();
+                }
+            }
         }
-        catch (final Exception e) {
-            Log.wtf(null, e);
-            return null;
-        }
+        return null;
     }
 
 }

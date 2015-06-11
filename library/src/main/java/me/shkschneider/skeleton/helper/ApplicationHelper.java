@@ -33,7 +33,7 @@ public class ApplicationHelper {
     }
 
     public static Resources resources() {
-        return ApplicationHelper.context().getResources();
+        return ApplicationHelper.resources();
     }
 
     public static AssetManager assetManager() {
