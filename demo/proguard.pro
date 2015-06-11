@@ -84,8 +84,8 @@
 -keep interface com.google.gson.** { *; }
 
 # support v4
--keep class android.support.v7.** { *; }
--keep interface android.support.v7.** { *; }
+-keep class android.support.v4.** { *; }
+-keep interface android.support.v4.** { *; }
 
 # support v7 appcompat
 -keep class android.support.v7.** { *; }
