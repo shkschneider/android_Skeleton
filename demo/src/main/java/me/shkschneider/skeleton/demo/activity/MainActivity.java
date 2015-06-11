@@ -2,11 +2,8 @@ package me.shkschneider.skeleton.demo.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.SparseArray;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import java.util.concurrent.TimeUnit;
 
 import me.shkschneider.skeleton.demo.R;
 import me.shkschneider.skeleton.demo.fragment.FloatingActionButtonFragment;
@@ -24,7 +21,6 @@ import me.shkschneider.skeleton.demo.fragment.ViewPagerIconIndicatorFragment;
 import me.shkschneider.skeleton.demo.fragment.ViewPagerTextIndicatorFragment;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.Log;
-import me.shkschneider.skeleton.helper.RunnableHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
 
 public class  MainActivity extends SkeletonNavigationDrawerActivity {
@@ -61,23 +57,6 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
         Log.i("MemoryCacheBitmap:" + ClassHelper.canonicalName(mMemoryCacheBitmap.get("Bitmap").getClass()));
         Log.i("DiskCacheInternal:" + mDiskCacheInternal.get("DiskCache").toString());
         Log.i("DiskCacheExternal:" + mDiskCacheExternal.get("DiskCache").toString());
-
-        // FIXME overlap
-        RunnableHelper.delay(new Runnable() {
-
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        navigationDrawer(R.id.menu_viewPagerTextIndicator);
-                    }
-
-                });
-            }
-
-        }, 800, TimeUnit.MILLISECONDS);
     }
 
     @Override
@@ -113,29 +92,37 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private SparseArray<SkeletonFragment> mFragments = new SparseArray<SkeletonFragment>() {
-        {
-            put(R.id.menu_main, new MainFragment());
-            put(R.id.menu_viewPagerTextIndicator, new ViewPagerTextIndicatorFragment());
-            put(R.id.menu_viewPagerIconIndicator, new ViewPagerIconIndicatorFragment());
-            put(R.id.menu_network, new NetworkFragment());
-            put(R.id.menu_listView, new ListViewFragment());
-            put(R.id.menu_floatingActionButton, new FloatingActionButtonFragment());
-            put(R.id.menu_snackBar, new SnackBarFragment());
-            put(R.id.menu_transition, new TransitionFragment());
-            put(R.id.menu_inputs, new InputsFragment());
-        }
-    };
-
     @Override
     protected SkeletonFragment getFragment(final int itemId) {
-        return mFragments.get(itemId, null);
+        switch (itemId) {
+            case R.id.menu_main:
+                return new MainFragment();
+            case R.id.menu_viewPagerTextIndicator:
+                return new ViewPagerTextIndicatorFragment();
+            case R.id.menu_viewPagerIconIndicator:
+                return new ViewPagerIconIndicatorFragment();
+            case R.id.menu_network:
+                return new NetworkFragment();
+            case R.id.menu_listView:
+                return new ListViewFragment();
+            case R.id.menu_floatingActionButton:
+                return new FloatingActionButtonFragment();
+            case R.id.menu_snackBar:
+                return new SnackBarFragment();
+            case R.id.menu_transition:
+                return new TransitionFragment();
+            case R.id.menu_inputs:
+                return new InputsFragment();
+            default:
+                return null;
+        }
     }
 
     @Override
-    public void navigationDrawer(final int itemId) {
+    public boolean navigationDrawer(final int itemId) {
         super.navigationDrawer(itemId);
         subtitle(getFragment(itemId).title());
+        return true;
     }
 
     @Override

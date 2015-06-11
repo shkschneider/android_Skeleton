@@ -98,7 +98,13 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
         mDrawerToggle.syncState();
     }
 
-    public void navigationDrawer(final int itemId) {
+    public boolean navigationDrawer(final int itemId) {
+        // <https://stackoverflow.com/a/30781166/603270>
+        if (! alive()) {
+            Log.w("Switching Fragments too early");
+            return false;
+        }
+
         // Clears any loading state and capability
         refreshable(false, null);
 
@@ -106,10 +112,9 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
         final SkeletonFragment skeletonFragment = getFragment(itemId);
         if (skeletonFragment == null) {
             Log.w("SkeletonFragment was NULL");
-            return ;
+            return false;
         }
 
-        // FIXME overlap
         getSupportFragmentManager().executePendingTransactions();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.navigationDrawer_frameLayout, skeletonFragment)
@@ -120,6 +125,8 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
         mNavigationView.getMenu().findItem(itemId).setChecked(true);
         closeNavigationDrawer();
         onNavigationDrawerClosed();
+
+        return true;
     }
 
     public int navigationDrawer() {
