@@ -3,26 +3,14 @@ package me.shkschneider.skeleton.helper;
 import android.content.res.Configuration;
 import android.os.Build;
 
-import java.lang.reflect.Method;
-
 public class DeviceHelper {
 
     @Deprecated
     public static boolean tablet() {
-        final Configuration configuration = ApplicationHelper.resources().getConfiguration();
-        if (configuration == null) {
-            Log.w("Configuration was NULL");
-            return false;
-        }
-
-        try {
-            final Method method = configuration.getClass().getMethod("isLayoutSizeAtLeast", int.class);
-            return (Boolean) method.invoke(configuration, Configuration.SCREENLAYOUT_SIZE_XLARGE);
-        }
-        catch (final Exception e) {
-            Log.wtf(null, e);
-            return false;
-        }
+        final int screenLayout = ApplicationHelper.resources().getConfiguration().screenLayout;
+        // LARGE = 480x640dp "Nexus 7"
+        // XLARGE = 720x960dp "Nexus 10"
+        return ((screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE);
     }
 
     public static String codename() {
