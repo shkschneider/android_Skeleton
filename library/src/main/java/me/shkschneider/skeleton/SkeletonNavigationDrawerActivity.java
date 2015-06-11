@@ -30,7 +30,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
         setContentView(R.layout.sk_navigationdraweractivity);
         home(true);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.navigationDrawer_drawerLayout);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.sk_drawerLayout);
         if (mDrawerLayout == null) {
             Log.w("DrawerLayout was NULL");
             return ;
@@ -51,7 +51,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-        mNavigationView = (NavigationView) findViewById(R.id.navigationDrawer_navigationView);
+        mNavigationView = (NavigationView) findViewById(R.id.sk_navigationView);
         if (mNavigationView == null) {
             Log.w("NavigationView was NULL");
             return ;
@@ -68,13 +68,6 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
             }
 
         });
-
-        if (savedInstanceState == null) {
-            final MenuItem menuItem = mNavigationView.getMenu().getItem(0);
-            if (menuItem != null) {
-                navigationDrawer(menuItem.getItemId());
-            }
-        }
     }
 
     public void setNavigationHeader(@LayoutRes final int id) {
@@ -96,6 +89,11 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
     protected void onPostResume() {
         super.onPostResume();
         mDrawerToggle.syncState();
+
+        final MenuItem menuItem = mNavigationView.getMenu().getItem(0);
+        if (menuItem != null) {
+            navigationDrawer(menuItem.getItemId());
+        }
     }
 
     public boolean navigationDrawer(final int itemId) {
@@ -117,12 +115,15 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
 
         getSupportFragmentManager().executePendingTransactions();
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.navigationDrawer_frameLayout, skeletonFragment)
+                .replace(R.id.sk_frameLayout, skeletonFragment)
                 .addToBackStack(null)
                 .commit();
 
         // Updates NavigationDrawer
-        mNavigationView.getMenu().findItem(itemId).setChecked(true);
+        final MenuItem menuItem = mNavigationView.getMenu().findItem(itemId);
+        if (menuItem != null) {
+            menuItem.setChecked(true);
+        }
         closeNavigationDrawer();
         onNavigationDrawerClosed();
 
@@ -130,7 +131,13 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
     }
 
     public int navigationDrawer() {
-        return mNavigationView.getMenu().getItem(0).getItemId();
+        for (int i = 0; i < mNavigationView.getMenu().size(); i++) {
+            final MenuItem menuItem = mNavigationView.getMenu().getItem(i);
+            if (menuItem.isChecked()) {
+                return menuItem.getItemId();
+            }
+        }
+        return -1;
     }
 
     @Deprecated
