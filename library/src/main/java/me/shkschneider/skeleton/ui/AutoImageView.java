@@ -9,15 +9,16 @@ import android.widget.ImageView;
 public class AutoImageView extends ImageView {
 
     public AutoImageView(final Context context) {
-        super(context);
+        this(context, null);
     }
 
     public AutoImageView(final Context context, final AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
     }
 
     public AutoImageView(final Context context, final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        setAdjustViewBounds(true);
     }
 
     @Override
@@ -27,8 +28,12 @@ public class AutoImageView extends ImageView {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
             return ;
         }
+
         final int width = MeasureSpec.getSize(widthMeasureSpec);
-        final int height = (int) Math.ceil((float) width * (float) drawable.getIntrinsicHeight() / (float) drawable.getIntrinsicWidth());
+        int height = (int) Math.ceil((float) width * (float) drawable.getIntrinsicHeight() / (float) drawable.getIntrinsicWidth());
+        if (height > width) {
+            height = (int) Math.ceil((float) width * (float) drawable.getIntrinsicWidth() / (float) drawable.getIntrinsicHeight());
+        }
         setMeasuredDimension(width, height);
     }
 

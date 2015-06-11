@@ -17,6 +17,7 @@ import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.demo.R;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.Log;
+import me.shkschneider.skeleton.helper.ScreenHelper;
 import me.shkschneider.skeleton.network.WebService;
 import me.shkschneider.skeleton.data.GsonParser;
 import me.shkschneider.skeleton.helper.ActivityHelper;
@@ -76,7 +77,7 @@ public class MainFragment extends SkeletonFragment {
                 }
                 final JsonObject entry = entries.get(0).getAsJsonObject();
                 final String thumbnailUrl = GsonParser.string(entry, "thumbnailUrl");
-                Picasso.with(ApplicationHelper.context()).load(thumbnailUrl + "?size=360").into(imageView);
+                Picasso.with(ApplicationHelper.context()).load(thumbnailUrl + "?size=" + (ScreenHelper.width() / 4)).into(imageView);
                 final String displayName = GsonParser.string(entry, "displayName");
                 textView1.setText(displayName);
                 final String currentLocation = GsonParser.string(entry, "currentLocation");
