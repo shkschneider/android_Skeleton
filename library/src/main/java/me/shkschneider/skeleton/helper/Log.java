@@ -23,18 +23,18 @@ public class Log {
         String callerClassName = "?";
         String callerMethodName = "?";
         String callerLineNumber = "?";
-        if (elements.length >= 4) {
-            callerClassName = elements[3].getClassName();
+        if (elements.length >= 3) {
+            callerClassName = elements[2].getClassName();
             callerClassName = callerClassName.substring(callerClassName.lastIndexOf('.') + 1);
             if (callerClassName.indexOf("$") > 0) {
                 callerClassName = callerClassName.substring(0, callerClassName.indexOf("$"));
             }
-            callerMethodName = elements[3].getMethodName();
+            callerMethodName = elements[2].getMethodName();
             callerMethodName = callerMethodName.substring(callerMethodName.lastIndexOf('_') + 1);
             if (callerMethodName.equals("<init>")) {
                 callerMethodName = callerClassName;
             }
-            callerLineNumber = String.valueOf(elements[3].getLineNumber());
+            callerLineNumber = String.valueOf(elements[2].getLineNumber());
         }
         final String stack = "[" + callerClassName + "." + callerMethodName + "():" + callerLineNumber + "]" + (StringHelper.nullOrEmpty(msg) ? "" : " ");
         switch (level) {
