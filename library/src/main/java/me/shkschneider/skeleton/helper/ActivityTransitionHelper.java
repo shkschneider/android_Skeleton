@@ -11,6 +11,10 @@ import android.view.View;
 
 public class ActivityTransitionHelper {
 
+    protected ActivityTransitionHelper() {
+        // Empty
+    }
+
     public static void tag(@NonNull final View view, @NonNull final String transitionName) {
         ViewCompat.setTransitionName(view, transitionName);
     }

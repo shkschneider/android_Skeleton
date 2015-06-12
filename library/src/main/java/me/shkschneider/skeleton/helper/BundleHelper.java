@@ -7,6 +7,10 @@ import java.io.Serializable;
 
 public class BundleHelper {
 
+    protected BundleHelper() {
+        // Empty
+    }
+
     public static Bundle pack(@NonNull final String key, final Serializable serializable) {
         final Bundle bundle = new Bundle();
         if (serializable != null) {

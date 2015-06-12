@@ -13,6 +13,10 @@ import me.shkschneider.skeleton.helper.Log;
 
 public class UrlHelper {
 
+    protected UrlHelper() {
+        // Empty
+    }
+
     public static Uri.Builder builder() {
         return new Uri.Builder();
     }

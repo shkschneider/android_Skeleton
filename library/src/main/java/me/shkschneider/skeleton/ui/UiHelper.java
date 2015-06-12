@@ -9,6 +9,10 @@ import me.shkschneider.skeleton.helper.SystemServices;
 
 public class UiHelper {
 
+    protected UiHelper() {
+        // Empty
+    }
+
     public static final float CARD_ELEVATION_0 = 0F;
     public static final float CARD_ELEVATION_1 = 1F;
     public static final float CARD_ELEVATION_2 = 2F;

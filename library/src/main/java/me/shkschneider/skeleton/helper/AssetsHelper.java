@@ -13,6 +13,10 @@ import me.shkschneider.skeleton.data.InternalDataHelper;
 
 public class AssetsHelper {
 
+    protected AssetsHelper() {
+        // Empty
+    }
+
     public static AssetManager assetManager() {
         return ApplicationHelper.context().getAssets();
     }

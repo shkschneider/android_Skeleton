@@ -2,6 +2,10 @@ package me.shkschneider.skeleton.data;
 
 public class MimeTypeHelper {
 
+    protected MimeTypeHelper() {
+        // Empty
+    }
+
     public static final String FILE = "file/*";
 
     public static final String TEXT = "text/*";

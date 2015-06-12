@@ -9,6 +9,10 @@ import java.util.TimeZone;
 
 public class DateTimeHelper {
 
+    protected DateTimeHelper() {
+        // Empty
+    }
+
     public static int day() {
         return Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
     }

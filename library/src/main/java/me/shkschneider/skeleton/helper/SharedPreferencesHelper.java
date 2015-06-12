@@ -9,6 +9,10 @@ import me.shkschneider.skeleton.java.StringHelper;
 
 public class SharedPreferencesHelper {
 
+    protected SharedPreferencesHelper() {
+        // Empty
+    }
+
     // Public
 
     private static SharedPreferences getPublic() {

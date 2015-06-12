@@ -12,6 +12,10 @@ import me.shkschneider.skeleton.SkeletonActivity;
 
 public class ActivityHelper {
 
+    protected ActivityHelper() {
+        // Empty
+    }
+
     public static View contentView(@NonNull final Activity activity) {
         return activity.getWindow().getDecorView().findViewById(android.R.id.content);
     }

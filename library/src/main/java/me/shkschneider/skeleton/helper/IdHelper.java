@@ -8,6 +8,10 @@ import me.shkschneider.skeleton.java.StringHelper;
 
 public class IdHelper {
 
+    protected IdHelper() {
+        // Empty
+    }
+
     public static String androidId() {
         final String androidId = Settings.Secure.getString(ApplicationHelper.context().getContentResolver(), Settings.Secure.ANDROID_ID);
         if (StringHelper.nullOrEmpty(androidId)) {

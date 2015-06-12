@@ -7,6 +7,10 @@ import android.support.annotation.NonNull;
 // <http://developer.android.com/reference/android/content/pm/PackageManager.html>
 public class FeaturesHelper {
 
+    protected FeaturesHelper() {
+        // Empty
+    }
+
     @SuppressLint("InlinedApi") // API-18+
     public static final String FEATURE_APP_WIDGETS = PackageManager.FEATURE_APP_WIDGETS;
     public static final String FEATURE_AUDIO_LOW_LATENCY = PackageManager.FEATURE_AUDIO_LOW_LATENCY;

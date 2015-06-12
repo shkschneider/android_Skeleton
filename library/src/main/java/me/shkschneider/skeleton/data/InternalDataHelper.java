@@ -13,6 +13,10 @@ import me.shkschneider.skeleton.helper.Log;
 
 public class InternalDataHelper {
 
+    protected InternalDataHelper() {
+        // Empty
+    }
+
     public static FileInputStream openInput(@NonNull final String name) {
         try {
             return ApplicationHelper.context().openFileInput(name);

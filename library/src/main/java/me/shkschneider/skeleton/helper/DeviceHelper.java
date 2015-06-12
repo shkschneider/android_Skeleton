@@ -5,6 +5,10 @@ import android.os.Build;
 
 public class DeviceHelper {
 
+    protected DeviceHelper() {
+        // Empty
+    }
+
     @Deprecated
     public static boolean tablet() {
         final int screenLayout = ApplicationHelper.resources().getConfiguration().screenLayout;

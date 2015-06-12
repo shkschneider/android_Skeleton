@@ -5,6 +5,10 @@ import android.support.annotation.NonNull;
 // <http://developer.android.com/reference/java/lang/System.html#getProperty(java.lang.String)>
 public class SystemProperties {
 
+    protected SystemProperties() {
+        // Empty
+    }
+
     public static final String SYSTEM_PROPERTY_FILE_SEPARATOR = "file.separator";
     public static final String SYSTEM_PROPERTY_JAVA_CLASS_PATH = "java.class.path";
     public static final String SYSTEM_PROPERTY_JAVA_CLASS_VERSION = "java.class.version";

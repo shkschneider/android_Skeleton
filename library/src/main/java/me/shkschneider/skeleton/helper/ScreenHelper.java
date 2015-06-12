@@ -12,6 +12,10 @@ import me.shkschneider.skeleton.R;
 
 public class ScreenHelper {
 
+    protected ScreenHelper() {
+        // Empty
+    }
+
     public static final int DENSITY_LDPI = 120;
     public static final int DENSITY_MDPI = 160;
     public static final int DENSITY_TVDPI = 213; // MDPI * 1.33

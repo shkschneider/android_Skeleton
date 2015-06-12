@@ -37,6 +37,10 @@ import android.view.textservice.TextServicesManager;
 
 public class SystemServices {
 
+    protected SystemServices() {
+        // Empty
+    }
+
     private static Object service(@NonNull final String service) {
         return ApplicationHelper.context().getSystemService(service);
     }

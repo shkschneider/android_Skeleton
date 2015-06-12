@@ -9,6 +9,10 @@ import java.util.List;
 
 public class ViewHelper {
 
+    protected ViewHelper() {
+        // Empty
+    }
+
     final static String ANDROIDXML = "http://schemas.android.com/apk/res/android";
     final static String RESAUTOXML = "http://schemas.android.com/apk/res-auto";
 

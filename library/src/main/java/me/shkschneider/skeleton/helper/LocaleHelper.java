@@ -4,6 +4,10 @@ import java.util.Locale;
 
 public class LocaleHelper {
 
+    protected LocaleHelper() {
+        // Empty
+    }
+
     public static Locale locale() {
         return Locale.getDefault();
     }

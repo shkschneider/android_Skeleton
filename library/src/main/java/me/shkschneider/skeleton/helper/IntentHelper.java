@@ -25,6 +25,10 @@ import me.shkschneider.skeleton.data.MimeTypeHelper;
 
 public class IntentHelper {
 
+    protected IntentHelper() {
+        // Empty
+    }
+
     public static final int FLAGS_HOME = (Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
     public static final int FLAGS_CLEAR = (Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 

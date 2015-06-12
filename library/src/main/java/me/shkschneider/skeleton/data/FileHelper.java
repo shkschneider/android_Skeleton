@@ -19,6 +19,10 @@ import me.shkschneider.skeleton.helper.SystemProperties;
 
 public class FileHelper {
 
+    protected FileHelper() {
+        // Empty
+    }
+
     public static final String PREFIX_ASSETS = "file:///android_asset/";
     public static final String PREFIX_RES = "file:///android_res/";
 

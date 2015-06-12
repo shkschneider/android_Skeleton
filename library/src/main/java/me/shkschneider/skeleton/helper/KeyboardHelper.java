@@ -14,6 +14,10 @@ import java.util.Arrays;
 
 public class KeyboardHelper {
 
+    protected KeyboardHelper() {
+        // Empty
+    }
+
     public final static int ENTER = KeyEvent.KEYCODE_ENTER;
 
     public static boolean show(@NonNull final Activity activity) {

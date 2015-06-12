@@ -9,6 +9,10 @@ import java.util.Map;
 
 public class MapHelper {
 
+    protected MapHelper() {
+        // Empty
+    }
+
     public static <K, V> Map<K, V> item(@NonNull final K key, final V value) {
         Map<K, V> item = new HashMap<>();
         item.put(key, value);

@@ -10,6 +10,10 @@ import java.util.concurrent.TimeUnit;
 
 public class RunnableHelper {
 
+    protected RunnableHelper() {
+        // Empty
+    }
+
     public static void delay(@NonNull final Runnable runnable, final int amount, final TimeUnit timeUnit) {
         // Executors.newSingleThreadScheduledExecutor().schedule(runnable, 1, TimeUnit.SECONDS);
         new Handler().postDelayed(runnable, timeUnit.toMillis(amount));

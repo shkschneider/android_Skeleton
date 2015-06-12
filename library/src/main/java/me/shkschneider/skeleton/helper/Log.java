@@ -6,6 +6,10 @@ import me.shkschneider.skeleton.java.StringHelper;
 
 public class Log {
 
+    protected Log() {
+        // Empty
+    }
+
     private static final int VERBOSE = android.util.Log.VERBOSE;
     private static final int DEBUG = android.util.Log.DEBUG;
     private static final int INFO = android.util.Log.INFO;
@@ -15,10 +19,10 @@ public class Log {
 
     // Used to identify the source of a log message.
     // It usually identifies the class or activity where the log call occurs.
-    private static String TAG = ApplicationHelper.packageName();
+    protected static String TAG = ApplicationHelper.packageName();
     // Here I use the application's packageName
 
-    private static void log(final int level, final String msg, final Throwable throwable) {
+    protected static void log(final int level, final String msg, final Throwable throwable) {
         final StackTraceElement[] elements = new Throwable().getStackTrace();
         String callerClassName = "?";
         String callerMethodName = "?";

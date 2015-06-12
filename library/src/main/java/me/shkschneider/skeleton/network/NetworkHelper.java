@@ -21,6 +21,10 @@ import me.shkschneider.skeleton.java.StringHelper;
 
 public class NetworkHelper {
 
+    protected NetworkHelper() {
+        // Empty
+    }
+
     @Deprecated
     public static String hostname() {
         try {

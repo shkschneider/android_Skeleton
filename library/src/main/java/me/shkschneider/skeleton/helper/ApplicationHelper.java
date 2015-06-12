@@ -24,6 +24,10 @@ import me.shkschneider.skeleton.SkeletonApplication;
 
 public class ApplicationHelper {
 
+    protected ApplicationHelper() {
+        // Empty
+    }
+
     public static Context context() {
         return SkeletonApplication.CONTEXT;
     }

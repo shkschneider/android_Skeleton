@@ -12,6 +12,10 @@ import me.shkschneider.skeleton.helper.Log;
 
 public class SerializeHelper {
 
+    protected SerializeHelper() {
+        // Empty
+    }
+
     public static boolean write(@NonNull final Object object, @NonNull final File file) {
         try {
             final ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream(file));

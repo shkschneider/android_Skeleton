@@ -4,6 +4,10 @@ import android.os.Build;
 
 public class AndroidHelper {
 
+    protected AndroidHelper() {
+        // Empty
+    }
+
     public static final int API_1 = Build.VERSION_CODES.BASE; // 1.0
     public static final int API_2 = Build.VERSION_CODES.BASE_1_1; // 1.1
     public static final int API_3 = Build.VERSION_CODES.CUPCAKE; // 1.5

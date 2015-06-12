@@ -4,6 +4,10 @@ import android.os.Vibrator;
 
 public class VibratorHelper {
 
+    protected VibratorHelper() {
+        // Empty
+    }
+
     public static boolean hasVibrator() {
         final Vibrator vibrator = SystemServices.vibrator();
         if (vibrator == null) {

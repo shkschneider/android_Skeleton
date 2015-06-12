@@ -7,6 +7,10 @@ import java.util.List;
 
 public class ArrayHelper {
 
+    protected ArrayHelper() {
+        // Empty
+    }
+
     private static <T> List<T> list(@NonNull final T[] objects) {
         return Arrays.asList(objects);
     }

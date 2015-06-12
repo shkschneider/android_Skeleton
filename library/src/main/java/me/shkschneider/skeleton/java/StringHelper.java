@@ -14,6 +14,10 @@ import me.shkschneider.skeleton.helper.Log;
 
 public class StringHelper {
 
+    protected StringHelper() {
+        // Empty
+    }
+
     public static final String ALPHA = "abcdefghijklmnopqrstuvwxyz";
     public static final String NUMERIC = "0123456789";
     public static final String NUMERIC_DECIMAL = "0123456789,.";

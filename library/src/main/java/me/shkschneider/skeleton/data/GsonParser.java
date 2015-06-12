@@ -19,6 +19,10 @@ import me.shkschneider.skeleton.java.StringHelper;
 
 public class GsonParser {
 
+    protected GsonParser() {
+        // Empty
+    }
+
     public static JsonObject parse(@NonNull final String string) {
         try {
             final Gson gson = new Gson();

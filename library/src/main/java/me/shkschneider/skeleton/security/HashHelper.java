@@ -7,6 +7,10 @@ import me.shkschneider.skeleton.java.StringHelper;
 
 public class HashHelper {
 
+    protected HashHelper() {
+        // Empty
+    }
+
     protected static final String MD5 = "MD5";
     protected static final String SHA = "SHA";
 

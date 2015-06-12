@@ -17,6 +17,10 @@ import java.util.List;
 
 public class GooglePlayServicesHelper {
 
+    protected GooglePlayServicesHelper() {
+        // Empty
+    }
+
     public static final String GOOGLE_ACCOUNT_TYPE = GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE;
 
     public static int status() {

@@ -9,6 +9,10 @@ import me.shkschneider.skeleton.helper.ApplicationHelper;
 
 public class ExternalDataHelper {
 
+    protected ExternalDataHelper() {
+        // Empty
+    }
+
     public static File download() {
         return Environment.getDownloadCacheDirectory();
     }
