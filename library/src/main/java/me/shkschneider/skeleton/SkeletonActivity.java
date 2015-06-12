@@ -39,6 +39,7 @@ public class SkeletonActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sk_activity);
+        statusBarColor(getWindow(), getResources().getColor(R.color.statusBarColor));
 
         if (AndroidHelper.api() >= AndroidHelper.API_21) {
             init21();

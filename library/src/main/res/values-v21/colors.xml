@@ -3,7 +3,7 @@
 
     <!-- Theme colors (Material Design) -->
 
-    <color name="statusBarColor">@color/sk_android_black</color> <!-- primaryColorDark or black -->
+    <color name="statusBarColor">@color/primaryColorDark</color> <!-- primaryColorDark or black -->
     <color name="navigationBarColor">@color/sk_android_black</color> <!-- usually black -->
 
     <!-- ... -->
