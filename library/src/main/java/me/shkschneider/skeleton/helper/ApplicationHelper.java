@@ -93,6 +93,24 @@ public class ApplicationHelper {
         }
     }
 
+    // <http://semver.org>
+    public static Integer[] semanticVersions() {
+        final String versionName = versionName();
+        if (versionName == null) {
+            return null;
+        }
+        if (! versionName.matches("^\\d+\\.\\d+\\.\\d+$")) {
+            Log.w("Not semantic versioning");
+            return null;
+        }
+        final String[] versionNames = versionName.split(".");
+        return new Integer[] {
+                Integer.valueOf(versionNames[0]),
+                Integer.valueOf(versionNames[1]),
+                Integer.valueOf(versionNames[2])
+        };
+    }
+
     public static String versionName() {
         try {
             final PackageManager packageManager = packageManager();
