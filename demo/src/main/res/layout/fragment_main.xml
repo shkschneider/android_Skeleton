@@ -8,7 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
+        <me.shkschneider.skeleton.ui.MyScrollView
+            android:id="@+id/myScrollView"
             android:layout_alignParentTop="true"
             android:layout_above="@+id/linearLayout"
             android:layout_width="match_parent"
@@ -33,7 +34,7 @@
                         android:layout_height="@dimen/spaceHuge"
                         android:layout_gravity="center" />
 
-                    <me.shkschneider.skeleton.ui.AutoImageView
+                    <ImageView
                         android:layout_centerHorizontal="true"
                         android:id="@+id/imageView"
                         android:src="@null"
@@ -141,7 +142,7 @@
 
             </LinearLayout>
 
-        </ScrollView>
+        </me.shkschneider.skeleton.ui.MyScrollView>
         
         <LinearLayout
             android:id="@+id/linearLayout"

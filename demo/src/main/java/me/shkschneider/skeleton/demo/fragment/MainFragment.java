@@ -23,6 +23,7 @@ import me.shkschneider.skeleton.data.GsonParser;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.network.WebServiceException;
+import me.shkschneider.skeleton.ui.MyScrollView;
 
 public class MainFragment extends SkeletonFragment {
 
@@ -49,15 +50,18 @@ public class MainFragment extends SkeletonFragment {
 
         skeletonActivity().loading(+1);
         final ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
+        ((MyScrollView) view.findViewById(R.id.myScrollView)).parallax(imageView);
         final TextView textView1 = (TextView) view.findViewById(android.R.id.text1);
         final TextView textView2 = (TextView) view.findViewById(android.R.id.text2);
         final Button github = (Button) view.findViewById(R.id.github);
         github.setText(URL.replaceFirst("https://github.com/", ""));
         github.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(final View view) {
                 startActivity(IntentHelper.web(URL));
             }
+
         });
 
         final String url = String.format("http://gravatar.com/%s.json", AUTHOR.toLowerCase());
