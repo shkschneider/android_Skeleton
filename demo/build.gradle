@@ -50,7 +50,7 @@ android {
             zipAlignEnabled true
             multiDexEnabled true
             signingConfig signingConfigs.release
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.pro'
             shrinkResources true
         }
