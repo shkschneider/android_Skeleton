@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.helper;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -33,15 +34,15 @@ public class ApplicationHelper {
     }
 
     public static Resources resources() {
-        return ApplicationHelper.resources();
+        return context().getResources();
     }
 
     public static AssetManager assetManager() {
-        return ApplicationHelper.context().getAssets();
+        return context().getAssets();
     }
 
     public static String[] files() {
-        return ApplicationHelper.context().fileList();
+        return context().fileList();
     }
 
     public static int wipe() {
@@ -58,11 +59,11 @@ public class ApplicationHelper {
     }
 
     public static String packageName() {
-        return ApplicationHelper.context().getPackageName();
+        return context().getPackageName();
     }
 
     public static PackageManager packageManager() {
-        return ApplicationHelper.context().getPackageManager();
+        return context().getPackageManager();
     }
 
     public static String name() {
@@ -186,6 +187,7 @@ public class ApplicationHelper {
         }
     }
 
+    @SuppressLint("PackageManagerGetSignatures")
     public static String signature() {
         final PackageManager packageManager = packageManager();
         if (packageManager == null) {
