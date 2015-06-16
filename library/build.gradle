@@ -48,6 +48,10 @@ task javadoc(type: Javadoc) {
     exclude '**/R.java'
 }
 
+task jar(type: Jar, dependsOn: 'assembleRelease') {
+    from fileTree(dir: 'build/intermediates/classes/release')
+}
+
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
     classifier = 'sources'
