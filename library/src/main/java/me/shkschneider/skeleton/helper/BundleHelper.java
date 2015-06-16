@@ -19,11 +19,7 @@ public class BundleHelper {
         return bundle;
     }
 
-    public static Serializable unpack(final Bundle bundle, @NonNull final String key) {
-        if (bundle == null) {
-            Log.w("Bundle was NULL");
-            return null;
-        }
+    public static Serializable unpack(@NonNull final Bundle bundle, @NonNull final String key) {
         if (! bundle.containsKey(key)) {
             Log.w("Bundle has no such key");
             return null;

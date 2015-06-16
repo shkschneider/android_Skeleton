@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.helper;
 import android.content.res.Configuration;
 import android.os.Build;
 
+// <http://developer.android.com/reference/android/os/Build.html>
 public class DeviceHelper {
 
     protected DeviceHelper() {
@@ -21,16 +22,23 @@ public class DeviceHelper {
         return Build.DEVICE;
     }
 
-    public static String manufacturer() {
-        return Build.MANUFACTURER;
-    }
-
+    // Customer-friendly
     public static String model() {
         return Build.MODEL;
     }
 
-    public static String fingerprint() {
-        return Build.FINGERPRINT;
+    public static String manufacturer() {
+        return Build.MANUFACTURER;
+    }
+
+    // Customer-friendly
+    public static String brand() {
+        return Build.BRAND;
+    }
+
+    @Deprecated
+    public static String id() {
+        return Build.ID;
     }
 
 }
