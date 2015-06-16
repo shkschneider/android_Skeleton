@@ -19,6 +19,20 @@ public class RunnableHelper {
         new Handler().postDelayed(runnable, timeUnit.toMillis(amount));
     }
 
+    public static void repeat(@NonNull final Runnable runnable, final int amount, final TimeUnit timeUnit) {
+        new Thread(new Runnable() {
+
+                private Handler mHandler = new Handler();
+
+                @Override
+                public void run() {
+                    runnable.run();
+                    mHandler.postDelayed(this, timeUnit.toMillis(amount));
+                }
+
+        }).start();
+    }
+
     public static void runOnMainLooper(@NonNull final Runnable runnable) {
         final boolean isOnMainLooper = (Looper.getMainLooper() == Looper.myLooper());
         if (isOnMainLooper) {
