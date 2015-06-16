@@ -2,6 +2,7 @@ package me.shkschneider.skeleton.helper;
 
 import android.content.res.AssetManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.RawRes;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -15,6 +16,10 @@ public class AssetsHelper {
 
     protected AssetsHelper() {
         // Empty
+    }
+
+    public static InputStream rawResource(@RawRes final int id) {
+        return ApplicationHelper.resources().openRawResource(id);
     }
 
     public static AssetManager assetManager() {
