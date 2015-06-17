@@ -35,6 +35,9 @@ public class SkeletonActivity extends AppCompatActivity {
     protected Toolbar mToolbar;
     protected MySwipeRefreshLayout mMySwipeRefreshLayout;
 
+    private boolean mAlive = false;
+    private boolean mTransitioning = false;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +57,12 @@ public class SkeletonActivity extends AppCompatActivity {
         final int color = getResources().getColor(R.color.primaryColor);
         final ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(name, icon, color);
         setTaskDescription(taskDescription);
+    }
+
+    @Override
+    protected void onResumeFragments() {
+        super.onResumeFragments();
+        transitioning(false);
     }
 
     @Override
@@ -167,13 +176,19 @@ public class SkeletonActivity extends AppCompatActivity {
 
     // Lifecycle
 
-    private boolean mAlive = false;
-
     @Override
     protected void onResume() {
         super.onResume();
 
         mAlive = true;
+    }
+
+    protected void transitioning(final boolean b) {
+        mTransitioning = b;
+    }
+
+    protected boolean transitioning() {
+        return mTransitioning;
     }
 
     @Override

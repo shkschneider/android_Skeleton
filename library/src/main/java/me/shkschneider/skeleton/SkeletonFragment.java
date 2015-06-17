@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
+import java.util.concurrent.TimeUnit;
+
 import me.shkschneider.skeleton.java.ClassHelper;
 
 public class SkeletonFragment extends Fragment {
@@ -28,6 +30,18 @@ public class SkeletonFragment extends Fragment {
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         skeletonActivity().bindMySwipeRefreshLayout();
+
+        // <https://stackoverflow.com/q/30752713/>
+        if (view != null) {
+            view.postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    skeletonActivity().transitioning(false);
+                }
+
+            }, TimeUnit.SECONDS.toMillis(1));
+        }
     }
 
     public boolean alive() {

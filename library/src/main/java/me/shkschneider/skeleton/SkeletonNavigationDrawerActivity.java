@@ -97,11 +97,12 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
     }
 
     public boolean navigationDrawer(final int itemId) {
-        // <https://stackoverflow.com/a/30781166/603270>
-        if (! alive()) {
+        // <https://stackoverflow.com/q/30752713/>
+        if (! alive() || transitioning()) {
             Log.w("Switching Fragments too early");
             return false;
         }
+        transitioning(true);
 
         // Clears any loading state and capability
         refreshable(false, null);
@@ -110,10 +111,10 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
         final SkeletonFragment skeletonFragment = getFragment(itemId);
         if (skeletonFragment == null) {
             Log.w("SkeletonFragment was NULL");
+            transitioning(false);
             return false;
         }
 
-        getSupportFragmentManager().executePendingTransactions();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.sk_frameLayout, skeletonFragment)
                 .addToBackStack(null)

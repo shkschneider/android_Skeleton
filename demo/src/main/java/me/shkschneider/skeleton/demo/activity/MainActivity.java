@@ -120,8 +120,9 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
 
     @Override
     public boolean navigationDrawer(final int itemId) {
-        super.navigationDrawer(itemId);
-        subtitle(getFragment(itemId).title());
+        if (super.navigationDrawer(itemId)) {
+            subtitle(getFragment(itemId).title());
+        }
         return true;
     }
 
