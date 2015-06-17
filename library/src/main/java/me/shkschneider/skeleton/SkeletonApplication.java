@@ -7,6 +7,11 @@ import me.shkschneider.skeleton.helper.DeviceHelper;
 import me.shkschneider.skeleton.helper.IdHelper;
 import me.shkschneider.skeleton.helper.Log;
 
+/**
+ * https://developer.android.com/reference/android/app/Application.html
+ *
+ *     onCreate()
+ */
 public class SkeletonApplication extends Application {
 
     public static Boolean DEBUG = false;

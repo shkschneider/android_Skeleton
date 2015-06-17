@@ -10,6 +10,23 @@ import java.util.concurrent.TimeUnit;
 
 import me.shkschneider.skeleton.java.ClassHelper;
 
+/**
+ * https://developer.android.com/guide/components/fragments.html#Lifecycle
+ * https://developer.android.com/reference/android/support/v4/app/Fragment.html
+ *
+ *     onAttach()
+ *     onCreate()
+ *     onCreateView()
+ *     onViewCreated()
+ *     onActivityCreated()
+ *     onStart()
+ *     onResume()
+ *     onPause()
+ *     onStop()
+ *     onDestroyView()
+ *     onDestroy()
+ *     onDetach()
+ */
 public class SkeletonFragment extends Fragment {
 
     protected SkeletonActivity mActivity;
@@ -61,6 +78,12 @@ public class SkeletonFragment extends Fragment {
             mActivity = (SkeletonActivity) getActivity();
         }
         return mActivity;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mActivity = null;
     }
 
 }

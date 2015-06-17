@@ -30,6 +30,19 @@ import me.shkschneider.skeleton.helper.Log;
 import me.shkschneider.skeleton.java.StringHelper;
 import me.shkschneider.skeleton.ui.MySwipeRefreshLayout;
 
+/**
+ * https://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle
+ * https://developer.android.com/reference/android/support/v4/app/FragmentActivity.html
+ *
+ *     onCreated()
+ *     onViewCreated()
+ *     onStart()
+ *     onResume()
+ *     onResumeFragments()
+ *     onPause()
+ *     onStop()
+ *     onDestroy()
+ */
 public class SkeletonActivity extends AppCompatActivity {
 
     protected Toolbar mToolbar;
