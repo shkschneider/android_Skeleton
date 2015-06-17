@@ -12,11 +12,17 @@ public class IdHelper {
         // Empty
     }
 
+    // <https://code.google.com/p/android/issues/detail?id=10603>
+    private static final String EMULATOR = "9774d56d682e549c";
+
     public static String androidId() {
         final String androidId = Settings.Secure.getString(ApplicationHelper.context().getContentResolver(), Settings.Secure.ANDROID_ID);
         if (StringHelper.nullOrEmpty(androidId)) {
             Log.w("AndroidId was NULL");
             return null;
+        }
+        if (androidId.equals(EMULATOR)) {
+            Log.w("EMULATOR");
         }
 
         return StringHelper.lower(androidId);
