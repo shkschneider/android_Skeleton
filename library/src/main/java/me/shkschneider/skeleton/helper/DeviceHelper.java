@@ -18,6 +18,11 @@ public class DeviceHelper {
         return ((screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE);
     }
 
+    @Deprecated
+    public static String architecture() {
+        return SystemProperties.property(SystemProperties.SYSTEM_PROPERTY_OS_ARCH);
+    }
+
     public static String codename() {
         return Build.DEVICE;
     }

@@ -3,6 +3,8 @@ package me.shkschneider.skeleton;
 import android.app.Application;
 import android.content.Context;
 
+import me.shkschneider.skeleton.helper.DeviceHelper;
+import me.shkschneider.skeleton.helper.IdHelper;
 import me.shkschneider.skeleton.helper.Log;
 
 public class SkeletonApplication extends Application {
@@ -16,7 +18,9 @@ public class SkeletonApplication extends Application {
 
         CONTEXT = getApplicationContext();
 
-        Log.v("Hello, world!");
+        // Log.v("Hello, world!");
+        Log.v("Device:" + DeviceHelper.codename());
+        Log.v("Id:" + IdHelper.androidId());
     }
 
 }
