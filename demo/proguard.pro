@@ -3,7 +3,7 @@
 -keepattributes **
 -keep class !android.support.v7.internal.view.menu.**, ** {
     !private <fields>;
-    protected <field>;
+    protected <fields>;
     public <fields>;
     <methods>;
 }
@@ -58,9 +58,9 @@
     public static *** d(...);
     public static *** v(...);
 }
--assumenosideeffects class me.shkschneider.skeleton.helper.LogHelper {
-    public static *** debug(...);
-    public static *** verbose(...);
+-assumenosideeffects class me.shkschneider.skeleton.helper.Log {
+    public static *** d(...);
+    public static *** v(...);
 }
 
 # play services
@@ -77,24 +77,3 @@
 -keepnames class * implements android.os.Parcelable {
     public static final ** CREATOR;
 }
-
-# gson
--keep class sun.misc.Unsafe { *; }
--keep class com.google.gson.** { *; }
--keep interface com.google.gson.** { *; }
-
-# support v4
--keep class android.support.v4.** { *; }
--keep interface android.support.v4.** { *; }
-
-# support v7 appcompat
--keep class android.support.v7.** { *; }
--keep interface android.support.v7.** { *; }
-
-# palette v4
--keep class android.palette.v7.** { *; }
--keep interface android.palette.v7.** { *; }
-
-# design
--keep class android.design.** { *; }
--keep interface android.design.** { *; }
