@@ -47,4 +47,8 @@ public class MapHelper {
         return false;
     }
 
+    public static <K, V> int size(@NonNull final Map<K, V> objects) {
+        return keys(objects).size();
+    }
+
 }
