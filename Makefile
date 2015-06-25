@@ -33,9 +33,9 @@ release:
 
 lint:
 	@echo "[ $(APP_ID) $(VERSION) ]"
-	@$(GRADLE) :app:lint
-	@echo "app/build/outputs/lint-results.html"
-	@echo "app/build/outputs/lint-results.xml"
+	@$(GRADLE) :demo:lint
+	@echo "demo/build/outputs/lint-results.html"
+	@echo "demo/build/outputs/lint-results.xml"
 
 clean:
 	@echo "[ $(APP_ID) $(VERSION) ]"
