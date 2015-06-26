@@ -1,6 +1,5 @@
 # IDE files
-.idea/workspace.xml
-.idea/libraries/
+.idea
 
 # Generated files
 bin/
