@@ -54,7 +54,10 @@ public class SkeletonFragment extends Fragment {
 
                 @Override
                 public void run() {
-                    skeletonActivity().transitioning(false);
+                    final SkeletonActivity skeletonActivity = skeletonActivity();
+                    if (skeletonActivity != null) {
+                        skeletonActivity.transitioning(false);
+                    }
                 }
 
             }, TimeUnit.SECONDS.toMillis(1));

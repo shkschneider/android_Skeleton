@@ -122,6 +122,9 @@ public class SkeletonActivity extends AppCompatActivity {
         return false;
     }
 
+//    TODO deprecation
+//    TODO toolbarColor
+
     public boolean actionBarColor(final int color) {
         if (mToolbar == null) {
             Log.w("Toolbar was NULL");
@@ -259,6 +262,8 @@ public class SkeletonActivity extends AppCompatActivity {
         actionBar.setTitle(title);
     }
 
+//    TODO public String title();
+
     public void subtitle(final String subtitle) {
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar == null) {
@@ -268,6 +273,8 @@ public class SkeletonActivity extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(! StringHelper.nullOrEmpty(subtitle));
         actionBar.setSubtitle(subtitle);
     }
+
+//    TODO public String subtitle();
 
     public void logo(final Drawable drawable) {
         final ActionBar actionBar = getSupportActionBar();
