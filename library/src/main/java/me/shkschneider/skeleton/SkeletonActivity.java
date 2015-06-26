@@ -122,10 +122,7 @@ public class SkeletonActivity extends AppCompatActivity {
         return false;
     }
 
-//    TODO deprecation
-//    TODO toolbarColor
-
-    public boolean actionBarColor(final int color) {
+    public boolean toolbarColor(final int color) {
         if (mToolbar == null) {
             Log.w("Toolbar was NULL");
             return false;
@@ -134,32 +131,24 @@ public class SkeletonActivity extends AppCompatActivity {
         return true;
     }
 
-    public boolean actionBarDrawable(final Drawable drawable) {
-        if (AndroidHelper.api() >= AndroidHelper.API_16) {
-            return actionBarDrawable16(drawable);
-        }
-        else {
-            return actionBarDrawable1(drawable);
-        }
-    }
-
-    @SuppressWarnings("deprecation")
-    private boolean actionBarDrawable1(final Drawable drawable) {
-        if (mToolbar == null) {
-            Log.w("Toolbar was NULL");
-            return false;
-        }
-        mToolbar.setBackgroundDrawable(drawable);
-        return true;
+    @Deprecated
+    public boolean actionBarColor(final int color) {
+        return toolbarColor(color);
     }
 
     @TargetApi(AndroidHelper.API_16)
-    private boolean actionBarDrawable16(final Drawable drawable) {
+    @SuppressWarnings("deprecation")
+    public boolean actionBarDrawable(final Drawable drawable) {
         if (mToolbar == null) {
             Log.w("Toolbar was NULL");
             return false;
         }
-        mToolbar.setBackground(drawable);
+        if (AndroidHelper.api() >= AndroidHelper.API_16) {
+            mToolbar.setBackground(drawable);
+        }
+        else {
+            mToolbar.setBackgroundDrawable(drawable);
+        }
         return true;
     }
 
@@ -262,7 +251,15 @@ public class SkeletonActivity extends AppCompatActivity {
         actionBar.setTitle(title);
     }
 
-//    TODO public String title();
+    public String title() {
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar == null) {
+            Log.w("ActionBar was NULL");
+            return null;
+        }
+        final CharSequence title = actionBar.getTitle();
+        return ((title != null) ? title.toString() : null);
+    }
 
     public void subtitle(final String subtitle) {
         final ActionBar actionBar = getSupportActionBar();
@@ -274,7 +271,15 @@ public class SkeletonActivity extends AppCompatActivity {
         actionBar.setSubtitle(subtitle);
     }
 
-//    TODO public String subtitle();
+    public String subtitle() {
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar == null) {
+            Log.w("ActionBar was NULL");
+            return null;
+        }
+        final CharSequence subtitle = actionBar.getSubtitle();
+        return ((subtitle != null) ? subtitle.toString() : null);
+    }
 
     public void logo(final Drawable drawable) {
         final ActionBar actionBar = getSupportActionBar();

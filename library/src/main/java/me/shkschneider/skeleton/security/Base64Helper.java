@@ -8,7 +8,7 @@ public class Base64Helper {
         // Empty
     }
 
-    public static final int FLAGS = Base64.NO_WRAP | Base64.URL_SAFE;
+    public static final int FLAGS = (Base64.NO_WRAP | Base64.URL_SAFE);
 
     public static String encrypt(final String string) {
         return Base64.encodeToString(string.getBytes(), FLAGS);

@@ -4,12 +4,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -23,6 +26,10 @@ import me.shkschneider.skeleton.helper.ScreenHelper;
 
 public class BitmapHelper {
 
+    public static Bitmap fromResource(@DrawableRes final int id) {
+        return BitmapFactory.decodeResource(ApplicationHelper.resources(), id);
+    }
+
     public static Bitmap fromDrawable(@NonNull final Drawable drawable) {
         if (drawable instanceof BitmapDrawable) {
             return ((BitmapDrawable) drawable).getBitmap();
@@ -33,6 +40,16 @@ public class BitmapHelper {
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);
         return bitmap;
+    }
+
+    public static Bitmap changeWhiteColor(final Bitmap sourceBitmap, final int color) {
+        final Bitmap resultBitmap = Bitmap.createBitmap(sourceBitmap, 0, 0, (sourceBitmap.getWidth() - 1), (sourceBitmap.getHeight() - 1));
+        final Paint paint = new Paint();
+        final ColorFilter colorFilter = new LightingColorFilter(color, 1);
+        paint.setColorFilter(colorFilter);
+        final Canvas canvas = new Canvas(resultBitmap);
+        canvas.drawBitmap(resultBitmap, 0, 0, paint);
+        return resultBitmap;
     }
 
     @Deprecated
