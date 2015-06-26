@@ -13,6 +13,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
 
+import me.shkschneider.skeleton.SkeletonActivity;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.demo.R;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
@@ -69,7 +70,11 @@ public class MainFragment extends SkeletonFragment {
 
             @Override
             public void webServiceCallback(final WebServiceException e, final JsonObject jsonObject) {
-                skeletonActivity().loading(-1);
+                final SkeletonActivity skeletonActivity = skeletonActivity();
+                if (skeletonActivity == null) {
+                    return ;
+                }
+                skeletonActivity.loading(-1);
                 if (e != null) {
                     ActivityHelper.toast(e.getMessage());
                     return ;

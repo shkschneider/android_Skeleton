@@ -76,6 +76,7 @@ public class SkeletonFragment extends Fragment {
         mTitle = title;
     }
 
+    // Might be null
     public SkeletonActivity skeletonActivity() {
         if (mActivity == null) {
             mActivity = (SkeletonActivity) getActivity();
