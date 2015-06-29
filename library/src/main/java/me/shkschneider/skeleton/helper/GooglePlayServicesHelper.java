@@ -33,7 +33,7 @@ public class GooglePlayServicesHelper {
 
     public static Dialog dialog(@NonNull final Activity activity) {
         if (check()) {
-            Log.d("GooglePlayServices was OK");
+            LogHelper.d("GooglePlayServices was OK");
             return null;
         }
 
@@ -70,7 +70,7 @@ public class GooglePlayServicesHelper {
             }
         }
         else {
-            Log.w("AccountManager was NULL");
+            LogHelper.w("AccountManager was NULL");
         }
         return accounts;
     }

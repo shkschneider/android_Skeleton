@@ -74,26 +74,26 @@ public class ApplicationHelper {
         try {
             final PackageManager packageManager = packageManager();
             if (packageManager == null) {
-                Log.w("PackageManager was NULL");
+                LogHelper.w("PackageManager was NULL");
                 return null;
             }
 
             final ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName(), 0);
             if (applicationInfo == null) {
-                Log.w("ApplicationInfo was NULL");
+                LogHelper.w("ApplicationInfo was NULL");
                 return null;
             }
 
             final CharSequence label = applicationInfo.loadLabel(packageManager);
             if (label == null) {
-                Log.w("Label was NULL");
+                LogHelper.w("Label was NULL");
                 return null;
             }
 
             return label.toString();
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return null;
         }
     }
@@ -105,7 +105,7 @@ public class ApplicationHelper {
             return null;
         }
         if (! versionName.matches("^\\d+\\.\\d+\\.\\d+$")) {
-            Log.w("Not semantic versioning");
+            LogHelper.w("Not semantic versioning");
             return null;
         }
         final String[] versionNames = versionName.split(".");
@@ -120,14 +120,14 @@ public class ApplicationHelper {
         try {
             final PackageManager packageManager = packageManager();
             if (packageManager == null) {
-                Log.w("PackageManager was NULL");
+                LogHelper.w("PackageManager was NULL");
                 return null;
             }
 
             return packageManager.getPackageInfo(packageName(), PackageManager.GET_META_DATA).versionName;
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return null;
         }
     }
@@ -136,14 +136,14 @@ public class ApplicationHelper {
         try {
             final PackageManager packageManager = packageManager();
             if (packageManager == null) {
-                Log.w("PackageManager was NULL");
+                LogHelper.w("PackageManager was NULL");
                 return -1;
             }
 
             return packageManager.getPackageInfo(packageName(), PackageManager.GET_META_DATA).versionCode;
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return -1;
         }
     }
@@ -152,13 +152,13 @@ public class ApplicationHelper {
         try {
             final PackageManager packageManager = packageManager();
             if (packageManager == null) {
-                Log.w("PackageManager was NULL");
+                LogHelper.w("PackageManager was NULL");
                 return null;
             }
 
             final ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName(), 0);
             if (applicationInfo == null) {
-                Log.w("ApplicationInfo was NULL");
+                LogHelper.w("ApplicationInfo was NULL");
                 return null;
             }
 
@@ -166,7 +166,7 @@ public class ApplicationHelper {
             return BitmapHelper.fromDrawable(drawable);
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return null;
         }
     }
@@ -175,7 +175,7 @@ public class ApplicationHelper {
         try {
             final PackageManager packageManager = packageManager();
             if (packageManager == null) {
-                Log.w("PackageManager was NULL");
+                LogHelper.w("PackageManager was NULL");
                 return null;
             }
 
@@ -186,7 +186,7 @@ public class ApplicationHelper {
             return list;
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return null;
         }
     }
@@ -195,27 +195,27 @@ public class ApplicationHelper {
     public static String signature() {
         final PackageManager packageManager = packageManager();
         if (packageManager == null) {
-            Log.w("PackageManager was NULL");
+            LogHelper.w("PackageManager was NULL");
             return null;
         }
 
         try {
             final PackageInfo packageInfo = packageManager.getPackageInfo(packageName(), PackageManager.GET_SIGNATURES);
             if (packageInfo == null) {
-                Log.w("PackageInfo was NULL");
+                LogHelper.w("PackageInfo was NULL");
                 return null;
             }
 
             final Signature[] signatures = packageInfo.signatures;
             if (signatures == null) {
-                Log.d("No signatures");
+                LogHelper.d("No signatures");
                 return null;
             }
 
             return signatures[0].toCharsString();
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return null;
         }
     }

@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import me.shkschneider.skeleton.helper.ApplicationHelper;
-import me.shkschneider.skeleton.helper.Log;
+import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.SystemProperties;
 
 public class FileHelper {
@@ -39,7 +39,7 @@ public class FileHelper {
             return new FileInputStream(file);
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return null;
         }
     }
@@ -49,7 +49,7 @@ public class FileHelper {
             return ApplicationHelper.resources().openRawResource(rawId);
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return null;
         }
     }
@@ -59,7 +59,7 @@ public class FileHelper {
             return ApplicationHelper.assetManager().open(assetName);
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return null;
         }
     }
@@ -74,7 +74,7 @@ public class FileHelper {
             return readString(new FileInputStream(file));
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return null;
         }
     }
@@ -86,7 +86,7 @@ public class FileHelper {
             return BitmapFactory.decodeStream(new FileInputStream(file), null, options);
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return null;
         }
     }
@@ -98,7 +98,7 @@ public class FileHelper {
             return true;
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return false;
         }
     }
@@ -108,7 +108,7 @@ public class FileHelper {
             return writeString(new FileOutputStream(file), content);
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return false;
         }
     }
@@ -119,14 +119,14 @@ public class FileHelper {
             return bitmap.compress(Bitmap.CompressFormat.PNG, 90, fileOutputStream);
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return false;
         }
     }
 
     public static List<String> list(@NonNull final File file) {
         if (! file.isDirectory()) {
-            Log.d("File was not a directory");
+            LogHelper.d("File was not a directory");
             return null;
         }
 
@@ -134,7 +134,7 @@ public class FileHelper {
 
         final File[] files = file.listFiles();
         if (files == null) {
-            Log.d("Files was NULL");
+            LogHelper.d("Files was NULL");
             return null;
         }
 

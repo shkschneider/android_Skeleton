@@ -41,7 +41,7 @@ public class SystemProperties {
     public static String property(@NonNull final String property) {
         final String systemProperty = System.getProperty(property);
         if (systemProperty == null) {
-            Log.w("SystemProperty was NULL");
+            LogHelper.w("SystemProperty was NULL");
             return null;
         }
         return systemProperty;

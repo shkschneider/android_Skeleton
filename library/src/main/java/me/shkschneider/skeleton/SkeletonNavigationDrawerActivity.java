@@ -13,7 +13,7 @@ import android.view.View;
 
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.KeyboardHelper;
-import me.shkschneider.skeleton.helper.Log;
+import me.shkschneider.skeleton.helper.LogHelper;
 
 public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity {
 
@@ -32,7 +32,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.sk_drawerLayout);
         if (mDrawerLayout == null) {
-            Log.w("DrawerLayout was NULL");
+            LogHelper.w("DrawerLayout was NULL");
             return ;
         }
 
@@ -53,7 +53,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
 
         mNavigationView = (NavigationView) findViewById(R.id.sk_navigationView);
         if (mNavigationView == null) {
-            Log.w("NavigationView was NULL");
+            LogHelper.w("NavigationView was NULL");
             return ;
         }
         if (AndroidHelper.api() >= AndroidHelper.API_21) {
@@ -99,7 +99,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
     public boolean navigationDrawer(final int itemId) {
         // <https://stackoverflow.com/q/30752713/>
         if (! alive() || transitioning()) {
-            Log.w("Switching Fragments too early");
+            LogHelper.w("Switching Fragments too early");
             return false;
         }
         transitioning(true);
@@ -110,7 +110,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
         // Switch Fragment
         final SkeletonFragment skeletonFragment = getFragment(itemId);
         if (skeletonFragment == null) {
-            Log.w("SkeletonFragment was NULL");
+            LogHelper.w("SkeletonFragment was NULL");
             transitioning(false);
             return false;
         }

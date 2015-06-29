@@ -1,21 +1,22 @@
 package me.shkschneider.skeleton.helper;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import me.shkschneider.skeleton.java.StringHelper;
 
-public class Log {
+public class LogHelper {
 
-    protected Log() {
+    protected LogHelper() {
         // Empty
     }
 
-    private static final int VERBOSE = android.util.Log.VERBOSE;
-    private static final int DEBUG = android.util.Log.DEBUG;
-    private static final int INFO = android.util.Log.INFO;
-    private static final int WARN = android.util.Log.WARN;
-    private static final int ERROR = android.util.Log.ERROR;
-    private static final int WTF = android.util.Log.ASSERT;
+    private static final int VERBOSE = Log.VERBOSE;
+    private static final int DEBUG = Log.DEBUG;
+    private static final int INFO = Log.INFO;
+    private static final int WARN = Log.WARN;
+    private static final int ERROR = Log.ERROR;
+    private static final int WTF = Log.ASSERT;
 
     // Used to identify the source of a log message.
     // It usually identifies the class or activity where the log call occurs.

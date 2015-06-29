@@ -13,7 +13,7 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 
-import me.shkschneider.skeleton.helper.Log;
+import me.shkschneider.skeleton.helper.LogHelper;
 
 // <https://github.com/kolavar/android-support-v4-preferencefragment>
 public final class PreferenceManagerCompat {
@@ -25,7 +25,7 @@ public final class PreferenceManagerCompat {
 			return constructor.newInstance(activity, firstRequestCode);
 		}
         catch (final Exception e) {
-            Log.e("Constructor<PreferenceManager>");
+            LogHelper.e("Constructor<PreferenceManager>");
 		}
 		return null;
 	}
@@ -58,7 +58,7 @@ public final class PreferenceManagerCompat {
 			}
 		}
         catch (final Exception e) {
-            Log.e("PreferenceManager.mOnPreferenceTreeClickListener");
+            LogHelper.e("PreferenceManager.mOnPreferenceTreeClickListener");
 		}
 	}
 
@@ -69,7 +69,7 @@ public final class PreferenceManagerCompat {
             return  (PreferenceScreen) method.invoke(manager, intent, screen);
         }
         catch (final Exception e) {
-            Log.e("PreferenceManager.inflateFromIntent");
+            LogHelper.e("PreferenceManager.inflateFromIntent");
 		}
 		return null;
 	}
@@ -81,7 +81,7 @@ public final class PreferenceManagerCompat {
             return  (PreferenceScreen) method.invoke(manager, activity, resId, screen);
         }
         catch (final Exception e) {
-            Log.e("PreferenceManager.inflateFromResource");
+            LogHelper.e("PreferenceManager.inflateFromResource");
 		}
 		return null;
 	}
@@ -93,7 +93,7 @@ public final class PreferenceManagerCompat {
             return (PreferenceScreen) method.invoke(manager);
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
 		}
 		return null;
 	}
@@ -105,7 +105,7 @@ public final class PreferenceManagerCompat {
             method.invoke(manager, requestCode, resultCode, data);
         }
         catch (final Exception e) {
-            Log.e("PreferenceManager.dispatchActivityResult");
+            LogHelper.e("PreferenceManager.dispatchActivityResult");
 		}
 	}
 
@@ -116,7 +116,7 @@ public final class PreferenceManagerCompat {
             method.invoke(manager);
         }
         catch (final Exception e) {
-            Log.e("PreferenceManager.dispatchActivityStyop");
+            LogHelper.e("PreferenceManager.dispatchActivityStyop");
 		}
 	}
 
@@ -127,7 +127,7 @@ public final class PreferenceManagerCompat {
             method.invoke(manager);
 		}
         catch (final Exception e) {
-            Log.e("PreferenceManager.dispatchActivityDestroy");
+            LogHelper.e("PreferenceManager.dispatchActivityDestroy");
 		}
 	}
 
@@ -138,7 +138,7 @@ public final class PreferenceManagerCompat {
 			return ((Boolean) method.invoke(manager, screen));
 		}
         catch (final Exception e) {
-            Log.e("PreferenceManager.setPreferences");
+            LogHelper.e("PreferenceManager.setPreferences");
 		}
 		return false;
 	}

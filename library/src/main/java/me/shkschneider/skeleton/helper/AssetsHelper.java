@@ -33,7 +33,7 @@ public class AssetsHelper {
             return list;
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return null;
         }
     }
@@ -44,7 +44,7 @@ public class AssetsHelper {
             return assetManager.open(name);
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return null;
         }
     }
@@ -76,7 +76,7 @@ public class AssetsHelper {
                     outputStream.close();
                 }
                 catch (final Exception e) {
-                    Log.wtf(null, e);
+                    LogHelper.wtf(null, e);
                     errors++;
                 }
             }

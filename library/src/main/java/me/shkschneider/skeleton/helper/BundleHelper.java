@@ -21,7 +21,7 @@ public class BundleHelper {
 
     public static Serializable unpack(@NonNull final Bundle bundle, @NonNull final String key) {
         if (! bundle.containsKey(key)) {
-            Log.w("Bundle has no such key");
+            LogHelper.w("Bundle has no such key");
             return null;
         }
 

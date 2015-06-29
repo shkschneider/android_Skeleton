@@ -2,7 +2,7 @@ package me.shkschneider.skeleton.security;
 
 import java.security.MessageDigest;
 
-import me.shkschneider.skeleton.helper.Log;
+import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.StringHelper;
 
 public class HashHelper {
@@ -28,7 +28,7 @@ public class HashHelper {
             return stringBuilder.toString();
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return null;
         }
     }

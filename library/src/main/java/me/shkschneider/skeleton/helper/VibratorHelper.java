@@ -11,7 +11,7 @@ public class VibratorHelper {
     public static boolean hasVibrator() {
         final Vibrator vibrator = SystemServices.vibrator();
         if (vibrator == null) {
-            Log.w("Vibrator was NULL");
+            LogHelper.w("Vibrator was NULL");
             return false;
         }
         return vibrator.hasVibrator();
@@ -20,11 +20,11 @@ public class VibratorHelper {
     public static boolean vibrate(final long[] durations, final boolean repeat) {
         final Vibrator vibrator = SystemServices.vibrator();
         if (vibrator == null) {
-            Log.w("Vibrator was NULL");
+            LogHelper.w("Vibrator was NULL");
             return false;
         }
         else if (! hasVibrator()) {
-            Log.w("No vibrator");
+            LogHelper.w("No vibrator");
             return false;
         }
 

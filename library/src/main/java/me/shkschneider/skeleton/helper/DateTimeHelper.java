@@ -47,11 +47,11 @@ public class DateTimeHelper {
 
     public static String relative(final long from, final long to) {
         if (from < 0) {
-            Log.w("TimeFrom was invalid");
+            LogHelper.w("TimeFrom was invalid");
             return null;
         }
         if (to < 0) {
-            Log.w("TimeTo was invalid");
+            LogHelper.w("TimeTo was invalid");
             return null;
         }
 

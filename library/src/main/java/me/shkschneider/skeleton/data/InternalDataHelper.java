@@ -9,7 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 import me.shkschneider.skeleton.helper.ApplicationHelper;
-import me.shkschneider.skeleton.helper.Log;
+import me.shkschneider.skeleton.helper.LogHelper;
 
 public class InternalDataHelper {
 
@@ -22,7 +22,7 @@ public class InternalDataHelper {
             return ApplicationHelper.context().openFileInput(name);
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return null;
         }
     }
@@ -32,7 +32,7 @@ public class InternalDataHelper {
             return ApplicationHelper.context().openFileOutput(name, Context.MODE_PRIVATE);
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return null;
         }
     }
@@ -53,13 +53,13 @@ public class InternalDataHelper {
         final File file = new File(dir().getAbsolutePath() + File.separator + name);
         try {
             if (! file.createNewFile()) {
-                Log.w("File.CreateNewFile failed");
+                LogHelper.w("File.CreateNewFile failed");
             }
 
             return file;
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return null;
         }
     }

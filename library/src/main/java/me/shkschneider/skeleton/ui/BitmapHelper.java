@@ -21,7 +21,7 @@ import android.widget.RelativeLayout;
 import java.io.InputStream;
 
 import me.shkschneider.skeleton.helper.ApplicationHelper;
-import me.shkschneider.skeleton.helper.Log;
+import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.ScreenHelper;
 
 public class BitmapHelper {
@@ -67,7 +67,7 @@ public class BitmapHelper {
     public static Bitmap fromView(@NonNull final View view) {
         final DisplayMetrics displayMetrics = ApplicationHelper.resources().getDisplayMetrics();
         if (displayMetrics == null) {
-            Log.w("DisplayMetrics was NULL");
+            LogHelper.w("DisplayMetrics was NULL");
             return null;
         }
 
@@ -87,7 +87,7 @@ public class BitmapHelper {
             return BitmapFactory.decodeStream(ApplicationHelper.context().getContentResolver().openInputStream(uri), null, new BitmapFactory.Options());
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return null;
         }
     }
@@ -98,7 +98,7 @@ public class BitmapHelper {
         try {
             final InputStream inputStream = ApplicationHelper.context().getContentResolver().openInputStream(uri);
             if (inputStream == null) {
-                Log.w("InputStream was NULL");
+                LogHelper.w("InputStream was NULL");
                 return null;
             }
 
@@ -109,7 +109,7 @@ public class BitmapHelper {
 
             final int downsample = (int) ScreenHelper.density();
             if (downsample <= 0) {
-                Log.w("Downsample was invalid");
+                LogHelper.w("Downsample was invalid");
                 return null;
             }
 
@@ -127,7 +127,7 @@ public class BitmapHelper {
             return BitmapFactory.decodeStream(inputStream, null, bitmapFactoryOptions);
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return null;
         }
     }

@@ -20,7 +20,7 @@ import me.shkschneider.skeleton.demo.fragment.TransitionFragment;
 import me.shkschneider.skeleton.demo.fragment.ViewPagerIconIndicatorFragment;
 import me.shkschneider.skeleton.demo.fragment.ViewPagerTextIndicatorFragment;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
-import me.shkschneider.skeleton.helper.Log;
+import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
 
 public class  MainActivity extends SkeletonNavigationDrawerActivity {
@@ -53,10 +53,10 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
     protected void onResume() {
         super.onResume();
 
-        Log.i("MemoryCache:" + ClassHelper.canonicalName(mMemoryCache.get("MainActivity").getClass()));
-        Log.i("MemoryCacheBitmap:" + ClassHelper.canonicalName(mMemoryCacheBitmap.get("Bitmap").getClass()));
-        Log.i("DiskCacheInternal:" + mDiskCacheInternal.get("DiskCache").toString());
-        Log.i("DiskCacheExternal:" + mDiskCacheExternal.get("DiskCache").toString());
+        LogHelper.i("MemoryCache:" + ClassHelper.canonicalName(mMemoryCache.get("MainActivity").getClass()));
+        LogHelper.i("MemoryCacheBitmap:" + ClassHelper.canonicalName(mMemoryCacheBitmap.get("Bitmap").getClass()));
+        LogHelper.i("DiskCacheInternal:" + mDiskCacheInternal.get("DiskCache").toString());
+        LogHelper.i("DiskCacheExternal:" + mDiskCacheExternal.get("DiskCache").toString());
     }
 
     @Override

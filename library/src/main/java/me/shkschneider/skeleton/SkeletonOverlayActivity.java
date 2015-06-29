@@ -3,7 +3,7 @@ package me.shkschneider.skeleton;
 import android.support.annotation.ColorRes;
 import android.support.design.widget.CollapsingToolbarLayout;
 
-import me.shkschneider.skeleton.helper.Log;
+import me.shkschneider.skeleton.helper.LogHelper;
 
 // <https://github.com/chrisbanes/cheesesquare>
 public class SkeletonOverlayActivity extends SkeletonActivity {
@@ -16,7 +16,7 @@ public class SkeletonOverlayActivity extends SkeletonActivity {
 
         mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
         if (mCollapsingToolbarLayout != null) {
-            Log.v("Found a CollapsingToolbarLayout");
+            LogHelper.v("Found a CollapsingToolbarLayout");
             overlay(getResources().getColor(R.color.actionBarColor));
         }
     }

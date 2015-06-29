@@ -5,7 +5,7 @@ import android.content.Context;
 
 import me.shkschneider.skeleton.helper.DeviceHelper;
 import me.shkschneider.skeleton.helper.IdHelper;
-import me.shkschneider.skeleton.helper.Log;
+import me.shkschneider.skeleton.helper.LogHelper;
 
 /**
  * https://developer.android.com/reference/android/app/Application.html
@@ -23,9 +23,9 @@ public class SkeletonApplication extends Application {
 
         CONTEXT = getApplicationContext();
 
-        // Log.v("Hello, world!");
-        Log.v("Device:" + DeviceHelper.codename());
-        Log.v("Id:" + IdHelper.androidId());
+        // LogHelper.v("Hello, world!");
+        LogHelper.v("Device:" + DeviceHelper.codename());
+        LogHelper.v("Id:" + IdHelper.androidId());
     }
 
 }

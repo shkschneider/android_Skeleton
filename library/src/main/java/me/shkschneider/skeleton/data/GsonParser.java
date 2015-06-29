@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import me.shkschneider.skeleton.helper.Log;
+import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.StringHelper;
 
 public class GsonParser {
@@ -29,7 +29,7 @@ public class GsonParser {
             return gson.fromJson(string, JsonObject.class);
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return null;
         }
     }
@@ -37,7 +37,7 @@ public class GsonParser {
     public static JsonObject parse(@NonNull final InputStream inputStream) {
         final String string = FileHelper.readString(inputStream);
         if (StringHelper.nullOrEmpty(string)) {
-            Log.w("String was NULL");
+            LogHelper.w("String was NULL");
             return null;
         }
 
@@ -51,15 +51,15 @@ public class GsonParser {
         }
         // bad formats
         if (StringHelper.count(string, "\\{") != StringHelper.count(string, "\\}")) {
-            Log.e("Bad {} format: " + string);
+            LogHelper.e("Bad {} format: " + string);
             return null;
         }
         if (StringHelper.count(string, "\\[") != StringHelper.count(string, "\\]")) {
-            Log.e("Bad [] format: " + string);
+            LogHelper.e("Bad [] format: " + string);
             return null;
         }
         if (! string.matches("^([\\{|\\[][^\\{|\\[|\\}|\\]]+(:[0-9]+)?[\\}|\\]])+$")) {
-            Log.e("Bad format: " + string);
+            LogHelper.e("Bad format: " + string);
             return null;
         }
         // tags and paths
@@ -68,13 +68,13 @@ public class GsonParser {
         while (matcherTags.find()) {
             tags.add(matcherTags.group());
         }
-        Log.v("tags: " + tags.toString());
+        LogHelper.v("tags: " + tags.toString());
         final Matcher matcherPaths = Pattern.compile("[\\{|\\[]([^\\{|\\[|\\}|\\]]+)[\\}|\\]]").matcher(string);
         final List<String> paths = new ArrayList<>();
         while (matcherPaths.find()) {
             paths.add(matcherPaths.group(1));
         }
-        Log.v("paths: " + paths.toString());
+        LogHelper.v("paths: " + paths.toString());
         // loop
         JsonObject object = jsonObject;
         for (int i = 0; i < tags.size(); i++) {
@@ -84,13 +84,13 @@ public class GsonParser {
             final String p = paths.get(i);
             // forced end
             if (object.isJsonNull()) {
-                Log.w("Reached a JsonNull");
+                LogHelper.w("Reached a JsonNull");
                 return null;
             }
             // object
             if (t.equals("{")) {
                 if (! object.has(p)) {
-                    Log.e("No such object path: " + p);
+                    LogHelper.e("No such object path: " + p);
                     return null;
                 }
                 final JsonElement jsonElement = object.get(p);
@@ -100,7 +100,7 @@ public class GsonParser {
                 }
                 // keep going so check the type
                 if (! jsonElement.isJsonObject()) {
-                    Log.e("Invalid type (not JsonObject): " + p);
+                    LogHelper.e("Invalid type (not JsonObject): " + p);
                     return null;
                 }
                 // prepare next loop
@@ -113,12 +113,12 @@ public class GsonParser {
                 if (d.length == 1) {
                     final String s = d[0];
                     if (! object.has(s)) {
-                        Log.e("No such array path: " + p);
+                        LogHelper.e("No such array path: " + p);
                         return null;
                     }
                     // has to be an array
                     if (! object.isJsonArray()) {
-                        Log.e("Invalid type (not JsonArray): " + p);
+                        LogHelper.e("Invalid type (not JsonArray): " + p);
                         return null;
                     }
                     // returns as nothing more can be done
@@ -128,16 +128,16 @@ public class GsonParser {
                 else if (d.length == 2) {
                     final String s = d[0];
                     if (! object.has(s)) {
-                        Log.e("No such array path: " + p);
+                        LogHelper.e("No such array path: " + p);
                         return null;
                     }
                     if (! StringHelper.numeric(d[1])) {
-                        Log.e("Invalid index: " + d[1]);
+                        LogHelper.e("Invalid index: " + d[1]);
                         return null;
                     }
                     final int n = Integer.valueOf(d[1]);
                     if (n >= d.length) {
-                        Log.e("Invalid index: " + n);
+                        LogHelper.e("Invalid index: " + n);
                         return null;
                     }
                     final JsonElement jsonElement = object.get(s);
@@ -148,14 +148,14 @@ public class GsonParser {
                     }
                     // keep going so check the type
                     if (! jsonElement.isJsonArray()) {
-                        Log.e("Invalid type (not JsonArray): " + s);
+                        LogHelper.e("Invalid type (not JsonArray): " + s);
                         return null;
                     }
                     // prepare next loop
                     object = array.get(n).getAsJsonObject();
                 }
                 else {
-                    Log.e("Bad format: " + p);
+                    LogHelper.e("Bad format: " + p);
                     return null;
                 }
             }
@@ -171,7 +171,7 @@ public class GsonParser {
             }
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
         }
         return keys;
     }
@@ -184,7 +184,7 @@ public class GsonParser {
             }
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
         }
         return values;
     }
@@ -194,7 +194,7 @@ public class GsonParser {
             return jsonObject.has(key);
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return false;
         }
     }
@@ -204,7 +204,7 @@ public class GsonParser {
             return jsonObject.getAsJsonObject(key);
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return null;
         }
     }
@@ -214,7 +214,7 @@ public class GsonParser {
             return jsonObject.getAsJsonArray(key);
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return null;
         }
     }
@@ -224,7 +224,7 @@ public class GsonParser {
             return jsonObject.get(key).getAsString();
         }
         catch (final Exception e) {
-            Log.wtf(null, e);
+            LogHelper.wtf(null, e);
             return null;
         }
     }

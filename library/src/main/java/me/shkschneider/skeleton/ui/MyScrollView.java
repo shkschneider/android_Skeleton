@@ -4,10 +4,9 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.ScrollView;
 
-import me.shkschneider.skeleton.helper.Log;
+import me.shkschneider.skeleton.helper.LogHelper;
 
 // <http://cyrilmottier.com/2013/05/24/pushing-the-actionbar-to-the-next-level/>
 // <https://stackoverflow.com/a/26990539/603270>
@@ -53,11 +52,11 @@ public class MyScrollView extends ScrollView {
 
     public void parallax(@NonNull final View view, float parallax) {
         if (parallax <= 0) {
-            Log.w("Parallax effect too low");
+            LogHelper.w("Parallax effect too low");
             parallax = PARALLAX;
         }
         if (parallax > 1) {
-            Log.w("Parallax effect too high");
+            LogHelper.w("Parallax effect too high");
             parallax = PARALLAX;
         }
         mView = view;
