@@ -97,6 +97,7 @@ public class NetworkHelper {
         return macAddress;
     }
 
+    @SuppressWarnings("deprecation")
     @Nullable
     public static List<String> ipAddresses() {
         try {
@@ -119,6 +120,7 @@ public class NetworkHelper {
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Nullable
     public static String ipAddress() {
         try {
