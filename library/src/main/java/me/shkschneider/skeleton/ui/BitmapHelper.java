@@ -14,6 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.view.View;
@@ -66,6 +67,7 @@ public class BitmapHelper {
         return circleBitmap;
     }
 
+    @Nullable
     public static Bitmap fromView(@NonNull final View view) {
         final DisplayMetrics displayMetrics = ApplicationHelper.resources().getDisplayMetrics();
         if (displayMetrics == null) {
@@ -84,6 +86,7 @@ public class BitmapHelper {
         return bitmap;
     }
 
+    @Nullable
     public static Bitmap fromUri(@NonNull final Uri uri) {
         try {
             return BitmapFactory.decodeStream(ApplicationHelper.context().getContentResolver().openInputStream(uri), null, new BitmapFactory.Options());
@@ -111,6 +114,7 @@ public class BitmapHelper {
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
     }
 
+    @Nullable
     public static Bitmap decodeUri(@NonNull final Uri uri) {
         final BitmapFactory.Options bitmapFactoryOptionsTmp = new BitmapFactory.Options();
         bitmapFactoryOptionsTmp.inJustDecodeBounds = true;

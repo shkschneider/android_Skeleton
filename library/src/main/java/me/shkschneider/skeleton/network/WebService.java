@@ -97,19 +97,21 @@ public class WebService extends AsyncTask<WebService.Callback, Void, Object> {
                 }
                 dataOutputStream.write(params.getBytes(CharsetHelper.UTF8));
             }
-            // Buffered for performance
-            InputStream inputStream = new BufferedInputStream(httpURLConnection.getInputStream());
             // Response
             final int responseCode = httpURLConnection.getResponseCode();
             final String responseMessage = httpURLConnection.getResponseMessage();
             LogHelper.d(String.format(Locale.US, "%d: %s", responseCode, responseMessage));
+            InputStream inputStream = null;
             switch (responseCode) {
                 case HttpURLConnection.HTTP_OK:
                 case HttpURLConnection.HTTP_CREATED:
                 case HttpURLConnection.HTTP_ACCEPTED:
+                    // Buffered for performance
+                    inputStream = new BufferedInputStream(httpURLConnection.getInputStream());
                     return GsonParser.parse(inputStream);
                 default:
-                    // inputStream = new BufferedInputStream(httpURLConnection.getErrorStream());
+                    // Buffered for performance
+                    // FIXME inputStream = new BufferedInputStream(httpURLConnection.getErrorStream());
                     return new WebServiceException(responseCode, responseMessage);
             }
         }

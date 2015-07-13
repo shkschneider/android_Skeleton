@@ -12,6 +12,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -70,6 +71,7 @@ public class ApplicationHelper {
         return context().getPackageManager();
     }
 
+    @Nullable
     public static String name() {
         try {
             final PackageManager packageManager = packageManager();
@@ -99,6 +101,7 @@ public class ApplicationHelper {
     }
 
     // <http://semver.org>
+    @Nullable
     public static Integer[] semanticVersions() {
         final String versionName = versionName();
         if (versionName == null) {
@@ -116,6 +119,7 @@ public class ApplicationHelper {
         };
     }
 
+    @Nullable
     public static String versionName() {
         try {
             final PackageManager packageManager = packageManager();
@@ -148,6 +152,7 @@ public class ApplicationHelper {
         }
     }
 
+    @Nullable
     public static Bitmap icon() {
         try {
             final PackageManager packageManager = packageManager();
@@ -171,6 +176,7 @@ public class ApplicationHelper {
         }
     }
 
+    @Nullable
     public static List<String> permissions() {
         try {
             final PackageManager packageManager = packageManager();
@@ -192,6 +198,7 @@ public class ApplicationHelper {
     }
 
     @SuppressLint("PackageManagerGetSignatures")
+    @Nullable
     public static String signature() {
         final PackageManager packageManager = packageManager();
         if (packageManager == null) {

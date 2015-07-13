@@ -15,10 +15,12 @@ public final class MemoryCache<K, V> {
 
     public MemoryCache(final int size) {
         mCache = new LruCache<K, V>(size) {
+
             @Override
             protected int sizeOf(final K key, final V value) {
                 return 1;
             }
+
         };
     }
 

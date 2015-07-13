@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.data;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,6 +35,7 @@ public class FileHelper {
         return new File(path);
     }
 
+    @Nullable
     public static InputStream openFile(@NonNull final File file) {
         try {
             return new FileInputStream(file);
@@ -44,6 +46,7 @@ public class FileHelper {
         }
     }
 
+    @Nullable
     public static InputStream openRaw(final int rawId) {
         try {
             return ApplicationHelper.resources().openRawResource(rawId);
@@ -54,6 +57,7 @@ public class FileHelper {
         }
     }
 
+    @Nullable
     public static InputStream openAsset(@NonNull final String assetName) {
         try {
             return ApplicationHelper.assetManager().open(assetName);
@@ -69,6 +73,7 @@ public class FileHelper {
         return new Scanner(inputStream).useDelimiter("\\A").next();
     }
 
+    @Nullable
     public static String readString(@NonNull final File file) {
         try {
             return readString(new FileInputStream(file));
@@ -79,6 +84,7 @@ public class FileHelper {
         }
     }
 
+    @Nullable
     public static Bitmap readBitmap(@NonNull final File file) {
         try {
             final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -124,6 +130,7 @@ public class FileHelper {
         }
     }
 
+    @Nullable
     public static List<String> list(@NonNull final File file) {
         if (! file.isDirectory()) {
             LogHelper.d("File was not a directory");

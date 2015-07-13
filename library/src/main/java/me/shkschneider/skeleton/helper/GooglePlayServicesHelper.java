@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Patterns;
 
 import com.google.android.gms.auth.GoogleAuthUtil;
@@ -31,6 +32,7 @@ public class GooglePlayServicesHelper {
         return (status() == ConnectionResult.SUCCESS);
     }
 
+    @Nullable
     public static Dialog dialog(@NonNull final Activity activity) {
         if (check()) {
             LogHelper.d("GooglePlayServices was OK");
@@ -75,6 +77,7 @@ public class GooglePlayServicesHelper {
         return accounts;
     }
 
+    @Nullable
     public static String account() {
         final List<String> accounts = accounts();
         if (accounts.size() == 0) {

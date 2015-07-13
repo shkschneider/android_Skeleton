@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.helper;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 // <http://developer.android.com/reference/java/lang/System.html#getProperty(java.lang.String)>
 public class SystemProperties {
@@ -38,6 +39,7 @@ public class SystemProperties {
     public static final String SYSTEM_PROPERTY_USER_HOME = "user.home";
     public static final String SYSTEM_PROPERTY_USER_NAME = "user.name";
 
+    @Nullable
     public static String property(@NonNull final String property) {
         final String systemProperty = System.getProperty(property);
         if (systemProperty == null) {

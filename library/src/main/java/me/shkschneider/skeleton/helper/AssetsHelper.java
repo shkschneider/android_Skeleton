@@ -2,6 +2,7 @@ package me.shkschneider.skeleton.helper;
 
 import android.content.res.AssetManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RawRes;
 
 import java.io.InputStream;
@@ -26,6 +27,7 @@ public class AssetsHelper {
         return ApplicationHelper.context().getAssets();
     }
 
+    @Nullable
     public static List<String> list() {
         final List<String> list = new ArrayList<>();
         try {
@@ -38,6 +40,7 @@ public class AssetsHelper {
         }
     }
 
+    @Nullable
     public static InputStream open(@NonNull final String name) {
         final AssetManager assetManager = assetManager();
         try {

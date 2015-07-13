@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.helper;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.view.View;
@@ -45,6 +46,7 @@ public class ActivityHelper {
         return (ApplicationHelper.resources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
     }
 
+    @Nullable
     public static String title(@NonNull final Activity activity) {
         if (activity instanceof SkeletonActivity) {
             final ActionBar actionBar = ((SkeletonActivity) activity).getSupportActionBar();
@@ -59,6 +61,7 @@ public class ActivityHelper {
     }
 
     @Deprecated
+    @Nullable
     public static String subtitle(@NonNull final Activity activity) {
         if (activity instanceof SkeletonActivity) {
             final ActionBar actionBar = ((SkeletonActivity) activity).getSupportActionBar();

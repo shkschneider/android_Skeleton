@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.java;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ public class ListHelper {
         return objects.contains(object);
     }
 
+    @Nullable
     public static <T> T first(@NonNull final List<T> objects) {
         if (objects.size() == 0) {
             return null;
@@ -22,6 +24,7 @@ public class ListHelper {
         return objects.get(0);
     }
 
+    @Nullable
     public static <T> T last(@NonNull final List<T> objects) {
         if (objects.size() == 0) {
             return null;

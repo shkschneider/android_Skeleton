@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.helper;
 
+import android.support.annotation.Nullable;
 import android.text.format.DateUtils;
 
 import java.text.SimpleDateFormat;
@@ -48,6 +49,7 @@ public class DateTimeHelper {
         return relative(time, timestamp());
     }
 
+    @Nullable
     public static String relative(final long from, final long to) {
         if (from < 0) {
             LogHelper.w("TimeFrom was invalid");

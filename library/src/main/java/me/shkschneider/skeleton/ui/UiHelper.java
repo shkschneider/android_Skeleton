@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.ui;
 
+import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,19 +22,15 @@ public class UiHelper {
     // public static final float CARD_ELEVATION_MIN = CARD_ELEVATION_1;
     // public static final float CARD_ELEVATION_MAX = CARD_ELEVATION_4;
 
+    @Nullable
+    public static View inflate(final LayoutInflater layoutInflater, final ViewGroup container, final int layout) {
+        return layoutInflater.inflate(layout, container, false);
+    }
+
+    @Nullable
     public static View inflate(final ViewGroup container, final int layout) {
-        try {
-            final LayoutInflater layoutInflater = SystemServices.layoutInflater();
-            if (layoutInflater == null) {
-                LogHelper.w("LayoutInflater was NULL");
-                return null;
-            }
-            return layoutInflater.inflate(layout, container, false);
-        }
-        catch (final Exception e) {
-            LogHelper.wtf(null, e);
-            return null;
-        }
+        final LayoutInflater layoutInflater = LayoutInflater.from(container.getContext());
+        return layoutInflater.inflate(layout, container, false);
     }
 
     public static View inflate(final int layout) {

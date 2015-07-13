@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.java;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.telephony.PhoneNumberUtils;
 import android.util.Patterns;
 
@@ -160,6 +161,7 @@ public class StringHelper {
         return string;
     }
 
+    @Nullable
     public static String random(@NonNull final String characters, final int length) {
         if (length <= 0) {
             LogHelper.w("Length was invalid");

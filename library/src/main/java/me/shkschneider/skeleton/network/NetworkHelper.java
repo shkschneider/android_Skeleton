@@ -4,6 +4,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.support.annotation.Nullable;
 import android.webkit.WebView;
 
 import org.apache.http.conn.util.InetAddressUtils;
@@ -26,6 +27,7 @@ public class NetworkHelper {
     }
 
     @Deprecated
+    @Nullable
     public static String hostname() {
         try {
             final InetAddress inetAddress = InetAddress.getLocalHost();
@@ -41,6 +43,7 @@ public class NetworkHelper {
         }
     }
 
+    @Deprecated
     public static String userAgent() {
         return new WebView(ApplicationHelper.context()).getSettings().getUserAgentString();
     }
@@ -70,6 +73,8 @@ public class NetworkHelper {
         return (wifiManager.getWifiState() == WifiManager.WIFI_STATE_ENABLED);
     }
 
+    @Deprecated
+    @Nullable
     public static String macAddress() {
         final WifiManager wifiManager = SystemServices.wifiManager();
         if (wifiManager == null) {
@@ -92,6 +97,7 @@ public class NetworkHelper {
         return macAddress;
     }
 
+    @Nullable
     public static List<String> ipAddresses() {
         try {
             final List<String> ipAddresses = new ArrayList<String>();
@@ -113,6 +119,7 @@ public class NetworkHelper {
         }
     }
 
+    @Nullable
     public static String ipAddress() {
         try {
             for (final Enumeration<NetworkInterface> enumerationNetworkInterface = NetworkInterface.getNetworkInterfaces(); enumerationNetworkInterface.hasMoreElements();) {

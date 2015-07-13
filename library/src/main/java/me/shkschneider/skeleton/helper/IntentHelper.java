@@ -13,6 +13,7 @@ import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -204,6 +205,7 @@ public class IntentHelper {
     public static final int REQUEST_CODE_CAMERA = 111;
     public static final int REQUEST_CODE_GALLERY = 222;
 
+    @Nullable
     public static Intent home() {
         final PackageManager packageManager = ApplicationHelper.context().getPackageManager();
         if (packageManager == null) {
@@ -224,6 +226,7 @@ public class IntentHelper {
         return external(new Intent(Intent.ACTION_VIEW, uri));
     }
 
+    @Nullable
     public static Intent web(@NonNull final String url) {
         if (! UrlHelper.valid(url)) {
             LogHelper.w("Url was invalid");
@@ -286,6 +289,7 @@ public class IntentHelper {
                 .setType(MimeTypeHelper.IMAGE));
     }
 
+    @Nullable
     public static Intent camera(@NonNull final File file) {
         if (! FeaturesHelper.feature(FeaturesHelper.FEATURE_CAMERA)) {
             LogHelper.w("Camera was unavailable");
@@ -354,6 +358,7 @@ public class IntentHelper {
         return (resolveInfos.size() > 0);
     }
 
+    @Nullable
     public static Bitmap onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
         if (resultCode != Activity.RESULT_OK) {
             LogHelper.d("ResultCode was not OK");

@@ -1,5 +1,7 @@
 package me.shkschneider.skeleton.security;
 
+import android.support.annotation.Nullable;
+
 import java.security.MessageDigest;
 
 import me.shkschneider.skeleton.helper.LogHelper;
@@ -14,6 +16,7 @@ public class HashHelper {
     protected static final String MD5 = "MD5";
     protected static final String SHA = "SHA";
 
+    @Nullable
     private static String hash(final String algorithm, final String string) {
         try {
             final MessageDigest messageDigest = MessageDigest.getInstance(algorithm);

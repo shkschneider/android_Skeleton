@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.helper;
 
 import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.telephony.TelephonyManager;
 
 import java.util.UUID;
@@ -16,6 +17,7 @@ public class IdHelper {
     // <https://code.google.com/p/android/issues/detail?id=10603>
     private static final String EMULATOR = "9774d56d682e549c";
 
+    @Nullable
     public static String androidId() {
         final String androidId = Settings.Secure.getString(ApplicationHelper.context().getContentResolver(), Settings.Secure.ANDROID_ID);
         if (StringHelper.nullOrEmpty(androidId)) {
@@ -30,6 +32,7 @@ public class IdHelper {
     }
 
     @Deprecated
+    @Nullable
     public static String imei() {
         final TelephonyManager telephonyManager = SystemServices.telephonyManager();
         if (telephonyManager == null) {
@@ -39,6 +42,7 @@ public class IdHelper {
         return telephonyManager.getDeviceId();
     }
 
+    @Nullable
     public static String uuid() {
         final String deviceId = androidId();
         if (StringHelper.nullOrEmpty(deviceId)) {

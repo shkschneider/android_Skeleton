@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.security;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.Arrays;
 
@@ -57,6 +58,7 @@ public class ComplexCrypt {
         return mSecretKey.getAlgorithm();
     }
 
+    @Nullable
     public byte[] encrypt(@NonNull final byte[] bytes) {
         try {
             mCipher.init(Cipher.ENCRYPT_MODE, mSecretKeySpec, mIvParameterSpec);
@@ -68,6 +70,7 @@ public class ComplexCrypt {
         }
     }
 
+    @Nullable
     public byte[] decrypt(@NonNull final byte[] bytes) {
         try {
             mCipher.init(Cipher.DECRYPT_MODE, mSecretKeySpec, mIvParameterSpec);

@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.data;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -23,6 +24,7 @@ public class GsonParser {
         // Empty
     }
 
+    @Nullable
     public static JsonObject parse(@NonNull final String string) {
         try {
             final Gson gson = new Gson();
@@ -34,6 +36,7 @@ public class GsonParser {
         }
     }
 
+    @Nullable
     public static JsonObject parse(@NonNull final InputStream inputStream) {
         final String string = FileHelper.readString(inputStream);
         if (StringHelper.nullOrEmpty(string)) {
@@ -44,6 +47,7 @@ public class GsonParser {
         return parse(string);
     }
 
+    @Nullable
     public static JsonElement get(@NonNull final JsonObject jsonObject, final String string) {
         // matches all
         if (StringHelper.nullOrEmpty(string)) {
@@ -199,6 +203,7 @@ public class GsonParser {
         }
     }
 
+    @Nullable
     public static JsonObject object(@NonNull final JsonObject jsonObject, @NonNull final String key) {
         try {
             return jsonObject.getAsJsonObject(key);
@@ -209,6 +214,7 @@ public class GsonParser {
         }
     }
 
+    @Nullable
     public static JsonArray array(@NonNull final JsonObject jsonObject, @NonNull final String key) {
         try {
             return jsonObject.getAsJsonArray(key);
@@ -219,6 +225,7 @@ public class GsonParser {
         }
     }
 
+    @Nullable
     public static String string(@NonNull final JsonObject jsonObject, @NonNull final String key) {
         try {
             return jsonObject.get(key).getAsString();

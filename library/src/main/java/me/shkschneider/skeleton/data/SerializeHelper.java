@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.data;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -29,6 +30,7 @@ public class SerializeHelper {
         }
     }
 
+    @Nullable
     public static Object read(@NonNull final File file) {
         try {
             final ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(file));

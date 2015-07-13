@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.data;
 import android.content.Context;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,6 +18,7 @@ public class InternalDataHelper {
         // Empty
     }
 
+    @Nullable
     public static FileInputStream openInput(@NonNull final String name) {
         try {
             return ApplicationHelper.context().openFileInput(name);
@@ -27,6 +29,7 @@ public class InternalDataHelper {
         }
     }
 
+    @Nullable
     public static FileOutputStream openOutput(@NonNull final String name) {
         try {
             return ApplicationHelper.context().openFileOutput(name, Context.MODE_PRIVATE);
@@ -49,6 +52,7 @@ public class InternalDataHelper {
         return ApplicationHelper.context().getFilesDir();
     }
 
+    @Nullable
     public static File file(@NonNull final String name) {
         final File file = new File(dir().getAbsolutePath() + File.separator + name);
         try {
