@@ -2,7 +2,6 @@
     tools:ignore="UnusedResources">
 
     <dimen name="statusBar">24dp</dimen>
-    <dimen name="actionBar">48dp</dimen>
     <dimen name="toolbar">56dp</dimen>
     <dimen name="toolbar2">96dp</dimen>
     <dimen name="navigationBar">48dp</dimen>

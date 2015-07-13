@@ -102,11 +102,6 @@ public class ScreenHelper {
         return (int) ApplicationHelper.resources().getDimension(R.dimen.statusBar);
     }
 
-    @Deprecated
-    public static int actionBarHeight(@NonNull final Window window) {
-        return (int) ApplicationHelper.resources().getDimension(R.dimen.actionBar);
-    }
-
     public static int rotation() {
         final WindowManager windowManager = SystemServices.windowManager();
         if (windowManager == null) {
