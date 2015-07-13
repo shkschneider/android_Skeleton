@@ -8,7 +8,7 @@ import android.widget.ImageView;
 // <http://stackoverflow.com/a/12283909>
 public class AutoImageViewHeight extends ImageView {
 
-    // TODO ratio
+    private float mRatio = 1.0F;
 
     public AutoImageViewHeight(final Context context) {
         super(context);
@@ -22,6 +22,14 @@ public class AutoImageViewHeight extends ImageView {
         super(context, attrs, defStyleAttr);
     }
 
+    public float getRatio() {
+        return mRatio;
+    }
+
+    public void setRatio(final float ratio) {
+        mRatio = ratio;
+    }
+
     @Override
     protected void onMeasure(final int widthMeasureSpec, final int heightMeasureSpec) {
         final Drawable drawable = getDrawable();
@@ -31,7 +39,7 @@ public class AutoImageViewHeight extends ImageView {
         }
         final int height = MeasureSpec.getSize(heightMeasureSpec);
         int width = (int) Math.ceil((float) height * (float) drawable.getIntrinsicHeight() / (float) drawable.getIntrinsicWidth());
-        setMeasuredDimension(width, height);
+        setMeasuredDimension((int) (mRatio * width), (int) (mRatio * height));
     }
 
 }
