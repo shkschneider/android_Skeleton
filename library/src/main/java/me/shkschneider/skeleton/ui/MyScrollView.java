@@ -8,8 +8,6 @@ import android.widget.ScrollView;
 
 import me.shkschneider.skeleton.helper.LogHelper;
 
-// FIXME NestedScrollView
-
 // <http://cyrilmottier.com/2013/05/24/pushing-the-actionbar-to-the-next-level/>
 // <https://stackoverflow.com/a/26990539/603270>
 public class MyScrollView extends ScrollView {

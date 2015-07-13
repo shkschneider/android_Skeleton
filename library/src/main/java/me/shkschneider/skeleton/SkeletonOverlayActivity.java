@@ -33,8 +33,7 @@ public class SkeletonOverlayActivity extends SkeletonActivity {
 
     public void overlay(@ColorRes final int color) {
         if (mCollapsingToolbarLayout != null) {
-            statusBarColor(getWindow(), color);
-            // FIXME mCollapsingToolbarLayout.setStatusBarScrimColor(color);
+            statusBarColor(getWindow(), color); // mCollapsingToolbarLayout.setStatusBarScrimColor(color)
             mCollapsingToolbarLayout.setContentScrimColor(color);
         }
     }

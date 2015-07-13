@@ -7,15 +7,10 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
-import android.util.Base64;
-
-import java.io.ByteArrayOutputStream;
 
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 
 public class DrawableHelper {
-
-    // TODO randomColor()
 
     @SuppressWarnings("deprecation")
     public static Drawable fromResource(@DrawableRes final int id) {
