@@ -7,6 +7,9 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.util.Base64;
+
+import java.io.ByteArrayOutputStream;
 
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 
@@ -27,6 +30,10 @@ public class DrawableHelper {
         final RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(ApplicationHelper.resources(), bitmap);
         roundedBitmapDrawable.setCornerRadius(Math.min(roundedBitmapDrawable.getMinimumWidth(), roundedBitmapDrawable.getMinimumHeight()) / 2.0F);
         return roundedBitmapDrawable;
+    }
+
+    public static String toBase64(@NonNull final Drawable drawable) {
+        return BitmapHelper.toBase64(BitmapHelper.fromDrawable(drawable));
     }
 
 }

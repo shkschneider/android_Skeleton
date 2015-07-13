@@ -14,10 +14,12 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 import me.shkschneider.skeleton.helper.ApplicationHelper;
@@ -92,6 +94,23 @@ public class BitmapHelper {
         }
     }
 
+    public static Bitmap compress(@NonNull final Bitmap bitmap, final int factor) {
+        if (factor <= 0) {
+            return bitmap;
+        }
+        if ((factor & (factor - 1)) != 0) {
+            LogHelper.w("Factor should be a power of 2");
+        }
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        options.inSampleSize = factor;
+        options.inPreferQualityOverSpeed = true;
+        final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        final byte[] bytes = byteArrayOutputStream.toByteArray();
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
+    }
+
     public static Bitmap decodeUri(@NonNull final Uri uri) {
         final BitmapFactory.Options bitmapFactoryOptionsTmp = new BitmapFactory.Options();
         bitmapFactoryOptionsTmp.inJustDecodeBounds = true;
@@ -136,6 +155,13 @@ public class BitmapHelper {
         final Matrix matrix = new Matrix();
         matrix.postRotate(degrees);
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+    }
+
+    public static String toBase64(@NonNull final Bitmap bitmap) {
+        final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        final byte[] bytes = byteArrayOutputStream.toByteArray();
+        return Base64.encodeToString(bytes, Base64.DEFAULT);
     }
 
 }
