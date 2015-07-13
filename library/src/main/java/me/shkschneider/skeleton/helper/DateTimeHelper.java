@@ -9,6 +9,9 @@ import java.util.TimeZone;
 
 public class DateTimeHelper {
 
+    // <http://developer.android.com/intl/ru/reference/java/text/SimpleDateFormat.html>
+    public static final String ISO8601 = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+
     protected DateTimeHelper() {
         // Empty
     }
@@ -37,7 +40,7 @@ public class DateTimeHelper {
         return Calendar.getInstance().getTimeInMillis();
     }
 
-    private static int gmtOffset() {
+    public static int gmtOffset() {
         return Math.round(TimeZone.getDefault().getOffset(milliTimestamp()) / DateUtils.SECOND_IN_MILLIS);
     }
 
