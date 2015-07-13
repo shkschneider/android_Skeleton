@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.helper;
 
 import android.provider.Settings;
+import android.telephony.TelephonyManager;
 
 import java.util.UUID;
 
@@ -26,6 +27,16 @@ public class IdHelper {
         }
 
         return StringHelper.lower(androidId);
+    }
+
+    @Deprecated
+    public static String imei() {
+        final TelephonyManager telephonyManager = SystemServices.telephonyManager();
+        if (telephonyManager == null) {
+            LogHelper.w("TelephonyManager was NULL");
+            return null;
+        }
+        return telephonyManager.getDeviceId();
     }
 
     public static String uuid() {
