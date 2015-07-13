@@ -81,6 +81,7 @@ public class StringHelper {
     }
 
     public static boolean phone(@NonNull final String string) {
+        // return Patterns.PHONE.matcher(string).matches();
         return PhoneNumberUtils.isGlobalPhoneNumber(string);
     }
 
@@ -98,10 +99,21 @@ public class StringHelper {
         return true;
     }
 
+    // <http://stackoverflow.com/a/3758880>
+    public static String humanReadableSize(final long bytes, final boolean binary) {
+        final int unit = (binary ? 1024 : 1000);
+        if (bytes < unit) {
+            return bytes + " B";
+        }
+        final int exp = (int) (Math.log(bytes) / Math.log(unit));
+        return String.format("%.1f %sB", bytes / Math.pow(unit, exp), (binary ? "KMGTPE" : "kMGTPE").charAt(exp-1) + (binary ? "i" : ""));
+    }
+
     public static String[] split(@NonNull final String string) {
         return string.split("(?!^)");
     }
 
+    // <https://stackoverflow.com/a/3322174/603270>
     public static String withoutAccents(@NonNull String string) {
         string = Normalizer.normalize(string, Normalizer.Form.NFD);
         // string = string.replaceAll("[^\\p{ASCII}]", ""); // ascii
