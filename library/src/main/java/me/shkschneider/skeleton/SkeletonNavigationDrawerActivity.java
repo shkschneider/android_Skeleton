@@ -210,4 +210,18 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
         }
     }
 
+    @Override
+    protected void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("tab", navigationDrawer());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(final Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null) {
+            navigationDrawer(savedInstanceState.getInt("tab"));
+        }
+    }
+
 }

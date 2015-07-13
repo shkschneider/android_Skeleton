@@ -19,10 +19,12 @@ import me.shkschneider.skeleton.java.ClassHelper;
  *     onCreateView()
  *     onViewCreated()
  *     onActivityCreated()
+ *     onViewStateRestored()
  *     onStart()
  *     onResume()
  *     onPause()
  *     onStop()
+ *     onSaveInstanceState()
  *     onDestroyView()
  *     onDestroy()
  *     onDetach()
@@ -88,6 +90,16 @@ public class SkeletonFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mActivity = null;
+    }
+
+    @Override
+    public void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
     }
 
 }

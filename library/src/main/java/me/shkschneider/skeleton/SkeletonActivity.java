@@ -481,4 +481,14 @@ public class SkeletonActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(final Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
 }
