@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.annotation.Size;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -101,6 +102,7 @@ public class ApplicationHelper {
     }
 
     // <http://semver.org>
+    @Size(3)
     @Nullable
     public static Integer[] semanticVersions() {
         final String versionName = versionName();
