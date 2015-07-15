@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.helper;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.format.DateUtils;
 
@@ -29,7 +30,7 @@ public class DateTimeHelper {
         return Calendar.getInstance().get(Calendar.YEAR);
     }
 
-    public static String format(final Calendar calendar, final String format) {
+    public static String format(@NonNull final Calendar calendar, @NonNull final String format) {
         return new SimpleDateFormat(format, Locale.US).format(calendar.getTime());
     }
 

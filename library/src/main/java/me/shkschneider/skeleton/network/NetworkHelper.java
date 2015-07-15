@@ -101,7 +101,7 @@ public class NetworkHelper {
     @Nullable
     public static List<String> ipAddresses() {
         try {
-            final List<String> ipAddresses = new ArrayList<String>();
+            final List<String> ipAddresses = new ArrayList<>();
             for (final Enumeration<NetworkInterface> enumerationNetworkInterface = NetworkInterface.getNetworkInterfaces(); enumerationNetworkInterface.hasMoreElements();) {
                 final NetworkInterface networkInterface = enumerationNetworkInterface.nextElement();
                 for (Enumeration<InetAddress> enumerationInetAddress = networkInterface.getInetAddresses(); enumerationInetAddress.hasMoreElements();) {

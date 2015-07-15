@@ -1,5 +1,7 @@
 package me.shkschneider.skeleton.network;
 
+import android.support.annotation.NonNull;
+
 import com.android.volley.NetworkResponse;
 import com.android.volley.ParseError;
 import com.android.volley.Response;
@@ -14,16 +16,16 @@ import java.util.zip.GZIPInputStream;
 // <https://github.com/DWorkS/VolleyPlus/blob/master/library/src/com/android/volley/request/GZipRequest.java>
 public class GZipRequest extends StringRequest {
 
-    public GZipRequest(int method, String url, Response.Listener<String> listener, Response.ErrorListener errorListener) {
+    public GZipRequest(final int method, @NonNull final String url, final Response.Listener<String> listener, final Response.ErrorListener errorListener) {
         super(method, url, listener, errorListener);
     }
 
-    public GZipRequest(String url, Response.Listener<String> listener, Response.ErrorListener errorListener) {
+    public GZipRequest(@NonNull final String url, final Response.Listener<String> listener, final Response.ErrorListener errorListener) {
         super(url, listener, errorListener);
     }
 
     @Override
-    protected Response<String> parseNetworkResponse(NetworkResponse response) {
+    protected Response<String> parseNetworkResponse(@NonNull final NetworkResponse response) {
         String output = "";
         try {
             final GZIPInputStream gzipInputStream = new GZIPInputStream(new ByteArrayInputStream(response.data));

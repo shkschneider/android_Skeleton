@@ -1,5 +1,7 @@
 package me.shkschneider.skeleton.java;
 
+import me.shkschneider.skeleton.helper.LogHelper;
+
 public class RandomHelper {
 
     protected RandomHelper() {
@@ -11,6 +13,14 @@ public class RandomHelper {
     }
 
     public static int inclusive(final int min, final int max) {
+        if (min > max) {
+            LogHelper.w("MIN was greater than MAX");
+            return -1;
+        }
+        if (min == max) {
+            LogHelper.i("MIN was equal to MAX");
+            return min;
+        }
         return min + (int) (Math.random() * ((max - min) + 1));
     }
 

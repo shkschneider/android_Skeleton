@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.java;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +12,7 @@ public class ArrayHelper {
         // Empty
     }
 
-    private static <T> List<T> list(@NonNull final T[] objects) {
+    public static <T> List<T> list(@NonNull final T[] objects) {
         return Arrays.asList(objects);
     }
 
@@ -19,10 +20,12 @@ public class ArrayHelper {
         return ListHelper.contains(list(objects), object);
     }
 
+    @Nullable
     public static <T> T first(@NonNull final T[] objects) {
         return ListHelper.first(list(objects));
     }
 
+    @Nullable
     public static <T> T last(@NonNull final T[] objects) {
         return ListHelper.last(list(objects));
     }

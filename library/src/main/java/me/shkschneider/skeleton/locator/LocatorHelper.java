@@ -2,6 +2,8 @@ package me.shkschneider.skeleton.locator;
 
 import android.location.Location;
 import android.location.LocationManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -9,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 public class LocatorHelper {
 
-    public static Float metersFromDegrees(final Float degree) {
+    public static float metersFromDegrees(final float degree) {
         if (degree <= 0) {
             return 0F;
         }
@@ -17,7 +19,7 @@ public class LocatorHelper {
         return (degree * 111111);
     }
 
-    public static Float degreesFromMeters(final Float meters) {
+    public static float degreesFromMeters(final float meters) {
         if (meters <= 0) {
             return 0F;
         }
@@ -25,7 +27,7 @@ public class LocatorHelper {
         return (meters / 111111);
     }
 
-    public static Boolean betterLocation(final Location location, final Location currentLocation, final Long refreshRate) {
+    public static Boolean betterLocation(@Nullable final Location location, @Nullable final Location currentLocation, final long refreshRate) {
         if (currentLocation == null) {
             return true;
         }
@@ -63,23 +65,15 @@ public class LocatorHelper {
         return false;
     }
 
-    public static Boolean betterLocation(final Location location, final Location currentLocation) {
+    public static Boolean betterLocation(@Nullable final Location location, @Nullable final Location currentLocation) {
         return betterLocation(location, currentLocation, TimeUnit.MINUTES.toMillis(1));
     }
 
-    public static LatLng latLng(final Location location) {
-        if (location == null) {
-            return new LatLng(0, 0);
-        }
-
+    public static LatLng latLng(@NonNull final Location location) {
         return new LatLng(location.getLatitude(), location.getLongitude());
     }
 
-    public static Location location(final LatLng latLng) {
-        if (latLng == null) {
-            return new Location(LocationManager.PASSIVE_PROVIDER);
-        }
-
+    public static Location location(@NonNull final LatLng latLng) {
         final Location location = new Location(LocationManager.PASSIVE_PROVIDER);
         location.setLatitude(latLng.latitude);
         location.setLongitude(latLng.longitude);

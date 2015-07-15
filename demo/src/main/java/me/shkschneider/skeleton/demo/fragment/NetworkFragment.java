@@ -75,20 +75,20 @@ public class NetworkFragment extends SkeletonFragment implements SwipeRefreshLay
         super.onViewCreated(view, savedInstanceState);
         final ListView listView = (ListView) view.findViewById(R.id.listView);
         listView.setAdapter(mAdapter);
-        skeletonActivity().swipeRefreshLayoutCompat(listView);
+        getSkeletonActivity().swipeRefreshLayoutCompat(listView);
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        skeletonActivity().refreshable(true, this);
+        getSkeletonActivity().refreshable(true, this);
 
         if (NetworkHelper.connectedOrConnecting()) {
             onRefresh();
         }
         else {
-            ActivityHelper.snackBar(ActivityHelper.contentView(skeletonActivity()), "Offline");
+            ActivityHelper.snackBar(ActivityHelper.contentView(getSkeletonActivity()), "Offline");
         }
     }
 
@@ -100,7 +100,7 @@ public class NetworkFragment extends SkeletonFragment implements SwipeRefreshLay
 
             @Override
             public void onResponse(final JsonObject jsonObject) {
-                skeletonActivity().loading(-1);
+                getSkeletonActivity().loading(-1);
                 for (final String key : GsonParser.keys(jsonObject)) {
                     final String value = GsonParser.string(jsonObject, key);
                     if (!StringHelper.nullOrEmpty(value)) {
@@ -116,16 +116,16 @@ public class NetworkFragment extends SkeletonFragment implements SwipeRefreshLay
 
             @Override
             public void onErrorResponse(final VolleyError volleyError) {
-                skeletonActivity().loading(-1);
+                getSkeletonActivity().loading(-1);
                 ActivityHelper.toast(volleyError.getMessage());
             }
 
         };
-        skeletonActivity().loading(+1);
+        getSkeletonActivity().loading(+1);
         Proxy.getInstance().addToRequestQueue(new GsonObjectRequest("http://ip.jsontest.com", listener, errorListener));
-        skeletonActivity().loading(+1);
+        getSkeletonActivity().loading(+1);
         Proxy.getInstance().addToRequestQueue(new GsonObjectRequest("http://headers.jsontest.com", listener, errorListener));
-        skeletonActivity().loading(+1);
+        getSkeletonActivity().loading(+1);
         Proxy.getInstance().addToRequestQueue(new GsonObjectRequest("http://date.jsontest.com", listener, errorListener));
     }
 

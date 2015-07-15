@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RawRes;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -47,9 +48,9 @@ public class FileHelper {
     }
 
     @Nullable
-    public static InputStream openRaw(final int rawId) {
+    public static InputStream openRaw(@RawRes final int id) {
         try {
-            return ApplicationHelper.resources().openRawResource(rawId);
+            return ApplicationHelper.resources().openRawResource(id);
         }
         catch (final Exception e) {
             LogHelper.wtf(null, e);
@@ -137,7 +138,7 @@ public class FileHelper {
             return null;
         }
 
-        final List<String> list = new ArrayList<String>();
+        final List<String> list = new ArrayList<>();
 
         final File[] files = file.listFiles();
         if (files == null) {

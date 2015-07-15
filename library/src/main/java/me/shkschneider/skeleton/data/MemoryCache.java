@@ -17,7 +17,7 @@ public final class MemoryCache<K, V> {
         mCache = new LruCache<K, V>(size) {
 
             @Override
-            protected int sizeOf(final K key, final V value) {
+            protected int sizeOf(@NonNull final K key, @NonNull final V value) {
                 return 1;
             }
 
@@ -57,7 +57,7 @@ public final class MemoryCache<K, V> {
         }
 
         @Override
-        protected int sizeOf(final String key, final android.graphics.Bitmap bitmap) {
+        protected int sizeOf(@NonNull final String key, @NonNull final android.graphics.Bitmap bitmap) {
             return (bitmap.getByteCount() / 1024);
         }
 

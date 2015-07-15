@@ -21,6 +21,8 @@ import me.shkschneider.skeleton.SkeletonActivity;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.demo.R;
 import me.shkschneider.skeleton.helper.ActivityHelper;
+import me.shkschneider.skeleton.helper.ApplicationHelper;
+import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.StringHelper;
 
 public class ListViewFragment extends SkeletonFragment implements SwipeRefreshLayout.OnRefreshListener {
@@ -37,8 +39,8 @@ public class ListViewFragment extends SkeletonFragment implements SwipeRefreshLa
 
         // Adapter
 
-        final LayoutInflater layoutInflater = LayoutInflater.from(skeletonActivity());
-        mAdapter = new ArrayAdapter<String>(skeletonActivity(), R.layout.sk_listview_item1) {
+        final LayoutInflater layoutInflater = LayoutInflater.from(getSkeletonActivity());
+        mAdapter = new ArrayAdapter<String>(getSkeletonActivity(), R.layout.sk_listview_item1) {
             @Override
             public View getView(final int position, View convertView, final ViewGroup parent) {
                 if (convertView == null) {
@@ -53,7 +55,8 @@ public class ListViewFragment extends SkeletonFragment implements SwipeRefreshLa
         // Search
 
         setHasOptionsMenu(true);
-        skeletonActivity().searchable(getResources().getString(R.string.dots), new SkeletonActivity.SearchCallback() {
+        getSkeletonActivity().searchable(getResources().getString(R.string.dots), new SkeletonActivity.SearchCallback() {
+
             @Override
             public void onSearchTextChange(final String q) {
                 refresh(q);
@@ -63,6 +66,7 @@ public class ListViewFragment extends SkeletonFragment implements SwipeRefreshLa
             public void onSearchTextSubmit(final String q) {
                 // Ignore
             }
+
         });
     }
 
@@ -87,7 +91,7 @@ public class ListViewFragment extends SkeletonFragment implements SwipeRefreshLa
                 ActivityHelper.toast(mAdapter.getItem(position));
             }
         });
-        skeletonActivity().swipeRefreshLayoutCompat(listView);
+        getSkeletonActivity().swipeRefreshLayoutCompat(listView);
     }
 
     // Load
@@ -96,7 +100,7 @@ public class ListViewFragment extends SkeletonFragment implements SwipeRefreshLa
     public void onResume() {
         super.onResume();
 
-        skeletonActivity().refreshable(true, this);
+        getSkeletonActivity().refreshable(true, this);
 
         onRefresh();
     }
@@ -107,7 +111,7 @@ public class ListViewFragment extends SkeletonFragment implements SwipeRefreshLa
     }
 
     public void refresh(final String q) {
-        skeletonActivity().loading(+1);
+        getSkeletonActivity().loading(+1);
         new Thread() {
             @Override
             public void run() {
@@ -133,7 +137,7 @@ public class ListViewFragment extends SkeletonFragment implements SwipeRefreshLa
                         mAdapter.clear();
                         mAdapter.addAll(countries);
                         mAdapter.notifyDataSetChanged();
-                        skeletonActivity().loading(-1);
+                        getSkeletonActivity().loading(-1);
                     }
                 });
             }

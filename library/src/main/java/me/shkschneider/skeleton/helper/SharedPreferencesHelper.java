@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import me.shkschneider.skeleton.java.StringHelper;
 
@@ -25,6 +26,7 @@ public class SharedPreferencesHelper {
         return true;
     }
 
+    @Nullable
     public static String getPublic(@NonNull final String key, final String defaultValue) {
         return getPublic().getString(key, defaultValue);
     }
@@ -46,6 +48,7 @@ public class SharedPreferencesHelper {
         return true;
     }
 
+    @Nullable
     public static String getPrivate(@NonNull final String name, @NonNull final String key, final String defaultValue) {
         return getPrivate(name).getString(key, defaultValue);
     }

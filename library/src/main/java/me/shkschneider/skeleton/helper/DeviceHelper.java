@@ -46,4 +46,6 @@ public class DeviceHelper {
         return Build.ID;
     }
 
+    // TODO 32-64bits
+
 }

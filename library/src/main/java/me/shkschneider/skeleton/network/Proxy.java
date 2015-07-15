@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.network;
 
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 import android.support.v4.util.LruCache;
 
 import com.android.volley.Request;
@@ -26,19 +27,19 @@ public class Proxy {
             private final LruCache<String, Bitmap> CACHE = new LruCache<>(42);
 
             @Override
-            public Bitmap getBitmap(final String url) {
+            public Bitmap getBitmap(@NonNull final String url) {
                 return CACHE.get(url);
             }
 
             @Override
-            public void putBitmap(final String url, final Bitmap bitmap) {
+            public void putBitmap(@NonNull final String url, @NonNull final Bitmap bitmap) {
                 CACHE.put(url, bitmap);
             }
 
         });
     }
 
-    public static synchronized Proxy getInstance() {
+    public static Proxy getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new Proxy();
         }
@@ -52,8 +53,8 @@ public class Proxy {
         return mRequestQueue;
     }
 
-    public <T> void addToRequestQueue(final Request<T> req) {
-        getRequestQueue().add(req);
+    public <T> void addToRequestQueue(@NonNull final Request<T> request) {
+        getRequestQueue().add(request);
     }
 
     public ImageLoader getImageLoader() {

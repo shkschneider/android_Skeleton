@@ -26,7 +26,7 @@ public class GsonObjectRequest extends JsonRequest<JsonObject> {
     }
 
     @Override
-    protected Response<JsonObject> parseNetworkResponse(final NetworkResponse response) {
+    protected Response<JsonObject> parseNetworkResponse(@NonNull final NetworkResponse response) {
         try {
             final String string = new String(response.data, HttpHeaderParser.parseCharset(response.headers, "utf-8"));
             final JsonObject jsonObject = new Gson().fromJson(string, JsonObject.class);

@@ -25,7 +25,7 @@ public class BytesRequest extends JsonRequest<byte[]> {
     }
 
     @Override
-    protected Response<byte[]> parseNetworkResponse(final NetworkResponse response) {
+    protected Response<byte[]> parseNetworkResponse(@NonNull final NetworkResponse response) {
         return Response.success(response.data, HttpHeaderParser.parseCacheHeaders(response));
     }
 

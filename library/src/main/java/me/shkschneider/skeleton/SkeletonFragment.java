@@ -2,12 +2,14 @@ package me.shkschneider.skeleton;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
 import java.util.concurrent.TimeUnit;
 
+import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
 
 /**
@@ -40,30 +42,39 @@ public class SkeletonFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(final Activity activity) {
+    public void onAttach(@NonNull final Activity activity) {
         super.onAttach(activity);
+        if (! (activity instanceof SkeletonActivity)) {
+            LogHelper.e("Activity was not SkeletonActivity");
+        }
         mActivity = (SkeletonActivity) activity;
     }
 
     @Override
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        skeletonActivity().bindMySwipeRefreshLayout();
-
+        mActivity.bindMySwipeRefreshLayout();
         // <https://stackoverflow.com/q/30752713/>
         if (view != null) {
             view.postDelayed(new Runnable() {
 
                 @Override
                 public void run() {
-                    final SkeletonActivity skeletonActivity = skeletonActivity();
-                    if (skeletonActivity != null) {
-                        skeletonActivity.transitioning(false);
-                    }
+                    mActivity.transitioning(false);
                 }
 
             }, TimeUnit.SECONDS.toMillis(1));
         }
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable final Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
     }
 
     public boolean alive() {
@@ -78,8 +89,8 @@ public class SkeletonFragment extends Fragment {
         mTitle = title;
     }
 
-    // Might be null
-    public SkeletonActivity skeletonActivity() {
+    // @Nullable
+    public SkeletonActivity getSkeletonActivity() {
         if (mActivity == null) {
             mActivity = (SkeletonActivity) getActivity();
         }
@@ -95,11 +106,6 @@ public class SkeletonFragment extends Fragment {
     @Override
     public void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable final Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
     }
 
 }

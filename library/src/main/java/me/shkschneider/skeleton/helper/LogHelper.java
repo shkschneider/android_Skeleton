@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.helper;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import me.shkschneider.skeleton.java.StringHelper;
@@ -23,7 +24,7 @@ public class LogHelper {
     protected static String TAG = ApplicationHelper.packageName();
     // Here I use the application's packageName
 
-    protected static void log(final int level, final String msg, final Throwable throwable) {
+    protected static void log(final int level, @Nullable final String msg, final @Nullable Throwable throwable) {
         final StackTraceElement[] elements = new Throwable().getStackTrace();
         String callerClassName = "?";
         String callerMethodName = "?";
@@ -70,7 +71,7 @@ public class LogHelper {
         log(DEBUG, msg, null);
     }
 
-    public static void d(final String msg, @NonNull final Throwable throwable) {
+    public static void d(@Nullable final String msg, @NonNull final Throwable throwable) {
         log(DEBUG, msg, throwable);
     }
 
@@ -78,7 +79,7 @@ public class LogHelper {
         log(VERBOSE, msg, null);
     }
 
-    public static void v(final String msg, @NonNull final Throwable throwable) {
+    public static void v(@Nullable final String msg, @NonNull final Throwable throwable) {
         log(VERBOSE, msg, throwable);
     }
 
@@ -86,7 +87,7 @@ public class LogHelper {
         log(INFO, msg, null);
     }
 
-    public static void i(final String msg, @NonNull final Throwable throwable) {
+    public static void i(@Nullable final String msg, @NonNull final Throwable throwable) {
         log(INFO, msg, throwable);
     }
 
@@ -94,7 +95,7 @@ public class LogHelper {
         log(WARN, msg, null);
     }
 
-    public static void w(final String msg, @NonNull final Throwable throwable) {
+    public static void w(@Nullable final String msg, @NonNull final Throwable throwable) {
         log(WARN, msg, throwable);
     }
 
@@ -102,7 +103,7 @@ public class LogHelper {
         log(ERROR, msg, null);
     }
 
-    public static void e(final String msg, @NonNull final Throwable throwable) {
+    public static void e(@Nullable final String msg, @NonNull final Throwable throwable) {
         log(ERROR, msg, throwable);
     }
 
@@ -110,7 +111,7 @@ public class LogHelper {
         log(WTF, msg, null);
     }
 
-    public static void wtf(final String msg, @NonNull final Throwable throwable) {
+    public static void wtf(@Nullable final String msg, @NonNull final Throwable throwable) {
         log(WTF, msg, throwable);
     }
 

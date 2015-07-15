@@ -63,7 +63,7 @@ public class MySwipeRefreshLayout extends SwipeRefreshLayout {
     private boolean mHandleTouch = true;
 
     @Override
-    public boolean onTouchEvent(final MotionEvent motionEvent) {
+    public boolean onTouchEvent(@NonNull final MotionEvent motionEvent) {
         final int action = MotionEventCompat.getActionMasked(motionEvent);
         switch (action) {
             case MotionEvent.ACTION_DOWN:
@@ -93,7 +93,7 @@ public class MySwipeRefreshLayout extends SwipeRefreshLayout {
     private boolean mDeclined;
 
     @Override
-    public boolean onInterceptTouchEvent(final MotionEvent motionEvent) {
+    public boolean onInterceptTouchEvent(@NonNull final MotionEvent motionEvent) {
         switch (motionEvent.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mX = MotionEvent.obtain(motionEvent).getX();
@@ -118,12 +118,12 @@ public class MySwipeRefreshLayout extends SwipeRefreshLayout {
         absListView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
             @Override
-            public void onScrollStateChanged(final AbsListView view, final int scrollState) {
+            public void onScrollStateChanged(@NonNull final AbsListView view, final int scrollState) {
                 // Ignore
             }
 
             @Override
-            public void onScroll(final AbsListView view, final int firstVisibleItem, final int visibleItemCount, final int totalItemCount) {
+            public void onScroll(@NonNull final AbsListView view, final int firstVisibleItem, final int visibleItemCount, final int totalItemCount) {
                 final int topRowVerticalPosition = ((absListView.getChildCount() == 0) ? 0 : absListView.getChildAt(0).getTop());
                 mySwipeRefreshLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
             }
@@ -136,10 +136,12 @@ public class MySwipeRefreshLayout extends SwipeRefreshLayout {
 
     public static void scrollViewCompat(@NonNull final MySwipeRefreshLayout mySwipeRefreshLayout, @NonNull final ScrollView scrollView) {
         scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
+
             @Override
             public void onScrollChanged() {
                 mySwipeRefreshLayout.setEnabled(scrollView.getScrollY() == 0);
             }
+
         });
     }
 

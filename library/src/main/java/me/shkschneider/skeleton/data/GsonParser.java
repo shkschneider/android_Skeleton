@@ -48,11 +48,7 @@ public class GsonParser {
     }
 
     @Nullable
-    public static JsonElement get(@NonNull final JsonObject jsonObject, final String string) {
-        // matches all
-        if (StringHelper.nullOrEmpty(string)) {
-            return jsonObject;
-        }
+    public static JsonElement get(@NonNull final JsonObject jsonObject, @NonNull final String string) {
         // bad formats
         if (StringHelper.count(string, "\\{") != StringHelper.count(string, "\\}")) {
             LogHelper.e("Bad {} format: " + string);

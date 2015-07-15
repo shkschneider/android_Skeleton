@@ -45,7 +45,7 @@ public class GooglePlayServicesHelper {
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
 
             @Override
-            public void onCancel(final DialogInterface dialogInterface) {
+            public void onCancel(@NonNull final DialogInterface dialogInterface) {
                 dialog.dismiss();
             }
 
@@ -53,7 +53,7 @@ public class GooglePlayServicesHelper {
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
 
             @Override
-            public void onDismiss(final DialogInterface dialogInterface) {
+            public void onDismiss(@NonNull final DialogInterface dialogInterface) {
                 activity.finish();
             }
 
@@ -62,7 +62,7 @@ public class GooglePlayServicesHelper {
     }
 
     public static List<String> accounts() {
-        final List<String> accounts = new ArrayList<String>();
+        final List<String> accounts = new ArrayList<>();
         final AccountManager accountManager = AccountManager.get(ApplicationHelper.context());
         if (accountManager != null) {
             for (Account account : accountManager.getAccountsByType(GOOGLE_ACCOUNT_TYPE)) {

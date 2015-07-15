@@ -2,6 +2,7 @@ package me.shkschneider.skeleton.network;
 
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.google.gson.JsonObject;
 
@@ -21,7 +22,7 @@ import me.shkschneider.skeleton.java.ClassHelper;
 import me.shkschneider.skeleton.java.StringHelper;
 
 // <http://developer.android.com/reference/java/net/HttpURLConnection.html>
-public class WebService extends AsyncTask<WebService.Callback, Void, Object> {
+public class WebService extends AsyncTask<Void, Void, Object> {
 
     private static final int TIMEOUT_CONNECT = (int) TimeUnit.SECONDS.toMillis(3);
     private static final int TIMEOUT_READ = (int) TimeUnit.SECONDS.toMillis(5);
@@ -32,7 +33,7 @@ public class WebService extends AsyncTask<WebService.Callback, Void, Object> {
     private Map<String, String> mBody;
     private Callback mCallback;
 
-    public WebService(@NonNull final Method method, @NonNull final String url, final Map<String, String> body, final Callback callback) {
+    public WebService(@NonNull final Method method, @NonNull final String url, @Nullable final Map<String, String> body, @Nullable final Callback callback) {
         mMethod = method;
         mUrl = url;
         mBody = body;
@@ -47,12 +48,13 @@ public class WebService extends AsyncTask<WebService.Callback, Void, Object> {
         return mUrl;
     }
 
+    @Nullable
     public Map<String, String> body() {
         return mBody;
     }
 
     public void run() {
-        execute(mCallback);
+        execute();
     }
 
     public void cancel() {
@@ -65,7 +67,7 @@ public class WebService extends AsyncTask<WebService.Callback, Void, Object> {
     }
 
     @Override
-    protected Object doInBackground(final Callback... callbacks) {
+    protected Object doInBackground(final Void ... voids) {
         // OkHttp
         HttpURLConnection httpURLConnection = null;
         try {
@@ -127,21 +129,21 @@ public class WebService extends AsyncTask<WebService.Callback, Void, Object> {
     }
 
     @Override
-    protected void onPostExecute(final Object o) {
+    protected void onPostExecute(@Nullable final Object object) {
         // Should not happen
-        if (o == null) {
+        if (object == null) {
             LogHelper.w("Nothing");
             final WebServiceException webServiceException = new WebServiceException(WebServiceException.INTERNAL_ERROR, "Nothing");
             mCallback.webServiceCallback(webServiceException, null);
         }
         // Could happen
-        else if (o instanceof WebServiceException) {
-            final WebServiceException webServiceException = (WebServiceException) o;
+        else if (object instanceof WebServiceException) {
+            final WebServiceException webServiceException = (WebServiceException) object;
             mCallback.webServiceCallback(webServiceException, null);
         }
         // Should happen
-        else if (o instanceof JsonObject) {
-            final JsonObject jsonObject = (JsonObject) o;
+        else if (object instanceof JsonObject) {
+            final JsonObject jsonObject = (JsonObject) object;
             mCallback.webServiceCallback(null, jsonObject);
         }
         // Should never happen
@@ -173,7 +175,7 @@ public class WebService extends AsyncTask<WebService.Callback, Void, Object> {
 
     public interface Callback {
 
-        void webServiceCallback(final WebServiceException e, final JsonObject jsonObject);
+        void webServiceCallback(@Nullable final WebServiceException e, @Nullable final JsonObject jsonObject);
 
     }
 

@@ -68,7 +68,7 @@ public class ScreenHelper {
 
     public static boolean brightness(@NonNull final Window window, final float brightness) {
         if (brightness > BRIGHTNESS_MAX) {
-            LogHelper.w("Brightness was too big");
+            LogHelper.w("Brightness was too high");
             return false;
         }
         else if (brightness < BRIGHTNESS_MIN && brightness != BRIGHTNESS_RESET) {

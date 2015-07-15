@@ -12,6 +12,7 @@ import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -45,7 +46,7 @@ public class BitmapHelper {
         return bitmap;
     }
 
-    public static Bitmap changeWhiteColor(final Bitmap sourceBitmap, final int color) {
+    public static Bitmap changeWhiteColor(@NonNull final Bitmap sourceBitmap, @ColorInt final int color) {
         final Bitmap resultBitmap = Bitmap.createBitmap(sourceBitmap, 0, 0, (sourceBitmap.getWidth() - 1), (sourceBitmap.getHeight() - 1));
         final Paint paint = new Paint();
         final ColorFilter colorFilter = new LightingColorFilter(color, 1);

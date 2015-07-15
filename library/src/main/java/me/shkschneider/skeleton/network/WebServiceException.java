@@ -1,12 +1,14 @@
 package me.shkschneider.skeleton.network;
 
+import android.support.annotation.NonNull;
+
 public class WebServiceException extends Exception {
 
     public static final int INTERNAL_ERROR = 666;
 
     private int mCode;
 
-    public WebServiceException(final int responseCode, final String responseMessage) {
+    public WebServiceException(final int responseCode, @NonNull final String responseMessage) {
         super(responseMessage);
         mCode = responseCode;
     }

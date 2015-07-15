@@ -4,6 +4,8 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.MenuRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -25,7 +27,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
     protected abstract SkeletonFragment getFragment(final int itemId);
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sk_navigationdraweractivity);
         home(true);
@@ -39,12 +41,12 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
         mDrawerToggle = new ActionBarDrawerToggle(SkeletonNavigationDrawerActivity.this, mDrawerLayout, android.R.string.ok, android.R.string.cancel) {
 
             @Override
-            public void onDrawerOpened(final View view) {
+            public void onDrawerOpened(@NonNull final View view) {
                 onNavigationDrawerOpened();
             }
 
             @Override
-            public void onDrawerClosed(final View view) {
+            public void onDrawerClosed(@NonNull final View view) {
                 onNavigationDrawerClosed();
             }
 
@@ -62,7 +64,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             @Override
-            public boolean onNavigationItemSelected(final MenuItem menuItem) {
+            public boolean onNavigationItemSelected(@NonNull final MenuItem menuItem) {
                 navigationDrawer(menuItem.getItemId());
                 return true;
             }
@@ -176,7 +178,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
     }
 
     @Override
-    public boolean onCreateOptionsMenu(final Menu menu) {
+    public boolean onCreateOptionsMenu(@NonNull final Menu menu) {
         if (mOpenedOrOpening) {
             // Hides menu when opened
             menu.clear();
@@ -187,7 +189,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
     }
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull final MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             if (! navigationDrawerOpenedOrOpening()) {
                 onNavigationDrawerOpened();

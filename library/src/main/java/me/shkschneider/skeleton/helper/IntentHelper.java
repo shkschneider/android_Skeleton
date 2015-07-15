@@ -236,7 +236,7 @@ public class IntentHelper {
         return external(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
     }
 
-    public static Intent share(final String subject, final String text) {
+    public static Intent share(@Nullable final String subject, @Nullable final String text) {
         final Intent intent = new Intent(Intent.ACTION_SEND)
                 .setType(MimeTypeHelper.TEXT_PLAIN);
         if (! StringHelper.nullOrEmpty(subject)) {
@@ -359,7 +359,7 @@ public class IntentHelper {
     }
 
     @Nullable
-    public static Bitmap onActivityResult(final int requestCode, final int resultCode, final Intent intent) {
+    public static Bitmap onActivityResult(final int requestCode, final int resultCode, @Nullable final Intent intent) {
         if (resultCode != Activity.RESULT_OK) {
             LogHelper.d("ResultCode was not OK");
             return null;

@@ -1,12 +1,12 @@
 package me.shkschneider.skeleton.ui;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.helper.SystemServices;
+import me.shkschneider.skeleton.helper.ApplicationHelper;
 
 public class UiHelper {
 
@@ -23,18 +23,20 @@ public class UiHelper {
     // public static final float CARD_ELEVATION_MAX = CARD_ELEVATION_4;
 
     @Nullable
-    public static View inflate(final LayoutInflater layoutInflater, final ViewGroup container, final int layout) {
+    public static View inflate(@NonNull final LayoutInflater layoutInflater, final ViewGroup container, final int layout) {
         return layoutInflater.inflate(layout, container, false);
     }
 
     @Nullable
-    public static View inflate(final ViewGroup container, final int layout) {
+    public static View inflate(@NonNull final ViewGroup container, final int layout) {
         final LayoutInflater layoutInflater = LayoutInflater.from(container.getContext());
-        return layoutInflater.inflate(layout, container, false);
+        return inflate(layoutInflater, container, layout);
     }
 
+    @Nullable
     public static View inflate(final int layout) {
-        return inflate(null, layout);
+        final LayoutInflater layoutInflater = LayoutInflater.from(ApplicationHelper.context());
+        return inflate(layoutInflater, null, layout);
     }
 
 }

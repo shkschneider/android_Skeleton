@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.java;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.telephony.PhoneNumberUtils;
+import android.text.TextUtils;
 import android.util.Patterns;
 
 import java.text.Normalizer;
@@ -26,7 +27,7 @@ public class StringHelper {
     public static final String ALPHA_NUMERIC = ALPHA + NUMERIC;
 
     public static boolean nullOrEmpty(final String string) {
-        return (string == null || (string.length() == 0));
+        return TextUtils.isEmpty(string);
     }
 
     public static String camelCase(@NonNull final String[] strings) {
@@ -123,7 +124,7 @@ public class StringHelper {
     }
 
     public static String[] split(@NonNull final String string, final char delimiter) {
-        final List<String> list = new ArrayList<String>();
+        final List<String> list = new ArrayList<>();
         final int size = string.length();
         int start = 0;
         for (int i = 0; i < size; i++) {

@@ -6,7 +6,10 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
@@ -52,7 +55,7 @@ public class SkeletonActivity extends AppCompatActivity {
     private boolean mTransitioning = false;
 
     @Override
-    protected void onCreate(final Bundle savedInstanceState) {
+    protected void onCreate(@Nullable final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sk_activity);
 
@@ -79,8 +82,8 @@ public class SkeletonActivity extends AppCompatActivity {
     }
 
     @Override
-    public void setContentView(final int layoutResID) {
-        super.setContentView(layoutResID);
+    public void setContentView(@LayoutRes final int id) {
+        super.setContentView(id);
         bindViews();
         onViewCreated();
     }
@@ -113,7 +116,7 @@ public class SkeletonActivity extends AppCompatActivity {
     }
 
     @TargetApi(AndroidHelper.API_21)
-    public boolean statusBarColor(@NonNull final Window window, final int color) {
+    public boolean statusBarColor(@NonNull final Window window, @ColorInt final int color) {
         if (AndroidHelper.api() >= AndroidHelper.API_21) {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(color);
@@ -122,7 +125,7 @@ public class SkeletonActivity extends AppCompatActivity {
         return false;
     }
 
-    public boolean toolbarColor(final int color) {
+    public boolean toolbarColor(@ColorInt final int color) {
         if (mToolbar == null) {
             LogHelper.w("Toolbar was NULL");
             return false;
@@ -132,7 +135,7 @@ public class SkeletonActivity extends AppCompatActivity {
     }
 
     @Deprecated
-    public boolean actionBarColor(final int color) {
+    public boolean actionBarColor(@ColorInt final int color) {
         return toolbarColor(color);
     }
 
@@ -308,7 +311,7 @@ public class SkeletonActivity extends AppCompatActivity {
         return mMySwipeRefreshLayout.isEnabled();
     }
 
-    public void refreshable(final boolean b, final SwipeRefreshLayout.OnRefreshListener onRefreshListener) {
+    public void refreshable(final boolean b, @Nullable final SwipeRefreshLayout.OnRefreshListener onRefreshListener) {
         // Resets loading count to avoid side-effects upon re-loading
         mLoadingCount = 0;
         if (mMySwipeRefreshLayout == null) {
@@ -381,7 +384,7 @@ public class SkeletonActivity extends AppCompatActivity {
     private MenuItem mSearchMenuItem;
     private SearchView mSearchView;
 
-    public void searchable(final String hint, final SearchCallback searchCallback) {
+    public void searchable(final String hint, @Nullable final SearchCallback searchCallback) {
         mSearchHint = hint;
         mSearchCallback = searchCallback;
         // AVOID supportInvalidateOptionsMenu()
@@ -434,7 +437,7 @@ public class SkeletonActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(final MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull final MenuItem item) {
         if (mSearchCallback == null) {
             return super.onOptionsItemSelected(item);
         }

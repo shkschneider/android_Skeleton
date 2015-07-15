@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.demo.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,7 +50,7 @@ public class MainFragment extends SkeletonFragment {
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        skeletonActivity().loading(+1);
+        getSkeletonActivity().loading(+1);
         final ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
         ((MyScrollView) view.findViewById(R.id.myScrollView)).parallax(imageView);
         final TextView textView1 = (TextView) view.findViewById(android.R.id.text1);
@@ -70,7 +71,7 @@ public class MainFragment extends SkeletonFragment {
 
             @Override
             public void onResponse(final JsonObject jsonObject) {
-                skeletonActivity().loading(-1);
+                getSkeletonActivity().loading(-1);
                 final JsonArray entries = GsonParser.array(jsonObject, "entry");
                 if (entries == null) {
                     LogHelper.w("No entries");
@@ -87,7 +88,7 @@ public class MainFragment extends SkeletonFragment {
 
                     @Override
                     public void onErrorResponse(final VolleyError volleyError) {
-                        ActivityHelper.snackBar(ActivityHelper.contentView(skeletonActivity()), volleyError.getMessage());
+                        ActivityHelper.snackBar(ActivityHelper.contentView(getSkeletonActivity()), volleyError.getMessage());
                     }
 
                 });
@@ -101,7 +102,7 @@ public class MainFragment extends SkeletonFragment {
 
             @Override
             public void onErrorResponse(final VolleyError volleyError) {
-                ActivityHelper.snackBar(ActivityHelper.contentView(skeletonActivity()), volleyError.getMessage());
+                ActivityHelper.snackBar(ActivityHelper.contentView(getSkeletonActivity()), volleyError.getMessage());
             }
 
         }));

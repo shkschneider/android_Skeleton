@@ -187,7 +187,7 @@ public class ApplicationHelper {
 
             final PackageInfo packageInfo = packageManager.getPackageInfo(packageName(), PackageManager.GET_PERMISSIONS);
 
-            final List<String> list = new ArrayList<String>();
+            final List<String> list = new ArrayList<>();
             Collections.addAll(list, packageInfo.requestedPermissions);
             return list;
         }

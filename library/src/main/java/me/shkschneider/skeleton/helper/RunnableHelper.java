@@ -14,12 +14,12 @@ public class RunnableHelper {
         // Empty
     }
 
-    public static void delay(@NonNull final Runnable runnable, final int amount, final TimeUnit timeUnit) {
+    public static void delay(@NonNull final Runnable runnable, final int amount, @NonNull final TimeUnit timeUnit) {
         // Executors.newSingleThreadScheduledExecutor().schedule(runnable, 1, TimeUnit.SECONDS);
         new Handler().postDelayed(runnable, timeUnit.toMillis(amount));
     }
 
-    public static void repeat(@NonNull final Runnable runnable, final int amount, final TimeUnit timeUnit) {
+    public static void repeat(@NonNull final Runnable runnable, final int amount, @NonNull final TimeUnit timeUnit) {
         new Thread(new Runnable() {
 
                 private Handler mHandler = new Handler();
@@ -44,6 +44,7 @@ public class RunnableHelper {
         }
     }
 
+    // @MainThread
     public static void runOnUiThread(@NonNull final Activity activity, @NonNull final Runnable runnable) {
         activity.runOnUiThread(runnable);
     }

@@ -55,9 +55,9 @@ public class TransitionFragment extends SkeletonFragment {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(final AdapterView<?> parent, final View view, final int position, final long id) {
-                final Intent intent = OverlayActivity.getIntent(skeletonActivity());
+                final Intent intent = OverlayActivity.getIntent(getSkeletonActivity());
                 ActivityTransitionHelper.tag(view, "NewYork");
-                ActivityTransitionHelper.transition(skeletonActivity(), intent, Pair.create(view, "NewYork"));
+                ActivityTransitionHelper.transition(getSkeletonActivity(), intent, Pair.create(view, "NewYork"));
             }
         });
     }

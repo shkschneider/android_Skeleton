@@ -26,7 +26,7 @@ public class GsonArrayRequest extends JsonRequest<JsonArray> {
     }
 
     @Override
-    protected Response<JsonArray> parseNetworkResponse(final NetworkResponse response) {
+    protected Response<JsonArray> parseNetworkResponse(@NonNull final NetworkResponse response) {
         try {
             final String string = new String(response.data, HttpHeaderParser.parseCharset(response.headers, "utf-8"));
             final JsonArray jsonArray = new Gson().fromJson(string, JsonArray.class);

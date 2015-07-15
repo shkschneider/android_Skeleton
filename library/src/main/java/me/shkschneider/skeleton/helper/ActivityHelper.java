@@ -47,14 +47,12 @@ public class ActivityHelper {
     }
 
     @Nullable
-    public static String title(@NonNull final Activity activity) {
-        if (activity instanceof SkeletonActivity) {
-            final ActionBar actionBar = ((SkeletonActivity) activity).getSupportActionBar();
-            if (actionBar != null) {
-                final CharSequence charSequence = actionBar.getTitle();
-                if (charSequence != null) {
-                    return charSequence.toString();
-                }
+    public static String title(@NonNull final SkeletonActivity skeletonActivity) {
+        final ActionBar actionBar = skeletonActivity.getSupportActionBar();
+        if (actionBar != null) {
+            final CharSequence charSequence = actionBar.getTitle();
+            if (charSequence != null) {
+                return charSequence.toString();
             }
         }
         return null;
@@ -62,14 +60,12 @@ public class ActivityHelper {
 
     @Deprecated
     @Nullable
-    public static String subtitle(@NonNull final Activity activity) {
-        if (activity instanceof SkeletonActivity) {
-            final ActionBar actionBar = ((SkeletonActivity) activity).getSupportActionBar();
-            if (actionBar != null) {
-                final CharSequence charSequence = actionBar.getSubtitle();
-                if (charSequence != null) {
-                    return charSequence.toString();
-                }
+    public static String subtitle(@NonNull final SkeletonActivity skeletonActivity) {
+        final ActionBar actionBar = skeletonActivity.getSupportActionBar();
+        if (actionBar != null) {
+            final CharSequence charSequence = actionBar.getSubtitle();
+            if (charSequence != null) {
+                return charSequence.toString();
             }
         }
         return null;

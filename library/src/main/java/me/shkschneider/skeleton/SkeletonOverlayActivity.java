@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton;
 
+import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.design.widget.CollapsingToolbarLayout;
 
@@ -31,7 +32,7 @@ public class SkeletonOverlayActivity extends SkeletonActivity {
         }
     }
 
-    public void overlay(@ColorRes final int color) {
+    public void overlay(@ColorInt final int color) {
         if (mCollapsingToolbarLayout != null) {
             statusBarColor(getWindow(), color); // mCollapsingToolbarLayout.setStatusBarScrimColor(color)
             mCollapsingToolbarLayout.setContentScrimColor(color);
