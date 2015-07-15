@@ -1,7 +1,9 @@
 package me.shkschneider.skeleton.data;
 
+import android.Manifest;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresPermission;
 
 import java.io.File;
 import java.io.Serializable;
@@ -28,6 +30,7 @@ public class DiskCache {
     // <http://developer.android.com/guide/topics/data/data-storage.html#filesExternal>
     public static class External extends Cache {
 
+        @RequiresPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         public External() {
             DIR = ExternalDataHelper.cache();
         }

@@ -33,6 +33,7 @@ public class ScreenHelper {
     public static final int ROTATION_180 = 2; // upside-down
     public static final int ROTATION_240 = 3; // 90 clockwise
 
+    // Does NOT @RequiresPermission(Manifest.permission.WAKE_LOCK)
     public static boolean wakeLock(@NonNull final Window window) {
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         return true;

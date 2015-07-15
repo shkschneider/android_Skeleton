@@ -46,6 +46,9 @@ public class DeviceHelper {
         return Build.ID;
     }
 
-    // TODO 32-64bits
+    // FIXME test (for >= Lollipop)
+    public static boolean is64bits() {
+        return architecture().contains("64");
+    }
 
 }

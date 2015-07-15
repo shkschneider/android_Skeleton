@@ -1,7 +1,9 @@
 package me.shkschneider.skeleton.helper;
 
+import android.Manifest;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresPermission;
 import android.telephony.TelephonyManager;
 
 import java.util.UUID;
@@ -31,6 +33,7 @@ public class IdHelper {
         return StringHelper.lower(androidId);
     }
 
+    @RequiresPermission(Manifest.permission.READ_PHONE_STATE)
     @Deprecated
     @Nullable
     public static String imei() {

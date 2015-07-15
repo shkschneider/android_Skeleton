@@ -1,10 +1,12 @@
 package me.shkschneider.skeleton.network;
 
+import android.Manifest;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresPermission;
 import android.webkit.WebView;
 
 import org.apache.http.conn.util.InetAddressUtils;
@@ -48,6 +50,7 @@ public class NetworkHelper {
         return new WebView(ApplicationHelper.context()).getSettings().getUserAgentString();
     }
 
+    @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     public static boolean connectedOrConnecting() {
         final ConnectivityManager connectivityManager = SystemServices.connectivityManager();
         if (connectivityManager == null) {
@@ -63,6 +66,7 @@ public class NetworkHelper {
         return networkInfo.isConnectedOrConnecting();
     }
 
+    @RequiresPermission(Manifest.permission.ACCESS_WIFI_STATE)
     public static boolean wifi() {
         final WifiManager wifiManager = SystemServices.wifiManager();
         if (wifiManager == null) {
@@ -73,6 +77,7 @@ public class NetworkHelper {
         return (wifiManager.getWifiState() == WifiManager.WIFI_STATE_ENABLED);
     }
 
+    @RequiresPermission(Manifest.permission.ACCESS_WIFI_STATE)
     @Deprecated
     @Nullable
     public static String macAddress() {
@@ -97,6 +102,7 @@ public class NetworkHelper {
         return macAddress;
     }
 
+    @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     @SuppressWarnings("deprecation")
     @Nullable
     public static List<String> ipAddresses() {
@@ -120,6 +126,7 @@ public class NetworkHelper {
         }
     }
 
+    @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     @SuppressWarnings("deprecation")
     @Nullable
     public static String ipAddress() {

@@ -1,7 +1,9 @@
 package me.shkschneider.skeleton.network;
 
+import android.Manifest;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresPermission;
 import android.support.v4.util.LruCache;
 
 import com.android.volley.Request;
@@ -39,6 +41,7 @@ public class Proxy {
         });
     }
 
+    @RequiresPermission(Manifest.permission.INTERNET)
     public static Proxy getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new Proxy();
