@@ -43,7 +43,7 @@ public class ScreenHelper {
     public static boolean on() {
         final PowerManager powerManager = SystemServices.powerManager();
         if (powerManager == null) {
-            LogHelper.w("PowerManager was NULL");
+            LogHelper.warning("PowerManager was NULL");
             return true;
         }
         if (AndroidHelper.api() >= AndroidHelper.API_20) {
@@ -99,12 +99,12 @@ public class ScreenHelper {
     public static int rotation() {
         final WindowManager windowManager = SystemServices.windowManager();
         if (windowManager == null) {
-            LogHelper.w("WindowManager was NULL");
+            LogHelper.warning("WindowManager was NULL");
             return 0;
         }
         final Display display = windowManager.getDefaultDisplay();
         if (display == null) {
-            LogHelper.w("Display was NULL");
+            LogHelper.warning("Display was NULL");
             return 0;
         }
 

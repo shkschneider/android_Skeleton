@@ -49,10 +49,10 @@ public class Locator implements GoogleApiClient.ConnectionCallbacks, GoogleApiCl
 
         final LocationManager locationManager = SystemServices.locationManager();
         if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            LogHelper.i("Network provider unavailable");
+            LogHelper.info("Network provider unavailable");
         }
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            LogHelper.i("GPS provider unavailable");
+            LogHelper.info("GPS provider unavailable");
         }
     }
 
@@ -66,13 +66,13 @@ public class Locator implements GoogleApiClient.ConnectionCallbacks, GoogleApiCl
         int providers = 0;
         final LocationManager locationManager = SystemServices.locationManager();
         if (! locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-            LogHelper.i("Network provider unavailable");
+            LogHelper.info("Network provider unavailable");
         }
         else {
             providers++;
         }
         if (! locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            LogHelper.i("GPS provider unavailable");
+            LogHelper.info("GPS provider unavailable");
         }
         else {
             providers++;
@@ -82,14 +82,14 @@ public class Locator implements GoogleApiClient.ConnectionCallbacks, GoogleApiCl
         }
 
         if (mGoogleApiClient.isConnected()) {
-            LogHelper.i("GoogleApiClient was already connected");
+            LogHelper.info("GoogleApiClient was already connected");
             if (mLocation != null) {
                 mLocationListener.onLocationChanged(mLocation);
             }
             return false;
         }
         if (mGoogleApiClient.isConnecting()) {
-            LogHelper.i("GoogleApiClient was connecting");
+            LogHelper.info("GoogleApiClient was connecting");
             if (mLocation != null) {
                 mLocationListener.onLocationChanged(mLocation);
             }
@@ -98,7 +98,7 @@ public class Locator implements GoogleApiClient.ConnectionCallbacks, GoogleApiCl
 
         mGoogleApiClient.connect();
         if (locationRequest == null) {
-            LogHelper.v("LocationRequest was NULL");
+            LogHelper.verbose("LocationRequest was NULL");
             mLocationRequest = defaultLocationRequest();
         }
         else {
@@ -114,7 +114,7 @@ public class Locator implements GoogleApiClient.ConnectionCallbacks, GoogleApiCl
 
     public boolean stop() {
         if (! mGoogleApiClient.isConnected()) {
-            LogHelper.d("GoogleApiClient was disconnected");
+            LogHelper.debug("GoogleApiClient was disconnected");
             return true;
         }
 
@@ -138,23 +138,23 @@ public class Locator implements GoogleApiClient.ConnectionCallbacks, GoogleApiCl
     @Override
     public void onConnected(final Bundle bundle) {
         if (! mGoogleApiClient.isConnected()) {
-            LogHelper.w("GoogleApiClient was disconnected");
+            LogHelper.warning("GoogleApiClient was disconnected");
             return ;
         }
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this).setResultCallback(new ResultCallback<Status>() {
             @Override
             public void onResult(final Status status) {
                 if (status.isSuccess()) {
-                    LogHelper.d("LocationServices: SUCCESS");
+                    LogHelper.debug("LocationServices: SUCCESS");
                     if (LocationServices.FusedLocationApi.getLocationAvailability(mGoogleApiClient).isLocationAvailable()) {
                         onLocationChanged(LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient));
                     }
                 }
                 else if (status.isCanceled()) {
-                    LogHelper.d("LocationServices: CANCELED");
+                    LogHelper.debug("LocationServices: CANCELED");
                 }
                 else if (status.isInterrupted()) {
-                    LogHelper.d("LocationServices: INTERRUPTED");
+                    LogHelper.debug("LocationServices: INTERRUPTED");
                 }
             }
         });
@@ -164,10 +164,10 @@ public class Locator implements GoogleApiClient.ConnectionCallbacks, GoogleApiCl
     public void onConnectionSuspended(final int reason) {
         switch (reason) {
             case CAUSE_NETWORK_LOST:
-                LogHelper.w("GoogleApiClient: NETWORK_LOST");
+                LogHelper.warning("GoogleApiClient: NETWORK_LOST");
                 break ;
             case CAUSE_SERVICE_DISCONNECTED:
-                LogHelper.w("GoogleApiClient: SERVICE_DISCONNECTED");
+                LogHelper.warning("GoogleApiClient: SERVICE_DISCONNECTED");
                 break ;
         }
     }
@@ -176,7 +176,7 @@ public class Locator implements GoogleApiClient.ConnectionCallbacks, GoogleApiCl
 
     @Override
     public void onConnectionFailed(final ConnectionResult connectionResult) {
-        LogHelper.w("GoogleApiClient:" + connectionResult.getErrorCode());
+        LogHelper.warning("GoogleApiClient:" + connectionResult.getErrorCode());
     }
 
     // LocationListener

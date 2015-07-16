@@ -134,7 +134,7 @@ public class FileHelper {
     @Nullable
     public static List<String> list(@NonNull final File file) {
         if (! file.isDirectory()) {
-            LogHelper.d("File was not a directory");
+            LogHelper.debug("File was not a directory");
             return null;
         }
 
@@ -142,7 +142,7 @@ public class FileHelper {
 
         final File[] files = file.listFiles();
         if (files == null) {
-            LogHelper.d("Files was NULL");
+            LogHelper.debug("Files was NULL");
             return null;
         }
 

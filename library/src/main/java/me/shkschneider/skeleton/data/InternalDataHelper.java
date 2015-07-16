@@ -57,7 +57,7 @@ public class InternalDataHelper {
         final File file = new File(dir().getAbsolutePath() + File.separator + name);
         try {
             if (! file.createNewFile()) {
-                LogHelper.w("File.CreateNewFile failed");
+                LogHelper.warning("File.CreateNewFile failed");
             }
 
             return file;

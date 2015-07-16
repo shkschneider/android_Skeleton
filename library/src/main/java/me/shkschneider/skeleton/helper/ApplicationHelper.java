@@ -77,19 +77,19 @@ public class ApplicationHelper {
         try {
             final PackageManager packageManager = packageManager();
             if (packageManager == null) {
-                LogHelper.w("PackageManager was NULL");
+                LogHelper.warning("PackageManager was NULL");
                 return null;
             }
 
             final ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName(), 0);
             if (applicationInfo == null) {
-                LogHelper.w("ApplicationInfo was NULL");
+                LogHelper.warning("ApplicationInfo was NULL");
                 return null;
             }
 
             final CharSequence label = applicationInfo.loadLabel(packageManager);
             if (label == null) {
-                LogHelper.w("Label was NULL");
+                LogHelper.warning("Label was NULL");
                 return null;
             }
 
@@ -110,7 +110,7 @@ public class ApplicationHelper {
             return null;
         }
         if (! versionName.matches("^\\d+\\.\\d+\\.\\d+$")) {
-            LogHelper.w("Not semantic versioning");
+            LogHelper.warning("Not semantic versioning");
             return null;
         }
         final String[] versionNames = versionName.split(".");
@@ -126,7 +126,7 @@ public class ApplicationHelper {
         try {
             final PackageManager packageManager = packageManager();
             if (packageManager == null) {
-                LogHelper.w("PackageManager was NULL");
+                LogHelper.warning("PackageManager was NULL");
                 return null;
             }
 
@@ -142,7 +142,7 @@ public class ApplicationHelper {
         try {
             final PackageManager packageManager = packageManager();
             if (packageManager == null) {
-                LogHelper.w("PackageManager was NULL");
+                LogHelper.warning("PackageManager was NULL");
                 return -1;
             }
 
@@ -159,13 +159,13 @@ public class ApplicationHelper {
         try {
             final PackageManager packageManager = packageManager();
             if (packageManager == null) {
-                LogHelper.w("PackageManager was NULL");
+                LogHelper.warning("PackageManager was NULL");
                 return null;
             }
 
             final ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName(), 0);
             if (applicationInfo == null) {
-                LogHelper.w("ApplicationInfo was NULL");
+                LogHelper.warning("ApplicationInfo was NULL");
                 return null;
             }
 
@@ -183,7 +183,7 @@ public class ApplicationHelper {
         try {
             final PackageManager packageManager = packageManager();
             if (packageManager == null) {
-                LogHelper.w("PackageManager was NULL");
+                LogHelper.warning("PackageManager was NULL");
                 return null;
             }
 
@@ -204,20 +204,20 @@ public class ApplicationHelper {
     public static String signature() {
         final PackageManager packageManager = packageManager();
         if (packageManager == null) {
-            LogHelper.w("PackageManager was NULL");
+            LogHelper.warning("PackageManager was NULL");
             return null;
         }
 
         try {
             final PackageInfo packageInfo = packageManager.getPackageInfo(packageName(), PackageManager.GET_SIGNATURES);
             if (packageInfo == null) {
-                LogHelper.w("PackageInfo was NULL");
+                LogHelper.warning("PackageInfo was NULL");
                 return null;
             }
 
             final Signature[] signatures = packageInfo.signatures;
             if (signatures == null) {
-                LogHelper.d("No signatures");
+                LogHelper.debug("No signatures");
                 return null;
             }
 

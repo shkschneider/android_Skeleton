@@ -23,9 +23,9 @@ public class SkeletonApplication extends Application {
 
         CONTEXT = getApplicationContext();
 
-        // LogHelper.v("Hello, world!");
-        LogHelper.v("Device:" + DeviceHelper.codename());
-        LogHelper.v("Id:" + IdHelper.androidId());
+        // LogHelper.verbose("Hello, world!");
+        LogHelper.verbose("Device:" + DeviceHelper.codename());
+        LogHelper.verbose("Id:" + IdHelper.androidId());
     }
 
 }

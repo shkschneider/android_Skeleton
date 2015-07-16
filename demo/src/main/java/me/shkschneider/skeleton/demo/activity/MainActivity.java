@@ -53,10 +53,10 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
     protected void onResume() {
         super.onResume();
 
-        LogHelper.i("MemoryCache:" + ClassHelper.canonicalName(mMemoryCache.get("MainActivity").getClass()));
-        LogHelper.i("MemoryCacheBitmap:" + ClassHelper.canonicalName(mMemoryCacheBitmap.get("Bitmap").getClass()));
-        LogHelper.i("DiskCacheInternal:" + mDiskCacheInternal.get("DiskCache"));
-        LogHelper.i("DiskCacheExternal:" + mDiskCacheExternal.get("DiskCache"));
+        LogHelper.info("MemoryCache:" + ClassHelper.canonicalName(mMemoryCache.get("MainActivity").getClass()));
+        LogHelper.info("MemoryCacheBitmap:" + ClassHelper.canonicalName(mMemoryCacheBitmap.get("Bitmap").getClass()));
+        LogHelper.info("DiskCacheInternal:" + mDiskCacheInternal.get("DiskCache"));
+        LogHelper.info("DiskCacheExternal:" + mDiskCacheExternal.get("DiskCache"));
     }
 
     @Override

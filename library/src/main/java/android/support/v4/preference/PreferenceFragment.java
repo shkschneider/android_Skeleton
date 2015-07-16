@@ -34,7 +34,7 @@ public abstract class PreferenceFragment extends Fragment implements PreferenceM
             switch (msg.what) {
                 case BIND:
                     bindPreferences();
-                    break;
+                    break ;
             }
         }
     };

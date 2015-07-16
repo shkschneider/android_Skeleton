@@ -34,7 +34,7 @@ public class NetworkHelper {
         try {
             final InetAddress inetAddress = InetAddress.getLocalHost();
             if (inetAddress == null) {
-                LogHelper.w("InetAddress was NULL");
+                LogHelper.warning("InetAddress was NULL");
                 return null;
             }
             return inetAddress.getHostName();
@@ -54,12 +54,12 @@ public class NetworkHelper {
     public static boolean connectedOrConnecting() {
         final ConnectivityManager connectivityManager = SystemServices.connectivityManager();
         if (connectivityManager == null) {
-            LogHelper.w("ConnectivityManager was NULL");
+            LogHelper.warning("ConnectivityManager was NULL");
             return false;
         }
         final NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo == null) {
-            LogHelper.w("NetworkInfo was NULL");
+            LogHelper.warning("NetworkInfo was NULL");
             return false;
         }
 
@@ -70,7 +70,7 @@ public class NetworkHelper {
     public static boolean wifi() {
         final WifiManager wifiManager = SystemServices.wifiManager();
         if (wifiManager == null) {
-            LogHelper.w("wifiManager was NULL");
+            LogHelper.warning("wifiManager was NULL");
             return false;
         }
 
@@ -83,19 +83,19 @@ public class NetworkHelper {
     public static String macAddress() {
         final WifiManager wifiManager = SystemServices.wifiManager();
         if (wifiManager == null) {
-            LogHelper.w("wifiManager was NULL");
+            LogHelper.warning("wifiManager was NULL");
             return null;
         }
 
         final WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         if (wifiInfo == null) {
-            LogHelper.w("WifiInfo was NULL");
+            LogHelper.warning("WifiInfo was NULL");
             return null;
         }
 
         final String macAddress = wifiInfo.getMacAddress();
         if (StringHelper.nullOrEmpty(macAddress)) {
-            LogHelper.w("MacAddress was NULL");
+            LogHelper.warning("MacAddress was NULL");
             return null;
         }
 

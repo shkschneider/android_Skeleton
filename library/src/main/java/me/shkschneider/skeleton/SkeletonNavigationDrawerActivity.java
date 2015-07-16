@@ -33,7 +33,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.sk_drawerLayout);
         if (mDrawerLayout == null) {
-            LogHelper.w("DrawerLayout was NULL");
+            LogHelper.warning("DrawerLayout was NULL");
             return ;
         }
 
@@ -54,7 +54,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
 
         mNavigationView = (NavigationView) findViewById(R.id.sk_navigationView);
         if (mNavigationView == null) {
-            LogHelper.w("NavigationView was NULL");
+            LogHelper.warning("NavigationView was NULL");
             return ;
         }
         if (AndroidHelper.api() >= AndroidHelper.API_21) {
@@ -100,7 +100,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
     public boolean navigationDrawer(final int itemId) {
         // <https://stackoverflow.com/q/30752713/>
         if (! alive() || transitioning()) {
-            LogHelper.w("Switching Fragments too early");
+            LogHelper.warning("Switching Fragments too early");
             return false;
         }
         transitioning(true);
@@ -111,7 +111,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
         // Switch Fragment
         final SkeletonFragment skeletonFragment = getFragment(itemId);
         if (skeletonFragment == null) {
-            LogHelper.w("SkeletonFragment was NULL");
+            LogHelper.warning("SkeletonFragment was NULL");
             transitioning(false);
             return false;
         }

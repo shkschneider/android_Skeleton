@@ -52,11 +52,11 @@ public class MyScrollView extends ScrollView {
 
     public void parallax(@NonNull final View view, float parallax) {
         if (parallax <= 0) {
-            LogHelper.w("Parallax effect too low");
+            LogHelper.warning("Parallax effect too low");
             parallax = PARALLAX;
         }
         if (parallax > 1) {
-            LogHelper.w("Parallax effect too high");
+            LogHelper.warning("Parallax effect too high");
             parallax = PARALLAX;
         }
         mView = view;

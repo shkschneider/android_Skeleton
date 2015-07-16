@@ -106,7 +106,7 @@ public class WebService extends AsyncTask<Void, Void, Object> {
             // Response
             final int responseCode = httpURLConnection.getResponseCode();
             final String responseMessage = httpURLConnection.getResponseMessage();
-            LogHelper.d(String.format(Locale.US, "%d: %s", responseCode, responseMessage));
+            LogHelper.debug(String.format(Locale.US, "%d: %s", responseCode, responseMessage));
             InputStream inputStream;
             switch (responseCode) {
                 case HttpURLConnection.HTTP_OK:
@@ -136,7 +136,7 @@ public class WebService extends AsyncTask<Void, Void, Object> {
     protected void onPostExecute(@Nullable final Object object) {
         // Should not happen
         if (object == null) {
-            LogHelper.w("Nothing");
+            LogHelper.warning("Nothing");
             final WebServiceException webServiceException = new WebServiceException(WebServiceException.INTERNAL_ERROR, "Nothing");
             mCallback.webServiceCallback(webServiceException, null);
         }
@@ -152,7 +152,7 @@ public class WebService extends AsyncTask<Void, Void, Object> {
         }
         // Should never happen
         else {
-            LogHelper.e("Invalid");
+            LogHelper.error("Invalid");
             final WebServiceException webServiceException = new WebServiceException(WebServiceException.INTERNAL_ERROR, "Invalid");
             mCallback.webServiceCallback(webServiceException, null);
         }

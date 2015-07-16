@@ -68,43 +68,43 @@ public class LogHelper {
         }
     }
 
-    public static void d(@NonNull final String msg) {
+    public static void debug(@NonNull final String msg) {
         log(DEBUG, msg, null);
     }
 
-    public static void d(@Nullable final String msg, @NonNull final Throwable throwable) {
+    public static void debug(@Nullable final String msg, @NonNull final Throwable throwable) {
         log(DEBUG, msg, throwable);
     }
 
-    public static void v(@NonNull final String msg) {
+    public static void verbose(@NonNull final String msg) {
         log(VERBOSE, msg, null);
     }
 
-    public static void v(@Nullable final String msg, @NonNull final Throwable throwable) {
+    public static void verbose(@Nullable final String msg, @NonNull final Throwable throwable) {
         log(VERBOSE, msg, throwable);
     }
 
-    public static void i(@NonNull final String msg) {
+    public static void info(@NonNull final String msg) {
         log(INFO, msg, null);
     }
 
-    public static void i(@Nullable final String msg, @NonNull final Throwable throwable) {
+    public static void info(@Nullable final String msg, @NonNull final Throwable throwable) {
         log(INFO, msg, throwable);
     }
 
-    public static void w(@NonNull final String msg) {
+    public static void warning(@NonNull final String msg) {
         log(WARN, msg, null);
     }
 
-    public static void w(@Nullable final String msg, @NonNull final Throwable throwable) {
+    public static void warning(@Nullable final String msg, @NonNull final Throwable throwable) {
         log(WARN, msg, throwable);
     }
 
-    public static void e(@NonNull final String msg) {
+    public static void error(@NonNull final String msg) {
         log(ERROR, msg, null);
     }
 
-    public static void e(@Nullable final String msg, @NonNull final Throwable throwable) {
+    public static void error(@Nullable final String msg, @NonNull final Throwable throwable) {
         log(ERROR, msg, throwable);
     }
 

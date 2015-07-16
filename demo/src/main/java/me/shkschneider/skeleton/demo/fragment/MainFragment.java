@@ -74,8 +74,8 @@ public class MainFragment extends SkeletonFragment {
                 getSkeletonActivity().loading(-1);
                 final JsonArray entries = GsonParser.array(jsonObject, "entry");
                 if (entries == null) {
-                    LogHelper.w("No entries");
-                    return;
+                    LogHelper.warning("No entries");
+                    return ;
                 }
                 final JsonObject entry = entries.get(0).getAsJsonObject();
                 final String thumbnailUrl = GsonParser.string(entry, "thumbnailUrl");

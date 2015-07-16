@@ -68,7 +68,7 @@ public class WebViewHelper {
 
     public static boolean back(@NonNull final WebView webView) {
         if (! webView.canGoBack()) {
-            LogHelper.i("WebView cannot go back");
+            LogHelper.info("WebView cannot go back");
             return false;
         }
 
@@ -78,7 +78,7 @@ public class WebViewHelper {
 
     public static boolean forward(@NonNull final WebView webView) {
         if (! webView.canGoForward()) {
-            LogHelper.i("WebView cannot go forward");
+            LogHelper.info("WebView cannot go forward");
             return false;
         }
 
@@ -94,7 +94,7 @@ public class WebViewHelper {
 
         @JavascriptInterface
         public void test() {
-            LogHelper.d(ClassHelper.simpleName(this.getClass()));
+            LogHelper.debug(ClassHelper.simpleName(this.getClass()));
         }
 
     }

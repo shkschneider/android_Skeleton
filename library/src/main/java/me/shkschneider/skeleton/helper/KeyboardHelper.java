@@ -23,16 +23,16 @@ public class KeyboardHelper {
     public final static int ENTER = KeyEvent.KEYCODE_ENTER;
 
     public static boolean show(@NonNull final Activity activity) {
-        LogHelper.v("SOFT_INPUT_STATE_ALWAYS_VISIBLE");
+        LogHelper.verbose("SOFT_INPUT_STATE_ALWAYS_VISIBLE");
         activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         return true;
     }
 
     public static boolean hide(@NonNull final Activity activity) {
-        LogHelper.v("hideSoftInputFromWindow()");
+        LogHelper.verbose("hideSoftInputFromWindow()");
         InputMethodManager inputMethodManager = SystemServices.inputMethodManager();
         if (inputMethodManager == null) {
-            LogHelper.w("InputMethodManager was NULL");
+            LogHelper.warning("InputMethodManager was NULL");
             return false;
         }
         else {
@@ -42,7 +42,7 @@ public class KeyboardHelper {
 
     @Deprecated
     public static boolean hide(@NonNull final Window window) {
-        LogHelper.v("SOFT_INPUT_STATE_ALWAYS_HIDDEN");
+        LogHelper.verbose("SOFT_INPUT_STATE_ALWAYS_HIDDEN");
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         return true;
     }

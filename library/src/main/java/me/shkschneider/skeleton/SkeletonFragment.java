@@ -45,7 +45,7 @@ public class SkeletonFragment extends Fragment {
     public void onAttach(@NonNull final Activity activity) {
         super.onAttach(activity);
         if (! (activity instanceof SkeletonActivity)) {
-            LogHelper.e("Activity was not SkeletonActivity");
+            LogHelper.error("Activity was not SkeletonActivity");
         }
         mActivity = (SkeletonActivity) activity;
     }

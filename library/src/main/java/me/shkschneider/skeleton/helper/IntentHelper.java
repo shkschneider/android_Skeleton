@@ -209,13 +209,13 @@ public class IntentHelper {
     public static Intent home() {
         final PackageManager packageManager = ApplicationHelper.context().getPackageManager();
         if (packageManager == null) {
-            LogHelper.w("PackageManager was NULL");
+            LogHelper.warning("PackageManager was NULL");
             return null;
         }
 
         final Intent intent = packageManager.getLaunchIntentForPackage(ApplicationHelper.packageName());
         if (intent == null) {
-            LogHelper.w("Intent was NULL");
+            LogHelper.warning("Intent was NULL");
             return null;
         }
 
@@ -229,7 +229,7 @@ public class IntentHelper {
     @Nullable
     public static Intent web(@NonNull final String url) {
         if (! UrlHelper.valid(url)) {
-            LogHelper.w("Url was invalid");
+            LogHelper.warning("Url was invalid");
             return null;
         }
 
@@ -292,7 +292,7 @@ public class IntentHelper {
     @Nullable
     public static Intent camera(@NonNull final File file) {
         if (! FeaturesHelper.feature(FeaturesHelper.FEATURE_CAMERA)) {
-            LogHelper.w("Camera was unavailable");
+            LogHelper.warning("Camera was unavailable");
             return null;
         }
 
@@ -300,7 +300,7 @@ public class IntentHelper {
                 .putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file))
                 .putExtra(MediaStore.EXTRA_SHOW_ACTION_ICONS, true);
         if (! canHandle(intent)) {
-            LogHelper.w("Cannot handle Intent");
+            LogHelper.warning("Cannot handle Intent");
             return null;
         }
 
@@ -350,7 +350,7 @@ public class IntentHelper {
     public static boolean canHandle(@NonNull final Intent intent) {
         final PackageManager packageManager = ApplicationHelper.context().getPackageManager();
         if (packageManager == null) {
-            LogHelper.w("PackageManager was NULL");
+            LogHelper.warning("PackageManager was NULL");
             return false;
         }
 
@@ -361,18 +361,18 @@ public class IntentHelper {
     @Nullable
     public static Bitmap onActivityResult(final int requestCode, final int resultCode, @Nullable final Intent intent) {
         if (resultCode != Activity.RESULT_OK) {
-            LogHelper.d("ResultCode was not OK");
+            LogHelper.debug("ResultCode was not OK");
             return null;
         }
 
         if (requestCode == REQUEST_CODE_CAMERA) {
             if (intent == null) {
-                LogHelper.w("Intent was NULL");
+                LogHelper.warning("Intent was NULL");
                 return null;
             }
             final Bundle bundle = intent.getExtras();
             if (bundle == null) {
-                LogHelper.w("Bundle was NULL");
+                LogHelper.warning("Bundle was NULL");
                 return null;
             }
 
@@ -380,12 +380,12 @@ public class IntentHelper {
         }
         else if (requestCode == REQUEST_CODE_GALLERY) {
             if (intent == null) {
-                LogHelper.w("Intent was NULL");
+                LogHelper.warning("Intent was NULL");
                 return null;
             }
             final Uri uri = intent.getData();
             if (uri == null) {
-                LogHelper.w("Uri was NULL");
+                LogHelper.warning("Uri was NULL");
                 return null;
             }
 

@@ -20,7 +20,7 @@ public class VibratorHelper {
     public static boolean vibrate(final long[] durations, final boolean repeat) {
         final Vibrator vibrator = SystemServices.vibrator();
         if (! hasVibrator()) {
-            LogHelper.w("No vibrator");
+            LogHelper.warning("No vibrator");
             return false;
         }
 

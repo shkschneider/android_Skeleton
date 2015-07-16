@@ -48,7 +48,7 @@ public class DiskCache {
 
         synchronized public boolean put(@NonNull final String key, final Serializable value) {
             if (DIR == null) {
-                LogHelper.w("Dir was NULL");
+                LogHelper.warning("Dir was NULL");
                 return false;
             }
 
@@ -66,7 +66,7 @@ public class DiskCache {
         @Nullable
         synchronized public Serializable get(@NonNull final String key) {
             if (DIR == null) {
-                LogHelper.w("Dir was NULL");
+                LogHelper.warning("Dir was NULL");
                 return null;
             }
 
@@ -82,7 +82,7 @@ public class DiskCache {
 
         synchronized public void clear() {
             if (DIR == null) {
-                LogHelper.w("Dir was NULL");
+                LogHelper.warning("Dir was NULL");
                 return ;
             }
 
@@ -98,7 +98,7 @@ public class DiskCache {
 
         public int size() {
             if (DIR == null) {
-                LogHelper.w("Dir was NULL");
+                LogHelper.warning("Dir was NULL");
                 return 0;
             }
 

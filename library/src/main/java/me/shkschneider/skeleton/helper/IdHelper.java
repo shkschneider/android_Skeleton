@@ -23,11 +23,11 @@ public class IdHelper {
     public static String androidId() {
         final String androidId = Settings.Secure.getString(ApplicationHelper.context().getContentResolver(), Settings.Secure.ANDROID_ID);
         if (StringHelper.nullOrEmpty(androidId)) {
-            LogHelper.w("AndroidId was NULL");
+            LogHelper.warning("AndroidId was NULL");
             return null;
         }
         if (androidId.equals(EMULATOR)) {
-            LogHelper.w("EMULATOR");
+            LogHelper.warning("EMULATOR");
         }
 
         return StringHelper.lower(androidId);
@@ -39,7 +39,7 @@ public class IdHelper {
     public static String imei() {
         final TelephonyManager telephonyManager = SystemServices.telephonyManager();
         if (telephonyManager == null) {
-            LogHelper.w("TelephonyManager was NULL");
+            LogHelper.warning("TelephonyManager was NULL");
             return null;
         }
         return telephonyManager.getDeviceId();
@@ -49,7 +49,7 @@ public class IdHelper {
     public static String uuid() {
         final String deviceId = androidId();
         if (StringHelper.nullOrEmpty(deviceId)) {
-            LogHelper.w("DeviceId was NULL");
+            LogHelper.warning("DeviceId was NULL");
             return null;
         }
 

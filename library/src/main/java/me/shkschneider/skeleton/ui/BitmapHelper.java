@@ -72,7 +72,7 @@ public class BitmapHelper {
     public static Bitmap fromView(@NonNull final View view) {
         final DisplayMetrics displayMetrics = ApplicationHelper.resources().getDisplayMetrics();
         if (displayMetrics == null) {
-            LogHelper.w("DisplayMetrics was NULL");
+            LogHelper.warning("DisplayMetrics was NULL");
             return null;
         }
 
@@ -103,7 +103,7 @@ public class BitmapHelper {
             return bitmap;
         }
         if ((factor & (factor - 1)) != 0) {
-            LogHelper.w("Factor should be a power of 2");
+            LogHelper.warning("Factor should be a power of 2");
         }
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
@@ -122,7 +122,7 @@ public class BitmapHelper {
         try {
             final InputStream inputStream = ApplicationHelper.context().getContentResolver().openInputStream(uri);
             if (inputStream == null) {
-                LogHelper.w("InputStream was NULL");
+                LogHelper.warning("InputStream was NULL");
                 return null;
             }
 
@@ -133,7 +133,7 @@ public class BitmapHelper {
 
             final int downsample = (int) ScreenHelper.density();
             if (downsample <= 0) {
-                LogHelper.w("Downsample was invalid");
+                LogHelper.warning("Downsample was invalid");
                 return null;
             }
 
