@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.network;
 
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
 public class WebServiceException extends Exception {
@@ -8,7 +9,7 @@ public class WebServiceException extends Exception {
 
     private int mCode;
 
-    public WebServiceException(final int responseCode, @NonNull final String responseMessage) {
+    public WebServiceException(@IntRange(from=0, to=INTERNAL_ERROR) final int responseCode, @NonNull final String responseMessage) {
         super(responseMessage);
         mCode = responseCode;
     }

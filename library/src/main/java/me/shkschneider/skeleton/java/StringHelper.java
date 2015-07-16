@@ -1,7 +1,7 @@
 package me.shkschneider.skeleton.java;
 
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
-
-import me.shkschneider.skeleton.helper.LogHelper;
 
 public class StringHelper {
 
@@ -102,7 +100,7 @@ public class StringHelper {
     }
 
     // <http://stackoverflow.com/a/3758880>
-    public static String humanReadableSize(final long bytes, final boolean binary) {
+    public static String humanReadableSize(@IntRange(from=0) final long bytes, final boolean binary) {
         final int unit = (binary ? 1024 : 1000);
         if (bytes < unit) {
             return bytes + " B";
@@ -155,20 +153,14 @@ public class StringHelper {
         }
     }
 
-    public static String ellipsize(@NonNull final String string, final int maxLength) {
+    public static String ellipsize(@NonNull final String string, @IntRange(from=0) final int maxLength) {
         if (string.length() > maxLength) {
             return string.substring(0, maxLength - 3) + "...";
         }
         return string;
     }
 
-    @Nullable
-    public static String random(@NonNull final String characters, final int length) {
-        if (length <= 0) {
-            LogHelper.w("Length was invalid");
-            return null;
-        }
-
+    public static String random(@NonNull final String characters, @IntRange(from=0) final int length) {
         final Random random = new Random();
         final StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < length; i++) {
@@ -177,7 +169,7 @@ public class StringHelper {
         return stringBuilder.toString();
     }
 
-    public static String random(final int length) {
+    public static String random(@IntRange(from=0) final int length) {
         return random(lower(HEX), length);
     }
 

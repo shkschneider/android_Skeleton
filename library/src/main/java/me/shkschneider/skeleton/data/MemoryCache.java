@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.data;
 
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.v4.util.LruCache;
 
@@ -13,7 +14,7 @@ public final class MemoryCache<K, V> {
         this(DEFAULT_SIZE);
     }
 
-    public MemoryCache(final int size) {
+    public MemoryCache(@IntRange(from=1, to=1024) final int size) {
         mCache = new LruCache<K, V>(size) {
 
             @Override
@@ -43,6 +44,7 @@ public final class MemoryCache<K, V> {
     // <http://developer.android.com/training/displaying-bitmaps/cache-bitmap.html#memory-cache>
     public static final class Bitmap extends LruCache<String, android.graphics.Bitmap> {
 
+        @SuppressWarnings("deprecation")
         public Bitmap() {
             // One eighth of the application memory is allocated for our cache.
             // On a normal/hdpi device this is a minimum of around 4MB (32/8).
@@ -52,7 +54,8 @@ public final class MemoryCache<K, V> {
             this((int) (Runtime.getRuntime().maxMemory() / 1024) / 8);
         }
 
-        public Bitmap(final int size) {
+        @Deprecated
+        public Bitmap(@IntRange(from=0) final int size) {
             super(size);
         }
 

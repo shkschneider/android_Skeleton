@@ -27,7 +27,7 @@ public class HashHelper {
             stringBuilder.setLength(0);
             final byte digest[] = messageDigest.digest();
             for (final byte b : digest) {
-                stringBuilder.append(Integer.toString((b & 0xff) + 0x100, StringHelper.HEX.length()).substring(1));
+                stringBuilder.append(Integer.toString((b & 0xFF) + 0x100, StringHelper.HEX.length()).substring(1));
             }
             return stringBuilder.toString();
         }

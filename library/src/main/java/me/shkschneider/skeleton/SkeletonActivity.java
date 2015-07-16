@@ -55,7 +55,7 @@ public class SkeletonActivity extends AppCompatActivity {
     private boolean mTransitioning = false;
 
     @Override
-    protected void onCreate(@Nullable final Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sk_activity);
 
@@ -437,7 +437,7 @@ public class SkeletonActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull final MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         if (mSearchCallback == null) {
             return super.onOptionsItemSelected(item);
         }

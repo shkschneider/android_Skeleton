@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.helper;
 import android.app.Activity;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
 import java.util.concurrent.Executors;
@@ -14,12 +15,11 @@ public class RunnableHelper {
         // Empty
     }
 
-    public static void delay(@NonNull final Runnable runnable, final int amount, @NonNull final TimeUnit timeUnit) {
-        // Executors.newSingleThreadScheduledExecutor().schedule(runnable, 1, TimeUnit.SECONDS);
-        new Handler().postDelayed(runnable, timeUnit.toMillis(amount));
+    public static void delay(@NonNull final Runnable runnable, @IntRange(from=0) final int amount, @NonNull final TimeUnit timeUnit) {
+        Executors.newSingleThreadScheduledExecutor().schedule(runnable, 1, TimeUnit.SECONDS);
     }
 
-    public static void repeat(@NonNull final Runnable runnable, final int amount, @NonNull final TimeUnit timeUnit) {
+    public static void repeat(@NonNull final Runnable runnable, @IntRange(from=0) final int amount, @NonNull final TimeUnit timeUnit) {
         new Thread(new Runnable() {
 
                 private Handler mHandler = new Handler();

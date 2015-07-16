@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.helper;
 
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.format.DateUtils;
@@ -46,21 +47,12 @@ public class DateTimeHelper {
         return Math.round(TimeZone.getDefault().getOffset(milliTimestamp()) / DateUtils.SECOND_IN_MILLIS);
     }
 
-    public static String relative(final long time) {
+    public static String relative(@IntRange(from=0) final long time) {
         return relative(time, timestamp());
     }
 
     @Nullable
-    public static String relative(final long from, final long to) {
-        if (from < 0) {
-            LogHelper.w("TimeFrom was invalid");
-            return null;
-        }
-        if (to < 0) {
-            LogHelper.w("TimeTo was invalid");
-            return null;
-        }
-
+    public static String relative(@IntRange(from=0) final long from, @IntRange(from=0) final long to) {
         return DateUtils.getRelativeTimeSpanString(from, to, DateUtils.SECOND_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE).toString();
     }
 

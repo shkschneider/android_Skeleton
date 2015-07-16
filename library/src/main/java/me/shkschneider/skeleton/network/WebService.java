@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
+import android.support.annotation.Size;
 
 import com.google.gson.JsonObject;
 
@@ -70,7 +71,7 @@ public class WebService extends AsyncTask<Void, Void, Object> {
     }
 
     @Override
-    protected Object doInBackground(final Void ... voids) {
+    protected Object doInBackground(@Size(0) @Nullable final Void ... voids) {
         // OkHttp
         HttpURLConnection httpURLConnection = null;
         try {
@@ -106,7 +107,7 @@ public class WebService extends AsyncTask<Void, Void, Object> {
             final int responseCode = httpURLConnection.getResponseCode();
             final String responseMessage = httpURLConnection.getResponseMessage();
             LogHelper.d(String.format(Locale.US, "%d: %s", responseCode, responseMessage));
-            InputStream inputStream = null;
+            InputStream inputStream;
             switch (responseCode) {
                 case HttpURLConnection.HTTP_OK:
                 case HttpURLConnection.HTTP_CREATED:

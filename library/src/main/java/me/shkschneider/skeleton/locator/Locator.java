@@ -4,6 +4,7 @@ import android.Manifest;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -61,7 +62,7 @@ public class Locator implements GoogleApiClient.ConnectionCallbacks, GoogleApiCl
                 .setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
     }
 
-    public boolean start(final LocationRequest locationRequest, final LocationListener locationListener) {
+    public boolean start(@Nullable final LocationRequest locationRequest, @Nullable final LocationListener locationListener) {
         if (mGoogleApiClient.isConnected()) {
             LogHelper.i("GoogleApiClient was already connected");
             return false;

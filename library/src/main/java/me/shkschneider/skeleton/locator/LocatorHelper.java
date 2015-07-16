@@ -2,6 +2,7 @@ package me.shkschneider.skeleton.locator;
 
 import android.location.Location;
 import android.location.LocationManager;
+import android.support.annotation.FloatRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -11,19 +12,11 @@ import java.util.concurrent.TimeUnit;
 
 public class LocatorHelper {
 
-    public static float metersFromDegrees(final float degree) {
-        if (degree <= 0) {
-            return 0F;
-        }
-
+    public static float metersFromDegrees(@FloatRange(from=0.0) final float degree) {
         return (degree * 111111);
     }
 
-    public static float degreesFromMeters(final float meters) {
-        if (meters <= 0) {
-            return 0F;
-        }
-
+    public static float degreesFromMeters(@FloatRange(from=0.0) final float meters) {
         return (meters / 111111);
     }
 

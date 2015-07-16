@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.helper;
 
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -24,7 +25,7 @@ public class LogHelper {
     protected static String TAG = ApplicationHelper.packageName();
     // Here I use the application's packageName
 
-    protected static void log(final int level, @Nullable final String msg, final @Nullable Throwable throwable) {
+    protected static void log(@IntRange(from=VERBOSE, to=WTF) final int level, @Nullable final String msg, final @Nullable Throwable throwable) {
         final StackTraceElement[] elements = new Throwable().getStackTrace();
         String callerClassName = "?";
         String callerMethodName = "?";

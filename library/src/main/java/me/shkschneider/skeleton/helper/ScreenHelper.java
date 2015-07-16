@@ -2,6 +2,7 @@ package me.shkschneider.skeleton.helper;
 
 import android.annotation.TargetApi;
 import android.os.PowerManager;
+import android.support.annotation.FloatRange;
 import android.support.annotation.NonNull;
 import android.util.TypedValue;
 import android.view.Display;
@@ -24,9 +25,9 @@ public class ScreenHelper {
     public static final int DENSITY_XXHDPI = 480;
     public static final int DENSITY_XXXHDPI = 640;
 
-    public static final float BRIGHTNESS_MIN = 0F;
-    public static final float BRIGHTNESS_MAX = 1F;
-    public static final float BRIGHTNESS_RESET = -1F;
+    public static final float BRIGHTNESS_RESET = -1.0F;
+    public static final float BRIGHTNESS_MIN = 0.0F;
+    public static final float BRIGHTNESS_MAX = 1.0F;
 
     public static final int ROTATION_0 = 0;
     public static final int ROTATION_90 = 1; // 90 counter-clockwise
@@ -67,17 +68,9 @@ public class ScreenHelper {
         return window.getAttributes().screenBrightness;
     }
 
-    public static boolean brightness(@NonNull final Window window, final float brightness) {
-        if (brightness > BRIGHTNESS_MAX) {
-            LogHelper.w("Brightness was too high");
-            return false;
-        }
-        else if (brightness < BRIGHTNESS_MIN && brightness != BRIGHTNESS_RESET) {
-            LogHelper.w("Brightness was too low");
-            return false;
-        }
+    public static boolean brightness(@NonNull final Window window, @FloatRange(from=BRIGHTNESS_RESET, to=BRIGHTNESS_MAX) final float brightness) {
         final WindowManager.LayoutParams layoutParams = window.getAttributes();
-        layoutParams.screenBrightness = brightness;
+        layoutParams.screenBrightness = ((brightness < BRIGHTNESS_MIN) ? BRIGHTNESS_RESET : brightness);
         window.setAttributes(layoutParams);
         return true;
     }
@@ -123,11 +116,7 @@ public class ScreenHelper {
         return rotation();
     }
 
-    public static int pixelsFromDp(final float dp) {
-        if (dp <= 0F) {
-            LogHelper.w("Dp was too low");
-            return 0;
-        }
+    public static int pixelsFromDp(@FloatRange(from=0.0) final float dp) {
         return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, ApplicationHelper.resources().getDisplayMetrics()));
     }
 

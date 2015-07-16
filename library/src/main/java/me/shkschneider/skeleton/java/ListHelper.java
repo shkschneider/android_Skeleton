@@ -1,7 +1,7 @@
 package me.shkschneider.skeleton.java;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.support.annotation.Size;
 
 import java.util.List;
 
@@ -15,27 +15,12 @@ public class ListHelper {
         return objects.contains(object);
     }
 
-    @Nullable
-    public static <T> T first(@NonNull final List<T> objects) {
-        if (objects.size() == 0) {
-            return null;
-        }
-
+    public static <T> T first(@Size(min=1) @NonNull final List<T> objects) {
         return objects.get(0);
     }
 
-    @Nullable
-    public static <T> T last(@NonNull final List<T> objects) {
-        if (objects.size() == 0) {
-            return null;
-        }
-
-        if (objects.size() == 1) {
-            return objects.get(0);
-        }
-        else {
-            return objects.get(objects.size() - 1);
-        }
+    public static <T> T last(@Size(min=1) @NonNull final List<T> objects) {
+        return objects.get(objects.size() - 1);
     }
 
 }

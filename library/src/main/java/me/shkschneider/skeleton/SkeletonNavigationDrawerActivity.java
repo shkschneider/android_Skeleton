@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.MenuRes;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -27,7 +26,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
     protected abstract SkeletonFragment getFragment(final int itemId);
 
     @Override
-    protected void onCreate(@Nullable final Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sk_navigationdraweractivity);
         home(true);
@@ -178,7 +177,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
     }
 
     @Override
-    public boolean onCreateOptionsMenu(@NonNull final Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         if (mOpenedOrOpening) {
             // Hides menu when opened
             menu.clear();
@@ -189,7 +188,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
     }
 
     @Override
-    public boolean onOptionsItemSelected(@NonNull final MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             if (! navigationDrawerOpenedOrOpening()) {
                 onNavigationDrawerOpened();
