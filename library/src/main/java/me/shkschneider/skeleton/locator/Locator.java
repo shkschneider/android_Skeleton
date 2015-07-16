@@ -63,12 +63,36 @@ public class Locator implements GoogleApiClient.ConnectionCallbacks, GoogleApiCl
     }
 
     public boolean start(@Nullable final LocationRequest locationRequest, @Nullable final LocationListener locationListener) {
+        int providers = 0;
+        final LocationManager locationManager = SystemServices.locationManager();
+        if (! locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+            LogHelper.i("Network provider unavailable");
+        }
+        else {
+            providers++;
+        }
+        if (! locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            LogHelper.i("GPS provider unavailable");
+        }
+        else {
+            providers++;
+        }
+        if (providers == 0) {
+            return false;
+        }
+
         if (mGoogleApiClient.isConnected()) {
             LogHelper.i("GoogleApiClient was already connected");
+            if (mLocation != null) {
+                mLocationListener.onLocationChanged(mLocation);
+            }
             return false;
         }
         if (mGoogleApiClient.isConnecting()) {
             LogHelper.i("GoogleApiClient was connecting");
+            if (mLocation != null) {
+                mLocationListener.onLocationChanged(mLocation);
+            }
             return false;
         }
 
@@ -99,7 +123,8 @@ public class Locator implements GoogleApiClient.ConnectionCallbacks, GoogleApiCl
             mGoogleApiClient.unregisterConnectionCallbacks(this);
             mGoogleApiClient.unregisterConnectionFailedListener(this);
             mGoogleApiClient.disconnect();
-            mLocationRequest = defaultLocationRequest();
+            mLocationRequest = null;
+            mLocationListener = null;
             return true;
         }
         catch (final Exception e) {
@@ -158,6 +183,9 @@ public class Locator implements GoogleApiClient.ConnectionCallbacks, GoogleApiCl
 
     @Override
     public void onLocationChanged(final Location location) {
+        if (location == null) {
+            return ;
+        }
         if (LocatorHelper.betterLocation(location, mLocation, mLocationRequest.getInterval())) {
             mLocation = location;
             if (mLocationListener != null) {
