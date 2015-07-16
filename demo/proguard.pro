@@ -18,6 +18,7 @@
 
 # android
 -keep class android.**
+-keep class com.google.android.**
 -keep public class * extends android.app.Activity
 -keep public class * extends android.app.Application
 -keep public class * extends android.app.Service
@@ -59,9 +60,9 @@
     public static *** d(...);
     public static *** v(...);
 }
--assumenosideeffects class me.shkschneider.skeleton.helper.Log {
-    public static *** d(...);
-    public static *** v(...);
+-assumenosideeffects class me.shkschneider.skeleton.helper.LogHelper {
+    public static *** debug(...);
+    public static *** verbose(...);
 }
 
 # play services
