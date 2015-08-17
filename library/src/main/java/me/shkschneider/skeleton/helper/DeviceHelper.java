@@ -46,7 +46,7 @@ public class DeviceHelper {
         return Build.ID;
     }
 
-    // FIXME test (for >= Lollipop)
+    @Deprecated
     public static boolean is64bits() {
         return architecture().contains("64");
     }

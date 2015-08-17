@@ -21,17 +21,14 @@ public class ActivityHelper {
         return activity.getWindow().getDecorView().findViewById(android.R.id.content);
     }
 
-    @Deprecated
     public static void toast(@NonNull final String msg) {
         Toast.makeText(ApplicationHelper.context(), msg, Toast.LENGTH_SHORT).show();
     }
 
-    @Deprecated
     public static void snackBar(@NonNull final View view, @NonNull final String msg) {
         Snackbar.make(view, msg, Snackbar.LENGTH_SHORT).show();
     }
 
-    @Deprecated
     public static void snackBar(@NonNull final View view, @NonNull final String msg, @NonNull final String action, @NonNull final View.OnClickListener onClickListener) {
         Snackbar.make(view, msg, Snackbar.LENGTH_SHORT)
                 .setAction(action, onClickListener)
