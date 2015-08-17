@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import me.shkschneider.skeleton.data.CharsetHelper;
+import me.shkschneider.skeleton.data.FileHelper;
 import me.shkschneider.skeleton.data.GsonParser;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
@@ -112,13 +113,19 @@ public class WebService extends AsyncTask<Void, Void, Object> {
                 case HttpURLConnection.HTTP_OK:
                 case HttpURLConnection.HTTP_CREATED:
                 case HttpURLConnection.HTTP_ACCEPTED:
+                    if (httpURLConnection.getInputStream() == null) {
+                        return null;
+                    }
                     // Buffered for performance
                     inputStream = new BufferedInputStream(httpURLConnection.getInputStream());
                     return GsonParser.parse(inputStream);
                 default:
+                    if (httpURLConnection.getErrorStream() == null) {
+                        return new WebServiceException(responseCode, responseMessage);
+                    }
                     // Buffered for performance
-                    // FIXME inputStream = new BufferedInputStream(httpURLConnection.getErrorStream());
-                    return new WebServiceException(responseCode, responseMessage);
+                    inputStream = new BufferedInputStream(httpURLConnection.getErrorStream());
+                    return new WebServiceException(responseCode, FileHelper.readString(inputStream));
             }
         }
         catch (final Exception e) {
