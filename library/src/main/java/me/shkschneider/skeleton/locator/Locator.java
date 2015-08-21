@@ -11,6 +11,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -146,7 +147,8 @@ public class Locator implements GoogleApiClient.ConnectionCallbacks, GoogleApiCl
             public void onResult(final Status status) {
                 if (status.isSuccess()) {
                     LogHelper.debug("LocationServices: SUCCESS");
-                    if (LocationServices.FusedLocationApi.getLocationAvailability(mGoogleApiClient).isLocationAvailable()) {
+                    final LocationAvailability locationAvailability = LocationServices.FusedLocationApi.getLocationAvailability(mGoogleApiClient);
+                    if (locationAvailability != null && locationAvailability.isLocationAvailable()) {
                         onLocationChanged(LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient));
                     }
                 }
