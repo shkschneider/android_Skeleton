@@ -64,7 +64,7 @@ dependencies {
     compile 'com.android.support:design:22.2.1'
 
     // <https://developers.google.com/android/guides/setup#add_google_play_services_to_your_project>
-    compile 'com.google.android.gms:play-services-appindexing:7.8.0'
+    compile 'com.google.android.gms:play-services-appindexing:7.5.0'
     compile 'com.google.code.gson:gson:2.3.1'
 
     compile 'com.squareup.picasso:picasso:2.5.0'
