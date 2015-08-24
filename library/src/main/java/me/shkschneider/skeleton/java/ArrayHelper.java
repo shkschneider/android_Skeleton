@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.java;
 
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -10,6 +11,16 @@ public class ArrayHelper {
 
     protected ArrayHelper() {
         // Empty
+    }
+
+    @IntRange(from=-1)
+    public static <T> int index(@NonNull final T[] objects, @NonNull final T object) {
+        for (int i = 0; i < objects.length; i++) {
+            if (objects[i].equals(object)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public static <T> List<T> list(@NonNull final T[] objects) {
