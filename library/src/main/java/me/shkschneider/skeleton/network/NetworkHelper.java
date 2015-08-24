@@ -9,8 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
 import android.webkit.WebView;
 
-import org.apache.http.conn.util.InetAddressUtils;
-
+import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.ArrayList;
@@ -113,7 +112,7 @@ public class NetworkHelper {
                 for (Enumeration<InetAddress> enumerationInetAddress = networkInterface.getInetAddresses(); enumerationInetAddress.hasMoreElements();) {
                     final InetAddress inetAddress = enumerationInetAddress.nextElement();
                     final String ipAddress = inetAddress.getHostAddress();
-                    if (! inetAddress.isLoopbackAddress() && InetAddressUtils.isIPv4Address(ipAddress)) {
+                    if (! inetAddress.isLoopbackAddress() && (inetAddress instanceof Inet4Address)) {
                         ipAddresses.add(ipAddress);
                     }
                 }
@@ -136,7 +135,7 @@ public class NetworkHelper {
                 for (Enumeration<InetAddress> enumerationInetAddress = networkInterface.getInetAddresses(); enumerationInetAddress.hasMoreElements();) {
                     final InetAddress inetAddress = enumerationInetAddress.nextElement();
                     final String ipAddress = inetAddress.getHostAddress();
-                    if (! inetAddress.isLoopbackAddress() && InetAddressUtils.isIPv4Address(ipAddress)) {
+                    if (! inetAddress.isLoopbackAddress() && (inetAddress instanceof Inet4Address)) {
                         return ipAddress;
                     }
                 }
