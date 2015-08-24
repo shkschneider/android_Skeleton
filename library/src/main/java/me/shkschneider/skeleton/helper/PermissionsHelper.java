@@ -200,33 +200,28 @@ public class PermissionsHelper {
     public static final String WRITE_VOICEMAIL = Manifest.permission.WRITE_VOICEMAIL;
 
     public static boolean permission(@NonNull final String permission) {
+        if (AndroidHelper.api() < AndroidHelper.API_23) {
+            final PackageManager packageManager = ApplicationHelper.context().getPackageManager();
+            if (packageManager == null) {
+                LogHelper.warning("PackageManager was NULL");
+                return false;
+            }
+            return (packageManager.checkPermission(permission, ApplicationHelper.packageName()) == PackageManager.PERMISSION_GRANTED);
+        }
         return (ApplicationHelper.context().checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED);
     }
 
     // TODO test on API-23
     public static void request(@NonNull final SkeletonActivity skeletonActivity, @NonNull final String[] permissions) {
         if (AndroidHelper.api() < AndroidHelper.API_23) {
-            LogHelper.info("No Runtime Permissions");
-            LogHelper.debug("Simulating onRequestPermissionsResult");
+            LogHelper.info("No Runtime Permissions -- bridging to onRequestPermissionsResult()");
             skeletonActivity.onRequestPermissionsResult(REQUEST_CODE, permissions, new int[] { PackageManager.PERMISSION_GRANTED });
             return ;
         }
         skeletonActivity.requestPermissions(permissions, REQUEST_CODE);
     }
 
-    public static boolean onRequestPermissionsResult(final int requestCode, @NonNull final String[] permissions, @NonNull final int[] grantResults) {
-        if (AndroidHelper.api() < AndroidHelper.API_23) {
-            LogHelper.info("No Runtime Permissions -- assuming GRANTED");
-            return true;
-        }
-        return (requestCode == REQUEST_CODE);
-    }
-
     public static boolean granted(@NonNull final int[] grantResults) {
-        if (AndroidHelper.api() < AndroidHelper.API_23) {
-            LogHelper.info("No Runtime Permissions -- assuming GRANTED");
-            return true;
-        }
         for (final int grantResult : grantResults) {
             if (grantResult == PackageManager.PERMISSION_DENIED) {
                 return false;
@@ -237,14 +232,14 @@ public class PermissionsHelper {
 
     public static boolean granted(@NonNull final String permission, @NonNull final String[] permissions, @NonNull final int[] grantResults) {
         if (AndroidHelper.api() < AndroidHelper.API_23) {
-            LogHelper.info("No Runtime Permissions -- assuming GRANTED");
-            return true;
+            LogHelper.info("No Runtime Permissions -- bridging to check[Self]Permission()");
+            return permission(permission);
         }
         final int index = ArrayHelper.index(permissions, permission);
         return ((index != -1) && (grantResults[index] == PackageManager.PERMISSION_GRANTED));
     }
 
-    public static boolean revockable(@NonNull final String permission) {
+    public static boolean revocable(@NonNull final String permission) {
         final PackageManager packageManager = ApplicationHelper.context().getPackageManager();
         if (packageManager == null) {
             LogHelper.warning("PackageManager was NULL");
@@ -258,7 +253,7 @@ public class PermissionsHelper {
                     // auto-accepted
                     return false;
                 default:
-                    // dangerous, revockable
+                    // dangerous, revocable
                     return true;
             }
         }

@@ -489,9 +489,17 @@ public class SkeletonActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
     protected void onRestoreInstanceState(final Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    // Runtime Permissions
+
+    @Override
+    public void onRequestPermissionsResult(final int requestCode, @NonNull final String[] permissions, @NonNull final int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
 }
