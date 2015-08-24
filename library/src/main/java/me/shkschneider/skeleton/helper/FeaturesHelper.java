@@ -17,6 +17,10 @@ public class FeaturesHelper {
     public static final String FEATURE_AUDIO_LOW_LATENCY = PackageManager.FEATURE_AUDIO_LOW_LATENCY;
     @SuppressLint("InlinedApi") // API-21+
     public static final String FEATURE_AUDIO_OUTPUT = PackageManager.FEATURE_AUDIO_OUTPUT;
+    @SuppressLint("InlinedApi") // API-23+
+    public static final String FEATURE_AUDIO_PRO = PackageManager.FEATURE_AUDIO_PRO;
+    @SuppressLint("InlinedApi") // API-23+
+    public static final String FEATURE_AUTOMOTIVE = PackageManager.FEATURE_AUTOMOTIVE;
     @SuppressLint("InlinedApi") // API-20+
     public static final String FEATURE_BACKUP = PackageManager.FEATURE_BACKUP;
     public static final String FEATURE_BLUETOOTH = PackageManager.FEATURE_BLUETOOTH;
@@ -47,8 +51,12 @@ public class FeaturesHelper {
     public static final String FEATURE_FAKETOUCH = PackageManager.FEATURE_FAKETOUCH;
     public static final String FEATURE_FAKETOUCH_MULTITOUCH_DISTINCT = PackageManager.FEATURE_FAKETOUCH_MULTITOUCH_DISTINCT;
     public static final String FEATURE_FAKETOUCH_MULTITOUCH_JAZZHAND = PackageManager.FEATURE_FAKETOUCH_MULTITOUCH_JAZZHAND;
+    @SuppressLint("InlinedApi") // API-23+
+    public static final String FEATURE_FINGERPRINT = PackageManager.FEATURE_FINGERPRINT;
     @SuppressLint("InlinedApi") // API-21+
     public static final String FEATURE_GAMEPAD = PackageManager.FEATURE_GAMEPAD;
+    @SuppressLint("InlinedApi") // API-23+
+    public static final String FEATURE_HIFI_SENSORS = PackageManager.FEATURE_HIFI_SENSORS;
     @SuppressLint("InlinedApi") // API-18+
     public static final String FEATURE_HOME_SCREEN = PackageManager.FEATURE_HOME_SCREEN;
     @SuppressLint("InlinedApi") // API-18+
@@ -64,6 +72,8 @@ public class FeaturesHelper {
     @SuppressLint("InlinedApi") // API-21+
     public static final String FEATURE_MANAGED_USERS = PackageManager.FEATURE_MANAGED_USERS;
     public static final String FEATURE_MICROPHONE = PackageManager.FEATURE_MICROPHONE;
+    @SuppressLint("InlinedApi") // API-23+
+    public static final String FEATURE_MIDI = PackageManager.FEATURE_MIDI;
     public static final String FEATURE_NFC = PackageManager.FEATURE_NFC;
     @SuppressLint("InlinedApi") // API-19+
     public static final String FEATURE_NFC_HOST_CARD_EMULATION = PackageManager.FEATURE_NFC_HOST_CARD_EMULATION;
