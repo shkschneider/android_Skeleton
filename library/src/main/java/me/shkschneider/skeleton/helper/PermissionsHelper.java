@@ -236,7 +236,10 @@ public class PermissionsHelper {
             return permission(permission);
         }
         final int index = ArrayHelper.index(permissions, permission);
-        return ((index != -1) && (grantResults[index] == PackageManager.PERMISSION_GRANTED));
+        if (index == -1) {
+            return permission(permission);
+        }
+        return (grantResults[index] == PackageManager.PERMISSION_GRANTED);
     }
 
     public static boolean revocable(@NonNull final String permission) {
