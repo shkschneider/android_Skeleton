@@ -232,10 +232,10 @@ public class SkeletonActivity extends AppCompatActivity {
             LogHelper.warning("ActionBar was NULL");
             return ;
         }
-        actionBar.setDisplayShowHomeEnabled(b);
         actionBar.setDisplayHomeAsUpEnabled(b);
     }
 
+    @Deprecated
     public void home(final Drawable drawable) {
         if (mToolbar == null) {
             LogHelper.warning("Toolbar was NULL");
@@ -290,7 +290,8 @@ public class SkeletonActivity extends AppCompatActivity {
             LogHelper.warning("ActionBar was NULL");
             return ;
         }
-        actionBar.setDisplayUseLogoEnabled(! (drawable == null));
+        actionBar.setDisplayShowHomeEnabled((drawable != null));
+        actionBar.setDisplayUseLogoEnabled((drawable != null));
         actionBar.setLogo(drawable);
     }
 
