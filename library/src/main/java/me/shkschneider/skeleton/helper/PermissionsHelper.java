@@ -243,6 +243,10 @@ public class PermissionsHelper {
     }
 
     public static boolean revocable(@NonNull final String permission) {
+        if (AndroidHelper.api() < AndroidHelper.API_23) {
+            LogHelper.info("No Runtime Permissions -- assuming FALSE");
+            return false;
+        }
         final PackageManager packageManager = ApplicationHelper.context().getPackageManager();
         if (packageManager == null) {
             LogHelper.warning("PackageManager was NULL");
@@ -250,7 +254,9 @@ public class PermissionsHelper {
         }
         try {
             final PermissionInfo permissionInfo = packageManager.getPermissionInfo(permission, 0);
-            switch (permissionInfo.protectionLevel) {
+            @SuppressLint("InlinedApi") // API-16+
+            final int protectionLevel = (permissionInfo.protectionLevel & PermissionInfo.PROTECTION_MASK_BASE);
+            switch (protectionLevel) {
                 case PermissionInfo.PROTECTION_NORMAL:
                 case PermissionInfo.PROTECTION_SIGNATURE:
                     // auto-accepted

@@ -51,7 +51,10 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
         mDiskCacheExternal = new DiskCache.External();
         mDiskCacheExternal.put("DiskCache", "External");
 
-        PermissionsHelper.request(MainActivity.this, new String[] { PermissionsHelper.READ_PHONE_STATE });
+        PermissionsHelper.revocable(PermissionsHelper.INTERNET);
+        if (PermissionsHelper.revocable(PermissionsHelper.READ_PHONE_STATE)) {
+            PermissionsHelper.request(MainActivity.this, new String[] { PermissionsHelper.READ_PHONE_STATE });
+        }
     }
 
     @Override
