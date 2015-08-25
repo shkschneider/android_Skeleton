@@ -214,7 +214,7 @@ public class PermissionsHelper {
     // TODO test on API-23
     public static void request(@NonNull final SkeletonActivity skeletonActivity, @NonNull final String[] permissions) {
         if (AndroidHelper.api() < AndroidHelper.API_23) {
-            LogHelper.info("No Runtime Permissions -- bridging to onRequestPermissionsResult()");
+            LogHelper.info("No Runtime Permissions -- bridging to SkeletonActivity.onRequestPermissionsResult()");
             skeletonActivity.onRequestPermissionsResult(REQUEST_CODE, permissions, new int[] { PackageManager.PERMISSION_GRANTED });
             return ;
         }
@@ -232,7 +232,7 @@ public class PermissionsHelper {
 
     public static boolean granted(@NonNull final String permission, @NonNull final String[] permissions, @NonNull final int[] grantResults) {
         if (AndroidHelper.api() < AndroidHelper.API_23) {
-            LogHelper.info("No Runtime Permissions -- bridging to check[Self]Permission()");
+            LogHelper.info("No Runtime Permissions -- bridging to PackageManager.checkPermission()");
             return permission(permission);
         }
         final int index = ArrayHelper.index(permissions, permission);

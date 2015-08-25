@@ -2,6 +2,7 @@ package me.shkschneider.skeleton.demo.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -19,8 +20,10 @@ import me.shkschneider.skeleton.demo.fragment.SnackBarFragment;
 import me.shkschneider.skeleton.demo.fragment.TransitionFragment;
 import me.shkschneider.skeleton.demo.fragment.ViewPagerIconIndicatorFragment;
 import me.shkschneider.skeleton.demo.fragment.ViewPagerTextIndicatorFragment;
+import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.PermissionsHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
 
 public class  MainActivity extends SkeletonNavigationDrawerActivity {
@@ -47,6 +50,8 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
         mDiskCacheInternal.put("DiskCache", "Internal");
         mDiskCacheExternal = new DiskCache.External();
         mDiskCacheExternal.put("DiskCache", "External");
+
+        PermissionsHelper.request(MainActivity.this, new String[] { PermissionsHelper.READ_PHONE_STATE });
     }
 
     @Override
@@ -124,6 +129,13 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
             subtitle(getFragment(itemId).title());
         }
         return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(final int requestCode, @NonNull final String[] permissions, @NonNull final int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        final boolean granted = PermissionsHelper.granted(PermissionsHelper.READ_PHONE_STATE, permissions, grantResults);
+        ActivityHelper.toast("READ_PHONE_STATE: " + (granted ? "GRANTED" : "DENIED"));
     }
 
     @Override
