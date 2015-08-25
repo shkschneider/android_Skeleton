@@ -1,8 +1,8 @@
 package me.shkschneider.skeleton;
 
-import android.support.v4.preference.PreferenceFragment;
+import android.support.v4.preference.PreferenceFragmentCompat;
 
-public class SkeletonPreferenceFragment extends PreferenceFragment {
+public class SkeletonPreferenceFragment extends PreferenceFragmentCompat {
 
     // @Nullable
     public SkeletonActivity getSkeletonActivity() {
