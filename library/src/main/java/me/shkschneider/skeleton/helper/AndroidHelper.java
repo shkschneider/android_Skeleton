@@ -30,6 +30,7 @@ public class AndroidHelper {
     public static final int API_20 = Build.VERSION_CODES.KITKAT_WATCH; // 4.4.x
     public static final int API_21 = Build.VERSION_CODES.LOLLIPOP; // 5.0
     public static final int API_22 = Build.VERSION_CODES.LOLLIPOP_MR1; // 5.1
+    public static final int API_23 = Build.VERSION_CODES.M; // 6.0 // FIXME MARSHMALLOW
 
     public static final String PLATFORM = "Android";
 
@@ -38,6 +39,7 @@ public class AndroidHelper {
     public static final int ANDROID_3 = API_11;
     public static final int ANDROID_4 = API_14;
     public static final int ANDROID_5 = API_21;
+    public static final int ANDROID_6 = API_23;
 
     public static int api() {
         return Build.VERSION.SDK_INT;
@@ -49,6 +51,16 @@ public class AndroidHelper {
 
     public static int versionCode() {
         return Integer.valueOf(Build.VERSION.INCREMENTAL);
+    }
+
+    // TODO test
+    public static String baseOs() {
+        return Build.VERSION.BASE_OS;
+    }
+
+    // TODO test
+    public static String securityPatch() {
+        return Build.VERSION.SECURITY_PATCH;
     }
 
 }
