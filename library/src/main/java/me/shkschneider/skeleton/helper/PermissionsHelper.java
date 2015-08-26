@@ -2,13 +2,9 @@ package me.shkschneider.skeleton.helper;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.pm.PackageManager;
-import android.content.pm.PermissionInfo;
 import android.support.annotation.NonNull;
-
-import me.shkschneider.skeleton.SkeletonActivity;
-import me.shkschneider.skeleton.java.ArrayHelper;
+import android.support.v4.content.ContextCompat;
 
 // <http://developer.android.com/reference/android/Manifest.permission.html>
 public class PermissionsHelper {
@@ -28,7 +24,6 @@ public class PermissionsHelper {
     public static final String ACCESS_NOTIFICATION_POLICY = Manifest.permission.ACCESS_NOTIFICATION_POLICY;
     public static final String ACCESS_WIFI_STATE = Manifest.permission.ACCESS_WIFI_STATE;
     public static final String ADD_VOICEMAIL = Manifest.permission.ADD_VOICEMAIL; // DANGEROUS
-    public static final String BATTERY_STATS = Manifest.permission.BATTERY_STATS; // ?
     public static final String BLUETOOTH = Manifest.permission.BLUETOOTH;
     public static final String BLUETOOTH_ADMIN = Manifest.permission.BLUETOOTH_ADMIN;
     @SuppressLint("InlinedApi") // API-20+
@@ -36,7 +31,6 @@ public class PermissionsHelper {
     public static final String BROADCAST_STICKY = Manifest.permission.BROADCAST_STICKY;
     public static final String CALL_PHONE = Manifest.permission.CALL_PHONE; // DANGEROUS
     public static final String CAMERA = Manifest.permission.CAMERA; // DANGEROUS
-    public static final String CHANGE_CONFIGURATION = Manifest.permission.CHANGE_CONFIGURATION; // ?
     public static final String CHANGE_NETWORK_STATE = Manifest.permission.CHANGE_NETWORK_STATE;
     public static final String CHANGE_WIFI_MULTICAST_STATE = Manifest.permission.CHANGE_WIFI_MULTICAST_STATE;
     public static final String CHANGE_WIFI_STATE = Manifest.permission.CHANGE_WIFI_STATE;
@@ -47,7 +41,6 @@ public class PermissionsHelper {
     @SuppressLint("InlinedApi") // API-23+
     public static final String GET_ACCOUNTS_PRIVILEGED = Manifest.permission.GET_ACCOUNTS_PRIVILEGED;
     public static final String GET_PACKAGE_SIZE = Manifest.permission.GET_PACKAGE_SIZE;
-    public static final String GLOBAL_SEARCH = Manifest.permission.GLOBAL_SEARCH; // ?
     @SuppressLint("InlinedApi") // API-19+
     public static final String INSTALL_SHORTCUT = Manifest.permission.INSTALL_SHORTCUT;
     public static final String INTERNET = Manifest.permission.INTERNET;
@@ -55,7 +48,6 @@ public class PermissionsHelper {
     public static final String MODIFY_AUDIO_SETTINGS = Manifest.permission.MODIFY_AUDIO_SETTINGS;
     public static final String NFC = Manifest.permission.NFC;
     @SuppressLint("InlinedApi") // API-23+
-    public static final String PACKAGE_USAGE_STATS = Manifest.permission.PACKAGE_USAGE_STATS; // ?
     public static final String PROCESS_OUTGOING_CALLS = Manifest.permission.PROCESS_OUTGOING_CALLS; // DANGEROUS
     public static final String READ_CALENDAR = Manifest.permission.READ_CALENDAR; // DANGEROUS
     @SuppressLint("InlinedApi") // API-16+
@@ -83,7 +75,6 @@ public class PermissionsHelper {
     public static final String SET_TIME_ZONE = Manifest.permission.SET_TIME_ZONE;
     public static final String SET_WALLPAPER = Manifest.permission.SET_WALLPAPER;
     public static final String SET_WALLPAPER_HINTS = Manifest.permission.SET_WALLPAPER_HINTS;
-    public static final String SYSTEM_ALERT_WINDOW = Manifest.permission.SYSTEM_ALERT_WINDOW; // ?
     @SuppressLint("InlinedApi") // API-19+
     public static final String TRANSMIT_IR = Manifest.permission.TRANSMIT_IR;
     @SuppressLint("InlinedApi") // API-19+
@@ -101,68 +92,7 @@ public class PermissionsHelper {
     public static final String WRITE_SYNC_SETTINGS = Manifest.permission.WRITE_SYNC_SETTINGS;
 
     public static boolean permission(@NonNull final String permission) {
-        if (AndroidHelper.api() < AndroidHelper.API_23) {
-            final PackageManager packageManager = ApplicationHelper.context().getPackageManager();
-            if (packageManager == null) {
-                LogHelper.warning("PackageManager was NULL");
-                return false;
-            }
-            return (packageManager.checkPermission(permission, ApplicationHelper.packageName()) == PackageManager.PERMISSION_GRANTED);
-        }
-        return (ApplicationHelper.context().checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED);
-    }
-
-    // TODO test on API-23
-    public static void request(@NonNull final SkeletonActivity skeletonActivity, @NonNull final String[] permissions) {
-        if (AndroidHelper.api() < AndroidHelper.API_23) {
-            LogHelper.info("No Runtime Permissions -- bridging to SkeletonActivity.onRequestPermissionsResult()");
-            skeletonActivity.onRequestPermissionsResult(REQUEST_CODE, permissions, new int[] { PackageManager.PERMISSION_GRANTED });
-            return ;
-        }
-        skeletonActivity.requestPermissions(permissions, REQUEST_CODE);
-    }
-
-    public static boolean granted(@NonNull final int[] grantResults) {
-        for (final int grantResult : grantResults) {
-            if (grantResult == PackageManager.PERMISSION_DENIED) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public static boolean granted(@NonNull final String permission, @NonNull final String[] permissions, @NonNull final int[] grantResults) {
-        if (AndroidHelper.api() < AndroidHelper.API_23) {
-            LogHelper.info("No Runtime Permissions -- bridging to PackageManager.checkPermission()");
-            return permission(permission);
-        }
-        final int index = ArrayHelper.index(permissions, permission);
-        if (index == -1) {
-            return permission(permission);
-        }
-        return (grantResults[index] == PackageManager.PERMISSION_GRANTED);
-    }
-
-    public static boolean revocable(@NonNull final String permission) {
-        if (AndroidHelper.api() < AndroidHelper.API_23) {
-            LogHelper.info("No Runtime Permissions -- assuming FALSE");
-            return false;
-        }
-        final PackageManager packageManager = ApplicationHelper.context().getPackageManager();
-        if (packageManager == null) {
-            LogHelper.warning("PackageManager was NULL");
-            return false;
-        }
-        try {
-            final PermissionInfo permissionInfo = packageManager.getPermissionInfo(permission, 0);
-            @SuppressLint("InlinedApi") // API-16+
-            final int protectionLevel = (permissionInfo.protectionLevel & PermissionInfo.PROTECTION_MASK_BASE);
-            return (protectionLevel != PermissionInfo.PROTECTION_NORMAL);
-        }
-        catch (final Exception e) {
-            LogHelper.wtf(null, e);
-            return false;
-        }
+        return (ContextCompat.checkSelfPermission(ApplicationHelper.context(), permission) == PackageManager.PERMISSION_GRANTED);
     }
 
 }
