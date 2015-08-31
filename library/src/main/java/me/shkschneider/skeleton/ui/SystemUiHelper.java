@@ -1,4 +1,4 @@
-package android.systemui;
+package me.shkschneider.skeleton.ui;
 
 import android.annotation.TargetApi;
 import android.app.ActionBar;
