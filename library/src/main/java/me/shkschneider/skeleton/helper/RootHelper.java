@@ -7,6 +7,7 @@ import java.util.List;
 // <https://github.com/orhanobut/rootchecker/blob/master/rootchecker/src/main/java/com/orhanobut/rootchecker/RootChecker.java>
 public class RootHelper {
 
+    @Deprecated
     public static boolean rooted() {
         final List<String> paths = new ArrayList<String>() {
             {
