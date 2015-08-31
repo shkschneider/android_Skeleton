@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.helper;
 
-import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Activity;
@@ -8,7 +7,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresPermission;
 import android.util.Patterns;
 
 import com.google.android.gms.auth.GoogleAuthUtil;
@@ -63,7 +61,6 @@ public class GooglePlayServicesHelper {
         return dialog;
     }
 
-    @RequiresPermission(Manifest.permission.GET_ACCOUNTS)
     public static List<String> accounts() {
         final List<String> accounts = new ArrayList<>();
         final AccountManager accountManager = AccountManager.get(ApplicationHelper.context());
@@ -80,7 +77,6 @@ public class GooglePlayServicesHelper {
         return accounts;
     }
 
-    @RequiresPermission(Manifest.permission.GET_ACCOUNTS)
     @Nullable
     public static String account() {
         final List<String> accounts = accounts();

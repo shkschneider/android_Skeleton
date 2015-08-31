@@ -1,11 +1,9 @@
 package me.shkschneider.skeleton.locator;
 
-import android.Manifest;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresPermission;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -26,7 +24,6 @@ public class Locator implements GoogleApiClient.ConnectionCallbacks, GoogleApiCl
 
     private static Locator INSTANCE;
 
-    @RequiresPermission(anyOf = { Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION })
     public static Locator getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new Locator();

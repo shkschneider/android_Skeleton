@@ -1,10 +1,8 @@
 package me.shkschneider.skeleton.network;
 
-import android.Manifest;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresPermission;
 import android.support.annotation.Size;
 
 import com.google.gson.JsonObject;
@@ -37,7 +35,6 @@ public class WebService extends AsyncTask<Void, Void, Object> {
     private Map<String, String> mBody;
     private Callback mCallback;
 
-    @RequiresPermission(Manifest.permission.INTERNET)
     public WebService(@NonNull final Method method, @NonNull final String url, @Nullable final Map<String, String> body, @Nullable final Callback callback) {
         mMethod = method;
         mUrl = url;
