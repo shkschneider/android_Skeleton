@@ -31,6 +31,7 @@ dependencies {
     compile 'com.android.support:design:23.0.0'
 
     compile 'com.github.shkschneider:android_PreferenceFragmentCompat:1.0.0@aar'
+    compile 'com.github.shkschneider:android_RuntimePermissionsCompat:1.0.0@aar'
 }
 
 task javadoc(type: Javadoc) {

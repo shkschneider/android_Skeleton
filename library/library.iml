@@ -94,6 +94,7 @@
     <orderEntry type="library" exported="" name="android_PreferenceFragmentCompat-1.0.0" level="project" />
     <orderEntry type="library" exported="" name="design-23.0.0" level="project" />
     <orderEntry type="library" exported="" name="palette-v7-23.0.0" level="project" />
+    <orderEntry type="library" exported="" name="android_RuntimePermissionsCompat-1.0.0" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-23.0.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-base-7.8.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-location-7.8.0" level="project" />
