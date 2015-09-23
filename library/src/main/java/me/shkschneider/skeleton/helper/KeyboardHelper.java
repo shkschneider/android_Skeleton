@@ -1,10 +1,14 @@
 package me.shkschneider.skeleton.helper;
 
 import android.app.Activity;
+import android.graphics.Rect;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
@@ -20,13 +24,15 @@ public class KeyboardHelper {
         // Empty
     }
 
-    public final static int ENTER = KeyEvent.KEYCODE_ENTER;
+    // Show
 
     public static boolean show(@NonNull final Activity activity) {
         LogHelper.verbose("SOFT_INPUT_STATE_ALWAYS_VISIBLE");
         activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         return true;
     }
+
+    // Hide
 
     public static boolean hide(@NonNull final Activity activity) {
         LogHelper.verbose("hideSoftInputFromWindow()");
@@ -47,7 +53,11 @@ public class KeyboardHelper {
         return true;
     }
 
-    public static boolean keyboardCallback(@NonNull final EditText editText, @Nullable final Callback keyboardCallback, final boolean all) {
+    // (Input) Callback
+
+    public final static int ENTER = KeyEvent.KEYCODE_ENTER;
+
+    public static boolean keyboardCallback(@NonNull final EditText editText, @Nullable final Callback callback, final boolean all) {
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 
             @Override
@@ -68,8 +78,8 @@ public class KeyboardHelper {
                         KeyEvent.KEYCODE_ENTER
                 };
                 if (all || Arrays.asList(enterKeys).contains(actionId)) {
-                    if (keyboardCallback != null) {
-                        keyboardCallback.keyboardCallback(actionId);
+                    if (callback != null) {
+                        callback.onKeyboardAction(actionId);
                     }
                 }
 
@@ -86,7 +96,39 @@ public class KeyboardHelper {
 
     public interface Callback {
 
-        void keyboardCallback(@IntRange(from=0) final int action);
+        void onKeyboardAction(@IntRange(from=0) final int action);
+
+    }
+
+    // (Visibility) Listener
+
+    // <https://github.com/yshrsmz/KeyboardVisibilityEvent>
+    public static void keyboardListener(@NonNull final Activity activity, @NonNull final Listener listener) {
+        final View activityRoot = ((ViewGroup) ActivityHelper.contentView(activity)).getChildAt(0);
+        activityRoot.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+
+            private final Rect mRect = new Rect();
+            private final int visibleThreadshold = Math.round(ScreenHelper.pixelsFromDp(100));
+            private boolean mWasOpened = false;
+
+            @Override
+            public void onGlobalLayout() {
+                activityRoot.getWindowVisibleDisplayFrame(mRect);
+                final int heightDiff = activityRoot.getRootView().getHeight() - mRect.height();
+                final boolean isOpen = heightDiff > visibleThreadshold;
+                if (isOpen == mWasOpened) {
+                    return ;
+                }
+                mWasOpened = isOpen;
+                listener.onKeyboardVisibilityChanged(isOpen);
+            }
+
+        });
+    }
+
+    public interface Listener {
+
+        void onKeyboardVisibilityChanged(final boolean isOpen);
 
     }
 
