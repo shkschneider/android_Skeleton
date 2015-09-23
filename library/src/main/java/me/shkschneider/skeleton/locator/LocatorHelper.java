@@ -20,6 +20,13 @@ public class LocatorHelper {
         return (meters / 111111);
     }
 
+    public static float distanceBetween(final double startLatitude, final double startLongitude, final double endLatitude, final double endLongitude) {
+        float[] results = new float[1];
+        Location.distanceBetween(startLatitude, startLongitude, endLatitude, endLongitude, results);
+        final float distance = results[0];
+        return distance;
+    }
+
     public static Boolean betterLocation(@Nullable final Location location, @Nullable final Location currentLocation, final long refreshRate) {
         if (currentLocation == null) {
             return true;
