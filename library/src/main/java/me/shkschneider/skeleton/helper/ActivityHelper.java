@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import me.shkschneider.skeleton.SkeletonActivity;
+import me.shkschneider.skeleton.ui.ViewHelper;
 
 public class ActivityHelper {
 
@@ -17,8 +18,9 @@ public class ActivityHelper {
         // Empty
     }
 
+    @Deprecated
     public static View contentView(@NonNull final Activity activity) {
-        return activity.getWindow().getDecorView().findViewById(android.R.id.content);
+        return ViewHelper.content(activity);
     }
 
     public static void toast(@NonNull final String msg) {

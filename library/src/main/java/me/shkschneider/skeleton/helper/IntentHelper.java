@@ -35,6 +35,10 @@ public class IntentHelper {
     public static final int FLAGS_HOME = (Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
     public static final int FLAGS_CLEAR = (Intent.FLAG_ACTIVITY_REORDER_TO_FRONT | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
+    public static final int REQUEST_CODE_CAMERA = 111;
+    public static final int REQUEST_CODE_GALLERY = 222;
+    public static final int REQUEST_CODE_PERMISSIONS = 23;
+
     // Useless: only used to keep track of new features
     public static final String BROADCAST_AIRPLANE_MODE_CHANGED = Intent.ACTION_AIRPLANE_MODE_CHANGED;
     @SuppressLint("InlinedApi") // API-21+
@@ -201,9 +205,6 @@ public class IntentHelper {
     public static final String CATEGORY_TEST = Intent.CATEGORY_TEST;
     @Deprecated
     public static final String CATEGORY_UNIT_TEST = Intent.CATEGORY_UNIT_TEST;
-
-    public static final int REQUEST_CODE_CAMERA = 111;
-    public static final int REQUEST_CODE_GALLERY = 222;
 
     @Nullable
     public static Intent home() {

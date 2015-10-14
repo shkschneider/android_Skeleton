@@ -116,7 +116,6 @@ public class LogHelper {
         log(WTF, msg, throwable);
     }
 
-    @Deprecated
     public static void wtf(@NonNull final Throwable throwable) {
         log(WTF, null, throwable);
     }

@@ -33,6 +33,7 @@ public final class SystemUiHelper {
         this(activity, level, flags, null);
     }
 
+    @SuppressWarnings("deprecation")
     public SystemUiHelper(@NonNull final Activity activity, final int level, final int flags, @Nullable final OnVisibilityChangeListener listener) {
         mHandler = new Handler(Looper.getMainLooper());
         mHideRunnable = new HideRunnable();
@@ -243,6 +244,7 @@ public final class SystemUiHelper {
     // ICE_CREAM_SANDWICH
 
     @TargetApi(AndroidHelper.API_14)
+    @SuppressWarnings("deprecation")
     class SystemUiHelperImplICS extends SystemUiHelperImplHC {
 
         public SystemUiHelperImplICS(@NonNull final Activity activity, final int level, final int flags, @Nullable final SystemUiHelper.OnVisibilityChangeListener onVisibilityChangeListener) {

@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.helper;
 
+import android.annotation.TargetApi;
 import android.os.Build;
 
 public class AndroidHelper {
@@ -53,12 +54,14 @@ public class AndroidHelper {
         return Integer.valueOf(Build.VERSION.INCREMENTAL);
     }
 
-    // TODO test
+    @TargetApi(API_23)
+    @Deprecated // TODO test
     public static String baseOs() {
         return Build.VERSION.BASE_OS;
     }
 
-    // TODO test
+    @TargetApi(API_23)
+    @Deprecated // TODO test
     public static String securityPatch() {
         return Build.VERSION.SECURITY_PATCH;
     }

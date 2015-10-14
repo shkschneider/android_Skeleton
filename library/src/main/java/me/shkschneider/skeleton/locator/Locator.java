@@ -24,7 +24,7 @@ public class Locator implements GoogleApiClient.ConnectionCallbacks, GoogleApiCl
 
     private static Locator INSTANCE;
 
-    public static Locator getInstance() {
+    public static Locator get() {
         if (INSTANCE == null) {
             INSTANCE = new Locator();
         }

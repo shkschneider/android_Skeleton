@@ -27,7 +27,6 @@ public class IdHelper {
         if (androidId.equals(EMULATOR)) {
             LogHelper.warning("EMULATOR");
         }
-
         return StringHelper.lower(androidId);
     }
 
@@ -49,7 +48,6 @@ public class IdHelper {
             LogHelper.warning("DeviceId was NULL");
             return null;
         }
-
         return UUID.nameUUIDFromBytes(deviceId.getBytes()).toString();
     }
 

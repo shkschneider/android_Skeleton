@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -42,12 +43,19 @@ public class SkeletonFragment extends Fragment {
     }
 
     @Override
-    public void onAttach(@NonNull final Activity activity) {
-        super.onAttach(activity);
-        if (! (activity instanceof SkeletonActivity)) {
-            LogHelper.error("Activity was not SkeletonActivity");
+    public void onAttach(final Context context) {
+        super.onAttach(context);
+
+        if (context instanceof Activity) {
+            final Activity activity = (Activity) context;
+            if (activity instanceof SkeletonActivity) {
+                mActivity = (SkeletonActivity) activity;
+            }
+            else {
+                LogHelper.error("Activity was not SkeletonActivity");
+            }
         }
-        mActivity = (SkeletonActivity) activity;
+
     }
 
     @Override

@@ -43,6 +43,7 @@ public class DiskCache {
             // Ignore
         }
 
+        @SuppressWarnings("ResultOfMethodCallIgnored")
         synchronized public boolean put(@NonNull final String key, final Serializable value) {
             if (DIR == null) {
                 LogHelper.warning("Dir was NULL");
@@ -77,6 +78,7 @@ public class DiskCache {
             return null;
         }
 
+        @SuppressWarnings("ResultOfMethodCallIgnored")
         synchronized public void clear() {
             if (DIR == null) {
                 LogHelper.warning("Dir was NULL");
@@ -85,10 +87,9 @@ public class DiskCache {
 
             if (DIR.exists()) {
                 final String[] files = DIR.list();
-                for (int i = 0; i < files.length; i++) {
-                    final String path = FileHelper.join(DIR.getAbsolutePath(), files[i]);
-                    final File file = FileHelper.get(path);
-                    file.delete();
+                for (final String file : files) {
+                    final String path = FileHelper.join(DIR.getAbsolutePath(), file);
+                    FileHelper.get(path).delete();
                 }
             }
         }
