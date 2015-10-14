@@ -21,6 +21,7 @@ public class WebViewHelper {
     }
 
     public static final String META_VIEWPORT = "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=yes\">";
+    public static final String META_THEME = "<meta name=\"theme-color\" content=\"#ffffff\">";
     public static final String CHARSET = CharsetHelper.UTF8;
     public static final String MIME_TYPE = MimeTypeHelper.TEXT_HTML;
 
