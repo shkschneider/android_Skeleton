@@ -2,11 +2,11 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '23'
+    buildToolsVersion '23.0.1'
 
     defaultConfig {
         applicationId 'me.shkschneider.skeleton.demo'
-        minSdkVersion 14
+        minSdkVersion 15
         targetSdkVersion 23
         versionCode 21
         versionName '4.2.1'
@@ -58,17 +58,9 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:multidex:1.0.1'
-    compile 'com.android.support:appcompat-v7:23.0.0'
-    compile 'com.android.support:palette-v7:23.0.0'
-    compile 'com.android.support:design:23.0.0'
-
-    // <https://developers.google.com/android/guides/setup#add_google_play_services_to_your_project>
-    compile 'com.google.android.gms:play-services-appindexing:7.8.0'
-    compile 'com.google.code.gson:gson:2.3.1'
-
-    compile 'com.squareup.picasso:picasso:2.5.0'
-
+    // compile 'com.android.support:multidex:1.0.1'
+    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.caverock:androidsvg:1.2.1'
 
     compile project(':library')
