@@ -120,4 +120,8 @@ public class ScreenHelper {
         return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, ApplicationHelper.resources().getDisplayMetrics()));
     }
 
+    public static int pixelsFromSp(@FloatRange(from=0.0) final float sp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, ApplicationHelper.resources().getDisplayMetrics());
+    }
+
 }
