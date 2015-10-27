@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.data;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -9,6 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
+import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
@@ -50,6 +52,11 @@ public class InternalDataHelper {
 
     public static File dir() {
         return ApplicationHelper.context().getFilesDir();
+    }
+
+    @TargetApi(AndroidHelper.API_21)
+    public static File backup() {
+        return ApplicationHelper.context().getNoBackupFilesDir();
     }
 
     @Nullable

@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -19,6 +21,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.io.File;
 import java.util.List;
+import java.util.Objects;
 
 import me.shkschneider.skeleton.java.StringHelper;
 import me.shkschneider.skeleton.network.UrlHelper;
@@ -37,6 +40,7 @@ public class IntentHelper {
 
     public static final int REQUEST_CODE_CAMERA = 111;
     public static final int REQUEST_CODE_GALLERY = 222;
+    public static final int REQUEST_CODE_RINGTONE = 333;
     public static final int REQUEST_CODE_PERMISSIONS = 23;
 
     // Useless: only used to keep track of new features
@@ -256,6 +260,13 @@ public class IntentHelper {
                         to.latitude, to.longitude))));
     }
 
+    public static Intent ringtone(final String existingUri) {
+        final Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION);
+        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, (existingUri != null ? Uri.parse(existingUri) : null));
+        return intent;
+    }
+
     public static Intent applicationSettings() {
         return external(new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
                 .setData(Uri.parse("package:" + ApplicationHelper.packageName())));
@@ -360,7 +371,7 @@ public class IntentHelper {
     }
 
     @Nullable
-    public static Bitmap onActivityResult(final int requestCode, final int resultCode, @Nullable final Intent intent) {
+    public static Object onActivityResult(final int requestCode, final int resultCode, @Nullable final Intent intent) {
         if (resultCode != Activity.RESULT_OK) {
             LogHelper.debug("ResultCode was not OK");
             return null;
@@ -377,7 +388,7 @@ public class IntentHelper {
                 return null;
             }
 
-            return (Bitmap) bundle.get("data");
+            return bundle.get("data");
         }
         else if (requestCode == REQUEST_CODE_GALLERY) {
             if (intent == null) {
@@ -391,6 +402,17 @@ public class IntentHelper {
             }
 
             return BitmapHelper.decodeUri(uri);
+        }
+        else if (requestCode == REQUEST_CODE_RINGTONE) {
+            if (intent == null) {
+                LogHelper.warning("Intent was NULL");
+                return null;
+            }
+            final Uri uri = intent.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+            if (uri != null) {
+                return RingtoneManager.getRingtone(ApplicationHelper.context(), uri);
+            }
+            return null;
         }
         return null;
     }
