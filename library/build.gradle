@@ -3,13 +3,13 @@ apply plugin: 'android-maven'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion '23'
+    buildToolsVersion '23.0.1'
 
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 21
-        versionName '4.2.1'
+        versionCode 22
+        versionName '4.2.2'
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
@@ -26,9 +26,9 @@ dependencies {
     compile 'com.google.code.gson:gson:2.4'
     compile 'com.mcxiaoke.volley:library:1.0.19'
 
-    compile 'com.android.support:appcompat-v7:23.0.1'
-    compile 'com.android.support:palette-v7:23.0.1'
-    compile 'com.android.support:design:23.0.1'
+    compile 'com.android.support:appcompat-v7:23.1.0'
+    compile 'com.android.support:palette-v7:23.1.0'
+    compile 'com.android.support:design:23.1.0'
 
     compile 'com.github.shkschneider:android_PreferenceFragmentCompat:1.0.0@aar'
     compile 'com.github.shkschneider:android_RuntimePermissionsCompat:1.0.0@aar'
