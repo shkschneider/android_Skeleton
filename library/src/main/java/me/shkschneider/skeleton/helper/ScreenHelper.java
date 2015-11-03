@@ -40,6 +40,12 @@ public class ScreenHelper {
         return true;
     }
 
+    // Does NOT @RequiresPermission(Manifest.permission.WAKE_LOCK)
+    public static boolean wakeUnlock(@NonNull final Window window) {
+        window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        return true;
+    }
+
     public static boolean on() {
         final PowerManager powerManager = SystemServices.powerManager();
         if (powerManager == null) {
