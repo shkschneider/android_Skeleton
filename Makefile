@@ -14,6 +14,10 @@ GRADLE		= bash gradlew
 all:
 	@echo "[ $(APP_ID) $(VERSION) ]"
 	@echo "debug release lint clean distclean"
+ifeq (,$(wildcard $(HOME)/.gradle/gradle.properties))
+	@mkdir -p "$(HOME)/.gradle"
+	@echo "org.gradle.daemon=true" > "$(HOME)/.gradle/gradle.properties"
+endif
 
 debug:
 	@echo "[ $(APP_ID) $(VERSION) ]"
@@ -25,7 +29,7 @@ debug:
 
 release:
 	@echo "[ $(APP_ID) $(VERSION) ]"
-	@$(GRADLE) assembleRelease #installDebug
+	@$(GRADLE) assembleRelease #installRelease
 	@cp "$(SKELETON)/build/outputs/aar/$(SKELETON)-release.aar" "$(SKELETON_ID)-release-$(VERSION).aar"
 	@echo "$(SKELETON_ID)-release-$(VERSION).aar"
 	@cp "$(APP)/build/outputs/apk/$(APP)-release.apk" "$(APP_ID)-release-$(VERSION).apk"
