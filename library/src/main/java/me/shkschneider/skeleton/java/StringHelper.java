@@ -160,17 +160,14 @@ public class StringHelper {
         return string;
     }
 
+    @Deprecated
     public static String random(@NonNull final String characters, @IntRange(from=0) final int length) {
-        final Random random = new Random();
-        final StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < length; i++) {
-            stringBuilder.append(characters.charAt(random.nextInt(characters.length())));
-        }
-        return stringBuilder.toString();
+        return RandomHelper.string(characters, length);
     }
 
+    @Deprecated
     public static String random(@IntRange(from=0) final int length) {
-        return random(lower(HEX), length);
+        return RandomHelper.string(length);
     }
 
     // <http://stackoverflow.com/a/9855338>

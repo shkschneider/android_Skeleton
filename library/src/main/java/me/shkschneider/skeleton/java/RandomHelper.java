@@ -1,5 +1,10 @@
 package me.shkschneider.skeleton.java;
 
+import android.support.annotation.IntRange;
+import android.support.annotation.NonNull;
+
+import java.util.Random;
+
 import me.shkschneider.skeleton.helper.LogHelper;
 
 public class RandomHelper {
@@ -10,6 +15,19 @@ public class RandomHelper {
 
     public static boolean binary() {
         return (Math.random() < 0.5);
+    }
+
+    public static String string(@NonNull final String characters, @IntRange(from=0) final int length) {
+        final Random random = new Random();
+        final StringBuilder stringBuilder = new StringBuilder();
+        for (int i = 0; i < length; i++) {
+            stringBuilder.append(characters.charAt(random.nextInt(characters.length())));
+        }
+        return stringBuilder.toString();
+    }
+
+    public static String string(@IntRange(from=0) final int length) {
+        return string(StringHelper.lower(StringHelper.HEX), length);
     }
 
     public static int inclusive(final int min, final int max) {
