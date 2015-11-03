@@ -68,13 +68,13 @@ public class GsonParser {
         while (matcherTags.find()) {
             tags.add(matcherTags.group());
         }
-        LogHelper.verbose("tags: " + tags.toString());
+        LogHelper.verbose("Tags: " + tags.toString());
         final Matcher matcherPaths = Pattern.compile("[\\{|\\[]([^\\{|\\[|\\}|\\]]+)[\\}|\\]]").matcher(string);
         final List<String> paths = new ArrayList<>();
         while (matcherPaths.find()) {
             paths.add(matcherPaths.group(1));
         }
-        LogHelper.verbose("paths: " + paths.toString());
+        LogHelper.verbose("Paths: " + paths.toString());
         // loop
         JsonObject object = jsonObject;
         for (int i = 0; i < tags.size(); i++) {
@@ -161,6 +161,17 @@ public class GsonParser {
             }
         }
         return object;
+    }
+
+    @Nullable
+    public static JsonElement element(@NonNull final JsonObject jsonObject, @NonNull final String key) {
+        try {
+            return jsonObject.get(key);
+        }
+        catch (final Exception e) {
+            LogHelper.wtf(null, e);
+            return null;
+        }
     }
 
     public static List<String> keys(@NonNull final JsonObject jsonObject) {

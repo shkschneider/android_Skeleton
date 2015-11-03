@@ -99,8 +99,8 @@
     <orderEntry type="library" exported="" name="picasso-2.5.2" level="project" />
     <orderEntry type="library" exported="" name="androidsvg-1.2.1" level="project" />
     <orderEntry type="library" exported="" name="support-v4-23.0.1" level="project" />
-    <orderEntry type="library" exported="" name="gson-2.4" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-23.0.1" level="project" />
+    <orderEntry type="library" exported="" name="gson-2.4" level="project" />
     <orderEntry type="module" module-name="library" exported="" />
   </component>
 </module>
