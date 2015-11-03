@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import me.shkschneider.skeleton.java.ObjectHelper;
 import me.shkschneider.skeleton.java.StringHelper;
 
 public class LogHelper {
@@ -68,51 +69,99 @@ public class LogHelper {
         }
     }
 
+    public static void debug(@NonNull final Object object) {
+        log(DEBUG, ObjectHelper.jsonify(object), null);
+    }
+
+    public static void debug(@NonNull final Object object, @NonNull final Throwable throwable) {
+        log(DEBUG, ObjectHelper.jsonify(object), throwable);
+    }
+
     public static void debug(@NonNull final String msg) {
         log(DEBUG, msg, null);
     }
 
-    public static void debug(@Nullable final String msg, @NonNull final Throwable throwable) {
+    public static void debug(@NonNull final String msg, @NonNull final Throwable throwable) {
         log(DEBUG, msg, throwable);
+    }
+
+    public static void verbose(@NonNull final Object object) {
+        log(DEBUG, ObjectHelper.jsonify(object), null);
+    }
+
+    public static void verbose(@NonNull final Object object, @NonNull final Throwable throwable) {
+        log(DEBUG, ObjectHelper.jsonify(object), throwable);
     }
 
     public static void verbose(@NonNull final String msg) {
         log(VERBOSE, msg, null);
     }
 
-    public static void verbose(@Nullable final String msg, @NonNull final Throwable throwable) {
+    public static void verbose(@NonNull final String msg, @NonNull final Throwable throwable) {
         log(VERBOSE, msg, throwable);
+    }
+
+    public static void info(@NonNull final Object object) {
+        log(DEBUG, ObjectHelper.jsonify(object), null);
+    }
+
+    public static void info(@NonNull final Object object, @NonNull final Throwable throwable) {
+        log(DEBUG, ObjectHelper.jsonify(object), throwable);
     }
 
     public static void info(@NonNull final String msg) {
         log(INFO, msg, null);
     }
 
-    public static void info(@Nullable final String msg, @NonNull final Throwable throwable) {
+    public static void info(@NonNull final String msg, @NonNull final Throwable throwable) {
         log(INFO, msg, throwable);
+    }
+
+    public static void warning(@NonNull final Object object) {
+        log(DEBUG, ObjectHelper.jsonify(object), null);
+    }
+
+    public static void warning(@NonNull final Object object, @NonNull final Throwable throwable) {
+        log(DEBUG, ObjectHelper.jsonify(object), throwable);
     }
 
     public static void warning(@NonNull final String msg) {
         log(WARN, msg, null);
     }
 
-    public static void warning(@Nullable final String msg, @NonNull final Throwable throwable) {
+    public static void warning(@NonNull final String msg, @NonNull final Throwable throwable) {
         log(WARN, msg, throwable);
+    }
+
+    public static void error(@NonNull final Object object) {
+        log(DEBUG, ObjectHelper.jsonify(object), null);
+    }
+
+    public static void error(@NonNull final Object object, @NonNull final Throwable throwable) {
+        log(DEBUG, ObjectHelper.jsonify(object), throwable);
     }
 
     public static void error(@NonNull final String msg) {
         log(ERROR, msg, null);
     }
 
-    public static void error(@Nullable final String msg, @NonNull final Throwable throwable) {
+    public static void error(@NonNull final String msg, @NonNull final Throwable throwable) {
         log(ERROR, msg, throwable);
+    }
+
+    public static void wtf(@NonNull final Object object) {
+        log(DEBUG, ObjectHelper.jsonify(object), null);
+    }
+
+    public static void wtf(@NonNull final Object object, @NonNull final Throwable throwable) {
+        log(DEBUG, ObjectHelper.jsonify(object), throwable);
     }
 
     public static void wtf(@NonNull final String msg) {
         log(WTF, msg, null);
     }
 
-    public static void wtf(@Nullable final String msg, @NonNull final Throwable throwable) {
+    public static void wtf(@NonNull final String msg, @NonNull final Throwable throwable) {
         log(WTF, msg, throwable);
     }
 
