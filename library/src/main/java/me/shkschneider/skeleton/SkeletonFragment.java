@@ -43,6 +43,12 @@ public class SkeletonFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable final Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // setHasOptionsMenu();
+    }
+
+    @Override
     public void onAttach(final Context context) {
         super.onAttach(context);
 
