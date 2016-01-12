@@ -42,6 +42,52 @@ public class AndroidHelper {
     public static final int ANDROID_5 = API_21;
     public static final int ANDROID_6 = API_23;
 
+    public static String codename(final int api) {
+        switch (api) {
+            case API_1:
+            case API_2:
+                return "Base";
+            case API_3:
+                return "Cupcake";
+            case API_4:
+                return "Donut";
+            case API_5:
+            case API_6:
+            case API_7:
+                return "Eclair";
+            case API_8:
+                return "Froyo";
+            case API_9:
+            case API_10:
+                return "Gingerbread";
+            case API_11:
+            case API_12:
+            case API_13:
+                return "Honeycomb";
+            case API_14:
+            case API_15:
+                return "IceCreamSandwich";
+            case API_16:
+            case API_17:
+            case API_18:
+                return "JellyBean";
+            case API_19:
+            case API_20:
+                return "KitKat";
+            case API_21:
+            case API_22:
+                return "Lollipop";
+            case API_23:
+                return "Marshmallow";
+            default:
+                return "unknown";
+        }
+    }
+
+    public static String codename() {
+        return codename(api());
+    }
+
     public static int api() {
         return Build.VERSION.SDK_INT;
     }
