@@ -34,6 +34,13 @@ public class KeyboardHelper {
 
     // Hide
 
+    public static boolean hide(@NonNull final Window window) {
+        LogHelper.verbose("SOFT_INPUT_STATE_ALWAYS_HIDDEN");
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        return true;
+    }
+
+    @Deprecated
     public static boolean hide(@NonNull final Activity activity) {
         LogHelper.verbose("hideSoftInputFromWindow()");
         InputMethodManager inputMethodManager = SystemServices.inputMethodManager();
@@ -44,13 +51,6 @@ public class KeyboardHelper {
         else {
             return inputMethodManager.hideSoftInputFromWindow(ActivityHelper.contentView(activity).getWindowToken(), 0);
         }
-    }
-
-    @Deprecated
-    public static boolean hide(@NonNull final Window window) {
-        LogHelper.verbose("SOFT_INPUT_STATE_ALWAYS_HIDDEN");
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        return true;
     }
 
     // (Input) Callback

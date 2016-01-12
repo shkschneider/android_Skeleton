@@ -158,7 +158,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
     protected void onNavigationDrawerOpened() {
         mOpenedOrOpening = true;
         supportInvalidateOptionsMenu();
-        KeyboardHelper.hide(SkeletonNavigationDrawerActivity.this);
+        KeyboardHelper.hide(getWindow());
     }
 
     public void closeNavigationDrawer() {
