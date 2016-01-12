@@ -16,12 +16,14 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
 import android.widget.ScrollView;
 
@@ -57,6 +59,7 @@ public class SkeletonActivity extends AppCompatActivity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         setContentView(R.layout.sk_activity);
 
         if (AndroidHelper.api() >= AndroidHelper.API_21) {
@@ -385,6 +388,10 @@ public class SkeletonActivity extends AppCompatActivity {
     private MenuItem mSearchMenuItem;
     private SearchView mSearchView;
 
+    public boolean searchable() {
+        return (mSearchCallback != null);
+    }
+
     public void searchable(final String hint, @Nullable final SearchCallback searchCallback) {
         mSearchHint = hint;
         mSearchCallback = searchCallback;
@@ -409,6 +416,8 @@ public class SkeletonActivity extends AppCompatActivity {
             LogHelper.warning("SearchView was NULL");
             return super.onCreateOptionsMenu(menu);
         }
+        mSearchView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        mSearchView.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
         mSearchView.setIconifiedByDefault(true);
         mSearchView.setQueryHint(mSearchHint);
         mSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
@@ -455,7 +464,7 @@ public class SkeletonActivity extends AppCompatActivity {
 
     private void stopSearch() {
         mSearchMenuItem.collapseActionView();
-        KeyboardHelper.hide(this);
+        KeyboardHelper.hide(getWindow());
         mSearchView.clearFocus();
     }
 
