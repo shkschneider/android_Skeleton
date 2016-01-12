@@ -6,6 +6,7 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.style.BackgroundColorSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
@@ -20,6 +21,14 @@ public class SpannableStringHelper {
 
     public SpannableStringHelper(@NonNull final String string) {
         mSpannable = new SpannableString(string);
+    }
+
+    public SpannableStringHelper(@NonNull final Spanned spanned) {
+        mSpannable = new SpannableString(spanned);
+    }
+
+    public SpannableStringHelper(@NonNull final Spannable spannable) {
+        mSpannable = spannable;
     }
 
     public SpannableStringHelper strikethrough(@IntRange(from=0) final int start, @IntRange(from=0) final int length) {
