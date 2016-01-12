@@ -9,8 +9,8 @@ import android.util.Patterns;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.Random;
+
+import me.shkschneider.skeleton.helper.LocaleHelper;
 
 public class StringHelper {
 
@@ -49,11 +49,11 @@ public class StringHelper {
     }
 
     public static String upper(@NonNull final String string) {
-        return string.toUpperCase(Locale.US);
+        return string.toUpperCase(LocaleHelper.locale());
     }
 
     public static String lower(@NonNull final String string) {
-        return string.toLowerCase(Locale.US);
+        return string.toLowerCase(LocaleHelper.locale());
     }
 
     public static boolean alpha(@NonNull final String string) {
