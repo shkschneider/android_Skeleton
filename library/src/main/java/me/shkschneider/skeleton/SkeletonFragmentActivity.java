@@ -3,6 +3,7 @@ package me.shkschneider.skeleton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 
 public class SkeletonFragmentActivity extends SkeletonActivity {
 
@@ -21,6 +22,18 @@ public class SkeletonFragmentActivity extends SkeletonActivity {
     @Override
     protected void onResumeFragments() {
         super.onResumeFragments();
+    }
+
+    @Override
+    public void onBackPressed() {
+        final FragmentManager fragmentManager = getSupportFragmentManager();
+        if (fragmentManager != null) {
+            if (fragmentManager.getBackStackEntryCount() > 0) {
+                fragmentManager.popBackStack();
+                return;
+            }
+        }
+        super.onBackPressed();
     }
 
 }
