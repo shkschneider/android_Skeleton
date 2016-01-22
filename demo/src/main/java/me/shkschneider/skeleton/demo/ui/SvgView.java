@@ -53,7 +53,7 @@ public class SvgView extends ImageView {
             mSvg = SVG.getFromResource(getContext(), mResId);
         }
         catch (final SVGParseException e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
         }
         if (getLayoutParams() != null
                 && (MeasureSpec.getMode(getLayoutParams().width) == MeasureSpec.UNSPECIFIED
