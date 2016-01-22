@@ -1,9 +1,12 @@
 package me.shkschneider.skeleton.ui;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.widget.ImageView;
+
+import me.shkschneider.skeleton.helper.AndroidHelper;
 
 // <http://stackoverflow.com/a/12283909>
 public class AutoImageViewWidth extends ImageView {
@@ -20,6 +23,12 @@ public class AutoImageViewWidth extends ImageView {
 
     public AutoImageViewWidth(final Context context, final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+    }
+
+    @SuppressWarnings("unused")
+    @TargetApi(AndroidHelper.API_21)
+    public AutoImageViewWidth(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     public float getRatio() {

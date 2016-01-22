@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.ui;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.support.v4.view.GravityCompat;
 import android.util.AttributeSet;
@@ -9,6 +10,8 @@ import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import me.shkschneider.skeleton.helper.AndroidHelper;
 
 // <https://github.com/AlbertGrobas/AutoLinearLayout>
 public class AutoGridLayout extends FrameLayout {
@@ -31,6 +34,13 @@ public class AutoGridLayout extends FrameLayout {
 
     public AutoGridLayout(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
+        init(attrs);
+    }
+
+    @SuppressWarnings("unused")
+    @TargetApi(AndroidHelper.API_21)
+    public AutoGridLayout(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
         init(attrs);
     }
 

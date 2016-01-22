@@ -123,7 +123,7 @@ public class ScreenHelper {
     }
 
     public static int pixelsFromDp(@FloatRange(from=0.0) final float dp) {
-        return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, ApplicationHelper.resources().getDisplayMetrics()));
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, ApplicationHelper.resources().getDisplayMetrics());
     }
 
     public static int pixelsFromSp(@FloatRange(from=0.0) final float sp) {

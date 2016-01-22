@@ -45,6 +45,7 @@ public class LetterIcon extends View {
         init(context);
     }
 
+    @SuppressWarnings("unused")
     @TargetApi(AndroidHelper.API_21)
     public LetterIcon(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);

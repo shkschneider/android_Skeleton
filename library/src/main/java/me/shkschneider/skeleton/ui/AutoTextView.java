@@ -1,11 +1,14 @@
 package me.shkschneider.skeleton.ui;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.widget.TextView;
+
+import me.shkschneider.skeleton.helper.AndroidHelper;
 
 // <http://jeffreysambells.com/2010/04/04/android-textview-with-auto-sized-content>
 public class AutoTextView extends TextView {
@@ -20,6 +23,12 @@ public class AutoTextView extends TextView {
 
     public AutoTextView(final Context context, final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+    }
+
+    @SuppressWarnings("unused")
+    @TargetApi(AndroidHelper.API_21)
+    public AutoTextView(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     @Override

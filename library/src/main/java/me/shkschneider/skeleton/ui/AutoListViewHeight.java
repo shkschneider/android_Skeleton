@@ -1,9 +1,12 @@
 package me.shkschneider.skeleton.ui;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.ListView;
+
+import me.shkschneider.skeleton.helper.AndroidHelper;
 
 // <http://stackoverflow.com/a/4536955>
 public class AutoListViewHeight extends ListView {
@@ -20,6 +23,12 @@ public class AutoListViewHeight extends ListView {
 
     public AutoListViewHeight(final Context context, final AttributeSet attrs, final int defStyle) {
         super(context, attrs, defStyle);
+    }
+
+    @SuppressWarnings("unused")
+    @TargetApi(AndroidHelper.API_21)
+    public AutoListViewHeight(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     public boolean isExpanded() {

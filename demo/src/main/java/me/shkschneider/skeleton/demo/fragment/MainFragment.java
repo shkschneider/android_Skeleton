@@ -1,7 +1,6 @@
 package me.shkschneider.skeleton.demo.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +17,7 @@ import com.google.gson.JsonObject;
 
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.demo.R;
+import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.ScreenHelper;
 import me.shkschneider.skeleton.data.GsonParser;
@@ -25,6 +25,7 @@ import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.network.GsonObjectRequest;
 import me.shkschneider.skeleton.network.Proxy;
+import me.shkschneider.skeleton.ui.LetterIcon;
 import me.shkschneider.skeleton.ui.MyScrollView;
 
 public class MainFragment extends SkeletonFragment {
@@ -49,6 +50,8 @@ public class MainFragment extends SkeletonFragment {
     @Override
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        ((LetterIcon) view.findViewById(R.id.letterIcon)).setLetter(AndroidHelper.PLATFORM);
 
         getSkeletonActivity().loading(+1);
         final ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
@@ -84,6 +87,7 @@ public class MainFragment extends SkeletonFragment {
                     @Override
                     public void onResponse(final ImageLoader.ImageContainer imageContainer, final boolean b) {
                         imageView.setImageBitmap(imageContainer.getBitmap());
+                        getSkeletonActivity().findViewById(R.id.svgView).setVisibility(View.GONE);
                     }
 
                     @Override
