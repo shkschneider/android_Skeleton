@@ -31,7 +31,7 @@ public class GsonParser {
             return gson.fromJson(string, JsonObject.class);
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }
@@ -169,7 +169,7 @@ public class GsonParser {
             return jsonObject.get(key);
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }
@@ -182,7 +182,7 @@ public class GsonParser {
             }
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
         }
         return keys;
     }
@@ -195,7 +195,7 @@ public class GsonParser {
             }
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
         }
         return values;
     }
@@ -205,7 +205,7 @@ public class GsonParser {
             return jsonObject.has(key);
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return false;
         }
     }
@@ -216,7 +216,7 @@ public class GsonParser {
             return jsonObject.getAsJsonObject(key);
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }
@@ -227,20 +227,54 @@ public class GsonParser {
             return jsonObject.getAsJsonArray(key);
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
+        }
+    }
+
+    public static String string(@NonNull final JsonObject jsonObject, @NonNull final String key, final String fallback) {
+        try {
+            return jsonObject.get(key).getAsString();
+        }
+        catch (final Exception e) {
+            LogHelper.wtf(e);
+            return fallback;
         }
     }
 
     @Nullable
     public static String string(@NonNull final JsonObject jsonObject, @NonNull final String key) {
+        return string(jsonObject, key, null);
+    }
+
+    @Nullable
+    public static Integer integer(@NonNull final JsonObject jsonObject, @NonNull final String key, final Integer fallback) {
         try {
-            return jsonObject.get(key).getAsString();
+            return jsonObject.get(key).getAsInt();
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
-            return null;
+            LogHelper.wtf(e);
+            return fallback;
         }
+    }
+
+    public static Integer integer(@NonNull final JsonObject jsonObject, @NonNull final String key) {
+        return integer(jsonObject, key, null);
+    }
+
+    public static Boolean bool(@NonNull final JsonObject jsonObject, @NonNull final String key, final Boolean fallback) {
+        try {
+            return jsonObject.get(key).getAsBoolean();
+        }
+        catch (final Exception e) {
+            LogHelper.debug(e.getMessage());
+            return fallback;
+        }
+    }
+
+    @Nullable
+    public static Boolean bool(@NonNull final JsonObject jsonObject, @NonNull final String key) {
+        return bool(jsonObject, key, null);
     }
 
 }
