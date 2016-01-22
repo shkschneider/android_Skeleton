@@ -21,12 +21,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
 import android.widget.ScrollView;
 
+import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
@@ -34,6 +36,7 @@ import me.shkschneider.skeleton.helper.KeyboardHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.StringHelper;
 import me.shkschneider.skeleton.ui.MySwipeRefreshLayout;
+import me.shkschneider.skeleton.ui.ViewHelper;
 
 /**
  * https://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle
@@ -318,15 +321,17 @@ public class SkeletonActivity extends AppCompatActivity {
     public void refreshable(final boolean b, @Nullable final SwipeRefreshLayout.OnRefreshListener onRefreshListener) {
         // Resets loading count to avoid side-effects upon re-loading
         mLoadingCount = 0;
-        if (mMySwipeRefreshLayout == null) {
-            if (b) {
-                LogHelper.warning("MySwipeRefreshLayout was NULL");
-            }
-            return ;
+        if (! b) {
+            mMySwipeRefreshLayout = null;
         }
-        mMySwipeRefreshLayout.setEnabled(b);
-        mMySwipeRefreshLayout.setRefreshing(false);
-        mMySwipeRefreshLayout.setOnRefreshListener(onRefreshListener);
+        else {
+            if (mMySwipeRefreshLayout == null) {
+                LogHelper.warning("MySwipeRefreshLayout was NULL");
+                return;
+            }
+            mMySwipeRefreshLayout.setRefreshing(false);
+            mMySwipeRefreshLayout.setOnRefreshListener(onRefreshListener);
+        }
     }
 
     public void swipeRefreshLayoutCompat(@NonNull final AbsListView absListView) {
@@ -475,8 +480,47 @@ public class SkeletonActivity extends AppCompatActivity {
 
     }
 
-    // Navigation
+    // Keyboard
+    // <http://stackoverflow.com/a/25681196>
 
+    private ViewGroup mRootLayout;
+    private ViewTreeObserver.OnGlobalLayoutListener mKeyboardListener;
+    protected boolean mKeyboardShown = false;
+
+    protected boolean keyboardListener(final ViewGroup rootLayout) {
+        if (mRootLayout != null) {
+            return false;
+        }
+        mRootLayout = rootLayout;
+        mKeyboardListener = new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                final int rootLayoutHeight = mRootLayout.getRootView().getHeight() - mRootLayout.getHeight();
+                final int contentViewHeight = ViewHelper.content(SkeletonActivity.this).getHeight();
+                final boolean shown = (rootLayoutHeight > contentViewHeight);
+                if (shown == mKeyboardShown) return;
+                onKeyboard(shown);
+                mKeyboardShown = shown;
+            }
+        };
+        mRootLayout.getViewTreeObserver().addOnGlobalLayoutListener(mKeyboardListener);
+        return true;
+    }
+
+    protected void onKeyboard(final boolean shown) {
+        // Override
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (mRootLayout != null && mKeyboardListener != null) {
+            mRootLayout.getViewTreeObserver().addOnGlobalLayoutListener(mKeyboardListener);
+        }
+    }
+
+    // Navigation
 
     @Override
     public boolean onSupportNavigateUp() {
