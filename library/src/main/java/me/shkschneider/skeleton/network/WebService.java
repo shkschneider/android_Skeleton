@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.network;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,30 +8,35 @@ import android.support.annotation.Size;
 
 import com.google.gson.JsonObject;
 
-import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
+import java.io.BufferedWriter;
+import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
 
+import me.shkschneider.skeleton.data.CharsetHelper;
 import me.shkschneider.skeleton.data.FileHelper;
 import me.shkschneider.skeleton.data.GsonParser;
-import me.shkschneider.skeleton.helper.LocaleHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
+import me.shkschneider.skeleton.java.StringHelper;
 
 // <http://developer.android.com/reference/java/net/HttpURLConnection.html>
 public class WebService extends AsyncTask<Void, Void, Object> {
 
+    @Nullable
+    private Activity mActivity;
     private Method mMethod;
     private String mUrl;
+    @Nullable
     private Map<String, String> mBody;
+    @Nullable
     private Callback mCallback;
 
-    public WebService(@NonNull final Method method, @NonNull final String url, @Nullable final Map<String, String> body, @Nullable final Callback callback) {
+    public WebService(@Nullable final Activity activity, @NonNull final Method method, @NonNull final String url, @Nullable final Map<String, String> body, @Nullable final Callback callback) {
+        mActivity = activity;
         mMethod = method;
         mUrl = url;
         mBody = body;
@@ -68,63 +74,71 @@ public class WebService extends AsyncTask<Void, Void, Object> {
         // OkHttp
         HttpURLConnection httpURLConnection = null;
         try {
-            // URL
             final URL url = new URL(mUrl);
-            // Connection
             httpURLConnection = (HttpURLConnection) url.openConnection();
             // httpURLConnection.setConnectTimeout(TIMEOUT_CONNECT);
             // httpURLConnection.setReadTimeout(TIMEOUT_READ);
-            // Method
+            httpURLConnection.setUseCaches(false);
+            httpURLConnection.setDoInput(true);
             final String method = mMethod.toString();
             if (method == null) {
                 return new WebServiceException(WebServiceException.INTERNAL_ERROR, "Bad method");
             }
+            final boolean allowsBody = mMethod.allowsBody();
             httpURLConnection.setRequestMethod(method);
-            httpURLConnection.setDoOutput(httpURLConnection.getRequestMethod().equals("POST"));
-            // Cache
-            // httpURLConnection.addRequestProperty("Cache-Control", (CACHE < 0 ? "no-cache" : "max-stale=" + CACHE));
-            // Parameters
-            if (mBody != null) {
-//                final DataOutputStream dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
-//                String params = "";
-//                for (final String key : mBody.keySet()) {
-//                    if (! StringHelper.nullOrEmpty(params)) {
-//                        params += "&";
-//                    }
-//                    params += key + "=" + UrlHelper.encode(mBody.get(key));
-//                }
-//                dataOutputStream.write(params.getBytes(CharsetHelper.UTF8));
-                final OutputStreamWriter outputStreamWriter = new OutputStreamWriter(httpURLConnection.getOutputStream());
-                final JSONObject body = new JSONObject(mBody);
-                outputStreamWriter.write(body.toString());
-                outputStreamWriter.close();
+            httpURLConnection.setDoOutput(allowsBody);
+            if (! allowsBody && mBody != null) {
+                return new WebServiceException(WebServiceException.INTERNAL_ERROR, "Body not allowed");
             }
-            // Response
+            if (mBody != null) {
+                httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                final DataOutputStream dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
+                String params = "";
+                for (final String key : mBody.keySet()) {
+                    if (! StringHelper.nullOrEmpty(params)) params += "&";
+                    params += key + "=" + UrlHelper.encode(mBody.get(key));
+                }
+                final BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(dataOutputStream, CharsetHelper.UTF8));
+                bufferedWriter.write(params);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                dataOutputStream.close();
+//                httpURLConnection.setRequestProperty("Content-Type", "application/json");
+//                final OutputStreamWriter outputStreamWriter = new OutputStreamWriter(httpURLConnection.getOutputStream());
+//                final JSONObject body = new JSONObject(mBody);
+//                outputStreamWriter.write(body.toString());
+//                outputStreamWriter.flush();
+//                outputStreamWriter.close();
+            }
+
             final int responseCode = httpURLConnection.getResponseCode();
             final String responseMessage = httpURLConnection.getResponseMessage();
-            LogHelper.debug(String.format(LocaleHelper.locale(), "%d: %s", responseCode, responseMessage));
-            InputStream inputStream;
-            switch (responseCode) {
-                case HttpURLConnection.HTTP_OK:
-                case HttpURLConnection.HTTP_CREATED:
-                case HttpURLConnection.HTTP_ACCEPTED:
-                    if (httpURLConnection.getInputStream() == null) {
-                        return null;
-                    }
-                    // Buffered for performance
-                    inputStream = new BufferedInputStream(httpURLConnection.getInputStream());
-                    return GsonParser.parse(inputStream);
-                default:
-                    if (httpURLConnection.getErrorStream() == null) {
-                        return new WebServiceException(responseCode, responseMessage);
-                    }
-                    // Buffered for performance
-                    inputStream = new BufferedInputStream(httpURLConnection.getErrorStream());
-                    return new WebServiceException(responseCode, FileHelper.readString(inputStream));
+            LogHelper.debug("HTTP/" + responseCode + " " + responseMessage);
+            final InputStream errorStream = httpURLConnection.getErrorStream();
+            if (errorStream != null) {
+                final String body = FileHelper.readString(errorStream);
+                if (! StringHelper.nullOrEmpty(body)) {
+                    LogHelper.verbose("BODY: " + body);
+                    return new WebServiceException(responseCode, body);
+                }
+                return new WebServiceException(responseCode, responseMessage);
             }
+            final InputStream inputStream = httpURLConnection.getInputStream();
+            final String body = FileHelper.readString(inputStream);
+            if (StringHelper.nullOrEmpty(body)) {
+                return "";
+            }
+            else {
+                LogHelper.verbose("BODY: " + body);
+                final JsonObject jsonObject = GsonParser.parse(body);
+                if (jsonObject != null) {
+                    return jsonObject;
+                }
+            }
+            return new WebServiceException(responseCode, responseMessage);
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return new WebServiceException(WebServiceException.INTERNAL_ERROR, ClassHelper.simpleName(e.getClass()));
         }
         finally {
@@ -140,30 +154,67 @@ public class WebService extends AsyncTask<Void, Void, Object> {
         if (object == null) {
             LogHelper.warning("Nothing");
             final WebServiceException webServiceException = new WebServiceException(WebServiceException.INTERNAL_ERROR, "Nothing");
-            mCallback.webServiceCallback(webServiceException, null);
+            callback(webServiceException, null);
+        }
+        // Could happen
+        else if ((object instanceof String) && ((String) object).length() == 0) {
+            callback(null, null);
         }
         // Could happen
         else if (object instanceof WebServiceException) {
             final WebServiceException webServiceException = (WebServiceException) object;
-            mCallback.webServiceCallback(webServiceException, null);
+            callback(webServiceException, null);
         }
         // Should happen
         else if (object instanceof JsonObject) {
             final JsonObject jsonObject = (JsonObject) object;
-            mCallback.webServiceCallback(null, jsonObject);
+            callback(null, jsonObject);
         }
         // Should never happen
         else {
             LogHelper.error("Invalid");
             final WebServiceException webServiceException = new WebServiceException(WebServiceException.INTERNAL_ERROR, "Invalid");
-            mCallback.webServiceCallback(webServiceException, null);
+            callback(webServiceException, null);
         }
     }
 
+    private void callback(@Nullable final WebServiceException e, @Nullable final JsonObject jsonObject) {
+        if (mCallback == null) return;
+        if (mActivity != null) {
+            mActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mCallback.webServiceCallback(e, jsonObject);
+                }
+            });
+        }
+        else {
+            mCallback.webServiceCallback(e, jsonObject);
+        }
+    }
+
+    // <https://www.ietf.org/rfc/rfc2616.txt>
     public enum Method {
 
+        // OPTIONS
         GET,
-        POST;
+        // HEAD
+        POST,
+        PUT,
+        DELETE;
+        // TRACE
+        // CONNECT
+
+        public boolean allowsBody() {
+            switch (this) {
+                case POST:
+                case PUT:
+                case DELETE: // Although SHOULD be ignored
+                    return true;
+                default:
+                    return false;
+            }
+        }
 
         @Override
         public String toString() {
@@ -172,6 +223,10 @@ public class WebService extends AsyncTask<Void, Void, Object> {
                     return "GET";
                 case POST:
                     return "POST";
+                case PUT:
+                    return "PUT";
+                case DELETE:
+                    return "DELETE";
                 default:
                     return null;
             }
