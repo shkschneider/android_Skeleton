@@ -56,7 +56,6 @@ public class BitmapHelper {
         return resultBitmap;
     }
 
-    @Deprecated
     public static Bitmap circular(@NonNull final Bitmap bitmap) {
         final Bitmap circleBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
         final BitmapShader shader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
@@ -93,7 +92,7 @@ public class BitmapHelper {
             return BitmapFactory.decodeStream(ApplicationHelper.context().getContentResolver().openInputStream(uri), null, new BitmapFactory.Options());
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }
@@ -151,7 +150,7 @@ public class BitmapHelper {
             return BitmapFactory.decodeStream(inputStream, null, bitmapFactoryOptions);
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }

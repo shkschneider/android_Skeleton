@@ -22,9 +22,7 @@ public class DrawableHelper {
     }
 
     public static Drawable circular(@NonNull final Bitmap bitmap) {
-        final RoundedBitmapDrawable roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(ApplicationHelper.resources(), bitmap);
-        roundedBitmapDrawable.setCornerRadius(Math.min(roundedBitmapDrawable.getMinimumWidth(), roundedBitmapDrawable.getMinimumHeight()) / 2.0F);
-        return roundedBitmapDrawable;
+        return new BitmapDrawable(ApplicationHelper.resources(), BitmapHelper.circular(bitmap));
     }
 
     public static String toBase64(@NonNull final Drawable drawable) {
