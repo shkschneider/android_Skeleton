@@ -33,13 +33,13 @@ public class PermissionsHelper {
     public static final String BROADCAST_STICKY = Manifest.permission.BROADCAST_STICKY;
     public static final String CALL_PHONE = Manifest.permission.CALL_PHONE; // DANGEROUS
     public static final String CAMERA = Manifest.permission.CAMERA; // DANGEROUS
-    public static final String CHANGE_NETWORK_STATE = Manifest.permission.CHANGE_NETWORK_STATE; // FIXME
+    public static final String CHANGE_NETWORK_STATE = Manifest.permission.CHANGE_NETWORK_STATE;
     public static final String CHANGE_WIFI_MULTICAST_STATE = Manifest.permission.CHANGE_WIFI_MULTICAST_STATE;
     public static final String CHANGE_WIFI_STATE = Manifest.permission.CHANGE_WIFI_STATE;
     public static final String DISABLE_KEYGUARD = Manifest.permission.DISABLE_KEYGUARD;
     public static final String EXPAND_STATUS_BAR = Manifest.permission.EXPAND_STATUS_BAR;
     public static final String FLASHLIGHT = Manifest.permission.FLASHLIGHT;
-    public static final String GET_ACCOUNTS = Manifest.permission.GET_ACCOUNTS; // FIXME
+    public static final String GET_ACCOUNTS = Manifest.permission.GET_ACCOUNTS; // DANGEROUS
     @SuppressLint("InlinedApi") // API-23+
     public static final String GET_ACCOUNTS_PRIVILEGED = Manifest.permission.GET_ACCOUNTS_PRIVILEGED;
     public static final String GET_PACKAGE_SIZE = Manifest.permission.GET_PACKAGE_SIZE;
