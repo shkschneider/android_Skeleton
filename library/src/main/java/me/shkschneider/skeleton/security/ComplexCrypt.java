@@ -41,7 +41,7 @@ public class ComplexCrypt {
             mCipher = Cipher.getInstance(ALGORITHM);
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             throw e;
         }
     }
@@ -65,7 +65,7 @@ public class ComplexCrypt {
             return mCipher.doFinal(pad(bytes));
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }
@@ -91,7 +91,7 @@ public class ComplexCrypt {
             return decrypted;
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }

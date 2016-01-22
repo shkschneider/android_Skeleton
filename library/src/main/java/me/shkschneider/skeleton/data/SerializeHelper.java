@@ -25,7 +25,7 @@ public class SerializeHelper {
             return true;
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return false;
         }
     }
@@ -39,7 +39,7 @@ public class SerializeHelper {
             return object;
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }

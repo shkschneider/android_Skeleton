@@ -26,7 +26,7 @@ public class HmacHelper {
             return StringHelper.toHexadecimal(digest);
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }

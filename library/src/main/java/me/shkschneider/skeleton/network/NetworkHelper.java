@@ -39,7 +39,7 @@ public class NetworkHelper {
             return inetAddress.getHostName();
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }
@@ -117,7 +117,7 @@ public class NetworkHelper {
             return ipAddresses;
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }
@@ -138,7 +138,7 @@ public class NetworkHelper {
             return null;
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }

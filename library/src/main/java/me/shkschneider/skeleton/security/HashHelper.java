@@ -32,7 +32,7 @@ public class HashHelper {
             return stringBuilder.toString();
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }

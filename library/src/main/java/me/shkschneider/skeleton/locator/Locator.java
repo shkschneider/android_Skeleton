@@ -1,9 +1,12 @@
 package me.shkschneider.skeleton.locator;
 
+import android.Manifest;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresPermission;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -24,6 +27,7 @@ public class Locator implements GoogleApiClient.ConnectionCallbacks, GoogleApiCl
 
     private static Locator INSTANCE;
 
+    @RequiresPermission(anyOf={Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION})
     public static Locator get() {
         if (INSTANCE == null) {
             INSTANCE = new Locator();
@@ -126,13 +130,14 @@ public class Locator implements GoogleApiClient.ConnectionCallbacks, GoogleApiCl
             return true;
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return false;
         }
     }
 
     // GoogleApiClient.ConnectionCallbacks
 
+    @RequiresPermission(anyOf={Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION})
     @Override
     public void onConnected(final Bundle bundle) {
         if (! mGoogleApiClient.isConnected()) {
@@ -140,8 +145,9 @@ public class Locator implements GoogleApiClient.ConnectionCallbacks, GoogleApiCl
             return ;
         }
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this).setResultCallback(new ResultCallback<Status>() {
+            @RequiresPermission(anyOf={Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION})
             @Override
-            public void onResult(final Status status) {
+            public void onResult(@NonNull final Status status) {
                 if (status.isSuccess()) {
                     LogHelper.debug("LocationServices: SUCCESS");
                     final LocationAvailability locationAvailability = LocationServices.FusedLocationApi.getLocationAvailability(mGoogleApiClient);
@@ -174,7 +180,7 @@ public class Locator implements GoogleApiClient.ConnectionCallbacks, GoogleApiCl
     // GoogleApiClient.OnConnectionFailedListener
 
     @Override
-    public void onConnectionFailed(final ConnectionResult connectionResult) {
+    public void onConnectionFailed(@NonNull final ConnectionResult connectionResult) {
         LogHelper.warning("GoogleApiClient:" + connectionResult.getErrorCode());
     }
 

@@ -42,7 +42,7 @@ public class FileHelper {
             return new FileInputStream(file);
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }
@@ -53,7 +53,7 @@ public class FileHelper {
             return ApplicationHelper.resources().openRawResource(id);
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }
@@ -64,7 +64,7 @@ public class FileHelper {
             return ApplicationHelper.assetManager().open(assetName);
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }
@@ -80,7 +80,7 @@ public class FileHelper {
             return readString(new FileInputStream(file));
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }
@@ -93,7 +93,7 @@ public class FileHelper {
             return BitmapFactory.decodeStream(new FileInputStream(file), null, options);
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }
@@ -105,7 +105,7 @@ public class FileHelper {
             return true;
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return false;
         }
     }
@@ -115,7 +115,7 @@ public class FileHelper {
             return writeString(new FileOutputStream(file), content);
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return false;
         }
     }
@@ -126,7 +126,7 @@ public class FileHelper {
             return bitmap.compress(Bitmap.CompressFormat.PNG, 90, fileOutputStream);
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return false;
         }
     }

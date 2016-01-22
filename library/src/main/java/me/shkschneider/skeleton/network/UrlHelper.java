@@ -36,7 +36,7 @@ public class UrlHelper {
             return URLEncoder.encode(string, CharsetHelper.UTF8);
         }
         catch (final UnsupportedEncodingException e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }
@@ -47,7 +47,7 @@ public class UrlHelper {
             return URLDecoder.decode(string, CharsetHelper.UTF8);
         }
         catch (UnsupportedEncodingException e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }

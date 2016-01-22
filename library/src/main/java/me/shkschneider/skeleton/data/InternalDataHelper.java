@@ -26,7 +26,7 @@ public class InternalDataHelper {
             return ApplicationHelper.context().openFileInput(name);
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }
@@ -37,7 +37,7 @@ public class InternalDataHelper {
             return ApplicationHelper.context().openFileOutput(name, Context.MODE_PRIVATE);
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }
@@ -70,7 +70,7 @@ public class InternalDataHelper {
             return file;
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }

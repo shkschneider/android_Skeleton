@@ -96,7 +96,7 @@ public class ApplicationHelper {
             return label.toString();
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }
@@ -133,7 +133,7 @@ public class ApplicationHelper {
             return packageManager.getPackageInfo(packageName(), PackageManager.GET_META_DATA).versionName;
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }
@@ -149,7 +149,7 @@ public class ApplicationHelper {
             return packageManager.getPackageInfo(packageName(), PackageManager.GET_META_DATA).versionCode;
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return -1;
         }
     }
@@ -173,7 +173,7 @@ public class ApplicationHelper {
             return BitmapHelper.fromDrawable(drawable);
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }
@@ -194,7 +194,7 @@ public class ApplicationHelper {
             return list;
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }
@@ -224,7 +224,7 @@ public class ApplicationHelper {
             return signatures[0].toCharsString();
         }
         catch (final Exception e) {
-            LogHelper.wtf(null, e);
+            LogHelper.wtf(e);
             return null;
         }
     }
