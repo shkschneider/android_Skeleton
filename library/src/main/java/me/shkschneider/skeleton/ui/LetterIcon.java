@@ -12,16 +12,17 @@ import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 
 import me.shkschneider.skeleton.helper.AndroidHelper;
+import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.ScreenHelper;
 import me.shkschneider.skeleton.java.StringHelper;
 
 // <https://github.com/IvBaranov/MaterialLetterIcon>
-// TODO test
-@Deprecated
 public class LetterIcon extends View {
 
+    private final static int DP = 40;
     private final static Rect RECT = new Rect();
 
     private Paint mShapePaint;
@@ -41,21 +42,39 @@ public class LetterIcon extends View {
 
     public LetterIcon(final Context context, final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        init(context);
     }
 
     @TargetApi(AndroidHelper.API_21)
     public LetterIcon(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init();
+        init(context);
     }
 
-    private void init() {
+    private void init(@NonNull final Context context) {
         mShapePaint = new Paint();
         mShapePaint.setStyle(Paint.Style.FILL);
         mShapePaint.setAntiAlias(true);
         mLetterPaint = new Paint();
         mLetterPaint.setAntiAlias(true);
+        setShapeColor(ThemeHelper.accentColor(context));
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+
+        final ViewGroup.LayoutParams layoutParams = getLayoutParams();
+        if (layoutParams == null) {
+            LogHelper.warning("ViewGroup.LayoutParams was NULL");
+            return ;
+        }
+        if (layoutParams.width == ViewGroup.LayoutParams.WRAP_CONTENT) {
+            final int dp = ScreenHelper.pixelsFromDp(DP);
+            layoutParams.width = dp;
+            layoutParams.height = dp;
+            invalidate();
+        }
     }
 
     @Override
@@ -88,6 +107,9 @@ public class LetterIcon extends View {
 
     public void setLetter(@NonNull final String string) {
         this.mLetter = StringHelper.upper(string.replaceAll("\\s+", ""));
+        if (this.mLetter.length() > 0) {
+            this.mLetter = this.mLetter.substring(0, 1);
+        }
         invalidate();
     }
 
