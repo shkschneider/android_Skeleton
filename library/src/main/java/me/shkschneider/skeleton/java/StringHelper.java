@@ -7,8 +7,10 @@ import android.text.TextUtils;
 import android.util.Patterns;
 
 import java.text.Normalizer;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import me.shkschneider.skeleton.helper.LocaleHelper;
 
@@ -168,6 +170,10 @@ public class StringHelper {
     @Deprecated
     public static String random(@IntRange(from=0) final int length) {
         return RandomHelper.string(length);
+    }
+
+    public static String number(final Integer number) {
+        return NumberFormat.getNumberInstance(LocaleHelper.locale()).format(number);
     }
 
     // <http://stackoverflow.com/a/9855338>
