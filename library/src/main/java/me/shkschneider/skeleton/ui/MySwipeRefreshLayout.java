@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewConfigurationCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
@@ -109,6 +111,21 @@ public class MySwipeRefreshLayout extends SwipeRefreshLayout {
                 break ;
         }
         return super.onInterceptTouchEvent(motionEvent);
+    }
+
+    // Prevents gesture conflicts with RecyclerView
+    // <http://stackoverflow.com/q/25178329>
+    // TODO WIP: only supports LinearLayoutManager
+    public static void recyclerViewCompat(@NonNull final MySwipeRefreshLayout mySwipeRefreshLayout, @NonNull final RecyclerView recyclerView, @NonNull final LinearLayoutManager linearLayoutManager) {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(final RecyclerView recyclerView, final int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                final boolean idle = (newState == RecyclerView.SCROLL_STATE_IDLE);
+                final boolean firstCompletelyVisibleItem = (linearLayoutManager.findFirstCompletelyVisibleItemPosition() == 0);
+                mySwipeRefreshLayout.setEnabled(idle && firstCompletelyVisibleItem);
+            }
+        });
     }
 
     // Prevents gesture conflicts with AbsListView
