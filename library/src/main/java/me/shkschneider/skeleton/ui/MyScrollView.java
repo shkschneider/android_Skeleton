@@ -12,6 +12,7 @@ import me.shkschneider.skeleton.helper.LogHelper;
 
 // <http://cyrilmottier.com/2013/05/24/pushing-the-actionbar-to-the-next-level/>
 // <https://stackoverflow.com/a/26990539/603270>
+// MyScrollView.setOnScrollViewListener()
 public class MyScrollView extends ScrollView {
 
     protected static final float PARALLAX = 0.5F;
