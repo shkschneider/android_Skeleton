@@ -20,10 +20,8 @@ import me.shkschneider.skeleton.demo.fragment.SnackBarFragment;
 import me.shkschneider.skeleton.demo.fragment.TransitionFragment;
 import me.shkschneider.skeleton.demo.fragment.ViewPagerIconIndicatorFragment;
 import me.shkschneider.skeleton.demo.fragment.ViewPagerTextIndicatorFragment;
-import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.helper.RootHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
 
 public class  MainActivity extends SkeletonNavigationDrawerActivity {
@@ -65,8 +63,6 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
         LogHelper.info("MemoryCacheBitmap: " + ClassHelper.canonicalName(mMemoryCacheBitmap.get("Bitmap").getClass()));
         LogHelper.info("DiskCacheInternal: " + mDiskCacheInternal.get("DiskCache"));
         LogHelper.info("DiskCacheExternal: " + mDiskCacheExternal.get("DiskCache"));
-
-        ActivityHelper.toast("Rooted: " + String.valueOf(RootHelper.rooted()).toUpperCase());
     }
 
     @Override

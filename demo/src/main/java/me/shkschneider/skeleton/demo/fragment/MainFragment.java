@@ -17,8 +17,8 @@ import com.google.gson.JsonObject;
 
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.demo.R;
-import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.RootHelper;
 import me.shkschneider.skeleton.helper.ScreenHelper;
 import me.shkschneider.skeleton.data.GsonParser;
 import me.shkschneider.skeleton.helper.ActivityHelper;
@@ -44,14 +44,17 @@ public class MainFragment extends SkeletonFragment {
 
     @Override
     public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        final View view = inflater.inflate(R.layout.fragment_main, container, false);
+
+        final LetterIcon letterIcon = (LetterIcon) view.findViewById(R.id.letterIcon);
+        letterIcon.setLetter(RootHelper.su() ? "Y" : "N");
+
+        return view;
     }
 
     @Override
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        ((LetterIcon) view.findViewById(R.id.letterIcon)).setLetter(AndroidHelper.PLATFORM);
 
         getSkeletonActivity().loading(+1);
         final ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
@@ -110,6 +113,11 @@ public class MainFragment extends SkeletonFragment {
             }
 
         }));
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
 }

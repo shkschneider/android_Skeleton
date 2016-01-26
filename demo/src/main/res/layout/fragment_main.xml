@@ -73,10 +73,31 @@
                         android:textSize="@dimen/textSizeSmallish"
                         android:textStyle="normal" />
 
-                    <me.shkschneider.skeleton.ui.LetterIcon
-                        android:id="@+id/letterIcon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:textColor="@color/accentColor"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/textSizeMedium"
+                            android:text="Rooted" />
+
+                        <android.support.v4.widget.Space
+                            android:layout_width="@dimen/spaceSmaller"
+                            android:layout_height="wrap_content" />
+
+                        <me.shkschneider.skeleton.ui.LetterIcon
+                            android:id="@+id/letterIcon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
 
                     <me.shkschneider.skeleton.ui.AutoGridLayout
                         android:layout_width="match_parent"
