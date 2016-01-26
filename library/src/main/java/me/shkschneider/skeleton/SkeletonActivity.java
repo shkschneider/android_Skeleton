@@ -379,6 +379,8 @@ public class SkeletonActivity extends AppCompatActivity {
         }
         if (! b) {
             mMySwipeRefreshLayout.setRefreshing(false);
+            mMySwipeRefreshLayout.destroyDrawingCache();
+            mMySwipeRefreshLayout.clearAnimation();
         }
         else if (! mMySwipeRefreshLayout.isRefreshing()) {
             mMySwipeRefreshLayout.setRefreshing(true);

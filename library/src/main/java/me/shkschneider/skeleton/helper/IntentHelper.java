@@ -6,8 +6,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.graphics.Bitmap;
-import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,7 +19,6 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.io.File;
 import java.util.List;
-import java.util.Objects;
 
 import me.shkschneider.skeleton.java.StringHelper;
 import me.shkschneider.skeleton.network.UrlHelper;
