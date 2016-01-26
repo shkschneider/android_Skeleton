@@ -56,6 +56,18 @@
     <dimen name="textSizeBig">26sp</dimen>
     <dimen name="textSizeHuge">28sp</dimen>
 
+    <dimen name="elevation0">0dp</dimen>
+    <dimen name="elevation1">1dp</dimen> <!-- switch -->
+    <dimen name="elevation2">2dp</dimen> <!-- raised button, search bar -->
+    <dimen name="elevation3">3dp</dimen> <!-- refresh indicator, search bar, card -->
+    <dimen name="elevation4">4dp</dimen> <!-- app bar -->
+    <dimen name="elevation6">6dp</dimen> <!-- floating action button, snackbar -->
+    <dimen name="elevation8">8dp</dimen> <!-- menu, card, raised button -->
+    <dimen name="elevation9">9dp</dimen> <!-- sub menu -->
+    <dimen name="elevation12">12dp</dimen> <!-- floating action button -->
+    <dimen name="elevation16">16dp</dimen> <!-- nav drawer, right drawer, modal bottom sheet -->
+    <dimen name="elevation24">24dp</dimen> <!-- dialog, picker -->
+
     <!-- android.support.v4.PreferenceFragment -->
     <dimen name="preference_fragment_padding_bottom">@dimen/spaceNull</dimen>
     <dimen name="preference_fragment_padding_side">@dimen/spaceSmaller</dimen>
