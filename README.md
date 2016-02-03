@@ -1,9 +1,9 @@
-Skeleton [![JitPack](https://img.shields.io/github/tag/shkschneider/android_Skeleton.svg?label=JitPack)](https://jitpack.io/#shkschneider/android_Skeleton/4.2.1)
+Skeleton [![JitPack](https://jitpack.io/v/com.github.shkschneider/android_Skeleton.svg)](https://jitpack.io/#shkschneider/android_Skeleton/4.2.1)
 ========
 
 > Android library with useful classes to be used as a "Skeleton" for an application.
 
-[![Google Play](https://developer.android.com/images/brand/en_generic_rgb_wo_45.png)](https://play.google.com/store/apps/details?id=me.shkschneider.skeleton.demo)
+[![Google Play](https://play.google.com/intl/en_us/badges/images/apps/en-play-badge.png)](https://play.google.com/store/apps/details?id=me.shkschneider.skeleton.demo)
 
 Setup
 -----
@@ -36,8 +36,8 @@ Specifications
 
 **API**
 
-- minSdkVersion [**14**](https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#ICE_CREAM_SANDWICH)
-- targetSdkVersion [22](https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#LOLLIPOP_MR1)
+- minSdkVersion [**15**](https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#ICE_CREAM_SANDWICH_MR1)
+- targetSdkVersion [23](https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#M)
 
 **Libraries**
 
@@ -47,11 +47,13 @@ Specifications
 - [com.android.support:support-v4](https://developer.android.com/tools/support-library/features.html#v4)
 - [com.android.support:appcompat-v7](https://developer.android.com/tools/support-library/features.html#v7-appcompat)
 - [com.android.support:palette-v7](https://developer.android.com/tools/support-library/features.html#v7-palette)
+- [com.android.support:recyclerview-v7](https://developer.android.com/tools/support-library/features.html#v7-recyclerview)
+- [com.android.support:cardview-v7](https://developer.android.com/tools/support-library/features.html#v7-cardview)
 
 **Uses**
 
-- [Gradle 1.3.0](http://tools.android.com/tech-docs/new-build-system)
-- [Android Studio 1.3.1](https://developer.android.com/sdk/index.html)
+- [Gradle 1.5.0](http://tools.android.com/tech-docs/new-build-system)
+- [Android Studio 1.5.1](https://developer.android.com/sdk/index.html)
 - [android.support.v7.app.AppCompatActivity](https://developer.android.com/reference/android/support/v7/app/AppCompatActivity.html)
 - [android.support.v7.widget.Toolbar](https://developer.android.com/reference/android/support/v7/widget/Toolbar.html)
 - [android.support.v4.app.Fragment](https://developer.android.com/reference/android/support/v4/app/Fragment.html)
