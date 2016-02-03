@@ -18,7 +18,7 @@ public class SkeletonOverlayActivity extends SkeletonActivity {
         mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
         if (mCollapsingToolbarLayout != null) {
             LogHelper.verbose("Found a CollapsingToolbarLayout");
-            overlay(getResources().getColor(R.color.actionBarColor));
+            overlay(ContextCompat.getColor(ApplicationHelper.context(), R.color.actionBarColor));
         }
     }
 

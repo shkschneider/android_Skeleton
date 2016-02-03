@@ -9,7 +9,7 @@ import me.shkschneider.skeleton.helper.ApplicationHelper;
 
 public class PaletteHelper {
 
-    private static final int DEFAULT_COLOR = ApplicationHelper.resources().getColor(R.color.sk_android_transparent);
+    private static final int DEFAULT_COLOR = ContextCompat.getColor(ApplicationHelper.context(), getColor(R.color.sk_android_transparent));
 
     private static Palette get(@NonNull final Bitmap bitmap) {
         return new Palette.Builder(bitmap).generate();

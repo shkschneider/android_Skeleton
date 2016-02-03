@@ -12,9 +12,8 @@ import me.shkschneider.skeleton.helper.ApplicationHelper;
 
 public class DrawableHelper {
 
-    @SuppressWarnings("deprecation")
     public static Drawable fromResource(@DrawableRes final int id) {
-        return ApplicationHelper.resources().getDrawable(id);
+        return ContextCompat.getDrawable(ApplicationHelper.context(), getDrawable(id));
     }
 
     public static Drawable fromBitmap(@NonNull final Bitmap bitmap) {

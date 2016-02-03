@@ -14,6 +14,8 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -72,11 +74,11 @@ public class SkeletonActivity extends AppCompatActivity {
 
     @TargetApi(AndroidHelper.API_21)
     private void init21() {
-        statusBarColor(getWindow(), getResources().getColor(R.color.statusBarColor));
+        statusBarColor(getWindow(), ContextCompat.getColor(ApplicationHelper.context(), getColor(R.color.statusBarColor)));
 
         final String name = ApplicationHelper.name();
         final Bitmap icon = ApplicationHelper.icon();
-        final int color = getResources().getColor(R.color.primaryColor);
+        final int color = ContextCompat.getColor(ApplicationHelper.context(), getColor(R.color.primaryColor));
         final ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(name, icon, color);
         setTaskDescription(taskDescription);
     }
@@ -332,6 +334,14 @@ public class SkeletonActivity extends AppCompatActivity {
             mMySwipeRefreshLayout.setRefreshing(false);
             mMySwipeRefreshLayout.setOnRefreshListener(onRefreshListener);
         }
+    }
+
+    public void swipeRefreshLayoutCompat(@NonNull final RecyclerView recyclerView, final LinearLayoutManager linearLayoutManager) {
+        if (mMySwipeRefreshLayout == null) {
+            LogHelper.warning("MySwipeRefreshLayout was NULL");
+            return ;
+        }
+        MySwipeRefreshLayout.recyclerViewCompat(mMySwipeRefreshLayout, recyclerView, linearLayoutManager);
     }
 
     public void swipeRefreshLayoutCompat(@NonNull final AbsListView absListView) {
