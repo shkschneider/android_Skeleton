@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import me.shkschneider.skeleton.demo.R;
 import me.shkschneider.skeleton.demo.fragment.FloatingActionButtonFragment;
 import me.shkschneider.skeleton.demo.fragment.InputsFragment;
-import me.shkschneider.skeleton.demo.fragment.ListViewFragment;
+import me.shkschneider.skeleton.demo.fragment.RecyclerViewFragment;
 import me.shkschneider.skeleton.demo.fragment.MainFragment;
 import me.shkschneider.skeleton.SkeletonNavigationDrawerActivity;
 import me.shkschneider.skeleton.SkeletonFragment;
@@ -68,7 +68,7 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        if (navigationDrawer() != R.id.menu_listView) {
+        if (navigationDrawer() != R.id.menu_recyclerView) {
             searchable(null, null);
         }
         return super.onCreateOptionsMenu(menu);
@@ -87,7 +87,7 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
             case R.id.menu_viewPagerTextIndicator:
             case R.id.menu_viewPagerIconIndicator:
             case R.id.menu_network:
-            case R.id.menu_listView:
+            case R.id.menu_recyclerView:
             case R.id.menu_floatingActionButton:
             case R.id.menu_snackBar:
             case R.id.menu_transition:
@@ -109,8 +109,8 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
                 return new ViewPagerIconIndicatorFragment();
             case R.id.menu_network:
                 return new NetworkFragment();
-            case R.id.menu_listView:
-                return new ListViewFragment();
+            case R.id.menu_recyclerView:
+                return new RecyclerViewFragment();
             case R.id.menu_floatingActionButton:
                 return new FloatingActionButtonFragment();
             case R.id.menu_snackBar:

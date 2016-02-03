@@ -27,10 +27,10 @@
             android:title="Network" />
 
         <item
-            android:id="@+id/menu_listView"
+            android:id="@+id/menu_recyclerView"
             android:checked="false"
             android:icon="@drawable/ic_label"
-            android:title="ListView" />
+            android:title="RecyclerView" />
 
         <item
             android:id="@+id/menu_floatingActionButton"

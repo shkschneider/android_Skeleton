@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.demo.R;
-import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.java.StringHelper;
 
@@ -155,7 +154,7 @@ public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
 
         @Override
         public View onCreateView(final LayoutInflater inflater, final ViewGroup container, final Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.fragment_listview, container, false);
+            return inflater.inflate(R.layout.fragment_reyclerview, container, false);
         }
 
         @Override
