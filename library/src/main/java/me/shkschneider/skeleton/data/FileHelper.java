@@ -70,8 +70,13 @@ public class FileHelper {
     }
 
     public static String readString(@NonNull final InputStream inputStream) {
-        // TRICK: The stream gets tokenized, \A meaning the beginning, \\A means the second beginning... so its end.
-        return new Scanner(inputStream).useDelimiter("\\A").next();
+        try {
+            // TRICK: The stream gets tokenized, \A meaning the beginning, \\A means the second beginning... so its end.
+            return new Scanner(inputStream).useDelimiter("\\A").next();
+        }
+        catch (final NoSuchElementException e) {
+            return null;
+        }
     }
 
     @Nullable
