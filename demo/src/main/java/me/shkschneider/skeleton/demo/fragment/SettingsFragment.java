@@ -4,15 +4,15 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.SwitchPreference;
 import android.support.annotation.Nullable;
+import android.support.v4.preference.PreferenceFragmentCompat;
 import android.view.View;
 
-import me.shkschneider.skeleton.SkeletonPreferenceFragment;
 import me.shkschneider.skeleton.demo.R;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
 
-public class SettingsFragment extends SkeletonPreferenceFragment {
+public class SettingsFragment extends PreferenceFragmentCompat {
 
     @Override
     public void onCreate(final Bundle paramBundle) {
@@ -20,6 +20,7 @@ public class SettingsFragment extends SkeletonPreferenceFragment {
         addPreferencesFromResource(R.xml.fragment_settings);
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
