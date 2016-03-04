@@ -1,9 +1,10 @@
 package me.shkschneider.skeleton;
 
 import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.content.ContextCompat;
 
+import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
 // <https://github.com/chrisbanes/cheesesquare>

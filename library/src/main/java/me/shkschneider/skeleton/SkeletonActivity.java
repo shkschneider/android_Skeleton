@@ -10,6 +10,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
@@ -30,7 +31,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
 import android.widget.ScrollView;
 
-import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
@@ -369,11 +369,19 @@ public class SkeletonActivity extends AppCompatActivity {
     }
 
     public void loading(final int i) {
-        mLoadingCount += i;
-        if (mLoadingCount < 0) {
+        int count = mLoadingCount + i;
+        if (count < 0) {
+            loading(false);
             mLoadingCount = 0;
+            return;
         }
-        loading((mLoadingCount > 0));
+        if (mLoadingCount == 0 && count > 0) {
+            loading(true);
+        }
+        else if (mLoadingCount > 0 && count == 0) {
+            loading(false);
+        }
+        mLoadingCount = count;
     }
 
     public void loading(final boolean b) {
