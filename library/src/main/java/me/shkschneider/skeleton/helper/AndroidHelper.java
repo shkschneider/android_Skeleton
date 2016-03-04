@@ -92,22 +92,12 @@ public class AndroidHelper {
         return Build.VERSION.SDK_INT;
     }
 
-    public static String versionName() {
-        return Build.VERSION.RELEASE;
-    }
-
-    public static int versionCode() {
-        return Integer.valueOf(Build.VERSION.INCREMENTAL);
-    }
-
     @TargetApi(API_23)
-    @Deprecated
     public static String baseOs() {
         return Build.VERSION.BASE_OS;
     }
 
     @TargetApi(API_23)
-    @Deprecated
     public static String securityPatch() {
         return Build.VERSION.SECURITY_PATCH;
     }

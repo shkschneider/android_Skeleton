@@ -254,6 +254,7 @@ public class ApplicationHelper {
         return (Settings.Global.getInt(ApplicationHelper.context().getContentResolver(), Settings.Global.INSTALL_NON_MARKET_APPS, 0) == 1);
     }
 
+    @Deprecated
     @TargetApi(AndroidHelper.API_3)
     public static boolean fromMarket3() {
         // API-3+ Settings.Secure

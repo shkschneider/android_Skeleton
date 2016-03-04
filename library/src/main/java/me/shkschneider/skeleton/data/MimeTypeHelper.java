@@ -14,6 +14,7 @@ public class MimeTypeHelper {
     public static final String TEXT_XML = "text/xml";
 
     public static final String APPLICATION = "application/*";
+    public static final String APPLICATION_FORMURLENCODED = "application/x-www-form-urlencoded";
     public static final String APPLICATION_OCTETSTREAM = "application/octet-stream";
     public static final String APPLICATION_PDF = "application/pdf";
     public static final String APPLICATION_JSON = "application/json";

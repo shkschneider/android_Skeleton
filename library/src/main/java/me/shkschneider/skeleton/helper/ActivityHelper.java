@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import me.shkschneider.skeleton.SkeletonActivity;
+import me.shkschneider.skeleton.java.StringHelper;
 import me.shkschneider.skeleton.ui.ViewHelper;
 
 public class ActivityHelper {
@@ -24,14 +25,26 @@ public class ActivityHelper {
     }
 
     public static void toast(@NonNull final String msg) {
+        if (StringHelper.nullOrEmpty(msg)) {
+            LogHelper.warning("Message was NULL");
+            return;
+        }
         Toast.makeText(ApplicationHelper.context(), msg, Toast.LENGTH_SHORT).show();
     }
 
     public static void snackBar(@NonNull final View view, @NonNull final String msg) {
+        if (StringHelper.nullOrEmpty(msg)) {
+            LogHelper.warning("Message was NULL");
+            return;
+        }
         Snackbar.make(view, msg, Snackbar.LENGTH_SHORT).show();
     }
 
     public static void snackBar(@NonNull final View view, @NonNull final String msg, @NonNull final String action, @NonNull final View.OnClickListener onClickListener) {
+        if (StringHelper.nullOrEmpty(msg)) {
+            LogHelper.warning("Message was NULL");
+            return;
+        }
         Snackbar.make(view, msg, Snackbar.LENGTH_SHORT)
                 .setAction(action, onClickListener)
                 .show();
