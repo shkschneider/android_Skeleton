@@ -5,6 +5,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 
@@ -13,7 +14,7 @@ import me.shkschneider.skeleton.helper.ApplicationHelper;
 public class DrawableHelper {
 
     public static Drawable fromResource(@DrawableRes final int id) {
-        return ContextCompat.getDrawable(ApplicationHelper.context(), getDrawable(id));
+        return ContextCompat.getDrawable(ApplicationHelper.context(), id);
     }
 
     public static Drawable fromBitmap(@NonNull final Bitmap bitmap) {

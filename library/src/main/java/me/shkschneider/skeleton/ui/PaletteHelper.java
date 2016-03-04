@@ -2,6 +2,7 @@ package me.shkschneider.skeleton.ui;
 
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.graphics.Palette;
 
 import me.shkschneider.skeleton.R;
@@ -9,7 +10,7 @@ import me.shkschneider.skeleton.helper.ApplicationHelper;
 
 public class PaletteHelper {
 
-    private static final int DEFAULT_COLOR = ContextCompat.getColor(ApplicationHelper.context(), getColor(R.color.sk_android_transparent));
+    private static final int DEFAULT_COLOR = ContextCompat.getColor(ApplicationHelper.context(), R.color.sk_android_transparent);
 
     private static Palette get(@NonNull final Bitmap bitmap) {
         return new Palette.Builder(bitmap).generate();
