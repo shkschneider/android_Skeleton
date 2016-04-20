@@ -2,9 +2,7 @@ package me.shkschneider.skeleton;
 
 import android.support.annotation.ColorInt;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.content.ContextCompat;
 
-import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
 // <https://github.com/chrisbanes/cheesesquare>
@@ -19,7 +17,7 @@ public class SkeletonOverlayActivity extends SkeletonActivity {
         mCollapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsingToolbarLayout);
         if (mCollapsingToolbarLayout != null) {
             LogHelper.verbose("Found a CollapsingToolbarLayout");
-            overlay(ContextCompat.getColor(ApplicationHelper.context(), R.color.actionBarColor));
+            overlay(getColor(R.color.actionBarColor));
         }
     }
 

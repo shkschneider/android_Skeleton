@@ -45,7 +45,7 @@ public class AboutFragment extends PreferenceFragmentCompat {
 
         final Preference osVersion = findPreference("os_version");
         osVersion.setTitle("version");
-        osVersion.setSummary(AndroidHelper.versionName());
+        osVersion.setSummary(AndroidHelper.codename());
 
         final Preference osApi = findPreference("os_api");
         osApi.setTitle("api");

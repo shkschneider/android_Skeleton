@@ -39,8 +39,6 @@ public class ApplicationHelper {
         return SkeletonApplication.DEBUG;
     }
 
-    // ContextCompat.getDrawable()
-    // ContextCompat.getColor()
     public static Resources resources() {
         return context().getResources();
     }

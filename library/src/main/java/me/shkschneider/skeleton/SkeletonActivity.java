@@ -10,7 +10,6 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
@@ -74,11 +73,11 @@ public class SkeletonActivity extends AppCompatActivity {
 
     @TargetApi(AndroidHelper.API_21)
     private void init21() {
-        statusBarColor(getWindow(), ContextCompat.getColor(ApplicationHelper.context(), getColor(R.color.statusBarColor)));
+        statusBarColor(getWindow(), getColor(R.color.statusBarColor));
 
         final String name = ApplicationHelper.name();
         final Bitmap icon = ApplicationHelper.icon();
-        final int color = ContextCompat.getColor(ApplicationHelper.context(), getColor(R.color.primaryColor));
+        final int color = getColor(R.color.primaryColor);
         final ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(name, icon, color);
         setTaskDescription(taskDescription);
     }
