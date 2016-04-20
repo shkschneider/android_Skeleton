@@ -40,7 +40,7 @@
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:allowTaskReparenting="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/skeleton"
         android:name=".MainApplication"
         android:theme="@style/AppTheme">

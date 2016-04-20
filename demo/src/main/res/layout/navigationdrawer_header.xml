@@ -8,7 +8,7 @@
         android:layout_width="@dimen/spaceLarger"
         android:layout_height="@dimen/spaceLarger"
         android:scaleType="fitCenter"
-        android:src="@drawable/ic_launcher"
+        android:src="@mipmap/ic_launcher"
         android:contentDescription="@null" />
 
 </LinearLayout>
