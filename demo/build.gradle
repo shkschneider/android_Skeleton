@@ -8,8 +8,8 @@ android {
         applicationId 'me.shkschneider.skeleton.demo'
         minSdkVersion 15
         targetSdkVersion 23
-        versionCode 22
-        versionName '4.2.2'
+        versionCode 23
+        versionName '4.3.0'
     }
     signingConfigs {
         debug {
@@ -55,6 +55,31 @@ android {
             shrinkResources true
         }
     }
+    splits {
+        // universal needs a lower versionCode
+        density {
+            enable true
+            reset()
+            include 'mdpi', 'hdpi', 'xhdpi', 'xxhdpi', 'xxxhdpi'
+            compatibleScreens 'small', 'normal', 'large', 'xlarge'
+        }
+        // arm needs a lower versionCode
+        abi {
+            enable false
+            reset()
+            include 'x86', 'armeabi-v7a', 'mips'
+            universalApk true
+        }
+    }
+}
+
+// assign different version code for each output
+ext.versionCodes = ['mdpi':1, 'hdpi':2, 'xhdpi':3, 'xxhdpi':4, 'xxxhdpi':5].withDefault {0}
+import com.android.build.OutputFile
+android.applicationVariants.all { variant ->
+    variant.outputs.each { output ->
+        output.versionCodeOverride = project.ext.versionCodes.get(output.getFilter(OutputFile.DENSITY)) * 1000000 + android.defaultConfig.versionCode
+    }
 }
 
 dependencies {
@@ -66,5 +91,5 @@ dependencies {
     compile 'com.caverock:androidsvg:1.2.1'
 
     compile project(':library')
-    // compile 'com.github.shkschneider:android_Skeleton:{VERSION}@aar'
+    // compile 'com.github.shkschneider:android_Skeleton:{VERSION}@aar' { transitive=false }
 }
