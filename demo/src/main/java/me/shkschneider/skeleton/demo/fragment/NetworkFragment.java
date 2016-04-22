@@ -12,17 +12,20 @@ import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.google.gson.JsonObject;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONObject;
 
 import me.shkschneider.skeleton.SkeletonFragment;
+import me.shkschneider.skeleton.data.JsonParser;
 import me.shkschneider.skeleton.demo.R;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
-import me.shkschneider.skeleton.network.GsonObjectRequest;
 import me.shkschneider.skeleton.network.Proxy;
-import me.shkschneider.skeleton.data.GsonParser;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.network.NetworkHelper;
 import me.shkschneider.skeleton.java.StringHelper;
+import me.shkschneider.skeleton.ui.MySwipeRefreshLayout;
+import me.shkschneider.skeleton.ui.ViewHelper;
 
 public class NetworkFragment extends SkeletonFragment implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -35,8 +38,6 @@ public class NetworkFragment extends SkeletonFragment implements SwipeRefreshLay
     @Override
     public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Adapter
 
         final LayoutInflater layoutInflater = LayoutInflater.from(ApplicationHelper.context());
         mAdapter = new ArrayAdapter<String>(ApplicationHelper.context(), R.layout.sk_listview_item2) {
@@ -75,34 +76,34 @@ public class NetworkFragment extends SkeletonFragment implements SwipeRefreshLay
         super.onViewCreated(view, savedInstanceState);
         final ListView listView = (ListView) view.findViewById(R.id.listView);
         listView.setAdapter(mAdapter);
-        getSkeletonActivity().swipeRefreshLayoutCompat(listView);
+        MySwipeRefreshLayout.absListViewCompat(skeletonActivity().mySwipeRefreshLayout(), listView);
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        getSkeletonActivity().refreshable(true, this);
+        skeletonActivity().refreshable(true, this);
 
-        if (NetworkHelper.connectedOrConnecting()) {
-            onRefresh();
+        if (! NetworkHelper.connectedOrConnecting()) {
+            ActivityHelper.snackBar(ViewHelper.content(skeletonActivity()), "Offline");
+            return;
         }
-        else {
-            ActivityHelper.snackBar(ActivityHelper.contentView(getSkeletonActivity()), "Offline");
-        }
+
+        onRefresh();
     }
 
     @Override
     public void onRefresh() {
         mAdapter.clear();
 
-        final Response.Listener<JsonObject> listener = new Response.Listener<JsonObject>() {
+        final Response.Listener<JSONObject> listener = new Response.Listener<JSONObject>() {
 
             @Override
-            public void onResponse(final JsonObject jsonObject) {
-                getSkeletonActivity().loading(-1);
-                for (final String key : GsonParser.keys(jsonObject)) {
-                    final String value = GsonParser.string(jsonObject, key);
+            public void onResponse(final JSONObject jsonObject) {
+                skeletonActivity().loading(-1);
+                for (final String key : JsonParser.keys(jsonObject)) {
+                    final String value = String.valueOf(JsonParser.get(jsonObject, key, null));
                     if (!StringHelper.nullOrEmpty(value)) {
                         final String string = String.format("%s %s", key, value);
                         mAdapter.add(string);
@@ -116,17 +117,17 @@ public class NetworkFragment extends SkeletonFragment implements SwipeRefreshLay
 
             @Override
             public void onErrorResponse(final VolleyError volleyError) {
-                getSkeletonActivity().loading(-1);
+                skeletonActivity().loading(-1);
                 ActivityHelper.toast(volleyError.getMessage());
             }
 
         };
-        getSkeletonActivity().loading(+1);
-        Proxy.getInstance().addToRequestQueue(new GsonObjectRequest("http://ip.jsontest.com", listener, errorListener));
-        getSkeletonActivity().loading(+1);
-        Proxy.getInstance().addToRequestQueue(new GsonObjectRequest("http://headers.jsontest.com", listener, errorListener));
-        getSkeletonActivity().loading(+1);
-        Proxy.getInstance().addToRequestQueue(new GsonObjectRequest("http://date.jsontest.com", listener, errorListener));
+        skeletonActivity().loading(+1);
+        Proxy.getInstance().addToRequestQueue(new JsonObjectRequest("http://ip.jsontest.com", null, listener, errorListener));
+        skeletonActivity().loading(+1);
+        Proxy.getInstance().addToRequestQueue(new JsonObjectRequest("http://headers.jsontest.com", null, listener, errorListener));
+        skeletonActivity().loading(+1);
+        Proxy.getInstance().addToRequestQueue(new JsonObjectRequest("http://date.jsontest.com", null, listener, errorListener));
     }
 
 }

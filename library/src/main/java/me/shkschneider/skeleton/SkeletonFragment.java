@@ -1,18 +1,13 @@
 package me.shkschneider.skeleton;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.concurrent.TimeUnit;
-
-import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
 
 /**
@@ -54,23 +49,18 @@ public class SkeletonFragment extends Fragment {
     public void onAttach(final Context context) {
         super.onAttach(context);
 
-        if (context instanceof Activity) {
-            final Activity activity = (Activity) context;
-            if (activity instanceof SkeletonActivity) {
-                mActivity = (SkeletonActivity) activity;
-            }
-            else {
-                LogHelper.error("Activity was not SkeletonActivity");
-            }
+        if (! (context instanceof SkeletonActivity)) {
+            throw new RuntimeException("Activity was not SkeletonActivity");
         }
-
+        mActivity = (SkeletonActivity) context;
     }
 
     @Nullable
     @Override
     public View onCreateView(final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable final Bundle savedInstanceState) {
-        final View view = super.onCreateView(inflater, container, savedInstanceState);
-        // ...
+        final View view = inflater.inflate(R.layout.sk_fragment, container, false);
+        // HACK: <http://stackoverflow.com/a/18274767>
+        view.setBackgroundResource(R.color.sk_android_background);
         return view;
     }
 
@@ -78,7 +68,8 @@ public class SkeletonFragment extends Fragment {
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mActivity.bindMySwipeRefreshLayout();
-        // <https://stackoverflow.com/q/30752713/>
+        // FIXME remove because of above fix (background-related)?
+        // HACK: <https://stackoverflow.com/q/30752713>
         if (view != null) {
             view.postDelayed(new Runnable() {
 
@@ -87,7 +78,7 @@ public class SkeletonFragment extends Fragment {
                     mActivity.transitioning(false);
                 }
 
-            }, TimeUnit.SECONDS.toMillis(1));
+            }, 250);
         }
     }
 
@@ -114,7 +105,7 @@ public class SkeletonFragment extends Fragment {
     }
 
     // @Nullable
-    public SkeletonActivity getSkeletonActivity() {
+    public SkeletonActivity skeletonActivity() {
         if (mActivity == null) {
             mActivity = (SkeletonActivity) getActivity();
         }

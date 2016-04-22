@@ -52,9 +52,7 @@ public class IntentHelper {
     public static final String BROADCAST_CLOSE_SYSTEM_DIALOGS = Intent.ACTION_CLOSE_SYSTEM_DIALOGS;
     public static final String BROADCAST_CONFIGURATION_CHANGED = Intent.ACTION_CONFIGURATION_CHANGED;
     public static final String BROADCAST_DATE_CHANGED = Intent.ACTION_DATE_CHANGED;
-    @Deprecated
     public static final String BROADCAST_DEVICE_STORAGE_LOW = Intent.ACTION_DEVICE_STORAGE_LOW;
-    @Deprecated
     public static final String BROADCAST_DEVICE_STORAGE_OK = Intent.ACTION_DEVICE_STORAGE_OK;
     public static final String BROADCAST_DOCK_EVENT = Intent.ACTION_DOCK_EVENT;
     @SuppressLint("InlinedApi") // API-17+
@@ -209,7 +207,7 @@ public class IntentHelper {
 
     @Nullable
     public static Intent home() {
-        final PackageManager packageManager = ApplicationHelper.context().getPackageManager();
+        final PackageManager packageManager = ApplicationHelper.packageManager();
         if (packageManager == null) {
             LogHelper.warning("PackageManager was NULL");
             return null;
@@ -252,7 +250,8 @@ public class IntentHelper {
 
     public static Intent directions(@NonNull final LatLng from, @NonNull final LatLng to) {
         return external(new Intent(android.content.Intent.ACTION_VIEW,
-                Uri.parse(String.format("http://maps.google.com/maps?saddr=%s,%s&daddr=%s,%s",
+                Uri.parse(String.format(LocaleHelper.locale(),
+                        "http://maps.google.com/maps?saddr=%s,%s&daddr=%s,%s",
                         from.latitude, from.longitude,
                         to.latitude, to.longitude))));
     }
@@ -304,7 +303,6 @@ public class IntentHelper {
             LogHelper.warning("Camera was unavailable");
             return null;
         }
-
         final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 .putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file))
                 .putExtra(MediaStore.EXTRA_SHOW_ACTION_ICONS, true);
@@ -312,7 +310,6 @@ public class IntentHelper {
             LogHelper.warning("Cannot handle Intent");
             return null;
         }
-
         return external(intent);
     }
 
@@ -357,7 +354,7 @@ public class IntentHelper {
     }
 
     public static boolean canHandle(@NonNull final Intent intent) {
-        final PackageManager packageManager = ApplicationHelper.context().getPackageManager();
+        final PackageManager packageManager = ApplicationHelper.packageManager();
         if (packageManager == null) {
             LogHelper.warning("PackageManager was NULL");
             return false;
@@ -373,7 +370,6 @@ public class IntentHelper {
             LogHelper.debug("ResultCode was not OK");
             return null;
         }
-
         if (requestCode == REQUEST_CODE_CAMERA) {
             if (intent == null) {
                 LogHelper.warning("Intent was NULL");
@@ -384,7 +380,6 @@ public class IntentHelper {
                 LogHelper.warning("Bundle was NULL");
                 return null;
             }
-
             return bundle.get("data");
         }
         else if (requestCode == REQUEST_CODE_GALLERY) {
@@ -397,7 +392,6 @@ public class IntentHelper {
                 LogHelper.warning("Uri was NULL");
                 return null;
             }
-
             return BitmapHelper.decodeUri(uri);
         }
         else if (requestCode == REQUEST_CODE_RINGTONE) {

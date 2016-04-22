@@ -142,7 +142,7 @@ public class Locator implements GoogleApiClient.ConnectionCallbacks, GoogleApiCl
     public void onConnected(final Bundle bundle) {
         if (! mGoogleApiClient.isConnected()) {
             LogHelper.warning("GoogleApiClient was disconnected");
-            return ;
+            return;
         }
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this).setResultCallback(new ResultCallback<Status>() {
             @RequiresPermission(anyOf={Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION})
@@ -189,7 +189,7 @@ public class Locator implements GoogleApiClient.ConnectionCallbacks, GoogleApiCl
     @Override
     public void onLocationChanged(final Location location) {
         if (location == null) {
-            return ;
+            return;
         }
         if (LocatorHelper.betterLocation(location, mLocation, mLocationRequest.getInterval())) {
             mLocation = location;

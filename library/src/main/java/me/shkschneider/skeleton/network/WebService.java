@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
 
-import com.google.gson.JsonObject;
+import org.json.JSONObject;
 
 import java.io.BufferedWriter;
 import java.io.DataOutputStream;
@@ -18,13 +18,16 @@ import java.util.Map;
 
 import me.shkschneider.skeleton.data.CharsetHelper;
 import me.shkschneider.skeleton.data.FileHelper;
-import me.shkschneider.skeleton.data.GsonParser;
+import me.shkschneider.skeleton.data.JsonParser;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
 import me.shkschneider.skeleton.java.StringHelper;
 
 // <http://developer.android.com/reference/java/net/HttpURLConnection.html>
 public class WebService extends AsyncTask<Void, Void, Object> {
+
+    private static final int TIMEOUT_CONNECT = 15000;
+    private static final int TIMEOUT_READ = 60000;
 
     @Nullable
     private Activity mActivity;
@@ -76,8 +79,8 @@ public class WebService extends AsyncTask<Void, Void, Object> {
         try {
             final URL url = new URL(mUrl);
             httpURLConnection = (HttpURLConnection) url.openConnection();
-            // httpURLConnection.setConnectTimeout(TIMEOUT_CONNECT);
-            // httpURLConnection.setReadTimeout(TIMEOUT_READ);
+            httpURLConnection.setConnectTimeout(TIMEOUT_CONNECT);
+            httpURLConnection.setReadTimeout(TIMEOUT_READ);
             httpURLConnection.setUseCaches(false);
             httpURLConnection.setDoInput(true);
             final String method = mMethod.toString();
@@ -98,17 +101,12 @@ public class WebService extends AsyncTask<Void, Void, Object> {
                     if (! StringHelper.nullOrEmpty(params)) params += "&";
                     params += key + "=" + UrlHelper.encode(mBody.get(key));
                 }
+                LogHelper.verbose("STDIN: " + params);
                 final BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(dataOutputStream, CharsetHelper.UTF8));
                 bufferedWriter.write(params);
                 bufferedWriter.flush();
                 bufferedWriter.close();
                 dataOutputStream.close();
-//                httpURLConnection.setRequestProperty("Content-Type", "application/json");
-//                final OutputStreamWriter outputStreamWriter = new OutputStreamWriter(httpURLConnection.getOutputStream());
-//                final JSONObject body = new JSONObject(mBody);
-//                outputStreamWriter.write(body.toString());
-//                outputStreamWriter.flush();
-//                outputStreamWriter.close();
             }
 
             final int responseCode = httpURLConnection.getResponseCode();
@@ -118,19 +116,19 @@ public class WebService extends AsyncTask<Void, Void, Object> {
             if (errorStream != null) {
                 final String body = FileHelper.readString(errorStream);
                 if (! StringHelper.nullOrEmpty(body)) {
-                    LogHelper.verbose("BODY: " + body);
+                    LogHelper.verbose("STDERR: " + body);
                     return new WebServiceException(responseCode, body);
                 }
                 return new WebServiceException(responseCode, responseMessage);
             }
             final InputStream inputStream = httpURLConnection.getInputStream();
             final String body = FileHelper.readString(inputStream);
+            LogHelper.verbose("STDOUT: " + body);
             if (StringHelper.nullOrEmpty(body)) {
                 return "";
             }
             else {
-                LogHelper.verbose("BODY: " + body);
-                final JsonObject jsonObject = GsonParser.parse(body);
+                final JSONObject jsonObject = JsonParser.parse(body);
                 if (jsonObject != null) {
                     return jsonObject;
                 }
@@ -166,8 +164,8 @@ public class WebService extends AsyncTask<Void, Void, Object> {
             callback(webServiceException, null);
         }
         // Should happen
-        else if (object instanceof JsonObject) {
-            final JsonObject jsonObject = (JsonObject) object;
+        else if (object instanceof JSONObject) {
+            final JSONObject jsonObject = (JSONObject) object;
             callback(null, jsonObject);
         }
         // Should never happen
@@ -178,7 +176,7 @@ public class WebService extends AsyncTask<Void, Void, Object> {
         }
     }
 
-    private void callback(@Nullable final WebServiceException e, @Nullable final JsonObject jsonObject) {
+    private void callback(@Nullable final WebServiceException e, @Nullable final JSONObject jsonObject) {
         if (mCallback == null) return;
         if (mActivity != null) {
             mActivity.runOnUiThread(new Runnable() {
@@ -236,7 +234,7 @@ public class WebService extends AsyncTask<Void, Void, Object> {
 
     public interface Callback {
 
-        void webServiceCallback(@Nullable final WebServiceException e, @Nullable final JsonObject jsonObject);
+        void webServiceCallback(@Nullable final WebServiceException e, @Nullable final JSONObject jsonObject);
 
     }
 

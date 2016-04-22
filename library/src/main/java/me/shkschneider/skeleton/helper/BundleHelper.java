@@ -12,12 +12,16 @@ public class BundleHelper {
         // Empty
     }
 
-    public static Bundle pack(@NonNull final String key, @Nullable final Serializable serializable) {
-        final Bundle bundle = new Bundle();
+    public static Bundle pack(@NonNull final Bundle bundle, @NonNull final String key, @Nullable final Serializable serializable) {
         if (serializable != null) {
             bundle.putSerializable(key, serializable);
         }
         return bundle;
+    }
+
+    public static Bundle pack(@NonNull final String key, @Nullable final Serializable serializable) {
+        final Bundle bundle = new Bundle();
+        return pack(bundle, key, serializable);
     }
 
     @Nullable

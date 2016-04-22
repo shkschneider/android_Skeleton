@@ -31,6 +31,9 @@ public class ApplicationHelper {
     }
 
     public static Context context() {
+        if (SkeletonApplication.CONTEXT == null) {
+            throw new RuntimeException("Skeleton not configured!");
+        }
         return SkeletonApplication.CONTEXT;
     }
 
@@ -113,7 +116,7 @@ public class ApplicationHelper {
             LogHelper.warning("Not semantic versioning");
             return null;
         }
-        final String[] versionNames = versionName.split(".");
+        final String[] versionNames = versionName.split("\\.");
         return new Integer[] {
                 Integer.valueOf(versionNames[0]),
                 Integer.valueOf(versionNames[1]),
@@ -252,7 +255,6 @@ public class ApplicationHelper {
         return (Settings.Global.getInt(ApplicationHelper.context().getContentResolver(), Settings.Global.INSTALL_NON_MARKET_APPS, 0) == 1);
     }
 
-    @Deprecated
     @TargetApi(AndroidHelper.API_3)
     public static boolean fromMarket3() {
         // API-3+ Settings.Secure

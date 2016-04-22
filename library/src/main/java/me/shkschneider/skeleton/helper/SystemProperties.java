@@ -10,7 +10,7 @@ public class SystemProperties {
         // Empty
     }
 
-    public static final String SYSTEM_PROPERTY_FILE_SEPARATOR = "file.separator";
+    public static final String SYSTEM_PROPERTY_FILE_SEPARATOR = "file.separator"; // filesystem's path separator
     public static final String SYSTEM_PROPERTY_JAVA_CLASS_PATH = "java.class.path";
     public static final String SYSTEM_PROPERTY_JAVA_CLASS_VERSION = "java.class.version";
     public static final String SYSTEM_PROPERTY_JAVA_COMPILER = "java.compiler";
@@ -34,7 +34,7 @@ public class SystemProperties {
     public static final String SYSTEM_PROPERTY_OS_ARCH = "os.arch";
     public static final String SYSTEM_PROPERTY_OS_NAME = "os.name";
     public static final String SYSTEM_PROPERTY_OS_VERSION = "os.version";
-    @Deprecated
+    @Deprecated // beware: separator of the ENV's PATH variable, not related to the filesystem
     public static final String SYSTEM_PROPERTY_PATH_SEPARATOR = "path.separator";
     public static final String SYSTEM_PROPERTY_USER_DIR = "user.dir";
     public static final String SYSTEM_PROPERTY_USER_HOME = "user.home";

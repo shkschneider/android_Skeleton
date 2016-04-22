@@ -25,6 +25,11 @@ public class SkeletonFragmentActivity extends SkeletonActivity {
     }
 
     @Override
+    public boolean onSupportNavigateUp() {
+        return super.onSupportNavigateUp();
+    }
+
+    @Override
     public void onBackPressed() {
         final FragmentManager fragmentManager = getSupportFragmentManager();
         if (fragmentManager != null) {

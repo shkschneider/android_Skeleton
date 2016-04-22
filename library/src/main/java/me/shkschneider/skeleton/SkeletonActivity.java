@@ -14,8 +14,6 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -23,12 +21,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AbsListView;
-import android.widget.ScrollView;
 
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
@@ -37,7 +32,6 @@ import me.shkschneider.skeleton.helper.KeyboardHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.StringHelper;
 import me.shkschneider.skeleton.ui.MySwipeRefreshLayout;
-import me.shkschneider.skeleton.ui.ViewHelper;
 
 /**
  * https://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle
@@ -141,27 +135,6 @@ public class SkeletonActivity extends AppCompatActivity {
         return true;
     }
 
-    @Deprecated
-    public boolean actionBarColor(@ColorInt final int color) {
-        return toolbarColor(color);
-    }
-
-    @TargetApi(AndroidHelper.API_16)
-    @SuppressWarnings("deprecation")
-    public boolean actionBarDrawable(final Drawable drawable) {
-        if (mToolbar == null) {
-            LogHelper.warning("Toolbar was NULL");
-            return false;
-        }
-        if (AndroidHelper.api() >= AndroidHelper.API_16) {
-            mToolbar.setBackground(drawable);
-        }
-        else {
-            mToolbar.setBackgroundDrawable(drawable);
-        }
-        return true;
-    }
-
     protected void bindToolbar() {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if (mToolbar != null) {
@@ -220,14 +193,14 @@ public class SkeletonActivity extends AppCompatActivity {
 
     // ToolBar
 
-    public Toolbar getToolbar() {
+    public Toolbar toolbar() {
         return mToolbar;
     }
 
     public void toolbar(final boolean b) {
         if (mToolbar == null) {
             LogHelper.warning("Toolbar was NULL");
-            return ;
+            return;
         }
         final int visibility = (b ? View.VISIBLE : View.GONE);
         mToolbar.setVisibility(visibility);
@@ -237,16 +210,16 @@ public class SkeletonActivity extends AppCompatActivity {
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar == null) {
             LogHelper.warning("ActionBar was NULL");
-            return ;
+            return;
         }
         actionBar.setDisplayHomeAsUpEnabled(b);
     }
 
-    @Deprecated
+    @Deprecated // avoid
     public void home(final Drawable drawable) {
         if (mToolbar == null) {
             LogHelper.warning("Toolbar was NULL");
-            return ;
+            return;
         }
         mToolbar.setNavigationIcon(drawable);
     }
@@ -255,7 +228,7 @@ public class SkeletonActivity extends AppCompatActivity {
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar == null) {
             LogHelper.warning("ActionBar was NULL");
-            return ;
+            return;
         }
         actionBar.setDisplayShowTitleEnabled(! StringHelper.nullOrEmpty(title));
         actionBar.setTitle(title);
@@ -275,7 +248,7 @@ public class SkeletonActivity extends AppCompatActivity {
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar == null) {
             LogHelper.warning("ActionBar was NULL");
-            return ;
+            return;
         }
         actionBar.setDisplayShowTitleEnabled(! StringHelper.nullOrEmpty(subtitle));
         actionBar.setSubtitle(subtitle);
@@ -295,22 +268,23 @@ public class SkeletonActivity extends AppCompatActivity {
         final ActionBar actionBar = getSupportActionBar();
         if (actionBar == null) {
             LogHelper.warning("ActionBar was NULL");
-            return ;
+            return;
         }
         actionBar.setDisplayShowHomeEnabled((drawable != null));
         actionBar.setDisplayUseLogoEnabled((drawable != null));
         actionBar.setLogo(drawable);
     }
 
-    @Deprecated
-    public void icon(final Drawable drawable) {
-        logo(drawable);
+    // MySwipeRefreshLayout
+
+    public MySwipeRefreshLayout mySwipeRefreshLayout() {
+        return mMySwipeRefreshLayout;
     }
 
     // Refresh
     // <https://gist.github.com/antoniolg/9837398>
 
-    private int mLoadingCount;
+    private int mLoading;
 
     public boolean refreshable() {
         if (mMySwipeRefreshLayout == null) {
@@ -321,7 +295,7 @@ public class SkeletonActivity extends AppCompatActivity {
 
     public void refreshable(final boolean b, @Nullable final SwipeRefreshLayout.OnRefreshListener onRefreshListener) {
         // Resets loading count to avoid side-effects upon re-loading
-        mLoadingCount = 0;
+        mLoading = 0;
         if (! b) {
             mMySwipeRefreshLayout = null;
         }
@@ -335,64 +309,36 @@ public class SkeletonActivity extends AppCompatActivity {
         }
     }
 
-    public void swipeRefreshLayoutCompat(@NonNull final RecyclerView recyclerView, final LinearLayoutManager linearLayoutManager) {
-        if (mMySwipeRefreshLayout == null) {
-            LogHelper.warning("MySwipeRefreshLayout was NULL");
-            return ;
-        }
-        MySwipeRefreshLayout.recyclerViewCompat(mMySwipeRefreshLayout, recyclerView, linearLayoutManager);
-    }
-
-    public void swipeRefreshLayoutCompat(@NonNull final AbsListView absListView) {
-        if (mMySwipeRefreshLayout == null) {
-            LogHelper.warning("MySwipeRefreshLayout was NULL");
-            return ;
-        }
-        MySwipeRefreshLayout.absListViewCompat(mMySwipeRefreshLayout, absListView);
-    }
-
-    public void swipeRefreshLayoutCompat(@NonNull final ScrollView scrollView) {
-        if (mMySwipeRefreshLayout == null) {
-            LogHelper.warning("MySwipeRefreshLayout was NULL");
-            return ;
-        }
-        MySwipeRefreshLayout.scrollViewCompat(mMySwipeRefreshLayout, scrollView);
-    }
-
-    public boolean loading() {
-        return (mLoadingCount > 0);
-    }
-
-    public int loadingCount() {
-        return mLoadingCount;
+    public int loading() {
+        return mLoading;
     }
 
     public void loading(final int i) {
-        int count = mLoadingCount + i;
+        int count = mLoading + i;
         if (count < 0) {
             loading(false);
-            mLoadingCount = 0;
+            mLoading = 0;
             return;
         }
-        if (mLoadingCount == 0 && count > 0) {
+        if (mLoading == 0 && count > 0) {
             loading(true);
         }
-        else if (mLoadingCount > 0 && count == 0) {
+        else if (mLoading > 0 && count == 0) {
             loading(false);
         }
-        mLoadingCount = count;
+        mLoading = count;
     }
 
     public void loading(final boolean b) {
         if (! b) {
             // Resets loading count to avoid side-effects upon re-loading
-            mLoadingCount = 0;
+            mLoading = 0;
         }
         if (mMySwipeRefreshLayout == null) {
             if (b) {
                 LogHelper.warning("MySwipeRefreshLayout was NULL");
             }
-            return ;
+            return;
         }
         if (! b) {
             mMySwipeRefreshLayout.setRefreshing(false);
@@ -499,46 +445,6 @@ public class SkeletonActivity extends AppCompatActivity {
 
     }
 
-    // Keyboard
-    // <http://stackoverflow.com/a/25681196>
-
-    private ViewGroup mRootLayout;
-    private ViewTreeObserver.OnGlobalLayoutListener mKeyboardListener;
-    protected boolean mKeyboardShown = false;
-
-    protected boolean keyboardListener(final ViewGroup rootLayout) {
-        if (mRootLayout != null) {
-            return false;
-        }
-        mRootLayout = rootLayout;
-        mKeyboardListener = new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                final int rootLayoutHeight = mRootLayout.getRootView().getHeight() - mRootLayout.getHeight();
-                final int contentViewHeight = ViewHelper.content(SkeletonActivity.this).getHeight();
-                final boolean shown = (rootLayoutHeight > contentViewHeight);
-                if (shown == mKeyboardShown) return;
-                onKeyboard(shown);
-                mKeyboardShown = shown;
-            }
-        };
-        mRootLayout.getViewTreeObserver().addOnGlobalLayoutListener(mKeyboardListener);
-        return true;
-    }
-
-    protected void onKeyboard(final boolean shown) {
-        // Override
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        if (mRootLayout != null && mKeyboardListener != null) {
-            mRootLayout.getViewTreeObserver().addOnGlobalLayoutListener(mKeyboardListener);
-        }
-    }
-
     // Navigation
 
     @Override
@@ -560,12 +466,13 @@ public class SkeletonActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
+        // BundleHelper.pack()
     }
 
-    @SuppressWarnings("NullableProblems")
     @Override
     protected void onRestoreInstanceState(final Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+        // BundleHelper.unpack()
     }
 
     // Runtime Permissions

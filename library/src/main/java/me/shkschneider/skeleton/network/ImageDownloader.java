@@ -82,7 +82,7 @@ public class ImageDownloader {
                         }
                     });
                 }
-                return ;
+                return;
             }
         }
         new AsyncTask<Void, Void, Bitmap>() {

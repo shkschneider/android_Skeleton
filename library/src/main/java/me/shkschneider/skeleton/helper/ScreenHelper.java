@@ -97,7 +97,7 @@ public class ScreenHelper {
         return ApplicationHelper.resources().getDisplayMetrics().widthPixels;
     }
 
-    @Deprecated
+    @Deprecated // avoid
     public static int statusBarHeight() {
         return (int) ApplicationHelper.resources().getDimension(R.dimen.statusBar);
     }
@@ -113,13 +113,7 @@ public class ScreenHelper {
             LogHelper.warning("Display was NULL");
             return 0;
         }
-
         return display.getRotation();
-    }
-
-    @Deprecated
-    public static int orientation() {
-        return rotation();
     }
 
     public static int pixelsFromDp(@FloatRange(from=0.0) final float dp) {

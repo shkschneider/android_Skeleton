@@ -35,6 +35,12 @@
         <item name="android:shouldDisableView">false</item>
         <item name="android:selectable">false</item>
     </style>
+    <style name="SkeletonTheme.ScrollBars">
+        <item name="android:scrollbars">vertical</item>
+        <item name="android:scrollbarThumbVertical">@drawable/sk_scrollbars</item>
+        <item name="android:scrollbarStyle">outsideOverlay</item>
+        <item name="android:fadeScrollbars">true</item>
+    </style>
 
     <style name="SkeletonTheme.PagerTabStrip">
         <item name="android:paddingTop">@dimen/spaceSmaller</item>

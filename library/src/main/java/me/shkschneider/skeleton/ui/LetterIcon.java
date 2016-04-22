@@ -68,7 +68,7 @@ public class LetterIcon extends View {
         final ViewGroup.LayoutParams layoutParams = getLayoutParams();
         if (layoutParams == null) {
             LogHelper.warning("ViewGroup.LayoutParams was NULL");
-            return ;
+            return;
         }
         if (layoutParams.width == ViewGroup.LayoutParams.WRAP_CONTENT) {
             final int dp = ScreenHelper.pixelsFromDp(DP);

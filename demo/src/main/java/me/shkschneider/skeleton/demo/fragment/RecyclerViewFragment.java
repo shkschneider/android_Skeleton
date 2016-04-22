@@ -11,19 +11,19 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import me.shkschneider.skeleton.SkeletonActivity;
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.demo.R;
+import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.RunnableHelper;
 import me.shkschneider.skeleton.java.StringHelper;
 import me.shkschneider.skeleton.ui.MyRecyclerView;
 import me.shkschneider.skeleton.ui.MyRecyclerViewAdapter;
+import me.shkschneider.skeleton.ui.MySwipeRefreshLayout;
 
 public class RecyclerViewFragment extends SkeletonFragment implements SwipeRefreshLayout.OnRefreshListener {
 
@@ -44,7 +44,7 @@ public class RecyclerViewFragment extends SkeletonFragment implements SwipeRefre
         // Search
 
         setHasOptionsMenu(true);
-        getSkeletonActivity().searchable(getResources().getString(R.string.dots), new SkeletonActivity.SearchCallback() {
+        skeletonActivity().searchable(getResources().getString(R.string.dots), new SkeletonActivity.SearchCallback() {
 
             @Override
             public void onSearchTextChange(final String q) {
@@ -77,7 +77,7 @@ public class RecyclerViewFragment extends SkeletonFragment implements SwipeRefre
         myRecyclerView.setLayoutManager(linearLayoutManager);
         myRecyclerView.setHasFixedSize(true);
         myRecyclerView.setAdapter(mAdapter);
-        getSkeletonActivity().swipeRefreshLayoutCompat(myRecyclerView, linearLayoutManager);
+        MySwipeRefreshLayout.recyclerViewCompat(skeletonActivity().mySwipeRefreshLayout(), myRecyclerView, linearLayoutManager);
     }
 
     // Load
@@ -86,7 +86,7 @@ public class RecyclerViewFragment extends SkeletonFragment implements SwipeRefre
     public void onResume() {
         super.onResume();
 
-        getSkeletonActivity().refreshable(true, this);
+        skeletonActivity().refreshable(true, this);
 
         onRefresh();
     }
@@ -98,27 +98,25 @@ public class RecyclerViewFragment extends SkeletonFragment implements SwipeRefre
 
     public void refresh(final String q) {
         mAdapter.clear(true);
-        getSkeletonActivity().loading(+1);
+        skeletonActivity().loading(+1);
         RunnableHelper.delay(new Runnable() {
             @Override
             public void run() {
-                for (final Locale locale : Locale.getAvailableLocales()) {
-                    if (mAdapter.getItems().contains(locale)) continue;
-                    final String country = StringHelper.withoutAccents(locale.getDisplayCountry().trim());
-                    if (StringHelper.nullOrEmpty(country)) continue;
-                    if (StringHelper.nullOrEmpty(q) || country.toLowerCase().contains(q.toLowerCase())) {
-                        mAdapter.add(locale, true);
-                    }
-                }
-                mAdapter.sort(new Comparator<Locale>() {
+                RunnableHelper.runOnUiThread(skeletonActivity(), new Runnable() {
                     @Override
-                    public int compare(final Locale lhs, final Locale rhs) {
-                        final String s1 = StringHelper.withoutAccents(lhs.getDisplayCountry().trim());
-                        final String s2 = StringHelper.withoutAccents(rhs.getDisplayCountry().trim());
-                        return s1.compareTo(s2);
+                    public void run() {
+                        for (final Locale locale : Locale.getAvailableLocales()) {
+                            if (mAdapter.getItems().contains(locale)) continue;
+                            final String country = StringHelper.withoutAccents(locale.getDisplayCountry().trim());
+                            if (StringHelper.nullOrEmpty(country)) continue;
+                            if (StringHelper.nullOrEmpty(q) || country.toLowerCase().contains(q.toLowerCase())) {
+                                mAdapter.add(locale, true);
+                                mAdapter.notifyItemInserted(mAdapter.getItemCount());
+                            }
+                        }
+                        skeletonActivity().loading(-1);
                     }
-                }, true);
-                getSkeletonActivity().loading(-1);
+                });
             }
         }, 1, TimeUnit.SECONDS);
     }

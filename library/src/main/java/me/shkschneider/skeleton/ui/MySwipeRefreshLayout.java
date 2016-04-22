@@ -115,7 +115,7 @@ public class MySwipeRefreshLayout extends SwipeRefreshLayout {
 
     // Prevents gesture conflicts with RecyclerView
     // <http://stackoverflow.com/q/25178329>
-    // TODO WIP: only supports LinearLayoutManager
+
     public static void recyclerViewCompat(@NonNull final MySwipeRefreshLayout mySwipeRefreshLayout, @NonNull final RecyclerView recyclerView, @NonNull final LinearLayoutManager linearLayoutManager) {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override

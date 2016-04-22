@@ -2,16 +2,9 @@ package me.shkschneider.skeleton.helper;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.v4.content.ContextCompat;
-
-import me.shkschneider.runtimepermissionscompat.RuntimePermissionsCompat;
 
 // <http://developer.android.com/reference/android/Manifest.permission.html>
 public class PermissionsHelper {
-
-    private static final int REQUEST_CODE = 23;
 
     protected PermissionsHelper() {
         // Empty
@@ -92,10 +85,5 @@ public class PermissionsHelper {
     public static final String WRITE_CONTACTS = Manifest.permission.WRITE_CONTACTS; // DANGEROUS
     public static final String WRITE_EXTERNAL_STORAGE = Manifest.permission.WRITE_EXTERNAL_STORAGE; // DANGEROUS
     public static final String WRITE_SYNC_SETTINGS = Manifest.permission.WRITE_SYNC_SETTINGS;
-
-    @Deprecated
-    public static boolean permission(@NonNull final String permission) {
-        return RuntimePermissionsCompat.isGranted(ApplicationHelper.context(), permission);
-    }
 
 }

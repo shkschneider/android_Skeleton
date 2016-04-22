@@ -1,11 +1,11 @@
 package me.shkschneider.skeleton.demo.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import me.shkschneider.runtimepermissionscompat.RuntimePermissionsCompat;
 import me.shkschneider.skeleton.demo.R;
 import me.shkschneider.skeleton.demo.fragment.FloatingActionButtonFragment;
 import me.shkschneider.skeleton.demo.fragment.InputsFragment;
@@ -13,26 +13,15 @@ import me.shkschneider.skeleton.demo.fragment.RecyclerViewFragment;
 import me.shkschneider.skeleton.demo.fragment.MainFragment;
 import me.shkschneider.skeleton.SkeletonNavigationDrawerActivity;
 import me.shkschneider.skeleton.SkeletonFragment;
-import me.shkschneider.skeleton.data.DiskCache;
-import me.shkschneider.skeleton.data.MemoryCache;
 import me.shkschneider.skeleton.demo.fragment.NetworkFragment;
 import me.shkschneider.skeleton.demo.fragment.SnackBarFragment;
 import me.shkschneider.skeleton.demo.fragment.TransitionFragment;
 import me.shkschneider.skeleton.demo.fragment.ViewPagerIconIndicatorFragment;
 import me.shkschneider.skeleton.demo.fragment.ViewPagerTextIndicatorFragment;
-import me.shkschneider.skeleton.helper.ApplicationHelper;
-import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.java.ClassHelper;
+import me.shkschneider.skeleton.helper.ActivityHelper;
+import me.shkschneider.skeleton.helper.PermissionsHelper;
 
 public class  MainActivity extends SkeletonNavigationDrawerActivity {
-
-    // Anything as key, anything as value (LRU algorithm)
-    private MemoryCache<String, Activity> mMemoryCache;
-    // Anything as key, Bitmap as value (LRU algorithm)
-    private MemoryCache.Bitmap mMemoryCacheBitmap;
-    // String as key, Serializable as value (Serialization)
-    private DiskCache.Internal mDiskCacheInternal;
-    private DiskCache.External mDiskCacheExternal;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -40,29 +29,9 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
         setNavigationHeader(R.layout.navigationdrawer_header);
         setNavigationMenu(R.menu.navigationdrawer);
 
-        mMemoryCache = new MemoryCache<>();
-        mMemoryCache.put("MainActivity", MainActivity.this);
-        mMemoryCacheBitmap = new MemoryCache.Bitmap();
-        mMemoryCacheBitmap.put("Bitmap", ApplicationHelper.icon());
-        mDiskCacheInternal = new DiskCache.Internal();
-        mDiskCacheInternal.put("DiskCache", "Internal");
-        mDiskCacheExternal = new DiskCache.External();
-        mDiskCacheExternal.put("DiskCache", "External");
-
-        // PermissionsHelper.revocable(PermissionsHelper.INTERNET);
-        // if (PermissionsHelper.revocable(PermissionsHelper.READ_PHONE_STATE)) {
-        //     PermissionsHelper.request(MainActivity.this, new String[] { PermissionsHelper.READ_PHONE_STATE });
-        // }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        LogHelper.info("MemoryCache: " + ClassHelper.canonicalName(mMemoryCache.get("MainActivity").getClass()));
-        LogHelper.info("MemoryCacheBitmap: " + ClassHelper.canonicalName(mMemoryCacheBitmap.get("Bitmap").getClass()));
-        LogHelper.info("DiskCacheInternal: " + mDiskCacheInternal.get("DiskCache"));
-        LogHelper.info("DiskCacheExternal: " + mDiskCacheExternal.get("DiskCache"));
+        if (RuntimePermissionsCompat.isRevocable(MainActivity.this, PermissionsHelper.READ_PHONE_STATE)) {
+            RuntimePermissionsCompat.requestPermission(MainActivity.this, PermissionsHelper.READ_PHONE_STATE);
+        }
     }
 
     @Override
@@ -133,24 +102,19 @@ public class  MainActivity extends SkeletonNavigationDrawerActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(final int requestCode, @NonNull final String[] permissions, @NonNull final int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        // final boolean granted = PermissionsHelper.granted(PermissionsHelper.READ_PHONE_STATE, permissions, grantResults);
-        // ActivityHelper.toast("READ_PHONE_STATE: " + (granted ? "GRANTED" : "DENIED"));
+    public void onBackPressed() {
+        if (! navigationDrawerOpenedOrOpening()) {
+            openNavigationDrawer();
+            return;
+        }
+        super.onBackPressed();
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        mMemoryCache.clear();
-        mMemoryCache = null;
-        mMemoryCacheBitmap.clear();
-        mMemoryCacheBitmap = null;
-        mDiskCacheInternal.clear();
-        mDiskCacheInternal = null;
-        mDiskCacheExternal.clear();
-        mDiskCacheExternal = null;
+    public void onRequestPermissionsResult(final int requestCode, @NonNull final String[] permissions, @NonNull final int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        final boolean granted = RuntimePermissionsCompat.isGranted(MainActivity.this, PermissionsHelper.READ_PHONE_STATE);
+        ActivityHelper.toast("READ_PHONE_STATE: " + (granted ? "GRANTED" : "DENIED"));
     }
 
 }

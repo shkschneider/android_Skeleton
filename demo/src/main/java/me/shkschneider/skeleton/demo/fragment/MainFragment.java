@@ -12,26 +12,34 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import me.shkschneider.skeleton.SkeletonFragment;
+import me.shkschneider.skeleton.data.JsonParser;
 import me.shkschneider.skeleton.demo.R;
+import me.shkschneider.skeleton.demo.ui.SvgView;
+import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.helper.RootHelper;
 import me.shkschneider.skeleton.helper.ScreenHelper;
-import me.shkschneider.skeleton.data.GsonParser;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
-import me.shkschneider.skeleton.network.GsonObjectRequest;
 import me.shkschneider.skeleton.network.Proxy;
 import me.shkschneider.skeleton.ui.LetterIcon;
 import me.shkschneider.skeleton.ui.MyScrollView;
+import me.shkschneider.skeleton.ui.ViewHelper;
 
 public class MainFragment extends SkeletonFragment {
 
     private static final String AUTHOR = "ShkSchneider";
     private static final String URL = "https://github.com/shkschneider/android_Skeleton";
+
+    private SvgView mSvgView;
+    private ImageView mImageView;
+    private TextView mTextView1;
+    private TextView mTextView2;
 
     public MainFragment() {
         title("Main");
@@ -47,7 +55,7 @@ public class MainFragment extends SkeletonFragment {
         final View view = inflater.inflate(R.layout.fragment_main, container, false);
 
         final LetterIcon letterIcon = (LetterIcon) view.findViewById(R.id.letterIcon);
-        letterIcon.setLetter(RootHelper.su() ? "Y" : "N");
+        letterIcon.setLetter(AndroidHelper.codename().substring(0, 1));
 
         return view;
     }
@@ -56,11 +64,12 @@ public class MainFragment extends SkeletonFragment {
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        getSkeletonActivity().loading(+1);
-        final ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
-        ((MyScrollView) view.findViewById(R.id.myScrollView)).parallax(imageView);
-        final TextView textView1 = (TextView) view.findViewById(android.R.id.text1);
-        final TextView textView2 = (TextView) view.findViewById(android.R.id.text2);
+        mSvgView = (SvgView) view.findViewById(R.id.svgView);
+        mImageView = (ImageView) view.findViewById(R.id.imageView);
+        ((MyScrollView) view.findViewById(R.id.myScrollView)).parallax(mImageView);
+        mTextView1 = (TextView) view.findViewById(android.R.id.text1);
+        mTextView2 = (TextView) view.findViewById(android.R.id.text2);
+
         final Button github = (Button) view.findViewById(R.id.github);
         github.setText(URL.replaceFirst("https://github.com/", ""));
         github.setOnClickListener(new View.OnClickListener() {
@@ -71,53 +80,51 @@ public class MainFragment extends SkeletonFragment {
             }
 
         });
-
-        final String url = String.format("http://gravatar.com/%s.json", AUTHOR.toLowerCase());
-        Proxy.getInstance().addToRequestQueue(new GsonObjectRequest(url, new Response.Listener<JsonObject>() {
-
-            @Override
-            public void onResponse(final JsonObject jsonObject) {
-                getSkeletonActivity().loading(-1);
-                final JsonArray entries = GsonParser.array(jsonObject, "entry");
-                if (entries == null) {
-                    LogHelper.warning("No entries");
-                    return ;
-                }
-                final JsonObject entry = entries.get(0).getAsJsonObject();
-                final String thumbnailUrl = GsonParser.string(entry, "thumbnailUrl");
-                Proxy.getInstance().getImageLoader().get(thumbnailUrl + "?size=" + (ScreenHelper.width() / 4), new ImageLoader.ImageListener() {
-
-                    @Override
-                    public void onResponse(final ImageLoader.ImageContainer imageContainer, final boolean b) {
-                        imageView.setImageBitmap(imageContainer.getBitmap());
-                        getSkeletonActivity().findViewById(R.id.svgView).setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onErrorResponse(final VolleyError volleyError) {
-                        ActivityHelper.snackBar(ActivityHelper.contentView(getSkeletonActivity()), volleyError.getMessage());
-                    }
-
-                });
-                final String displayName = GsonParser.string(entry, "displayName");
-                textView1.setText(displayName);
-                final String currentLocation = GsonParser.string(entry, "currentLocation");
-                textView2.setText(currentLocation);
-            }
-
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(final VolleyError volleyError) {
-                ActivityHelper.snackBar(ActivityHelper.contentView(getSkeletonActivity()), volleyError.getMessage());
-            }
-
-        }));
     }
 
     @Override
     public void onResume() {
         super.onResume();
-    }
 
+        skeletonActivity().loading(+1);
+        final String url = String.format("http://gravatar.com/%s.json", AUTHOR.toLowerCase());
+        Proxy.getInstance().addToRequestQueue(new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(final JSONObject response) {
+                skeletonActivity().loading(-1);
+
+                final JSONArray entries = JsonParser.get(response, "entry", null);
+                if (entries == null) {
+                    LogHelper.warning("No entries");
+                    return ;
+                }
+                final JSONObject entry = JsonParser.get(entries, 0, null);
+                final String thumbnailUrl = JsonParser.get(entry, "thumbnailUrl", null);
+                Proxy.getInstance().getImageLoader().get(thumbnailUrl + "?size=" + (ScreenHelper.width() / 4), new ImageLoader.ImageListener() {
+
+                    @Override
+                    public void onResponse(final ImageLoader.ImageContainer imageContainer, final boolean b) {
+                        mImageView.setImageBitmap(imageContainer.getBitmap());
+                        mSvgView.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onErrorResponse(final VolleyError volleyError) {
+                        ActivityHelper.snackBar(ViewHelper.content(skeletonActivity()), volleyError.getMessage());
+                    }
+
+                });
+                final String displayName = JsonParser.get(entry, "displayName", null);
+                mTextView1.setText(displayName);
+                final String currentLocation = JsonParser.get(entry, "currentLocation", null);
+                mTextView2.setText(currentLocation);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(final VolleyError error) {
+                skeletonActivity().loading(-1);
+                ActivityHelper.snackBar(ViewHelper.content(skeletonActivity()), error.getMessage());
+            }
+        }));
+    }
 }

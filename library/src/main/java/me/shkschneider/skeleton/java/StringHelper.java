@@ -2,7 +2,6 @@ package me.shkschneider.skeleton.java;
 
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
-import android.telephony.PhoneNumberUtils;
 import android.text.TextUtils;
 import android.util.Patterns;
 
@@ -10,7 +9,6 @@ import java.text.Normalizer;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import me.shkschneider.skeleton.helper.LocaleHelper;
 
@@ -22,7 +20,6 @@ public class StringHelper {
 
     public static final String ALPHA = "abcdefghijklmnopqrstuvwxyz";
     public static final String NUMERIC = "0123456789";
-    public static final String NUMERIC_DECIMAL = "0123456789,.";
     public static final String HEX = NUMERIC + ALPHA.substring(0, 6);
     public static final String ALPHA_NUMERIC = ALPHA + NUMERIC;
 
@@ -66,10 +63,6 @@ public class StringHelper {
         return chars(lower(string), NUMERIC);
     }
 
-    public static boolean numericDecimal(@NonNull final String string) {
-        return chars(lower(string), NUMERIC_DECIMAL);
-    }
-
     public static boolean alphanumeric(@NonNull final String string) {
         return chars(lower(string), ALPHA_NUMERIC);
     }
@@ -83,8 +76,7 @@ public class StringHelper {
     }
 
     public static boolean phone(@NonNull final String string) {
-        // return Patterns.PHONE.matcher(string).matches();
-        return PhoneNumberUtils.isGlobalPhoneNumber(string);
+        return Patterns.PHONE.matcher(string).matches();
     }
 
     public static int count(@NonNull final String string, @NonNull final String s) {
@@ -108,7 +100,9 @@ public class StringHelper {
             return bytes + " B";
         }
         final int exp = (int) (Math.log(bytes) / Math.log(unit));
-        return String.format("%.1f %sB", bytes / Math.pow(unit, exp), (binary ? "KMGTPE" : "kMGTPE").charAt(exp-1) + (binary ? "i" : ""));
+        return String.format(LocaleHelper.locale(),
+                "%.1f %sB",
+                bytes / Math.pow(unit, exp), (binary ? "KMGTPE" : "kMGTPE").charAt(exp-1) + (binary ? "i" : ""));
     }
 
     public static String[] split(@NonNull final String string) {
@@ -160,16 +154,6 @@ public class StringHelper {
             return string.substring(0, maxLength - 3) + "...";
         }
         return string;
-    }
-
-    @Deprecated
-    public static String random(@NonNull final String characters, @IntRange(from=0) final int length) {
-        return RandomHelper.string(characters, length);
-    }
-
-    @Deprecated
-    public static String random(@IntRange(from=0) final int length) {
-        return RandomHelper.string(length);
     }
 
     public static String number(final Integer number) {

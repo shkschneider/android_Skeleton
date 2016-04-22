@@ -82,7 +82,7 @@ public class DiskCache {
         synchronized public void clear() {
             if (DIR == null) {
                 LogHelper.warning("Dir was NULL");
-                return ;
+                return;
             }
 
             if (DIR.exists()) {

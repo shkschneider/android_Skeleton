@@ -2,8 +2,6 @@ package me.shkschneider.skeleton.helper;
 
 import android.app.Notification;
 import android.app.PendingIntent;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
@@ -28,10 +26,6 @@ public class NotificationHelper {
     public static void notify(@IntRange(from=0) final int id, @NonNull final NotificationCompat.Builder builder) {
         builder.setWhen(System.currentTimeMillis());
         SystemServices.notificationManager().notify(id, builder.build());
-    }
-
-    public static Uri defaultRingtone() {
-        return RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
     }
 
 }

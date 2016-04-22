@@ -158,7 +158,7 @@ public class AutoGridLayout extends FrameLayout {
     private void layoutVertical(final int left, final int top, final int right, final int bottom) {
         final int count = getChildCount();
         if (count == 0) {
-            return ;
+            return;
         }
         final int width = right - getPaddingLeft() - left - getPaddingRight();
         final int height = bottom - getPaddingTop() - top - getPaddingBottom();
@@ -204,7 +204,7 @@ public class AutoGridLayout extends FrameLayout {
     private void layoutHorizontal(final int left, final int top, final int right, final int bottom) {
         final int count = getChildCount();
         if (count == 0) {
-            return ;
+            return;
         }
         final int width = right - getPaddingLeft() - left - getPaddingRight();
         final int height = bottom - getPaddingTop() - top - getPaddingBottom();
@@ -352,7 +352,7 @@ public class AutoGridLayout extends FrameLayout {
 
     public void setOrientation(final int orientation) {
         if ((orientation != HORIZONTAL) && (orientation != VERTICAL)) {
-            return ;
+            return;
         }
         if (mOrientation != orientation) {
             mOrientation = orientation;

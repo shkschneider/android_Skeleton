@@ -12,7 +12,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.java.StringHelper;
+import me.shkschneider.skeleton.java.RandomHelper;
 
 public class ComplexCrypt {
 
@@ -31,7 +31,7 @@ public class ComplexCrypt {
             // salt
             mSecret = new String(secret).getBytes();
             // initialization vector
-            mIvParameterSpec = new IvParameterSpec(StringHelper.random(ALGORITHM_KEY_PAD).getBytes());
+            mIvParameterSpec = new IvParameterSpec(RandomHelper.string(ALGORITHM_KEY_PAD).getBytes());
             // key
             final KeyGenerator keyGenerator = KeyGenerator.getInstance(ALGORITHM.split("/")[0]);
             keyGenerator.init(ALGORITHM_KEY_LENGTH);

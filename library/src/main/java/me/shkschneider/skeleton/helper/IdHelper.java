@@ -30,7 +30,7 @@ public class IdHelper {
         return StringHelper.lower(androidId);
     }
 
-    @Deprecated
+    @Deprecated // avoid
     @Nullable
     public static String imei() {
         final TelephonyManager telephonyManager = SystemServices.telephonyManager();

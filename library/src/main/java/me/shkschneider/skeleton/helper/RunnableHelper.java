@@ -16,21 +16,11 @@ public class RunnableHelper {
     }
 
     public static void delay(@NonNull final Runnable runnable, @IntRange(from=0) final int amount, @NonNull final TimeUnit timeUnit) {
-        Executors.newSingleThreadScheduledExecutor().schedule(runnable, 1, TimeUnit.SECONDS);
+        Executors.newSingleThreadScheduledExecutor().schedule(runnable, amount, timeUnit);
     }
 
     public static void repeat(@NonNull final Runnable runnable, @IntRange(from=0) final int amount, @NonNull final TimeUnit timeUnit) {
-        new Thread(new Runnable() {
-
-                private Handler mHandler = new Handler();
-
-                @Override
-                public void run() {
-                    runnable.run();
-                    mHandler.postDelayed(this, timeUnit.toMillis(amount));
-                }
-
-        }).start();
+        Executors.newSingleThreadScheduledExecutor().scheduleAtFixedRate(runnable, 0, amount, timeUnit);
     }
 
     public static void runOnMainLooper(@NonNull final Runnable runnable) {
@@ -39,8 +29,7 @@ public class RunnableHelper {
             runnable.run();
         }
         else {
-            final Handler handler = new Handler(Looper.getMainLooper());
-            handler.post(runnable);
+            new Handler(Looper.getMainLooper()).post(runnable);
         }
     }
 

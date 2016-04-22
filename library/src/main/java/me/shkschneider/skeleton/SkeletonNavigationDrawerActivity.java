@@ -34,7 +34,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.sk_drawerLayout);
         if (mDrawerLayout == null) {
             LogHelper.warning("DrawerLayout was NULL");
-            return ;
+            return;
         }
 
         mDrawerToggle = new ActionBarDrawerToggle(SkeletonNavigationDrawerActivity.this, mDrawerLayout, android.R.string.ok, android.R.string.cancel) {
@@ -55,7 +55,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
         mNavigationView = (NavigationView) findViewById(R.id.sk_navigationView);
         if (mNavigationView == null) {
             LogHelper.warning("NavigationView was NULL");
-            return ;
+            return;
         }
         if (AndroidHelper.api() >= AndroidHelper.API_21) {
             mNavigationView.setPadding(0, (int) getResources().getDimension(R.dimen.statusBar), 0, 0);
@@ -98,7 +98,7 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
     }
 
     public boolean navigationDrawer(final int itemId) {
-        // <https://stackoverflow.com/q/30752713/>
+        // <https://stackoverflow.com/q/30752713>
         if (! alive() || transitioning()) {
             LogHelper.warning("Switching Fragments too early");
             return false;
@@ -140,11 +140,6 @@ public abstract class SkeletonNavigationDrawerActivity extends SkeletonActivity 
             }
         }
         return -1;
-    }
-
-    @Deprecated
-    public boolean navigationDrawerOpened() {
-        return mDrawerLayout.isDrawerOpen(mNavigationView);
     }
 
     public boolean navigationDrawerOpenedOrOpening() {

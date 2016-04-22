@@ -10,41 +10,39 @@ public class DeviceHelper {
         // Empty
     }
 
-    @Deprecated
+    @Deprecated // avoid
     public static boolean tablet() {
         final int screenLayout = ApplicationHelper.resources().getConfiguration().screenLayout;
         return ((screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE);
     }
 
-    @Deprecated
     public static String architecture() {
         return SystemProperties.property(SystemProperties.SYSTEM_PROPERTY_OS_ARCH);
     }
 
-    public static String codename() {
-        return Build.DEVICE;
-    }
-
-    // Customer-friendly
+    // End-user-friendly
     public static String model() {
         return Build.MODEL;
+    }
+
+    // End-user-friendly
+    public static String brand() {
+        return Build.BRAND;
     }
 
     public static String manufacturer() {
         return Build.MANUFACTURER;
     }
 
-    // Customer-friendly
-    public static String brand() {
-        return Build.BRAND;
+    public static String codename() {
+        return Build.DEVICE;
     }
 
-    @Deprecated
     public static String id() {
         return Build.ID;
     }
 
-    @Deprecated
+    @Deprecated // avoid
     public static boolean is64bits() {
         return architecture().contains("64");
     }

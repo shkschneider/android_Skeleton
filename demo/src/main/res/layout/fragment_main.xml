@@ -9,6 +9,7 @@
         android:layout_height="match_parent">
 
         <me.shkschneider.skeleton.ui.MyScrollView
+            style="@style/SkeletonTheme.ScrollBars"
             android:id="@+id/myScrollView"
             android:layout_alignParentTop="true"
             android:layout_above="@+id/linearLayout"
@@ -86,7 +87,7 @@
                             android:textColor="@color/accentColor"
                             android:textAllCaps="true"
                             android:textSize="@dimen/textSizeMedium"
-                            android:text="Rooted" />
+                            android:text="Android" />
 
                         <android.support.v4.widget.Space
                             android:layout_width="@dimen/spaceSmaller"

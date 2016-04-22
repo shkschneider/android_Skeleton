@@ -27,7 +27,7 @@ public class NetworkHelper {
         // Empty
     }
 
-    @Deprecated
+    @Deprecated // avoid
     @Nullable
     public static String hostname() {
         try {
@@ -44,7 +44,7 @@ public class NetworkHelper {
         }
     }
 
-    @Deprecated
+    @Deprecated // avoid
     public static String userAgent() {
         return new WebView(ApplicationHelper.context()).getSettings().getUserAgentString();
     }
@@ -60,7 +60,6 @@ public class NetworkHelper {
             LogHelper.warning("NetworkInfo was NULL");
             return false;
         }
-
         return networkInfo.isConnectedOrConnecting();
     }
 
@@ -71,12 +70,11 @@ public class NetworkHelper {
             LogHelper.warning("wifiManager was NULL");
             return false;
         }
-
         return (wifiManager.getWifiState() == WifiManager.WIFI_STATE_ENABLED);
     }
 
     @RequiresPermission(Manifest.permission.ACCESS_WIFI_STATE)
-    @Deprecated
+    @Deprecated // avoid
     @Nullable
     public static String macAddress() {
         final WifiManager wifiManager = SystemServices.wifiManager();
@@ -84,19 +82,16 @@ public class NetworkHelper {
             LogHelper.warning("wifiManager was NULL");
             return null;
         }
-
         final WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         if (wifiInfo == null) {
             LogHelper.warning("WifiInfo was NULL");
             return null;
         }
-
         final String macAddress = wifiInfo.getMacAddress();
         if (StringHelper.nullOrEmpty(macAddress)) {
             LogHelper.warning("MacAddress was NULL");
             return null;
         }
-
         return macAddress;
     }
 

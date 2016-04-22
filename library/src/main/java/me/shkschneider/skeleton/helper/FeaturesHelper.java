@@ -127,7 +127,7 @@ public class FeaturesHelper {
     public static final String FEATURE_WIFI_DIRECT = PackageManager.FEATURE_WIFI_DIRECT;
 
     public static boolean feature(@NonNull final String feature) {
-        final PackageManager packageManager = ApplicationHelper.context().getPackageManager();
+        final PackageManager packageManager = ApplicationHelper.packageManager();
         if (packageManager == null) {
             LogHelper.warning("PackageManager was NULL");
             return false;

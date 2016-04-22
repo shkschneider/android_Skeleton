@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.demo.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -8,17 +9,19 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.demo.R;
-import me.shkschneider.skeleton.helper.ApplicationHelper;
-import me.shkschneider.skeleton.java.StringHelper;
+import me.shkschneider.skeleton.helper.LocaleHelper;
+import me.shkschneider.skeleton.java.RandomHelper;
 
 public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
 
@@ -121,35 +124,14 @@ public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
 
         private static final String POSITION = "position";
 
-        private ArrayAdapter<String> mAdapter;
+        private MyAdapter<String> mAdapter;
 
         @Override
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
             title(title());
-            final LayoutInflater layoutInflater = LayoutInflater.from(ApplicationHelper.context());
-            mAdapter = new ArrayAdapter<String>(ApplicationHelper.context(), R.layout.sk_listview_item1) {
-                @Override
-                public View getView(final int position, View convertView, final ViewGroup parent) {
-                    if (convertView == null) {
-                        convertView = layoutInflater.inflate(R.layout.sk_listview_item1, parent, false);
-                    }
-                    ((TextView) convertView.findViewById(android.R.id.text1)).setText(getItem(position));
-                    return convertView;
-                }
-
-                @Override
-                public boolean areAllItemsEnabled() {
-                    return false;
-                }
-
-                @Override
-                public boolean isEnabled(final int position) {
-                    return false;
-                }
-
-            };
+            mAdapter = new MyAdapter<>(new ArrayList<String>());
         }
 
         @Override
@@ -160,12 +142,12 @@ public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
         @Override
         public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
-            ((ListView) view.findViewById(R.id.listView)).setAdapter(mAdapter);
+            ((RecyclerView) view.findViewById(R.id.myRecyclerView)).setAdapter(mAdapter);
         }
 
         @Override
         public String title() {
-            return String.format("Page #%d", getArguments().getInt(POSITION)).toUpperCase();
+            return String.format(LocaleHelper.locale(), "Page #%d", getArguments().getInt(POSITION)).toUpperCase();
         }
 
         @Override
@@ -174,11 +156,54 @@ public class ViewPagerTextIndicatorFragment extends SkeletonFragment {
 
             final int position = getArguments().getInt(POSITION);
             final int n = 16;
-            mAdapter.clear();
+            mAdapter.mObjects.clear();
             for (int i = 0; i < n; i++) {
-                mAdapter.add(String.format("%s/%s: %s", position, (i + 1), StringHelper.random(n)));
+                mAdapter.mObjects.add(String.format(LocaleHelper.locale(), "%s/%s: %s", position, (i + 1), RandomHelper.string(n)));
+                mAdapter.notifyItemInserted(mAdapter.getItemCount());
             }
-            mAdapter.notifyDataSetChanged();
+        }
+
+    }
+
+    private static class MyAdapter<T> extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+
+        private List<T> mObjects;
+
+        public MyAdapter(@NonNull final List<T> objects) {
+            mObjects = objects;
+        }
+
+        @Override
+        public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+            final View view = LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
+            // Inflated items should have: android:foreground="?android:attr/selectableItemBackground"
+            // <http://stackoverflow.com/q/26961147>
+            return new ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(final MyAdapter.ViewHolder holder, final int position) {
+            final T object = mObjects.get(position);
+            holder.text1.setText(object.toString());
+            holder.itemView.setOnClickListener(null);
+            holder.itemView.setOnLongClickListener(null);
+        }
+
+        @Override
+        public int getItemCount() {
+            return mObjects.size();
+        }
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+
+            public TextView text1;
+
+            public ViewHolder(final View itemView) {
+                super(itemView);
+
+                text1 = (TextView) itemView.findViewById(android.R.id.text1);
+            }
+
         }
 
     }

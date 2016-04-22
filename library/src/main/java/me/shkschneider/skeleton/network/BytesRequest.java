@@ -9,7 +9,7 @@ import com.android.volley.toolbox.JsonRequest;
 
 import me.shkschneider.skeleton.data.MimeTypeHelper;
 
-// <https://github.com/DWorkS/VolleyPlus/blob/master/library/src/com/android/volley/request/ByteRequest.java>
+// <https://github.com/DWorkS/VolleyPlus>
 public class BytesRequest extends JsonRequest<byte[]> {
 
     public BytesRequest(final int method, @NonNull final String url, @NonNull final String requestBody, final Response.Listener<byte[]> listener, final Response.ErrorListener errorListener) {

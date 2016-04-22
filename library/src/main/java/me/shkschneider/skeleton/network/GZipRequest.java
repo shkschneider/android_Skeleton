@@ -13,7 +13,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
 import java.util.zip.GZIPInputStream;
 
-// <https://github.com/DWorkS/VolleyPlus/blob/master/library/src/com/android/volley/request/GZipRequest.java>
+// <https://github.com/DWorkS/VolleyPlus>
 public class GZipRequest extends StringRequest {
 
     public GZipRequest(final int method, @NonNull final String url, final Response.Listener<String> listener, final Response.ErrorListener errorListener) {

@@ -17,6 +17,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import me.shkschneider.skeleton.helper.ApplicationHelper;
+import me.shkschneider.skeleton.helper.LocaleHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.SystemProperties;
 
@@ -30,7 +31,9 @@ public class FileHelper {
     public static final String PREFIX_RES = "file:///android_res/";
 
     public static String join(@NonNull final String dirname, @NonNull final String basename) {
-        return String.format("%s%s%s", dirname, SystemProperties.property(SystemProperties.SYSTEM_PROPERTY_FILE_SEPARATOR), basename);
+        return String.format(LocaleHelper.locale(),
+                "%s%s%s",
+                dirname, SystemProperties.property(SystemProperties.SYSTEM_PROPERTY_FILE_SEPARATOR), basename);
     }
 
     public static File get(@NonNull final String path) {

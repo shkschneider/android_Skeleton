@@ -6,48 +6,48 @@ import android.net.Uri;
 
 public class SoundHelper {
 
-    public static void notifications() {
+    public static Ringtone notifications() {
         try {
             final Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            final Ringtone ringtone = RingtoneManager.getRingtone(ApplicationHelper.context(), uri);
-            ringtone.play();
+            return RingtoneManager.getRingtone(ApplicationHelper.context(), uri);
         }
         catch (final Exception e) {
             LogHelper.wtf(e);
+            return null;
         }
     }
 
-    public static void ringtone() {
+    public static Ringtone ringtone() {
         try {
             final Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
-            final Ringtone ringtone = RingtoneManager.getRingtone(ApplicationHelper.context(), uri);
-            ringtone.play();
+            return RingtoneManager.getRingtone(ApplicationHelper.context(), uri);
         }
         catch (final Exception e) {
             LogHelper.wtf(e);
+            return null;
         }
     }
 
-    public static void alarm() {
+    public static Ringtone alarm() {
         try {
             final Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-            final Ringtone ringtone = RingtoneManager.getRingtone(ApplicationHelper.context(), uri);
-            ringtone.play();
+            return RingtoneManager.getRingtone(ApplicationHelper.context(), uri);
         }
         catch (final Exception e) {
             LogHelper.wtf(e);
+            return null;
         }
     }
 
-    @Deprecated
-    public static void all() {
+    @Deprecated // avoid
+    public static Ringtone all() {
         try {
             final Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALL);
-            final Ringtone ringtone = RingtoneManager.getRingtone(ApplicationHelper.context(), uri);
-            ringtone.play();
+            return RingtoneManager.getRingtone(ApplicationHelper.context(), uri);
         }
         catch (final Exception e) {
             LogHelper.wtf(e);
+            return null;
         }
     }
 

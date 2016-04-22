@@ -3,6 +3,8 @@ package me.shkschneider.skeleton.network;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 
+import me.shkschneider.skeleton.helper.LocaleHelper;
+
 public class WebServiceException extends Exception {
 
     public static final int INTERNAL_ERROR = 666;
@@ -25,7 +27,7 @@ public class WebServiceException extends Exception {
 
     @Override
     public String toString() {
-        return String.format("%d %s", getCode(), getMessage());
+        return String.format(LocaleHelper.locale(), "%d %s", getCode(), getMessage());
     }
 
 }

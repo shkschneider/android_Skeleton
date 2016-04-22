@@ -13,7 +13,7 @@ import android.util.Patterns;
 
 import com.google.android.gms.auth.GoogleAuthUtil;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.common.GoogleApiAvailability;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class GooglePlayServicesHelper {
     public static final String GOOGLE_ACCOUNT_TYPE = GoogleAuthUtil.GOOGLE_ACCOUNT_TYPE;
 
     public static int status() {
-        return GooglePlayServicesUtil.isGooglePlayServicesAvailable(ApplicationHelper.context());
+        return GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(ApplicationHelper.context());
     }
 
     public static boolean check() {
@@ -40,8 +40,7 @@ public class GooglePlayServicesHelper {
             LogHelper.debug("GooglePlayServices was OK");
             return null;
         }
-
-        final Dialog dialog = GooglePlayServicesUtil.getErrorDialog(status(), activity, 0);
+        final Dialog dialog = GoogleApiAvailability.getInstance().getErrorDialog(activity, status(), 0);
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
         dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
@@ -87,7 +86,6 @@ public class GooglePlayServicesHelper {
         if (accounts.size() == 0) {
             return null;
         }
-
         return accounts.get(0);
     }
 

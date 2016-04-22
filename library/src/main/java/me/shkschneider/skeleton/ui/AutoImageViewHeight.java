@@ -44,7 +44,7 @@ public class AutoImageViewHeight extends ImageView {
         final Drawable drawable = getDrawable();
         if (drawable == null) {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-            return ;
+            return;
         }
         final int height = MeasureSpec.getSize(heightMeasureSpec);
         int width = (int) Math.ceil((float) height * (float) drawable.getIntrinsicHeight() / (float) drawable.getIntrinsicWidth());
