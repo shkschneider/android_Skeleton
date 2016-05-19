@@ -8,6 +8,7 @@
         <item name="colorControlHighlight">@color/controlOn</item>
         <item name="android:colorEdgeEffect">@color/accentColor</item>
         <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@color/sk_android_transparent</item>
         <item name="android:windowContentTransitions">true</item>

@@ -15,8 +15,6 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import java.io.File;
 import java.util.List;
 
@@ -248,12 +246,13 @@ public class IntentHelper {
         return Intent.createChooser(intent, null);
     }
 
-    public static Intent directions(@NonNull final LatLng from, @NonNull final LatLng to) {
+    public static Intent directions(final long fromLatitude, final long fromLongitude,
+                                    final long toLatitude, final long toLongitude) {
         return external(new Intent(android.content.Intent.ACTION_VIEW,
                 Uri.parse(String.format(LocaleHelper.locale(),
                         "http://maps.google.com/maps?saddr=%s,%s&daddr=%s,%s",
-                        from.latitude, from.longitude,
-                        to.latitude, to.longitude))));
+                        fromLatitude, fromLongitude,
+                        toLatitude, toLongitude))));
     }
 
     public static Intent ringtone(final String existingUri) {
