@@ -88,6 +88,8 @@ dependencies {
 
     // compile 'com.google.android.gms:play-services:8.4.0'
 
+    compile 'com.caverock:androidsvg:1.2.1'
+
     compile project(':library')
     // compile 'com.github.shkschneider:android_Skeleton:{VERSION}@aar' { transitive=false }
 }
