@@ -17,6 +17,7 @@ all:
 ifeq (,$(wildcard $(HOME)/.gradle/gradle.properties))
 	@mkdir -p "$(HOME)/.gradle"
 	@echo "org.gradle.daemon=true" > "$(HOME)/.gradle/gradle.properties"
+	@echo "org.gradle.jvmargs=-Xmx2048M" >> "$(HOME)/.gradle/gradle.properties"
 endif
 
 debug:
@@ -24,7 +25,7 @@ debug:
 	@$(GRADLE) assembleDebug #installDebug
 	@cp "$(SKELETON)/build/outputs/aar/$(SKELETON)-debug.aar" "$(SKELETON_ID)-debug-$(VERSION).aar"
 	@echo "$(SKELETON_ID)-debug-$(VERSION).aar"
-	@cp "$(APP)/build/outputs/apk/$(APP)-debug.apk" "$(APP_ID)-debug-$(VERSION).apk"
+	@cp "$(APP)/build/outputs/apk/$(APP)-universal-debug.apk" "$(APP_ID)-debug-$(VERSION).apk"
 	@echo "$(APP_ID)-debug-$(VERSION).apk"
 
 release:
@@ -32,14 +33,14 @@ release:
 	@$(GRADLE) assembleRelease #installRelease
 	@cp "$(SKELETON)/build/outputs/aar/$(SKELETON)-release.aar" "$(SKELETON_ID)-release-$(VERSION).aar"
 	@echo "$(SKELETON_ID)-release-$(VERSION).aar"
-	@cp "$(APP)/build/outputs/apk/$(APP)-release.apk" "$(APP_ID)-release-$(VERSION).apk"
+	@cp "$(APP)/build/outputs/apk/$(APP)-universal-release.apk" "$(APP_ID)-release-$(VERSION).apk"
 	@echo "$(APP_ID)-release-$(VERSION).apk"
 
 lint:
 	@echo "[ $(APP_ID) $(VERSION) ]"
 	@$(GRADLE) :demo:lint
-	@echo "demo/build/outputs/lint-results.html"
-	@echo "demo/build/outputs/lint-results.xml"
+	@echo "demo/build/outputs/lint-results-debug.html"
+	@echo "demo/build/outputs/lint-results-release-fatal.html"
 
 clean:
 	@echo "[ $(APP_ID) $(VERSION) ]"
