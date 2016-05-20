@@ -22,7 +22,7 @@ Top-level *build.gradle*:
 Application-level *build.gradle*:
 
 <pre>dependencies {
-    compile 'com.github.shkschneider:android_Skeleton:5.0.0@aar'
+    compile 'com.github.shkschneider:android_Skeleton:5.0.0'
 }</pre>
 
 **AAR**
