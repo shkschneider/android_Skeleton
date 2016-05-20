@@ -19,6 +19,12 @@ public class AboutActivity extends SkeletonFragmentActivity {
         setContentFragment(new AboutFragment());
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
     public static class AboutFragment extends PreferenceFragmentCompat {
 
         @Override
