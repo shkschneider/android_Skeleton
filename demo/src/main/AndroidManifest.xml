@@ -2,13 +2,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="me.shkschneider.skeleton.demo">
 
-    <uses-permission
-        android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission
-        android:name="android.permission.INTERNET" />
-    <uses-permission
-        android:name="android.permission.READ_PHONE_STATE" />
-
     <uses-feature
         android:name="android.hardware.touchscreen"
         android:required="true" />
@@ -38,21 +31,16 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/skeleton" />
+
         <receiver android:name=".MySecretCodeReceiver">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SECRET_CODE" />
                 <data android:scheme="android_secret_code" android:host="42" />
             </intent-filter>
         </receiver>
-
-        <activity
-            android:parentActivityName=".MainActivity"
-            android:name=".AboutActivity"
-            android:label="@string/skeleton" />
-
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
 
     </application>
 
