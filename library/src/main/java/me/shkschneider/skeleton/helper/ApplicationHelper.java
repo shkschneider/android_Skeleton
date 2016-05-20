@@ -243,20 +243,20 @@ public class ApplicationHelper {
     }
 
     @TargetApi(AndroidHelper.API_21)
-    public static boolean fromMarket21() {
+    private static boolean fromMarket21() {
         // API-21+ Settings.Secure
         return (Settings.Secure.getInt(ApplicationHelper.context().getContentResolver(), Settings.Secure.INSTALL_NON_MARKET_APPS, 0) == 1);
     }
 
     @TargetApi(AndroidHelper.API_17)
     @SuppressWarnings("deprecation")
-    public static boolean fromMarket17() {
+    private static boolean fromMarket17() {
         // API-17+ Settings.Global
         return (Settings.Global.getInt(ApplicationHelper.context().getContentResolver(), Settings.Global.INSTALL_NON_MARKET_APPS, 0) == 1);
     }
 
     @TargetApi(AndroidHelper.API_3)
-    public static boolean fromMarket3() {
+    private static boolean fromMarket3() {
         // API-3+ Settings.Secure
         return (Settings.Secure.getInt(ApplicationHelper.context().getContentResolver(), Settings.Secure.INSTALL_NON_MARKET_APPS, 0) == 1);
     }

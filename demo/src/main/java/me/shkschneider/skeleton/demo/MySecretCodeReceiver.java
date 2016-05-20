@@ -4,8 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import me.shkschneider.skeleton.demo.activity.MainActivity;
-
 // <https://github.com/SimonMarquis/Android-SecretCodes>
 public class MySecretCodeReceiver extends BroadcastReceiver {
 

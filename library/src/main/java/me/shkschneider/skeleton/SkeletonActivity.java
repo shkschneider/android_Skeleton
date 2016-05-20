@@ -52,7 +52,6 @@ public class SkeletonActivity extends AppCompatActivity {
     protected MySwipeRefreshLayout mMySwipeRefreshLayout;
 
     private boolean mAlive = false;
-    private boolean mTransitioning = false;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -79,7 +78,6 @@ public class SkeletonActivity extends AppCompatActivity {
     @Override
     protected void onResumeFragments() {
         super.onResumeFragments();
-        transitioning(false);
     }
 
     @Override
@@ -169,14 +167,6 @@ public class SkeletonActivity extends AppCompatActivity {
         super.onResume();
 
         mAlive = true;
-    }
-
-    protected void transitioning(final boolean b) {
-        mTransitioning = b;
-    }
-
-    protected boolean transitioning() {
-        return mTransitioning;
     }
 
     @Override

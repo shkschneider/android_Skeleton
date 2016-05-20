@@ -2,24 +2,13 @@
     tools:ignore="UnusedResources">
 
     <dimen name="statusBar">24dp</dimen>
-    <dimen name="actionBar">48dp</dimen>
-    <dimen name="actionBar2">80dp</dimen>
     <dimen name="toolbar">56dp</dimen>
     <dimen name="toolbar2">96dp</dimen>
-    <dimen name="navigationBar">48dp</dimen>
     <dimen name="navigationDrawer">240dp</dimen>
+    <dimen name="navigationBar">48dp</dimen>
 
     <dimen name="snackBar">48dp</dimen>
     <dimen name="snackBar2">80dp</dimen>
-    <dimen name="floatingActionButtonNormal">56dp</dimen>
-    <dimen name="floatingActionButtonMini">40dp</dimen>
-    <dimen name="floatingActionButtonIconSize">24dp</dimen>
-    <dimen name="floatingActionButtonPlusIconSize">14dp</dimen>
-    <dimen name="floatingActionButtonPlusIconStroke">2dp</dimen>
-    <dimen name="floatingActionButtonShadowOffset">3dp</dimen>
-    <dimen name="floatingActionButtonShadowRadius">9dp</dimen>
-    <dimen name="floatingActionButtonStrokeWidth">1dp</dimen>
-    <dimen name="floatingActionButtonActionSpacing">16dp</dimen>
     <dimen name="divider">1dp</dimen>
 
     <dimen name="spaceNull">0dp</dimen>
@@ -69,9 +58,5 @@
     <dimen name="elevation12">12dp</dimen> <!-- floating action button -->
     <dimen name="elevation16">16dp</dimen> <!-- nav drawer, right drawer, modal bottom sheet -->
     <dimen name="elevation24">24dp</dimen> <!-- dialog, picker -->
-
-    <!-- android.support.v4.PreferenceFragment -->
-    <dimen name="preference_fragment_padding_bottom">@dimen/spaceNull</dimen>
-    <dimen name="preference_fragment_padding_side">@dimen/spaceSmaller</dimen>
 
 </resources>

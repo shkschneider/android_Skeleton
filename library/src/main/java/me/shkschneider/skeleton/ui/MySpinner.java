@@ -38,7 +38,7 @@ public class MySpinner extends Spinner {
         super(context, attrs, defStyleAttr, defStyleRes, mode);
     }
 
-    @TargetApi(AndroidHelper.API_21)
+    @TargetApi(AndroidHelper.API_23)
     public MySpinner(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes, final int mode, final Resources.Theme popupTheme) {
         super(context, attrs, defStyleAttr, defStyleRes, mode, popupTheme);
     }

@@ -1,7 +1,6 @@
 package me.shkschneider.skeleton.demo;
 
 import android.content.Context;
-import android.support.multidex.MultiDex;
 
 import me.shkschneider.skeleton.SkeletonApplication;
 
@@ -17,7 +16,7 @@ public class MainApplication extends SkeletonApplication {
     @Override
     protected void attachBaseContext(final Context context) {
         super.attachBaseContext(context);
-        MultiDex.install(context);
+        // MultiDex.install(context);
     }
 
 }

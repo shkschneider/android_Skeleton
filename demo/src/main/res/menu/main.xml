@@ -9,11 +9,4 @@
         android:orderInCategory="1"
         app:showAsAction="always" />
 
-    <item
-        android:id="@+id/menu_settings"
-        android:title="@null"
-        android:icon="@android:drawable/ic_menu_preferences"
-        android:orderInCategory="2"
-        app:showAsAction="always" />
-
 </menu>

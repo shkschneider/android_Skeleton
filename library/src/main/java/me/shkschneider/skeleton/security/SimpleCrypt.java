@@ -4,9 +4,9 @@ import android.support.annotation.NonNull;
 
 public class SimpleCrypt {
 
-    protected static final String ALGORITHM = "XOR";
+    private static final String ALGORITHM = "XOR";
 
-    protected char[] mKey;
+    private char[] mKey;
 
     public SimpleCrypt(@NonNull final String key) {
         mKey = key.toCharArray();

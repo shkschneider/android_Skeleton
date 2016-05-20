@@ -1,0 +1,42 @@
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:layout_margin="@dimen/spaceTiny"
+    app:cardPreventCornerOverlap="false"
+    app:cardCornerRadius="4dp"
+    app:elevation="@dimen/elevation3">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/primaryColor"
+            android:padding="@dimen/spaceTiny">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/sk_android_white"
+                android:text="Skills" />
+
+        </LinearLayout>
+
+        <include layout="@layout/ui" android:id="@+id/skills_systems" />
+
+        <include layout="@layout/ui" android:id="@+id/skills_coding" />
+
+        <include layout="@layout/ui" android:id="@+id/skills_softwares" />
+
+        <include layout="@layout/ui" android:id="@+id/skills_languages" />
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

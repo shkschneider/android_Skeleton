@@ -11,7 +11,7 @@ import me.shkschneider.skeleton.java.StringHelper;
 
 public class HmacHelper {
 
-    protected static final String ALGORITHM = "HmacSHA1";
+    private static final String ALGORITHM = "HmacSHA1";
 
     @Nullable
     public static String hash(@NonNull final String key, @NonNull final String string) {

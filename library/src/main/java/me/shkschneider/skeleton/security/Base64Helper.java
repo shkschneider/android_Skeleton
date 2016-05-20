@@ -9,7 +9,7 @@ public class Base64Helper {
         // Empty
     }
 
-    public static final int FLAGS = Base64.NO_WRAP;
+    protected static final int FLAGS = Base64.NO_WRAP;
 
     public static String encrypt(@NonNull final String string) {
         return Base64.encodeToString(string.getBytes(), FLAGS);

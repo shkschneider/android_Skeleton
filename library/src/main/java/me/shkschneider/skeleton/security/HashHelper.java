@@ -14,8 +14,8 @@ public class HashHelper {
         // Empty
     }
 
-    protected static final String MD5 = "MD5";
-    protected static final String SHA = "SHA";
+    private static final String MD5 = "MD5";
+    private static final String SHA = "SHA";
 
     @Nullable
     private static String hash(@NonNull final String algorithm, @NonNull final String string) {

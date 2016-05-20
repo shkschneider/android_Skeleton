@@ -1,0 +1,46 @@
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/content_shk_id" />
+
+        <include layout="@layout/content_shk_code" />
+
+        <include layout="@layout/content_shk_personal" />
+
+        <include layout="@layout/content_shk_skills" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/sk_android_white">
+
+            <View
+                style="@style/SkeletonTheme.DividerHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="1dp" />
+
+            <Button
+                android:drawableLeft="@drawable/ic_github"
+                android:id="@+id/github"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/spaceMedium"
+                android:text="@null" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

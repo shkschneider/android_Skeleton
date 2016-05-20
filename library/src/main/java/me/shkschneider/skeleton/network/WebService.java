@@ -19,6 +19,7 @@ import java.util.Map;
 import me.shkschneider.skeleton.data.CharsetHelper;
 import me.shkschneider.skeleton.data.FileHelper;
 import me.shkschneider.skeleton.data.JsonParser;
+import me.shkschneider.skeleton.data.MimeTypeHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
 import me.shkschneider.skeleton.java.StringHelper;
@@ -94,7 +95,7 @@ public class WebService extends AsyncTask<Void, Void, Object> {
                 return new WebServiceException(WebServiceException.INTERNAL_ERROR, "Body not allowed");
             }
             if (mBody != null) {
-                httpURLConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                httpURLConnection.setRequestProperty("Content-Type", MimeTypeHelper.APPLICATION_FORMURLENCODED);
                 final DataOutputStream dataOutputStream = new DataOutputStream(httpURLConnection.getOutputStream());
                 String params = "";
                 for (final String key : mBody.keySet()) {

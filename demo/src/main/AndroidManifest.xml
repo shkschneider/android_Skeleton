@@ -30,7 +30,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/skeleton">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,16 +46,9 @@
         </receiver>
 
         <activity
-            android:name=".activity.OverlayActivity"
-            android:label="@string/fadingActionBar" />
-
-        <activity
-            android:name=".activity.AboutActivity"
-            android:label="@string/about" />
-
-        <activity
-            android:name=".activity.SettingsActivity"
-            android:label="@string/settings" />
+            android:parentActivityName=".MainActivity"
+            android:name=".AboutActivity"
+            android:label="@string/skeleton" />
 
         <meta-data
             android:name="com.google.android.gms.version"
