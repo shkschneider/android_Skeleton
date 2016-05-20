@@ -66,11 +66,11 @@ public class SkeletonActivity extends AppCompatActivity {
 
     @TargetApi(AndroidHelper.API_21)
     private void init21() {
-        statusBarColor(getWindow(), getColor(R.color.statusBarColor));
+        statusBarColor(getWindow(), getResources().getColor(R.color.statusBarColor));
 
         final String name = ApplicationHelper.name();
         final Bitmap icon = ApplicationHelper.icon();
-        final int color = getColor(R.color.primaryColor);
+        final int color = getResources().getColor(R.color.primaryColor);
         final ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(name, icon, color);
         setTaskDescription(taskDescription);
     }

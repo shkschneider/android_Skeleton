@@ -1,5 +1,6 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="me.shkschneider.skeleton.demo">
 
     <uses-feature
@@ -20,7 +21,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/skeleton"
         android:name=".MainApplication"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
 
         <activity
             android:name=".MainActivity"

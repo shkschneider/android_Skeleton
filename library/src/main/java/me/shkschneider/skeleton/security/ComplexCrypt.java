@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.security;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -26,6 +27,7 @@ public class ComplexCrypt {
     private SecretKey mSecretKey;
     private Cipher mCipher;
 
+    @SuppressLint("TrulyRandom")
     public ComplexCrypt(@NonNull final byte[] secret) throws Exception {
         try {
             // salt
