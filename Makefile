@@ -17,7 +17,6 @@ all:
 ifeq (,$(wildcard $(HOME)/.gradle/gradle.properties))
 	@mkdir -p "$(HOME)/.gradle"
 	@echo "org.gradle.daemon=true" > "$(HOME)/.gradle/gradle.properties"
-	@echo "org.gradle.jvmargs=-Xmx2048M" >> "$(HOME)/.gradle/gradle.properties"
 endif
 
 debug:
