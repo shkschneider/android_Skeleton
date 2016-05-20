@@ -40,7 +40,7 @@ lint:
 	@echo "[ $(APP_ID) $(VERSION) ]"
 	@$(GRADLE) :demo:lint
 	@echo "demo/build/outputs/lint-results-debug.html"
-	@echo "demo/build/outputs/lint-results-release-fatal.html"
+	@echo "demo/build/outputs/lint-results-debug.xml"
 
 clean:
 	@echo "[ $(APP_ID) $(VERSION) ]"

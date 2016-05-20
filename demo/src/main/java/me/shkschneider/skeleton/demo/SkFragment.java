@@ -103,7 +103,7 @@ public class SkFragment extends SkeletonFragment {
 
     private void fill(@NonNull final LinearLayout linearLayout, final Class[] cs) {
         for (final Class c : cs) {
-            final View ui = LayoutInflater.from(getContext()).inflate(R.layout.ui, null, false);
+            final View ui = LayoutInflater.from(getContext()).inflate(R.layout.ui, linearLayout, false);
             ((TextView) ui.findViewById(R.id.textView1)).setText(c.getName().replaceFirst("^.+\\.", "").replace("$", "."));
             final TextView textView2 = (TextView) ui.findViewById(R.id.textView2);
             textView2.setText("");
