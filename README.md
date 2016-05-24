@@ -1,4 +1,4 @@
-Skeleton [![JitPack](https://jitpack.io/v/com.github.shkschneider/android_Skeleton.svg)](https://jitpack.io/#shkschneider/android_Skeleton/5.0.0)
+Skeleton [![JitPack](https://jitpack.io/v/com.github.shkschneider/android_Skeleton.svg)](https://jitpack.io/#shkschneider/android_Skeleton/5.1.0)
 ========
 
 > Android library with useful classes to be used as a "Skeleton" for an application.
@@ -22,12 +22,12 @@ Top-level *build.gradle*:
 Application-level *build.gradle*:
 
 <pre>dependencies {
-    compile 'com.github.shkschneider:android_Skeleton:5.0.0'
+    compile 'com.github.shkschneider:android_Skeleton:5.1.0'
 }</pre>
 
 **AAR**
 
-https://jitpack.io/com/github/shkschneider/android_Skeleton/5.0.0/android_Skeleton-5.0.0.aar
+https://jitpack.io/com/github/shkschneider/android_Skeleton/5.1.0/android_Skeleton-5.1.0.aar
 
 Specifications
 --------------
