@@ -15,6 +15,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 import me.shkschneider.skeleton.SkeletonFragment;
+import me.shkschneider.skeleton.helper.LogHelper;
 
 public class SkFragment extends SkeletonFragment {
 
@@ -109,12 +110,17 @@ public class SkFragment extends SkeletonFragment {
             textView2.setText("");
             for (final Field field : c.getDeclaredFields()) {
                 final int modifiers = field.getModifiers();
-                if (Modifier.isPrivate(modifiers) || field.getAnnotation(Deprecated.class) != null) {
+                try {
+                    if (Modifier.isPrivate(modifiers) || field.getAnnotation(Deprecated.class) != null) {
+                        continue;
+                    }
+                }
+                catch (final NoClassDefFoundError e) {
                     continue;
                 }
                 final String name = field.getName();
-                if (! name.contains("$")) {
-                    if (! TextUtils.isEmpty(textView2.getText())) {
+                if (!name.contains("$")) {
+                    if (!TextUtils.isEmpty(textView2.getText())) {
                         textView2.append("\n");
                     }
                     textView2.append(name);
@@ -122,15 +128,20 @@ public class SkFragment extends SkeletonFragment {
             }
             for (final Method method : c.getDeclaredMethods()) {
                 final int modifiers = method.getModifiers();
-                if (Modifier.isPrivate(modifiers) || method.getAnnotation(Deprecated.class) != null) {
+                try {
+                    if (Modifier.isPrivate(modifiers) || method.getAnnotation(Deprecated.class) != null) {
+                        continue;
+                    }
+                }
+                catch (final NoClassDefFoundError e) {
                     continue;
                 }
                 final String name = method.getName();
-                if (! name.contains("$")) {
+                if (!name.contains("$")) {
                     if (textView2.getText().toString().contains(name + "()")) {
                         continue;
                     }
-                    if (! TextUtils.isEmpty(textView2.getText())) {
+                    if (!TextUtils.isEmpty(textView2.getText())) {
                         textView2.append("\n");
                     }
                     textView2.append(name + "()");
