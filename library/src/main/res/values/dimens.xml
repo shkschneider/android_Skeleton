@@ -3,13 +3,16 @@
 
     <dimen name="statusBar">24dp</dimen>
     <dimen name="toolbar">56dp</dimen>
-    <dimen name="toolbar2">96dp</dimen>
+    <dimen name="toolbar2">64dp</dimen>
     <dimen name="navigationDrawer">240dp</dimen>
-    <dimen name="navigationBar">48dp</dimen>
-
+    <dimen name="divider">1dp</dimen>
+    <dimen name="scrollbar">4dp</dimen>
+    <dimen name="button">36dp</dimen>
+    <dimen name="icon">24dp</dimen>
+    <dimen name="icon2">40dp</dimen>
     <dimen name="snackBar">48dp</dimen>
     <dimen name="snackBar2">80dp</dimen>
-    <dimen name="divider">1dp</dimen>
+    <dimen name="navigationBar">48dp</dimen>
 
     <dimen name="spaceNull">0dp</dimen>
     <dimen name="spacePico">2dp</dimen>
