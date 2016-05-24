@@ -14,6 +14,7 @@
         <item name="android:listSeparatorTextViewStyle">@style/SkeletonTheme.ListSeparatorTextViewStyle</item>
         <item name="android:imageButtonStyle">@style/SkeletonTheme.ImageButtonStyle</item>
         <item name="buttonStyle">@style/SkeletonTheme.ButtonStyle</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 
     <style name="SkeletonTheme.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

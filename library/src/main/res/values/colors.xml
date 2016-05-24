@@ -22,6 +22,10 @@
     <color name="divider">#1f000000</color>
     <color name="highlight">#fffbcc</color>
 
+    <!-- Fix for preference-v17 -->
+    <color name="preference_accent">@color/accentColor</color>
+    <color name="preference_fallback_accent_color">@color/accentColor</color>
+
     <!-- Material colors <http://www.google.com/design/spec/style/color.html#color-color-palette> -->
 
     <color name="sk_material_red">@color/sk_material_red500</color>

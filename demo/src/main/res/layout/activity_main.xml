@@ -16,7 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/SkeletonTheme.Toolbar"
+            app:theme="@style/SkeletonTheme.Toolbar"
+            app:popupTheme="@style/SkeletonTheme.Toolbar.Popup"
             app:layout_scrollFlags="scroll|enterAlways|snap"
             app:layout_collapseMode="pin" />
 

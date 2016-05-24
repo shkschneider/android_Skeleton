@@ -1,22 +1,25 @@
 package me.shkschneider.skeleton.demo;
 
 import android.os.Bundle;
-import android.preference.Preference;
 import android.support.annotation.Nullable;
-import android.support.v4.preference.PreferenceFragmentCompat;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceFragmentCompat;
 import android.view.View;
 
-import me.shkschneider.skeleton.SkeletonFragmentActivity;
+import me.shkschneider.skeleton.SkeletonActivity;
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 
-public class AboutActivity extends SkeletonFragmentActivity {
+public class AboutActivity extends SkeletonActivity {
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_about);
         home(true);
-        setContentFragment(new AboutFragment());
+
+        mToolbar.setTitle("Skeleton");
+        mToolbar.setSubtitle("for Android");
     }
 
     @Override
@@ -28,9 +31,8 @@ public class AboutActivity extends SkeletonFragmentActivity {
     public static class AboutFragment extends PreferenceFragmentCompat {
 
         @Override
-        public void onCreate(final Bundle paramBundle) {
-            super.onCreate(paramBundle);
-            addPreferencesFromResource(R.xml.fragment_about);
+        public void onCreatePreferences(final Bundle bundle, final String rootKey) {
+            addPreferencesFromResource(R.xml.about);
         }
 
         @SuppressWarnings("ConstantConditions")

@@ -42,11 +42,12 @@ Specifications
 
 - [com.google.code.gson:gson](https://github.com/google/gson)
 - [com.android.support:design](https://developer.android.com/topic/libraries/support-library/features.html#design)
-- [com.android.support:palette-v7](https://developer.android.com/tools/support-library/features.html#v7-palette)
+- [com.android.support:palette-v7](https://developer.android.com/topic/libraries/support-library/features.html#v7-palette)
+- [com.android.support:preference-v14](https://developer.android.com/topic/libraries/support-library/features.html#v14-preference)
 
 **Uses**
 
-- [Gradle 2.1.0](http://tools.android.com/tech-docs/new-build-system)
+- [Gradle 2.1.1](http://tools.android.com/tech-docs/new-build-system)
 - [Android Studio 2.1.1](https://developer.android.com/sdk/index.html)
 - [android.support.v7.app.AppCompatActivity](https://developer.android.com/reference/android/support/v7/app/AppCompatActivity.html)
 - [android.support.v7.widget.Toolbar](https://developer.android.com/reference/android/support/v7/widget/Toolbar.html)
