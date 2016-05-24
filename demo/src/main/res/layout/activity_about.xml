@@ -1,17 +1,10 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:theme="@style/SkeletonTheme.Toolbar"
-        app:popupTheme="@style/SkeletonTheme.Toolbar.Popup" />
+    <include layout="@layout/toolbar" />
 
     <fragment
         android:name="me.shkschneider.skeleton.demo.AboutActivity$AboutFragment"
