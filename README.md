@@ -1,4 +1,4 @@
-Skeleton [![JitPack](https://jitpack.io/v/com.github.shkschneider/android_Skeleton.svg)](https://jitpack.io/#shkschneider/android_Skeleton/5.1.0)
+Skeleton
 ========
 
 > Android library with useful classes to be used as a "Skeleton" for an application.
@@ -6,36 +6,14 @@ Skeleton [![JitPack](https://jitpack.io/v/com.github.shkschneider/android_Skelet
 Setup
 -----
 
-**Gradle**
-
-Top-level *build.gradle*:
-
-<pre>allprojects {
-    repositories {
-        jcenter()
-        maven {
-            url 'https://jitpack.io'
-        }
-    }
-}</pre>
-
-Application-level *build.gradle*:
-
-<pre>dependencies {
-    compile 'com.github.shkschneider:android_Skeleton:5.1.0'
-}</pre>
-
-**AAR**
-
-https://jitpack.io/com/github/shkschneider/android_Skeleton/5.1.0/android_Skeleton-5.1.0.aar
+[![JitPack](https://jitpack.io/v/com.github.shkschneider/android_Skeleton.svg)](https://jitpack.io/#shkschneider/android_Skeleton/5.1.0)
 
 Specifications
 --------------
 
-**API**
+[![API-15+](https://img.shields.io/badge/API-15+-blue.svg?style=flat)](https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#ICE_CREAM_SANDWICH_MR1)
 
-- minSdkVersion [**15**](https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#ICE_CREAM_SANDWICH_MR1)
-- targetSdkVersion [23](https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#M)
+[![Apache 2](https://img.shields.io/badge/license-Apache%202-blue.svg?style=flat)](https://raw.githubusercontent.com/shkschneider/android_Skeleton/master/LICENSE)
 
 **Libraries**
 
@@ -58,6 +36,6 @@ Specifications
 Author
 ------
 
-[ShkSchneider](https://shkschneider.me)
+[ShkSchneider](https://shkschneider.github.io)
 
 https://github.com/shkschneider/android_Skeleton
