@@ -45,6 +45,9 @@ android {
             multiDexEnabled true
             signingConfig signingConfigs.debug
             minifyEnabled false
+
+            buildConfigField "boolean", "MOCK", "true"
+            resValue "string", "url", "http://android.com"
         }
         release {
             debuggable false
@@ -55,6 +58,9 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.pro'
             shrinkResources true
+
+            buildConfigField "boolean", "MOCK", "false"
+            resValue "string", "url", "http://android.com"
         }
     }
     splits {
