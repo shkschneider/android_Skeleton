@@ -3,7 +3,7 @@
     android:layout_width="match_parent">
 
     <PreferenceCategory
-        android:title="@string/skeleton">
+        android:title="@string/application">
 
         <Preference
             android:key="app_package"
