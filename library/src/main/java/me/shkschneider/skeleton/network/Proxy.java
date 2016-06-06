@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v4.util.LruCache;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
@@ -12,10 +11,17 @@ import com.android.volley.toolbox.Volley;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 
 // <https://developer.android.com/training/volley/index.html>
-// <https://github.com/mcxiaoke/android-volley>
 public class Proxy {
 
-    private static Proxy INSTANCE;
+    private static class ProxyHolder {
+
+        private static Proxy INSTANCE = new Proxy();
+
+    }
+
+    public static Proxy getInstance() {
+        return ProxyHolder.INSTANCE;
+    }
 
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
@@ -39,13 +45,6 @@ public class Proxy {
         });
     }
 
-    public static Proxy getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new Proxy();
-        }
-        return INSTANCE;
-    }
-
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
             mRequestQueue = Volley.newRequestQueue(ApplicationHelper.context());
@@ -53,9 +52,8 @@ public class Proxy {
         return mRequestQueue;
     }
 
-    public <T> void addToRequestQueue(@NonNull final Request<T> request) {
-        getRequestQueue().add(request);
-    }
+    // getRequestQueue().add()
+    // getRequestQueue().getCache().clear()
 
     public ImageLoader getImageLoader() {
         return mImageLoader;
