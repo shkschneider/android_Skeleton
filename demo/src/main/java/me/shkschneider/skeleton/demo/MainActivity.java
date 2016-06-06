@@ -131,7 +131,7 @@ public class MainActivity extends SkeletonActivity {
         @Override
         public void onReceive(final Context context, final Intent intent) {
             final int code = intent.getIntExtra(BROADCAST_SECRET_CODE, 0);
-            final String tag = "ShkMod";
+            final String tag = "ShkMod"; // defaults to URL
             Proxy.getInstance().getRequestQueue().cancelAll(tag);
             Proxy.getInstance().getRequestQueue().add(
                     new MyRequest(Request.Method.GET, URL,
@@ -139,7 +139,7 @@ public class MainActivity extends SkeletonActivity {
                                 @Override
                                 public void onResponse(final MyResponse response) {
                                     try {
-                                        final ShkMod shkMod = new Gson().fromJson(response.body, ShkMod.class);
+                                        final ShkMod shkMod = new Gson().fromJson(response.toString(), ShkMod.class);
                                         new AlertDialog.Builder(MainActivity.this)
                                                 .setTitle(ShkMod.class.getSimpleName())
                                                 .setMessage(ObjectHelper.jsonify(shkMod))

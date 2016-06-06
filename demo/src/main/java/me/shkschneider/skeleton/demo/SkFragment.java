@@ -34,6 +34,7 @@ public class SkFragment extends SkeletonFragment {
                 me.shkschneider.skeleton.data.DiskCache.Internal.class,
                 me.shkschneider.skeleton.data.ExternalDataHelper.class,
                 me.shkschneider.skeleton.data.FileHelper.class,
+                me.shkschneider.skeleton.data.GsonParser.class,
                 me.shkschneider.skeleton.data.InternalDataHelper.class,
                 me.shkschneider.skeleton.data.JsonParser.class,
                 me.shkschneider.skeleton.data.MemoryBitmapCache.class,
@@ -72,12 +73,12 @@ public class SkFragment extends SkeletonFragment {
                 me.shkschneider.skeleton.java.StringHelper.class
         });
         fill((LinearLayout) view.findViewById(R.id.network), new Class[] {
-                me.shkschneider.skeleton.network.ImageDownloader.class,
+                me.shkschneider.skeleton.network.ImageDownloader.class, // @Deprecated
                 me.shkschneider.skeleton.network.MyImageGetter.class,
                 me.shkschneider.skeleton.network.NetworkHelper.class,
                 me.shkschneider.skeleton.network.Proxy.class,
                 me.shkschneider.skeleton.network.UrlHelper.class,
-                me.shkschneider.skeleton.network.WebService.class,
+                me.shkschneider.skeleton.network.WebService.class, // @Deprecated
         });
         fill((LinearLayout) view.findViewById(R.id.security), new Class[] {
                 me.shkschneider.skeleton.security.Base64Helper.class,

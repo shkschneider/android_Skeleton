@@ -12,9 +12,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+
 import me.shkschneider.skeleton.SkeletonFragment;
+import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.SpannableStringHelper;
+import me.shkschneider.skeleton.network.Proxy;
 import me.shkschneider.skeleton.ui.BitmapHelper;
 
 public class ShkFragment extends SkeletonFragment {
@@ -31,7 +36,22 @@ public class ShkFragment extends SkeletonFragment {
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((ImageView) view.findViewById(R.id.id_avatar)).setImageBitmap(BitmapHelper.circular(BitmapHelper.fromResource(R.drawable.avatar)));
+        final ImageView avatar = (ImageView) view.findViewById(R.id.id_avatar);
+        avatar.setImageBitmap(BitmapHelper.circular(BitmapHelper.fromResource(R.drawable.avatar)));
+        Proxy.getInstance().getImageLoader().get("https://avatars3.githubusercontent.com/u/298903?v=3&s=460", new ImageLoader.ImageListener() {
+            @Override
+            public void onResponse(final ImageLoader.ImageContainer response, final boolean isImmediate) {
+                if (response.getBitmap() != null) {
+                    avatar.setImageBitmap(BitmapHelper.circular(response.getBitmap()));
+                }
+            }
+
+            @Override
+            public void onErrorResponse(final VolleyError error) {
+                ActivityHelper.toast(error.getMessage());
+            }
+        });
+
         fill(view.findViewById(R.id.id_id), "#", new SpannableString("42"));
         fill(view.findViewById(R.id.id_name), "Name", new SpannableString("Alan SCHNEIDER\n" +
                 "a.k.a. ShkSchneider"));

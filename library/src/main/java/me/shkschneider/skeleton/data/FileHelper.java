@@ -1,7 +1,6 @@
 package me.shkschneider.skeleton.data;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RawRes;
@@ -20,6 +19,7 @@ import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LocaleHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.SystemProperties;
+import me.shkschneider.skeleton.ui.BitmapHelper;
 
 public class FileHelper {
 
@@ -94,19 +94,6 @@ public class FileHelper {
         }
     }
 
-    @Nullable
-    public static Bitmap readBitmap(@NonNull final File file) {
-        try {
-            final BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-            return BitmapFactory.decodeStream(new FileInputStream(file), null, options);
-        }
-        catch (final Exception e) {
-            LogHelper.wtf(e);
-            return null;
-        }
-    }
-
     public static boolean writeString(@NonNull final OutputStream outputStream, @NonNull final String content) {
         try {
             outputStream.write(content.getBytes());
@@ -127,6 +114,11 @@ public class FileHelper {
             LogHelper.wtf(e);
             return false;
         }
+    }
+
+    @Nullable
+    public static Bitmap readBitmap(@NonNull final File file) {
+        return BitmapHelper.fromFile(file);
     }
 
     public static boolean writeBitmap(@NonNull final File file, @NonNull final Bitmap bitmap) {

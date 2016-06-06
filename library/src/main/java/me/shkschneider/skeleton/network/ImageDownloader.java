@@ -2,7 +2,6 @@ package me.shkschneider.skeleton.network;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v4.util.LruCache;
@@ -12,7 +11,9 @@ import java.net.URL;
 
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.RunnableHelper;
+import me.shkschneider.skeleton.ui.BitmapHelper;
 
+// @Deprecated?
 public class ImageDownloader {
 
     private static final int SIZE = (int) (Runtime.getRuntime().maxMemory() / 1024) / 8;
@@ -91,7 +92,7 @@ public class ImageDownloader {
             protected Bitmap doInBackground(final Void... voids) {
                 try {
                     final URL url = new URL(from);
-                    final Bitmap bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                    final Bitmap bitmap = BitmapHelper.fromInputStream(url.openConnection().getInputStream(), null);
                     if (bitmap != null) {
                         if (cache) {
                             if (CACHE == null) {

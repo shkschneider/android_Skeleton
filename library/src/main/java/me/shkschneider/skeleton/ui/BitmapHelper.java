@@ -22,6 +22,8 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 
 import me.shkschneider.skeleton.helper.ApplicationHelper;
@@ -46,7 +48,7 @@ public class BitmapHelper {
         return bitmap;
     }
 
-    public static Bitmap changeWhiteColor(@NonNull final Bitmap sourceBitmap, @ColorInt final int color) {
+    public static Bitmap whiteTo(@NonNull final Bitmap sourceBitmap, @ColorInt final int color) {
         final Bitmap resultBitmap = Bitmap.createBitmap(sourceBitmap, 0, 0, (sourceBitmap.getWidth() - 1), (sourceBitmap.getHeight() - 1));
         final Paint paint = new Paint();
         final ColorFilter colorFilter = new LightingColorFilter(color, 1);
@@ -87,9 +89,45 @@ public class BitmapHelper {
     }
 
     @Nullable
-    public static Bitmap fromUri(@NonNull final Uri uri) {
+    public static Bitmap fromInputStream(@NonNull final InputStream inputStream, BitmapFactory.Options options) {
+        if (options == null) {
+            options = new BitmapFactory.Options();
+        }
         try {
-            return BitmapFactory.decodeStream(ApplicationHelper.context().getContentResolver().openInputStream(uri), null, new BitmapFactory.Options());
+            return BitmapFactory.decodeStream(inputStream, null, options);
+        }
+        catch (final Exception e) {
+            LogHelper.wtf(e);
+            return null;
+        }
+    }
+
+    @Nullable
+    public static Bitmap fromUri(@NonNull final Uri uri, BitmapFactory.Options options) {
+        if (options == null) {
+            options = new BitmapFactory.Options();
+        }
+        try {
+            final InputStream inputStream = ApplicationHelper.context().getContentResolver().openInputStream(uri);
+            if (inputStream == null) {
+                return null;
+            }
+            return BitmapHelper.fromInputStream(inputStream, options);
+        }
+        catch (final Exception e) {
+            LogHelper.wtf(e);
+            return null;
+        }
+    }
+
+    @Nullable
+    public static Bitmap fromFile(@NonNull final File file) {
+        try {
+            return BitmapHelper.fromInputStream(new FileInputStream(file), new BitmapFactory.Options() {
+                {
+                    inPreferredConfig = Bitmap.Config.ARGB_8888;
+                }
+            });
         }
         catch (final Exception e) {
             LogHelper.wtf(e);
@@ -114,22 +152,21 @@ public class BitmapHelper {
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
     }
 
+    @Deprecated // ???
     @Nullable
     public static Bitmap decodeUri(@NonNull final Uri uri) {
-        final BitmapFactory.Options bitmapFactoryOptionsTmp = new BitmapFactory.Options();
-        bitmapFactoryOptionsTmp.inJustDecodeBounds = true;
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
         try {
             final InputStream inputStream = ApplicationHelper.context().getContentResolver().openInputStream(uri);
             if (inputStream == null) {
                 LogHelper.warning("InputStream was NULL");
                 return null;
             }
-
-            BitmapFactory.decodeStream(inputStream, null, bitmapFactoryOptionsTmp);
-            int width = bitmapFactoryOptionsTmp.outWidth;
-            int height = bitmapFactoryOptionsTmp.outHeight;
+            BitmapHelper.fromInputStream(inputStream, options);
+            int width = options.outWidth;
+            int height = options.outHeight;
             int scale = 1;
-
             final int downsample = (int) ScreenHelper.density();
             if (downsample <= 0) {
                 LogHelper.warning("Downsample was invalid");
@@ -144,10 +181,9 @@ public class BitmapHelper {
                 height /= 2;
                 scale *= 2;
             }
-            final BitmapFactory.Options bitmapFactoryOptions = new BitmapFactory.Options();
-            bitmapFactoryOptions.inJustDecodeBounds = false;
-            bitmapFactoryOptions.inSampleSize = scale;
-            return BitmapFactory.decodeStream(inputStream, null, bitmapFactoryOptions);
+            options.inJustDecodeBounds = false;
+            options.inSampleSize = scale;
+            return BitmapHelper.fromInputStream(inputStream, options);
         }
         catch (final Exception e) {
             LogHelper.wtf(e);
