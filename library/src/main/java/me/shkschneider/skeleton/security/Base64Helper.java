@@ -3,12 +3,15 @@ package me.shkschneider.skeleton.security;
 import android.support.annotation.NonNull;
 import android.util.Base64;
 
+import me.shkschneider.skeleton.java.SkHide;
+
 public class Base64Helper {
 
     protected Base64Helper() {
         // Empty
     }
 
+    @SkHide
     protected static final int FLAGS = Base64.NO_WRAP;
 
     public static String encrypt(@NonNull final String string) {

@@ -3,10 +3,11 @@ package me.shkschneider.skeleton.helper;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 
 import me.shkschneider.skeleton.java.ObjectHelper;
-import me.shkschneider.skeleton.java.StringHelper;
+import me.shkschneider.skeleton.java.SkHide;
 
 public class LogHelper {
 
@@ -23,6 +24,7 @@ public class LogHelper {
 
     // Used to identify the source of a log message.
     // It usually identifies the class or activity where the log call occurs.
+    @SkHide
     protected static String TAG = ApplicationHelper.packageName();
     // Here I use the application's packageName
 
@@ -44,7 +46,7 @@ public class LogHelper {
             }
             callerLineNumber = String.valueOf(elements[2].getLineNumber());
         }
-        final String stack = "[" + callerClassName + "." + callerMethodName + "():" + callerLineNumber + "]" + (StringHelper.nullOrEmpty(msg) ? "" : " ");
+        final String stack = "[" + callerClassName + "." + callerMethodName + "():" + callerLineNumber + "]" + (TextUtils.isEmpty(msg) ? "" : " ");
         switch (level) {
             case VERBOSE:
                 android.util.Log.v(TAG, stack + msg, throwable);

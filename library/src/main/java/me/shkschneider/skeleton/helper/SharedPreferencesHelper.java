@@ -5,8 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-
-import me.shkschneider.skeleton.java.StringHelper;
+import android.text.TextUtils;
 
 public class SharedPreferencesHelper {
 
@@ -34,7 +33,7 @@ public class SharedPreferencesHelper {
     // Private
 
     private static SharedPreferences getPrivate(@NonNull final String name) {
-        if (StringHelper.nullOrEmpty(name)) {
+        if (TextUtils.isEmpty(name)) {
             LogHelper.warning("Name was NULL");
             return getPublic();
         }

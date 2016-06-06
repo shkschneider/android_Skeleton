@@ -13,6 +13,7 @@ import me.shkschneider.skeleton.data.FileHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
+import me.shkschneider.skeleton.java.SkHide;
 
 public class WebViewHelper {
 
@@ -20,9 +21,13 @@ public class WebViewHelper {
         // Empty
     }
 
+    @SkHide
     public static final String META_VIEWPORT = "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=yes\">";
+    @SkHide
     public static final String META_THEME = "<meta name=\"theme-color\" content=\"#ffffff\">";
+    @SkHide
     public static final String CHARSET = CharsetHelper.UTF8;
+    @SkHide
     public static final String MIME_TYPE = MimeTypeHelper.TEXT_HTML;
 
     public static WebView getInstance() {

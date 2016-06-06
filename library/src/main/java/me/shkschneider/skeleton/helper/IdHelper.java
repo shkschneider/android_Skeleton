@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.helper;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 
 import java.util.UUID;
 
@@ -20,7 +21,7 @@ public class IdHelper {
     @Nullable
     public static String androidId() {
         final String androidId = Settings.Secure.getString(ApplicationHelper.context().getContentResolver(), Settings.Secure.ANDROID_ID);
-        if (StringHelper.nullOrEmpty(androidId)) {
+        if (TextUtils.isEmpty(androidId)) {
             LogHelper.warning("AndroidId was NULL");
             return null;
         }
@@ -44,7 +45,7 @@ public class IdHelper {
     @Nullable
     public static String uuid() {
         final String deviceId = androidId();
-        if (StringHelper.nullOrEmpty(deviceId)) {
+        if (TextUtils.isEmpty(deviceId)) {
             LogHelper.warning("DeviceId was NULL");
             return null;
         }

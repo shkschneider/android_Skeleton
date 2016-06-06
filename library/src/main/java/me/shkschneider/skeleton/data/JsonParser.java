@@ -2,6 +2,7 @@ package me.shkschneider.skeleton.data;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -12,7 +13,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.java.StringHelper;
 
 public class JsonParser {
 
@@ -34,11 +34,10 @@ public class JsonParser {
     @Nullable
     public static JSONObject parse(@NonNull final InputStream inputStream) {
         final String string = FileHelper.readString(inputStream);
-        if (StringHelper.nullOrEmpty(string)) {
+        if (TextUtils.isEmpty(string)) {
             LogHelper.warning("String was NULL");
             return null;
         }
-
         return parse(string);
     }
 

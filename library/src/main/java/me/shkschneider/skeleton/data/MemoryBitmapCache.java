@@ -14,7 +14,7 @@ public final class MemoryBitmapCache extends LruCache<String, Bitmap> {
         // OutOfMemory exception. Stored in kilobytes as LruCache takes an
         // int in its constructor.
         // Use 1/8th of the available memory for this memory cache.
-        this((int) (Runtime.getRuntime().maxMemory() / 1024) / 8);
+        super((int) (Runtime.getRuntime().maxMemory() / 1024) / 8);
     }
 
     @Deprecated // avoid

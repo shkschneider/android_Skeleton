@@ -15,13 +15,11 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import me.shkschneider.skeleton.SkeletonFragment;
-import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.AlphanumComparator;
-import me.shkschneider.skeleton.java.ListHelper;
+import me.shkschneider.skeleton.java.SkHide;
 
 public class SkFragment extends SkeletonFragment {
 
@@ -57,6 +55,7 @@ public class SkFragment extends SkeletonFragment {
                 me.shkschneider.skeleton.helper.DateTimeHelper.class,
                 me.shkschneider.skeleton.helper.DeviceHelper.class,
                 me.shkschneider.skeleton.helper.IdHelper.class,
+                me.shkschneider.skeleton.helper.IntentHelper.class,
                 me.shkschneider.skeleton.helper.KeyboardHelper.class,
                 me.shkschneider.skeleton.helper.LocaleHelper.class,
                 me.shkschneider.skeleton.helper.LogHelper.class,
@@ -79,7 +78,6 @@ public class SkFragment extends SkeletonFragment {
                 me.shkschneider.skeleton.java.StringHelper.class
         });
         fill((LinearLayout) view.findViewById(R.id.network), new Class[] {
-                me.shkschneider.skeleton.network.MyImageGetter.class,
                 me.shkschneider.skeleton.network.MyRequest.class,
                 me.shkschneider.skeleton.network.MyResponse.class,
                 me.shkschneider.skeleton.network.NetworkHelper.class,
@@ -123,7 +121,9 @@ public class SkFragment extends SkeletonFragment {
             for (final Field field : c.getDeclaredFields()) {
                 final int modifiers = field.getModifiers();
                 try {
-                    if (Modifier.isPrivate(modifiers) || field.getAnnotation(Deprecated.class) != null) {
+                    if (Modifier.isPrivate(modifiers)
+                            || field.getAnnotation(Deprecated.class) != null
+                            || field.getAnnotation(SkHide.class) != null) {
                         continue;
                     }
                 }
@@ -147,7 +147,9 @@ public class SkFragment extends SkeletonFragment {
             for (final Method method : c.getDeclaredMethods()) {
                 final int modifiers = method.getModifiers();
                 try {
-                    if (Modifier.isPrivate(modifiers) || method.getAnnotation(Deprecated.class) != null) {
+                    if (Modifier.isPrivate(modifiers)
+                            || method.getAnnotation(Deprecated.class) != null
+                            || method.getAnnotation(SkHide.class) != null) {
                         continue;
                     }
                 }

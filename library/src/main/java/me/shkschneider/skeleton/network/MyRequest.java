@@ -14,6 +14,7 @@ import java.util.Map;
 import me.shkschneider.skeleton.data.CharsetHelper;
 import me.shkschneider.skeleton.helper.DateTimeHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.java.SkHide;
 
 public class MyRequest extends Request<MyResponse> {
 
@@ -42,6 +43,7 @@ public class MyRequest extends Request<MyResponse> {
         this(Method.DEPRECATED_GET_OR_POST, url, null, null, errorListener);
     }
 
+    @SkHide
     @Override
     protected void deliverResponse(final MyResponse response) {
         if (mListener == null) {
@@ -51,17 +53,20 @@ public class MyRequest extends Request<MyResponse> {
         mListener.onResponse(response);
     }
 
+    @SkHide
     @Override
     public void deliverError(final VolleyError error) {
         LogHelper.wtf(error);
         super.deliverError(error);
     }
 
+    @SkHide
     @Override
     protected String getParamsEncoding() {
         return CharsetHelper.UTF8;
     }
 
+    @SkHide
     @Override
     protected Map<String, String> getParams() {
         return mBody;
@@ -99,6 +104,7 @@ public class MyRequest extends Request<MyResponse> {
     // <http://stackoverflow.com/a/21009890>
     private boolean mCached;
 
+    @SkHide
     @Override
     public void addMarker(final String tag) {
         super.addMarker(tag);
@@ -114,6 +120,7 @@ public class MyRequest extends Request<MyResponse> {
         return this;
     }
 
+    @SkHide
     @Override
     protected Response<MyResponse> parseNetworkResponse(@NonNull final NetworkResponse networkResponse) {
         Cache.Entry cacheEntry = parseCacheHeaders(networkResponse, mCacheTimeout);

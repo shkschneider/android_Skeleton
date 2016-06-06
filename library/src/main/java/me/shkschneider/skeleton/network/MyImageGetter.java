@@ -13,6 +13,7 @@ import com.android.volley.toolbox.ImageLoader;
 
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.java.SkHide;
 
 // android.text.Html.fromHtml(String, MyImageGetter, null)
 // <http://stackoverflow.com/a/25530488>
@@ -24,6 +25,7 @@ public class MyImageGetter implements Html.ImageGetter {
         mTextView = textView;
     }
 
+    @SkHide
     @Override
     public Drawable getDrawable(final String source) {
         final BitmapDrawablePlaceholder bitmapDrawablePlaceholder = new BitmapDrawablePlaceholder();

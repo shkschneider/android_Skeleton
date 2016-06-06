@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.widget.DatePicker;
@@ -13,8 +14,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
-
-import me.shkschneider.skeleton.java.StringHelper;
 
 public class DateTimeHelper {
 
@@ -49,7 +48,7 @@ public class DateTimeHelper {
 
     // <http://howtodoinjava.com/2012/12/16/always-use-setlenient-false-when-using-simpledateformat-for-date-validation-in-java/>
     public static String format(@NonNull final Calendar calendar, String format) {
-        if (StringHelper.nullOrEmpty(format)) {
+        if (TextUtils.isEmpty(format)) {
             format = ISO8601;
         }
         calendar.setLenient(false);
@@ -65,7 +64,7 @@ public class DateTimeHelper {
     }
 
     public static long timestamp(final String string) {
-        if (StringHelper.nullOrEmpty(string)) {
+        if (TextUtils.isEmpty(string)) {
             return 0;
         }
         try {

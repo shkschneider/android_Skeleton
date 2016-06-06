@@ -7,6 +7,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
+import android.text.TextUtils;
 import android.webkit.WebView;
 
 import java.net.Inet4Address;
@@ -19,7 +20,6 @@ import java.util.List;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.SystemServices;
-import me.shkschneider.skeleton.java.StringHelper;
 
 public class NetworkHelper {
 
@@ -88,7 +88,7 @@ public class NetworkHelper {
             return null;
         }
         final String macAddress = wifiInfo.getMacAddress();
-        if (StringHelper.nullOrEmpty(macAddress)) {
+        if (TextUtils.isEmpty(macAddress)) {
             LogHelper.warning("MacAddress was NULL");
             return null;
         }

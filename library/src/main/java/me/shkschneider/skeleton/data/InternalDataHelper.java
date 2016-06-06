@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.java.SkHide;
 
 public class InternalDataHelper {
 
@@ -54,6 +55,7 @@ public class InternalDataHelper {
         return ApplicationHelper.context().getFilesDir();
     }
 
+    @SkHide
     @TargetApi(AndroidHelper.API_21)
     public static File backup() {
         return ApplicationHelper.context().getNoBackupFilesDir();

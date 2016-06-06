@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -220,7 +221,7 @@ public abstract class SkeletonActivity extends AppCompatActivity {
             LogHelper.warning("ActionBar was NULL");
             return;
         }
-        actionBar.setDisplayShowTitleEnabled(! StringHelper.nullOrEmpty(title));
+        actionBar.setDisplayShowTitleEnabled(! TextUtils.isEmpty(title));
         actionBar.setTitle(title);
     }
 
@@ -240,7 +241,7 @@ public abstract class SkeletonActivity extends AppCompatActivity {
             LogHelper.warning("ActionBar was NULL");
             return;
         }
-        actionBar.setDisplayShowTitleEnabled(! StringHelper.nullOrEmpty(subtitle));
+        actionBar.setDisplayShowTitleEnabled(! TextUtils.isEmpty(subtitle));
         actionBar.setSubtitle(subtitle);
     }
 

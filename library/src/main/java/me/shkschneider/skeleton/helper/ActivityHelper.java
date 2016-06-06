@@ -3,10 +3,9 @@ package me.shkschneider.skeleton.helper;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
-
-import me.shkschneider.skeleton.java.StringHelper;
 
 public class ActivityHelper {
 
@@ -15,7 +14,7 @@ public class ActivityHelper {
     }
 
     public static void toast(@NonNull final String msg) {
-        if (StringHelper.nullOrEmpty(msg)) {
+        if (TextUtils.isEmpty(msg)) {
             LogHelper.warning("Message was NULL");
             return;
         }
@@ -23,7 +22,7 @@ public class ActivityHelper {
     }
 
     public static void snackBar(@NonNull final View view, @NonNull final String msg) {
-        if (StringHelper.nullOrEmpty(msg)) {
+        if (TextUtils.isEmpty(msg)) {
             LogHelper.warning("Message was NULL");
             return;
         }
@@ -31,7 +30,7 @@ public class ActivityHelper {
     }
 
     public static void snackBar(@NonNull final View view, @NonNull final String msg, @NonNull final String action, @NonNull final View.OnClickListener onClickListener) {
-        if (StringHelper.nullOrEmpty(msg)) {
+        if (TextUtils.isEmpty(msg)) {
             LogHelper.warning("Message was NULL");
             return;
         }

@@ -10,7 +10,7 @@ public class NotificationHelper {
 
     public static NotificationCompat.Builder Builder(final int color, final int icon, final String ticker, final String title, final String message, final PendingIntent pendingIntent) {
         return new NotificationCompat.Builder(ApplicationHelper.context())
-                .setSmallIcon(icon) // white-only for API-21+
+                .setSmallIcon(icon) // White-only for API-21+
                 // .setLargeIcon(ApplicationHelper.icon())
                 .setTicker(ticker) // ApplicationHelper.name()
                 .setContentTitle(title)

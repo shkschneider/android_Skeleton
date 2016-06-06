@@ -9,13 +9,17 @@ import android.view.Window;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.shkschneider.skeleton.java.SkHide;
+
 public class ViewHelper {
 
     protected ViewHelper() {
         // Empty
     }
 
+    @SkHide
     final static String ANDROIDXML = "http://schemas.android.com/apk/res/android";
+    @SkHide
     final static String RESAUTOXML = "http://schemas.android.com/apk/res-auto";
 
     public static View content(@NonNull final Activity activity) {

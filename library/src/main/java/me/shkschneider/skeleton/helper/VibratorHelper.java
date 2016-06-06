@@ -5,7 +5,7 @@ import android.support.annotation.IntRange;
 
 public class VibratorHelper {
 
-    public static final long DEFAULT_DURATION = 500L;
+    public static final long[] DEFAULT_DURATION = new long[] { 1000, 1000, 1000, 1000, 1000 };
 
     protected VibratorHelper() {
         // Empty
@@ -33,6 +33,10 @@ public class VibratorHelper {
 
     public static boolean vibrate(@IntRange(from=1) final long duration) {
         return vibrate(duration, false);
+    }
+
+    public static boolean vibrate() {
+        return vibrate(DEFAULT_DURATION, false);
     }
 
 }
