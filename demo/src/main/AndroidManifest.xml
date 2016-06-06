@@ -7,6 +7,8 @@
         android:name="android.hardware.touchscreen"
         android:required="true" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <supports-screens
         android:smallScreens="true"
         android:normalScreens="true"

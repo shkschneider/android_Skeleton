@@ -166,7 +166,7 @@ public class LogHelper {
     }
 
     public static void wtf(@NonNull final Throwable throwable) {
-        log(WTF, null, throwable);
+        log(WTF, throwable.getMessage(), throwable);
     }
 
 }

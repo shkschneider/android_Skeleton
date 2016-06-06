@@ -18,18 +18,21 @@ import me.shkschneider.skeleton.java.StringHelper;
 
 public class DateTimeHelper {
 
+    private static class CalendarHolder {
+
+        private static Calendar INSTANCE = Calendar.getInstance(LocaleHelper.locale());
+
+    }
+
+    public static Calendar calendar() {
+        return CalendarHolder.INSTANCE;
+    }
+
     // <http://developer.android.com/intl/ru/reference/java/text/SimpleDateFormat.html>
     public static final String ISO8601 = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
 
     protected DateTimeHelper() {
         // Empty
-    }
-
-    // <http://howtodoinjava.com/2012/12/16/always-use-setlenient-false-when-using-simpledateformat-for-date-validation-in-java/>
-    public static Calendar calendar() {
-        final Calendar calendar = Calendar.getInstance(LocaleHelper.locale());
-        calendar.setLenient(false);
-        return calendar;
     }
 
     public static int day() {
@@ -44,11 +47,17 @@ public class DateTimeHelper {
         return calendar().get(Calendar.YEAR);
     }
 
+    // <http://howtodoinjava.com/2012/12/16/always-use-setlenient-false-when-using-simpledateformat-for-date-validation-in-java/>
     public static String format(@NonNull final Calendar calendar, String format) {
         if (StringHelper.nullOrEmpty(format)) {
             format = ISO8601;
         }
+        calendar.setLenient(false);
         return new SimpleDateFormat(format, LocaleHelper.locale()).format(calendar.getTime());
+    }
+
+    public static long now() {
+        return System.currentTimeMillis();
     }
 
     public static long timestamp() {
