@@ -26,14 +26,14 @@ public class GZipRequest extends StringRequest {
 
     @Override
     protected Response<String> parseNetworkResponse(@NonNull final NetworkResponse response) {
-        String output = "";
+        final StringBuilder stringBuilder = new StringBuilder();
         try {
             final GZIPInputStream gzipInputStream = new GZIPInputStream(new ByteArrayInputStream(response.data));
             final InputStreamReader inputStreamReader = new InputStreamReader(gzipInputStream);
             final BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-            String read;
-            while ((read = bufferedReader.readLine()) != null) {
-                output += read;
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                stringBuilder.append(line);
             }
             inputStreamReader.close();
             bufferedReader.close();
@@ -42,7 +42,7 @@ public class GZipRequest extends StringRequest {
         catch (final Exception e) {
             return Response.error(new ParseError(e));
         }
-        return Response.success(output, HttpHeaderParser.parseCacheHeaders(response));
+        return Response.success(stringBuilder.toString(), HttpHeaderParser.parseCacheHeaders(response));
     }
 
 }
