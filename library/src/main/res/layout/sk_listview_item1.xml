@@ -13,7 +13,7 @@
         android:id="@android:id/text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="left|center_vertical"
+        android:gravity="start|center_vertical"
         android:minHeight="72dp"
         android:textColor="@color/textPrimaryColor" />
 

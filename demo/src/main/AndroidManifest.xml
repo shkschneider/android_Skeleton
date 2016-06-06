@@ -24,6 +24,7 @@
         android:label="@string/skeleton"
         android:name=".MainApplication"
         android:theme="@style/AppTheme"
+        android:supportsRtl="true"
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity

@@ -12,7 +12,7 @@ import me.shkschneider.skeleton.helper.LogHelper;
  *
  *     onCreate()
  */
-public class SkeletonApplication extends Application {
+public abstract class SkeletonApplication extends Application {
 
     public static Boolean DEBUG = false;
     public static Context CONTEXT = null;

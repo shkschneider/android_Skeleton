@@ -17,7 +17,7 @@
         android:singleLine="true"
         android:maxLines="1"
         android:ellipsize="marquee"
-        android:gravity="left|center_vertical"
+        android:gravity="start|center_vertical"
         android:text="@string/dots" />
 
     <Space

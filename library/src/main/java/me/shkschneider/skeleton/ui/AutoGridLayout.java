@@ -20,7 +20,7 @@ public class AutoGridLayout extends FrameLayout {
     public static final int VERTICAL = 1;
 
     private int mOrientation;
-    private int mGravity = (Gravity.TOP | Gravity.LEFT);
+    private int mGravity = (Gravity.TOP | Gravity.START);
 
     private List<ViewPosition> mListPositions = new ArrayList<>();
 
@@ -285,7 +285,7 @@ public class AutoGridLayout extends FrameLayout {
 
     private void updateLeftPositionByGravity(final ViewPosition viewPosition, final int size, final int gravity) {
         switch ((gravity & Gravity.HORIZONTAL_GRAVITY_MASK)) {
-            case Gravity.RIGHT:
+            case Gravity.END:
                 viewPosition.left += ((size > 0) ? size : 0);
                 break ;
             case Gravity.CENTER_HORIZONTAL:

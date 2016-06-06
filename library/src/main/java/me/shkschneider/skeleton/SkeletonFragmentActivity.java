@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 
-public class SkeletonFragmentActivity extends SkeletonActivity {
+public abstract class SkeletonFragmentActivity extends SkeletonActivity {
 
     protected void setContentFragment(@NonNull final Fragment fragment) {
         getSupportFragmentManager().beginTransaction()

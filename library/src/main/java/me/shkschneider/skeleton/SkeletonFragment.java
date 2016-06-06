@@ -28,7 +28,7 @@ import android.view.ViewGroup;
  *     onDestroy()
  *     onDetach()
  */
-public class SkeletonFragment extends Fragment {
+public abstract class SkeletonFragment extends Fragment {
 
     protected SkeletonActivity mActivity;
 

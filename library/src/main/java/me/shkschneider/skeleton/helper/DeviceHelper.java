@@ -21,7 +21,7 @@ public class DeviceHelper {
     public static boolean emulator() {
         boolean emulator = Build.FINGERPRINT.startsWith("generic")
                 || Build.MODEL.contains("google_sdk")
-                || Build.MODEL.toLowerCase().contains("droid4x")
+                || Build.MODEL.toLowerCase(LocaleHelper.locale()).contains("droid4x")
                 || Build.MODEL.contains("Emulator")
                 || Build.MODEL.contains("Android SDK built for x86")
                 || Build.MANUFACTURER.contains("Genymotion")
@@ -31,11 +31,11 @@ public class DeviceHelper {
                 || Build.PRODUCT.equals("google_sdk")
                 || Build.PRODUCT.equals("sdk_x86")
                 || Build.PRODUCT.equals("vbox86p")
-                || Build.BOARD.toLowerCase().contains("nox")
-                || Build.BOOTLOADER.toLowerCase().contains("nox")
-                || Build.HARDWARE.toLowerCase().contains("nox")
-                || Build.PRODUCT.toLowerCase().contains("nox")
-                || Build.SERIAL.toLowerCase().contains("nox");
+                || Build.BOARD.toLowerCase(LocaleHelper.locale()).contains("nox")
+                || Build.BOOTLOADER.toLowerCase(LocaleHelper.locale()).contains("nox")
+                || Build.HARDWARE.toLowerCase(LocaleHelper.locale()).contains("nox")
+                || Build.PRODUCT.toLowerCase(LocaleHelper.locale()).contains("nox")
+                || Build.SERIAL.toLowerCase(LocaleHelper.locale()).contains("nox");
         if (emulator) return true;
         emulator = Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic");
         if (emulator) return true;

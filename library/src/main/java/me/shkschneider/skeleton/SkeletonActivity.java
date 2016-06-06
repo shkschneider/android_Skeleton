@@ -46,7 +46,7 @@ import me.shkschneider.skeleton.ui.MySwipeRefreshLayout;
  *     onStop()
  *     onDestroy()
  */
-public class SkeletonActivity extends AppCompatActivity {
+public abstract class SkeletonActivity extends AppCompatActivity {
 
     protected Toolbar mToolbar;
     protected MySwipeRefreshLayout mMySwipeRefreshLayout;

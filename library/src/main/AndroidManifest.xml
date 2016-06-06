@@ -1,3 +1,6 @@
-<manifest package="me.shkschneider.skeleton">
-    <!-- <https://code.google.com/p/android/issues/detail?id=77890> -->
+<manifest package="me.shkschneider.skeleton"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application android:supportsRtl="true" />
+
 </manifest>

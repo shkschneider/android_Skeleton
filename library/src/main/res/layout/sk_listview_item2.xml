@@ -13,7 +13,7 @@
         android:id="@android:id/text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="left|bottom"
+        android:gravity="start|bottom"
         android:minHeight="36dp"
         android:textColor="@color/textPrimaryColor" />
 
@@ -21,7 +21,7 @@
         android:id="@android:id/text2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="left|top"
+        android:gravity="start|top"
         android:minHeight="36dp"
         android:textColor="@color/textSecondaryColor" />
 
