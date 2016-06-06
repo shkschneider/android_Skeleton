@@ -1,19 +1,44 @@
+# Built application files
 *.apk
+*.ap_
+*.dex
+#*.jar
+#*.aar
+
+# Java class files
+
+*.class
+
+# Generated files
 bin/
 gen/
 out/
-build/
 dist/
-local.properties
+
+# Gradle
 .gradle/
-.classpath
-.project
+build/
+
+# SDK
+local.properties
+
+# Proguard
 proguard/
-proguard_logs/
-*.iml
-*.ipr
-*.iws
-.idea/
+#proguard_logs/
+
+# Log files
 *.log
-*.aar
+
+# Android Studio
+.navigation/
+captures/
+
+# IntelliJ
+#*.ipr
+#*.iws
+*.iml
+.idea
+
+# Keystore files
+*.jks
 release.keystore
