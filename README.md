@@ -6,12 +6,12 @@ Skeleton
 Setup
 -----
 
-[![JitPack](https://jitpack.io/v/com.github.shkschneider/android_Skeleton.svg)](https://jitpack.io/#shkschneider/android_Skeleton/5.1.0)
+[![JitPack](https://jitpack.io/v/com.github.shkschneider/android_Skeleton.svg)](https://jitpack.io/#shkschneider/android_Skeleton/5.2.0)
 
 Specifications
 --------------
 
-[![API-15+](https://img.shields.io/badge/API-15+-blue.svg?style=flat)](https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#ICE_CREAM_SANDWICH_MR1)
+[![API-14+](https://img.shields.io/badge/API-14+-blue.svg?style=flat)](https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#ICE_CREAM_SANDWICH)
 
 [![Apache 2](https://img.shields.io/badge/license-Apache%202-blue.svg?style=flat)](https://raw.githubusercontent.com/shkschneider/android_Skeleton/master/LICENSE)
 
@@ -25,7 +25,7 @@ Specifications
 
 **Uses**
 
-- [Gradle 2.1.1](http://tools.android.com/tech-docs/new-build-system)
+- [Gradle 2.1.0](http://tools.android.com/tech-docs/new-build-system) (wrapper 2.11)
 - [Android Studio 2.1.1](https://developer.android.com/sdk/index.html)
 - [android.support.v7.app.AppCompatActivity](https://developer.android.com/reference/android/support/v7/app/AppCompatActivity.html)
 - [android.support.v7.widget.Toolbar](https://developer.android.com/reference/android/support/v7/widget/Toolbar.html)

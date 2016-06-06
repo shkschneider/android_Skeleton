@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 
 import me.shkschneider.skeleton.helper.DeviceHelper;
-import me.shkschneider.skeleton.helper.IdHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
 /**
@@ -23,9 +22,7 @@ public abstract class SkeletonApplication extends Application {
 
         CONTEXT = getApplicationContext();
 
-        LogHelper.verbose("Hello, world!");
-        LogHelper.verbose("Device: " + DeviceHelper.codename());
-        LogHelper.verbose("Id: " + IdHelper.androidId());
+        LogHelper.verbose("Hello, " + DeviceHelper.codename() + "!");
     }
 
 }

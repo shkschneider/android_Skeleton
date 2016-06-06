@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/spaceSmaller"
         app:layout_anchor="@id/viewPager"
-        app:layout_anchorGravity="bottom|right"
+        app:layout_anchorGravity="bottom|right|end"
         app:backgroundTint="@color/accentColor"
         app:rippleColor="@color/primaryColor" />
 
