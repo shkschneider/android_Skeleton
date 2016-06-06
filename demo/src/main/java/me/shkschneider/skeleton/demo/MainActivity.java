@@ -96,20 +96,6 @@ public class MainActivity extends SkeletonActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-
-        LocalBroadcastManager.getInstance(MainActivity.this).registerReceiver(mBroadcastReceiver, new IntentFilter(BROADCAST_SECRET));
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        LocalBroadcastManager.getInstance(MainActivity.this).unregisterReceiver(mBroadcastReceiver);
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
@@ -125,13 +111,29 @@ public class MainActivity extends SkeletonActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        LocalBroadcastManager.getInstance(MainActivity.this).registerReceiver(mBroadcastReceiver, new IntentFilter(BROADCAST_SECRET));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        Proxy.getInstance().getRequestQueue().cancelAll(URL);
+        LocalBroadcastManager.getInstance(MainActivity.this).unregisterReceiver(mBroadcastReceiver);
+    }
+
+    private final static String URL = "https://raw.githubusercontent.com/shkschneider/android_manifest/master/VERSION.json";
+
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
-        private final static String URL = "https://raw.githubusercontent.com/shkschneider/android_manifest/master/VERSION.json";
         @SuppressWarnings("unused")
         @Override
         public void onReceive(final Context context, final Intent intent) {
             final int code = intent.getIntExtra(BROADCAST_SECRET_CODE, 0);
-            final String tag = "ShkMod"; // defaults to URL
+            final String tag = URL; // defaults to URL anyway
             Proxy.getInstance().getRequestQueue().cancelAll(tag);
             Proxy.getInstance().getRequestQueue().add(
                     new MyRequest(Request.Method.GET, URL,

@@ -33,13 +33,31 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/spaceTiny" />
 
-        <ImageView
-            android:id="@+id/id_avatar"
+        <ViewSwitcher
+            android:id="@+id/viewSwitcher"
             android:layout_width="@dimen/spaceBig"
             android:layout_height="@dimen/spaceBig"
-            android:src="@null"
-            android:contentDescription="@null"
-            android:layout_gravity="center" />
+            android:inAnimation="@anim/sk_fade_in"
+            android:outAnimation="@anim/sk_fade_out"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/id_placeholder"
+                android:layout_width="@dimen/spaceBig"
+                android:layout_height="@dimen/spaceBig"
+                android:src="@android:drawable/sym_def_app_icon"
+                android:contentDescription="@null"
+                android:layout_gravity="center" />
+
+            <ImageView
+                android:id="@+id/id_avatar"
+                android:layout_width="@dimen/spaceBig"
+                android:layout_height="@dimen/spaceBig"
+                android:src="@null"
+                android:contentDescription="@null"
+                android:layout_gravity="center" />
+
+        </ViewSwitcher>
 
         <android.support.v4.widget.Space
             android:layout_width="match_parent"

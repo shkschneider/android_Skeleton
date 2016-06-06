@@ -13,9 +13,15 @@ import android.widget.TextView;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.java.AlphanumComparator;
+import me.shkschneider.skeleton.java.ListHelper;
 
 public class SkFragment extends SkeletonFragment {
 
@@ -106,9 +112,14 @@ public class SkFragment extends SkeletonFragment {
     private void fill(@NonNull final LinearLayout linearLayout, final Class[] cs) {
         for (final Class c : cs) {
             final View ui = LayoutInflater.from(getContext()).inflate(R.layout.ui, linearLayout, false);
-            ((TextView) ui.findViewById(R.id.textView1)).setText(c.getName().replaceFirst("^.+\\.", "").replace("$", "."));
+            ((TextView) ui.findViewById(R.id.textView1)).setText(c.getName()
+                    .replaceFirst("^.+\\.", "")
+                    .replaceFirst("\\$.+$", "")
+                    .replaceAll("([a-z])([A-Z])", "$1\n$2"));
             final TextView textView2 = (TextView) ui.findViewById(R.id.textView2);
             textView2.setText("");
+            // fields
+            final List<String> fields = new ArrayList<>();
             for (final Field field : c.getDeclaredFields()) {
                 final int modifiers = field.getModifiers();
                 try {
@@ -120,13 +131,19 @@ public class SkFragment extends SkeletonFragment {
                     continue;
                 }
                 final String name = field.getName();
-                if (!name.contains("$")) {
-                    if (!TextUtils.isEmpty(textView2.getText())) {
-                        textView2.append("\n");
-                    }
-                    textView2.append(name);
+                if (! name.contains("$")) {
+                    fields.add(name);
                 }
             }
+            Collections.sort(fields, new AlphanumComparator());
+            for (final String field : fields) {
+                if (! TextUtils.isEmpty(textView2.getText())) {
+                    textView2.append("\n");
+                }
+                textView2.append(field);
+            }
+            // methods
+            final List<String> methods = new ArrayList<>();
             for (final Method method : c.getDeclaredMethods()) {
                 final int modifiers = method.getModifiers();
                 try {
@@ -138,15 +155,19 @@ public class SkFragment extends SkeletonFragment {
                     continue;
                 }
                 final String name = method.getName();
-                if (!name.contains("$")) {
-                    if (textView2.getText().toString().contains(name + "()")) {
+                if (! name.contains("$")) {
+                    if (methods.contains(name + "()")) {
                         continue;
                     }
-                    if (!TextUtils.isEmpty(textView2.getText())) {
-                        textView2.append("\n");
-                    }
-                    textView2.append(name + "()");
+                    methods.add(name + "()");
                 }
+            }
+            Collections.sort(methods, new AlphanumComparator());
+            for (final String method : methods) {
+                if (!TextUtils.isEmpty(textView2.getText())) {
+                    textView2.append("\n");
+                }
+                textView2.append(method);
             }
             linearLayout.addView(ui);
         }

@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.demo;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
@@ -24,7 +26,8 @@ import me.shkschneider.skeleton.ui.BitmapHelper;
 
 public class ShkFragment extends SkeletonFragment {
 
-    private static final String URL = "https://github.com/shkschneider/android_Skeleton";
+    private static final String AVATAR = "https://raw.githubusercontent.com/shkschneider/shkschneider.github.io/master/shkschneider.png";
+    private static final String GITHUB = "https://github.com/shkschneider/android_Skeleton";
 
     @Nullable
     @Override
@@ -36,16 +39,17 @@ public class ShkFragment extends SkeletonFragment {
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final ImageView avatar = (ImageView) view.findViewById(R.id.id_avatar);
-        avatar.setImageBitmap(BitmapHelper.circular(BitmapHelper.fromResource(R.drawable.avatar)));
-        Proxy.getInstance().getImageLoader().get("https://avatars3.githubusercontent.com/u/298903?v=3&s=460", new ImageLoader.ImageListener() {
+        // final Bitmap placeholder = BitmapHelper.circular(BitmapHelper.fromResource(android.R.drawable.sym_def_app_icon));
+        // ((ImageView) view.findViewById(R.id.id_placeholder)).setImageBitmap(placeholder);
+        Proxy.getInstance().getImageLoader().get(AVATAR, new ImageLoader.ImageListener() {
             @Override
             public void onResponse(final ImageLoader.ImageContainer response, final boolean isImmediate) {
                 if (response.getBitmap() != null) {
-                    avatar.setImageBitmap(BitmapHelper.circular(response.getBitmap()));
+                    final Bitmap avatar = BitmapHelper.circular(response.getBitmap());
+                    ((ImageView) view.findViewById(R.id.id_avatar)).setImageBitmap(avatar);
+                    ((ViewSwitcher) view.findViewById(R.id.viewSwitcher)).showNext();
                 }
             }
-
             @Override
             public void onErrorResponse(final VolleyError error) {
                 ActivityHelper.toast(error.getMessage());
@@ -103,11 +107,11 @@ public class ShkFragment extends SkeletonFragment {
                 "English (fluent, TOIEC 800+)"));
 
         final Button github = (Button) view.findViewById(R.id.github);
-        github.setText(URL.replaceFirst("https://github.com/", ""));
+        github.setText(GITHUB.replaceFirst("https://github.com/", ""));
         github.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                startActivity(IntentHelper.web(URL));
+                startActivity(IntentHelper.web(GITHUB));
             }
         });
     }
