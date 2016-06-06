@@ -1,7 +1,9 @@
 package me.shkschneider.skeleton.helper;
 
+import android.Manifest;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresPermission;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
@@ -31,8 +33,9 @@ public class IdHelper {
         return StringHelper.lower(androidId);
     }
 
-    @Deprecated // avoid
+    @Deprecated // Avoid
     @Nullable
+    @RequiresPermission(Manifest.permission.READ_PHONE_STATE)
     public static String imei() {
         final TelephonyManager telephonyManager = SystemServices.telephonyManager();
         if (telephonyManager == null) {
@@ -40,6 +43,18 @@ public class IdHelper {
             return null;
         }
         return telephonyManager.getDeviceId();
+    }
+
+    @Deprecated // Avoid
+    @Nullable
+    @RequiresPermission(Manifest.permission.READ_PHONE_STATE)
+    public static String sim() {
+        final TelephonyManager telephonyManager = SystemServices.telephonyManager();
+        if (telephonyManager == null) {
+            LogHelper.warning("TelephonyManager was NULL");
+            return null;
+        }
+        return telephonyManager.getSimSerialNumber();
     }
 
     @Nullable

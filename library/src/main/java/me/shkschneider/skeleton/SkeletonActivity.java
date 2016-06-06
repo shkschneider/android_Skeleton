@@ -206,13 +206,29 @@ public abstract class SkeletonActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(b);
     }
 
-    @Deprecated // avoid
+    @Deprecated // Avoid
     public void home(final Drawable drawable) {
         if (mToolbar == null) {
             LogHelper.warning("Toolbar was NULL");
             return;
         }
         mToolbar.setNavigationIcon(drawable);
+    }
+
+    @Deprecated
+    public void icon(final Drawable drawable) {
+        logo(drawable);
+    }
+
+    public void logo(final Drawable drawable) {
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar == null) {
+            LogHelper.warning("ActionBar was NULL");
+            return;
+        }
+        actionBar.setDisplayShowHomeEnabled((drawable != null));
+        actionBar.setDisplayUseLogoEnabled((drawable != null));
+        actionBar.setLogo(drawable);
     }
 
     public void title(final String title) {
@@ -253,17 +269,6 @@ public abstract class SkeletonActivity extends AppCompatActivity {
         }
         final CharSequence subtitle = actionBar.getSubtitle();
         return ((subtitle != null) ? subtitle.toString() : null);
-    }
-
-    public void logo(final Drawable drawable) {
-        final ActionBar actionBar = getSupportActionBar();
-        if (actionBar == null) {
-            LogHelper.warning("ActionBar was NULL");
-            return;
-        }
-        actionBar.setDisplayShowHomeEnabled((drawable != null));
-        actionBar.setDisplayUseLogoEnabled((drawable != null));
-        actionBar.setLogo(drawable);
     }
 
     // MySwipeRefreshLayout

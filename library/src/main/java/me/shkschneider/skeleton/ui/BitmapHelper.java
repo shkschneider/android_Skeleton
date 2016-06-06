@@ -152,7 +152,7 @@ public class BitmapHelper {
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
     }
 
-    @Deprecated // ???
+    @Deprecated // Avoid
     @Nullable
     public static Bitmap decodeUri(@NonNull final Uri uri) {
         final BitmapFactory.Options options = new BitmapFactory.Options();
@@ -163,7 +163,7 @@ public class BitmapHelper {
                 LogHelper.warning("InputStream was NULL");
                 return null;
             }
-            BitmapHelper.fromInputStream(inputStream, options);
+            // Tries to optimize the process
             int width = options.outWidth;
             int height = options.outHeight;
             int scale = 1;

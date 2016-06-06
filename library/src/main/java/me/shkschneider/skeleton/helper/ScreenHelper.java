@@ -97,7 +97,6 @@ public class ScreenHelper {
         return ApplicationHelper.resources().getDisplayMetrics().widthPixels;
     }
 
-    @Deprecated // avoid
     public static int statusBarHeight() {
         return (int) ApplicationHelper.resources().getDimension(R.dimen.statusBar);
     }

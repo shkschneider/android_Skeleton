@@ -5,11 +5,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
 import android.text.TextUtils;
 import android.webkit.WebView;
 
+import java.lang.reflect.Method;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -27,16 +29,14 @@ public class NetworkHelper {
         // Empty
     }
 
-    @Deprecated // avoid
+    // <http://stackoverflow.com/a/21899684>
+    @Deprecated // Avoid
     @Nullable
     public static String hostname() {
         try {
-            final InetAddress inetAddress = InetAddress.getLocalHost();
-            if (inetAddress == null) {
-                LogHelper.warning("InetAddress was NULL");
-                return null;
-            }
-            return inetAddress.getHostName();
+            final Method getString = Build.class.getDeclaredMethod("getString", String.class);
+            getString.setAccessible(true);
+            return getString.invoke(null, "net.hostname").toString();
         }
         catch (final Exception e) {
             LogHelper.wtf(e);
@@ -44,7 +44,7 @@ public class NetworkHelper {
         }
     }
 
-    @Deprecated // avoid
+    @Deprecated // Avoid
     public static String userAgent() {
         return new WebView(ApplicationHelper.context()).getSettings().getUserAgentString();
     }
@@ -74,7 +74,7 @@ public class NetworkHelper {
     }
 
     @RequiresPermission(Manifest.permission.ACCESS_WIFI_STATE)
-    @Deprecated // avoid
+    @Deprecated // Avoid
     @Nullable
     public static String macAddress() {
         final WifiManager wifiManager = SystemServices.wifiManager();

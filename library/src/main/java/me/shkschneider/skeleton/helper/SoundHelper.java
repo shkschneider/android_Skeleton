@@ -6,7 +6,7 @@ import android.net.Uri;
 
 public class SoundHelper {
 
-    public static Ringtone notifications() {
+    public static Ringtone notification() {
         try {
             final Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             return RingtoneManager.getRingtone(ApplicationHelper.context(), uri);
@@ -39,7 +39,7 @@ public class SoundHelper {
         }
     }
 
-    @Deprecated // avoid
+    @Deprecated // Not sure what that actually plays
     public static Ringtone all() {
         try {
             final Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALL);

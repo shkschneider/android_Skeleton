@@ -10,14 +10,14 @@ public class DeviceHelper {
         // Empty
     }
 
-    @Deprecated // avoid
+    @Deprecated // Avoid
     public static boolean tablet() {
         final int screenLayout = ApplicationHelper.resources().getConfiguration().screenLayout;
         return ((screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE);
     }
 
     // <https://github.com/framgia/android-emulator-detector>
-    @Deprecated // avoid
+    @Deprecated // Avoid
     public static boolean emulator() {
         boolean emulator = Build.FINGERPRINT.startsWith("generic")
                 || Build.MODEL.contains("google_sdk")
@@ -70,7 +70,7 @@ public class DeviceHelper {
         return Build.ID;
     }
 
-    @Deprecated // avoid
+    @Deprecated // Avoid
     public static boolean is64bits() {
         return architecture().contains("64");
     }
