@@ -14,7 +14,7 @@
     <color name="navigationDrawerBackgroundColor">@color/sk_android_white</color>
     <color name="navigationDrawerForegroundColor">@color/sk_navigation_drawer</color>
     <color name="textPrimaryColor">@color/sk_android_black</color>
-    <color name="textSecondaryColor">@color/sk_android_gray</color>
+    <color name="textSecondaryColor">@color/sk_android_grey</color>
     <color name="snackBarBackgroundColor">#ff323232</color>
     <color name="snackBarForegroundColor">@color/sk_android_white</color>
     <color name="controlOff">#727272</color>
@@ -26,7 +26,7 @@
     <color name="preference_accent">@color/accentColor</color>
     <color name="preference_fallback_accent_color">@color/accentColor</color>
 
-    <!-- Material colors <http://www.google.com/design/spec/style/color.html#color-color-palette> -->
+    <!-- Material colors <https://material.google.com/style/color.html#color-color-palette> -->
 
     <color name="sk_material_red">@color/sk_material_red500</color>
     <color name="sk_material_pink">@color/sk_material_pink500</color>
@@ -106,7 +106,7 @@
     <color name="sk_material_blueGrey700">#455a64</color>
     <color name="sk_material_blueGrey900">#263238</color>
 
-    <!-- Holo colors <http://developer.android.com/design/style/color.html> -->
+    <!-- Holo colors <https://material.google.com/style/color.html> -->
 
     <color name="sk_holo_blueLight">#33b5e5</color>
     <color name="sk_holo_blueDark">#0099cc</color>
@@ -122,9 +122,9 @@
     <!-- Android colors <http://developer.android.com/reference/android/graphics/Color.html> -->
 
     <color name="sk_android_black">@android:color/black</color>
-    <color name="sk_android_dkGray">#ff444444</color>
-    <color name="sk_android_gray">#ff888888</color>
-    <color name="sk_android_ltGray">#ffcccccc</color>
+    <color name="sk_android_dkGrey">#ff444444</color>
+    <color name="sk_android_grey">#ff888888</color>
+    <color name="sk_android_ltGrey">#ffcccccc</color>
     <color name="sk_android_white">@android:color/white</color>
     <color name="sk_android_background">#fff3f3f3</color>
     <color name="sk_android_transparent">@android:color/transparent</color>
