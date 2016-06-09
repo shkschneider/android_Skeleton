@@ -2,6 +2,7 @@ package me.shkschneider.skeleton;
 
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -38,6 +39,7 @@ import me.shkschneider.skeleton.ui.MySwipeRefreshLayout;
  * https://developer.android.com/reference/android/support/v4/app/FragmentActivity.html
  *
  *     onCreated()
+ *     onNewIntent()
  *     onViewCreated()
  *     onStart()
  *     onResume()
@@ -61,6 +63,11 @@ public abstract class SkeletonActivity extends AppCompatActivity {
 
         if (AndroidHelper.api() >= AndroidHelper.API_21) {
             init21();
+        }
+
+        final Intent intent = getIntent();
+        if (intent != null && intent.getExtras() != null) {
+            onNewIntent(intent);
         }
     }
 
