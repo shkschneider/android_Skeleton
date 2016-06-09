@@ -65,7 +65,7 @@ public class BitmapHelper {
         paint.setShader(shader);
         final Canvas canvas = new Canvas(circleBitmap);
         canvas.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint);
-        bitmap.recycle();
+        // bitmap.recycle()
         return circleBitmap;
     }
 
