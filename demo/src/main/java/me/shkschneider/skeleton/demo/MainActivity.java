@@ -11,6 +11,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -30,11 +31,24 @@ import me.shkschneider.skeleton.SkeletonActivity;
 import me.shkschneider.skeleton.demo.data.ShkMod;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.NotificationHelper;
+import me.shkschneider.skeleton.helper.RunnableHelper;
+import me.shkschneider.skeleton.java.ClassHelper;
 import me.shkschneider.skeleton.java.ObjectHelper;
 import me.shkschneider.skeleton.network.MyRequest;
 import me.shkschneider.skeleton.network.MyResponse;
 import me.shkschneider.skeleton.network.Proxy;
 
+/**
+ * SkeletonActivity
+ * Collapsible Toolbar
+ * ViewPager
+ * FloatingActionButton
+ * -> LocalBroadcast
+ * -> Volley request (Proxy)
+ * -> Notification (RunnableHelper.delay())
+ * -> onNewIntent() (ActivityHelper.toast())
+ */
 public class MainActivity extends SkeletonActivity {
 
     private static final String BROADCAST_SECRET = "BROADCAST_SECRET";
@@ -133,44 +147,73 @@ public class MainActivity extends SkeletonActivity {
         @Override
         public void onReceive(final Context context, final Intent intent) {
             final int code = intent.getIntExtra(BROADCAST_SECRET_CODE, 0);
-            final String tag = URL; // defaults to URL anyway
-            Proxy.getInstance().getRequestQueue().cancelAll(tag);
-            Proxy.getInstance().getRequestQueue().add(
-                    new MyRequest(Request.Method.GET, URL,
-                            new Response.Listener<MyResponse>() {
-                                @Override
-                                public void onResponse(final MyResponse response) {
-                                    try {
-                                        final ShkMod shkMod = new Gson().fromJson(response.toString(), ShkMod.class);
-                                        new AlertDialog.Builder(MainActivity.this)
-                                                .setTitle(ShkMod.class.getSimpleName())
-                                                .setMessage(ObjectHelper.jsonify(shkMod))
-                                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                                    @Override
-                                                    public void onClick(final DialogInterface dialog, final int which) {
-                                                        dialog.dismiss();
-                                                    }
-                                                })
-                                                .show();
-                                    }
-                                    catch (final Exception e) {
-                                        LogHelper.wtf(e);
-                                        ActivityHelper.toast(e.getClass().getSimpleName());
-                                    }
-                                }
-                            },
-                            new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(final VolleyError error) {
-                                    ActivityHelper.toast(error.getClass().getSimpleName());
-                                }
-                            })
-                            .setCacheTimeout((int) TimeUnit.SECONDS.toMillis(10)) // timeout
-                            .setPriority(Request.Priority.NORMAL) // priority
-                            .setRetryPolicy(new DefaultRetryPolicy(2500, 1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)) // timeout reties
-                            .setTag(tag) // tag
-            );
+            network();
         }
     };
+
+    private void network() {
+        final String tag = URL; // defaults to URL anyway
+        Proxy.getInstance().getRequestQueue().cancelAll(tag);
+        Proxy.getInstance().getRequestQueue().add(
+                new MyRequest(Request.Method.GET, URL,
+                        new Response.Listener<MyResponse>() {
+                            @Override
+                            public void onResponse(final MyResponse response) {
+                                try {
+                                    final ShkMod shkMod = new Gson().fromJson(response.toString(), ShkMod.class);
+                                    RunnableHelper.delay(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            notification((int) response.networkTimeMs, ClassHelper.simpleName(ShkMod.class), ObjectHelper.jsonify(shkMod));
+                                        }
+                                    }, 1, TimeUnit.SECONDS);
+                                }
+                                catch (final Exception e) {
+                                    LogHelper.wtf(e);
+                                    ActivityHelper.toast(e.getClass().getSimpleName());
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(final VolleyError error) {
+                                ActivityHelper.toast(error.getClass().getSimpleName());
+                            }
+                        })
+                        .setCacheTimeout((int) TimeUnit.SECONDS.toMillis(10)) // timeout
+                        .setPriority(Request.Priority.NORMAL) // priority
+                        .setRetryPolicy(new DefaultRetryPolicy(2500, 1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)) // timeout reties
+                        .setTag(tag) // tag
+        );
+    }
+
+    private void notification(final int id, final String title, final String message) {
+        final NotificationCompat.Builder builder = NotificationHelper.Builder(
+                getResources().getColor(R.color.accentColor), android.R.drawable.sym_def_app_icon, null,
+                "Ticker",
+                "Skeleton", "for Android", null, null,
+                MainActivity.this, new Intent(MainActivity.this, MainActivity.class)
+                        .putExtra("title", title)
+                        .putExtra("message", message));
+        NotificationHelper.notify(id, builder);
+    }
+
+    @Override
+    protected void onNewIntent(final Intent intent) {
+        super.onNewIntent(intent);
+
+        final String title = intent.getStringExtra("title");
+        final String message = intent.getStringExtra("message");
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(final DialogInterface dialog, final int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .show();
+    }
 
 }
