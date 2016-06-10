@@ -12,23 +12,23 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 
 /**
- * +------+-----------------------------------------+
- * |      | contentTitle                  timestamp |
- * | ICON | contentText                             |
- * |      | subText                     contentInfo |
- * +------+-----------------------------------------+
+ * +------+-------------------------------------+
+ * |      | contentTitle              timestamp |
+ * | ICON | contentText                         |
+ * |      | subText                 contentInfo |
+ * +------+-------------------------------------+
  * API-21+
- * +----------+-------------------------------------+
- * |          | contentTitle              timestamp |
- * |   ICON   | contentText                         |
- * |          | subText                 contentInfo |
- * +----------+-------------------------------------+
+ * +----------+---------------------------------+
+ * |          | contentTitle          timestamp |
+ * |   ICON   | contentText                     |
+ * |     icon | subText             contentInfo |
+ * +----------+---------------------------------+
  * API-24+
- * +------------------------------------------------+
- * | ICON AppName - subText contentInfo - timestamp |
- * | contentTitle                                   |
- * | contentText                                    |
- * +------------------------------------------------+
+ * +--------------------------------------------+
+ * | icon app - subText contentInfo - timestamp |
+ * | contentTitle                               |
+ * | contentText                                |
+ * +--------------------------------------------+
  */
 public class NotificationHelper {
 
