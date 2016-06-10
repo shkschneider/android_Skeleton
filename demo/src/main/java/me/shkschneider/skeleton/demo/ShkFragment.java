@@ -39,8 +39,6 @@ public class ShkFragment extends SkeletonFragment {
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // final Bitmap placeholder = BitmapHelper.circular(BitmapHelper.fromResource(android.R.drawable.sym_def_app_icon));
-        // ((ImageView) view.findViewById(R.id.id_placeholder)).setImageBitmap(placeholder);
         Proxy.getInstance().getImageLoader().get(AVATAR, new ImageLoader.ImageListener() {
             @Override
             public void onResponse(final ImageLoader.ImageContainer response, final boolean isImmediate) {

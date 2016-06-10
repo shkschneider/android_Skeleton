@@ -48,25 +48,37 @@ public class BitmapHelper {
         return bitmap;
     }
 
-    public static Bitmap whiteTo(@NonNull final Bitmap sourceBitmap, @ColorInt final int color) {
-        final Bitmap resultBitmap = Bitmap.createBitmap(sourceBitmap, 0, 0, (sourceBitmap.getWidth() - 1), (sourceBitmap.getHeight() - 1));
+    public static Bitmap tint(@NonNull final Bitmap bitmap, @ColorInt final int color) {
+        final Bitmap tintedBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
         final Paint paint = new Paint();
-        final ColorFilter colorFilter = new LightingColorFilter(color, 1);
+        final ColorFilter colorFilter = new LightingColorFilter(color, 0);
         paint.setColorFilter(colorFilter);
-        final Canvas canvas = new Canvas(resultBitmap);
-        canvas.drawBitmap(resultBitmap, 0, 0, paint);
-        return resultBitmap;
+        final Canvas canvas = new Canvas(tintedBitmap);
+        canvas.drawBitmap(tintedBitmap, 0, 0, paint);
+        return tintedBitmap;
+    }
+
+    public static Bitmap tint(@NonNull final Bitmap bitmap, @ColorInt final int from, @ColorInt final int to) {
+        final Bitmap tintedBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+        for (int x = 0; x < bitmap.getHeight(); x++) {
+            for (int y = 0; y < bitmap.getWidth(); y++) {
+                final int px = tintedBitmap.getPixel(x, y);
+                if (px == from) {
+                    tintedBitmap.setPixel(x, y, to);
+                }
+            }
+        }
+        return tintedBitmap;
     }
 
     public static Bitmap circular(@NonNull final Bitmap bitmap) {
-        final Bitmap circleBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
-        final BitmapShader shader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        final Bitmap circularBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
         final Paint paint = new Paint();
-        paint.setShader(shader);
-        final Canvas canvas = new Canvas(circleBitmap);
-        canvas.drawCircle(bitmap.getWidth() / 2, bitmap.getHeight() / 2, bitmap.getWidth() / 2, paint);
-        // bitmap.recycle()
-        return circleBitmap;
+        final BitmapShader bitmapShader = new BitmapShader(bitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
+        paint.setShader(bitmapShader);
+        final Canvas canvas = new Canvas(circularBitmap);
+        canvas.drawCircle(circularBitmap.getWidth() / 2, circularBitmap.getHeight() / 2, circularBitmap.getWidth() / 2, paint);
+        return circularBitmap;
     }
 
     @Nullable
