@@ -68,6 +68,10 @@ public class StringHelper {
         return chars(lower(string), ALPHA_NUMERIC);
     }
 
+    public static boolean hexadecimal(@NonNull final String string) {
+        return chars(lower(string), HEX);
+    }
+
     public static boolean url(@NonNull final String string) {
         return Patterns.WEB_URL.matcher(string).matches();
     }
@@ -162,14 +166,20 @@ public class StringHelper {
     }
 
     // <http://stackoverflow.com/a/9855338>
-    public static String toHexadecimal(final byte[] bytes) {
-        final char[] hexChars = new char[bytes.length * 2];
+    public static String hexadecimal(final byte[] bytes) {
+        if (bytes == null) {
+            return null;
+        }
+        if (bytes.length == 0) {
+            return "";
+        }
+        final char[] chars = new char[bytes.length * 2];
         for (int i = 0; i < bytes.length; i++ ) {
             final int j = bytes[i] & 0xFF;
-            hexChars[i * 2] = HEX.toCharArray()[j >>> 4];
-            hexChars[i * 2 + 1] = HEX.toCharArray()[j & 0x0F];
+            chars[i * 2] = HEX.toCharArray()[j >>> 4];
+            chars[i * 2 + 1] = HEX.toCharArray()[j & 0x0F];
         }
-        return new String(hexChars);
+        return new String(chars);
     }
 
 }
