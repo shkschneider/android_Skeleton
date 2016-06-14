@@ -38,6 +38,7 @@ import me.shkschneider.skeleton.java.ObjectHelper;
 import me.shkschneider.skeleton.network.MyRequest;
 import me.shkschneider.skeleton.network.MyResponse;
 import me.shkschneider.skeleton.network.Proxy;
+import me.shkschneider.skeleton.ui.AnimationHelper;
 
 /**
  * SkeletonActivity
@@ -107,6 +108,7 @@ public class MainActivity extends SkeletonActivity {
                 LocalBroadcastManager.getInstance(MainActivity.this).sendBroadcast(intent);
             }
         });
+        AnimationHelper.revealOn(floatingActionButton);
     }
 
     @Override
