@@ -64,11 +64,6 @@ public abstract class SkeletonActivity extends AppCompatActivity {
         if (AndroidHelper.api() >= AndroidHelper.API_21) {
             init21();
         }
-
-        final Intent intent = getIntent();
-        if (intent != null && intent.getExtras() != null) {
-            onNewIntent(intent);
-        }
     }
 
     @TargetApi(AndroidHelper.API_21)
@@ -80,6 +75,14 @@ public abstract class SkeletonActivity extends AppCompatActivity {
         final int color = getResources().getColor(R.color.primaryColor);
         final ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(name, icon, color);
         setTaskDescription(taskDescription);
+    }
+
+    @Override
+    protected void onNewIntent(final Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+
+        LogHelper.verbose("Intent: " + intent);
     }
 
     @Override
