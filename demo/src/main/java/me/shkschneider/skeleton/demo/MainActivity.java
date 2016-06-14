@@ -12,6 +12,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -30,6 +31,7 @@ import java.util.concurrent.TimeUnit;
 import me.shkschneider.skeleton.SkeletonActivity;
 import me.shkschneider.skeleton.demo.data.ShkMod;
 import me.shkschneider.skeleton.helper.ActivityHelper;
+import me.shkschneider.skeleton.helper.DateTimeHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.NotificationHelper;
 import me.shkschneider.skeleton.helper.RunnableHelper;
@@ -166,7 +168,7 @@ public class MainActivity extends SkeletonActivity {
                                     RunnableHelper.delay(new Runnable() {
                                         @Override
                                         public void run() {
-                                            notification((int) response.networkTimeMs, ClassHelper.simpleName(ShkMod.class), ObjectHelper.jsonify(shkMod));
+                                            notification((int) DateTimeHelper.timestamp(), ClassHelper.simpleName(ShkMod.class), ObjectHelper.jsonify(shkMod));
                                         }
                                     }, 1, TimeUnit.SECONDS);
                                 }
@@ -190,13 +192,17 @@ public class MainActivity extends SkeletonActivity {
     }
 
     private void notification(final int id, final String title, final String message) {
+        final Intent intent = new Intent(MainActivity.this, MainActivity.class)
+                .putExtra("title", title)
+                .putExtra("message", message);
+        final TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(MainActivity.this)
+                .addParentStack(MainActivity.this)
+                .addNextIntent(intent);
         final NotificationCompat.Builder builder = NotificationHelper.Builder(
                 getResources().getColor(R.color.accentColor), android.R.drawable.sym_def_app_icon, null,
                 "Ticker",
                 "Skeleton", "for Android", null, null,
-                MainActivity.this, new Intent(MainActivity.this, MainActivity.class)
-                        .putExtra("title", title)
-                        .putExtra("message", message));
+                taskStackBuilder);
         NotificationHelper.notify(id, builder);
     }
 

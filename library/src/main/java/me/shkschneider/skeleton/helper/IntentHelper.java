@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.helper;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
@@ -194,13 +193,8 @@ public class IntentHelper {
 
     @SkHide
     public static boolean canHandle(@NonNull final Intent intent) {
-        final PackageManager packageManager = ApplicationHelper.packageManager();
-        if (packageManager == null) {
-            LogHelper.warning("PackageManager was NULL");
-            return false;
-        }
-
-        final List<ResolveInfo> resolveInfos = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        // return (intent.resolveActivity(ApplicationHelper.packageManager()) != null);
+        final List<ResolveInfo> resolveInfos = ApplicationHelper.packageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
         return (resolveInfos.size() > 0);
     }
 
