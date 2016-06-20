@@ -36,6 +36,7 @@ public class SkFragment extends SkeletonFragment {
         fill((LinearLayout) view.findViewById(R.id.data), new Class[] {
                 me.shkschneider.skeleton.data.CharsetHelper.class,
                 me.shkschneider.skeleton.data.DiskCache.Internal.class,
+                me.shkschneider.skeleton.data.DiskCache.External.class,
                 me.shkschneider.skeleton.data.ExternalDataHelper.class,
                 me.shkschneider.skeleton.data.FileHelper.class,
                 me.shkschneider.skeleton.data.GsonParser.class,

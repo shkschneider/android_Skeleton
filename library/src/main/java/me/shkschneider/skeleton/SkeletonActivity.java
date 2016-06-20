@@ -64,6 +64,12 @@ public abstract class SkeletonActivity extends AppCompatActivity {
         if (AndroidHelper.api() >= AndroidHelper.API_21) {
             init21();
         }
+
+        final Intent intent = getIntent();
+        if (intent != null && intent.getExtras() != null) {
+            LogHelper.verbose("onNewIntent: " + intent);
+            onNewIntent(intent);
+        }
     }
 
     @TargetApi(AndroidHelper.API_21)
@@ -81,8 +87,6 @@ public abstract class SkeletonActivity extends AppCompatActivity {
     protected void onNewIntent(final Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
-
-        LogHelper.verbose("Intent: " + intent);
     }
 
     @Override

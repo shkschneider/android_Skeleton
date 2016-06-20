@@ -12,7 +12,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -32,9 +31,7 @@ import me.shkschneider.skeleton.SkeletonActivity;
 import me.shkschneider.skeleton.demo.data.ShkMod;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.DateTimeHelper;
-import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.NotificationHelper;
-import me.shkschneider.skeleton.helper.RunnableHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
 import me.shkschneider.skeleton.java.ObjectHelper;
 import me.shkschneider.skeleton.network.MyRequest;
@@ -163,19 +160,8 @@ public class MainActivity extends SkeletonActivity {
                         new Response.Listener<MyResponse>() {
                             @Override
                             public void onResponse(final MyResponse response) {
-                                try {
-                                    final ShkMod shkMod = new Gson().fromJson(response.toString(), ShkMod.class);
-                                    RunnableHelper.delay(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            notification((int) DateTimeHelper.timestamp(), ClassHelper.simpleName(ShkMod.class), ObjectHelper.jsonify(shkMod));
-                                        }
-                                    }, 1, TimeUnit.SECONDS);
-                                }
-                                catch (final Exception e) {
-                                    LogHelper.wtf(e);
-                                    ActivityHelper.toast(e.getClass().getSimpleName());
-                                }
+                                final ShkMod shkMod = new Gson().fromJson(response.toString(), ShkMod.class);
+                                notification((int) DateTimeHelper.timestamp(), ClassHelper.simpleName(ShkMod.class), ObjectHelper.jsonify(shkMod));
                             }
                         },
                         new Response.ErrorListener() {
@@ -192,17 +178,14 @@ public class MainActivity extends SkeletonActivity {
     }
 
     private void notification(final int id, final String title, final String message) {
-        final Intent intent = new Intent(MainActivity.this, MainActivity.class)
+        final Intent intent = new Intent(getBaseContext(), MainActivity.class)
                 .putExtra("title", title)
                 .putExtra("message", message);
-        final TaskStackBuilder taskStackBuilder = TaskStackBuilder.create(MainActivity.this)
-                .addParentStack(MainActivity.this)
-                .addNextIntent(intent);
         final NotificationCompat.Builder builder = NotificationHelper.Builder(
                 getResources().getColor(R.color.accentColor), android.R.drawable.sym_def_app_icon, null,
                 "Ticker",
                 "Skeleton", "for Android", null, null,
-                taskStackBuilder);
+                MainActivity.this, intent);
         NotificationHelper.notify(id, builder);
     }
 

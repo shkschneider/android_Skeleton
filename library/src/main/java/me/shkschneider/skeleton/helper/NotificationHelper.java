@@ -10,7 +10,6 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 
 /**
  * +------+-------------------------------------+
@@ -56,23 +55,6 @@ public class NotificationHelper {
                 .setAutoCancel(true);
     }
 
-    public static NotificationCompat.Builder Builder(@ColorInt final int color, @DrawableRes final int smallIcon, final Bitmap largeIcon,
-                                                     final String ticker,
-                                                     @NonNull final String contentTitle, @NonNull final String contentText, final String subText, final String contentInfo,
-                                                     @NonNull final TaskStackBuilder taskStackBuilder) {
-        final PendingIntent pendingIntent = taskStackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-        return Builder(color, smallIcon, largeIcon,
-                ticker,
-                contentTitle, contentText, subText, contentInfo,
-                pendingIntent);
-    }
-
-    @SuppressWarnings("deprecation")
-    public static void notify(@IntRange(from=0) final int id, @NonNull final NotificationCompat.Builder builder) {
-        builder.setWhen(System.currentTimeMillis());
-        notify(id, builder.build());
-    }
-
     @Deprecated //Avoid
     public static NotificationCompat.Builder Builder(@ColorInt final int color, @DrawableRes final int smallIcon, final Bitmap largeIcon,
                                                      final String ticker,
@@ -89,6 +71,12 @@ public class NotificationHelper {
                 ticker,
                 contentTitle, contentText, subText, contentInfo,
                 pendingIntent);
+    }
+
+    @SuppressWarnings("deprecation")
+    public static void notify(@IntRange(from=0) final int id, @NonNull final NotificationCompat.Builder builder) {
+        builder.setWhen(System.currentTimeMillis());
+        notify(id, builder.build());
     }
 
     @Deprecated // Avoid
