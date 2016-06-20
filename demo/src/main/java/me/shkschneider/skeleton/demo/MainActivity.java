@@ -3,7 +3,6 @@ package me.shkschneider.skeleton.demo;
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +28,7 @@ import java.util.concurrent.TimeUnit;
 import me.shkschneider.skeleton.SkeletonActivity;
 import me.shkschneider.skeleton.demo.data.ShkMod;
 import me.shkschneider.skeleton.helper.ActivityHelper;
+import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.DateTimeHelper;
 import me.shkschneider.skeleton.helper.NotificationHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
@@ -38,6 +37,7 @@ import me.shkschneider.skeleton.network.MyRequest;
 import me.shkschneider.skeleton.network.MyResponse;
 import me.shkschneider.skeleton.network.Proxy;
 import me.shkschneider.skeleton.ui.AnimationHelper;
+import me.shkschneider.skeleton.ui.BottomSheet;
 
 /**
  * SkeletonActivity
@@ -195,15 +195,12 @@ public class MainActivity extends SkeletonActivity {
 
         final String title = intent.getStringExtra("title");
         final String message = intent.getStringExtra("message");
-        new AlertDialog.Builder(MainActivity.this)
+        new BottomSheet.Builder(MainActivity.this)
                 .setTitle(title)
-                .setMessage(message)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(final DialogInterface dialog, final int which) {
-                        dialog.dismiss();
-                    }
-                })
+                .setContent(message)
+                .setPositive(ApplicationHelper.resources().getString(android.R.string.ok), null)
+                .setNegative(ApplicationHelper.resources().getString(android.R.string.cancel), null)
+                .build()
                 .show();
     }
 

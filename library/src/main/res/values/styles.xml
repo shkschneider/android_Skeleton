@@ -52,4 +52,19 @@
         <item name="android:textColor">@color/actionBarForegroundColor</item>
     </style>
 
+    <style name="SkeletonTheme.BottomSheet" parent="@android:style/Theme.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowAnimationStyle">@style/SkeletonTheme.BottomSheet.Animation</item>
+    </style>
+
+    <style name="SkeletonTheme.BottomSheet.Animation">
+        <item name="android:windowEnterAnimation">@anim/sk_push_up_in</item>
+        <item name="android:windowExitAnimation">@anim/sk_push_down_out</item>
+    </style>
+
 </resources>
