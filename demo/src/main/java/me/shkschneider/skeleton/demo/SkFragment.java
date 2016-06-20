@@ -133,7 +133,7 @@ public class SkFragment extends SkeletonFragment {
                 }
                 final String name = field.getName();
                 if (! name.contains("$")) {
-                    fields.add(name);
+                    fields.add(field.getType().getSimpleName() + " " + name);
                 }
             }
             Collections.sort(fields, new AlphanumComparator());
@@ -162,7 +162,7 @@ public class SkFragment extends SkeletonFragment {
                     if (methods.contains(name + "()")) {
                         continue;
                     }
-                    methods.add(name + "()");
+                    methods.add(method.getReturnType().getSimpleName() + " " + name + "()");
                 }
             }
             Collections.sort(methods, new AlphanumComparator());
