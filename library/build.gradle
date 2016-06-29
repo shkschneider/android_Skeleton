@@ -8,8 +8,8 @@ android {
     defaultConfig {
         minSdkVersion 14 // Ice Cream Sandwich 4.x.x
         targetSdkVersion 23
-        versionCode 26
-        versionName '5.2.0'
+        versionCode 27
+        versionName '5.3.0'
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
