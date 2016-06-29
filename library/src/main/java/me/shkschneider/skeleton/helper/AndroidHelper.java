@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.helper;
 
-import android.annotation.TargetApi;
 import android.os.Build;
 
 public class AndroidHelper {
@@ -90,16 +89,6 @@ public class AndroidHelper {
 
     public static int api() {
         return Build.VERSION.SDK_INT;
-    }
-
-    @TargetApi(API_23)
-    public static String baseOs() {
-        return Build.VERSION.BASE_OS;
-    }
-
-    @TargetApi(API_23)
-    public static String securityPatch() {
-        return Build.VERSION.SECURITY_PATCH;
     }
 
 }
