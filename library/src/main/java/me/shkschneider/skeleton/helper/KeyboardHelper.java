@@ -2,7 +2,7 @@ package me.shkschneider.skeleton.helper;
 
 import android.app.Activity;
 import android.graphics.Rect;
-import android.support.annotation.IntRange;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
@@ -14,6 +14,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import me.shkschneider.skeleton.SkeletonReceiver;
 import me.shkschneider.skeleton.ui.ViewHelper;
 
 public class KeyboardHelper {
@@ -38,12 +39,12 @@ public class KeyboardHelper {
         return true;
     }
 
-    // (Input) Callback
+    // ResultReceiver
 
-    public final static int ENTER = KeyEvent.KEYCODE_ENTER;
+    public static final String RESULT_KEYBOARD_ACTION = "ACTION";
 
-    public static boolean keyboardCallback(@NonNull final EditText editText, @Nullable final Callback callback, final boolean all) {
-        if (callback == null) {
+    public static boolean keyboardCallback(@NonNull final EditText editText, @Nullable final SkeletonReceiver skeletonReceiver, final boolean all) {
+        if (skeletonReceiver == null) {
             editText.setOnEditorActionListener(null);
             return false;
         }
@@ -52,7 +53,9 @@ public class KeyboardHelper {
             @Override
             public boolean onEditorAction(final TextView textView, final int actionId, final KeyEvent keyEvent) {
                 if (all) {
-                    callback.onKeyboardAction(actionId);
+                    final Bundle bundle = new Bundle();
+                    bundle.putInt(RESULT_KEYBOARD_ACTION, actionId);
+                    skeletonReceiver.send(Activity.RESULT_OK, bundle);
                     return false;
                 }
                 switch (actionId) {
@@ -64,7 +67,9 @@ public class KeyboardHelper {
                     case EditorInfo.IME_ACTION_SEND:
                     case KeyEvent.KEYCODE_DPAD_CENTER:
                     case KeyEvent.KEYCODE_ENTER:
-                        callback.onKeyboardAction(actionId);
+                        final Bundle bundle = new Bundle();
+                        bundle.putInt(RESULT_KEYBOARD_ACTION, actionId);
+                        skeletonReceiver.send(Activity.RESULT_OK, bundle);
                         break;
                 }
                 return false;
@@ -74,14 +79,8 @@ public class KeyboardHelper {
         return true;
     }
 
-    public static boolean keyboardCallback(@NonNull final EditText editText, @Nullable final Callback keyboardCallback) {
-        return keyboardCallback(editText, keyboardCallback, false);
-    }
-
-    public interface Callback {
-
-        void onKeyboardAction(@IntRange(from=0) final int action);
-
+    public static boolean keyboardCallback(@NonNull final EditText editText, @Nullable final SkeletonReceiver skeletonReceiver) {
+        return keyboardCallback(editText, skeletonReceiver, false);
     }
 
     // (Visibility) Listener

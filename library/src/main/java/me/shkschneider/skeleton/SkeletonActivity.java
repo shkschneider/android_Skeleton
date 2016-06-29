@@ -187,6 +187,7 @@ public abstract class SkeletonActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
+        mSkeletonReceiver = null;
         mAlive = false;
         loading(false);
     }
@@ -362,24 +363,28 @@ public abstract class SkeletonActivity extends AppCompatActivity {
     // Search
     // <http://stackoverflow.com/questions/18438890>
 
+    protected static final int RESULT_SEARCH_CHANGE = -1;
+    protected static final int RESULT_SEARCH_SUBMIT = 1;
+    protected static final String RESULT_SEARCH_TEXT = "TEXT";
+
     private String mSearchHint;
-    private SearchCallback mSearchCallback = null;
+    private SkeletonReceiver mSkeletonReceiver;
     private MenuItem mSearchMenuItem;
     private SearchView mSearchView;
 
     public boolean searchable() {
-        return (mSearchCallback != null);
+        return (mSkeletonReceiver != null);
     }
 
-    public void searchable(final String hint, @Nullable final SearchCallback searchCallback) {
+    public void searchable(final String hint, @Nullable final SkeletonReceiver skeletonReceiver) {
         mSearchHint = hint;
-        mSearchCallback = searchCallback;
+        mSkeletonReceiver = skeletonReceiver;
         // AVOID supportInvalidateOptionsMenu()
     }
 
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
-        if (mSearchCallback == null) {
+        if (mSkeletonReceiver == null) {
             return super.onCreateOptionsMenu(menu);
         }
 
@@ -402,7 +407,9 @@ public abstract class SkeletonActivity extends AppCompatActivity {
         mSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                mSearchCallback.onSearchTextChange("");
+                final Bundle bundle = new Bundle();
+                bundle.putString(RESULT_SEARCH_TEXT, "");
+                mSkeletonReceiver.send(RESULT_SEARCH_CHANGE, bundle);
                 return false;
             }
         });
@@ -411,13 +418,17 @@ public abstract class SkeletonActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(final String q) {
                 stopSearch();
-                mSearchCallback.onSearchTextSubmit(q);
+                final Bundle bundle = new Bundle();
+                bundle.putString(RESULT_SEARCH_TEXT, q);
+                mSkeletonReceiver.send(RESULT_SEARCH_SUBMIT, bundle);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(final String q) {
-                mSearchCallback.onSearchTextChange(q);
+                final Bundle bundle = new Bundle();
+                bundle.putString(RESULT_SEARCH_TEXT, q);
+                mSkeletonReceiver.send(RESULT_SEARCH_CHANGE, bundle);
                 return true;
             }
 
@@ -427,7 +438,7 @@ public abstract class SkeletonActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        if (mSearchCallback == null) {
+        if (mSkeletonReceiver == null) {
             return super.onOptionsItemSelected(item);
         }
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
@@ -445,13 +456,6 @@ public abstract class SkeletonActivity extends AppCompatActivity {
         mSearchMenuItem.collapseActionView();
         KeyboardHelper.hide(getWindow());
         mSearchView.clearFocus();
-    }
-
-    public interface SearchCallback {
-
-        void onSearchTextChange(final String q);
-        void onSearchTextSubmit(final String q);
-
     }
 
     // Navigation
