@@ -16,7 +16,6 @@ public class ActivityHelper {
     public static void toast(@NonNull final String msg) {
         if (TextUtils.isEmpty(msg)) {
             LogHelper.warning("Message was NULL");
-            return;
         }
         Toast.makeText(ApplicationHelper.context(), msg, Toast.LENGTH_SHORT).show();
     }
@@ -24,7 +23,6 @@ public class ActivityHelper {
     public static void snackBar(@NonNull final View view, @NonNull final String msg) {
         if (TextUtils.isEmpty(msg)) {
             LogHelper.warning("Message was NULL");
-            return;
         }
         Snackbar.make(view, msg, Snackbar.LENGTH_SHORT).show();
     }
@@ -32,7 +30,6 @@ public class ActivityHelper {
     public static void snackBar(@NonNull final View view, @NonNull final String msg, @NonNull final String action, @NonNull final View.OnClickListener onClickListener) {
         if (TextUtils.isEmpty(msg)) {
             LogHelper.warning("Message was NULL");
-            return;
         }
         Snackbar.make(view, msg, Snackbar.LENGTH_SHORT)
                 .setAction(action, onClickListener)
