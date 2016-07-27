@@ -3,6 +3,8 @@ Skeleton
 
 > Android library with useful classes to be used as a "Skeleton" for an application.
 
+[![Travis-CI](https://travis-ci.org/shkschneider/android_Skeleton.svg?branch=master)](https://travis-ci.org/shkschneider/android_Skeleton)
+
 Setup
 -----
 
