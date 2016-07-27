@@ -9,5 +9,5 @@ android:
     - extra-android-m2repository
     - extra-google-m2repository
 
-before_script:
-  - chmod +x gradlew
+script:
+  - bash gradlew assembleDebug -PdisablePreDex
