@@ -19,7 +19,7 @@ public abstract class MyRecyclerViewAdapter<T, VH extends RecyclerView.ViewHolde
     private final Object mLock = new Object();
     private List<T> mObjects = new ArrayList<>();
 
-    public MyRecyclerViewAdapter(@Nullable final ArrayList<T> objects) {
+    public MyRecyclerViewAdapter(@Nullable final List<T> objects) {
         if (objects != null) {
             mObjects.addAll(objects);
         }

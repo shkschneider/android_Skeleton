@@ -2,6 +2,7 @@ package me.shkschneider.skeleton;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 
 import me.shkschneider.skeleton.helper.DeviceHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
@@ -20,6 +21,7 @@ public abstract class SkeletonApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        DEBUG = ((getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0);
         CONTEXT = getApplicationContext();
 
         LogHelper.verbose("Hello, " + DeviceHelper.codename() + "!");

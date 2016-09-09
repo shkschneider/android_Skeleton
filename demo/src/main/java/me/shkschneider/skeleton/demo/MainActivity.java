@@ -31,6 +31,8 @@ import me.shkschneider.skeleton.demo.data.ShkMod;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.DateTimeHelper;
+import me.shkschneider.skeleton.helper.DeviceHelper;
+import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.NotificationHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
 import me.shkschneider.skeleton.java.ObjectHelper;
@@ -98,6 +100,24 @@ public class MainActivity extends SkeletonActivity {
             tabLayout.addTab(tabLayout.newTab().setText(viewPager.getAdapter().getPageTitle(i)));
         }
         tabLayout.setupWithViewPager(viewPager);
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            @Override
+            public void onPageScrolled(final int position, final float positionOffset, final int positionOffsetPixels) {
+                // Ignore
+            }
+
+            @Override
+            public void onPageSelected(final int position) {
+                LogHelper.verbose("Page: " + position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(final int state) {
+                // Ignore
+            }
+
+        });
 
         final FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         floatingActionButton.setImageResource(android.R.drawable.ic_dialog_info);
@@ -132,6 +152,13 @@ public class MainActivity extends SkeletonActivity {
         super.onStart();
 
         LocalBroadcastManager.getInstance(MainActivity.this).registerReceiver(mBroadcastReceiver, new IntentFilter(BROADCAST_SECRET));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        DeviceHelper.screenSize();
     }
 
     @Override
