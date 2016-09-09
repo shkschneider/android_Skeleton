@@ -33,7 +33,7 @@ public class CsvReader {
                     mBufferedReader.readLine();
                 }
             }
-            catch (final Exception e) {
+            catch (final IOException e) {
                 LogHelper.warning(e);
             }
         }
@@ -49,7 +49,7 @@ public class CsvReader {
             final String nextLine = getNextLine();
             return parseLine(nextLine);
         }
-        catch (final Exception e) {
+        catch (final IOException e) {
             return null;
         }
     }

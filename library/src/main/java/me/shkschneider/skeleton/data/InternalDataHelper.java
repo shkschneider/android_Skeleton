@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.data;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -8,12 +7,11 @@ import android.support.annotation.Nullable;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.java.SkHide;
 
 public class InternalDataHelper {
 
@@ -26,7 +24,7 @@ public class InternalDataHelper {
         try {
             return ApplicationHelper.context().openFileInput(name);
         }
-        catch (final Exception e) {
+        catch (final FileNotFoundException e) {
             LogHelper.wtf(e);
             return null;
         }
@@ -37,7 +35,7 @@ public class InternalDataHelper {
         try {
             return ApplicationHelper.context().openFileOutput(name, Context.MODE_PRIVATE);
         }
-        catch (final Exception e) {
+        catch (final FileNotFoundException e) {
             LogHelper.wtf(e);
             return null;
         }
@@ -55,20 +53,13 @@ public class InternalDataHelper {
         return ApplicationHelper.context().getFilesDir();
     }
 
-    @SkHide
-    @TargetApi(AndroidHelper.API_21)
-    public static File backup() {
-        return ApplicationHelper.context().getNoBackupFilesDir();
-    }
-
     @Nullable
     public static File file(@NonNull final String name) {
-        final File file = new File(dir().getAbsolutePath() + File.separator + name);
+        final File file = new File(dir(), name);
         try {
-            if (! file.createNewFile()) {
+            if (! file.exists() && ! file.createNewFile()) {
                 LogHelper.warning("File.createNewFile() failed");
             }
-
             return file;
         }
         catch (final Exception e) {

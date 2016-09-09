@@ -5,7 +5,9 @@ import android.support.annotation.Nullable;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
@@ -24,7 +26,11 @@ public class SerializeHelper {
             objectOutputStream.close();
             return true;
         }
-        catch (final Exception e) {
+        catch (final FileNotFoundException e) {
+            LogHelper.wtf(e);
+            return false;
+        }
+        catch (final IOException e) {
             LogHelper.wtf(e);
             return false;
         }
@@ -38,7 +44,15 @@ public class SerializeHelper {
             objectInputStream.close();
             return object;
         }
-        catch (final Exception e) {
+        catch (final FileNotFoundException e) {
+            LogHelper.wtf(e);
+            return null;
+        }
+        catch (final IOException e) {
+            LogHelper.wtf(e);
+            return null;
+        }
+        catch (final ClassNotFoundException e) {
             LogHelper.wtf(e);
             return null;
         }

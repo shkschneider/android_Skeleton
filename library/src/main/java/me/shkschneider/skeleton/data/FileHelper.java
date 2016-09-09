@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.data;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,7 +8,9 @@ import android.support.annotation.RawRes;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -45,7 +48,7 @@ public class FileHelper {
         try {
             return new FileInputStream(file);
         }
-        catch (final Exception e) {
+        catch (final FileNotFoundException e) {
             LogHelper.wtf(e);
             return null;
         }
@@ -56,7 +59,7 @@ public class FileHelper {
         try {
             return ApplicationHelper.resources().openRawResource(id);
         }
-        catch (final Exception e) {
+        catch (final Resources.NotFoundException e) {
             LogHelper.wtf(e);
             return null;
         }
@@ -67,7 +70,7 @@ public class FileHelper {
         try {
             return ApplicationHelper.assetManager().open(assetName);
         }
-        catch (final Exception e) {
+        catch (final IOException e) {
             LogHelper.wtf(e);
             return null;
         }
@@ -88,7 +91,7 @@ public class FileHelper {
         try {
             return readString(new FileInputStream(file));
         }
-        catch (final Exception e) {
+        catch (final FileNotFoundException e) {
             LogHelper.wtf(e);
             return null;
         }
@@ -100,7 +103,7 @@ public class FileHelper {
             outputStream.close();
             return true;
         }
-        catch (final Exception e) {
+        catch (final IOException e) {
             LogHelper.wtf(e);
             return false;
         }
@@ -110,7 +113,7 @@ public class FileHelper {
         try {
             return writeString(new FileOutputStream(file), content);
         }
-        catch (final Exception e) {
+        catch (final FileNotFoundException e) {
             LogHelper.wtf(e);
             return false;
         }
@@ -126,7 +129,7 @@ public class FileHelper {
             final FileOutputStream fileOutputStream = new FileOutputStream(file);
             return bitmap.compress(Bitmap.CompressFormat.PNG, 90, fileOutputStream);
         }
-        catch (final Exception e) {
+        catch (final FileNotFoundException e) {
             LogHelper.wtf(e);
             return false;
         }

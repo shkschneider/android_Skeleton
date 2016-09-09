@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class GsonParser {
             final Gson gson = new Gson();
             return gson.fromJson(string, JsonObject.class);
         }
-        catch (final Exception e) {
+        catch (final JsonParseException e) {
             LogHelper.wtf(e);
             return null;
         }
@@ -165,105 +166,65 @@ public class GsonParser {
 
     @Nullable
     public static JsonElement element(@NonNull final JsonObject jsonObject, @NonNull final String key) {
-        try {
-            return jsonObject.get(key);
-        }
-        catch (final Exception e) {
-            LogHelper.wtf(e);
-            return null;
-        }
+        return jsonObject.get(key);
     }
 
     public static List<String> keys(@NonNull final JsonObject jsonObject) {
         final List<String> keys = new ArrayList<>();
-        try {
-            for (final Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
-                keys.add(entry.getKey());
-            }
-        }
-        catch (final Exception e) {
-            LogHelper.wtf(e);
+        for (final Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
+            keys.add(entry.getKey());
         }
         return keys;
     }
 
     public static List<JsonElement> values(@NonNull final JsonObject jsonObject) {
         final List<JsonElement> values = new ArrayList<>();
-        try {
-            for (final Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
-                values.add(entry.getValue());
-            }
-        }
-        catch (final Exception e) {
-            LogHelper.wtf(e);
+        for (final Map.Entry<String, JsonElement> entry : jsonObject.entrySet()) {
+            values.add(entry.getValue());
         }
         return values;
     }
 
     @Nullable
     public static Boolean has(@NonNull final JsonObject jsonObject, @NonNull final String key) {
-        try {
-            return jsonObject.has(key);
-        }
-        catch (final Exception e) {
-            LogHelper.wtf(e);
-            return false;
-        }
+        return jsonObject.has(key);
     }
 
     @Nullable
     public static JsonObject object(@NonNull final JsonObject jsonObject, @NonNull final String key) {
-        try {
-            return jsonObject.getAsJsonObject(key);
-        }
-        catch (final Exception e) {
-            LogHelper.wtf(e);
-            return null;
-        }
+        return jsonObject.getAsJsonObject(key);
     }
 
     @Nullable
     public static JsonArray array(@NonNull final JsonObject jsonObject, @NonNull final String key) {
-        try {
-            return jsonObject.getAsJsonArray(key);
-        }
-        catch (final Exception e) {
-            LogHelper.wtf(e);
-            return null;
-        }
+        return jsonObject.getAsJsonArray(key);
     }
 
     @Nullable
     public static String string(@NonNull final JsonObject jsonObject, @NonNull final String key, final String fallback) {
-        try {
-            return jsonObject.get(key).getAsString();
-        }
-        catch (final Exception e) {
-            LogHelper.wtf(e);
+        final JsonElement jsonElement = jsonObject.get(key);
+        if (jsonElement == null) {
             return fallback;
         }
+        return jsonElement.getAsString();
     }
 
     @Nullable
     public static Integer integer(@NonNull final JsonObject jsonObject, @NonNull final String key, final Integer fallback) {
-        try {
-            return jsonObject.get(key).getAsInt();
-        }
-        catch (final Exception e) {
-            LogHelper.wtf(e);
+        final JsonElement jsonElement = jsonObject.get(key);
+        if (jsonElement == null) {
             return fallback;
         }
+        return jsonElement.getAsInt();
     }
 
     @Nullable
     public static Boolean bool(@NonNull final JsonObject jsonObject, @NonNull final String key, final Boolean fallback) {
-        try {
-            return jsonObject.get(key).getAsBoolean();
-        }
-        catch (final Exception e) {
-            LogHelper.debug(e.getMessage());
+        final JsonElement jsonElement = jsonObject.get(key);
+        if (jsonElement == null) {
             return fallback;
         }
+        return jsonElement.getAsBoolean();
     }
 
 }

@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.InputStream;
@@ -25,7 +26,7 @@ public class JsonParser {
         try {
             return new JSONObject(string);
         }
-        catch (final Exception e) {
+        catch (final JSONException e) {
             LogHelper.wtf(e);
             return null;
         }
@@ -47,7 +48,7 @@ public class JsonParser {
         try {
             return (T) jsonObject.get(key);
         }
-        catch (final Exception e) {
+        catch (final JSONException e) {
             return fallback;
         }
     }
@@ -58,21 +59,16 @@ public class JsonParser {
         try {
             return (T) jsonArray.get(index);
         }
-        catch (final Exception e) {
+        catch (final JSONException e) {
             return fallback;
         }
     }
 
     public static List<String> keys(@NonNull final JSONObject jsonObject) {
         final List<String> keys = new ArrayList<>();
-        try {
-            final Iterator<String> iterator = jsonObject.keys();
-            while (iterator.hasNext()) {
-                keys.add(iterator.next());
-            }
-        }
-        catch (final Exception e) {
-            LogHelper.wtf(e);
+        final Iterator<String> iterator = jsonObject.keys();
+        while (iterator.hasNext()) {
+            keys.add(iterator.next());
         }
         return keys;
     }
@@ -84,20 +80,14 @@ public class JsonParser {
                 values.add(jsonObject.get(key));
             }
         }
-        catch (final Exception e) {
+        catch (final JSONException e) {
             LogHelper.wtf(e);
         }
         return values;
     }
 
     public static boolean has(@NonNull final JSONObject jsonObject, @NonNull final String key) {
-        try {
-            return jsonObject.has(key);
-        }
-        catch (final Exception e) {
-            LogHelper.wtf(e);
-            return false;
-        }
+        return jsonObject.has(key);
     }
 
 }
