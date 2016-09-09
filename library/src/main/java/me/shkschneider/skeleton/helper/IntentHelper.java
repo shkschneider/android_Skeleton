@@ -76,6 +76,8 @@ public class IntentHelper {
     public static Intent share(@Nullable final String subject, @Nullable final String text) {
         final Intent intent = new Intent(Intent.ACTION_SEND)
                 .setType(MimeTypeHelper.TEXT_PLAIN);
+        // Email: intent.setData(Uri.parse("mailto:"));
+        //        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { ... });
         if (! TextUtils.isEmpty(subject)) {
             intent.putExtra(Intent.EXTRA_SUBJECT, subject);
         }

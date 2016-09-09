@@ -4,6 +4,7 @@ import android.content.res.AssetManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class AssetsHelper {
             Collections.addAll(list, assetManager().list(""));
             return list;
         }
-        catch (final Exception e) {
+        catch (final IOException e) {
             LogHelper.wtf(e);
             return null;
         }
@@ -41,7 +42,7 @@ public class AssetsHelper {
         try {
             return assetManager.open(name);
         }
-        catch (final Exception e) {
+        catch (final IOException e) {
             LogHelper.wtf(e);
             return null;
         }
@@ -73,7 +74,7 @@ public class AssetsHelper {
                     outputStream.flush();
                     outputStream.close();
                 }
-                catch (final Exception e) {
+                catch (final IOException e) {
                     LogHelper.wtf(e);
                     errors++;
                 }

@@ -14,6 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
+import android.support.v4.content.ContextCompat;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -23,8 +24,11 @@ import java.util.List;
 import me.shkschneider.skeleton.data.FileHelper;
 import me.shkschneider.skeleton.ui.BitmapHelper;
 import me.shkschneider.skeleton.SkeletonApplication;
+import me.shkschneider.skeleton.ui.DrawableHelper;
 
 public class ApplicationHelper {
+
+    public static final int DEFAULT_ICON = android.R.drawable.sym_def_app_icon;
 
     protected ApplicationHelper() {
         // Empty
@@ -98,7 +102,7 @@ public class ApplicationHelper {
 
             return label.toString();
         }
-        catch (final Exception e) {
+        catch (final PackageManager.NameNotFoundException e) {
             LogHelper.wtf(e);
             return null;
         }
@@ -135,7 +139,7 @@ public class ApplicationHelper {
 
             return packageManager.getPackageInfo(packageName(), PackageManager.GET_META_DATA).versionName;
         }
-        catch (final Exception e) {
+        catch (final PackageManager.NameNotFoundException e) {
             LogHelper.wtf(e);
             return null;
         }
@@ -151,7 +155,7 @@ public class ApplicationHelper {
 
             return packageManager.getPackageInfo(packageName(), PackageManager.GET_META_DATA).versionCode;
         }
-        catch (final Exception e) {
+        catch (final PackageManager.NameNotFoundException e) {
             LogHelper.wtf(e);
             return -1;
         }
@@ -165,17 +169,15 @@ public class ApplicationHelper {
                 LogHelper.warning("PackageManager was NULL");
                 return null;
             }
-
             final ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName(), 0);
             if (applicationInfo == null) {
                 LogHelper.warning("ApplicationInfo was NULL");
                 return null;
             }
-
             final Drawable drawable = applicationInfo.loadIcon(packageManager);
             return BitmapHelper.fromDrawable(drawable);
         }
-        catch (final Exception e) {
+        catch (final PackageManager.NameNotFoundException e) {
             LogHelper.wtf(e);
             return null;
         }
@@ -196,7 +198,7 @@ public class ApplicationHelper {
             Collections.addAll(list, packageInfo.requestedPermissions);
             return list;
         }
-        catch (final Exception e) {
+        catch (final PackageManager.NameNotFoundException e) {
             LogHelper.wtf(e);
             return null;
         }
@@ -226,7 +228,7 @@ public class ApplicationHelper {
 
             return signatures[0].toCharsString();
         }
-        catch (final Exception e) {
+        catch (final PackageManager.NameNotFoundException e) {
             LogHelper.wtf(e);
             return null;
         }

@@ -10,6 +10,7 @@ import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.widget.DatePicker;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -60,7 +61,7 @@ public class DateTimeHelper {
     }
 
     public static long timestamp() {
-        return calendar().getTimeInMillis() / 1000;
+        return now() / 1000;
     }
 
     public static long timestamp(final String string) {
@@ -71,7 +72,7 @@ public class DateTimeHelper {
             final Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", LocaleHelper.locale()).parse(string);
             return (date.getTime() / 1000);
         }
-        catch (final Exception e) {
+        catch (final ParseException e) {
             LogHelper.wtf(e);
             return 0;
         }

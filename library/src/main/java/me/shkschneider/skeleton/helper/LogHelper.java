@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.helper;
 
+import android.annotation.SuppressLint;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,6 +29,7 @@ public class LogHelper {
     protected static String TAG = ApplicationHelper.packageName();
     // Here I use the application's packageName
 
+    @SuppressLint("LogConditional")
     protected static void log(@IntRange(from=VERBOSE, to=WTF) final int level, @Nullable final String msg, final @Nullable Throwable throwable) {
         final StackTraceElement[] elements = new Throwable().getStackTrace();
         String callerClassName = "?";
