@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -8,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.os.ResultReceiver;
 
 // <http://sohailaziz05.blogspot.fr/2012/05/intentservice-providing-data-back-to.html>
+@SuppressLint("ParcelCreator")
 public class SkeletonReceiver extends ResultReceiver {
 
     private Callback mCallback;

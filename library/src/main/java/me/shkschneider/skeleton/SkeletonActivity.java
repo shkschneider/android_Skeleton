@@ -361,7 +361,7 @@ public abstract class SkeletonActivity extends AppCompatActivity {
     }
 
     // Search
-    // <http://stackoverflow.com/questions/18438890>
+    // <http://stackoverflow.com/q/18438890>
 
     protected static final int RESULT_SEARCH_CHANGE = -1;
     protected static final int RESULT_SEARCH_SUBMIT = 1;
