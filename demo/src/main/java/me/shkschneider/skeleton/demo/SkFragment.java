@@ -67,16 +67,19 @@ public class SkFragment extends SkeletonFragment {
                 me.shkschneider.skeleton.helper.SoundHelper.class,
                 me.shkschneider.skeleton.helper.SpannableStringHelper.class,
                 me.shkschneider.skeleton.helper.SystemHelper.class,
+                me.shkschneider.skeleton.helper.ThreadHelper.class,
                 me.shkschneider.skeleton.helper.VibratorHelper.class
         });
         fill((LinearLayout) view.findViewById(R.id.java), new Class[] {
                 me.shkschneider.skeleton.java.ArrayHelper.class,
                 me.shkschneider.skeleton.java.ClassHelper.class,
+                me.shkschneider.skeleton.java.EnumHelper.class,
                 me.shkschneider.skeleton.java.ListHelper.class,
                 me.shkschneider.skeleton.java.MapHelper.class,
                 me.shkschneider.skeleton.java.ObjectHelper.class,
                 me.shkschneider.skeleton.java.RandomHelper.class,
-                me.shkschneider.skeleton.java.StringHelper.class
+                me.shkschneider.skeleton.java.StringHelper.class,
+                me.shkschneider.skeleton.java.Tasker.class
         });
         fill((LinearLayout) view.findViewById(R.id.network), new Class[] {
                 me.shkschneider.skeleton.network.MyRequest.class,
@@ -93,7 +96,9 @@ public class SkFragment extends SkeletonFragment {
                 me.shkschneider.skeleton.security.SimpleCrypt.class
         });
         fill((LinearLayout) view.findViewById(R.id.ui), new Class[] {
+                me.shkschneider.skeleton.ui.AnimationHelper.class,
                 me.shkschneider.skeleton.ui.BitmapHelper.class,
+                me.shkschneider.skeleton.ui.BottomSheet.class,
                 me.shkschneider.skeleton.ui.DrawableHelper.class,
                 me.shkschneider.skeleton.ui.EditTextHelper.class,
                 me.shkschneider.skeleton.ui.FloatingActionButtonCompat.class,
@@ -159,10 +164,11 @@ public class SkFragment extends SkeletonFragment {
                 }
                 final String name = method.getName();
                 if (! name.contains("$")) {
-                    if (methods.contains(name + "()")) {
+                    final String signature = method.getReturnType().getSimpleName() + " " + name + "()";
+                    if (methods.contains(signature)) {
                         continue;
                     }
-                    methods.add(method.getReturnType().getSimpleName() + " " + name + "()");
+                    methods.add(signature);
                 }
             }
             Collections.sort(methods, new AlphanumComparator());
