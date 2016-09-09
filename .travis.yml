@@ -1,5 +1,12 @@
 language: android
 
+notifications:
+  email:
+    recipients:
+      - shk.schneider@gmail.com
+    on_sucess: change
+    on_failure: always
+
 android:
   components:
     - tools
