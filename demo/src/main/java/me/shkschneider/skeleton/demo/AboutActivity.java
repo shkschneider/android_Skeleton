@@ -9,6 +9,7 @@ import android.view.View;
 import me.shkschneider.skeleton.SkeletonActivity;
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
+import me.shkschneider.skeleton.java.StringHelper;
 
 public class AboutActivity extends SkeletonActivity {
 
@@ -43,29 +44,29 @@ public class AboutActivity extends SkeletonActivity {
             // Application
 
             final Preference appPackage = findPreference("app_package");
-            appPackage.setTitle("packageName");
+            appPackage.setTitle("PackageName");
             appPackage.setSummary(ApplicationHelper.packageName());
 
             final Preference appVersionName = findPreference("app_versionName");
-            appVersionName.setTitle("versionName");
+            appVersionName.setTitle("VersionName");
             appVersionName.setSummary(ApplicationHelper.versionName());
 
             final Preference appVersionCode = findPreference("app_versionCode");
-            appVersionCode.setTitle("versionCode");
+            appVersionCode.setTitle("VersionCode");
             appVersionCode.setSummary(String.valueOf(ApplicationHelper.versionCode()));
 
             final Preference appDebug = findPreference("app_debug");
-            appDebug.setTitle("debug");
-            appDebug.setSummary(String.valueOf(ApplicationHelper.debug()));
+            appDebug.setTitle("Debug");
+            appDebug.setSummary(StringHelper.capitalize(String.valueOf(ApplicationHelper.debug())));
 
             // OS
 
             final Preference osVersion = findPreference("os_version");
-            osVersion.setTitle("version");
+            osVersion.setTitle("Version");
             osVersion.setSummary(AndroidHelper.codename());
 
             final Preference osApi = findPreference("os_api");
-            osApi.setTitle("api");
+            osApi.setTitle("API");
             osApi.setSummary(String.valueOf(AndroidHelper.api()));
         }
 

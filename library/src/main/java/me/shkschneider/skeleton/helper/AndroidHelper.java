@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.helper;
 
 import android.os.Build;
+import android.support.annotation.IntRange;
 
 public class AndroidHelper {
 
@@ -31,6 +32,7 @@ public class AndroidHelper {
     public static final int API_21 = Build.VERSION_CODES.LOLLIPOP; // 5.0
     public static final int API_22 = Build.VERSION_CODES.LOLLIPOP_MR1; // 5.1
     public static final int API_23 = Build.VERSION_CODES.M; // 6.0 "Marshmallow"
+    public static final int API_24 = Build.VERSION_CODES.N; // 7.0 "Nougat"
 
     public static final String PLATFORM = "Android";
 
@@ -40,8 +42,9 @@ public class AndroidHelper {
     public static final int ANDROID_4 = API_14;
     public static final int ANDROID_5 = API_21;
     public static final int ANDROID_6 = API_23;
+    public static final int ANDROID_7 = API_24;
 
-    public static String codename(final int api) {
+    public static String codename(@IntRange(from=API_1, to=API_24) final int api) {
         switch (api) {
             case API_1:
             case API_2:
@@ -78,8 +81,10 @@ public class AndroidHelper {
                 return "Lollipop";
             case API_23:
                 return "Marshmallow";
+            case API_24:
+                return "Nougat";
             default:
-                return "unknown";
+                return null;
         }
     }
 

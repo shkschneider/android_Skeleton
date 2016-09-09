@@ -48,11 +48,15 @@ public class FeaturesHelper {
     public static final String FEATURE_CONSUMER_IR = PackageManager.FEATURE_CONSUMER_IR;
     @SuppressLint("InlinedApi") // API-19+
     public static final String FEATURE_DEVICE_ADMIN = PackageManager.FEATURE_DEVICE_ADMIN;
+    @SuppressLint("InlinedApi") // API-24+
+    public static final String FEATURE_ETHERNET = PackageManager.FEATURE_ETHERNET;
     public static final String FEATURE_FAKETOUCH = PackageManager.FEATURE_FAKETOUCH;
     public static final String FEATURE_FAKETOUCH_MULTITOUCH_DISTINCT = PackageManager.FEATURE_FAKETOUCH_MULTITOUCH_DISTINCT;
     public static final String FEATURE_FAKETOUCH_MULTITOUCH_JAZZHAND = PackageManager.FEATURE_FAKETOUCH_MULTITOUCH_JAZZHAND;
     @SuppressLint("InlinedApi") // API-23+
     public static final String FEATURE_FINGERPRINT = PackageManager.FEATURE_FINGERPRINT;
+    @SuppressLint("InlinedApi") // API-24+
+    public static final String FEATURE_FREEFORM_WINDOW_MANAGEMENT = PackageManager.FEATURE_FREEFORM_WINDOW_MANAGEMENT;
     @SuppressLint("InlinedApi") // API-21+
     public static final String FEATURE_GAMEPAD = PackageManager.FEATURE_GAMEPAD;
     @SuppressLint("InlinedApi") // API-23+
@@ -77,8 +81,12 @@ public class FeaturesHelper {
     public static final String FEATURE_NFC = PackageManager.FEATURE_NFC;
     @SuppressLint("InlinedApi") // API-19+
     public static final String FEATURE_NFC_HOST_CARD_EMULATION = PackageManager.FEATURE_NFC_HOST_CARD_EMULATION;
+    @SuppressLint("InlinedApi") // API-24+
+    public static final String FEATURE_NFC_HOST_CARD_EMULATION_NFCF = PackageManager.FEATURE_NFC_HOST_CARD_EMULATION_NFCF;
     @SuppressLint("InlinedApi") // API-21+
     public static final String FEATURE_OPENGLES_EXTENSION_PACK = PackageManager.FEATURE_OPENGLES_EXTENSION_PACK;
+    @SuppressLint("InlinedApi") // API-24+
+    public static final String FEATURE_PICTURE_IN_PICTURE = PackageManager.FEATURE_PICTURE_IN_PICTURE;
     @SuppressLint("InlinedApi") // API-20+
     public static final String FEATURE_PRINTING = PackageManager.FEATURE_PRINTING;
     public static final String FEATURE_SCREEN_LANDSCAPE = PackageManager.FEATURE_SCREEN_LANDSCAPE;
@@ -119,6 +127,14 @@ public class FeaturesHelper {
     public static final String FEATURE_USB_HOST = PackageManager.FEATURE_USB_HOST;
     @SuppressLint("InlinedApi") // API-21+
     public static final String FEATURE_VERIFIED_BOOT = PackageManager.FEATURE_VERIFIED_BOOT;
+    @SuppressLint("InlinedApi") // API-24+
+    public static final String FEATURE_VR_MODE = PackageManager.FEATURE_VR_MODE;
+    @SuppressLint("InlinedApi") // API-24+
+    public static final String FEATURE_VR_MODE_HIGH_PERFORMANCE = PackageManager.FEATURE_VR_MODE_HIGH_PERFORMANCE;
+    @SuppressLint("InlinedApi") // API-24+
+    public static final String FEATURE_VULKAN_HARDWARE_LEVEL = PackageManager.FEATURE_VULKAN_HARDWARE_LEVEL;
+    @SuppressLint("InlinedApi") // API-24+
+    public static final String FEATURE_VULKAN_HARDWARE_VERSION = PackageManager.FEATURE_VULKAN_HARDWARE_VERSION;
     @SuppressLint("InlinedApi") // API-20+
     public static final String FEATURE_WATCH = PackageManager.FEATURE_WATCH;
     @SuppressLint("InlinedApi") // API-20+

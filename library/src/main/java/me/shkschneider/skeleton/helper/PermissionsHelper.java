@@ -31,7 +31,6 @@ public class PermissionsHelper {
     public static final String CHANGE_WIFI_STATE = Manifest.permission.CHANGE_WIFI_STATE;
     public static final String DISABLE_KEYGUARD = Manifest.permission.DISABLE_KEYGUARD;
     public static final String EXPAND_STATUS_BAR = Manifest.permission.EXPAND_STATUS_BAR;
-    public static final String FLASHLIGHT = Manifest.permission.FLASHLIGHT;
     public static final String GET_ACCOUNTS = Manifest.permission.GET_ACCOUNTS; // DANGEROUS
     @SuppressLint("InlinedApi") // API-23+
     public static final String GET_ACCOUNTS_PRIVILEGED = Manifest.permission.GET_ACCOUNTS_PRIVILEGED;
