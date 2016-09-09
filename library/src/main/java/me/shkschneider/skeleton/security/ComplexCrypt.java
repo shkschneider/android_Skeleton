@@ -4,9 +4,13 @@ import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
 import java.util.Arrays;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
@@ -29,23 +33,17 @@ public class ComplexCrypt {
 
     @SuppressLint("TrulyRandom")
     public ComplexCrypt(@NonNull final byte[] secret) throws Exception {
-        try {
-            // salt
-            mSecret = new String(secret).getBytes();
-            // initialization vector
-            mIvParameterSpec = new IvParameterSpec(RandomHelper.string(ALGORITHM_KEY_PAD).getBytes());
-            // key
-            final KeyGenerator keyGenerator = KeyGenerator.getInstance(ALGORITHM.split("/")[0]);
-            keyGenerator.init(ALGORITHM_KEY_LENGTH);
-            mSecretKey = keyGenerator.generateKey();
-            mSecretKeySpec = new SecretKeySpec(mSecretKey.getEncoded(), ALGORITHM.split("/")[0]);
-            // cipher
-            mCipher = Cipher.getInstance(ALGORITHM);
-        }
-        catch (final Exception e) {
-            LogHelper.wtf(e);
-            throw e;
-        }
+        // salt
+        mSecret = new String(secret).getBytes();
+        // initialization vector
+        mIvParameterSpec = new IvParameterSpec(RandomHelper.string(ALGORITHM_KEY_PAD).getBytes());
+        // key
+        final KeyGenerator keyGenerator = KeyGenerator.getInstance(ALGORITHM.split("/")[0]);
+        keyGenerator.init(ALGORITHM_KEY_LENGTH);
+        mSecretKey = keyGenerator.generateKey();
+        mSecretKeySpec = new SecretKeySpec(mSecretKey.getEncoded(), ALGORITHM.split("/")[0]);
+        // cipher
+        mCipher = Cipher.getInstance(ALGORITHM);
     }
 
     public String secret() {
@@ -66,7 +64,19 @@ public class ComplexCrypt {
             mCipher.init(Cipher.ENCRYPT_MODE, mSecretKeySpec, mIvParameterSpec);
             return mCipher.doFinal(pad(bytes));
         }
-        catch (final Exception e) {
+        catch (final InvalidKeyException e) {
+            LogHelper.wtf(e);
+            return null;
+        }
+        catch (final InvalidAlgorithmParameterException e) {
+            LogHelper.wtf(e);
+            return null;
+        }
+        catch (final IllegalBlockSizeException e) {
+            LogHelper.wtf(e);
+            return null;
+        }
+        catch (final BadPaddingException e) {
             LogHelper.wtf(e);
             return null;
         }
@@ -92,7 +102,19 @@ public class ComplexCrypt {
             }
             return decrypted;
         }
-        catch (final Exception e) {
+        catch (final InvalidKeyException e) {
+            LogHelper.wtf(e);
+            return null;
+        }
+        catch (final InvalidAlgorithmParameterException e) {
+            LogHelper.wtf(e);
+            return null;
+        }
+        catch (final IllegalBlockSizeException e) {
+            LogHelper.wtf(e);
+            return null;
+        }
+        catch (final BadPaddingException e) {
             LogHelper.wtf(e);
             return null;
         }

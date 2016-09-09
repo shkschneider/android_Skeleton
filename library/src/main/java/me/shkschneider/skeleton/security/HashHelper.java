@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.StringHelper;
@@ -31,7 +32,7 @@ public class HashHelper {
             }
             return stringBuilder.toString();
         }
-        catch (final Exception e) {
+        catch (final NoSuchAlgorithmException e) {
             LogHelper.wtf(e);
             return null;
         }

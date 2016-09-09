@@ -3,6 +3,9 @@ package me.shkschneider.skeleton.security;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -25,7 +28,11 @@ public class HmacHelper {
             }
             return StringHelper.hexadecimal(digest);
         }
-        catch (final Exception e) {
+        catch (final NoSuchAlgorithmException e) {
+            LogHelper.wtf(e);
+            return null;
+        }
+        catch (final InvalidKeyException e) {
             LogHelper.wtf(e);
             return null;
         }
