@@ -10,7 +10,6 @@ import android.view.ViewAnimationUtils;
 import me.shkschneider.skeleton.R;
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
-import me.shkschneider.skeleton.helper.LogHelper;
 
 public class AnimationHelper {
 
@@ -47,13 +46,7 @@ public class AnimationHelper {
             view.setVisibility(View.INVISIBLE);
             return;
         }
-        try {
-            revealOff21(view);
-        }
-        catch (final Exception e) {
-            LogHelper.wtf(e);
-            view.setVisibility(View.INVISIBLE);
-        }
+        revealOff21(view);
     }
 
     @TargetApi(AndroidHelper.API_21)

@@ -119,6 +119,11 @@ public abstract class MyRecyclerViewAdapter<T, VH extends RecyclerView.ViewHolde
             return mObjects.size();
         }
 
+        @Override
+        public long getItemId(final int position) {
+            return position;
+        }
+
         public class ViewHolder extends RecyclerView.ViewHolder {
 
             public TextView text1;

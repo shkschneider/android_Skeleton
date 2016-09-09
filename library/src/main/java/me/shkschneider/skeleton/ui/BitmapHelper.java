@@ -24,6 +24,7 @@ import android.widget.RelativeLayout;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import me.shkschneider.skeleton.helper.ApplicationHelper;
@@ -105,13 +106,7 @@ public class BitmapHelper {
         if (options == null) {
             options = new BitmapFactory.Options();
         }
-        try {
-            return BitmapFactory.decodeStream(inputStream, null, options);
-        }
-        catch (final Exception e) {
-            LogHelper.wtf(e);
-            return null;
-        }
+        return BitmapFactory.decodeStream(inputStream, null, options);
     }
 
     @Nullable
@@ -126,7 +121,7 @@ public class BitmapHelper {
             }
             return BitmapHelper.fromInputStream(inputStream, options);
         }
-        catch (final Exception e) {
+        catch (final FileNotFoundException e) {
             LogHelper.wtf(e);
             return null;
         }
@@ -141,7 +136,7 @@ public class BitmapHelper {
                 }
             });
         }
-        catch (final Exception e) {
+        catch (final FileNotFoundException e) {
             LogHelper.wtf(e);
             return null;
         }
@@ -197,7 +192,7 @@ public class BitmapHelper {
             options.inSampleSize = scale;
             return BitmapHelper.fromInputStream(inputStream, options);
         }
-        catch (final Exception e) {
+        catch (final FileNotFoundException e) {
             LogHelper.wtf(e);
             return null;
         }

@@ -60,8 +60,10 @@ public class FloatingActionButtonCompat {
 
     public static void absListView(@NonNull final FloatingActionButton floatingActionButton, @NonNull final ListView listView, final AbsListView.OnScrollListener onScrollListener) {
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
             private int mLastScrollY;
             private int mPreviousFirstVisibleItem;
+
             @Override
             public void onScroll(final AbsListView view, final int firstVisibleItem, final int visibleItemCount, final int totalItemCount) {
                 if (totalItemCount == 0) {
@@ -97,22 +99,26 @@ public class FloatingActionButtonCompat {
                     onScrollListener.onScroll(view, firstVisibleItem, visibleItemCount, totalItemCount);
                 }
             }
+
             private int getTopItemScrollY() {
                 final View topChild = listView.getChildAt(0);
                 if (topChild == null) return 0;
                 return topChild.getTop();
             }
+
             @Override
             public void onScrollStateChanged(final AbsListView view, final int scrollState) {
                 if (onScrollListener != null) {
                     onScrollListener.onScrollStateChanged(view, scrollState);
                 }
             }
+
         });
     }
 
     public static void myScrollView(@NonNull final FloatingActionButton floatingActionButton, @NonNull final MyScrollView myScrollView) {
         myScrollView.setOnScrollViewListener(new MyScrollView.OnScrollViewListener() {
+
             private int mLastScrollY;
 
             @Override
@@ -127,31 +133,31 @@ public class FloatingActionButtonCompat {
                 }
                 mLastScrollY = t;
             }
+
         });
     }
 
+    // <http://stackoverflow.com/a/35981886>
     public static void recyclerView(@NonNull final FloatingActionButton floatingActionButton, @NonNull final RecyclerView recyclerView) {
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(final RecyclerView recyclerView, final int dx, final int dy) {
-                boolean isSignificantDelta = Math.abs(dy) > THRESHOLD;
-                if (isSignificantDelta) {
-                    if (dy > 0) {
-                        floatingActionButton.hide();
-                    } else {
-                        floatingActionButton.show();
-                    }
-                }
-            }
+
             @Override
             public void onScrollStateChanged(final RecyclerView recyclerView, final int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     floatingActionButton.show();
                 }
+                super.onScrollStateChanged(recyclerView, newState);
             }
+
+            @Override
+            public void onScrolled(final RecyclerView recyclerView, final int dx, final int dy) {
+                boolean isSignificantDelta = Math.abs(dy) > 5;
+                if (/*dy < 0 || */(isSignificantDelta && dy > 0)) {
+                    floatingActionButton.hide();
+                }
+            }
+
         });
-        // FIXME when scrolling once the finger is off the screen, triggers show() without effect
     }
 
 }
