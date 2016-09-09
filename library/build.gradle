@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.shkschneider'
 
 android {
     compileSdkVersion 23
@@ -24,14 +25,16 @@ android {
 dependencies {
     compile 'com.android.support:design:23.4.0'
     compile 'com.android.support:palette-v7:23.4.0'
+    compile 'com.android.support:recyclerview-v7:23.4.0'
     compile 'com.android.support:preference-v14:23.4.0'
 
     compile 'com.android.volley:volley:1.0.0'
 
-    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.google.code.gson:gson:2.7'
 }
 
 task javadoc(type: Javadoc) {
+    failOnError false
     title = "Skeleton"
     source = android.sourceSets.main.java.srcDirs
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
@@ -47,6 +50,11 @@ task javadoc(type: Javadoc) {
     exclude '**/R.java'
 }
 
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
 task jar(type: Jar, dependsOn: 'assembleRelease') {
     from fileTree(dir: 'build/intermediates/classes/release')
 }
@@ -58,6 +66,7 @@ task sourcesJar(type: Jar) {
 
 artifacts {
     archives sourcesJar
+    archives javadocJar
 }
 
 // uncomment to build a jar file in addition to the default aar file
