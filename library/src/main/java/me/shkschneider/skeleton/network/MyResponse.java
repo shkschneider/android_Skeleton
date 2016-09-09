@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.network;
 import com.android.volley.NetworkResponse;
 import com.android.volley.toolbox.HttpHeaderParser;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import me.shkschneider.skeleton.helper.LogHelper;
@@ -47,7 +48,7 @@ public class MyResponse extends NetworkResponse {
         try {
             return new String(data, HttpHeaderParser.parseCharset(headers));
         }
-        catch (final Exception e) {
+        catch (final UnsupportedEncodingException e) {
             LogHelper.wtf(e);
             return null;
         }

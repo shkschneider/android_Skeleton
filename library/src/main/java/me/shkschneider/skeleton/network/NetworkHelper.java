@@ -11,10 +11,12 @@ import android.support.annotation.RequiresPermission;
 import android.text.TextUtils;
 import android.webkit.WebView;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -38,7 +40,15 @@ public class NetworkHelper {
             getString.setAccessible(true);
             return getString.invoke(null, "net.hostname").toString();
         }
-        catch (final Exception e) {
+        catch (final NoSuchMethodException e) {
+            LogHelper.wtf(e);
+            return null;
+        }
+        catch (final InvocationTargetException e) {
+            LogHelper.wtf(e);
+            return null;
+        }
+        catch (final IllegalAccessException e) {
             LogHelper.wtf(e);
             return null;
         }
@@ -111,7 +121,7 @@ public class NetworkHelper {
             }
             return ipAddresses;
         }
-        catch (final Exception e) {
+        catch (final SocketException e) {
             LogHelper.wtf(e);
             return null;
         }
@@ -132,7 +142,7 @@ public class NetworkHelper {
             }
             return null;
         }
-        catch (final Exception e) {
+        catch (final SocketException e) {
             LogHelper.wtf(e);
             return null;
         }

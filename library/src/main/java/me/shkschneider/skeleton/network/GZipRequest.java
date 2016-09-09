@@ -10,6 +10,7 @@ import com.android.volley.toolbox.StringRequest;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.zip.GZIPInputStream;
 
@@ -39,7 +40,7 @@ public class GZipRequest extends StringRequest {
             bufferedReader.close();
             gzipInputStream.close();
         }
-        catch (final Exception e) {
+        catch (final IOException e) {
             return Response.error(new ParseError(e));
         }
         return Response.success(stringBuilder.toString(), HttpHeaderParser.parseCacheHeaders(response));

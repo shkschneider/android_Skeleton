@@ -10,6 +10,10 @@ import com.android.volley.toolbox.JsonRequest;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import java.io.UnsupportedEncodingException;
+
+import me.shkschneider.skeleton.data.CharsetHelper;
+
 // <https://android.googlesource.com/platform/frameworks/volley/+/master/src/main/java/com/android/volley/toolbox/JsonObjectRequest.java>
 public class GsonObjectRequest extends JsonRequest<JsonObject> {
 
@@ -28,11 +32,11 @@ public class GsonObjectRequest extends JsonRequest<JsonObject> {
     @Override
     protected Response<JsonObject> parseNetworkResponse(@NonNull final NetworkResponse response) {
         try {
-            final String string = new String(response.data, HttpHeaderParser.parseCharset(response.headers, "utf-8"));
+            final String string = new String(response.data, HttpHeaderParser.parseCharset(response.headers, CharsetHelper.UTF8));
             final JsonObject jsonObject = new Gson().fromJson(string, JsonObject.class);
             return Response.success(jsonObject, HttpHeaderParser.parseCacheHeaders(response));
         }
-        catch (final Exception e) {
+        catch (final UnsupportedEncodingException e) {
             return Response.error(new ParseError(e));
         }
     }
