@@ -3,7 +3,7 @@
 
     <dimen name="statusBar">24dp</dimen>
     <dimen name="toolbar">56dp</dimen>
-    <dimen name="toolbar2">64dp</dimen>
+    <dimen name="toolbar2">72dp</dimen>
     <dimen name="navigationDrawer">240dp</dimen>
     <dimen name="divider">1dp</dimen>
     <dimen name="scrollbar">4dp</dimen>

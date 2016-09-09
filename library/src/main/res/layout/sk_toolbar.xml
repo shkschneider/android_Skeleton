@@ -2,10 +2,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/toolbar"
-    android:gravity="center_vertical"
+    android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="@dimen/toolbar"
-    android:minHeight="?attr/actionBarSize"
-    android:background="?attr/colorPrimary"
+    android:minHeight="@dimen/toolbar"
+    android:background="@color/actionBarColor"
     android:theme="@style/SkeletonTheme.Toolbar"
     app:popupTheme="@style/SkeletonTheme.Toolbar.Popup" />
