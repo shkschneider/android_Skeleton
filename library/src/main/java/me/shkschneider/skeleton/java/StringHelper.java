@@ -182,4 +182,9 @@ public class StringHelper {
         return new String(chars);
     }
 
+    // <http://stackoverflow.com/a/4903603>
+    public static String repeat(final String s, final Integer n) {
+        return new String(new char[n]).replace("\0", s);
+    }
+
 }
