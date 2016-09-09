@@ -6,7 +6,7 @@ Skeleton [![Travis-CI](https://travis-ci.org/shkschneider/android_Skeleton.svg?b
 Setup
 -----
 
-[![JitPack](https://jitpack.io/v/com.github.shkschneider/android_Skeleton.svg)](https://jitpack.io/#shkschneider/android_Skeleton/5.4.0)
+[![JitPack](https://jitpack.io/v/com.github.shkschneider/android_Skeleton.svg)](https://jitpack.io/#shkschneider/android_Skeleton/5.5.0)
 
 Specifications
 --------------
@@ -16,7 +16,6 @@ Specifications
 [![Apache 2](https://img.shields.io/badge/license-Apache%202-blue.svg?style=flat)](https://raw.githubusercontent.com/shkschneider/android_Skeleton/master/LICENSE)
 
 **Libraries**
-
 
 - [com.google.code.gson:gson](https://github.com/google/gson)
 - [com.android.support:design](https://developer.android.com/topic/libraries/support-library/features.html#design)
@@ -32,7 +31,8 @@ Specifications
 - [android.support.v7.widget.Toolbar](https://developer.android.com/reference/android/support/v7/widget/Toolbar.html)
 - [android.support.v4.app.Fragment](https://developer.android.com/reference/android/support/v4/app/Fragment.html)
 - [Material Design](http://www.google.com/design/spec/material-design/introduction.html)
-- Makefile
+- [OpenJDK 8](http://openjdk.java.net/projects/jdk8/)
+- [GNU Make](https://www.gnu.org/software/make/manual/make.html)
 
 Author
 ------
