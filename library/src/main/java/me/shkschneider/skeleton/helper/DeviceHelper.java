@@ -1,7 +1,10 @@
 package me.shkschneider.skeleton.helper;
 
+import android.annotation.SuppressLint;
+import android.graphics.Point;
 import android.os.Build;
 import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.WindowManager;
 
 // <http://developer.android.com/reference/android/os/Build.html>
@@ -11,23 +14,33 @@ public class DeviceHelper {
         // Empty
     }
 
-    // <http://stackoverflow.com/a/15133818>
-    @Deprecated // Avoid
-    public static double screenSize() {
+    // <https://github.com/eyeem/deviceinfo>
+    @SuppressWarnings("deprecation")
+    @SuppressLint("NewApi")
+    public static float screenSize() {
         final WindowManager windowManager = SystemServices.windowManager();
         final DisplayMetrics displayMetrics = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(displayMetrics);
-        final int h = displayMetrics.heightPixels;
-        final int w = displayMetrics.widthPixels;
-        final double diagonalPixels = Math.sqrt(Math.pow(h, 2) + Math.pow(w, 2));
-        return diagonalPixels / displayMetrics.densityDpi;
+        Point point = new Point(1, 1);
+        final Display display = windowManager.getDefaultDisplay();
+        if (AndroidHelper.api() >= AndroidHelper.API_17) {
+            display.getRealSize(point);
+        }
+        else if (AndroidHelper.api() >= AndroidHelper.API_13) {
+            display.getSize(point);
+        }
+        else {
+            point = new Point(display.getWidth(), display.getHeight());
+        }
+        float w = point.x / displayMetrics.xdpi;
+        float h = point.y / displayMetrics.ydpi;
+        final float screenSize = (float) Math.sqrt(Math.pow(w, 2) + Math.pow(h, 2));
+        LogHelper.verbose("screenSize: " + screenSize + "\"");
+        return screenSize;
     }
 
-    @SuppressWarnings("deprecation")
-    @Deprecated // Avoid
     public static boolean tablet() {
         final double screenSize = screenSize();
-        LogHelper.verbose("screenSize: " + screenSize + "\"");
         return (screenSize >= 7.0);
     }
 
@@ -68,7 +81,6 @@ public class DeviceHelper {
 //            }
 //        }
         return emulator;
-
     }
 
     public static String brand() {
