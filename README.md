@@ -6,7 +6,7 @@ Skeleton [![Travis-CI](https://travis-ci.org/shkschneider/android_Skeleton.svg?b
 Setup
 -----
 
-[![JitPack](https://jitpack.io/v/com.github.shkschneider/android_Skeleton.svg)](https://jitpack.io/#shkschneider/android_Skeleton/5.3.0)
+[![JitPack](https://jitpack.io/v/com.github.shkschneider/android_Skeleton.svg)](https://jitpack.io/#shkschneider/android_Skeleton/5.4.0)
 
 Specifications
 --------------
@@ -21,12 +21,13 @@ Specifications
 - [com.google.code.gson:gson](https://github.com/google/gson)
 - [com.android.support:design](https://developer.android.com/topic/libraries/support-library/features.html#design)
 - [com.android.support:palette-v7](https://developer.android.com/topic/libraries/support-library/features.html#v7-palette)
+- [com.android.support:recyclerview-v7](https://developer.android.com/topic/libraries/support-library/features.html#v7-recyclerview)
 - [com.android.support:preference-v14](https://developer.android.com/topic/libraries/support-library/features.html#v14-preference)
 
 **Uses**
 
-- [Gradle 2.1.0](http://tools.android.com/tech-docs/new-build-system) (wrapper 2.11)
-- [Android Studio 2.1.1](https://developer.android.com/sdk/index.html)
+- [Gradle 2.1.3](http://tools.android.com/tech-docs/new-build-system) (wrapper 2.14.1)
+- [Android Studio 2.1.3](https://developer.android.com/sdk/index.html)
 - [android.support.v7.app.AppCompatActivity](https://developer.android.com/reference/android/support/v7/app/AppCompatActivity.html)
 - [android.support.v7.widget.Toolbar](https://developer.android.com/reference/android/support/v7/widget/Toolbar.html)
 - [android.support.v4.app.Fragment](https://developer.android.com/reference/android/support/v4/app/Fragment.html)
