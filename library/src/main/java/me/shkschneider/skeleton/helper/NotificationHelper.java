@@ -32,6 +32,16 @@ import android.support.v4.app.NotificationCompat;
  */
 public class NotificationHelper {
 
+    public static PendingIntent pendingIntent(@NonNull final Activity activity, Intent intent) {
+        if (intent == null) {
+            intent = new Intent(activity, activity.getClass());
+        }
+        if (intent.getFlags() == 0) {
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        }
+        return PendingIntent.getActivity(activity, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+    }
+
     public static NotificationCompat.Builder Builder(@ColorInt final int color, @DrawableRes final int smallIcon, final Bitmap largeIcon,
                                                      final String ticker,
                                                      @NonNull final String contentTitle, @NonNull final String contentText, final String subText, final String contentInfo,
@@ -53,24 +63,6 @@ public class NotificationHelper {
                 .setDefaults(NotificationCompat.DEFAULT_ALL)
                 .setOngoing(false)
                 .setAutoCancel(true);
-    }
-
-    @Deprecated //Avoid
-    public static NotificationCompat.Builder Builder(@ColorInt final int color, @DrawableRes final int smallIcon, final Bitmap largeIcon,
-                                                     final String ticker,
-                                                     @NonNull final String contentTitle, @NonNull final String contentText, final String subText, final String contentInfo,
-                                                     @NonNull final Activity activity, Intent intent) {
-        if (intent == null) {
-            intent = new Intent(activity, activity.getClass());
-        }
-        if (intent.getFlags() == 0) {
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        }
-        final PendingIntent pendingIntent = PendingIntent.getActivity(activity, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        return Builder(color, smallIcon, largeIcon,
-                ticker,
-                contentTitle, contentText, subText, contentInfo,
-                pendingIntent);
     }
 
     @SuppressWarnings("deprecation")

@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.demo;
 
 import android.annotation.SuppressLint;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
@@ -32,6 +34,7 @@ import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.DateTimeHelper;
 import me.shkschneider.skeleton.helper.DeviceHelper;
+import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.NotificationHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
@@ -210,10 +213,10 @@ public class MainActivity extends SkeletonActivity {
                 .putExtra("title", title)
                 .putExtra("message", message);
         final NotificationCompat.Builder builder = NotificationHelper.Builder(
-                getResources().getColor(R.color.accentColor), android.R.drawable.sym_def_app_icon, null,
+                ContextCompat.getColor(ApplicationHelper.context(), R.color.accentColor), android.R.drawable.sym_def_app_icon, null,
                 "Ticker",
                 "Skeleton", "for Android", null, null,
-                MainActivity.this, intent);
+                NotificationHelper.pendingIntent(MainActivity.this, intent));
         NotificationHelper.notify(id, builder);
     }
 
