@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 14 // Ice Cream Sandwich 4.x.x
         targetSdkVersion 24
-        versionCode 29
-        versionName '5.4.1'
+        versionCode 30
+        versionName '5.4.2'
     }
     lintOptions {
         checkReleaseBuilds true
