@@ -29,8 +29,7 @@ public class GsonParser {
     @Nullable
     public static JsonObject parse(@NonNull final String string) {
         try {
-            final Gson gson = new Gson();
-            return gson.fromJson(string, JsonObject.class);
+            return new Gson().fromJson(string, JsonObject.class);
         }
         catch (final JsonParseException e) {
             LogHelper.wtf(e);
@@ -210,12 +209,22 @@ public class GsonParser {
     }
 
     @Nullable
-    public static Integer integer(@NonNull final JsonObject jsonObject, @NonNull final String key, final Integer fallback) {
+    public static String string(@NonNull final JsonObject jsonObject, @NonNull final String key) {
+        return string(jsonObject, key, null);
+    }
+
+    @Nullable
+    public static Number number(@NonNull final JsonObject jsonObject, @NonNull final String key, final Integer fallback) {
         final JsonElement jsonElement = jsonObject.get(key);
         if (jsonElement == null) {
             return fallback;
         }
-        return jsonElement.getAsInt();
+        return jsonElement.getAsNumber();
+    }
+
+    @Nullable
+    public static Number number(@NonNull final JsonObject jsonObject, @NonNull final String key) {
+        return number(jsonObject, key, null);
     }
 
     @Nullable
@@ -225,6 +234,21 @@ public class GsonParser {
             return fallback;
         }
         return jsonElement.getAsBoolean();
+    }
+
+    @Nullable
+    public static Boolean bool(@NonNull final JsonObject jsonObject, @NonNull final String key) {
+        return bool(jsonObject, key, null);
+    }
+
+    @Deprecated
+    @Nullable
+    public static Integer integer(@NonNull final JsonObject jsonObject, @NonNull final String key) {
+        final Number number = number(jsonObject, key, null);
+        if (number == null) {
+            return null;
+        }
+        return number.intValue();
     }
 
 }
