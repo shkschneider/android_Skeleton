@@ -44,7 +44,8 @@ public class SkFragment extends SkeletonFragment {
                 me.shkschneider.skeleton.data.JsonParser.class,
                 me.shkschneider.skeleton.data.MemoryBitmapCache.class,
                 me.shkschneider.skeleton.data.MemoryCache.class,
-                me.shkschneider.skeleton.data.SerializeHelper.class
+                me.shkschneider.skeleton.data.SerializeHelper.class,
+                me.shkschneider.skeleton.data.SharedPreferencesHelper.class
         });
         fill((LinearLayout) view.findViewById(R.id.helper), new Class[] {
                 me.shkschneider.skeleton.helper.ActivityHelper.class,
@@ -63,7 +64,6 @@ public class SkFragment extends SkeletonFragment {
                 me.shkschneider.skeleton.helper.NotificationHelper.class,
                 me.shkschneider.skeleton.helper.RunnableHelper.class,
                 me.shkschneider.skeleton.helper.ScreenHelper.class,
-                me.shkschneider.skeleton.helper.SharedPreferencesHelper.class,
                 me.shkschneider.skeleton.helper.SoundHelper.class,
                 me.shkschneider.skeleton.helper.SpannableStringHelper.class,
                 me.shkschneider.skeleton.helper.SystemHelper.class,

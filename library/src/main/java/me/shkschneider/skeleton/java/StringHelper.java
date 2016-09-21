@@ -23,11 +23,6 @@ public class StringHelper {
     public static final String HEX = NUMERIC + ALPHA.substring(0, 6);
     public static final String ALPHA_NUMERIC = ALPHA + NUMERIC;
 
-    @Deprecated
-    public static boolean nullOrEmpty(final String string) {
-        return TextUtils.isEmpty(string);
-    }
-
     public static String camelCase(@NonNull final String[] strings) {
         String camelCase = "";
         for (final String string : strings) {

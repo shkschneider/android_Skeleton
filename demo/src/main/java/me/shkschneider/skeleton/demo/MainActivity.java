@@ -1,13 +1,11 @@
 package me.shkschneider.skeleton.demo;
 
 import android.annotation.SuppressLint;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -34,7 +32,6 @@ import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.DateTimeHelper;
 import me.shkschneider.skeleton.helper.DeviceHelper;
-import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.NotificationHelper;
 import me.shkschneider.skeleton.java.ClassHelper;

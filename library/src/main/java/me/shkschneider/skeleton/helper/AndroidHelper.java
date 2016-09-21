@@ -96,4 +96,8 @@ public class AndroidHelper {
         return Build.VERSION.SDK_INT;
     }
 
+    public static String versionName() {
+        return Build.VERSION.RELEASE;
+    }
+
 }

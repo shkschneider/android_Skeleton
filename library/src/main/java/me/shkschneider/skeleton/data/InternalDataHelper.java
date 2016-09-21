@@ -72,4 +72,19 @@ public class InternalDataHelper {
         return ApplicationHelper.context().deleteFile(name);
     }
 
+    public static boolean wipe() {
+        int errors = 0;
+        final File dir = dir();
+        if (dir.exists()) {
+            final String[] children = dir.list();
+            for (final String child : children) {
+                final File file = new File(dir, child);
+                if (! file.delete()) {
+                    errors++;
+                }
+            }
+        }
+        return (errors == 0);
+    }
+
 }

@@ -5,15 +5,14 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.widget.DatePicker;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.TimeZone;
 
 public class DateTimeHelper {
@@ -29,10 +28,18 @@ public class DateTimeHelper {
     }
 
     // <http://developer.android.com/intl/ru/reference/java/text/SimpleDateFormat.html>
-    public static final String ISO8601 = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+    public static final String ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+    // <https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1>
+    public static final String HTTP_DATE = "EEE, dd MMM yyyy HH:mm:ss z";
 
     protected DateTimeHelper() {
         // Empty
+    }
+
+    public static Calendar epoch() {
+        final Calendar calendar = calendar();
+        calendar.setTimeInMillis(0L);
+        return calendar;
     }
 
     public static int day() {
@@ -48,9 +55,9 @@ public class DateTimeHelper {
     }
 
     // <http://howtodoinjava.com/2012/12/16/always-use-setlenient-false-when-using-simpledateformat-for-date-validation-in-java/>
-    public static String format(@NonNull final Calendar calendar, String format) {
+    public static String format(@NonNull final Calendar calendar, @Nullable String format) {
         if (TextUtils.isEmpty(format)) {
-            format = ISO8601;
+            format = ISO_8601;
         }
         calendar.setLenient(false);
         return new SimpleDateFormat(format, LocaleHelper.locale()).format(calendar.getTime());
@@ -62,20 +69,6 @@ public class DateTimeHelper {
 
     public static long timestamp() {
         return now() / 1000;
-    }
-
-    public static long timestamp(final String string) {
-        if (TextUtils.isEmpty(string)) {
-            return 0;
-        }
-        try {
-            final Date date = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", LocaleHelper.locale()).parse(string);
-            return (date.getTime() / 1000);
-        }
-        catch (final ParseException e) {
-            LogHelper.wtf(e);
-            return 0;
-        }
     }
 
     public static int gmtOffset() {

@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
@@ -191,21 +192,29 @@ public class GsonParser {
 
     @Nullable
     public static JsonObject object(@NonNull final JsonObject jsonObject, @NonNull final String key) {
-        return jsonObject.getAsJsonObject(key);
+        final JsonElement jsonElement = element(jsonObject, key);
+        if (jsonElement != null && (jsonElement instanceof JsonObject)) {
+            return jsonElement.getAsJsonObject();
+        }
+        return null;
     }
 
     @Nullable
     public static JsonArray array(@NonNull final JsonObject jsonObject, @NonNull final String key) {
-        return jsonObject.getAsJsonArray(key);
+        final JsonElement jsonElement = element(jsonObject, key);
+        if (jsonElement != null && (jsonElement instanceof JsonArray)) {
+            return jsonElement.getAsJsonArray();
+        }
+        return null;
     }
 
     @Nullable
     public static String string(@NonNull final JsonObject jsonObject, @NonNull final String key, final String fallback) {
         final JsonElement jsonElement = jsonObject.get(key);
-        if (jsonElement == null) {
-            return fallback;
+        if (jsonElement != null && ! (jsonElement instanceof JsonNull)) {
+            return jsonElement.getAsString();
         }
-        return jsonElement.getAsString();
+        return fallback;
     }
 
     @Nullable
@@ -214,41 +223,26 @@ public class GsonParser {
     }
 
     @Nullable
-    public static Number number(@NonNull final JsonObject jsonObject, @NonNull final String key, final Integer fallback) {
-        final JsonElement jsonElement = jsonObject.get(key);
-        if (jsonElement == null) {
-            return fallback;
-        }
-        return jsonElement.getAsNumber();
-    }
-
-    @Nullable
     public static Number number(@NonNull final JsonObject jsonObject, @NonNull final String key) {
-        return number(jsonObject, key, null);
+        final JsonElement jsonElement = jsonObject.get(key);
+        if (jsonElement != null && ! (jsonElement instanceof JsonNull)) {
+            return jsonElement.getAsNumber();
+        }
+        return null;
     }
 
     @Nullable
     public static Boolean bool(@NonNull final JsonObject jsonObject, @NonNull final String key, final Boolean fallback) {
         final JsonElement jsonElement = jsonObject.get(key);
-        if (jsonElement == null) {
-            return fallback;
+        if (jsonElement != null && ! (jsonElement instanceof JsonNull)) {
+            return jsonElement.getAsBoolean();
         }
-        return jsonElement.getAsBoolean();
+        return fallback;
     }
 
     @Nullable
     public static Boolean bool(@NonNull final JsonObject jsonObject, @NonNull final String key) {
         return bool(jsonObject, key, null);
-    }
-
-    @Deprecated
-    @Nullable
-    public static Integer integer(@NonNull final JsonObject jsonObject, @NonNull final String key) {
-        final Number number = number(jsonObject, key, null);
-        if (number == null) {
-            return null;
-        }
-        return number.intValue();
     }
 
 }

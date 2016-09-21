@@ -1,15 +1,20 @@
-package me.shkschneider.skeleton.helper;
+package me.shkschneider.skeleton.data;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.SharedPreferencesCompat;
 
 import java.util.Map;
 import java.util.Set;
 
+import me.shkschneider.skeleton.helper.ApplicationHelper;
+import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.MapHelper;
 
+@SuppressLint("CommitPrefEdits")
 public class SharedPreferencesHelper {
 
     protected SharedPreferencesHelper() {
@@ -41,73 +46,79 @@ public class SharedPreferencesHelper {
 
     // String
 
-    public static boolean put(@NonNull final String key, final String value) {
+    public static boolean putString(@NonNull final String key, final String value) {
         LogHelper.verbose(key + " = " + value);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(get().edit().putString(key, value));
         return true;
     }
 
-    public static String get(@NonNull final String key, final String defaultValue) {
+    @Nullable
+    public static String getString(@NonNull final String key, final String defaultValue) {
         return get().getString(key, defaultValue);
     }
 
     // Set<String>
 
-    public static boolean put(@NonNull final String key, final Set<String> value) {
+    public static boolean putStringSet(@NonNull final String key, final Set<String> value) {
         LogHelper.verbose(key + " = " + value);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(get().edit().putStringSet(key, value));
         return true;
     }
 
-    public static Set<String> get(@NonNull final String key, final Set<String> defaultValue) {
+    @Nullable
+    public static Set<String> getStringSet(@NonNull final String key, final Set<String> defaultValue) {
         return get().getStringSet(key, defaultValue);
     }
 
     // Int
 
-    public static boolean put(@NonNull final String key, final Integer value) {
+    public static boolean putInteger(@NonNull final String key, final Integer value) {
         LogHelper.verbose(key + " = " + value);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(get().edit().putInt(key, value));
         return true;
     }
 
-    public static Integer get(@NonNull final String key, final Integer defaultValue) {
+    @Nullable
+    public static Integer getInteger(@NonNull final String key, final Integer defaultValue) {
         return get().getInt(key, defaultValue);
     }
 
     // Long
 
-    public static boolean put(@NonNull final String key, final Long value) {
+    public static boolean putLong(@NonNull final String key, final Long value) {
         LogHelper.verbose(key + " = " + value);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(get().edit().putLong(key, value));
         return true;
     }
 
-    public static Long get(@NonNull final String key, final Long defaultValue) {
+    @Nullable
+    public static Long getLong(@NonNull final String key, final Long defaultValue) {
         return get().getLong(key, defaultValue);
     }
 
     // Float
 
-    public static boolean put(@NonNull final String key, final Float value) {
+    public static boolean putFloat(@NonNull final String key, final Float value) {
         LogHelper.verbose(key + " = " + value);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(get().edit().putFloat(key, value));
         return true;
     }
 
-    public static Float get(@NonNull final String key, final Float defaultValue) {
+    @Nullable
+    public static Float getFloat(@NonNull final String key, final Float defaultValue) {
         return get().getFloat(key, defaultValue);
     }
 
     // Boolean
 
-    public static boolean put(@NonNull final String key, final Boolean value) {
+    public static boolean putBoolean(@NonNull final String key, final Boolean value) {
         LogHelper.verbose(key + " = " + value);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(get().edit().putBoolean(key, value));
         return true;
     }
 
-    public static Boolean get(@NonNull final String key, final Boolean defaultValue) {
+    @Nullable
+    public static Boolean getBoolean(@NonNull final String key, final Boolean defaultValue) {
         return get().getBoolean(key, defaultValue);
     }
 
