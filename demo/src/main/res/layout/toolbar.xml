@@ -4,6 +4,7 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="@dimen/toolbar2"
+    android:minHeight="@dimen/toolbar2"
     android:background="@color/primaryColor"
     android:theme="@style/SkeletonTheme.Toolbar"
     app:popupTheme="@style/SkeletonTheme.Toolbar.Popup"
