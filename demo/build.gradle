@@ -61,31 +61,6 @@ android {
             resValue "string", "url", "http://android.com"
         }
     }
-    splits {
-        // universal needs a lower versionCode
-        density {
-            enable true
-            reset()
-            include 'mdpi', 'hdpi', 'xhdpi', 'xxhdpi', 'xxxhdpi'
-            compatibleScreens 'small', 'normal', 'large', 'xlarge'
-        }
-        // arm needs a lower versionCode
-        abi {
-            enable false
-            reset()
-            include 'x86', 'armeabi-v7a', 'mips'
-            universalApk true
-        }
-    }
-}
-
-// assign different version code for each output
-ext.versionCodes = ['mdpi':1, 'hdpi':2, 'xhdpi':3, 'xxhdpi':4, 'xxxhdpi':5].withDefault {0}
-import com.android.build.OutputFile
-android.applicationVariants.all { variant ->
-    variant.outputs.each { output ->
-        output.versionCodeOverride = project.ext.versionCodes.get(output.getFilter(OutputFile.DENSITY)) * 1000000 + android.defaultConfig.versionCode
-    }
 }
 
 dependencies {
