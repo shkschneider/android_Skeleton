@@ -14,17 +14,13 @@ import android.graphics.drawable.Drawable;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
-import android.support.v4.content.ContextCompat;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import me.shkschneider.skeleton.data.FileHelper;
 import me.shkschneider.skeleton.ui.BitmapHelper;
 import me.shkschneider.skeleton.SkeletonApplication;
-import me.shkschneider.skeleton.ui.DrawableHelper;
 
 public class ApplicationHelper {
 
@@ -56,19 +52,6 @@ public class ApplicationHelper {
 
     public static String[] files() {
         return context().fileList();
-    }
-
-    public static int wipe() {
-        int i = 0;
-        for (final String path : files()) {
-            final File file = FileHelper.get(path);
-            if (file.exists()) {
-                if (file.delete()) {
-                    i++;
-                }
-            }
-        }
-        return i;
     }
 
     public static String packageName() {

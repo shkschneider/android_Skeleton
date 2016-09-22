@@ -7,12 +7,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.SharedPreferencesCompat;
 
-import java.util.Map;
 import java.util.Set;
 
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
-import me.shkschneider.skeleton.java.MapHelper;
 
 @SuppressLint("CommitPrefEdits")
 public class SharedPreferencesHelper {
@@ -22,7 +20,7 @@ public class SharedPreferencesHelper {
     }
 
     private static SharedPreferences get() {
-        return ApplicationHelper.context().getSharedPreferences(ApplicationHelper.name(), Context.MODE_PRIVATE);
+        return ApplicationHelper.context().getSharedPreferences(ApplicationHelper.packageName(), Context.MODE_PRIVATE);
     }
 
     public static boolean contains(@NonNull final String key) {
@@ -35,13 +33,6 @@ public class SharedPreferencesHelper {
 
     public static void clear() {
         SharedPreferencesCompat.EditorCompat.getInstance().apply(get().edit().clear());
-    }
-
-    public static void dump() {
-        final Map<String, ?> map = get().getAll();
-        for (final String key : MapHelper.keys(map)) {
-            LogHelper.debug(key + "=" + map.get(key).toString());
-        }
     }
 
     // String

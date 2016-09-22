@@ -41,6 +41,7 @@ public class InternalDataHelper {
         }
     }
 
+    @Deprecated
     public static File root() {
         return Environment.getRootDirectory();
     }
@@ -55,17 +56,7 @@ public class InternalDataHelper {
 
     @Nullable
     public static File file(@NonNull final String name) {
-        final File file = new File(dir(), name);
-        try {
-            if (! file.exists() && ! file.createNewFile()) {
-                LogHelper.warning("File.createNewFile() failed");
-            }
-            return file;
-        }
-        catch (final Exception e) {
-            LogHelper.wtf(e);
-            return null;
-        }
+        return new File(dir(), name);
     }
 
     public static boolean delete(@NonNull final String name) {
@@ -76,9 +67,11 @@ public class InternalDataHelper {
         int errors = 0;
         final File dir = dir();
         if (dir.exists()) {
-            final String[] children = dir.list();
-            for (final String child : children) {
-                final File file = new File(dir, child);
+            final File[] files = dir.listFiles();
+            if (files == null) {
+                return true;
+            }
+            for (final File file : files) {
                 if (! file.delete()) {
                     errors++;
                 }
