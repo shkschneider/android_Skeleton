@@ -222,13 +222,18 @@ public class GsonParser {
         return string(jsonObject, key, null);
     }
 
-    @Nullable
-    public static Number number(@NonNull final JsonObject jsonObject, @NonNull final String key) {
+    // NOT @Nullable
+    public static Number number(@NonNull final JsonObject jsonObject, @NonNull final String key, @NonNull final Number fallback) {
         final JsonElement jsonElement = jsonObject.get(key);
         if (jsonElement != null && ! (jsonElement instanceof JsonNull)) {
             return jsonElement.getAsNumber();
         }
-        return null;
+        return fallback;
+    }
+
+    @Nullable
+    public static Number number(@NonNull final JsonObject jsonObject, @NonNull final String key) {
+        return number(jsonObject, key, 0);
     }
 
     @Nullable

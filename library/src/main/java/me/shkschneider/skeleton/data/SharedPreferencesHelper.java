@@ -70,7 +70,7 @@ public class SharedPreferencesHelper {
         return get().getStringSet(key, defaultValue);
     }
 
-    // Int
+    // Integer
 
     public static boolean putInteger(@NonNull final String key, final Integer value) {
         LogHelper.verbose(key + " = " + value);
