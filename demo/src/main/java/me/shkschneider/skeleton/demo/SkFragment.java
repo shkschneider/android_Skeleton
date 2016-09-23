@@ -32,7 +32,6 @@ public class SkFragment extends SkeletonFragment {
     @Override
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         fill((LinearLayout) view.findViewById(R.id.data), new Class[] {
                 me.shkschneider.skeleton.data.CharsetHelper.class,
                 me.shkschneider.skeleton.data.DiskCache.Internal.class,

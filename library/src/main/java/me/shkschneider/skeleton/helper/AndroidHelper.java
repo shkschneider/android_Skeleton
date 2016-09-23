@@ -44,7 +44,7 @@ public class AndroidHelper {
     public static final int ANDROID_6 = API_23;
     public static final int ANDROID_7 = API_24;
 
-    public static String codename(@IntRange(from=API_1, to=API_24) final int api) {
+    public static String codename(@IntRange(from=API_1) final int api) {
         switch (api) {
             case API_1:
             case API_2:

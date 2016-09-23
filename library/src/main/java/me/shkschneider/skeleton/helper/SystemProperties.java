@@ -34,7 +34,7 @@ public class SystemProperties {
     public static final String SYSTEM_PROPERTY_OS_ARCH = "os.arch";
     public static final String SYSTEM_PROPERTY_OS_NAME = "os.name";
     public static final String SYSTEM_PROPERTY_OS_VERSION = "os.version";
-    @Deprecated // Separator of the ENV's PATH variable; not related to the filesystem
+    @Deprecated // Separator of the Environment's PATH variable; not related to the FileSystem
     public static final String SYSTEM_PROPERTY_PATH_SEPARATOR = "path.separator";
     public static final String SYSTEM_PROPERTY_USER_DIR = "user.dir";
     public static final String SYSTEM_PROPERTY_USER_HOME = "user.home";

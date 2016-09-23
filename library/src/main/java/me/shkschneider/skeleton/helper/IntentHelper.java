@@ -40,7 +40,7 @@ public class IntentHelper {
     @SkHide
     public static final int REQUEST_CODE_RINGTONE = 333;
     @SkHide
-    public static final int REQUEST_CODE_PERMISSIONS = 23;
+    public static final int REQUEST_CODE_PERMISSIONS = AndroidHelper.API_23;
 
     @Nullable
     public static Intent home() {

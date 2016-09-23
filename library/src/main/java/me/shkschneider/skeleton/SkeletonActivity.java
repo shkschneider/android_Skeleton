@@ -230,7 +230,7 @@ public abstract class SkeletonActivity extends AppCompatActivity {
         mToolbar.setNavigationIcon(drawable);
     }
 
-    @Deprecated
+    @Deprecated // Avoid
     public void icon(final Drawable drawable) {
         logo(drawable);
     }

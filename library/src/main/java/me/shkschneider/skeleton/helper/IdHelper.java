@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.helper;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
@@ -11,6 +12,8 @@ import java.util.UUID;
 
 import me.shkschneider.skeleton.java.StringHelper;
 
+// <https://developers.google.com/instance-id/>
+@SuppressLint("HardwareIds")
 public class IdHelper {
 
     protected IdHelper() {
@@ -20,6 +23,7 @@ public class IdHelper {
     // <https://code.google.com/p/android/issues/detail?id=10603>
     private static final String EMULATOR = "9774d56d682e549c";
 
+    @Deprecated // Avoid
     @Nullable
     public static String androidId() {
         final String androidId = Settings.Secure.getString(ApplicationHelper.context().getContentResolver(), Settings.Secure.ANDROID_ID);
@@ -57,6 +61,7 @@ public class IdHelper {
         return telephonyManager.getSimSerialNumber();
     }
 
+    @SuppressWarnings("deprecation")
     @Nullable
     public static String uuid() {
         final String deviceId = androidId();

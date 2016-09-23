@@ -41,7 +41,7 @@ public class InternalDataHelper {
         }
     }
 
-    @Deprecated
+    @Deprecated // Avoid
     public static File root() {
         return Environment.getRootDirectory();
     }

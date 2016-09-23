@@ -27,6 +27,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.ScreenHelper;
@@ -152,7 +153,10 @@ public class BitmapHelper {
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         options.inSampleSize = factor;
-        options.inPreferQualityOverSpeed = true;
+        if (AndroidHelper.api() < AndroidHelper.API_24) {
+            //noinspection deprecation
+            options.inPreferQualityOverSpeed = true;
+        }
         final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         final byte[] bytes = byteArrayOutputStream.toByteArray();

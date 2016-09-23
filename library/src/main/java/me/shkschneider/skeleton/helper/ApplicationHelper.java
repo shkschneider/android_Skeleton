@@ -50,6 +50,7 @@ public class ApplicationHelper {
         return context().getAssets();
     }
 
+    @Deprecated // Avoid
     public static String[] files() {
         return context().fileList();
     }
