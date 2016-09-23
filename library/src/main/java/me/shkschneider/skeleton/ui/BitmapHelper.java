@@ -42,7 +42,6 @@ public class BitmapHelper {
         if (drawable instanceof BitmapDrawable) {
             return ((BitmapDrawable) drawable).getBitmap();
         }
-
         final Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
         final Canvas canvas = new Canvas(bitmap);
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
@@ -90,12 +89,10 @@ public class BitmapHelper {
             LogHelper.warning("DisplayMetrics was NULL");
             return null;
         }
-
         view.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
         view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels);
         view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
         view.buildDrawingCache();
-
         final Bitmap bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
         final Canvas canvas = new Canvas(bitmap);
         view.draw(canvas);
@@ -183,7 +180,6 @@ public class BitmapHelper {
                 LogHelper.warning("Downsample was invalid");
                 return null;
             }
-
             while (true) {
                 if (width / 2 < downsample || height / 2 < downsample) {
                     break ;

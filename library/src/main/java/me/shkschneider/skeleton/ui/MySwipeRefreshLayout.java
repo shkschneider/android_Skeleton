@@ -3,7 +3,6 @@ package me.shkschneider.skeleton.ui;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.view.MotionEventCompat;
-import android.support.v4.view.ViewConfigurationCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,7 +29,7 @@ public class MySwipeRefreshLayout extends SwipeRefreshLayout {
     private void init(final Context context) {
         setEnabled(false);
         setColorSchemeResources(R.color.primaryColor);
-        mTouchSlop = ViewConfigurationCompat.getScaledPagingTouchSlop(ViewConfiguration.get(context));
+        mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
     }
 
     @Override

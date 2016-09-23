@@ -108,10 +108,7 @@ public class MyRequest extends Request<MyResponse> {
     @Override
     public void addMarker(final String tag) {
         super.addMarker(tag);
-        mCached = false;
-        if (tag.equals("cache-hit")) { // cache-hit-expired
-            mCached = true;
-        }
+        mCached = tag.equals("cache-hit"); // cache-hit-expired
     }
 
     // <http://stackoverflow.com/a/32022946>

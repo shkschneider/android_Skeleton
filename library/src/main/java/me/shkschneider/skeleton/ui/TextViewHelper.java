@@ -12,10 +12,12 @@ import me.shkschneider.skeleton.network.MyImageGetter;
 
 public class TextViewHelper {
 
+    @SuppressWarnings("deprecation")
     public static Spanned html(@NonNull final String html) {
         return Html.fromHtml(html, null, null);
     }
 
+    @SuppressWarnings("deprecation")
     public static Spanned htmlWithImages(@NonNull final TextView textView, @NonNull final String html) {
         return Html.fromHtml(html, new MyImageGetter(textView), null);
     }

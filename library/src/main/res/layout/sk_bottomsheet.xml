@@ -31,7 +31,8 @@
                 android:visibility="gone"
                 android:layout_width="42dp"
                 android:layout_height="42dp"
-                android:layout_marginRight="20dp" />
+                android:layout_marginRight="20dp"
+                android:contentDescription="@null" />
 
             <TextView
                 android:id="@+id/sk_bottomsheet_title"

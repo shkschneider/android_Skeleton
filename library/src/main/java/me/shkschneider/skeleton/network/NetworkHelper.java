@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.network;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
@@ -97,6 +98,7 @@ public class NetworkHelper {
             LogHelper.warning("WifiInfo was NULL");
             return null;
         }
+        @SuppressLint("HardwareIds")
         final String macAddress = wifiInfo.getMacAddress();
         if (TextUtils.isEmpty(macAddress)) {
             LogHelper.warning("MacAddress was NULL");

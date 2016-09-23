@@ -229,6 +229,7 @@ public class IntentHelper {
                 LogHelper.warning("Uri was NULL");
                 return null;
             }
+            //noinspection deprecation
             return BitmapHelper.decodeUri(uri);
         }
         else if (requestCode == REQUEST_CODE_RINGTONE) {

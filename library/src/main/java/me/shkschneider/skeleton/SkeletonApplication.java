@@ -15,6 +15,7 @@ import me.shkschneider.skeleton.helper.LogHelper;
 public abstract class SkeletonApplication extends Application {
 
     public static Boolean DEBUG = false;
+    // FIXME Do not place Android context classes in static fields; this is a memory leak (and also breaks Intant Run)
     public static Context CONTEXT = null;
 
     @Override

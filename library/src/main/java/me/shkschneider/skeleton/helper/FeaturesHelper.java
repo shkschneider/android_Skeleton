@@ -118,6 +118,7 @@ public class FeaturesHelper {
     public static final String FEATURE_TELEPHONY_GSM = PackageManager.FEATURE_TELEPHONY_GSM;
     @SuppressLint("InlinedApi") // API-16+
     @Deprecated // FEATURE_LEANBACK
+    //noinspection deprecation
     public static final String FEATURE_TELEVISION = PackageManager.FEATURE_TELEVISION;
     public static final String FEATURE_TOUCHSCREEN = PackageManager.FEATURE_TOUCHSCREEN;
     public static final String FEATURE_TOUCHSCREEN_MULTITOUCH = PackageManager.FEATURE_TOUCHSCREEN_MULTITOUCH;

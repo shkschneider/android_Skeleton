@@ -298,10 +298,7 @@ public abstract class SkeletonActivity extends AppCompatActivity {
     private int mLoading;
 
     public boolean refreshable() {
-        if (mMySwipeRefreshLayout == null) {
-            return false;
-        }
-        return mMySwipeRefreshLayout.isEnabled();
+        return (mMySwipeRefreshLayout != null && mMySwipeRefreshLayout.isEnabled());
     }
 
     public void refreshable(final boolean b, @Nullable final SwipeRefreshLayout.OnRefreshListener onRefreshListener) {

@@ -9,8 +9,6 @@ import android.view.Window;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.shkschneider.skeleton.java.SkHide;
-
 public class ViewHelper {
 
     protected ViewHelper() {
