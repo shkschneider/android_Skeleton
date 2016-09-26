@@ -71,7 +71,7 @@ public class LetterIcon extends View {
             return;
         }
         if (layoutParams.width == ViewGroup.LayoutParams.WRAP_CONTENT) {
-            final int dp = ScreenHelper.pixelsFromDp(DP);
+            final int dp = ScreenHelper.pixelsFromDp(getContext(), DP);
             layoutParams.width = dp;
             layoutParams.height = dp;
             invalidate();
@@ -96,7 +96,7 @@ public class LetterIcon extends View {
 
     private void drawLetter(@NonNull final Canvas canvas, final float cx, final float cy) {
         mLetterPaint.setColor(mLetterColor);
-        mLetterPaint.setTextSize(ScreenHelper.pixelsFromSp(mLetterSize));
+        mLetterPaint.setTextSize(ScreenHelper.pixelsFromSp(getContext(), mLetterSize));
         mLetterPaint.getTextBounds(mLetter, 0, mLetter.length(), RECT);
         canvas.drawText(mLetter, cx - RECT.exactCenterX(), cy - RECT.exactCenterY(), mLetterPaint);
     }

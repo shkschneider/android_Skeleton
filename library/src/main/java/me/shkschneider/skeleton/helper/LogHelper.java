@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
+import me.shkschneider.skeleton.BuildConfig;
+import me.shkschneider.skeleton.SkeletonApplication;
 import me.shkschneider.skeleton.java.ObjectHelper;
 import me.shkschneider.skeleton.java.SkHide;
 
@@ -23,11 +25,20 @@ public class LogHelper {
     private static final int ERROR = Log.ERROR;
     private static final int WTF = Log.ASSERT;
 
-    // Used to identify the source of a log message.
-    // It usually identifies the class or activity where the log call occurs.
     @SkHide
-    protected static String TAG = ApplicationHelper.packageName();
-    // Here I use the application's packageName
+    protected static String tag() {
+        String tag = SkeletonApplication.TAG;
+        if (TextUtils.isEmpty(tag)) {
+            tag = BuildConfig.APPLICATION_ID;
+        }
+        while (tag.length() > 23 && tag.contains(".")) {
+            tag = tag.substring(tag.indexOf(".") + 1, tag.length());
+        }
+        if (tag.length() > 23) {
+            tag = tag.substring(tag.length() - 23, tag.length());
+        }
+        return tag;
+    }
 
     @SuppressLint("LogConditional")
     protected static void log(@IntRange(from=VERBOSE, to=WTF) final int level, @Nullable final String msg, final @Nullable Throwable throwable) {
@@ -51,22 +62,22 @@ public class LogHelper {
         final String stack = "[" + callerClassName + "." + callerMethodName + "():" + callerLineNumber + "]" + (TextUtils.isEmpty(msg) ? "" : " ");
         switch (level) {
             case VERBOSE:
-                android.util.Log.v(TAG, stack + msg, throwable);
+                Log.v(tag(), stack + msg, throwable);
                 break ;
             case DEBUG:
-                android.util.Log.d(TAG, stack + msg, throwable);
+                Log.d(tag(), stack + msg, throwable);
                 break ;
             case INFO:
-                android.util.Log.i(TAG, stack + msg, throwable);
+                Log.i(tag(), stack + msg, throwable);
                 break ;
             case WARN:
-                android.util.Log.w(TAG, stack + msg, throwable);
+                Log.w(tag(), stack + msg, throwable);
                 break ;
             case ERROR:
-                android.util.Log.e(TAG, stack + msg, throwable);
+                Log.e(tag(), stack + msg, throwable);
                 break ;
             case WTF:
-                android.util.Log.wtf(TAG, stack + msg, throwable);
+                Log.wtf(tag(), stack + msg, throwable);
                 break ;
             default:
                 break ;

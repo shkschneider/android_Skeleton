@@ -2,6 +2,7 @@ package me.shkschneider.skeleton.helper;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -43,14 +44,14 @@ public class IntentHelper {
     public static final int REQUEST_CODE_PERMISSIONS = AndroidHelper.API_23;
 
     @Nullable
-    public static Intent home() {
-        final PackageManager packageManager = ApplicationHelper.packageManager();
+    public static Intent home(@NonNull final Context context) {
+        final PackageManager packageManager = ApplicationHelper.packageManager(context);
         if (packageManager == null) {
             LogHelper.warning("PackageManager was NULL");
             return null;
         }
 
-        final Intent intent = packageManager.getLaunchIntentForPackage(ApplicationHelper.packageName());
+        final Intent intent = packageManager.getLaunchIntentForPackage(ApplicationHelper.packageName(context));
         if (intent == null) {
             LogHelper.warning("Intent was NULL");
             return null;
@@ -103,9 +104,9 @@ public class IntentHelper {
         return intent;
     }
 
-    public static Intent applicationSettings() {
+    public static Intent applicationSettings(@NonNull final Context context) {
         return external(new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                .setData(Uri.parse("package:" + ApplicationHelper.packageName())));
+                .setData(Uri.parse("package:" + ApplicationHelper.packageName(context))));
     }
 
     public static Intent systemSettings() {
@@ -138,15 +139,15 @@ public class IntentHelper {
     }
 
     @Nullable
-    public static Intent camera(@NonNull final File file) {
-        if (! FeaturesHelper.feature(FeaturesHelper.FEATURE_CAMERA)) {
+    public static Intent camera(@NonNull final Context context, @NonNull final File file) {
+        if (! FeaturesHelper.feature(context, FeaturesHelper.FEATURE_CAMERA)) {
             LogHelper.warning("Camera was unavailable");
             return null;
         }
         final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 .putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file))
                 .putExtra(MediaStore.EXTRA_SHOW_ACTION_ICONS, true);
-        if (! canHandle(intent)) {
+        if (! canHandle(context, intent)) {
             LogHelper.warning("Cannot handle Intent");
             return null;
         }
@@ -194,15 +195,15 @@ public class IntentHelper {
     }
 
     @SkHide
-    public static boolean canHandle(@NonNull final Intent intent) {
+    public static boolean canHandle(@NonNull final Context context, @NonNull final Intent intent) {
         // return (intent.resolveActivity(ApplicationHelper.packageManager()) != null);
-        final List<ResolveInfo> resolveInfos = ApplicationHelper.packageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        final List<ResolveInfo> resolveInfos = ApplicationHelper.packageManager(context).queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
         return (resolveInfos.size() > 0);
     }
 
     @SkHide
     @Nullable
-    public static Object onActivityResult(final int requestCode, final int resultCode, @Nullable final Intent intent) {
+    public static Object onActivityResult(@NonNull final Context context, final int requestCode, final int resultCode, @Nullable final Intent intent) {
         if (resultCode != Activity.RESULT_OK) {
             LogHelper.debug("ResultCode was not OK");
             return null;
@@ -230,7 +231,7 @@ public class IntentHelper {
                 return null;
             }
             //noinspection deprecation
-            return BitmapHelper.decodeUri(uri);
+            return BitmapHelper.decodeUri(context, uri);
         }
         else if (requestCode == REQUEST_CODE_RINGTONE) {
             if (intent == null) {
@@ -239,7 +240,7 @@ public class IntentHelper {
             }
             final Uri uri = intent.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
             if (uri != null) {
-                return RingtoneManager.getRingtone(ApplicationHelper.context(), uri);
+                return RingtoneManager.getRingtone(context, uri);
             }
             return null;
         }

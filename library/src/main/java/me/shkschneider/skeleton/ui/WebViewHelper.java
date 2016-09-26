@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.ui;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.webkit.JavascriptInterface;
@@ -10,7 +11,6 @@ import me.shkschneider.skeleton.data.CharsetHelper;
 import me.shkschneider.skeleton.data.MimeTypeHelper;
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.data.FileHelper;
-import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
 import me.shkschneider.skeleton.java.SkHide;
@@ -30,34 +30,34 @@ public class WebViewHelper {
     @SkHide
     public static final String MIME_TYPE = MimeTypeHelper.TEXT_HTML;
 
-    public static WebView getInstance() {
-        final WebView webView = new WebView(ApplicationHelper.context());
+    public static WebView getInstance(@NonNull final Context context) {
+        final WebView webView = new WebView(context);
         if (AndroidHelper.api() >= AndroidHelper.API_21) {
             webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
         return webView;
     }
 
-    public static WebView fromUrl(@NonNull final String url) {
-        final WebView webView = getInstance();
+    public static WebView fromUrl(@NonNull final Context context, @NonNull final String url) {
+        final WebView webView = getInstance(context);
         webView.loadUrl(url);
         return webView;
     }
 
-    public static WebView fromAsset(@NonNull final String asset) {
-        final WebView webView = getInstance();
+    public static WebView fromAsset(@NonNull final Context context, @NonNull final String asset) {
+        final WebView webView = getInstance(context);
         webView.loadDataWithBaseURL(FileHelper.PREFIX_ASSETS, asset, MIME_TYPE, CHARSET, "");
         return webView;
     }
 
-    public static WebView fromRaw(@NonNull final String raw) {
-        final WebView webView = getInstance();
+    public static WebView fromRaw(@NonNull final Context context, @NonNull final String raw) {
+        final WebView webView = getInstance(context);
         webView.loadDataWithBaseURL(FileHelper.join(FileHelper.PREFIX_RES, "raw"), raw, MIME_TYPE, CHARSET, "");
         return webView;
     }
 
-    public static WebView fromHtml(@NonNull final String source) {
-        final WebView webView = getInstance();
+    public static WebView fromHtml(@NonNull final Context context, @NonNull final String source) {
+        final WebView webView = getInstance(context);
         webView.loadData(source, MIME_TYPE, CHARSET);
         return webView;
     }

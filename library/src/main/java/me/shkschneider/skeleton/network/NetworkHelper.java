@@ -2,11 +2,13 @@ package me.shkschneider.skeleton.network;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
 import android.text.TextUtils;
@@ -22,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.SystemServices;
 
@@ -56,12 +57,12 @@ public class NetworkHelper {
     }
 
     @Deprecated // Avoid
-    public static String userAgent() {
-        return new WebView(ApplicationHelper.context()).getSettings().getUserAgentString();
+    public static String userAgent(@NonNull final Context context) {
+        return new WebView(context).getSettings().getUserAgentString();
     }
 
-    public static boolean connectedOrConnecting() {
-        final ConnectivityManager connectivityManager = SystemServices.connectivityManager();
+    public static boolean connectedOrConnecting(@NonNull final Context context) {
+        final ConnectivityManager connectivityManager = SystemServices.connectivityManager(context);
         if (connectivityManager == null) {
             LogHelper.warning("ConnectivityManager was NULL");
             return false;
@@ -75,8 +76,8 @@ public class NetworkHelper {
     }
 
     @RequiresPermission(Manifest.permission.ACCESS_WIFI_STATE)
-    public static boolean wifi() {
-        final WifiManager wifiManager = SystemServices.wifiManager();
+    public static boolean wifi(@NonNull final Context context) {
+        final WifiManager wifiManager = SystemServices.wifiManager(context);
         if (wifiManager == null) {
             LogHelper.warning("wifiManager was NULL");
             return false;
@@ -87,8 +88,8 @@ public class NetworkHelper {
     @RequiresPermission(Manifest.permission.ACCESS_WIFI_STATE)
     @Deprecated // Avoid
     @Nullable
-    public static String macAddress() {
-        final WifiManager wifiManager = SystemServices.wifiManager();
+    public static String macAddress(@NonNull final Context context) {
+        final WifiManager wifiManager = SystemServices.wifiManager(context);
         if (wifiManager == null) {
             LogHelper.warning("wifiManager was NULL");
             return null;

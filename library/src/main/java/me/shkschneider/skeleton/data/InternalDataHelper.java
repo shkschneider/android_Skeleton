@@ -10,7 +10,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 
 public class InternalDataHelper {
@@ -20,9 +19,9 @@ public class InternalDataHelper {
     }
 
     @Nullable
-    public static FileInputStream openInput(@NonNull final String name) {
+    public static FileInputStream openInput(@NonNull final Context context, @NonNull final String name) {
         try {
-            return ApplicationHelper.context().openFileInput(name);
+            return context.openFileInput(name);
         }
         catch (final FileNotFoundException e) {
             LogHelper.wtf(e);
@@ -31,9 +30,9 @@ public class InternalDataHelper {
     }
 
     @Nullable
-    public static FileOutputStream openOutput(@NonNull final String name) {
+    public static FileOutputStream openOutput(@NonNull final Context context, @NonNull final String name) {
         try {
-            return ApplicationHelper.context().openFileOutput(name, Context.MODE_PRIVATE);
+            return context.openFileOutput(name, Context.MODE_PRIVATE);
         }
         catch (final FileNotFoundException e) {
             LogHelper.wtf(e);
@@ -46,26 +45,26 @@ public class InternalDataHelper {
         return Environment.getRootDirectory();
     }
 
-    public static File cache() {
-        return ApplicationHelper.context().getCacheDir();
+    public static File cache(@NonNull final Context context) {
+        return context.getCacheDir();
     }
 
-    public static File dir() {
-        return ApplicationHelper.context().getFilesDir();
+    public static File dir(@NonNull final Context context) {
+        return context.getFilesDir();
     }
 
     @Nullable
-    public static File file(@NonNull final String name) {
-        return new File(dir(), name);
+    public static File file(@NonNull final Context context, @NonNull final String name) {
+        return new File(dir(context), name);
     }
 
-    public static boolean delete(@NonNull final String name) {
-        return ApplicationHelper.context().deleteFile(name);
+    public static boolean delete(@NonNull final Context context, @NonNull final String name) {
+        return context.deleteFile(name);
     }
 
-    public static boolean wipe() {
+    public static boolean wipe(@NonNull final Context context) {
         int errors = 0;
-        final File dir = dir();
+        final File dir = dir(context);
         if (dir.exists()) {
             final File[] files = dir.listFiles();
             if (files == null) {

@@ -15,12 +15,13 @@ public class MainApplication extends SkeletonApplication {
 
         LogHelper.verbose("DEBUG=" + SkeletonApplication.DEBUG);
 
-        Proxy.getInstance().getRequestQueue().getCache().clear();
+        Proxy.getInstance(getApplicationContext()).getRequestQueue().getCache().clear();
     }
 
     @Override
     protected void attachBaseContext(final Context context) {
         super.attachBaseContext(context);
+
         MultiDex.install(context);
     }
 

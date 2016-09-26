@@ -128,7 +128,7 @@ public class MainActivity extends SkeletonActivity {
                 LocalBroadcastManager.getInstance(MainActivity.this).sendBroadcast(intent);
             }
         });
-        AnimationHelper.revealOn(floatingActionButton);
+        AnimationHelper.revealOn(getApplicationContext(), floatingActionButton);
     }
 
     @Override
@@ -158,14 +158,14 @@ public class MainActivity extends SkeletonActivity {
     protected void onResume() {
         super.onResume();
 
-        DeviceHelper.screenSize();
+        DeviceHelper.screenSize(getApplicationContext());
     }
 
     @Override
     protected void onStop() {
         super.onStop();
 
-        Proxy.getInstance().getRequestQueue().cancelAll(URL);
+        Proxy.getInstance(getApplicationContext()).getRequestQueue().cancelAll(URL);
         LocalBroadcastManager.getInstance(MainActivity.this).unregisterReceiver(mBroadcastReceiver);
     }
 
@@ -182,8 +182,8 @@ public class MainActivity extends SkeletonActivity {
 
     private void network() {
         final String tag = URL; // defaults to URL anyway
-        Proxy.getInstance().getRequestQueue().cancelAll(tag);
-        Proxy.getInstance().getRequestQueue().add(
+        Proxy.getInstance(getApplicationContext()).getRequestQueue().cancelAll(tag);
+        Proxy.getInstance(getApplicationContext()).getRequestQueue().add(
                 new MyRequest(Request.Method.GET, URL,
                         new Response.Listener<MyResponse>() {
                             @Override
@@ -195,7 +195,7 @@ public class MainActivity extends SkeletonActivity {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(final VolleyError error) {
-                                ActivityHelper.toast(error.getClass().getSimpleName());
+                                ActivityHelper.toast(getApplicationContext(), error.getClass().getSimpleName());
                             }
                         })
                         .setCacheTimeout((int) TimeUnit.SECONDS.toMillis(10)) // timeout
@@ -210,11 +210,12 @@ public class MainActivity extends SkeletonActivity {
                 .putExtra("title", title)
                 .putExtra("message", message);
         final NotificationCompat.Builder builder = NotificationHelper.Builder(
-                ContextCompat.getColor(ApplicationHelper.context(), R.color.accentColor), android.R.drawable.sym_def_app_icon, null,
+                getApplicationContext(),
+                ContextCompat.getColor(getApplicationContext(), R.color.accentColor), ApplicationHelper.DEFAULT_ICON, null,
                 "Ticker",
                 "Skeleton", "for Android", null, null,
                 NotificationHelper.pendingIntent(MainActivity.this, intent));
-        NotificationHelper.notify(id, builder);
+        NotificationHelper.notify(getApplicationContext(), id, builder);
     }
 
     @Override
@@ -226,8 +227,8 @@ public class MainActivity extends SkeletonActivity {
         new BottomSheet.Builder(MainActivity.this)
                 .setTitle(title)
                 .setContent(message)
-                .setPositive(ApplicationHelper.resources().getString(android.R.string.ok), null)
-                .setNegative(ApplicationHelper.resources().getString(android.R.string.cancel), null)
+                .setPositive(getResources().getString(android.R.string.ok), null)
+                .setNegative(getResources().getString(android.R.string.cancel), null)
                 .build()
                 .show();
     }

@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.helper;
 
+import android.content.Context;
 import android.content.res.AssetManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,15 +20,15 @@ public class AssetsHelper {
         // Empty
     }
 
-    public static AssetManager assetManager() {
-        return ApplicationHelper.context().getAssets();
+    public static AssetManager assetManager(@NonNull final Context context) {
+        return context.getAssets();
     }
 
     @Nullable
-    public static List<String> list() {
+    public static List<String> list(@NonNull final Context context) {
         final List<String> list = new ArrayList<>();
         try {
-            Collections.addAll(list, assetManager().list(""));
+            Collections.addAll(list, assetManager(context).list(""));
             return list;
         }
         catch (final IOException e) {
@@ -37,8 +38,8 @@ public class AssetsHelper {
     }
 
     @Nullable
-    public static InputStream open(@NonNull final String name) {
-        final AssetManager assetManager = assetManager();
+    public static InputStream open(@NonNull final Context context, @NonNull final String name) {
+        final AssetManager assetManager = assetManager(context);
         try {
             return assetManager.open(name);
         }
@@ -48,20 +49,20 @@ public class AssetsHelper {
         }
     }
 
-    public static boolean dump() {
+    public static boolean dump(@NonNull final Context context) {
         int errors = 0;
-        final List<String> assets = list();
+        final List<String> assets = list(context);
         if (assets == null) {
             errors++;
         }
         else {
             for (final String asset : assets) {
                 try {
-                    final InputStream inputStream = open(asset);
+                    final InputStream inputStream = open(context, asset);
                     if (inputStream == null) {
                         throw new NullPointerException();
                     }
-                    final OutputStream outputStream = InternalDataHelper.openOutput(asset);
+                    final OutputStream outputStream = InternalDataHelper.openOutput(context, asset);
                     if (outputStream == null) {
                         throw new NullPointerException();
                     }

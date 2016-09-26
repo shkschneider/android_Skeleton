@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.ui;
 
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
@@ -12,27 +13,26 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 
 import me.shkschneider.skeleton.R;
-import me.shkschneider.skeleton.helper.ApplicationHelper;
 
 // <https://github.com/makovkastar/FloatingActionButton>
 public class FloatingActionButtonCompat {
 
     private static final int THRESHOLD = 5;
 
-    public static void show(@NonNull final FloatingActionButton floatingActionButton, final boolean animate) {
+    public static void show(@NonNull final Context context, @NonNull final FloatingActionButton floatingActionButton, final boolean animate) {
         if (floatingActionButton.getVisibility() == View.VISIBLE) return;
         floatingActionButton.setVisibility(View.VISIBLE);
         if (! animate) return;
-        floatingActionButton.startAnimation(AnimationUtils.loadAnimation(ApplicationHelper.context(), me.shkschneider.skeleton.R.anim.sk_scale_up));
+        floatingActionButton.startAnimation(AnimationUtils.loadAnimation(context, me.shkschneider.skeleton.R.anim.sk_scale_up));
     }
 
-    public static void hide(@NonNull final FloatingActionButton floatingActionButton, final boolean animate) {
+    public static void hide(@NonNull final Context context, @NonNull final FloatingActionButton floatingActionButton, final boolean animate) {
         if (floatingActionButton.getVisibility() == View.GONE) return;
         if (! animate) {
             floatingActionButton.setVisibility(View.GONE);
             return;
         }
-        final Animation animation = AnimationUtils.loadAnimation(ApplicationHelper.context(), R.anim.sk_scale_down);
+        final Animation animation = AnimationUtils.loadAnimation(context, R.anim.sk_scale_down);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(final Animation animation) {

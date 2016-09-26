@@ -1,7 +1,9 @@
 package me.shkschneider.skeleton.helper;
 
+import android.content.Context;
 import android.os.Vibrator;
 import android.support.annotation.IntRange;
+import android.support.annotation.NonNull;
 
 public class VibratorHelper {
 
@@ -11,14 +13,14 @@ public class VibratorHelper {
         // Empty
     }
 
-    public static boolean hasVibrator() {
-        final Vibrator vibrator = SystemServices.vibrator();
+    public static boolean hasVibrator(@NonNull final Context context) {
+        final Vibrator vibrator = SystemServices.vibrator(context);
         return vibrator.hasVibrator();
     }
 
-    public static boolean vibrate(final long[] durations, final boolean repeat) {
-        final Vibrator vibrator = SystemServices.vibrator();
-        if (! hasVibrator()) {
+    public static boolean vibrate(@NonNull final Context context, final long[] durations, final boolean repeat) {
+        final Vibrator vibrator = SystemServices.vibrator(context);
+        if (! hasVibrator(context)) {
             LogHelper.warning("No vibrator");
             return false;
         }
@@ -27,16 +29,16 @@ public class VibratorHelper {
         return true;
     }
 
-    public static boolean vibrate(@IntRange(from=1) final long duration, final boolean repeat) {
-        return vibrate(new long[] { duration }, repeat);
+    public static boolean vibrate(@NonNull final Context context, @IntRange(from=1) final long duration, final boolean repeat) {
+        return vibrate(context, new long[] { duration }, repeat);
     }
 
-    public static boolean vibrate(@IntRange(from=1) final long duration) {
-        return vibrate(duration, false);
+    public static boolean vibrate(@NonNull final Context context, @IntRange(from=1) final long duration) {
+        return vibrate(context, duration, false);
     }
 
-    public static boolean vibrate() {
-        return vibrate(DEFAULT_DURATION, false);
+    public static boolean vibrate(@NonNull final Context context) {
+        return vibrate(context, DEFAULT_DURATION, false);
     }
 
 }

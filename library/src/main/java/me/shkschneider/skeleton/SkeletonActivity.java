@@ -75,11 +75,11 @@ public abstract class SkeletonActivity extends AppCompatActivity {
 
     @TargetApi(AndroidHelper.API_21)
     private void init21() {
-        statusBarColor(getWindow(), ContextCompat.getColor(ApplicationHelper.context(), R.color.statusBarColor));
+        statusBarColor(getWindow(), ContextCompat.getColor(getApplicationContext(), R.color.statusBarColor));
 
-        final String name = ApplicationHelper.name();
-        final Bitmap icon = ApplicationHelper.icon();
-        final int color = ContextCompat.getColor(ApplicationHelper.context(), R.color.primaryColor);
+        final String name = ApplicationHelper.name(getApplicationContext());
+        final Bitmap icon = ApplicationHelper.icon(getApplicationContext());
+        final int color = ContextCompat.getColor(getApplicationContext(), R.color.primaryColor);
         final ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(name, icon, color);
         setTaskDescription(taskDescription);
     }
@@ -153,7 +153,7 @@ public abstract class SkeletonActivity extends AppCompatActivity {
         if (mToolbar != null) {
             // LogHelper.verbose("Found a Toolbar");
             setSupportActionBar(mToolbar);
-            title(ApplicationHelper.name());
+            title(ApplicationHelper.name(getApplicationContext()));
         }
     }
 
@@ -460,7 +460,7 @@ public abstract class SkeletonActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        startActivity(IntentHelper.home());
+        startActivity(IntentHelper.home(getApplicationContext()));
         return true;
     }
 

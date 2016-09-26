@@ -12,6 +12,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
 
@@ -30,49 +31,45 @@ public class ApplicationHelper {
         // Empty
     }
 
-    public static Context context() {
-        if (SkeletonApplication.CONTEXT == null) {
-            throw new RuntimeException("Skeleton not configured!");
-        }
-        return SkeletonApplication.CONTEXT;
-    }
-
+    // FIXME
     public static boolean debug() {
         // <https://stackoverflow.com/a/25517680/603270>
         return SkeletonApplication.DEBUG;
     }
 
-    public static Resources resources() {
-        return context().getResources();
+    // FIXME
+    public static Resources resources(@NonNull final Context context) {
+        return context.getResources();
     }
 
-    public static AssetManager assetManager() {
-        return context().getAssets();
+    // FIXME AssetsHelper.assetManager()
+    public static AssetManager assetManager(@NonNull final Context context) {
+        return context.getAssets();
     }
 
     @Deprecated // Avoid
-    public static String[] files() {
-        return context().fileList();
+    public static String[] files(@NonNull final Context context) {
+        return context.fileList();
     }
 
-    public static String packageName() {
-        return context().getPackageName();
+    public static String packageName(@NonNull final Context context) {
+        return context.getPackageName();
     }
 
-    public static PackageManager packageManager() {
-        return context().getPackageManager();
+    public static PackageManager packageManager(@NonNull final Context context) {
+        return context.getPackageManager();
     }
 
     @Nullable
-    public static String name() {
+    public static String name(@NonNull final Context context) {
         try {
-            final PackageManager packageManager = packageManager();
+            final PackageManager packageManager = packageManager(context);
             if (packageManager == null) {
                 LogHelper.warning("PackageManager was NULL");
                 return null;
             }
 
-            final ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName(), 0);
+            final ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName(context), 0);
             if (applicationInfo == null) {
                 LogHelper.warning("ApplicationInfo was NULL");
                 return null;
@@ -95,8 +92,8 @@ public class ApplicationHelper {
     // <http://semver.org>
     @Size(3)
     @Nullable
-    public static Integer[] semanticVersions() {
-        final String versionName = versionName();
+    public static Integer[] semanticVersions(@NonNull final Context context) {
+        final String versionName = versionName(context);
         if (versionName == null) {
             return null;
         }
@@ -113,15 +110,15 @@ public class ApplicationHelper {
     }
 
     @Nullable
-    public static String versionName() {
+    public static String versionName(@NonNull final Context context) {
         try {
-            final PackageManager packageManager = packageManager();
+            final PackageManager packageManager = packageManager(context);
             if (packageManager == null) {
                 LogHelper.warning("PackageManager was NULL");
                 return null;
             }
 
-            return packageManager.getPackageInfo(packageName(), PackageManager.GET_META_DATA).versionName;
+            return packageManager.getPackageInfo(packageName(context), PackageManager.GET_META_DATA).versionName;
         }
         catch (final PackageManager.NameNotFoundException e) {
             LogHelper.wtf(e);
@@ -129,15 +126,15 @@ public class ApplicationHelper {
         }
     }
 
-    public static int versionCode() {
+    public static int versionCode(@NonNull final Context context) {
         try {
-            final PackageManager packageManager = packageManager();
+            final PackageManager packageManager = packageManager(context);
             if (packageManager == null) {
                 LogHelper.warning("PackageManager was NULL");
                 return -1;
             }
 
-            return packageManager.getPackageInfo(packageName(), PackageManager.GET_META_DATA).versionCode;
+            return packageManager.getPackageInfo(packageName(context), PackageManager.GET_META_DATA).versionCode;
         }
         catch (final PackageManager.NameNotFoundException e) {
             LogHelper.wtf(e);
@@ -146,14 +143,14 @@ public class ApplicationHelper {
     }
 
     @Nullable
-    public static Bitmap icon() {
+    public static Bitmap icon(@NonNull final Context context) {
         try {
-            final PackageManager packageManager = packageManager();
+            final PackageManager packageManager = packageManager(context);
             if (packageManager == null) {
                 LogHelper.warning("PackageManager was NULL");
                 return null;
             }
-            final ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName(), 0);
+            final ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName(context), 0);
             if (applicationInfo == null) {
                 LogHelper.warning("ApplicationInfo was NULL");
                 return null;
@@ -168,15 +165,15 @@ public class ApplicationHelper {
     }
 
     @Nullable
-    public static List<String> permissions() {
+    public static List<String> permissions(@NonNull final Context context) {
         try {
-            final PackageManager packageManager = packageManager();
+            final PackageManager packageManager = packageManager(context);
             if (packageManager == null) {
                 LogHelper.warning("PackageManager was NULL");
                 return null;
             }
 
-            final PackageInfo packageInfo = packageManager.getPackageInfo(packageName(), PackageManager.GET_PERMISSIONS);
+            final PackageInfo packageInfo = packageManager.getPackageInfo(packageName(context), PackageManager.GET_PERMISSIONS);
 
             final List<String> list = new ArrayList<>();
             Collections.addAll(list, packageInfo.requestedPermissions);
@@ -190,15 +187,15 @@ public class ApplicationHelper {
 
     @SuppressLint("PackageManagerGetSignatures")
     @Nullable
-    public static String signature() {
-        final PackageManager packageManager = packageManager();
+    public static String signature(@NonNull final Context context) {
+        final PackageManager packageManager = packageManager(context);
         if (packageManager == null) {
             LogHelper.warning("PackageManager was NULL");
             return null;
         }
 
         try {
-            final PackageInfo packageInfo = packageManager.getPackageInfo(packageName(), PackageManager.GET_SIGNATURES);
+            final PackageInfo packageInfo = packageManager.getPackageInfo(packageName(context), PackageManager.GET_SIGNATURES);
             if (packageInfo == null) {
                 LogHelper.warning("PackageInfo was NULL");
                 return null;
@@ -218,33 +215,33 @@ public class ApplicationHelper {
         }
     }
 
-    public static boolean fromMarket() {
+    public static boolean fromMarket(@NonNull final Context context) {
         if (AndroidHelper.api() >= AndroidHelper.API_21) {
-            return fromMarket21();
+            return fromMarket21(context);
         }
         else if (AndroidHelper.api() >= AndroidHelper.API_17) {
-            return fromMarket17();
+            return fromMarket17(context);
         }
-        return fromMarket3();
+        return fromMarket3(context);
     }
 
     @TargetApi(AndroidHelper.API_21)
-    private static boolean fromMarket21() {
+    private static boolean fromMarket21(@NonNull final Context context) {
         // API-21+ Settings.Secure
-        return (Settings.Secure.getInt(ApplicationHelper.context().getContentResolver(), Settings.Secure.INSTALL_NON_MARKET_APPS, 0) == 1);
+        return (Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.INSTALL_NON_MARKET_APPS, 0) == 1);
     }
 
     @TargetApi(AndroidHelper.API_17)
     @SuppressWarnings("deprecation")
-    private static boolean fromMarket17() {
+    private static boolean fromMarket17(@NonNull final Context context) {
         // API-17+ Settings.Global
-        return (Settings.Global.getInt(ApplicationHelper.context().getContentResolver(), Settings.Global.INSTALL_NON_MARKET_APPS, 0) == 1);
+        return (Settings.Global.getInt(context.getContentResolver(), Settings.Global.INSTALL_NON_MARKET_APPS, 0) == 1);
     }
 
     @TargetApi(AndroidHelper.API_3)
-    private static boolean fromMarket3() {
+    private static boolean fromMarket3(@NonNull final Context context) {
         // API-3+ Settings.Secure
-        return (Settings.Secure.getInt(ApplicationHelper.context().getContentResolver(), Settings.Secure.INSTALL_NON_MARKET_APPS, 0) == 1);
+        return (Settings.Secure.getInt(context.getContentResolver(), Settings.Secure.INSTALL_NON_MARKET_APPS, 0) == 1);
     }
 
 }

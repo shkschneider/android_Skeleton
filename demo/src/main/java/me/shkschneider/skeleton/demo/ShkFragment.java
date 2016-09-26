@@ -39,7 +39,7 @@ public class ShkFragment extends SkeletonFragment {
     public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Proxy.getInstance().getImageLoader().get(AVATAR, new ImageLoader.ImageListener() {
+        Proxy.getInstance(getContext()).getImageLoader().get(AVATAR, new ImageLoader.ImageListener() {
             @Override
             public void onResponse(final ImageLoader.ImageContainer response, final boolean isImmediate) {
                 if (response.getBitmap() != null) {
@@ -50,7 +50,7 @@ public class ShkFragment extends SkeletonFragment {
             }
             @Override
             public void onErrorResponse(final VolleyError error) {
-                ActivityHelper.toast(error.getMessage());
+                ActivityHelper.toast(getContext(), error.getMessage());
             }
         });
 

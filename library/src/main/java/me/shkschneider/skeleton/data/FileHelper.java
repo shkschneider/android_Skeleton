@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.data;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
@@ -57,9 +58,9 @@ public class FileHelper {
     }
 
     @Nullable
-    public static InputStream openRaw(@RawRes final int id) {
+    public static InputStream openRaw(@NonNull final Context context, @RawRes final int id) {
         try {
-            return ApplicationHelper.resources().openRawResource(id);
+            return ApplicationHelper.resources(context).openRawResource(id);
         }
         catch (final Resources.NotFoundException e) {
             LogHelper.wtf(e);
@@ -68,9 +69,9 @@ public class FileHelper {
     }
 
     @Nullable
-    public static InputStream openAsset(@NonNull final String assetName) {
+    public static InputStream openAsset(@NonNull final Context context, @NonNull final String assetName) {
         try {
-            return ApplicationHelper.assetManager().open(assetName);
+            return ApplicationHelper.assetManager(context).open(assetName);
         }
         catch (final IOException e) {
             LogHelper.wtf(e);

@@ -45,15 +45,15 @@ public class AboutActivity extends SkeletonActivity {
 
             final Preference appPackage = findPreference("app_package");
             appPackage.setTitle("PackageName");
-            appPackage.setSummary(ApplicationHelper.packageName());
+            appPackage.setSummary(ApplicationHelper.packageName(getContext()));
 
             final Preference appVersionName = findPreference("app_versionName");
             appVersionName.setTitle("VersionName");
-            appVersionName.setSummary(ApplicationHelper.versionName());
+            appVersionName.setSummary(ApplicationHelper.versionName(getContext()));
 
             final Preference appVersionCode = findPreference("app_versionCode");
             appVersionCode.setTitle("VersionCode");
-            appVersionCode.setSummary(String.valueOf(ApplicationHelper.versionCode()));
+            appVersionCode.setSummary(String.valueOf(ApplicationHelper.versionCode(getContext())));
 
             final Preference appDebug = findPreference("app_debug");
             appDebug.setTitle("Debug");

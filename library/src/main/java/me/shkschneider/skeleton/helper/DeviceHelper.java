@@ -1,8 +1,10 @@
 package me.shkschneider.skeleton.helper;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Point;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
@@ -17,8 +19,8 @@ public class DeviceHelper {
     // <https://github.com/eyeem/deviceinfo>
     @SuppressWarnings("deprecation")
     @SuppressLint("NewApi")
-    public static float screenSize() {
-        final WindowManager windowManager = SystemServices.windowManager();
+    public static float screenSize(@NonNull final Context context) {
+        final WindowManager windowManager = SystemServices.windowManager(context);
         final DisplayMetrics displayMetrics = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(displayMetrics);
         Point point = new Point(1, 1);
@@ -39,11 +41,12 @@ public class DeviceHelper {
         return screenSize;
     }
 
-    public static boolean tablet() {
-        final double screenSize = screenSize();
+    public static boolean tablet(@NonNull final Context context) {
+        final double screenSize = screenSize(context);
         return (screenSize >= 7.0);
     }
 
+    // FIXME
     // <https://github.com/framgia/android-emulator-detector>
     @Deprecated // Avoid
     public static boolean emulator() {

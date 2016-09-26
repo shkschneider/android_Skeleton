@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.network;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
@@ -18,16 +19,18 @@ import me.shkschneider.skeleton.helper.LogHelper;
 // <http://stackoverflow.com/a/25530488>
 public class MyImageGetter implements Html.ImageGetter {
 
+    private Context mContext;
     private TextView mTextView;
 
-    public MyImageGetter(@NonNull final TextView textView) {
+    public MyImageGetter(@NonNull final Context context, @NonNull final TextView textView) {
+        mContext = context;
         mTextView = textView;
     }
 
     @Override
     public Drawable getDrawable(final String source) {
         final BitmapDrawablePlaceholder bitmapDrawablePlaceholder = new BitmapDrawablePlaceholder();
-        Proxy.getInstance().getImageLoader().get(source, new ImageLoader.ImageListener() {
+        Proxy.getInstance(mContext).getImageLoader().get(source, new ImageLoader.ImageListener() {
             @Override
             public void onResponse(final ImageLoader.ImageContainer response, final boolean isImmediate) {
                 final Bitmap bitmap = response.getBitmap();
@@ -35,7 +38,7 @@ public class MyImageGetter implements Html.ImageGetter {
                     LogHelper.warning("Bitmap was NULL");
                     return;
                 }
-                final BitmapDrawable bitmapDrawable = new BitmapDrawable(ApplicationHelper.resources(), bitmap);
+                final BitmapDrawable bitmapDrawable = new BitmapDrawable(ApplicationHelper.resources(mContext), bitmap);
                 final int width = bitmapDrawable.getIntrinsicWidth();
                 final int height = bitmapDrawable.getIntrinsicHeight();
                 bitmapDrawable.setBounds(0, 0, width, height);
@@ -53,7 +56,7 @@ public class MyImageGetter implements Html.ImageGetter {
     }
 
     @SuppressWarnings("deprecation")
-    static class BitmapDrawablePlaceholder extends BitmapDrawable {
+    private static class BitmapDrawablePlaceholder extends BitmapDrawable {
 
         private Drawable mDrawable;
 

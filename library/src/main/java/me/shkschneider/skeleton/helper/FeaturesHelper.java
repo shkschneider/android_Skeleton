@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.helper;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 
@@ -117,8 +118,7 @@ public class FeaturesHelper {
     public static final String FEATURE_TELEPHONY_CDMA = PackageManager.FEATURE_TELEPHONY_CDMA;
     public static final String FEATURE_TELEPHONY_GSM = PackageManager.FEATURE_TELEPHONY_GSM;
     @SuppressLint("InlinedApi") // API-16+
-    @Deprecated // FEATURE_LEANBACK
-    //noinspection deprecation
+    @Deprecated @SuppressWarnings("deprecation") // FEATURE_LEANBACK
     public static final String FEATURE_TELEVISION = PackageManager.FEATURE_TELEVISION;
     public static final String FEATURE_TOUCHSCREEN = PackageManager.FEATURE_TOUCHSCREEN;
     public static final String FEATURE_TOUCHSCREEN_MULTITOUCH = PackageManager.FEATURE_TOUCHSCREEN_MULTITOUCH;
@@ -143,8 +143,8 @@ public class FeaturesHelper {
     public static final String FEATURE_WIFI = PackageManager.FEATURE_WIFI;
     public static final String FEATURE_WIFI_DIRECT = PackageManager.FEATURE_WIFI_DIRECT;
 
-    public static boolean feature(@NonNull final String feature) {
-        final PackageManager packageManager = ApplicationHelper.packageManager();
+    public static boolean feature(@NonNull final Context context, @NonNull final String feature) {
+        final PackageManager packageManager = ApplicationHelper.packageManager(context);
         if (packageManager == null) {
             LogHelper.warning("PackageManager was NULL");
             return false;

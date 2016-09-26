@@ -1,12 +1,11 @@
 package me.shkschneider.skeleton.ui;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import me.shkschneider.skeleton.helper.ApplicationHelper;
 
 public class UiHelper {
 
@@ -26,8 +25,8 @@ public class UiHelper {
     }
 
     @Nullable
-    public static View inflate(final int layout) {
-        final LayoutInflater layoutInflater = LayoutInflater.from(ApplicationHelper.context());
+    public static View inflate(@NonNull final Context context, final int layout) {
+        final LayoutInflater layoutInflater = LayoutInflater.from(context);
         return inflate(layoutInflater, null, layout);
     }
 

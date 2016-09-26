@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.helper;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.os.PowerManager;
 import android.support.annotation.FloatRange;
 import android.support.annotation.NonNull;
@@ -46,8 +47,8 @@ public class ScreenHelper {
         return true;
     }
 
-    public static boolean on() {
-        final PowerManager powerManager = SystemServices.powerManager();
+    public static boolean on(@NonNull final Context context) {
+        final PowerManager powerManager = SystemServices.powerManager(context);
         if (powerManager == null) {
             LogHelper.warning("PowerManager was NULL");
             return true;
@@ -81,28 +82,28 @@ public class ScreenHelper {
         return true;
     }
 
-    public static float density() {
-        return ApplicationHelper.resources().getDisplayMetrics().density;
+    public static float density(@NonNull final Context context) {
+        return ApplicationHelper.resources(context).getDisplayMetrics().density;
     }
 
-    public static int dpi() {
-        return ApplicationHelper.resources().getDisplayMetrics().densityDpi;
+    public static int dpi(@NonNull final Context context) {
+        return ApplicationHelper.resources(context).getDisplayMetrics().densityDpi;
     }
 
-    public static int height() {
-        return ApplicationHelper.resources().getDisplayMetrics().heightPixels;
+    public static int height(@NonNull final Context context) {
+        return ApplicationHelper.resources(context).getDisplayMetrics().heightPixels;
     }
 
-    public static int width() {
-        return ApplicationHelper.resources().getDisplayMetrics().widthPixels;
+    public static int width(@NonNull final Context context) {
+        return ApplicationHelper.resources(context).getDisplayMetrics().widthPixels;
     }
 
-    public static int statusBarHeight() {
-        return (int) ApplicationHelper.resources().getDimension(R.dimen.statusBar);
+    public static int statusBarHeight(@NonNull final Context context) {
+        return (int) ApplicationHelper.resources(context).getDimension(R.dimen.statusBar);
     }
 
-    public static int rotation() {
-        final WindowManager windowManager = SystemServices.windowManager();
+    public static int rotation(@NonNull final Context context) {
+        final WindowManager windowManager = SystemServices.windowManager(context);
         if (windowManager == null) {
             LogHelper.warning("WindowManager was NULL");
             return 0;
@@ -115,12 +116,12 @@ public class ScreenHelper {
         return display.getRotation();
     }
 
-    public static int pixelsFromDp(@FloatRange(from=0.0) final float dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, ApplicationHelper.resources().getDisplayMetrics());
+    public static int pixelsFromDp(@NonNull final Context context, @FloatRange(from=0.0) final float dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, ApplicationHelper.resources(context).getDisplayMetrics());
     }
 
-    public static int pixelsFromSp(@FloatRange(from=0.0) final float sp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, ApplicationHelper.resources().getDisplayMetrics());
+    public static int pixelsFromSp(@NonNull final Context context, @FloatRange(from=0.0) final float sp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, ApplicationHelper.resources(context).getDisplayMetrics());
     }
 
 }
