@@ -165,7 +165,7 @@ public class MainActivity extends SkeletonActivity {
     protected void onStop() {
         super.onStop();
 
-        Proxy.getInstance(getApplicationContext()).getRequestQueue().cancelAll(URL);
+        Proxy.get(getApplicationContext()).getRequestQueue().cancelAll(URL);
         LocalBroadcastManager.getInstance(MainActivity.this).unregisterReceiver(mBroadcastReceiver);
     }
 
@@ -182,8 +182,8 @@ public class MainActivity extends SkeletonActivity {
 
     private void network() {
         final String tag = URL; // defaults to URL anyway
-        Proxy.getInstance(getApplicationContext()).getRequestQueue().cancelAll(tag);
-        Proxy.getInstance(getApplicationContext()).getRequestQueue().add(
+        Proxy.get(getApplicationContext()).getRequestQueue().cancelAll(tag);
+        Proxy.get(getApplicationContext()).getRequestQueue().add(
                 new MyRequest(Request.Method.GET, URL,
                         new Response.Listener<MyResponse>() {
                             @Override

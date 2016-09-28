@@ -13,7 +13,7 @@ import me.shkschneider.skeleton.helper.LogHelper;
 public class DiskCache {
 
     // Prevents direct initialization
-    private DiskCache(@NonNull final Context context) {
+    private DiskCache() {
         // Empty
     }
 

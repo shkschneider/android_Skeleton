@@ -30,7 +30,7 @@ public class MyImageGetter implements Html.ImageGetter {
     @Override
     public Drawable getDrawable(final String source) {
         final BitmapDrawablePlaceholder bitmapDrawablePlaceholder = new BitmapDrawablePlaceholder();
-        Proxy.getInstance(mContext).getImageLoader().get(source, new ImageLoader.ImageListener() {
+        Proxy.get(mContext).getImageLoader().get(source, new ImageLoader.ImageListener() {
             @Override
             public void onResponse(final ImageLoader.ImageContainer response, final boolean isImmediate) {
                 final Bitmap bitmap = response.getBitmap();

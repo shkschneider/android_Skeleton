@@ -9,14 +9,23 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
-// <https://developer.android.com/training/volley/index.html>
+// <https://developer.android.com/training/volley/requestqueue.html>
 public class Proxy {
+
+    private static Proxy PROXY;
+
+    public static synchronized Proxy get(@NonNull final Context context) {
+        if (PROXY == null) {
+            PROXY = new Proxy(context);
+        }
+        return PROXY;
+    }
 
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
 
-    public Proxy(@NonNull final Context context) {
-        mRequestQueue = Volley.newRequestQueue(context);
+    private Proxy(@NonNull final Context context) {
+        mRequestQueue = Volley.newRequestQueue(context.getApplicationContext());
         mImageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
 
             private final LruCache<String, Bitmap> CACHE = new LruCache<>(42);
