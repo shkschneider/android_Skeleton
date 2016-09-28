@@ -17,14 +17,13 @@ import java.util.TimeZone;
 
 public class DateTimeHelper {
 
-    private static class CalendarHolder {
+    private static Calendar CALENDAR;
 
-        private static Calendar INSTANCE = Calendar.getInstance(LocaleHelper.locale());
-
-    }
-
-    public static Calendar calendar() {
-        return CalendarHolder.INSTANCE;
+    public static synchronized Calendar calendar() {
+        if (CALENDAR == null) {
+            CALENDAR = Calendar.getInstance(LocaleHelper.locale());
+        }
+        return CALENDAR;
     }
 
     // <http://developer.android.com/intl/ru/reference/java/text/SimpleDateFormat.html>
