@@ -6,7 +6,7 @@ Skeleton [![Travis-CI](https://travis-ci.org/shkschneider/android_Skeleton.svg?b
 Setup
 -----
 
-[![JitPack](https://jitpack.io/v/com.github.shkschneider/android_Skeleton.svg)](https://jitpack.io/#shkschneider/android_Skeleton/5.4.2)
+[![JitPack](https://jitpack.io/v/com.github.shkschneider/android_Skeleton.svg)](https://jitpack.io/#shkschneider/android_Skeleton/6.0.0)
 
 Specifications
 --------------
@@ -25,14 +25,13 @@ Specifications
 
 **Uses**
 
-- [Gradle 2.1.3](http://tools.android.com/tech-docs/new-build-system) (wrapper 2.14.1)
-- [Android Studio 2.1.3](https://developer.android.com/sdk/index.html)
+- [Gradle 2.2.0](http://tools.android.com/tech-docs/new-build-system) (wrapper 2.14.1)
+- [Android Studio 2.2](https://developer.android.com/sdk/index.html)
 - [android.support.v7.app.AppCompatActivity](https://developer.android.com/reference/android/support/v7/app/AppCompatActivity.html)
 - [android.support.v7.widget.Toolbar](https://developer.android.com/reference/android/support/v7/widget/Toolbar.html)
 - [android.support.v4.app.Fragment](https://developer.android.com/reference/android/support/v4/app/Fragment.html)
 - [Material Design](http://www.google.com/design/spec/material-design/introduction.html)
 - [OpenJDK 8](http://openjdk.java.net/projects/jdk8/)
-- [GNU Make](https://www.gnu.org/software/make/manual/make.html)
 
 Author
 ------
