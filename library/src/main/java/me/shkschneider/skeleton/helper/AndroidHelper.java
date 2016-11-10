@@ -33,6 +33,7 @@ public class AndroidHelper {
     public static final int API_22 = Build.VERSION_CODES.LOLLIPOP_MR1; // 5.1
     public static final int API_23 = Build.VERSION_CODES.M; // 6.0 "Marshmallow"
     public static final int API_24 = Build.VERSION_CODES.N; // 7.0 "Nougat"
+    public static final int API_25 = Build.VERSION_CODES.N_MR1; // 7.1.1
 
     public static final String PLATFORM = "Android";
 
@@ -82,6 +83,7 @@ public class AndroidHelper {
             case API_23:
                 return "Marshmallow";
             case API_24:
+            case API_25:
                 return "Nougat";
             default:
                 return null;

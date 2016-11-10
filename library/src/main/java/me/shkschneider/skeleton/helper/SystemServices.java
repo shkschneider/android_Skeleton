@@ -20,6 +20,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.RestrictionsManager;
 import android.content.pm.LauncherApps;
+import android.content.pm.ShortcutManager;
 import android.hardware.ConsumerIrManager;
 import android.hardware.SensorManager;
 import android.hardware.camera2.CameraManager;
@@ -250,6 +251,11 @@ public class SystemServices {
 
     public static SensorManager sensorManager(@NonNull final Context context) {
         return (SensorManager) service(context, Context.SENSOR_SERVICE);
+    }
+
+    @TargetApi(AndroidHelper.API_25)
+    public static ShortcutManager shortcutManager(@NonNull final Context context) {
+        return (ShortcutManager) service(context, Context.SHORTCUT_SERVICE);
     }
 
     public static StorageManager storageManager(@NonNull final Context context) {
