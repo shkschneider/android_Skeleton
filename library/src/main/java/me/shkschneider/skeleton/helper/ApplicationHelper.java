@@ -31,20 +31,18 @@ public class ApplicationHelper {
         // Empty
     }
 
-    // FIXME
     public static boolean debug() {
         // <https://stackoverflow.com/a/25517680/603270>
         return SkeletonApplication.DEBUG;
     }
 
-    // FIXME
     public static Resources resources(@NonNull final Context context) {
         return context.getResources();
     }
 
-    // FIXME AssetsHelper.assetManager()
+    @Deprecated
     public static AssetManager assetManager(@NonNull final Context context) {
-        return context.getAssets();
+        return AssetsHelper.assetManager(context);
     }
 
     @Deprecated // Avoid

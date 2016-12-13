@@ -1,8 +1,8 @@
 package me.shkschneider.skeleton.helper;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -82,16 +82,15 @@ public class DateTimeHelper {
         return DateUtils.getRelativeTimeSpanString(from, to, DateUtils.SECOND_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE).toString();
     }
 
-    // FIXME test Context in place of Activity
-    public static void pickTime(@NonNull final Context context, final Calendar date, @NonNull final TimePickerDialog.OnTimeSetListener onTimeSetListener) {
+    public static void pickTime(@NonNull final Activity activity, final Calendar date, @NonNull final TimePickerDialog.OnTimeSetListener onTimeSetListener) {
         final Calendar calendar = (date != null ? date : calendar());
-        final boolean is24HourFormat = DateFormat.is24HourFormat(context);
-        new TimePickerDialog(context, onTimeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), is24HourFormat).show();
+        final boolean is24HourFormat = DateFormat.is24HourFormat(activity);
+        new TimePickerDialog(activity, onTimeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), is24HourFormat).show();
     }
 
-    public static void pickDate(@NonNull final Context context, final Calendar min, final Calendar date, final Calendar max, @NonNull final DatePickerDialog.OnDateSetListener onDateSetListener) {
+    public static void pickDate(@NonNull final Activity activity, final Calendar min, final Calendar date, final Calendar max, @NonNull final DatePickerDialog.OnDateSetListener onDateSetListener) {
         final Calendar calendar = (date != null ? date : calendar()); // now by default
-        final DatePickerDialog datePickerDialog = new DatePickerDialog(context,
+        final DatePickerDialog datePickerDialog = new DatePickerDialog(activity,
                 onDateSetListener,
                 calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         final DatePicker datePicker = datePickerDialog.getDatePicker();
