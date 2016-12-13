@@ -54,9 +54,9 @@ android {
             zipAlignEnabled true
             multiDexEnabled true
             signingConfig signingConfigs.release
-            minifyEnabled true // FIXME
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.pro'
-            shrinkResources false // FIXME
+            shrinkResources false
 
             buildConfigField "boolean", "MOCK", "false"
             resValue "string", "url", "http://android.com"
