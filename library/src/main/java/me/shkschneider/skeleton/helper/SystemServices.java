@@ -42,9 +42,11 @@ import android.net.wifi.p2p.WifiP2pManager;
 import android.nfc.NfcManager;
 import android.os.BatteryManager;
 import android.os.DropBoxManager;
+import android.os.HardwarePropertiesManager;
 import android.os.PowerManager;
 import android.os.UserManager;
 import android.os.Vibrator;
+import android.os.health.SystemHealthManager;
 import android.os.storage.StorageManager;
 import android.print.PrintManager;
 import android.service.wallpaper.WallpaperService;
@@ -60,7 +62,6 @@ import android.view.accessibility.CaptioningManager;
 import android.view.inputmethod.InputMethodManager;
 import android.view.textservice.TextServicesManager;
 
-// FIXME API-24?
 // <http://developer.android.com/reference/android/content/Context.html>
 public class SystemServices {
 
@@ -162,6 +163,11 @@ public class SystemServices {
         return (FingerprintManager) service(context, Context.FINGERPRINT_SERVICE);
     }
 
+    @TargetApi(AndroidHelper.API_24)
+    public static HardwarePropertiesManager hardwarePropertiesService(@NonNull final Context context) {
+        return (HardwarePropertiesManager) service(context, Context.HARDWARE_PROPERTIES_SERVICE);
+    }
+
     public static InputMethodManager inputMethodManager(@NonNull final Context context) {
         return (InputMethodManager) service(context, Context.INPUT_METHOD_SERVICE);
     }
@@ -260,6 +266,11 @@ public class SystemServices {
 
     public static StorageManager storageManager(@NonNull final Context context) {
         return (StorageManager) service(context, Context.STORAGE_SERVICE);
+    }
+
+    @TargetApi(AndroidHelper.API_24)
+    public static SystemHealthManager systemHealthService(@NonNull final Context context) {
+        return (SystemHealthManager) service(context, Context.SYSTEM_HEALTH_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_21)
