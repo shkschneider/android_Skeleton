@@ -19,6 +19,7 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import me.shkschneider.skeleton.helper.ApplicationHelper;
+import me.shkschneider.skeleton.helper.AssetsHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.ui.BitmapHelper;
 
@@ -69,13 +70,7 @@ public class FileHelper {
 
     @Nullable
     public static InputStream openAsset(@NonNull final String assetName) {
-        try {
-            return ApplicationHelper.assetManager().open(assetName);
-        }
-        catch (final IOException e) {
-            LogHelper.wtf(e);
-            return null;
-        }
+        return AssetsHelper.open(assetName);
     }
 
     public static String readString(@NonNull final InputStream inputStream) {

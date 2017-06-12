@@ -38,6 +38,7 @@ public class ApplicationHelper {
         return ContextHelper.applicationContext().getResources();
     }
 
+    @Deprecated //Avoid
     public static AssetManager assetManager() {
         return AssetsHelper.assetManager();
     }
