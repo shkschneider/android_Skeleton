@@ -361,9 +361,8 @@ public abstract class SkeletonActivity extends AppCompatActivity {
     // Search
     // <http://stackoverflow.com/q/18438890>
 
-    protected static final int RESULT_SEARCH_CHANGE = -1;
-    protected static final int RESULT_SEARCH_SUBMIT = 1;
-    protected static final String RESULT_SEARCH_TEXT = "TEXT";
+    protected static final String RESULT_SEARCH_CHANGE = "onQueryTextChange";
+    protected static final String RESULT_SEARCH_SUBMIT ="onQueryTextSubmit";
 
     private String mSearchHint;
     private SkeletonReceiver mSkeletonReceiver;
@@ -405,7 +404,7 @@ public abstract class SkeletonActivity extends AppCompatActivity {
         mSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                mSkeletonReceiver.send(RESULT_SEARCH_CHANGE, "");
+                mSkeletonReceiver.post(RESULT_SEARCH_CHANGE, "");
                 return false;
             }
         });
@@ -414,13 +413,13 @@ public abstract class SkeletonActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(final String q) {
                 stopSearch();
-                mSkeletonReceiver.send(RESULT_SEARCH_SUBMIT, q);
+                mSkeletonReceiver.post(RESULT_SEARCH_SUBMIT, q);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(final String q) {
-                mSkeletonReceiver.send(RESULT_SEARCH_CHANGE, q);
+                mSkeletonReceiver.post(RESULT_SEARCH_CHANGE, q);
                 return true;
             }
 

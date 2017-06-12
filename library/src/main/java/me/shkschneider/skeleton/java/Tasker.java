@@ -39,17 +39,17 @@ public class Tasker {
     public static class Task implements Runnable {
 
         private final Runnable mRunnable;
-        private final SkeletonReceiver.Callback mCallback;
+        private final SkeletonReceiver mSkeletonReceiver;
 
-        public Task(@NonNull final Runnable runnable, final SkeletonReceiver.Callback callback) {
+        public Task(@NonNull final Runnable runnable, final SkeletonReceiver skeletonReceiver) {
             mRunnable = runnable;
-            mCallback = callback;
+            mSkeletonReceiver = skeletonReceiver;
         }
 
         @Override
         public void run() {
             mRunnable.run();
-            mCallback.onReceive(0, null);
+            mSkeletonReceiver.post(ClassHelper.simpleName(Tasker.class), null);
         }
 
     }

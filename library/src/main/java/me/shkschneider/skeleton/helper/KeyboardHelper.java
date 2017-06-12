@@ -2,7 +2,6 @@ package me.shkschneider.skeleton.helper;
 
 import android.app.Activity;
 import android.graphics.Rect;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
@@ -15,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import me.shkschneider.skeleton.SkeletonReceiver;
+import me.shkschneider.skeleton.java.ClassHelper;
 import me.shkschneider.skeleton.ui.ViewHelper;
 
 public class KeyboardHelper {
@@ -41,8 +41,6 @@ public class KeyboardHelper {
 
     // ResultReceiver
 
-    public static final String RESULT_KEYBOARD_ACTION = "ACTION";
-
     public static boolean keyboardCallback(@NonNull final EditText editText, @Nullable final SkeletonReceiver skeletonReceiver, final boolean all) {
         if (skeletonReceiver == null) {
             editText.setOnEditorActionListener(null);
@@ -53,9 +51,7 @@ public class KeyboardHelper {
             @Override
             public boolean onEditorAction(final TextView textView, final int actionId, final KeyEvent keyEvent) {
                 if (all) {
-                    final Bundle bundle = new Bundle();
-                    bundle.putInt(RESULT_KEYBOARD_ACTION, actionId);
-                    skeletonReceiver.send(Activity.RESULT_OK, bundle);
+                    skeletonReceiver.post(ClassHelper.simpleName(KeyboardHelper.class), actionId);
                     return false;
                 }
                 switch (actionId) {
@@ -67,9 +63,7 @@ public class KeyboardHelper {
                     case EditorInfo.IME_ACTION_SEND:
                     case KeyEvent.KEYCODE_DPAD_CENTER:
                     case KeyEvent.KEYCODE_ENTER:
-                        final Bundle bundle = new Bundle();
-                        bundle.putInt(RESULT_KEYBOARD_ACTION, actionId);
-                        skeletonReceiver.send(Activity.RESULT_OK, bundle);
+                        skeletonReceiver.post(ClassHelper.simpleName(KeyboardHelper.class), actionId);
                         break;
                 }
                 return false;
