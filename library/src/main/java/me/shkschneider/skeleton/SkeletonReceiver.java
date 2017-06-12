@@ -1,41 +1,52 @@
 package me.shkschneider.skeleton;
 
-import android.annotation.SuppressLint;
-import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.os.ResultReceiver;
+
+import java.io.Serializable;
+
+import me.shkschneider.skeleton.helper.HandlerHelper;
 
 // <http://sohailaziz05.blogspot.fr/2012/05/intentservice-providing-data-back-to.html>
-@SuppressLint("ParcelCreator")
-public class SkeletonReceiver extends ResultReceiver {
+public abstract class SkeletonReceiver {
 
-    private Callback mCallback;
+    private Handler mHandler;
 
-    public SkeletonReceiver(@NonNull final Handler handler, @NonNull final Callback callback) {
-        super(handler);
-        mCallback = callback;
+    public SkeletonReceiver(@NonNull final Handler handler) {
+        mHandler = handler;
     }
 
-    public SkeletonReceiver(@NonNull final Callback callback) {
-        this(new Handler(Looper.getMainLooper()), callback);
+    public SkeletonReceiver() {
+        this(HandlerHelper.main());
     }
 
-    @Override
-    public void send(final int resultCode, @Nullable final Bundle resultData) {
-        super.send(resultCode, resultData);
+    // android.support.v4.os.ResultReceiver
+
+    public void send(final int resultCode, final Serializable resultData) {
+        mHandler.post(new MyRunnable(resultCode, resultData));
     }
 
-    @Override
-    protected void onReceiveResult(final int resultCode, @Nullable final Bundle resultData) {
-        mCallback.onCallback(resultCode, resultData);
+    abstract protected void onReceive(final int resultCode, @Nullable final Serializable resultData);
+
+    protected void onReceiveResult(final int resultCode, final Serializable resultData) {
+        onReceive(resultCode, resultData);
     }
 
-    public interface Callback {
+    private class MyRunnable implements Runnable {
 
-        void onCallback(final int resultCode, @Nullable final Bundle resultData);
+        final int mResultCode;
+        final Serializable mResultData;
+
+        public MyRunnable(final int resultCode, final Serializable resultData) {
+            mResultCode = resultCode;
+            mResultData = resultData;
+        }
+
+        @Override
+        public void run() {
+            onReceiveResult(mResultCode, mResultData);
+        }
 
     }
 

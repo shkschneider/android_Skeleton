@@ -405,9 +405,7 @@ public abstract class SkeletonActivity extends AppCompatActivity {
         mSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                final Bundle bundle = new Bundle();
-                bundle.putString(RESULT_SEARCH_TEXT, "");
-                mSkeletonReceiver.send(RESULT_SEARCH_CHANGE, bundle);
+                mSkeletonReceiver.send(RESULT_SEARCH_CHANGE, "");
                 return false;
             }
         });
@@ -416,17 +414,13 @@ public abstract class SkeletonActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextSubmit(final String q) {
                 stopSearch();
-                final Bundle bundle = new Bundle();
-                bundle.putString(RESULT_SEARCH_TEXT, q);
-                mSkeletonReceiver.send(RESULT_SEARCH_SUBMIT, bundle);
+                mSkeletonReceiver.send(RESULT_SEARCH_SUBMIT, q);
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(final String q) {
-                final Bundle bundle = new Bundle();
-                bundle.putString(RESULT_SEARCH_TEXT, q);
-                mSkeletonReceiver.send(RESULT_SEARCH_CHANGE, bundle);
+                mSkeletonReceiver.send(RESULT_SEARCH_CHANGE, q);
                 return true;
             }
 
