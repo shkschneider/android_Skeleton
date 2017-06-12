@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.helper;
 
-import android.content.Context;
 import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -14,11 +13,11 @@ public class ActivityHelper {
         // Empty
     }
 
-    public static void toast(@NonNull final Context context, @NonNull final String msg) {
+    public static void toast(@NonNull final String msg) {
         if (TextUtils.isEmpty(msg)) {
             LogHelper.warning("Message was NULL");
         }
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+        Toast.makeText(ContextHelper.applicationContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
     public static void snackBar(@NonNull final View view, @NonNull final String msg) {
@@ -37,12 +36,12 @@ public class ActivityHelper {
                 .show();
     }
 
-    public static boolean portrait(@NonNull final Context context) {
-        return (ApplicationHelper.resources(context).getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
+    public static boolean portrait() {
+        return (ApplicationHelper.resources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT);
     }
 
-    public static boolean landscape(@NonNull final Context context) {
-        return (ApplicationHelper.resources(context).getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
+    public static boolean landscape() {
+        return (ApplicationHelper.resources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE);
     }
 
 }

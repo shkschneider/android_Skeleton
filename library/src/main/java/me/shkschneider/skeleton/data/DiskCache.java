@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.data;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -20,8 +19,8 @@ public class DiskCache {
     // <http://developer.android.com/guide/topics/data/data-storage.html#filesInternal>
     public static class Internal extends Cache {
 
-        public Internal(@NonNull final Context context) {
-            super(context);
+        public Internal() {
+            super();
         }
 
     }
@@ -29,8 +28,8 @@ public class DiskCache {
     // <http://developer.android.com/guide/topics/data/data-storage.html#filesExternal>
     public static class External extends Cache {
 
-        public External(@NonNull final Context context) {
-            super(context);
+        public External() {
+            super();
         }
 
     }
@@ -38,12 +37,7 @@ public class DiskCache {
     // Prevents direct initialization
     private static class Cache {
 
-        private Context mContext;
-        protected File DIR;
-
-        private Cache(@NonNull final Context context) {
-            mContext = context;
-        }
+        File DIR;
 
         @SuppressWarnings("ResultOfMethodCallIgnored")
         synchronized public boolean put(@NonNull final String key, final Serializable value) {
@@ -102,7 +96,7 @@ public class DiskCache {
                 return 0;
             }
 
-            final File dir = ExternalDataHelper.cache(mContext);
+            final File dir = ExternalDataHelper.cache();
             if (dir.exists()) {
                 return dir.list().length;
             }

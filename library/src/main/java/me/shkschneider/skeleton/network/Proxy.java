@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.network;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.v4.util.LruCache;
@@ -9,14 +8,16 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
+import me.shkschneider.skeleton.helper.ContextHelper;
+
 // <https://developer.android.com/training/volley/requestqueue.html>
 public class Proxy {
 
     private static Proxy PROXY;
 
-    public static synchronized Proxy get(@NonNull final Context context) {
+    public static synchronized Proxy get() {
         if (PROXY == null) {
-            PROXY = new Proxy(context);
+            PROXY = new Proxy();
         }
         return PROXY;
     }
@@ -24,8 +25,8 @@ public class Proxy {
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
 
-    private Proxy(@NonNull final Context context) {
-        mRequestQueue = Volley.newRequestQueue(context.getApplicationContext());
+    private Proxy() {
+        mRequestQueue = Volley.newRequestQueue(ContextHelper.applicationContext());
         mImageLoader = new ImageLoader(mRequestQueue, new ImageLoader.ImageCache() {
 
             private final LruCache<String, Bitmap> CACHE = new LruCache<>(42);

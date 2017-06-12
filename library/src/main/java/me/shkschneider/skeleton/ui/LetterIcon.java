@@ -42,23 +42,23 @@ public class LetterIcon extends View {
 
     public LetterIcon(final Context context, final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
+        init();
     }
 
     @SuppressWarnings("unused")
     @TargetApi(AndroidHelper.API_21)
     public LetterIcon(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init(context);
+        init();
     }
 
-    private void init(@NonNull final Context context) {
+    private void init() {
         mShapePaint = new Paint();
         mShapePaint.setStyle(Paint.Style.FILL);
         mShapePaint.setAntiAlias(true);
         mLetterPaint = new Paint();
         mLetterPaint.setAntiAlias(true);
-        setShapeColor(ThemeHelper.accentColor(context));
+        setShapeColor(ThemeHelper.accentColor());
     }
 
     @Override
@@ -71,7 +71,7 @@ public class LetterIcon extends View {
             return;
         }
         if (layoutParams.width == ViewGroup.LayoutParams.WRAP_CONTENT) {
-            final int dp = ScreenHelper.pixelsFromDp(getContext(), DP);
+            final int dp = ScreenHelper.pixelsFromDp(DP);
             layoutParams.width = dp;
             layoutParams.height = dp;
             invalidate();
@@ -96,7 +96,7 @@ public class LetterIcon extends View {
 
     private void drawLetter(@NonNull final Canvas canvas, final float cx, final float cy) {
         mLetterPaint.setColor(mLetterColor);
-        mLetterPaint.setTextSize(ScreenHelper.pixelsFromSp(getContext(), mLetterSize));
+        mLetterPaint.setTextSize(ScreenHelper.pixelsFromSp(mLetterSize));
         mLetterPaint.getTextBounds(mLetter, 0, mLetter.length(), RECT);
         canvas.drawText(mLetter, cx - RECT.exactCenterX(), cy - RECT.exactCenterY(), mLetterPaint);
     }

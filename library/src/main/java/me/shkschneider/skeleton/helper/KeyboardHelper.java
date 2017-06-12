@@ -91,7 +91,7 @@ public class KeyboardHelper {
         root.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 
             private final Rect mRect = new Rect();
-            private final int visibleThreadshold = Math.round(ScreenHelper.pixelsFromDp(activity.getApplicationContext(), 100));
+            private final int visibleThreadshold = Math.round(ScreenHelper.pixelsFromDp(100));
             private boolean mWasOpened = false;
 
             @Override

@@ -1,10 +1,8 @@
 package me.shkschneider.skeleton.helper;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.graphics.Point;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
@@ -19,8 +17,8 @@ public class DeviceHelper {
     // <https://github.com/eyeem/deviceinfo>
     @SuppressWarnings("deprecation")
     @SuppressLint("NewApi")
-    public static float screenSize(@NonNull final Context context) {
-        final WindowManager windowManager = SystemServices.windowManager(context);
+    public static float screenSize() {
+        final WindowManager windowManager = SystemServices.windowManager();
         final DisplayMetrics displayMetrics = new DisplayMetrics();
         windowManager.getDefaultDisplay().getMetrics(displayMetrics);
         Point point = new Point(1, 1);
@@ -41,15 +39,15 @@ public class DeviceHelper {
         return screenSize;
     }
 
-    public static boolean tablet(@NonNull final Context context) {
-        final double screenSize = screenSize(context);
+    public static boolean tablet() {
+        final double screenSize = screenSize();
         return (screenSize >= 7.0);
     }
 
-    // FIXME
     // <https://github.com/framgia/android-emulator-detector>
     @Deprecated // Avoid
     public static boolean emulator() {
+        @SuppressLint("HardwareIds")
         boolean emulator = Build.FINGERPRINT.startsWith("generic")
                 || Build.MODEL.contains("google_sdk")
                 || Build.MODEL.toLowerCase(LocaleHelper.locale()).contains("droid4x")
@@ -65,8 +63,7 @@ public class DeviceHelper {
                 || Build.BOARD.toLowerCase(LocaleHelper.locale()).contains("nox")
                 || Build.BOOTLOADER.toLowerCase(LocaleHelper.locale()).contains("nox")
                 || Build.HARDWARE.toLowerCase(LocaleHelper.locale()).contains("nox")
-                || Build.PRODUCT.toLowerCase(LocaleHelper.locale()).contains("nox")
-                || Build.SERIAL.toLowerCase(LocaleHelper.locale()).contains("nox");
+                || Build.PRODUCT.toLowerCase(LocaleHelper.locale()).contains("nox");
         if (emulator) return true;
         emulator = Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic");
         if (emulator) return true;

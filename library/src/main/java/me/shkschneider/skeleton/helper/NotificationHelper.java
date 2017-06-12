@@ -3,7 +3,6 @@ package me.shkschneider.skeleton.helper;
 import android.app.Activity;
 import android.app.Notification;
 import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.annotation.ColorInt;
@@ -43,12 +42,11 @@ public class NotificationHelper {
         return PendingIntent.getActivity(activity, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
-    public static NotificationCompat.Builder Builder(@NonNull final Context context,
-                                                     @ColorInt final int color, @DrawableRes final int smallIcon, final Bitmap largeIcon,
+    public static NotificationCompat.Builder Builder(@ColorInt final int color, @DrawableRes final int smallIcon, final Bitmap largeIcon,
                                                      final String ticker,
                                                      @NonNull final String contentTitle, @NonNull final String contentText, final String subText, final String contentInfo,
                                                      @NonNull final PendingIntent pendingIntent) {
-        return new NotificationCompat.Builder(context)
+        return new NotificationCompat.Builder(ContextHelper.applicationContext())
                 .setSmallIcon(smallIcon)
                 .setLargeIcon(largeIcon)
                 .setTicker(ticker)
@@ -68,14 +66,14 @@ public class NotificationHelper {
     }
 
     @SuppressWarnings("deprecation")
-    public static void notify(@NonNull final Context context, @IntRange(from=0) final int id, @NonNull final NotificationCompat.Builder builder) {
+    public static void notify(@IntRange(from=0) final int id, @NonNull final NotificationCompat.Builder builder) {
         builder.setWhen(System.currentTimeMillis());
-        notify(context, id, builder.build());
+        notify(id, builder.build());
     }
 
     @Deprecated // Avoid
-    public static void notify(@NonNull final Context context, @IntRange(from=0) final int id, @NonNull final Notification notification) {
-        SystemServices.notificationManager(context).notify(id, notification);
+    public static void notify(@IntRange(from=0) final int id, @NonNull final Notification notification) {
+        SystemServices.notificationManager().notify(id, notification);
     }
 
 }

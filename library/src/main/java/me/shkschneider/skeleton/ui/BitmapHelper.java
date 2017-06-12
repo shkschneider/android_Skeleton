@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.ui;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
@@ -30,13 +29,14 @@ import java.io.InputStream;
 
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
+import me.shkschneider.skeleton.helper.ContextHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.ScreenHelper;
 
 public class BitmapHelper {
 
-    public static Bitmap fromResource(@NonNull final Context context, @DrawableRes final int id) {
-        return BitmapFactory.decodeResource(ApplicationHelper.resources(context), id);
+    public static Bitmap fromResource(@DrawableRes final int id) {
+        return BitmapFactory.decodeResource(ApplicationHelper.resources(), id);
     }
 
     public static Bitmap fromDrawable(@NonNull final Drawable drawable) {
@@ -84,8 +84,8 @@ public class BitmapHelper {
     }
 
     @Nullable
-    public static Bitmap fromView(@NonNull final Context context, @NonNull final View view) {
-        final DisplayMetrics displayMetrics = ApplicationHelper.resources(context).getDisplayMetrics();
+    public static Bitmap fromView(@NonNull final View view) {
+        final DisplayMetrics displayMetrics = ApplicationHelper.resources().getDisplayMetrics();
         if (displayMetrics == null) {
             LogHelper.warning("DisplayMetrics was NULL");
             return null;
@@ -109,12 +109,12 @@ public class BitmapHelper {
     }
 
     @Nullable
-    public static Bitmap fromUri(@NonNull final Context context, @NonNull final Uri uri, BitmapFactory.Options options) {
+    public static Bitmap fromUri(@NonNull final Uri uri, BitmapFactory.Options options) {
         if (options == null) {
             options = new BitmapFactory.Options();
         }
         try {
-            final InputStream inputStream = context.getContentResolver().openInputStream(uri);
+            final InputStream inputStream = ContextHelper.applicationContext().getContentResolver().openInputStream(uri);
             if (inputStream == null) {
                 return null;
             }
@@ -163,11 +163,11 @@ public class BitmapHelper {
 
     @Deprecated // Avoid
     @Nullable
-    public static Bitmap decodeUri(@NonNull final Context context, @NonNull final Uri uri) {
+    public static Bitmap decodeUri(@NonNull final Uri uri) {
         final BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
         try {
-            final InputStream inputStream = context.getContentResolver().openInputStream(uri);
+            final InputStream inputStream = ContextHelper.applicationContext().getContentResolver().openInputStream(uri);
             if (inputStream == null) {
                 LogHelper.warning("InputStream was NULL");
                 return null;
@@ -176,7 +176,7 @@ public class BitmapHelper {
             int width = options.outWidth;
             int height = options.outHeight;
             int scale = 1;
-            final int downsample = (int) ScreenHelper.density(context);
+            final int downsample = (int) ScreenHelper.density();
             if (downsample <= 0) {
                 LogHelper.warning("Downsample was invalid");
                 return null;

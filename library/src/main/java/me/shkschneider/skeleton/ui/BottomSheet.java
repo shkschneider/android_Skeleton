@@ -160,10 +160,10 @@ public class BottomSheet {
 
         public Builder setCustomView(@NonNull final View customView, final int left, final int top, final int right, final int bottom) {
             this.customView = customView;
-            this.paddingLeft = ScreenHelper.pixelsFromDp(activity.getApplicationContext(), left);
-            this.paddingTop = ScreenHelper.pixelsFromDp(activity.getApplicationContext(), top);
-            this.paddingRight = ScreenHelper.pixelsFromDp(activity.getApplicationContext(), right);
-            this.paddingBottom = ScreenHelper.pixelsFromDp(activity.getApplicationContext(), bottom);
+            this.paddingLeft = ScreenHelper.pixelsFromDp(left);
+            this.paddingTop = ScreenHelper.pixelsFromDp(top);
+            this.paddingRight = ScreenHelper.pixelsFromDp(right);
+            this.paddingBottom = ScreenHelper.pixelsFromDp(bottom);
             return this;
         }
 

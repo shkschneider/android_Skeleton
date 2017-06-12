@@ -1,15 +1,12 @@
 package me.shkschneider.skeleton.ui;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.v7.widget.AppCompatSpinner;
 import android.util.AttributeSet;
-import android.widget.Spinner;
-
-import me.shkschneider.skeleton.helper.AndroidHelper;
 
 // <http://stackoverflow.com/a/11227847>
-public class MySpinner extends Spinner {
+public class MySpinner extends AppCompatSpinner {
 
     private OnItemSelectedListener mOnItemSelectedListener;
 
@@ -33,14 +30,8 @@ public class MySpinner extends Spinner {
         super(context, attrs, defStyleAttr, mode);
     }
 
-    @TargetApi(AndroidHelper.API_21)
-    public MySpinner(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes, final int mode) {
-        super(context, attrs, defStyleAttr, defStyleRes, mode);
-    }
-
-    @TargetApi(AndroidHelper.API_23)
-    public MySpinner(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes, final int mode, final Resources.Theme popupTheme) {
-        super(context, attrs, defStyleAttr, defStyleRes, mode, popupTheme);
+    public MySpinner(final Context context, final AttributeSet attrs, final int defStyleAttr, final int mode, Resources.Theme popupTheme) {
+        super(context, attrs, defStyleAttr, mode, popupTheme);
     }
 
     @Override

@@ -36,7 +36,6 @@ public class AboutActivity extends SkeletonActivity {
             addPreferencesFromResource(R.xml.about);
         }
 
-        @SuppressWarnings("ConstantConditions")
         @Override
         public void onViewCreated(final View view, @Nullable final Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
@@ -45,15 +44,15 @@ public class AboutActivity extends SkeletonActivity {
 
             final Preference appPackage = findPreference("app_package");
             appPackage.setTitle("PackageName");
-            appPackage.setSummary(ApplicationHelper.packageName(getContext()));
+            appPackage.setSummary(ApplicationHelper.packageName());
 
             final Preference appVersionName = findPreference("app_versionName");
             appVersionName.setTitle("VersionName");
-            appVersionName.setSummary(ApplicationHelper.versionName(getContext()));
+            appVersionName.setSummary(ApplicationHelper.versionName());
 
             final Preference appVersionCode = findPreference("app_versionCode");
             appVersionCode.setTitle("VersionCode");
-            appVersionCode.setSummary(String.valueOf(ApplicationHelper.versionCode(getContext())));
+            appVersionCode.setSummary(String.valueOf(ApplicationHelper.versionCode()));
 
             final Preference appDebug = findPreference("app_debug");
             appDebug.setTitle("Debug");

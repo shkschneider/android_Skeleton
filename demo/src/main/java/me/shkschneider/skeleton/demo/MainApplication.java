@@ -15,7 +15,7 @@ public class MainApplication extends SkeletonApplication {
 
         LogHelper.verbose("DEBUG=" + SkeletonApplication.DEBUG);
 
-        Proxy.get(getApplicationContext()).getRequestQueue().getCache().clear();
+        Proxy.get().getRequestQueue().getCache().clear();
     }
 
     @Override

@@ -58,7 +58,6 @@ public class MainActivity extends SkeletonActivity {
     private static final String BROADCAST_SECRET_CODE = "BROADCAST_SECRET_CODE";
 
     @SuppressLint("SetTextI18n")
-    @SuppressWarnings("ConstantConditions")
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,7 +127,7 @@ public class MainActivity extends SkeletonActivity {
                 LocalBroadcastManager.getInstance(MainActivity.this).sendBroadcast(intent);
             }
         });
-        AnimationHelper.revealOn(getApplicationContext(), floatingActionButton);
+        AnimationHelper.revealOn(floatingActionButton);
     }
 
     @Override
@@ -158,14 +157,14 @@ public class MainActivity extends SkeletonActivity {
     protected void onResume() {
         super.onResume();
 
-        DeviceHelper.screenSize(getApplicationContext());
+        DeviceHelper.screenSize();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
 
-        Proxy.get(getApplicationContext()).getRequestQueue().cancelAll(URL);
+        Proxy.get().getRequestQueue().cancelAll(URL);
         LocalBroadcastManager.getInstance(MainActivity.this).unregisterReceiver(mBroadcastReceiver);
     }
 
@@ -182,8 +181,8 @@ public class MainActivity extends SkeletonActivity {
 
     private void network() {
         final String tag = URL; // defaults to URL anyway
-        Proxy.get(getApplicationContext()).getRequestQueue().cancelAll(tag);
-        Proxy.get(getApplicationContext()).getRequestQueue().add(
+        Proxy.get().getRequestQueue().cancelAll(tag);
+        Proxy.get().getRequestQueue().add(
                 new MyRequest(Request.Method.GET, URL,
                         new Response.Listener<MyResponse>() {
                             @Override
@@ -195,7 +194,7 @@ public class MainActivity extends SkeletonActivity {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(final VolleyError error) {
-                                ActivityHelper.toast(getApplicationContext(), error.getClass().getSimpleName());
+                                ActivityHelper.toast(error.getClass().getSimpleName());
                             }
                         })
                         .setCacheTimeout((int) TimeUnit.SECONDS.toMillis(10)) // timeout
@@ -210,12 +209,11 @@ public class MainActivity extends SkeletonActivity {
                 .putExtra("title", title)
                 .putExtra("message", message);
         final NotificationCompat.Builder builder = NotificationHelper.Builder(
-                getApplicationContext(),
                 ContextCompat.getColor(getApplicationContext(), R.color.accentColor), ApplicationHelper.DEFAULT_ICON, null,
                 "Ticker",
                 "Skeleton", "for Android", null, null,
                 NotificationHelper.pendingIntent(MainActivity.this, intent));
-        NotificationHelper.notify(getApplicationContext(), id, builder);
+        NotificationHelper.notify(id, builder);
     }
 
     @Override

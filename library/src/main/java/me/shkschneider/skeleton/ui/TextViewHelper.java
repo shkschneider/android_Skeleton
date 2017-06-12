@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.ui;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.Html;
 import android.text.SpannableString;
@@ -19,8 +18,8 @@ public class TextViewHelper {
     }
 
     @SuppressWarnings("deprecation")
-    public static Spanned htmlWithImages(@NonNull final Context context, @NonNull final TextView textView, @NonNull final String html) {
-        return Html.fromHtml(html, new MyImageGetter(context, textView), null);
+    public static Spanned htmlWithImages(@NonNull final TextView textView, @NonNull final String html) {
+        return Html.fromHtml(html, new MyImageGetter(textView), null);
     }
 
     public static void linkify(final TextView textView, final boolean urls, final boolean emails, final boolean phones, final boolean addresses) {

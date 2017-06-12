@@ -1,15 +1,12 @@
 package me.shkschneider.skeleton.ui;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
-import android.widget.ImageView;
-
-import me.shkschneider.skeleton.helper.AndroidHelper;
 
 // <http://stackoverflow.com/a/12283909>
-public class AutoImageViewHeight extends ImageView {
+public class AutoImageViewHeight extends AppCompatImageView {
 
     private float mRatio = 1.0F;
 
@@ -23,12 +20,6 @@ public class AutoImageViewHeight extends ImageView {
 
     public AutoImageViewHeight(final Context context, final AttributeSet attrs, final int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-    }
-
-    @SuppressWarnings("unused")
-    @TargetApi(AndroidHelper.API_21)
-    public AutoImageViewHeight(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     public float getRatio() {

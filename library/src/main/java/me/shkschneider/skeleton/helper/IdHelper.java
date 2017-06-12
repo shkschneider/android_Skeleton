@@ -2,9 +2,7 @@ package me.shkschneider.skeleton.helper;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
 import android.telephony.TelephonyManager;
@@ -27,8 +25,8 @@ public class IdHelper {
 
     @Deprecated // Avoid
     @Nullable
-    public static String androidId(@NonNull final Context context) {
-        final String androidId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+    public static String androidId() {
+        final String androidId = Settings.Secure.getString(ContextHelper.applicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
         if (TextUtils.isEmpty(androidId)) {
             LogHelper.warning("AndroidId was NULL");
             return null;
@@ -42,8 +40,8 @@ public class IdHelper {
     @Deprecated // Avoid
     @Nullable
     @RequiresPermission(Manifest.permission.READ_PHONE_STATE)
-    public static String imei(@NonNull final Context context) {
-        final TelephonyManager telephonyManager = SystemServices.telephonyManager(context);
+    public static String imei() {
+        final TelephonyManager telephonyManager = SystemServices.telephonyManager();
         if (telephonyManager == null) {
             LogHelper.warning("TelephonyManager was NULL");
             return null;
@@ -54,8 +52,8 @@ public class IdHelper {
     @Deprecated // Avoid
     @Nullable
     @RequiresPermission(Manifest.permission.READ_PHONE_STATE)
-    public static String sim(@NonNull final Context context) {
-        final TelephonyManager telephonyManager = SystemServices.telephonyManager(context);
+    public static String sim() {
+        final TelephonyManager telephonyManager = SystemServices.telephonyManager();
         if (telephonyManager == null) {
             LogHelper.warning("TelephonyManager was NULL");
             return null;
@@ -65,8 +63,8 @@ public class IdHelper {
 
     @SuppressWarnings("deprecation")
     @Nullable
-    public static String uuid(@NonNull final Context context) {
-        final String deviceId = androidId(context);
+    public static String uuid() {
+        final String deviceId = androidId();
         if (TextUtils.isEmpty(deviceId)) {
             LogHelper.warning("DeviceId was NULL");
             return null;

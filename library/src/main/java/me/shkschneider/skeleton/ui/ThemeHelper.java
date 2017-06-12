@@ -1,29 +1,28 @@
 package me.shkschneider.skeleton.ui;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
 import android.util.TypedValue;
 
 import me.shkschneider.skeleton.R;
+import me.shkschneider.skeleton.helper.ContextHelper;
 
 public class ThemeHelper {
 
-    private static int color(@NonNull final Context context, final int id) {
+    private static int color(final int id) {
         final TypedValue typedValue = new TypedValue();
-        context.getTheme().resolveAttribute(id, typedValue, true);
+        ContextHelper.applicationContext().getTheme().resolveAttribute(id, typedValue, true);
         return typedValue.data;
     }
 
-    public static int accentColor(@NonNull final Context context) {
-        return color(context, R.attr.colorAccent);
+    public static int accentColor() {
+        return color(R.attr.colorAccent);
     }
 
-    public static int primaryColor(@NonNull final Context context) {
-        return color(context, R.attr.colorPrimary);
+    public static int primaryColor() {
+        return color(R.attr.colorPrimary);
     }
 
-    public static int primaryColorDark(@NonNull final Context context) {
-        return color(context, R.attr.colorPrimaryDark);
+    public static int primaryColorDark() {
+        return color(R.attr.colorPrimaryDark);
     }
 
 }

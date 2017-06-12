@@ -1,7 +1,6 @@
 package me.shkschneider.skeleton.helper;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 
@@ -143,8 +142,8 @@ public class FeaturesHelper {
     public static final String FEATURE_WIFI = PackageManager.FEATURE_WIFI;
     public static final String FEATURE_WIFI_DIRECT = PackageManager.FEATURE_WIFI_DIRECT;
 
-    public static boolean feature(@NonNull final Context context, @NonNull final String feature) {
-        final PackageManager packageManager = ApplicationHelper.packageManager(context);
+    public static boolean feature(@NonNull final String feature) {
+        final PackageManager packageManager = ApplicationHelper.packageManager();
         if (packageManager == null) {
             LogHelper.warning("PackageManager was NULL");
             return false;

@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import me.shkschneider.skeleton.helper.ContextHelper;
+
 /**
  * https://developer.android.com/guide/components/fragments.html#Lifecycle
  * https://developer.android.com/reference/android/support/v4/app/Fragment.html
@@ -80,6 +82,16 @@ public abstract class SkeletonFragment extends Fragment {
     @Override
     public void onViewStateRestored(@Nullable final Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
+    }
+
+    public Context getApplicationContext() {
+        if (getActivity() != null) {
+            return getActivity().getApplicationContext();
+        }
+        if (getContext() != null) {
+            return getContext().getApplicationContext();
+        }
+        return ContextHelper.applicationContext();
     }
 
     public boolean alive() {
