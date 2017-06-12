@@ -22,7 +22,7 @@ public class ThreadHelper {
             runnable.run();
             return;
         }
-        new Handler(Looper.getMainLooper()).post(runnable);
+        HandlerHelper.main().post(runnable);
     }
 
     public static FutureTask backgroundThread(@NonNull final Runnable runnable) {

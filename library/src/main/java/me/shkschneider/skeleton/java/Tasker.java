@@ -49,7 +49,7 @@ public class Tasker {
         @Override
         public void run() {
             mRunnable.run();
-            mCallback.onCallback(0, null);
+            mCallback.onReceive(0, null);
         }
 
     }
