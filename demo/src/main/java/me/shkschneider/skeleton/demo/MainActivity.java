@@ -30,6 +30,7 @@ import me.shkschneider.skeleton.SkeletonActivity;
 import me.shkschneider.skeleton.demo.data.ShkMod;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
+import me.shkschneider.skeleton.helper.BroadcastHelper;
 import me.shkschneider.skeleton.helper.DateTimeHelper;
 import me.shkschneider.skeleton.helper.DeviceHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
@@ -150,7 +151,7 @@ public class MainActivity extends SkeletonActivity {
     protected void onStart() {
         super.onStart();
 
-        LocalBroadcastManager.getInstance(MainActivity.this).registerReceiver(mBroadcastReceiver, new IntentFilter(BROADCAST_SECRET));
+        BroadcastHelper.register(mBroadcastReceiver, new IntentFilter(BROADCAST_SECRET));
     }
 
     @Override
@@ -165,7 +166,7 @@ public class MainActivity extends SkeletonActivity {
         super.onStop();
 
         Proxy.get().getRequestQueue().cancelAll(URL);
-        LocalBroadcastManager.getInstance(MainActivity.this).unregisterReceiver(mBroadcastReceiver);
+        BroadcastHelper.unregister(mBroadcastReceiver);
     }
 
     private final static String URL = "https://raw.githubusercontent.com/shkschneider/android_manifest/master/VERSION.json";

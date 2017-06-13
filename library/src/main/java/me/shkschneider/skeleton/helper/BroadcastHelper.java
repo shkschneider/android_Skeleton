@@ -12,9 +12,11 @@ public class BroadcastHelper {
         // Empty
     }
 
-    public static void register(@NonNull final BroadcastReceiver broadcastReceiver, @NonNull final IntentFilter intentFilter) {
-        LocalBroadcastManager.getInstance(ContextHelper.applicationContext())
-                .registerReceiver(broadcastReceiver, intentFilter);
+    public static void register(@NonNull final BroadcastReceiver broadcastReceiver, @NonNull final IntentFilter ... intentFilters) {
+        for (final IntentFilter intentFilter : intentFilters) {
+            LocalBroadcastManager.getInstance(ContextHelper.applicationContext())
+                    .registerReceiver(broadcastReceiver, intentFilter);
+        }
     }
 
     public static void send(@NonNull final Intent intent) {
