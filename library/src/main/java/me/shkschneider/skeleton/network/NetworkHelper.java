@@ -2,6 +2,7 @@ package me.shkschneider.skeleton.network;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
@@ -10,7 +11,7 @@ import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
 import android.text.TextUtils;
-import android.webkit.WebView;
+import android.webkit.WebSettings;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -22,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ContextHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.SystemServices;
@@ -55,9 +57,17 @@ public class NetworkHelper {
         }
     }
 
-    @Deprecated // Avoid
     public static String userAgent() {
-        return new WebView(ContextHelper.applicationContext()).getSettings().getUserAgentString();
+        if (AndroidHelper.api() >= AndroidHelper.API_17) {
+            return userAgent17();
+        }
+        return System.getProperty("http.agent");
+    }
+
+    // <https://stackoverflow.com/a/43238397>
+    @TargetApi(AndroidHelper.API_17)
+    private static String userAgent17() {
+        return WebSettings.getDefaultUserAgent(ContextHelper.applicationContext());
     }
 
     public static boolean connectedOrConnecting() {
