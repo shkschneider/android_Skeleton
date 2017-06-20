@@ -2,6 +2,7 @@ package me.shkschneider.skeleton.java;
 
 import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Patterns;
 
@@ -22,6 +23,16 @@ public class StringHelper {
     public static final String NUMERIC = "0123456789";
     public static final String HEX = NUMERIC + ALPHA.substring(0, 6);
     public static final String ALPHA_NUMERIC = ALPHA + NUMERIC;
+
+    @Deprecated
+    public static boolean nullOrEmpty(@Nullable final String string) {
+        return TextUtils.isEmpty(string);
+    }
+
+    @Deprecated
+    public static boolean numeric(@NonNull final String string) {
+        return TextUtils.isDigitsOnly(string);
+    }
 
     public static String camelCase(@NonNull final String[] strings) {
         String camelCase = "";
@@ -53,10 +64,6 @@ public class StringHelper {
 
     public static boolean alpha(@NonNull final String string) {
         return chars(lower(string), ALPHA);
-    }
-
-    public static boolean numeric(@NonNull final String string) {
-        return chars(lower(string), NUMERIC);
     }
 
     public static boolean alphanumeric(@NonNull final String string) {

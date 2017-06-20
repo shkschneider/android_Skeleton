@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -27,6 +29,7 @@ import com.google.gson.Gson;
 import java.util.concurrent.TimeUnit;
 
 import me.shkschneider.skeleton.SkeletonActivity;
+import me.shkschneider.skeleton.demo.data.Ip;
 import me.shkschneider.skeleton.demo.data.ShkMod;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
@@ -40,6 +43,8 @@ import me.shkschneider.skeleton.java.ObjectHelper;
 import me.shkschneider.skeleton.network.MyRequest;
 import me.shkschneider.skeleton.network.MyResponse;
 import me.shkschneider.skeleton.network.Proxy;
+import me.shkschneider.skeleton.network.WebService;
+import me.shkschneider.skeleton.network.WebServiceException;
 import me.shkschneider.skeleton.ui.AnimationHelper;
 import me.shkschneider.skeleton.ui.BottomSheet;
 
@@ -159,6 +164,17 @@ public class MainActivity extends SkeletonActivity {
         super.onResume();
 
         DeviceHelper.screenSize();
+
+        new WebService(WebService.Method.GET, "http://ip.jsontest.com/", new WebService.Callback<Ip>() {
+            @Override
+            public void success(@Nullable final Ip result) {
+                ActivityHelper.toast("SUCCESS: " + result.ip);
+            }
+            @Override
+            public void failure(@NonNull final WebServiceException e) {
+                ActivityHelper.toast("FAILURE: " + e.toString());
+            }
+        }).getAs(Ip.class);
     }
 
     @Override
