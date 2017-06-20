@@ -26,6 +26,22 @@ import me.shkschneider.skeleton.java.ClassHelper;
 
 public class WebService {
 
+    public static WebService get(@NonNull final String url) {
+        return new WebService(Method.GET, url);
+    }
+
+    public static WebService post(@NonNull final String url) {
+        return new WebService(Method.POST, url);
+    }
+
+    public static WebService put(@NonNull final String url) {
+        return new WebService(Method.PUT, url);
+    }
+
+    public static WebService delete(@NonNull final String url) {
+        return new WebService(Method.DELETE, url);
+    }
+
     private Method mMethod;
     private String mUrl;
     private Class mType;
@@ -33,15 +49,19 @@ public class WebService {
     private Map<String, String> mBody;
     private Callback mCallback;
 
-    public WebService(@NonNull final Method method, @NonNull final String url, @Nullable final Callback callback) {
+    private WebService(@NonNull final WebService.Method method, @NonNull final String url) {
         mMethod = method;
         mUrl = url;
-        mCallback = callback;
+        mType = JsonElement.class;
     }
 
-    public WebService as(final Class type) {
-        mType = type;
+    public WebService url(@NonNull final String url) {
+        mUrl = url;
         return this;
+    }
+
+    public String url() {
+        return mUrl;
     }
 
     public WebService headers(@Nullable final Map<String, String> headers) {
@@ -49,18 +69,39 @@ public class WebService {
         return this;
     }
 
+    public Map<String, String> headers() {
+        return mHeaders;
+    }
+
     public WebService body(@Nullable final Map<String, String> body) {
         mBody = body;
         return this;
     }
 
-    public void getAs(final Class type) {
-        mType = type;
-        new Task().execute();
+    public Map<String, String> body() {
+        return mBody;
     }
 
-    public void get() {
-        getAs(JsonElement.class);
+    public <T> WebService callback(@Nullable final WebService.Callback<T> callback) {
+        mCallback = callback;
+        return this;
+    }
+
+    public Callback callback() {
+        return mCallback;
+    }
+
+    public WebService as(final Class type) {
+        mType = type;
+        return this;
+    }
+
+    public Class as() {
+        return mType;
+    }
+
+    public void run() {
+        new Task().execute();
     }
 
     // <https://www.ietf.org/rfc/rfc2616.txt>
@@ -84,11 +125,6 @@ public class WebService {
                 default:
                     return false;
             }
-        }
-
-        @Override
-        public String toString() {
-            return name().toUpperCase();
         }
 
     }
@@ -136,7 +172,6 @@ public class WebService {
                         if (! TextUtils.isEmpty(params)) params += "&";
                         params += key + "=" + UrlHelper.encode(mBody.get(key));
                     }
-                    LogHelper.verbose("=> " + params);
                     final BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(dataOutputStream, CharsetHelper.UTF8));
                     bufferedWriter.write(params);
                     bufferedWriter.flush();
@@ -144,21 +179,22 @@ public class WebService {
                     dataOutputStream.close();
                 }
 
+                LogHelper.debug("=> " + mMethod.name() + " " + mUrl + " " + (mHeaders != null ? mHeaders.toString() : "{}") + " " + (mBody != null ? mBody.toString() : "{}"));
                 final int responseCode = httpURLConnection.getResponseCode();
                 final String responseMessage = httpURLConnection.getResponseMessage();
-                LogHelper.debug("<- " + responseCode + " " + responseMessage);
+                LogHelper.debug("<= " + responseCode + " " + responseMessage + " " + mUrl);
                 final InputStream errorStream = httpURLConnection.getErrorStream();
                 if (errorStream != null) {
                     final String body = FileHelper.readString(errorStream);
                     if (! TextUtils.isEmpty(body)) {
-                        LogHelper.verbose("<= " + body);
+                        LogHelper.verbose("<- " + body);
                         return new WebServiceException(responseCode, body);
                     }
                     return new WebServiceException(responseCode, responseMessage);
                 }
                 final InputStream inputStream = httpURLConnection.getInputStream();
                 final String body = FileHelper.readString(inputStream);
-                LogHelper.verbose("<= " + body);
+                LogHelper.verbose("<- " + body);
                 if (TextUtils.isEmpty(body)) {
                     return "";
                 }
@@ -168,7 +204,6 @@ public class WebService {
                         return result;
                     }
                 }
-                // WebServiceException but 200 OK means bad JSON
                 return new WebServiceException(responseCode, responseMessage);
             }
             catch (final JsonSyntaxException e) {
@@ -193,8 +228,15 @@ public class WebService {
             if (result instanceof WebServiceException) {
                 mCallback.failure((WebServiceException) result);
             }
-            else if (result == null || ClassHelper.canonicalName(result.getClass()).equals(ClassHelper.canonicalName(mType))) {
+            else if (result == null) {
+                mCallback.success(null);
+            }
+            else if (ClassHelper.canonicalName(result.getClass()).equals(ClassHelper.canonicalName(mType))) {
                 mCallback.success(result);
+            }
+            else {
+                mCallback.failure(new WebServiceException(WebServiceException.INTERNAL_ERROR,
+                        ClassHelper.simpleName(result.getClass()) + " != " + ClassHelper.simpleName(mType)));
             }
         }
 
@@ -206,6 +248,5 @@ public class WebService {
         void failure(@NonNull final WebServiceException e);
 
     }
-
 
 }

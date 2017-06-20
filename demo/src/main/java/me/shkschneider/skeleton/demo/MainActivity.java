@@ -20,16 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.google.gson.Gson;
-
-import java.util.concurrent.TimeUnit;
-
 import me.shkschneider.skeleton.SkeletonActivity;
-import me.shkschneider.skeleton.demo.data.Ip;
 import me.shkschneider.skeleton.demo.data.ShkMod;
 import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
@@ -40,8 +31,6 @@ import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.NotificationHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
 import me.shkschneider.skeleton.java.ObjectHelper;
-import me.shkschneider.skeleton.network.MyRequest;
-import me.shkschneider.skeleton.network.MyResponse;
 import me.shkschneider.skeleton.network.Proxy;
 import me.shkschneider.skeleton.network.WebService;
 import me.shkschneider.skeleton.network.WebServiceException;
@@ -164,17 +153,6 @@ public class MainActivity extends SkeletonActivity {
         super.onResume();
 
         DeviceHelper.screenSize();
-
-        new WebService(WebService.Method.GET, "http://ip.jsontest.com/", new WebService.Callback<Ip>() {
-            @Override
-            public void success(@Nullable final Ip result) {
-                ActivityHelper.toast("SUCCESS: " + result.ip);
-            }
-            @Override
-            public void failure(@NonNull final WebServiceException e) {
-                ActivityHelper.toast("FAILURE: " + e.toString());
-            }
-        }).getAs(Ip.class);
     }
 
     @Override
@@ -197,28 +175,44 @@ public class MainActivity extends SkeletonActivity {
     };
 
     private void network() {
-        final String tag = URL; // defaults to URL anyway
-        Proxy.get().getRequestQueue().cancelAll(tag);
-        Proxy.get().getRequestQueue().add(
-                new MyRequest(Request.Method.GET, URL,
-                        new Response.Listener<MyResponse>() {
-                            @Override
-                            public void onResponse(final MyResponse response) {
-                                final ShkMod shkMod = new Gson().fromJson(response.toString(), ShkMod.class);
-                                notification((int) DateTimeHelper.timestamp(), ClassHelper.simpleName(ShkMod.class), ObjectHelper.jsonify(shkMod));
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(final VolleyError error) {
-                                ActivityHelper.toast(error.getClass().getSimpleName());
-                            }
-                        })
-                        .setCacheTimeout((int) TimeUnit.SECONDS.toMillis(10)) // timeout
-                        .setPriority(Request.Priority.NORMAL) // priority
-                        .setRetryPolicy(new DefaultRetryPolicy(2500, 1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)) // timeout reties
-                        .setTag(tag) // tag
-        );
+        WebService.get(URL)
+                .as(ShkMod.class)
+                .callback(new WebService.Callback<ShkMod>() {
+                    @Override
+                    public void success(@Nullable final ShkMod result) {
+                        if (result == null) {
+                            ActivityHelper.toast(ClassHelper.simpleName(ShkMod.class));
+                            return;
+                        }
+                        notification((int) DateTimeHelper.timestamp(), ClassHelper.simpleName(ShkMod.class), ObjectHelper.jsonify(result));
+                    }
+                    @Override
+                    public void failure(@NonNull final WebServiceException e) {
+                        ActivityHelper.toast(e.getClass().getSimpleName());
+                    }
+                }).run();
+//        final String tag = URL; // defaults to URL anyway
+//        Proxy.get().getRequestQueue().cancelAll(tag);
+//        Proxy.get().getRequestQueue().add(
+//                new MyRequest(Request.Method.GET, URL,
+//                        new Response.Listener<MyResponse>() {
+//                            @Override
+//                            public void onResponse(final MyResponse response) {
+//                                final ShkMod shkMod = new Gson().fromJson(response.toString(), ShkMod.class);
+//                                notification((int) DateTimeHelper.timestamp(), ClassHelper.simpleName(ShkMod.class), ObjectHelper.jsonify(shkMod));
+//                            }
+//                        },
+//                        new Response.ErrorListener() {
+//                            @Override
+//                            public void onErrorResponse(final VolleyError error) {
+//                                ActivityHelper.toast(error.getClass().getSimpleName());
+//                            }
+//                        })
+//                        .setCacheTimeout((int) TimeUnit.SECONDS.toMillis(10)) // timeout
+//                        .setPriority(Request.Priority.NORMAL) // priority
+//                        .setRetryPolicy(new DefaultRetryPolicy(2500, 1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)) // timeout reties
+//                        .setTag(tag) // tag
+//        );
     }
 
     private void notification(final int id, final String title, final String message) {
