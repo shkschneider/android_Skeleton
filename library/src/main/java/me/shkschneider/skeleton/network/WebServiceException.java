@@ -9,9 +9,9 @@ public class WebServiceException extends Exception {
 
     public static final int INTERNAL_ERROR = 666;
 
-    private int mCode;
+    private final int mCode;
 
-    public WebServiceException(@IntRange(from=0, to=INTERNAL_ERROR) final int responseCode, @NonNull final String responseMessage) {
+    WebServiceException(@IntRange(from=0, to=INTERNAL_ERROR) final int responseCode, @NonNull final String responseMessage) {
         super(responseMessage);
         mCode = responseCode;
     }

@@ -11,7 +11,7 @@ import me.shkschneider.skeleton.helper.HandlerHelper;
 // android.support.v4.os.ResultReceiver
 public abstract class SkeletonReceiver {
 
-    private Handler mHandler;
+    private final Handler mHandler;
 
     public SkeletonReceiver(@NonNull final Handler handler) {
         mHandler = handler;

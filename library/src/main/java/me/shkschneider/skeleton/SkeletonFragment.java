@@ -23,9 +23,11 @@ import me.shkschneider.skeleton.helper.ContextHelper;
  *     onViewStateRestored()
  *     onStart()
  *     onResume()
+ *     onCreateOptionsMenu()
+ *     onPrepareOptionsMenu()
  *     onPause()
- *     onStop()
  *     onSaveInstanceState()
+ *     onStop()
  *     onDestroyView()
  *     onDestroy()
  *     onDetach()
@@ -79,14 +81,9 @@ public abstract class SkeletonFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
     }
 
-    @Override
-    public void onViewStateRestored(@Nullable final Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-    }
-
     public Context getApplicationContext() {
-        if (getActivity() != null) {
-            return getActivity().getApplicationContext();
+        if (mActivity != null) {
+            return mActivity.getApplicationContext();
         }
         if (getContext() != null) {
             return getContext().getApplicationContext();
@@ -112,9 +109,16 @@ public abstract class SkeletonFragment extends Fragment {
         mActivity = null;
     }
 
+    // Lifecycle
+
     @Override
     public void onSaveInstanceState(final Bundle outState) {
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable final Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
     }
 
 }

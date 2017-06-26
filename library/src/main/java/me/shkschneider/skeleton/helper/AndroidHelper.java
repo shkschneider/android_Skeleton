@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.helper;
 import android.os.Build;
 import android.support.annotation.IntRange;
 
+// <https://source.android.com/source/build-numbers#platform-code-names-versions-api-levels-and-ndk-releases>
 public class AndroidHelper {
 
     protected AndroidHelper() {
@@ -86,7 +87,7 @@ public class AndroidHelper {
             case API_25:
                 return "Nougat";
             default:
-                return null;
+                return "[preview]";
         }
     }
 

@@ -26,7 +26,7 @@ public class LogHelper {
     private static final int WTF = Log.ASSERT;
 
     @SkHide
-    protected static String tag() {
+    private static String tag() {
         String tag = SkeletonApplication.TAG;
         if (TextUtils.isEmpty(tag)) {
             tag = BuildConfig.APPLICATION_ID;
@@ -41,7 +41,7 @@ public class LogHelper {
     }
 
     @SuppressLint("LogConditional")
-    protected static void log(@IntRange(from=VERBOSE, to=WTF) final int level, @Nullable final String msg, final @Nullable Throwable throwable) {
+    private static void log(@IntRange(from = VERBOSE, to = WTF) final int level, @Nullable final String msg, @Nullable final Throwable throwable) {
         final StackTraceElement[] elements = new Throwable().getStackTrace();
         String callerClassName = "?";
         String callerMethodName = "?";

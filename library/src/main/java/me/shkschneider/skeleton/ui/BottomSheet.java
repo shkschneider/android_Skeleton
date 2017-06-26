@@ -97,7 +97,7 @@ public class BottomSheet {
 
     public static class Builder {
 
-        public Activity activity;
+        public final Activity activity;
         public Drawable icon;
         public String title;
         public String content;

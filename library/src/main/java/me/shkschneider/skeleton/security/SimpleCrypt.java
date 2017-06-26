@@ -6,7 +6,7 @@ public class SimpleCrypt {
 
     private static final String ALGORITHM = "XOR";
 
-    private char[] mKey;
+    private final char[] mKey;
 
     public SimpleCrypt(@NonNull final String key) {
         mKey = key.toCharArray();

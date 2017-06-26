@@ -29,7 +29,7 @@ public class JobManager {
     }
 
     private int mId;
-    private JobInfo.Builder mBuilder;
+    private final JobInfo.Builder mBuilder;
 
     public JobManager(final int id, @NonNull final Class<? extends JobService> cls) {
         mId = id;

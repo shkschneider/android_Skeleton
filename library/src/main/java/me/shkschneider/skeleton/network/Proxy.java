@@ -22,8 +22,8 @@ public class Proxy {
         return PROXY;
     }
 
-    private RequestQueue mRequestQueue;
-    private ImageLoader mImageLoader;
+    private final RequestQueue mRequestQueue;
+    private final ImageLoader mImageLoader;
 
     private Proxy() {
         mRequestQueue = Volley.newRequestQueue(ContextHelper.applicationContext());

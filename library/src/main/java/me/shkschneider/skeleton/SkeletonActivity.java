@@ -39,13 +39,20 @@ import me.shkschneider.skeleton.ui.MySwipeRefreshLayout;
  * https://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle
  * https://developer.android.com/reference/android/support/v4/app/FragmentActivity.html
  *
- *     onCreated()
- *     onNewIntent()
- *     onViewCreated()
+ *     onCreate()
+ *     onAttachFragments()
+ *     onContentChanged()
  *     onStart()
+ *     onRestoreInstanceState()
+ *     onPostCreate()
+ *     onViewCreate()
  *     onResume()
- *     onResumeFragments()
+ *     onPostResume()
+ *     onAttachedToWindow()
+ *     onCreateOptionsMenu()
+ *     onPrepareOptionsMenu()
  *     onPause()
+ *     onSaveInstanceState()
  *     onStop()
  *     onDestroy()
  */
@@ -178,6 +185,12 @@ public abstract class SkeletonActivity extends AppCompatActivity {
     // Lifecycle
 
     @Override
+    protected void onRestoreInstanceState(final Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        // BundleHelper.unpack()
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
 
@@ -191,6 +204,12 @@ public abstract class SkeletonActivity extends AppCompatActivity {
         mSkeletonReceiver = null;
         mAlive = false;
         loading(false);
+    }
+
+    @Override
+    protected void onSaveInstanceState(final Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // BundleHelper.pack()
     }
 
     public boolean alive() {
@@ -465,18 +484,6 @@ public abstract class SkeletonActivity extends AppCompatActivity {
         else {
             finish();
         }
-    }
-
-    @Override
-    protected void onSaveInstanceState(final Bundle outState) {
-        super.onSaveInstanceState(outState);
-        // BundleHelper.pack()
-    }
-
-    @Override
-    protected void onRestoreInstanceState(final Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        // BundleHelper.unpack()
     }
 
     // Runtime Permissions

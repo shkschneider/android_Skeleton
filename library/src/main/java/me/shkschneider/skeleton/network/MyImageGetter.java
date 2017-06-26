@@ -18,7 +18,7 @@ import me.shkschneider.skeleton.helper.LogHelper;
 // <http://stackoverflow.com/a/25530488>
 public class MyImageGetter implements Html.ImageGetter {
 
-    private TextView mTextView;
+    private final TextView mTextView;
 
     public MyImageGetter(@NonNull final TextView textView) {
         mTextView = textView;

@@ -12,9 +12,11 @@ import com.google.gson.JsonSyntaxException;
 
 import java.io.BufferedWriter;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 
@@ -23,11 +25,22 @@ import me.shkschneider.skeleton.data.FileHelper;
 import me.shkschneider.skeleton.data.MimeTypeHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.java.ClassHelper;
+import me.shkschneider.skeleton.java.SkHide;
 
 public class WebService {
 
+    @Deprecated
+    public static WebService options(@NonNull final String url) {
+        throw new UnsupportedOperationException(Method.OPTIONS.name());
+    }
+
     public static WebService get(@NonNull final String url) {
         return new WebService(Method.GET, url);
+    }
+
+    @Deprecated
+    public static WebService head(@NonNull final String url) {
+        throw new UnsupportedOperationException(Method.HEAD.name());
     }
 
     public static WebService post(@NonNull final String url) {
@@ -42,7 +55,17 @@ public class WebService {
         return new WebService(Method.DELETE, url);
     }
 
-    private Method mMethod;
+    @Deprecated
+    public static WebService trace(@NonNull final String url) {
+        throw new UnsupportedOperationException(Method.TRACE.name());
+    }
+
+    @Deprecated
+    public static WebService connect(@NonNull final String url) {
+        throw new UnsupportedOperationException(Method.CONNECT.name());
+    }
+
+    private final Method mMethod;
     private String mUrl;
     private Class mType;
     private Map<String, String> mHeaders;
@@ -60,6 +83,7 @@ public class WebService {
         return this;
     }
 
+    @SkHide
     public String url() {
         return mUrl;
     }
@@ -69,6 +93,7 @@ public class WebService {
         return this;
     }
 
+    @SkHide
     public Map<String, String> headers() {
         return mHeaders;
     }
@@ -78,6 +103,7 @@ public class WebService {
         return this;
     }
 
+    @SkHide
     public Map<String, String> body() {
         return mBody;
     }
@@ -87,6 +113,7 @@ public class WebService {
         return this;
     }
 
+    @SkHide
     public Callback callback() {
         return mCallback;
     }
@@ -96,6 +123,7 @@ public class WebService {
         return this;
     }
 
+    @SkHide
     public Class as() {
         return mType;
     }
@@ -105,16 +133,16 @@ public class WebService {
     }
 
     // <https://www.ietf.org/rfc/rfc2616.txt>
-    public enum Method {
+    private enum Method {
 
-        // OPTIONS
+        OPTIONS,
         GET,
-        // HEAD
+        HEAD,
         POST,
         PUT,
-        DELETE;
-        // TRACE
-        // CONNECT
+        DELETE,
+        TRACE,
+        CONNECT;
 
         public boolean allowsBody() {
             switch (this) {
@@ -210,7 +238,11 @@ public class WebService {
                 LogHelper.wtf(e);
                 return new WebServiceException(WebServiceException.INTERNAL_ERROR, ClassHelper.simpleName(e.getClass()));
             }
-            catch (final Exception e) {
+            catch (final MalformedURLException e) {
+                LogHelper.wtf(e);
+                return new WebServiceException(WebServiceException.INTERNAL_ERROR, ClassHelper.simpleName(e.getClass()));
+            }
+            catch (final IOException e) {
                 LogHelper.wtf(e);
                 return new WebServiceException(WebServiceException.INTERNAL_ERROR, ClassHelper.simpleName(e.getClass()));
             }

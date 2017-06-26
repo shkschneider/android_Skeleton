@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.helper;
 
-import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 
@@ -13,7 +12,7 @@ public class ThreadHelper {
     }
 
     public static boolean uiThread() {
-        return  (Looper.getMainLooper() == Looper.myLooper());
+        return (Looper.getMainLooper() == Looper.myLooper());
     }
 
     // android.support.annotation.UiThread

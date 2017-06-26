@@ -13,10 +13,10 @@ import me.shkschneider.skeleton.helper.LogHelper;
 // <http://opencsv.sourceforge.net>
 public class CsvReader {
 
-    private BufferedReader mBufferedReader;
+    private final BufferedReader mBufferedReader;
     private boolean mHasNext;
-    private char mSeparator;
-    private char mQuote;
+    private final char mSeparator;
+    private final char mQuote;
 
     public CsvReader(final Reader reader) {
         this(reader, ',', '"', 0);

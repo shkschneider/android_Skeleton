@@ -17,7 +17,7 @@ import java.util.List;
 public abstract class MyRecyclerViewAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
 
     private final Object mLock = new Object();
-    private List<T> mObjects = new ArrayList<>();
+    private final List<T> mObjects = new ArrayList<>();
 
     public MyRecyclerViewAdapter(@Nullable final List<T> objects) {
         if (objects != null) {

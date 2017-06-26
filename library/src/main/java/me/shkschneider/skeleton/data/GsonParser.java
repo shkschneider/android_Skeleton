@@ -132,7 +132,7 @@ public class GsonParser {
                         LogHelper.error("No such array path: " + p);
                         return null;
                     }
-                    if (! StringHelper.numeric(d[1])) {
+                    if (! TextUtils.isDigitsOnly(d[1])) {
                         LogHelper.error("Invalid index: " + d[1]);
                         return null;
                     }

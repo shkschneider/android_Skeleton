@@ -11,7 +11,7 @@ import me.shkschneider.skeleton.SkeletonReceiver;
 // <http://stackoverflow.com/a/9458785>
 public class Tasker {
 
-    private ExecutorService mExecutorService;
+    private final ExecutorService mExecutorService;
     private Future mFuture;
 
     public Tasker() {

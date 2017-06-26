@@ -22,7 +22,7 @@ public class AutoGridLayout extends FrameLayout {
     private int mOrientation;
     private int mGravity = (Gravity.TOP | Gravity.START);
 
-    private List<ViewPosition> mListPositions = new ArrayList<>();
+    private final List<ViewPosition> mListPositions = new ArrayList<>();
 
     public AutoGridLayout(final Context context) {
         this(context, null);
@@ -368,7 +368,7 @@ public class AutoGridLayout extends FrameLayout {
 
         int left;
         int top;
-        int position; //row or column
+        final int position; //row or column
 
         public ViewPosition(final int left, final int top, final int position) {
             this.left = left;

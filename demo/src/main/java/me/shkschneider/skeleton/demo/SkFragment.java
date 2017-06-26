@@ -19,6 +19,7 @@ import java.util.List;
 
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.java.AlphanumComparator;
+import me.shkschneider.skeleton.java.JobManager;
 import me.shkschneider.skeleton.java.SkHide;
 
 public class SkFragment extends SkeletonFragment {
@@ -72,6 +73,7 @@ public class SkFragment extends SkeletonFragment {
         fill((LinearLayout) view.findViewById(R.id.java), new Class[] {
                 me.shkschneider.skeleton.java.ArrayHelper.class,
                 me.shkschneider.skeleton.java.ClassHelper.class,
+                me.shkschneider.skeleton.java.JobManager.class,
                 me.shkschneider.skeleton.java.EnumHelper.class,
                 me.shkschneider.skeleton.java.ListHelper.class,
                 me.shkschneider.skeleton.java.MapHelper.class,
@@ -85,7 +87,8 @@ public class SkFragment extends SkeletonFragment {
                 me.shkschneider.skeleton.network.MyResponse.class,
                 me.shkschneider.skeleton.network.NetworkHelper.class,
                 me.shkschneider.skeleton.network.Proxy.class,
-                me.shkschneider.skeleton.network.UrlHelper.class
+                me.shkschneider.skeleton.network.UrlHelper.class,
+                me.shkschneider.skeleton.network.WebService.class
         });
         fill((LinearLayout) view.findViewById(R.id.security), new Class[] {
                 me.shkschneider.skeleton.security.Base64Helper.class,

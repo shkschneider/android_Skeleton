@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.security;
 
-import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -25,13 +24,12 @@ public class ComplexCrypt {
     private static final int ALGORITHM_KEY_LENGTH = 128;
     private static final int ALGORITHM_KEY_PAD = 16;
 
-    private byte[] mSecret;
-    private IvParameterSpec mIvParameterSpec;
+    private final byte[] mSecret;
+    private final IvParameterSpec mIvParameterSpec;
     private SecretKeySpec mSecretKeySpec;
     private SecretKey mSecretKey;
     private Cipher mCipher;
 
-    @SuppressLint("TrulyRandom")
     public ComplexCrypt(@NonNull final byte[] secret) throws Exception {
         // salt
         mSecret = new String(secret).getBytes();
@@ -46,16 +44,16 @@ public class ComplexCrypt {
         mCipher = Cipher.getInstance(ALGORITHM);
     }
 
-    public String secret() {
-        return Base64Helper.encrypt(mSecret);
+    public String algorithm() {
+        return mSecretKey.getAlgorithm();
     }
 
     public String key() {
         return Base64Helper.encrypt(mSecretKey.getEncoded());
     }
 
-    public String algorithm() {
-        return mSecretKey.getAlgorithm();
+    public String secret() {
+        return Base64Helper.encrypt(mSecret);
     }
 
     @Nullable

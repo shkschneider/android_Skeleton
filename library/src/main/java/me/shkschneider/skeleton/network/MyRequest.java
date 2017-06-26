@@ -18,8 +18,8 @@ import me.shkschneider.skeleton.java.SkHide;
 
 public class MyRequest extends Request<MyResponse> {
 
-    private Map<String, String> mBody;
-    private Response.Listener<MyResponse> mListener;
+    private final Map<String, String> mBody;
+    private final Response.Listener<MyResponse> mListener;
     private int mCacheTimeout = 60 * 60 * 1000;
 
     public MyRequest(final int method, final String url, final Map<String, String> body, final Response.Listener<MyResponse> listener, final Response.ErrorListener errorListener) {

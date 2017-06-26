@@ -8,11 +8,11 @@ public class CsvWriter {
 
     private static final char NULL = '\0';
 
-    private PrintWriter mPrintWriter;
-    private char mSeparator;
-    private char mQuote;
-    private char mEscape;
-    private String mEol;
+    private final PrintWriter mPrintWriter;
+    private final char mSeparator;
+    private final char mQuote;
+    private final char mEscape;
+    private final String mEol;
 
     public CsvWriter(final Writer writer) {
         this(writer, ',', '"', '"', "\n");

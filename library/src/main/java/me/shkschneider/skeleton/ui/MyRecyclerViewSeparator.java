@@ -19,7 +19,7 @@ public class MyRecyclerViewSeparator extends RecyclerView.ItemDecoration {
             android.R.attr.listDivider
     };
 
-    private Drawable mDivider;
+    private final Drawable mDivider;
     private int mOrientation;
 
     public MyRecyclerViewSeparator(final Context context, final int orientation) {
