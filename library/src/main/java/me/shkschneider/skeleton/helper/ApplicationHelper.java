@@ -1,7 +1,6 @@
 package me.shkschneider.skeleton.helper;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -10,7 +9,7 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.Size;
 
@@ -18,12 +17,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import me.shkschneider.skeleton.java.SkHide;
 import me.shkschneider.skeleton.ui.BitmapHelper;
 import me.shkschneider.skeleton.SkeletonApplication;
 
 public class ApplicationHelper {
 
     public static final int DEFAULT_ICON = android.R.drawable.sym_def_app_icon;
+    public static final String INSTALLER = "com.android.vending";
 
     protected ApplicationHelper() {
         // Empty
@@ -211,33 +212,17 @@ public class ApplicationHelper {
         }
     }
 
-    public static boolean fromMarket() {
-        if (AndroidHelper.api() >= AndroidHelper.API_21) {
-            return fromMarket21();
-        }
-        else if (AndroidHelper.api() >= AndroidHelper.API_17) {
-            return fromMarket17();
-        }
-        return fromMarket3();
+    public static String installer() {
+        return installer(packageName());
     }
 
-    @TargetApi(AndroidHelper.API_21)
-    private static boolean fromMarket21() {
-        // API-21+ Settings.Secure
-        return (Settings.Secure.getInt(ContextHelper.applicationContext().getContentResolver(), Settings.Secure.INSTALL_NON_MARKET_APPS, 0) == 1);
+    @SkHide
+    public static String installer(@NonNull final String packageName) {
+        return packageManager().getInstallerPackageName(packageName);
     }
 
-    @TargetApi(AndroidHelper.API_17)
-    @SuppressWarnings("deprecation")
-    private static boolean fromMarket17() {
-        // API-17+ Settings.Global
-        return (Settings.Global.getInt(ContextHelper.applicationContext().getContentResolver(), Settings.Global.INSTALL_NON_MARKET_APPS, 0) == 1);
-    }
-
-    @TargetApi(AndroidHelper.API_3)
-    private static boolean fromMarket3() {
-        // API-3+ Settings.Secure
-        return (Settings.Secure.getInt(ContextHelper.applicationContext().getContentResolver(), Settings.Secure.INSTALL_NON_MARKET_APPS, 0) == 1);
+    public static boolean installedFromGooglePlay() {
+        return installer().equalsIgnoreCase(INSTALLER);
     }
 
 }
