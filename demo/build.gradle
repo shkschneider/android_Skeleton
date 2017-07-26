@@ -10,9 +10,7 @@ android {
         targetSdkVersion 25
         versionCode 32
         versionName '6.1.0'
-        jackOptions {
-            enabled true
-        }
+        archivesBaseName = "Skeleton-${android.defaultConfig.versionName}"
     }
     signingConfigs {
         debug {
