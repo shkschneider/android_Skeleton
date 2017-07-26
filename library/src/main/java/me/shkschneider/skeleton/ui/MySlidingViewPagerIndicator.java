@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.ui;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -44,7 +45,7 @@ public class MySlidingViewPagerIndicator extends HorizontalScrollView {
         super(context, attrs, defStyle);
         setHorizontalScrollBarEnabled(false);
         setFillViewport(true);
-        mTitleOffset = (int) (TITLE_OFFSET_DIPS * getResources().getDisplayMetrics().density);
+        mTitleOffset = (int) (TITLE_OFFSET_DIPS * Resources.getSystem().getDisplayMetrics().density);
         mSlidingTabStrib = new SlidingTabStrip(context);
         addView(mSlidingTabStrib, LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
     }
@@ -95,7 +96,7 @@ public class MySlidingViewPagerIndicator extends HorizontalScrollView {
         textView.setTextColor(DEFAULT_TEXTCOLOR);
         textView.setBackgroundResource(typedValue.resourceId);
         textView.setAllCaps(true);
-        final int padding = (int) (TAB_VIEW_PADDING_DIPS * getResources().getDisplayMetrics().density);
+        final int padding = (int) (TAB_VIEW_PADDING_DIPS * Resources.getSystem().getDisplayMetrics().density);
         textView.setPadding(padding, padding, padding, padding);
         return textView;
     }
@@ -210,7 +211,7 @@ public class MySlidingViewPagerIndicator extends HorizontalScrollView {
         public SlidingTabStrip(final Context context, final AttributeSet attrs) {
             super(context, attrs);
             setWillNotDraw(false);
-            final float density = getResources().getDisplayMetrics().density;
+            final float density = Resources.getSystem().getDisplayMetrics().density;
             final TypedValue typedValue = new TypedValue();
             context.getTheme().resolveAttribute(android.R.attr.colorForeground, typedValue, true);
             mBottomBorderThickness = (int) (DEFAULT_BOTTOM_BORDER_THICKNESS_DIPS * density);

@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.ui;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
@@ -85,7 +86,7 @@ public class BitmapHelper {
 
     @Nullable
     public static Bitmap fromView(@NonNull final View view) {
-        final DisplayMetrics displayMetrics = ApplicationHelper.resources().getDisplayMetrics();
+        final DisplayMetrics displayMetrics = Resources.getSystem().getDisplayMetrics();
         if (displayMetrics == null) {
             LogHelper.warning("DisplayMetrics was NULL");
             return null;

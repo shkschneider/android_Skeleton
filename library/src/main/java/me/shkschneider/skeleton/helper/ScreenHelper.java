@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.helper;
 
 import android.annotation.TargetApi;
+import android.content.res.Resources;
 import android.os.PowerManager;
 import android.support.annotation.FloatRange;
 import android.support.annotation.NonNull;
@@ -82,19 +83,19 @@ public class ScreenHelper {
     }
 
     public static float density() {
-        return ApplicationHelper.resources().getDisplayMetrics().density;
+        return Resources.getSystem().getDisplayMetrics().density;
     }
 
     public static int dpi() {
-        return ApplicationHelper.resources().getDisplayMetrics().densityDpi;
+        return Resources.getSystem().getDisplayMetrics().densityDpi;
     }
 
     public static int height() {
-        return ApplicationHelper.resources().getDisplayMetrics().heightPixels;
+        return Resources.getSystem().getDisplayMetrics().heightPixels;
     }
 
     public static int width() {
-        return ApplicationHelper.resources().getDisplayMetrics().widthPixels;
+        return Resources.getSystem().getDisplayMetrics().widthPixels;
     }
 
     public static int statusBarHeight() {
@@ -115,12 +116,16 @@ public class ScreenHelper {
         return display.getRotation();
     }
 
+    public static int dpFromPixels(@FloatRange(from=0.0) final float px) {
+        return (int) (px / Resources.getSystem().getDisplayMetrics().density);
+    }
+
     public static int pixelsFromDp(@FloatRange(from=0.0) final float dp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, ApplicationHelper.resources().getDisplayMetrics());
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, Resources.getSystem().getDisplayMetrics());
     }
 
     public static int pixelsFromSp(@FloatRange(from=0.0) final float sp) {
-        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, ApplicationHelper.resources().getDisplayMetrics());
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, Resources.getSystem().getDisplayMetrics());
     }
 
 }
