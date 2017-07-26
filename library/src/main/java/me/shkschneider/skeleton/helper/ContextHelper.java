@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.helper;
 
 import android.annotation.SuppressLint;
+import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
@@ -14,6 +15,9 @@ public class ContextHelper {
 
     @Deprecated // Avoid
     public static void applicationContext(@NonNull final Context context) {
+        if (! (context instanceof Application)) {
+            LogHelper.warning("Context is supposed to be Application's!");
+        }
         CONTEXT = context;
     }
 
