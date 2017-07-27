@@ -162,7 +162,7 @@ public class BitmapHelper {
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
     }
 
-    @Deprecated // Avoid
+    @Deprecated // Discouraged
     @Nullable
     public static Bitmap decodeUri(@NonNull final Uri uri) {
         final BitmapFactory.Options options = new BitmapFactory.Options();

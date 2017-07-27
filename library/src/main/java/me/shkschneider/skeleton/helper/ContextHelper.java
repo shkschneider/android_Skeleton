@@ -13,7 +13,7 @@ public class ContextHelper {
     @SuppressLint("StaticFieldLeak")
     private static Context CONTEXT;
 
-    @Deprecated // Avoid
+    @Deprecated // Discouraged
     public static void applicationContext(@NonNull final Context context) {
         if (! (context instanceof Application)) {
             LogHelper.warning("Context is supposed to be Application's!");

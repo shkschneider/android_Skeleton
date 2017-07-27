@@ -71,7 +71,7 @@ public class NotificationHelper {
         notify(id, builder.build());
     }
 
-    @Deprecated // Avoid
+    @Deprecated
     public static void notify(@IntRange(from=0) final int id, @NonNull final Notification notification) {
         SystemServices.notificationManager().notify(id, notification);
     }

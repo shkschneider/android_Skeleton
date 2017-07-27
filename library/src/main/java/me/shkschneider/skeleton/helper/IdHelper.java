@@ -23,7 +23,6 @@ public class IdHelper {
     // <https://code.google.com/p/android/issues/detail?id=10603>
     private static final String EMULATOR = "9774d56d682e549c";
 
-    @Deprecated // Avoid
     @Nullable
     public static String androidId() {
         final String androidId = Settings.Secure.getString(ContextHelper.applicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
@@ -37,7 +36,7 @@ public class IdHelper {
         return StringHelper.lower(androidId);
     }
 
-    @Deprecated // Avoid
+    @Deprecated // Discouraged
     @Nullable
     @RequiresPermission(Manifest.permission.READ_PHONE_STATE)
     public static String imei() {
@@ -49,7 +48,7 @@ public class IdHelper {
         return telephonyManager.getDeviceId();
     }
 
-    @Deprecated // Avoid
+    @Deprecated // Discouraged
     @Nullable
     @RequiresPermission(Manifest.permission.READ_PHONE_STATE)
     public static String sim() {
@@ -61,7 +60,6 @@ public class IdHelper {
         return telephonyManager.getSimSerialNumber();
     }
 
-    @SuppressWarnings("deprecation")
     @Nullable
     public static String uuid() {
         final String deviceId = androidId();

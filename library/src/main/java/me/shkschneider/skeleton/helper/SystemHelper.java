@@ -21,7 +21,7 @@ public class SystemHelper {
         return SystemClock.elapsedRealtime();
     }
 
-    @Deprecated // Avoid
+    @Deprecated // Discouraged
     public static void sleep(final long milliseconds) {
         SystemClock.sleep(milliseconds);
     }

@@ -17,7 +17,7 @@ public final class MemoryBitmapCache extends LruCache<String, Bitmap> {
         super((int) (Runtime.getRuntime().maxMemory() / 1024) / 8);
     }
 
-    @Deprecated // Avoid
+    @Deprecated // Discouraged
     public MemoryBitmapCache(@IntRange(from=0) final int size) {
         super(size);
     }

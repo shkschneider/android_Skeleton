@@ -27,6 +27,7 @@ import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ContextHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.SystemServices;
+import me.shkschneider.skeleton.java.ReflectHelper;
 
 public class NetworkHelper {
 
@@ -35,26 +36,11 @@ public class NetworkHelper {
     }
 
     // <http://stackoverflow.com/a/21899684>
-    @Deprecated // Avoid
+    @Deprecated // Discouraged
     @Nullable
+    @SuppressWarnings("deprecation")
     public static String hostname() {
-        try {
-            final Method getString = Build.class.getDeclaredMethod("getString", String.class);
-            getString.setAccessible(true);
-            return getString.invoke(null, "net.hostname").toString();
-        }
-        catch (final NoSuchMethodException e) {
-            LogHelper.wtf(e);
-            return null;
-        }
-        catch (final InvocationTargetException e) {
-            LogHelper.wtf(e);
-            return null;
-        }
-        catch (final IllegalAccessException e) {
-            LogHelper.wtf(e);
-            return null;
-        }
+        return (String) ReflectHelper.Method.Static.method(Build.class, "getString", new Class[] { String.class }, "net.hostname");
     }
 
     public static String userAgent() {
@@ -95,7 +81,7 @@ public class NetworkHelper {
     }
 
     @RequiresPermission(Manifest.permission.ACCESS_WIFI_STATE)
-    @Deprecated // Avoid
+    @Deprecated // Discouraged
     @Nullable
     public static String macAddress() {
         final WifiManager wifiManager = SystemServices.wifiManager();

@@ -45,7 +45,7 @@ public class DeviceHelper {
     }
 
     // <https://github.com/framgia/android-emulator-detector>
-    @Deprecated // Avoid
+    @Deprecated // Discouraged
     public static boolean emulator() {
         @SuppressLint("HardwareIds")
         boolean emulator = Build.FINGERPRINT.startsWith("generic")
@@ -103,9 +103,17 @@ public class DeviceHelper {
         return SystemProperties.property(SystemProperties.SYSTEM_PROPERTY_OS_ARCH);
     }
 
-    @Deprecated // Avoid
     public static boolean is64bits() {
-        return architecture().contains("64");
+        if (AndroidHelper.api() < AndroidHelper.ANDROID_5) {
+            return false;
+        }
+        return Build.SUPPORTED_64_BIT_ABIS.length > 0;
     }
+
+    // TODO
+//    @TargetApi(AndroidHelper.API_26)
+//    public static String getSerial() {
+//        return Build.getSerial();
+//    }
 
 }

@@ -21,7 +21,7 @@ public class SoundHelper {
         return RingtoneManager.getRingtone(ContextHelper.applicationContext(), uri);
     }
 
-    @Deprecated // Avoid
+    @Deprecated // Discouraged
     public static Ringtone all() {
         final Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALL);
         return RingtoneManager.getRingtone(ContextHelper.applicationContext(), uri);

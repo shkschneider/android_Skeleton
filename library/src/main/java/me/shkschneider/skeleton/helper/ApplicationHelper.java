@@ -44,7 +44,7 @@ public class ApplicationHelper {
         return AssetsHelper.assetManager();
     }
 
-    @Deprecated // Avoid
+    @Deprecated // Discouraged
     public static String[] files() {
         return ContextHelper.applicationContext().fileList();
     }

@@ -240,7 +240,7 @@ public abstract class SkeletonActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(b);
     }
 
-    @Deprecated // Avoid
+    @Deprecated
     public void home(final Drawable drawable) {
         if (mToolbar == null) {
             LogHelper.warning("Toolbar was NULL");
@@ -249,7 +249,7 @@ public abstract class SkeletonActivity extends AppCompatActivity {
         mToolbar.setNavigationIcon(drawable);
     }
 
-    @Deprecated // Avoid
+    @Deprecated
     public void icon(final Drawable drawable) {
         logo(drawable);
     }
