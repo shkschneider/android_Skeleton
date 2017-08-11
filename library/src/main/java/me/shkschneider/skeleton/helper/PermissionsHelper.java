@@ -19,6 +19,8 @@ public class PermissionsHelper {
     public static final String ACCESS_NOTIFICATION_POLICY = Manifest.permission.ACCESS_NOTIFICATION_POLICY;
     public static final String ACCESS_WIFI_STATE = Manifest.permission.ACCESS_WIFI_STATE;
     public static final String ADD_VOICEMAIL = Manifest.permission.ADD_VOICEMAIL; // DANGEROUS
+    @SuppressLint("InlinedApi") // API-26+
+    public static final String ANSWER_PHONE_CALLS = Manifest.permission.ANSWER_PHONE_CALLS; // DANGEROUS
     public static final String BLUETOOTH = Manifest.permission.BLUETOOTH;
     public static final String BLUETOOTH_ADMIN = Manifest.permission.BLUETOOTH_ADMIN;
     @SuppressLint("InlinedApi") // API-20+
@@ -37,8 +39,12 @@ public class PermissionsHelper {
     public static final String GET_PACKAGE_SIZE = Manifest.permission.GET_PACKAGE_SIZE;
     @SuppressLint("InlinedApi") // API-19+
     public static final String INSTALL_SHORTCUT = Manifest.permission.INSTALL_SHORTCUT;
+    @SuppressLint("InlinedApi") // API-26+
+    public static final String INSTANT_APP_FOREGROUND_SERVICE = Manifest.permission.INSTANT_APP_FOREGROUND_SERVICE;
     public static final String INTERNET = Manifest.permission.INTERNET;
     public static final String KILL_BACKGROUND_PROCESSES = Manifest.permission.KILL_BACKGROUND_PROCESSES;
+    @SuppressLint("InlinedApi") // API-26+
+    public static final String MANAGE_OWN_CALLS = Manifest.permission.MANAGE_OWN_CALLS;
     public static final String MODIFY_AUDIO_SETTINGS = Manifest.permission.MODIFY_AUDIO_SETTINGS;
     public static final String NFC = Manifest.permission.NFC;
     @SuppressLint("InlinedApi") // API-23+
@@ -49,6 +55,8 @@ public class PermissionsHelper {
     public static final String READ_CONTACTS = Manifest.permission.READ_CONTACTS; // DANGEROUS
     @SuppressLint("InlinedApi") // API-16+
     public static final String READ_EXTERNAL_STORAGE = Manifest.permission.READ_EXTERNAL_STORAGE; // DANGEROUS
+    @SuppressLint("InlinedApi") // API-26+
+    public static final String READ_PHONE_NUMBERS = Manifest.permission.READ_PHONE_NUMBERS; // DANGEROUS
     public static final String READ_PHONE_STATE = Manifest.permission.READ_PHONE_STATE; // DANGEROUS
     public static final String READ_SMS = Manifest.permission.READ_SMS; // DANGEROUS
     @SuppressLint("InlinedApi") // API-15+
@@ -60,6 +68,12 @@ public class PermissionsHelper {
     public static final String RECEIVE_WAP_PUSH = Manifest.permission.RECEIVE_WAP_PUSH; // DANGEROUS
     public static final String RECORD_AUDIO = Manifest.permission.RECORD_AUDIO; // DANGEROUS
     public static final String REORDER_TASKS = Manifest.permission.REORDER_TASKS;
+    @SuppressLint("InlinedApi") // API-26+
+    public static final String REQUEST_COMPANION_RUN_IN_BACKGROUND = Manifest.permission.REQUEST_COMPANION_RUN_IN_BACKGROUND;
+    @SuppressLint("InlinedApi") // API-26+
+    public static final String REQUEST_COMPANION_USE_DATA_IN_BACKGROUND = Manifest.permission.REQUEST_COMPANION_USE_DATA_IN_BACKGROUND;
+    @SuppressLint("InlinedApi") // API-26+
+    public static final String REQUEST_DELETE_PACKAGES = Manifest.permission.REQUEST_DELETE_PACKAGES;
     @SuppressLint("InlinedApi") // API-23+
     public static final String REQUEST_IGNORE_BATTERY_OPTIMIZATIONS = Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
     @SuppressLint("InlinedApi") // API-23+

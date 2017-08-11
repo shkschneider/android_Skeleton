@@ -3,12 +3,12 @@ apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.shkschneider'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.1'
 
     defaultConfig {
         minSdkVersion 14 // Ice Cream Sandwich 4.x.x
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 32
         versionName '6.1.0'
     }
@@ -19,10 +19,10 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support:palette-v7:25.3.1'
-    compile 'com.android.support:recyclerview-v7:25.3.1'
-    compile 'com.android.support:preference-v14:25.3.1'
+    compile 'com.android.support:design:26.0.1'
+    compile 'com.android.support:palette-v7:26.0.1'
+    compile 'com.android.support:recyclerview-v7:26.0.1'
+    compile 'com.android.support:preference-v14:26.0.1'
 
     compile 'com.android.volley:volley:1.0.0'
 

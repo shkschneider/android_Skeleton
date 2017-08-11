@@ -12,6 +12,8 @@ public class FeaturesHelper {
     }
 
     // Useless: only used to keep track of new features
+    @SuppressLint("InlinedApi") // API-26+
+    public static final String FEATURE_ACTIVITIES_ON_SECONDARY_DISPLAYS = PackageManager.FEATURE_ACTIVITIES_ON_SECONDARY_DISPLAYS;
     @SuppressLint("InlinedApi") // API-18+
     public static final String FEATURE_APP_WIDGETS = PackageManager.FEATURE_APP_WIDGETS;
     public static final String FEATURE_AUDIO_LOW_LATENCY = PackageManager.FEATURE_AUDIO_LOW_LATENCY;
@@ -19,6 +21,8 @@ public class FeaturesHelper {
     public static final String FEATURE_AUDIO_OUTPUT = PackageManager.FEATURE_AUDIO_OUTPUT;
     @SuppressLint("InlinedApi") // API-23+
     public static final String FEATURE_AUDIO_PRO = PackageManager.FEATURE_AUDIO_PRO;
+    @SuppressLint("InlinedApi") // API-26+
+    public static final String FEATURE_AUTOFILL = PackageManager.FEATURE_AUTOFILL;
     @SuppressLint("InlinedApi") // API-23+
     public static final String FEATURE_AUTOMOTIVE = PackageManager.FEATURE_AUTOMOTIVE;
     @SuppressLint("InlinedApi") // API-20+
@@ -42,12 +46,16 @@ public class FeaturesHelper {
     public static final String FEATURE_CAMERA_FRONT = PackageManager.FEATURE_CAMERA_FRONT;
     @SuppressLint("InlinedApi") // API-21+
     public static final String FEATURE_CAMERA_LEVEL_FULL = PackageManager.FEATURE_CAMERA_LEVEL_FULL;
+    @SuppressLint("InlinedApi") // API-26+
+    public static final String FEATURE_COMPANION_DEVICE_SETUP = PackageManager.FEATURE_COMPANION_DEVICE_SETUP;
     @SuppressLint("InlinedApi") // API-21+
     public static final String FEATURE_CONNECTION_SERVICE = PackageManager.FEATURE_CONNECTION_SERVICE;
     @SuppressLint("InlinedApi") // API-19+
     public static final String FEATURE_CONSUMER_IR = PackageManager.FEATURE_CONSUMER_IR;
     @SuppressLint("InlinedApi") // API-19+
     public static final String FEATURE_DEVICE_ADMIN = PackageManager.FEATURE_DEVICE_ADMIN;
+    @SuppressLint("InlinedApi") // API-26+
+    public static final String FEATURE_EMBEDDED = PackageManager.FEATURE_EMBEDDED;
     @SuppressLint("InlinedApi") // API-24+
     public static final String FEATURE_ETHERNET = PackageManager.FEATURE_ETHERNET;
     public static final String FEATURE_FAKETOUCH = PackageManager.FEATURE_FAKETOUCH;
@@ -67,6 +75,8 @@ public class FeaturesHelper {
     public static final String FEATURE_INPUT_METHODS = PackageManager.FEATURE_INPUT_METHODS;
     @SuppressLint("InlinedApi") // API-21+
     public static final String FEATURE_LEANBACK = PackageManager.FEATURE_LEANBACK;
+    @SuppressLint("InlinedApi") // API-26+
+    public static final String FEATURE_LEANBACK_ONLY = PackageManager.FEATURE_LEANBACK_ONLY;
     @SuppressLint("InlinedApi") // API-21+
     public static final String FEATURE_LIVE_TV = PackageManager.FEATURE_LIVE_TV;
     public static final String FEATURE_LIVE_WALLPAPER = PackageManager.FEATURE_LIVE_WALLPAPER;
@@ -127,10 +137,14 @@ public class FeaturesHelper {
     public static final String FEATURE_USB_HOST = PackageManager.FEATURE_USB_HOST;
     @SuppressLint("InlinedApi") // API-21+
     public static final String FEATURE_VERIFIED_BOOT = PackageManager.FEATURE_VERIFIED_BOOT;
+    @SuppressLint("InlinedApi") // API-26+
+    public static final String FEATURE_VR_HEADTRACKING = PackageManager.FEATURE_VR_HEADTRACKING;
     @SuppressLint("InlinedApi") // API-24+
     public static final String FEATURE_VR_MODE = PackageManager.FEATURE_VR_MODE;
     @SuppressLint("InlinedApi") // API-24+
     public static final String FEATURE_VR_MODE_HIGH_PERFORMANCE = PackageManager.FEATURE_VR_MODE_HIGH_PERFORMANCE;
+    @SuppressLint("InlinedApi") // API-26+
+    public static final String FEATURE_VULKAN_HARDWARE_COMPUTE = PackageManager.FEATURE_VULKAN_HARDWARE_COMPUTE;
     @SuppressLint("InlinedApi") // API-24+
     public static final String FEATURE_VULKAN_HARDWARE_LEVEL = PackageManager.FEATURE_VULKAN_HARDWARE_LEVEL;
     @SuppressLint("InlinedApi") // API-24+
@@ -140,9 +154,11 @@ public class FeaturesHelper {
     @SuppressLint("InlinedApi") // API-20+
     public static final String FEATURE_WEBVIEW = PackageManager.FEATURE_WEBVIEW;
     public static final String FEATURE_WIFI = PackageManager.FEATURE_WIFI;
+    @SuppressLint("InlinedApi") // API-26+
+    public static final String FEATURE_WIFI_AWARE = PackageManager.FEATURE_WIFI_AWARE;
     public static final String FEATURE_WIFI_DIRECT = PackageManager.FEATURE_WIFI_DIRECT;
 
-    public static boolean feature(@NonNull final String feature) {
+    public static boolean has(@NonNull final String feature) {
         final PackageManager packageManager = ApplicationHelper.packageManager();
         if (packageManager == null) {
             LogHelper.warning("PackageManager was NULL");

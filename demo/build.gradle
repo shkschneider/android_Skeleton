@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.1'
 
     defaultConfig {
         applicationId 'me.shkschneider.skeleton.demo'
         minSdkVersion 14 // Ice Cream Sandwich 4.x.x
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 32
         versionName '6.1.0'
         archivesBaseName = "Skeleton-${android.defaultConfig.versionName}"
@@ -73,11 +73,11 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:cardview-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:appcompat-v7:26.0.1'
+    compile 'com.android.support:cardview-v7:26.0.1'
+    compile 'com.android.support:design:26.0.1'
     compile 'com.android.support:multidex:1.0.1'
 
     compile project(':library')
-    // compile 'com.github.shkschneider:android_Skeleton:6.0.0'
+    // compile 'com.github.shkschneider:android_Skeleton:6.1.0'
 }

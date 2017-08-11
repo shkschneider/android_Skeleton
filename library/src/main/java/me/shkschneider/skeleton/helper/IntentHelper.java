@@ -139,7 +139,7 @@ public class IntentHelper {
 
     @Nullable
     public static Intent camera(@NonNull final File file) {
-        if (! FeaturesHelper.feature(FeaturesHelper.FEATURE_CAMERA)) {
+        if (! FeaturesHelper.has(FeaturesHelper.FEATURE_CAMERA)) {
             LogHelper.warning("Camera was unavailable");
             return null;
         }
