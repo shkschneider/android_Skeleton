@@ -2,6 +2,7 @@ package me.shkschneider.skeleton.helper;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 // <https://developer.android.com/reference/java/lang/System.html#getProperties()>
 public class SystemProperties {
@@ -42,7 +43,7 @@ public class SystemProperties {
     @Nullable
     public static String get(@NonNull final String property) {
         final String systemProperty = System.getProperty(property);
-        if (systemProperty == null) {
+        if (TextUtils.isEmpty(property)) {
             LogHelper.warning("SystemProperty was NULL");
             return null;
         }
