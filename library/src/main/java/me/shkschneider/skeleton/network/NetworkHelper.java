@@ -7,14 +7,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
 import android.text.TextUtils;
 import android.webkit.WebSettings;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -28,6 +25,7 @@ import me.shkschneider.skeleton.helper.ContextHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
 import me.shkschneider.skeleton.helper.SystemProperties;
 import me.shkschneider.skeleton.helper.SystemServices;
+import me.shkschneider.skeleton.java.ClassHelper;
 import me.shkschneider.skeleton.java.ReflectHelper;
 
 public class NetworkHelper {
@@ -36,11 +34,16 @@ public class NetworkHelper {
         // Empty
     }
 
-    // <http://stackoverflow.com/a/21899684>
+    // <https://stackoverflow.com/a/39149126>
+    @Deprecated // Does NOT work on API-26+
     @Nullable
     @SuppressWarnings("deprecation")
     public static String hostname() {
-        return (String) ReflectHelper.Method.method(Build.class, "getString", new Class[] { String.class }, "net.hostname");
+        final Class<?> cls = ClassHelper.get("android.os.SystemProperties");
+        if (cls != null) {
+            return  (String) ReflectHelper.Method.method(cls, "get", new Class[]{String.class}, "net.hostname");
+        }
+        return SystemProperties.get("net.hostname"); // Most probably null
     }
 
     public static String userAgent() {
