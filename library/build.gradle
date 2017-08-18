@@ -11,6 +11,7 @@ android {
         targetSdkVersion 26
         versionCode 32
         versionName '6.1.0'
+        setProperty('archivesBaseName', "skeleton-$versionName")
     }
     lintOptions {
         checkReleaseBuilds true
@@ -31,12 +32,13 @@ dependencies {
 
 task javadoc(type: Javadoc) {
     failOnError false
-    title = "Skeleton"
+    title = 'Skeleton'
     source = android.sourceSets.main.java.srcDirs
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    // classpath += configurations.compile
     destinationDir = file('build/docs/javadoc/')
     options {
-        links 'http://docs.oracle.com/javase/7/docs/api/'
+        links 'http://docs.oracle.com/javase/8/docs/api/'
         linksOffline 'http://d.android.com/reference', "${android.sdkDirectory}/docs/reference"
         // overview = 'overview.html'
         memberLevel = JavadocMemberLevel.PACKAGE
@@ -45,31 +47,3 @@ task javadoc(type: Javadoc) {
     exclude '**/BuildConfig.java'
     exclude '**/R.java'
 }
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-task jar(type: Jar, dependsOn: 'assembleRelease') {
-    from fileTree(dir: 'build/intermediates/classes/release')
-}
-
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-
-artifacts {
-    archives sourcesJar
-    archives javadocJar
-}
-
-// uncomment to build a jar file in addition to the default aar file
-//android.libraryVariants.all { variant ->
-//    def name = variant.buildType.name
-//    def task = project.tasks.create "jar${name.capitalize()}", Jar
-//    task.dependsOn variant.javaCompile
-//    task.from variant.javaCompile.destinationDir
-//    artifacts.add('archives', task);
-//}
