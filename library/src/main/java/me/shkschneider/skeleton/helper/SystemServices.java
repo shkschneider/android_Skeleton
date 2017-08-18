@@ -13,9 +13,11 @@ import android.app.UiModeManager;
 import android.app.admin.DevicePolicyManager;
 import android.app.job.JobScheduler;
 import android.app.usage.NetworkStatsManager;
+import android.app.usage.StorageStatsManager;
 import android.app.usage.UsageStatsManager;
 import android.appwidget.AppWidgetManager;
 import android.bluetooth.BluetoothManager;
+import android.companion.CompanionDeviceManager;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.RestrictionsManager;
@@ -38,6 +40,7 @@ import android.media.tv.TvInputManager;
 import android.net.ConnectivityManager;
 import android.net.nsd.NsdManager;
 import android.net.wifi.WifiManager;
+import android.net.wifi.aware.WifiAwareManager;
 import android.net.wifi.p2p.WifiP2pManager;
 import android.nfc.NfcManager;
 import android.os.BatteryManager;
@@ -60,6 +63,7 @@ import android.view.WindowManager;
 import android.view.accessibility.AccessibilityManager;
 import android.view.accessibility.CaptioningManager;
 import android.view.inputmethod.InputMethodManager;
+import android.view.textclassifier.TextClassificationManager;
 import android.view.textservice.TextServicesManager;
 
 // <http://developer.android.com/reference/android/content/Context.html>
@@ -69,269 +73,294 @@ public class SystemServices {
         // Empty
     }
 
-    private static Object service(@NonNull final String service) {
+    private static Object get(@NonNull final String service) {
+        return ContextHelper.applicationContext().getSystemService(service);
+    }
+
+    @TargetApi(AndroidHelper.API_23)
+    private static Object get(@NonNull final Class<?> service) {
         return ContextHelper.applicationContext().getSystemService(service);
     }
 
     public static AccessibilityManager accessibilityManager() {
-        return (AccessibilityManager) service(Context.ACCESSIBILITY_SERVICE);
+        return (AccessibilityManager) get(Context.ACCESSIBILITY_SERVICE);
     }
 
     public static AccountManager accountManager() {
-        return (AccountManager) service(Context.ACCOUNT_SERVICE);
+        return (AccountManager) get(Context.ACCOUNT_SERVICE);
     }
 
     public static ActivityManager activityManager() {
-        return (ActivityManager) service(Context.ACTIVITY_SERVICE);
+        return (ActivityManager) get(Context.ACTIVITY_SERVICE);
     }
 
     public static AlarmManager alarmManager() {
-        return (AlarmManager) service(Context.ALARM_SERVICE);
+        return (AlarmManager) get(Context.ALARM_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_21)
     public static AppWidgetManager appWidgetManager() {
-        return (AppWidgetManager) service(Context.APPWIDGET_SERVICE);
+        return (AppWidgetManager) get(Context.APPWIDGET_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_19)
     public static AppOpsManager appOpsManager() {
-        return (AppOpsManager) service(Context.APPWIDGET_SERVICE);
+        return (AppOpsManager) get(Context.APPWIDGET_SERVICE);
     }
 
     public static AudioManager audioManager() {
-        return (AudioManager) service(Context.AUDIO_SERVICE);
+        return (AudioManager) get(Context.AUDIO_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_21)
     public static BatteryManager batteryManager() {
-        return (BatteryManager) service(Context.BATTERY_SERVICE);
+        return (BatteryManager) get(Context.BATTERY_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_18)
     public static BluetoothManager bluetoothManager() {
-        return (BluetoothManager) service(Context.BLUETOOTH_SERVICE);
+        return (BluetoothManager) get(Context.BLUETOOTH_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_21)
     public static CameraManager cameraManager() {
-        return (CameraManager) service(Context.CAMERA_SERVICE);
+        return (CameraManager) get(Context.CAMERA_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_19)
     public static CaptioningManager captioningManager() {
-        return (CaptioningManager) service(Context.CAPTIONING_SERVICE);
+        return (CaptioningManager) get(Context.CAPTIONING_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_23)
     public static CarrierConfigManager carrierConfigManager() {
-        return (CarrierConfigManager) service(Context.CARRIER_CONFIG_SERVICE);
+        return (CarrierConfigManager) get(Context.CARRIER_CONFIG_SERVICE);
     }
 
     public static ClipboardManager clipboardManager() {
-        return (ClipboardManager) service(Context.CLIPBOARD_SERVICE);
+        return (ClipboardManager) get(Context.CLIPBOARD_SERVICE);
+    }
+
+    @TargetApi(AndroidHelper.API_26)
+    public static CompanionDeviceManager companionDeviceManager() {
+        return (CompanionDeviceManager) get(Context.COMPANION_DEVICE_SERVICE);
     }
 
     public static ConnectivityManager connectivityManager() {
-        return (ConnectivityManager) service(Context.CONNECTIVITY_SERVICE);
+        return (ConnectivityManager) get(Context.CONNECTIVITY_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_19)
     public static ConsumerIrManager consumerIrManager() {
-        return (ConsumerIrManager) service(Context.CONSUMER_IR_SERVICE);
+        return (ConsumerIrManager) get(Context.CONSUMER_IR_SERVICE);
     }
 
     public static DevicePolicyManager devicePolicyManager() {
-        return (DevicePolicyManager) service(Context.DEVICE_POLICY_SERVICE);
+        return (DevicePolicyManager) get(Context.DEVICE_POLICY_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_17)
     public static DisplayManager displayManager() {
-        return (DisplayManager) service(Context.DISPLAY_SERVICE);
+        return (DisplayManager) get(Context.DISPLAY_SERVICE);
     }
 
     public static DownloadManager downloadManager() {
-        return (DownloadManager) service(Context.DOWNLOAD_SERVICE);
+        return (DownloadManager) get(Context.DOWNLOAD_SERVICE);
     }
 
     public static DropBoxManager dropBoxManager() {
-        return (DropBoxManager) service(Context.DROPBOX_SERVICE);
+        return (DropBoxManager) get(Context.DROPBOX_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_23)
     public static FingerprintManager fingerprintManager() {
-        return (FingerprintManager) service(Context.FINGERPRINT_SERVICE);
+        return (FingerprintManager) get(Context.FINGERPRINT_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_24)
     public static HardwarePropertiesManager hardwarePropertiesService() {
-        return (HardwarePropertiesManager) service(Context.HARDWARE_PROPERTIES_SERVICE);
+        return (HardwarePropertiesManager) get(Context.HARDWARE_PROPERTIES_SERVICE);
     }
 
     public static InputMethodManager inputMethodManager() {
-        return (InputMethodManager) service(Context.INPUT_METHOD_SERVICE);
+        return (InputMethodManager) get(Context.INPUT_METHOD_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_16)
     public static InputManager inputManager() {
-        return (InputManager) service(Context.INPUT_SERVICE);
+        return (InputManager) get(Context.INPUT_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_21)
     public static JobScheduler jobScheduler() {
-        return (JobScheduler) service(Context.JOB_SCHEDULER_SERVICE);
+        return (JobScheduler) get(Context.JOB_SCHEDULER_SERVICE);
     }
 
     public static KeyguardManager keyguardManager() {
-        return (KeyguardManager) service(Context.KEYGUARD_SERVICE);
+        return (KeyguardManager) get(Context.KEYGUARD_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_21)
     public static LauncherApps launcherApps() {
-        return (LauncherApps) service(Context.LAUNCHER_APPS_SERVICE);
+        return (LauncherApps) get(Context.LAUNCHER_APPS_SERVICE);
     }
 
     public static LayoutInflater layoutInflater() {
-        return (LayoutInflater) service(Context.LAYOUT_INFLATER_SERVICE);
+        return (LayoutInflater) get(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     public static LocationManager locationManager() {
-        return (LocationManager) service(Context.LOCATION_SERVICE);
+        return (LocationManager) get(Context.LOCATION_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_21)
     public static MediaProjectionManager mediaProjectionManager() {
-        return (MediaProjectionManager) service(Context.MEDIA_PROJECTION_SERVICE);
+        return (MediaProjectionManager) get(Context.MEDIA_PROJECTION_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_16)
     public static MediaRouter mediaRouter() {
-        return (MediaRouter) service(Context.MEDIA_ROUTER_SERVICE);
+        return (MediaRouter) get(Context.MEDIA_ROUTER_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_21)
     public static MediaSessionManager mediaSessionManager() {
-        return (MediaSessionManager) service(Context.MEDIA_SESSION_SERVICE);
+        return (MediaSessionManager) get(Context.MEDIA_SESSION_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_23)
     public static MidiManager midiManager() {
-        return (MidiManager) service(Context.MIDI_SERVICE);
+        return (MidiManager) get(Context.MIDI_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_23)
     public static NetworkStatsManager networkStatsManager() {
-        return (NetworkStatsManager) service(Context.NETWORK_STATS_SERVICE);
+        return (NetworkStatsManager) get(Context.NETWORK_STATS_SERVICE);
     }
 
     public static NfcManager nfcManager() {
-        return (NfcManager) service(Context.NFC_SERVICE);
+        return (NfcManager) get(Context.NFC_SERVICE);
     }
 
     public static NotificationManager notificationManager() {
-        return (NotificationManager) service(Context.NOTIFICATION_SERVICE);
+        return (NotificationManager) get(Context.NOTIFICATION_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_16)
     public static NsdManager nsdManager() {
-        return (NsdManager) service(Context.NSD_SERVICE);
+        return (NsdManager) get(Context.NSD_SERVICE);
     }
 
     public static PowerManager powerManager() {
-        return (PowerManager) service(Context.POWER_SERVICE);
+        return (PowerManager) get(Context.POWER_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_19)
     public static PrintManager printManager() {
-        return (PrintManager) service(Context.PRINT_SERVICE);
+        return (PrintManager) get(Context.PRINT_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_21)
     public static RestrictionsManager restrictionsManager() {
-        return (RestrictionsManager) service(Context.RESTRICTIONS_SERVICE);
+        return (RestrictionsManager) get(Context.RESTRICTIONS_SERVICE);
     }
 
     public static SearchManager searchManager() {
-        return (SearchManager) service(Context.SEARCH_SERVICE);
+        return (SearchManager) get(Context.SEARCH_SERVICE);
     }
 
     public static SensorManager sensorManager() {
-        return (SensorManager) service(Context.SENSOR_SERVICE);
+        return (SensorManager) get(Context.SENSOR_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_25)
     public static ShortcutManager shortcutManager() {
-        return (ShortcutManager) service(Context.SHORTCUT_SERVICE);
+        return (ShortcutManager) get(Context.SHORTCUT_SERVICE);
     }
 
     public static StorageManager storageManager() {
-        return (StorageManager) service(Context.STORAGE_SERVICE);
+        return (StorageManager) get(Context.STORAGE_SERVICE);
+    }
+
+    @TargetApi(AndroidHelper.API_26)
+    public static StorageStatsManager storageStatsManager() {
+        return (StorageStatsManager) get(Context.STORAGE_STATS_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_24)
     public static SystemHealthManager systemHealthService() {
-        return (SystemHealthManager) service(Context.SYSTEM_HEALTH_SERVICE);
+        return (SystemHealthManager) get(Context.SYSTEM_HEALTH_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_21)
     public static TelecomManager telecomManager() {
-        return (TelecomManager) service(Context.TELECOM_SERVICE);
+        return (TelecomManager) get(Context.TELECOM_SERVICE);
     }
 
     public static TelephonyManager telephonyManager() {
-        return (TelephonyManager) service(Context.TELEPHONY_SERVICE);
+        return (TelephonyManager) get(Context.TELEPHONY_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_22)
     public static SubscriptionManager subscriptionManager() {
-        return (SubscriptionManager) service(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+        return (SubscriptionManager) get(Context.TELEPHONY_SUBSCRIPTION_SERVICE);
+    }
+
+    @TargetApi(AndroidHelper.API_26)
+    public static TextClassificationManager textClassificationManager() {
+        return (TextClassificationManager) get(Context.TEXT_CLASSIFICATION_SERVICE);
     }
 
     public static TextServicesManager textServicesManager() {
-        return (TextServicesManager) service(Context.TEXT_SERVICES_MANAGER_SERVICE);
+        return (TextServicesManager) get(Context.TEXT_SERVICES_MANAGER_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_21)
     public static TvInputManager tvInputManager() {
-        return (TvInputManager) service(Context.TV_INPUT_SERVICE);
+        return (TvInputManager) get(Context.TV_INPUT_SERVICE);
     }
 
     public static UiModeManager uiModeManager() {
-        return (UiModeManager) service(Context.UI_MODE_SERVICE);
+        return (UiModeManager) get(Context.UI_MODE_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_22)
     public static UsageStatsManager usageStatsManager() {
-        return (UsageStatsManager) service(Context.USAGE_STATS_SERVICE);
+        return (UsageStatsManager) get(Context.USAGE_STATS_SERVICE);
     }
 
     public static UsbManager usbManager() {
-        return (UsbManager) service(Context.USB_SERVICE);
+        return (UsbManager) get(Context.USB_SERVICE);
     }
 
     @TargetApi(AndroidHelper.API_17)
     public static UserManager userManager() {
-        return (UserManager) service(Context.USER_SERVICE);
+        return (UserManager) get(Context.USER_SERVICE);
     }
 
     public static Vibrator vibrator() {
-        return (Vibrator) service(Context.VIBRATOR_SERVICE);
+        return (Vibrator) get(Context.VIBRATOR_SERVICE);
     }
 
     public static WallpaperService wallpaperService() {
-        return (WallpaperService) service(Context.WALLPAPER_SERVICE);
+        return (WallpaperService) get(Context.WALLPAPER_SERVICE);
+    }
+
+    @TargetApi(AndroidHelper.API_26)
+    public static WifiAwareManager wifiAwareManager() {
+        return (WifiAwareManager) get(Context.WIFI_AWARE_SERVICE);
     }
 
     public static WifiP2pManager wifiP2pManager() {
-        return (WifiP2pManager) service(Context.WIFI_P2P_SERVICE);
+        return (WifiP2pManager) get(Context.WIFI_P2P_SERVICE);
     }
 
     public static WifiManager wifiManager() {
-        return (WifiManager) service(Context.WIFI_SERVICE);
+        return (WifiManager) get(Context.WIFI_SERVICE);
     }
 
     public static WindowManager windowManager() {
-        return (WindowManager) service(Context.WINDOW_SERVICE);
+        return (WindowManager) get(Context.WINDOW_SERVICE);
     }
 
 }
