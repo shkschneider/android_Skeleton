@@ -20,18 +20,12 @@ public class IdHelper {
         // Empty
     }
 
-    // <https://code.google.com/p/android/issues/detail?id=10603>
-    private static final String EMULATOR = "9774d56d682e549c";
-
     @Nullable
     public static String androidId() {
         final String androidId = Settings.Secure.getString(ContextHelper.applicationContext().getContentResolver(), Settings.Secure.ANDROID_ID);
         if (TextUtils.isEmpty(androidId)) {
             LogHelper.warning("AndroidId was NULL");
             return null;
-        }
-        if (androidId.equals(EMULATOR)) {
-            LogHelper.warning("EMULATOR");
         }
         return StringHelper.lower(androidId);
     }
