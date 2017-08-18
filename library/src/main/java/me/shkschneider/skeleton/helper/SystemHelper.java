@@ -12,9 +12,9 @@ public class SystemHelper {
     public static String uname() {
         return String.format(LocaleHelper.locale(),
                 "%s %s %s",
-                System.getProperty(SystemProperties.SYSTEM_PROPERTY_OS_NAME),
-                System.getProperty(SystemProperties.SYSTEM_PROPERTY_OS_VERSION),
-                System.getProperty(SystemProperties.SYSTEM_PROPERTY_OS_ARCH));
+                System.getProperty(SystemProperties.OS_NAME),
+                System.getProperty(SystemProperties.OS_VERSION),
+                System.getProperty(SystemProperties.OS_ARCH));
     }
 
     public static long sinceBoot() {

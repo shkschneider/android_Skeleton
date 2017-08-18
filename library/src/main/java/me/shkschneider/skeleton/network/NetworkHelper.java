@@ -26,6 +26,7 @@ import java.util.List;
 import me.shkschneider.skeleton.helper.AndroidHelper;
 import me.shkschneider.skeleton.helper.ContextHelper;
 import me.shkschneider.skeleton.helper.LogHelper;
+import me.shkschneider.skeleton.helper.SystemProperties;
 import me.shkschneider.skeleton.helper.SystemServices;
 import me.shkschneider.skeleton.java.ReflectHelper;
 
@@ -36,7 +37,6 @@ public class NetworkHelper {
     }
 
     // <http://stackoverflow.com/a/21899684>
-    @Deprecated // Discouraged
     @Nullable
     @SuppressWarnings("deprecation")
     public static String hostname() {
@@ -47,7 +47,7 @@ public class NetworkHelper {
         if (AndroidHelper.api() >= AndroidHelper.API_17) {
             return userAgent17();
         }
-        return System.getProperty("http.agent");
+        return SystemProperties.get("http.agent");
     }
 
     // <https://stackoverflow.com/a/43238397>

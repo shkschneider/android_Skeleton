@@ -100,7 +100,7 @@ public class DeviceHelper {
     }
 
     public static String architecture() {
-        return SystemProperties.property(SystemProperties.SYSTEM_PROPERTY_OS_ARCH);
+        return SystemProperties.get(SystemProperties.OS_ARCH);
     }
 
     public static boolean is64bits() {

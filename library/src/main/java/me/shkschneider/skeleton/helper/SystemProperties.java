@@ -3,45 +3,44 @@ package me.shkschneider.skeleton.helper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-// <http://developer.android.com/reference/java/lang/System.html#getProperty(java.lang.String)>
+// <https://developer.android.com/reference/java/lang/System.html#getProperties()>
 public class SystemProperties {
 
     protected SystemProperties() {
         // Empty
     }
 
-    public static final String SYSTEM_PROPERTY_FILE_SEPARATOR = "file.separator"; // filesystem's path separator
-    public static final String SYSTEM_PROPERTY_JAVA_CLASS_PATH = "java.class.path";
-    public static final String SYSTEM_PROPERTY_JAVA_CLASS_VERSION = "java.class.version";
-    public static final String SYSTEM_PROPERTY_JAVA_COMPILER = "java.compiler";
-    public static final String SYSTEM_PROPERTY_JAVA_EXT_DIRS = "java.ext.dirs";
-    public static final String SYSTEM_PROPERTY_JAVA_HOME = "java.home";
-    public static final String SYSTEM_PROPERTY_JAVA_IO_TMPDIR = "java.io.tmpdir";
-    public static final String SYSTEM_PROPERTY_JAVA_LIBRARY_PATH = "java.library.path";
-    public static final String SYSTEM_PROPERTY_JAVA_VENDOR = "java.vendor";
-    public static final String SYSTEM_PROPERTY_JAVA_VENDOR_URL = "java.vendor.url";
-    public static final String SYSTEM_PROPERTY_JAVA_VERSION = "java.version";
-    public static final String SYSTEM_PROPERTY_JAVA_SPECIFICATION_VERSION = "java.specification.version";
-    public static final String SYSTEM_PROPERTY_JAVA_SPECIFICATION_VENDOR = "java.specification.vendor";
-    public static final String SYSTEM_PROPERTY_JAVA_SPECIFICATION_NAME = "java.specification.name";
-    public static final String SYSTEM_PROPERTY_JAVA_VM_VERSION = "java.vm.version";
-    public static final String SYSTEM_PROPERTY_JAVA_VM_VENDOR = "java.vm.vendor";
-    public static final String SYSTEM_PROPERTY_JAVA_VM_NAME = "java.vm.name";
-    public static final String SYSTEM_PROPERTY_JAVA_VM_SPECIFICATION_VERSION = "java.vm.specification.version";
-    public static final String SYSTEM_PROPERTY_JAVA_VM_SPECIFICATION_VENDOR = "java.vm.specification.vendor";
-    public static final String SYSTEM_PROPERTY_JAVA_VM_SPECIFICATION_NAME = "java.vm.specification.name";
-    public static final String SYSTEM_PROPERTY_LINE_SEPARATOR = "line.separator";
-    public static final String SYSTEM_PROPERTY_OS_ARCH = "os.arch";
-    public static final String SYSTEM_PROPERTY_OS_NAME = "os.name";
-    public static final String SYSTEM_PROPERTY_OS_VERSION = "os.version";
-    @Deprecated // Separator of the Environment's PATH variable; not related to the FileSystem
-    public static final String SYSTEM_PROPERTY_PATH_SEPARATOR = "path.separator";
-    public static final String SYSTEM_PROPERTY_USER_DIR = "user.dir";
-    public static final String SYSTEM_PROPERTY_USER_HOME = "user.home";
-    public static final String SYSTEM_PROPERTY_USER_NAME = "user.name";
-
+    public static final String FILE_SEPARATOR = "file.separator"; // /
+    public static final String JAVA_CLASS_PATH = "java.class.path"; // .
+    // java.class.version
+    // java.compiler
+    // java.ext.dirs
+    public static final String JAVA_HOME = "java.home"; // /system
+    public static final String JAVA_IO_TMPDIR = "java.io.tmpdir"; // /sdcard
+    public static final String JAVA_LIBRARY_PATH = "java.library.path"; // /vendor/lib:/system/lib
+    public static final String JAVA_VENDOR = "java.vendor"; // The Android Project
+    public static final String JAVA_VENDOR_URL = "java.vendor.url"; // http://www.android.com
+    // java.version
+    public static final String JAVA_SPECIFICATION_VERSION = "java.specification.version"; // 0.9
+    public static final String JAVA_SPECIFICATION_VENDOR = "java.specification.vendor"; // The Android Project
+    public static final String JAVA_SPECIFICATION_NAME = "java.specification.name"; // Dalvik Core Library
+    public static final String JAVA_VM_VERSION = "java.vm.version"; // 1.2.0
+    public static final String JAVA_VM_VENDOR = "java.vm.vendor"; // The Android Project
+    public static final String JAVA_VM_NAME = "java.vm.name"; // Dalvik
+    public static final String JAVA_VM_SPECIFICATION_VERSION = "java.vm.specification.version"; // 0.9
+    public static final String JAVA_VM_SPECIFICATION_VENDOR = "java.vm.specification.vendor"; // The Android Project
+    public static final String JAVA_VM_SPECIFICATION_NAME = "java.vm.specification.name"; // Dalvik Virtual Machine Specification
+    public static final String LINE_SEPARATOR = "line.separator"; // \n
+    public static final String OS_ARCH = "os.arch"; // armv7l
+    public static final String OS_NAME = "os.name"; // Linux
+    public static final String OS_VERSION = "os.version"; // 2.6.32.9-g103d848
+    public static final String PATH_SEPARATOR = "path.separator"; // :
+    public static final String USER_DIR = "user.dir"; // /
+    // user.home
+    // user.name
+    
     @Nullable
-    public static String property(@NonNull final String property) {
+    public static String get(@NonNull final String property) {
         final String systemProperty = System.getProperty(property);
         if (systemProperty == null) {
             LogHelper.warning("SystemProperty was NULL");
