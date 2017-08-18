@@ -1,5 +1,10 @@
 package me.shkschneider.skeleton.helper;
 
+import android.support.annotation.NonNull;
+import android.support.v4.os.LocaleListCompat;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class LocaleHelper {
@@ -8,32 +13,71 @@ public class LocaleHelper {
         // Empty
     }
 
+    public static List<Locale> locales() {
+        final List<Locale> locales = new ArrayList<>();
+        final LocaleListCompat localeListCompat = LocaleListCompat.getDefault();
+        for (int i = 0; i < localeListCompat.size(); i++) {
+            locales.add(localeListCompat.get(i));
+        }
+        return locales;
+    }
+
     public static Locale locale() {
-        return Locale.getDefault();
+        return LocaleListCompat.getDefault().get(0);
     }
 
+    @Deprecated
     public static String language() {
-        return locale().getDisplayLanguage();
+        return language(locale());
     }
 
+    public static String language(@NonNull final Locale locale) {
+        return locale.getDisplayLanguage();
+    }
+
+    @Deprecated
     public static String language2() {
-        return locale().getLanguage();
+        return language2(locale());
     }
 
+    public static String language2(@NonNull final Locale locale) {
+        return locale.getLanguage();
+    }
+
+    @Deprecated
     public static String language3() {
-        return locale().getISO3Language();
+        return language3(locale());
     }
 
+    public static String language3(@NonNull final Locale locale) {
+        return locale.getISO3Language();
+    }
+
+    @Deprecated
     public static String country() {
-        return locale().getDisplayCountry();
+        return country(locale());
     }
 
+    public static String country(@NonNull final Locale locale) {
+        return locale.getDisplayCountry();
+    }
+
+    @Deprecated
     public static String country2() {
-        return locale().getCountry();
+        return country2(locale());
     }
 
+    public static String country2(@NonNull final Locale locale) {
+        return locale.getCountry();
+    }
+
+    @Deprecated
     public static String country3() {
-        return locale().getISO3Country();
+        return country3(locale());
+    }
+
+    public static String country3(@NonNull final Locale locale) {
+        return locale.getISO3Country();
     }
 
 }
