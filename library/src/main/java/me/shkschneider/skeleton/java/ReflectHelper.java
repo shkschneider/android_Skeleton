@@ -15,9 +15,14 @@ public class ReflectHelper {
 
         @Nullable
         public static List<String> fields(@NonNull final Object object) {
+            return fields(object.getClass());
+        }
+
+        @Nullable
+        public static List<String> fields(@NonNull final Class<?> cls) {
             try {
                 final List<String> fields = new ArrayList<>();
-                for (final java.lang.reflect.Field field : object.getClass().getDeclaredFields()) {
+                for (final java.lang.reflect.Field field : cls.getDeclaredFields()) {
                     fields.add(field.getName());
                 }
                 return fields;
@@ -30,10 +35,15 @@ public class ReflectHelper {
 
         @Nullable
         public static Object field(@NonNull final Object object, @NonNull final String declaredField) {
+            return field(object.getClass(), declaredField);
+        }
+
+        @Nullable
+        public static Object field(@NonNull final Class<?> cls, @NonNull final String declaredField) {
             try {
-                java.lang.reflect.Field field = object.getClass().getDeclaredField(declaredField);
+                java.lang.reflect.Field field = cls.getDeclaredField(declaredField);
                 field.setAccessible(true);
-                return field.get(object);
+                return field.get(cls);
             }
             catch (final Exception e) {
                 LogHelper.wtf(e);
@@ -41,12 +51,15 @@ public class ReflectHelper {
             return null;
         }
 
-        @Nullable
         public static boolean field(@NonNull final Object object, @NonNull final String declaredField, final Object value) {
+            return field(object.getClass(), declaredField, value);
+        }
+
+        public static boolean field(@NonNull final Class<?> cls, @NonNull final String declaredField, final Object value) {
             try {
-                java.lang.reflect.Field field = object.getClass().getDeclaredField(declaredField);
+                java.lang.reflect.Field field = cls.getDeclaredField(declaredField);
                 field.setAccessible(true);
-                field.set(object, value);
+                field.set(cls, value);
                 return true;
             }
             catch (final Exception e) {
@@ -59,11 +72,28 @@ public class ReflectHelper {
 
     public static class Method {
 
+        private static final Object EMPTY_SIGNATURE = (Object) new Class[] {};
+
         @Nullable
         public static List<String> methods(@NonNull final Object object) {
+            return methods(object.getClass());
+        }
+
+        @Nullable
+        public static Object method(@NonNull final Object object, @NonNull final String declaredMethod, final Class[] signature) {
+            return method(object.getClass(), declaredMethod, signature, EMPTY_SIGNATURE);
+        }
+
+        @Nullable
+        public static Object method(@NonNull final Object object, @NonNull final String declaredMethod, final Class[] signature, final Object ... params) {
+            return method(object.getClass(), declaredMethod, signature, params);
+        }
+
+        @Nullable
+        public static List<String> methods(@NonNull final Class<?> cls) {
             try {
                 final List<String> methods = new ArrayList<>();
-                for (final java.lang.reflect.Method method : object.getClass().getDeclaredMethods()) {
+                for (final java.lang.reflect.Method method : cls.getDeclaredMethods()) {
                     methods.add(method.getName());
                 }
                 return methods;
@@ -75,24 +105,16 @@ public class ReflectHelper {
         }
 
         @Nullable
-        public static Object method(@NonNull final Object object, @NonNull final String declaredMethod, final Class[] signature) {
-            try {
-                java.lang.reflect.Method method = object.getClass().getDeclaredMethod(declaredMethod, signature);
-                method.setAccessible(true);
-                return method.invoke(null, (Object) new Class[] {});
-            }
-            catch (final Exception e) {
-                LogHelper.wtf(e);
-            }
-            return null;
+        public static Object method(@NonNull final Class<?> cls, @NonNull final String declaredMethod, final Class[] signature) {
+            return method(cls, declaredMethod, signature, EMPTY_SIGNATURE);
         }
 
         @Nullable
-        public static Object method(@NonNull final Object object, @NonNull final String declaredMethod, final Class[] signature, final Object ... params) {
+        public static Object method(@NonNull final Class<?> cls, @NonNull final String declaredMethod, final Class[] signature, final Object ... params) {
             try {
-                java.lang.reflect.Method method = object.getClass().getDeclaredMethod(declaredMethod, signature);
+                java.lang.reflect.Method method = cls.getDeclaredMethod(declaredMethod, signature);
                 method.setAccessible(true);
-                return method.invoke(object, params);
+                return method.invoke(cls, params);
             }
             catch (final Exception e) {
                 LogHelper.wtf(e);
