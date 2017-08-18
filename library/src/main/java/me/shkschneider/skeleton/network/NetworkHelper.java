@@ -40,7 +40,7 @@ public class NetworkHelper {
     @Nullable
     @SuppressWarnings("deprecation")
     public static String hostname() {
-        return (String) ReflectHelper.Method.Static.method(Build.class, "getString", new Class[] { String.class }, "net.hostname");
+        return (String) ReflectHelper.Method.method(Build.class, "getString", new Class[] { String.class }, "net.hostname");
     }
 
     public static String userAgent() {
