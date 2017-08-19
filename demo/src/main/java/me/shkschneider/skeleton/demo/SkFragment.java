@@ -139,7 +139,7 @@ public class SkFragment extends SkeletonFragment {
                     continue;
                 }
                 final String name = field.getName();
-                if (! name.contains("$")) {
+                if (! name.equalsIgnoreCase("serialVersionUID") && ! name.contains("$")) {
                     fields.add(field.getType().getSimpleName() + " " + name);
                 }
             }
