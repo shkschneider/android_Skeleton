@@ -66,7 +66,7 @@ public class ShkFragment extends SkeletonFragment {
                 .italize(16, 17).apply());
         fill(view.findViewById(R.id.id_position), "Position", new SpannableString("Android developer\n" +
                 "Open-Source believer"));
-        fill(view.findViewById(R.id.id_personal), "Personal", new SpannableString("RaspberryPi, Android, Writing, Reading, Economics, History..."));
+        fill(view.findViewById(R.id.id_personal), "Personal", new SpannableString("Blockchains, RaspberryPi, Android, Writing, Reading, Economics, History..."));
 
         fill(view.findViewById(R.id.code_projects), "Projects", new SpannableString("Android 'ShkMod' ROM\n" +
                 "RuntimePermissionsCompat\n" +
@@ -77,7 +77,7 @@ public class ShkFragment extends SkeletonFragment {
                 "Linux scripts\n" +
                 "C/UNIX"));
         fill(view.findViewById(R.id.code_languages), "Languages", new SpannableString("Java, C, Python, Bash, PHP, Objective-C, JavaScript, HTML & CSS, MySQL, RegExp..."));
-        fill(view.findViewById(R.id.code_technologies), "Technologies", new SpannableString("GNU/Linux, Android, NodeJS, MongoDB, Firebase..."));
+        fill(view.findViewById(R.id.code_technologies), "Technologies", new SpannableString("GNU/Linux, Android, Blockchains, NodeJS, MongoDB, Firebase..."));
         fill(view.findViewById(R.id.code_likes), "Likes", new SpannableString("Android, Debian, Fedora, Gnome-Shell, Emacs, NginX, uWSGI, Terminator, Makefiles, Bash scripts, HTML5..."));
         fill(view.findViewById(R.id.code_dislikes), "Dislikes", new SpannableString("Apple, Microsoft, Oracle, Facebook (also Google in a way)..."));
 
@@ -99,10 +99,10 @@ public class ShkFragment extends SkeletonFragment {
                 .boldify(0, 15).boldify(48, 8).boldify(77, 5).boldify(118, 12).boldify(152, 9).apply());
         fill(view.findViewById(R.id.skills_softwares), "Softwares", new SpannableStringHelper("Daemons: NginX, SSHd, uWSGI, Apache2\n" +
                 "Versioning: Git, Mercurial, Subversion\n" +
-                "IDEs: Emacs, IntelliJ IDEA, Eclipse, Netbeans")
-                .boldify(0, 7).boldify(38, 10).boldify(76, 4).apply());
+                "IDEs: Emacs, Android Studio, Atom, Eclipse, Netbeans")
+                .boldify(0, 7).boldify(37, 10).boldify(76, 4).apply());
         fill(view.findViewById(R.id.skills_languages), "Languages", new SpannableString("French (native)\n" +
-                "English (fluent, TOIEC 800+)"));
+                "English (fluent, TOIEC 850+)"));
 
         final Button github = view.findViewById(R.id.github);
         github.setText(GITHUB.replaceFirst("https://github.com/", ""));
