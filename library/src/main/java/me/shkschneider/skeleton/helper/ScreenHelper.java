@@ -36,15 +36,13 @@ public class ScreenHelper {
     public static final int ROTATION_240 = 3; // 90 clockwise
 
     // Does NOT @RequiresPermission(Manifest.permission.WAKE_LOCK)
-    public static boolean wakeLock(@NonNull final Window window) {
+    public static void wakeLock(@NonNull final Window window) {
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        return true;
     }
 
     // Does NOT @RequiresPermission(Manifest.permission.WAKE_LOCK)
-    public static boolean wakeUnlock(@NonNull final Window window) {
+    public static void wakeUnlock(@NonNull final Window window) {
         window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        return true;
     }
 
     public static boolean on() {
@@ -75,11 +73,10 @@ public class ScreenHelper {
         return window.getAttributes().screenBrightness;
     }
 
-    public static boolean brightness(@NonNull final Window window, @FloatRange(from=BRIGHTNESS_RESET, to=BRIGHTNESS_MAX) final float brightness) {
+    public static void brightness(@NonNull final Window window, @FloatRange(from=BRIGHTNESS_RESET, to=BRIGHTNESS_MAX) final float brightness) {
         final WindowManager.LayoutParams layoutParams = window.getAttributes();
         layoutParams.screenBrightness = ((brightness < BRIGHTNESS_MIN) ? BRIGHTNESS_RESET : brightness);
         window.setAttributes(layoutParams);
-        return true;
     }
 
     public static float density() {

@@ -54,16 +54,14 @@ public class SharedPreferencesHelper {
 
     // String
 
-    public static boolean putString(@NonNull final String key, final String value) {
+    public static void putString(@NonNull final String key, final String value) {
         LogHelper.verbose(key + " = " + value);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(get(null).edit().putString(key, value));
-        return true;
     }
 
-    public static boolean putString(@NonNull final String name, @NonNull final String key, final String value) {
+    public static void putString(@NonNull final String name, @NonNull final String key, final String value) {
         LogHelper.verbose(name + ": " + key + " = " + value);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(get(name).edit().putString(key, value));
-        return true;
     }
 
     @Nullable
@@ -78,16 +76,14 @@ public class SharedPreferencesHelper {
 
     // Set<String>
 
-    public static boolean putStringSet(@NonNull final String key, final Set<String> value) {
+    public static void putStringSet(@NonNull final String key, final Set<String> value) {
         LogHelper.verbose(key + " = " + value);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(get(null).edit().putStringSet(key, value));
-        return true;
     }
 
-    public static boolean putStringSet(@NonNull final String name, @NonNull final String key, final Set<String> value) {
+    public static void putStringSet(@NonNull final String name, @NonNull final String key, final Set<String> value) {
         LogHelper.verbose(name + ": " + key + " = " + value);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(get(name).edit().putStringSet(key, value));
-        return true;
     }
 
     @Nullable
@@ -102,16 +98,14 @@ public class SharedPreferencesHelper {
 
     // Integer
 
-    public static boolean putInteger(@NonNull final String key, final Integer value) {
+    public static void putInteger(@NonNull final String key, final Integer value) {
         LogHelper.verbose(key + " = " + value);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(get(null).edit().putInt(key, value));
-        return true;
     }
 
-    public static boolean putInteger(@NonNull final String name, @NonNull final String key, final Integer value) {
+    public static void putInteger(@NonNull final String name, @NonNull final String key, final Integer value) {
         LogHelper.verbose(name + ": " + key + " = " + value);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(get(name).edit().putInt(key, value));
-        return true;
     }
 
     @Nullable
@@ -126,16 +120,14 @@ public class SharedPreferencesHelper {
 
     // Long
 
-    public static boolean putLong(@NonNull final String key, final Long value) {
+    public static void putLong(@NonNull final String key, final Long value) {
         LogHelper.verbose(key + " = " + value);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(get(null).edit().putLong(key, value));
-        return true;
     }
 
-    public static boolean putLong(@NonNull final String name, @NonNull final String key, final Long value) {
+    public static void putLong(@NonNull final String name, @NonNull final String key, final Long value) {
         LogHelper.verbose(name + ": " + key + " = " + value);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(get(name).edit().putLong(key, value));
-        return true;
     }
 
     @Nullable
@@ -150,16 +142,14 @@ public class SharedPreferencesHelper {
 
     // Float
 
-    public static boolean putFloat(@NonNull final String key, final Float value) {
+    public static void putFloat(@NonNull final String key, final Float value) {
         LogHelper.verbose(key + " = " + value);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(get(null).edit().putFloat(key, value));
-        return true;
     }
 
-    public static boolean putFloat(@NonNull final String name, @NonNull final String key, final Float value) {
+    public static void putFloat(@NonNull final String name, @NonNull final String key, final Float value) {
         LogHelper.verbose(name + ": " + key + " = " + value);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(get(name).edit().putFloat(key, value));
-        return true;
     }
 
     @Nullable
@@ -174,16 +164,14 @@ public class SharedPreferencesHelper {
 
     // Boolean
 
-    public static boolean putBoolean(@NonNull final String key, final Boolean value) {
+    public static void putBoolean(@NonNull final String key, final Boolean value) {
         LogHelper.verbose(key + " = " + value);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(get(null).edit().putBoolean(key, value));
-        return true;
     }
 
-    public static boolean putBoolean(@NonNull final String name, @NonNull final String key, final Boolean value) {
+    public static void putBoolean(@NonNull final String name, @NonNull final String key, final Boolean value) {
         LogHelper.verbose(name + ": " + key + " = " + value);
         SharedPreferencesCompat.EditorCompat.getInstance().apply(get(name).edit().putBoolean(key, value));
-        return true;
     }
 
     @Nullable

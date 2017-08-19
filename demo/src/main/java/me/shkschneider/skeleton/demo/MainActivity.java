@@ -165,7 +165,7 @@ public class MainActivity extends SkeletonActivity {
 
     private final static String URL = "https://raw.githubusercontent.com/shkschneider/android_manifest/master/VERSION.json";
 
-    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @SuppressWarnings("unused")
         @Override
         public void onReceive(final Context context, final Intent intent) {

@@ -12,7 +12,6 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -411,7 +410,7 @@ public abstract class SkeletonActivity extends AppCompatActivity {
             LogHelper.warning("SearchMenuItem was NULL");
             return super.onCreateOptionsMenu(menu);
         }
-        mSearchView = (SearchView) MenuItemCompat.getActionView(mSearchMenuItem);
+        mSearchView = (SearchView) mSearchMenuItem.getActionView();
         if (mSearchView == null) {
             LogHelper.warning("SearchView was NULL");
             return super.onCreateOptionsMenu(menu);
@@ -451,7 +450,7 @@ public abstract class SkeletonActivity extends AppCompatActivity {
         if (mSkeletonReceiver == null) {
             return super.onOptionsItemSelected(item);
         }
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        final SearchView searchView = (SearchView) item.getActionView();
         if (searchView == null) {
             return false;
         }

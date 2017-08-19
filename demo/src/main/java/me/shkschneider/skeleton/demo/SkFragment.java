@@ -19,7 +19,6 @@ import java.util.List;
 
 import me.shkschneider.skeleton.SkeletonFragment;
 import me.shkschneider.skeleton.java.AlphanumComparator;
-import me.shkschneider.skeleton.java.JobManager;
 import me.shkschneider.skeleton.java.SkHide;
 
 public class SkFragment extends SkeletonFragment {

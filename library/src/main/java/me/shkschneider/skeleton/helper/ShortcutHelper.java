@@ -27,11 +27,9 @@ public class ShortcutHelper {
         if (shortcutManager.getDynamicShortcuts().size() + 1 >= MAX_RECOMMENDED_SHORTCUTS) {
             LogHelper.wtf("Lots of shortcuts");
         }
-        if (shortcutManager.isRateLimitingActive()) {
-            return false;
-        }
+        return (! shortcutManager.isRateLimitingActive()
+                && shortcutManager.addDynamicShortcuts(Collections.singletonList(shortcut.shortcutInfo())));
 
-        return shortcutManager.addDynamicShortcuts(Collections.singletonList(shortcut.shortcutInfo()));
     }
 
     public static boolean setDynamicShortcuts(@NonNull final Shortcut ... shortcuts) {
@@ -52,10 +50,10 @@ public class ShortcutHelper {
 
     public static class Shortcut {
 
-        private String id;
-        private int icon;
-        private String label;
-        private Intent intent;
+        private final String id;
+        private final int icon;
+        private final String label;
+        private final Intent intent;
 
         public Shortcut(@NonNull final String id,
                         @DrawableRes final int icon,

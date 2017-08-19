@@ -52,11 +52,10 @@ public class AccountHelper {
     }
 
     @RequiresPermission(Manifest.permission.GET_ACCOUNTS)
-    @Nullable
     public static List<Account> accounts() {
         final List<Account> accounts = new ArrayList<>();
         Collections.addAll(accounts, SystemServices.accountManager().getAccounts());
-        return (accounts.size() > 0 ? accounts : null);
+        return accounts;
     }
 
 }

@@ -63,13 +63,12 @@ public class WebViewHelper {
     }
 
     @SuppressLint("AddJavascriptInterface") // Dangerous below API-17
-    public static boolean javascriptInterface(@NonNull final WebView webView, @NonNull final JavaScriptInterface javascriptInterface, @NonNull final String name) {
+    public static void javascriptInterface(@NonNull final WebView webView, @NonNull final JavaScriptInterface javascriptInterface, @NonNull final String name) {
         webView.addJavascriptInterface(javascriptInterface, name);
-        return true;
     }
 
-    public static boolean javascriptInterface(@NonNull final WebView webView, @NonNull final JavaScriptInterface javascriptInterface) {
-        return javascriptInterface(webView, javascriptInterface, AndroidHelper.PLATFORM);
+    public static void javascriptInterface(@NonNull final WebView webView, @NonNull final JavaScriptInterface javascriptInterface) {
+        javascriptInterface(webView, javascriptInterface, AndroidHelper.PLATFORM);
     }
 
     public static boolean back(@NonNull final WebView webView) {

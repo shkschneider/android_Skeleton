@@ -77,10 +77,8 @@ public class DeviceHelper {
     }
 
     public static boolean is64bits() {
-        if (AndroidHelper.api() < AndroidHelper.ANDROID_5) {
-            return false;
-        }
-        return Build.SUPPORTED_64_BIT_ABIS.length > 0;
+        return (AndroidHelper.api() >= AndroidHelper.ANDROID_5
+                && Build.SUPPORTED_64_BIT_ABIS.length > 0);
     }
 
     @Nullable

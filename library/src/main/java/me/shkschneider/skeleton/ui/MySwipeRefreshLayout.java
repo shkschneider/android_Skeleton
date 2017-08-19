@@ -2,7 +2,6 @@ package me.shkschneider.skeleton.ui;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.view.MotionEventCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -65,7 +64,7 @@ public class MySwipeRefreshLayout extends SwipeRefreshLayout {
 
     @Override
     public boolean onTouchEvent(@NonNull final MotionEvent motionEvent) {
-        final int action = MotionEventCompat.getActionMasked(motionEvent);
+        final int action = motionEvent.getAction();
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 mHandleTouch = false;

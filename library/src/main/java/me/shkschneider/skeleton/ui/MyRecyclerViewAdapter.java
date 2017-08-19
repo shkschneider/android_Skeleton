@@ -92,7 +92,7 @@ public abstract class MyRecyclerViewAdapter<T, VH extends RecyclerView.ViewHolde
     @SuppressWarnings("unused")
     private static class MyViewHolder<T> extends RecyclerView.Adapter<MyViewHolder.ViewHolder> {
 
-        private List<T> mObjects;
+        private final List<T> mObjects;
 
         public MyViewHolder(@NonNull final List<T> objects) {
             mObjects = objects;
@@ -126,7 +126,7 @@ public abstract class MyRecyclerViewAdapter<T, VH extends RecyclerView.ViewHolde
 
         public class ViewHolder extends RecyclerView.ViewHolder {
 
-            public TextView text1;
+            public final TextView text1;
 
             public ViewHolder(final View itemView) {
                 super(itemView);

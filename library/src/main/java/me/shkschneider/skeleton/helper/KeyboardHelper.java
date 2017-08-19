@@ -25,18 +25,16 @@ public class KeyboardHelper {
 
     // Show
 
-    public static boolean show(@NonNull final Window window) {
+    public static void show(@NonNull final Window window) {
         LogHelper.verbose("SOFT_INPUT_STATE_ALWAYS_VISIBLE");
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        return true;
     }
 
     // Hide
 
-    public static boolean hide(@NonNull final Window window) {
+    public static void hide(@NonNull final Window window) {
         LogHelper.verbose("SOFT_INPUT_STATE_ALWAYS_HIDDEN");
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        return true;
     }
 
     // ResultReceiver
