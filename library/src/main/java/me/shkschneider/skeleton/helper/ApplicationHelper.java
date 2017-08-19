@@ -118,6 +118,8 @@ public class ApplicationHelper {
         }
     }
 
+    // TODO flavor()
+
     @Nullable
     public static Bitmap icon() {
         try {
