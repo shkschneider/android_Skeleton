@@ -41,7 +41,6 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled false
             shrinkResources false
-
             buildConfigField "boolean", "MOCK", "true"
             resValue "string", "url", "http://android.com"
         }
@@ -54,9 +53,19 @@ android {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.pro'
             shrinkResources false
-
             buildConfigField "boolean", "MOCK", "false"
-            resValue "string", "url", "http://android.com"
+            resValue "string", "url", "https://android.com"
+        }
+    }
+    defaultPublishConfig 'debug'
+    productFlavors {
+        alpha {
+            // versionNameSuffix '-ALPHA'
+        }
+        beta {
+            // versionNameSuffix '-BETA'
+        }
+        prod {
         }
     }
     packagingOptions {

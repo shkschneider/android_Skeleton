@@ -13,10 +13,12 @@ android {
         versionName '6.1.0'
         setProperty('archivesBaseName', "skeleton-$versionName")
     }
+    defaultPublishConfig 'release'
     lintOptions {
         checkReleaseBuilds true
         abortOnError false
     }
+    publishNonDefault true
 }
 
 dependencies {

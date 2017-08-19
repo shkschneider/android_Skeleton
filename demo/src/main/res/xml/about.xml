@@ -24,7 +24,13 @@
             android:summary="@null" />
 
         <Preference
-            android:key="app_debug"
+            android:key="app_variant"
+            android:selectable="false"
+            android:title="@null"
+            android:summary="@null" />
+
+        <Preference
+            android:key="app_flavor"
             android:selectable="false"
             android:title="@null"
             android:summary="@null" />
