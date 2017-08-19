@@ -1,42 +1,57 @@
 package me.shkschneider.skeleton.helper;
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.os.VibrationEffect;
 import android.os.Vibrator;
-import android.support.annotation.IntRange;
+import android.support.annotation.RequiresPermission;
 
 public class VibratorHelper {
 
-    public static final long[] DEFAULT_DURATION = new long[] { 1000, 1000, 1000, 1000, 1000 };
+    public static final long[] DEFAULT_DURATION = new long[] { 1000L, 1000L, 1000L, 1000L, 1000L };
+
+    private static final int DO_REPEAT = 0;
+    private static final int DO_NOT_REPEAT = -1;
 
     protected VibratorHelper() {
         // Empty
     }
 
-    public static boolean hasVibrator() {
+    public static boolean has() {
         final Vibrator vibrator = SystemServices.vibrator();
-        return vibrator.hasVibrator();
+        return (vibrator != null && vibrator.hasVibrator());
     }
 
-    public static boolean vibrate(final long[] durations, final boolean repeat) {
-        final Vibrator vibrator = SystemServices.vibrator();
-        if (! hasVibrator()) {
-            LogHelper.warning("No vibrator");
-            return false;
+    @SuppressWarnings("deprecation")
+    @RequiresPermission(Manifest.permission.VIBRATE)
+    public static void vibrate(final long[] durations, final boolean repeat) {
+        if (AndroidHelper.api() >= AndroidHelper.API_26) {
+            vibrate26(durations, repeat);
+            return;
         }
-
-        vibrator.vibrate(durations, (repeat ? 0 : -1));
-        return true;
+        SystemServices.vibrator().vibrate(durations, (repeat ? DO_REPEAT : DO_NOT_REPEAT));
     }
 
-    public static boolean vibrate(@IntRange(from=1) final long duration, final boolean repeat) {
-        return vibrate(new long[] { duration }, repeat);
+    @TargetApi(AndroidHelper.API_26)
+    @RequiresPermission(Manifest.permission.VIBRATE)
+    public static void vibrate26(final long[] durations, final boolean repeat) {
+        SystemServices.vibrator().vibrate(VibrationEffect.createWaveform(durations, (repeat ? DO_REPEAT : DO_NOT_REPEAT)));
     }
 
-    public static boolean vibrate(@IntRange(from=1) final long duration) {
-        return vibrate(duration, false);
+    @SuppressWarnings("deprecation")
+    @RequiresPermission(Manifest.permission.VIBRATE)
+    public static void vibrate() {
+        if (AndroidHelper.api() >= AndroidHelper.API_26) {
+            vibrate26(DEFAULT_DURATION, false);
+            return;
+        }
+        vibrate(DEFAULT_DURATION, false);
     }
 
-    public static boolean vibrate() {
-        return vibrate(DEFAULT_DURATION, false);
+    @TargetApi(AndroidHelper.API_26)
+    @RequiresPermission(Manifest.permission.VIBRATE)
+    public static void vibrate26() {
+        vibrate26(DEFAULT_DURATION, false);
     }
 
 }
