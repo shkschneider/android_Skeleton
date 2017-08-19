@@ -32,25 +32,25 @@ public class BottomSheet {
         mDialog = new Dialog(builder.activity, R.style.SkeletonTheme_BottomSheet);
         @SuppressLint("InflateParams")
         final View view = builder.activity.getLayoutInflater().inflate(R.layout.sk_bottomsheet, null);
-        final ImageView icon = (ImageView) view.findViewById(R.id.sk_bottomsheet_icon);
+        final ImageView icon = view.findViewById(R.id.sk_bottomsheet_icon);
         if (builder.icon != null) {
             icon.setVisibility(View.VISIBLE);
             icon.setImageDrawable(builder.icon);
         }
-        final TextView title = (TextView) view.findViewById(R.id.sk_bottomsheet_title);
+        final TextView title = view.findViewById(R.id.sk_bottomsheet_title);
         if (builder.title != null) {
             title.setText(builder.title);
         }
-        final TextView content = (TextView) view.findViewById(R.id.sk_bottomsheet_content);
+        final TextView content = view.findViewById(R.id.sk_bottomsheet_content);
         if (builder.content != null) {
             content.setText(builder.content);
         }
-        final FrameLayout customView = (FrameLayout) view.findViewById(R.id.sk_bottomsheet_customView);
+        final FrameLayout customView = view.findViewById(R.id.sk_bottomsheet_customView);
         if (builder.customView != null) {
             customView.addView(builder.customView);
             customView.setPadding(builder.paddingLeft, builder.paddingTop, builder.paddingRight, builder.paddingBottom);
         }
-        final Button negative = (Button) view.findViewById(R.id.sk_bottomsheet_cancel);
+        final Button negative = view.findViewById(R.id.sk_bottomsheet_cancel);
         if (builder.negative != null) {
             negative.setVisibility(View.VISIBLE);
             negative.setText(builder.negative);
@@ -63,7 +63,7 @@ public class BottomSheet {
                 }
             });
         }
-        final Button positive = (Button) view.findViewById(R.id.sk_bottomsheet_ok);
+        final Button positive = view.findViewById(R.id.sk_bottomsheet_ok);
         if (builder.positive != null) {
             positive.setVisibility(View.VISIBLE);
             positive.setText(builder.positive);

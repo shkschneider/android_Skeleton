@@ -131,7 +131,7 @@ public abstract class MyRecyclerViewAdapter<T, VH extends RecyclerView.ViewHolde
             public ViewHolder(final View itemView) {
                 super(itemView);
 
-                text1 = (TextView) itemView.findViewById(android.R.id.text1);
+                text1 = itemView.findViewById(android.R.id.text1);
             }
 
         }

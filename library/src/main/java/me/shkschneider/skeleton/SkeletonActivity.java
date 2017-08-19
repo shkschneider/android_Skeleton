@@ -156,7 +156,7 @@ public abstract class SkeletonActivity extends AppCompatActivity {
     }
 
     protected void bindToolbar() {
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = findViewById(R.id.toolbar);
         if (mToolbar != null) {
             // LogHelper.verbose("Found a Toolbar");
             setSupportActionBar(mToolbar);
@@ -171,7 +171,7 @@ public abstract class SkeletonActivity extends AppCompatActivity {
     }
 
     protected void bindMySwipeRefreshLayout() {
-        mMySwipeRefreshLayout = (MySwipeRefreshLayout) findViewById(R.id.mySwipeRefreshLayout);
+        mMySwipeRefreshLayout = findViewById(R.id.mySwipeRefreshLayout);
         if (mMySwipeRefreshLayout != null) {
             // LogHelper.verbose("Found a MySwipeRefreshLayout");
             mMySwipeRefreshLayout.setColorSchemeResources(R.color.primaryColor);

@@ -122,7 +122,7 @@ public class SkFragment extends SkeletonFragment {
                     .replaceFirst("^.+\\.", "")
                     .replaceFirst("\\$.+$", "")
                     .replaceAll("([a-z])([A-Z])", "$1\n$2"));
-            final TextView textView2 = (TextView) ui.findViewById(R.id.textView2);
+            final TextView textView2 = ui.findViewById(R.id.textView2);
             textView2.setText("");
             // fields
             final List<String> fields = new ArrayList<>();

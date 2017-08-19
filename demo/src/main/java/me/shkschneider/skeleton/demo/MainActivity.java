@@ -61,7 +61,7 @@ public class MainActivity extends SkeletonActivity {
         mToolbar.setTitle("Skeleton");
         mToolbar.setSubtitle("for Android");
 
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
+        final ViewPager viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(final int position) {
@@ -89,7 +89,7 @@ public class MainActivity extends SkeletonActivity {
             }
         });
         viewPager.setOffscreenPageLimit(viewPager.getAdapter().getCount());
-        final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        final TabLayout tabLayout = findViewById(R.id.tabLayout);
         for (int i = 0; i < viewPager.getAdapter().getCount(); i++) {
             tabLayout.addTab(tabLayout.newTab().setText(viewPager.getAdapter().getPageTitle(i)));
         }
@@ -113,7 +113,7 @@ public class MainActivity extends SkeletonActivity {
 
         });
 
-        final FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        final FloatingActionButton floatingActionButton = findViewById(R.id.floatingActionButton);
         floatingActionButton.setImageResource(android.R.drawable.ic_dialog_info);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override

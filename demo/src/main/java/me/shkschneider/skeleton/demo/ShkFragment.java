@@ -104,7 +104,7 @@ public class ShkFragment extends SkeletonFragment {
         fill(view.findViewById(R.id.skills_languages), "Languages", new SpannableString("French (native)\n" +
                 "English (fluent, TOIEC 800+)"));
 
-        final Button github = (Button) view.findViewById(R.id.github);
+        final Button github = view.findViewById(R.id.github);
         github.setText(GITHUB.replaceFirst("https://github.com/", ""));
         github.setOnClickListener(new View.OnClickListener() {
             @Override
