@@ -7,6 +7,7 @@ import android.content.pm.ShortcutManager;
 import android.graphics.drawable.Icon;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -62,6 +63,9 @@ public class ShortcutHelper {
             this.id = id;
             this.icon = icon;
             this.label = label;
+            if (TextUtils.isEmpty(intent.getAction())) {
+                intent.setAction(ApplicationHelper.packageName() + "\\." + id);
+            }
             this.intent = intent;
         }
 
