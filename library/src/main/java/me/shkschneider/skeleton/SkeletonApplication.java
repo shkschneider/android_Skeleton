@@ -19,7 +19,7 @@ import me.shkschneider.skeleton.java.ExceptionHelper;
  */
 public abstract class SkeletonApplication extends Application {
 
-    public static Boolean DEBUG = false;
+    public static Boolean DEBUGGABLE = false;
     public static String TAG = BuildConfig.APPLICATION_ID;
 
     @Override
@@ -29,10 +29,10 @@ public abstract class SkeletonApplication extends Application {
         //noinspection deprecation
         ContextHelper.applicationContext(getApplicationContext());
         final ApplicationInfo applicationInfo = getApplicationInfo();
-        DEBUG = ((applicationInfo.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0);
+        DEBUGGABLE = ((applicationInfo.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0);
         TAG = applicationInfo.packageName;
 
-        if (ApplicationHelper.debug()) {
+        if (ApplicationHelper.debuggable()) {
             ExceptionHelper.uncaughtException(new ExceptionHelper.Callback() {
                 @Override
                 public void uncaughtException(final Throwable throwable) {

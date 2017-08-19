@@ -13,7 +13,7 @@ public class MainApplication extends SkeletonApplication {
     public void onCreate() {
         super.onCreate();
 
-        LogHelper.verbose("DEBUG=" + SkeletonApplication.DEBUG);
+        LogHelper.verbose("DEBUGGABLE=" + SkeletonApplication.DEBUGGABLE);
 
         Proxy.get().getRequestQueue().getCache().clear();
     }

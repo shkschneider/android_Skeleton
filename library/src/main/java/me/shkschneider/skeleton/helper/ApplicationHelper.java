@@ -30,9 +30,9 @@ public class ApplicationHelper {
         // Empty
     }
 
-    public static boolean debug() {
+    public static boolean debuggable() {
         // <https://stackoverflow.com/a/25517680/603270>
-        return SkeletonApplication.DEBUG;
+        return SkeletonApplication.DEBUGGABLE;
     }
 
     public static Resources resources() {
@@ -61,23 +61,12 @@ public class ApplicationHelper {
     public static String name() {
         try {
             final PackageManager packageManager = packageManager();
-            if (packageManager == null) {
-                LogHelper.warning("PackageManager was NULL");
-                return null;
-            }
-
             final ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName(), 0);
-            if (applicationInfo == null) {
-                LogHelper.warning("ApplicationInfo was NULL");
-                return null;
-            }
-
             final CharSequence label = applicationInfo.loadLabel(packageManager);
             if (label == null) {
                 LogHelper.warning("Label was NULL");
                 return null;
             }
-
             return label.toString();
         }
         catch (final PackageManager.NameNotFoundException e) {
@@ -110,11 +99,6 @@ public class ApplicationHelper {
     public static String versionName() {
         try {
             final PackageManager packageManager = packageManager();
-            if (packageManager == null) {
-                LogHelper.warning("PackageManager was NULL");
-                return null;
-            }
-
             return packageManager.getPackageInfo(packageName(), PackageManager.GET_META_DATA).versionName;
         }
         catch (final PackageManager.NameNotFoundException e) {
@@ -126,11 +110,6 @@ public class ApplicationHelper {
     public static int versionCode() {
         try {
             final PackageManager packageManager = packageManager();
-            if (packageManager == null) {
-                LogHelper.warning("PackageManager was NULL");
-                return -1;
-            }
-
             return packageManager.getPackageInfo(packageName(), PackageManager.GET_META_DATA).versionCode;
         }
         catch (final PackageManager.NameNotFoundException e) {
@@ -143,15 +122,7 @@ public class ApplicationHelper {
     public static Bitmap icon() {
         try {
             final PackageManager packageManager = packageManager();
-            if (packageManager == null) {
-                LogHelper.warning("PackageManager was NULL");
-                return null;
-            }
             final ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName(), 0);
-            if (applicationInfo == null) {
-                LogHelper.warning("ApplicationInfo was NULL");
-                return null;
-            }
             final Drawable drawable = applicationInfo.loadIcon(packageManager);
             return BitmapHelper.fromDrawable(drawable);
         }
@@ -165,13 +136,7 @@ public class ApplicationHelper {
     public static List<String> permissions() {
         try {
             final PackageManager packageManager = packageManager();
-            if (packageManager == null) {
-                LogHelper.warning("PackageManager was NULL");
-                return null;
-            }
-
             final PackageInfo packageInfo = packageManager.getPackageInfo(packageName(), PackageManager.GET_PERMISSIONS);
-
             final List<String> list = new ArrayList<>();
             Collections.addAll(list, packageInfo.requestedPermissions);
             return list;
@@ -186,24 +151,9 @@ public class ApplicationHelper {
     @Nullable
     public static String signature() {
         final PackageManager packageManager = packageManager();
-        if (packageManager == null) {
-            LogHelper.warning("PackageManager was NULL");
-            return null;
-        }
-
         try {
             final PackageInfo packageInfo = packageManager.getPackageInfo(packageName(), PackageManager.GET_SIGNATURES);
-            if (packageInfo == null) {
-                LogHelper.warning("PackageInfo was NULL");
-                return null;
-            }
-
             final Signature[] signatures = packageInfo.signatures;
-            if (signatures == null) {
-                LogHelper.debug("No signatures");
-                return null;
-            }
-
             return signatures[0].toCharsString();
         }
         catch (final PackageManager.NameNotFoundException e) {

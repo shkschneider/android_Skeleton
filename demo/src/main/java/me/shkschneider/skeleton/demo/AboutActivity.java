@@ -54,9 +54,13 @@ public class AboutActivity extends SkeletonActivity {
             appVersionCode.setTitle("VersionCode");
             appVersionCode.setSummary(String.valueOf(ApplicationHelper.versionCode()));
 
-            final Preference appDebug = findPreference("app_debug");
-            appDebug.setTitle("Debug");
-            appDebug.setSummary(StringHelper.capitalize(String.valueOf(ApplicationHelper.debug())));
+            final Preference appVariant = findPreference("app_variant");
+            appVariant.setTitle("Variant");
+            appVariant.setSummary(StringHelper.capitalize(ApplicationHelper.debuggable() ? "DEBUG" : "RELEASE"));
+
+            final Preference appFlavor = findPreference("app_flavor");
+            appFlavor.setTitle("Flavor");
+            appFlavor.setSummary(StringHelper.capitalize(BuildConfig.FLAVOR));
 
             // OS
 

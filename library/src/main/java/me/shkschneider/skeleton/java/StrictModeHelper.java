@@ -11,7 +11,7 @@ public class StrictModeHelper {
     }
 
     public static void on(final boolean death) {
-        if (! ApplicationHelper.debug()) {
+        if (! ApplicationHelper.debuggable()) {
             return;
         }
 
@@ -34,7 +34,7 @@ public class StrictModeHelper {
     }
 
     public static void off() {
-        if (! ApplicationHelper.debug()) {
+        if (! ApplicationHelper.debuggable()) {
             return;
         }
 
