@@ -47,9 +47,4 @@ public class TextViewHelper {
         TextViewCompat.setAutoSizeTextTypeWithDefaults(textView, autoSizeTextType);
     }
 
-    @Deprecated
-    public static void sizeToFit(@NonNull final TextView textView) {
-        autoSize(textView, true);
-    }
-
 }

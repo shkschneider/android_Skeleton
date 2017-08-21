@@ -6,10 +6,10 @@ android {
 
     defaultConfig {
         applicationId 'me.shkschneider.skeleton.demo'
-        minSdkVersion 14 // Ice Cream Sandwich 4.x.x
+        minSdkVersion 16 // Jelly Bean 4.1.x
         targetSdkVersion 26
-        versionCode 32
-        versionName '6.1.0'
+        versionCode 34
+        versionName '7.0.0'
         archivesBaseName = "Skeleton-${android.defaultConfig.versionName}"
     }
     signingConfigs {
