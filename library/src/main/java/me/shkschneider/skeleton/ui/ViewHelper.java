@@ -18,7 +18,7 @@ public class ViewHelper {
     final static String ANDROIDXML = "http://schemas.android.com/apk/res/android";
     final static String RESAUTOXML = "http://schemas.android.com/apk/res-auto";
 
-    public static View content(@NonNull final Activity activity) {
+    public static <T extends View> T content(@NonNull final Activity activity) {
         return activity.findViewById(Window.ID_ANDROID_CONTENT);
     }
 
