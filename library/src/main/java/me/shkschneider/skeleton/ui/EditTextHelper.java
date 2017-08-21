@@ -32,4 +32,8 @@ public class EditTextHelper {
         });
     }
 
+    public static void autoSize(@NonNull final EditText editText, final boolean autoSize) {
+        TextViewHelper.autoSize(editText, autoSize);
+    }
+
 }

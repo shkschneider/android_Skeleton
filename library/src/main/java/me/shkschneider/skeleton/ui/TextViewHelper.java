@@ -42,9 +42,14 @@ public class TextViewHelper {
         textView.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
-    public static void sizeToFit(@NonNull final TextView textView, final boolean autoSize) {
+    public static void autoSize(@NonNull final TextView textView, final boolean autoSize) {
         final int autoSizeTextType = (autoSize ? TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM : TextViewCompat.AUTO_SIZE_TEXT_TYPE_NONE);
         TextViewCompat.setAutoSizeTextTypeWithDefaults(textView, autoSizeTextType);
+    }
+
+    @Deprecated
+    public static void sizeToFit(@NonNull final TextView textView) {
+        autoSize(textView, true);
     }
 
 }
