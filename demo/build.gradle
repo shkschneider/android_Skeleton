@@ -90,5 +90,5 @@ dependencies {
     compile 'com.android.volley:volley:1.0.0'
 
     compile project(':library')
-    // compile 'com.github.shkschneider:android_Skeleton:6.1.0'
+    // compile 'com.github.shkschneider:android_Skeleton:7.0.0'
 }
