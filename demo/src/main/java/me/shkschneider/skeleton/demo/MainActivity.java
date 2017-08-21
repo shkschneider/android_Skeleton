@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.demo;
 
 import android.annotation.SuppressLint;
+import android.app.NotificationChannel;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -217,14 +218,19 @@ public class MainActivity extends SkeletonActivity {
 
     private void notification(final int id, final String title, final String message) {
         final Intent intent = new Intent(getBaseContext(), MainActivity.class)
-                .putExtra("title", title)
-                .putExtra("message", message);
-        final NotificationCompat.Builder builder = NotificationHelper.Builder(
-                ContextCompat.getColor(getApplicationContext(), R.color.accentColor), ApplicationHelper.DEFAULT_ICON, null,
-                "Ticker",
-                "Skeleton", "for Android", null, null,
-                NotificationHelper.pendingIntent(MainActivity.this, intent));
-        NotificationHelper.notify(id, builder);
+                .putExtra("Skeleton", title)
+                .putExtra("for Android", message);
+        final NotificationHelper.Channel channel = new NotificationHelper.Channel(String.valueOf(id), String.valueOf(id), true, true, true);
+        final NotificationChannel notificationChannel = channel.get();
+        final NotificationCompat.Builder notificationBuilder = new NotificationHelper.Builder(channel)
+                .setContentTitle("Skeleton")
+                .setContentText("for Android")
+                .setContentIntent(NotificationHelper.pendingIntent(MainActivity.this, intent))
+                .setTicker("Skel!")
+                .setColor(ContextCompat.getColor(getApplicationContext(), R.color.accentColor))
+                .setSmallIcon(ApplicationHelper.DEFAULT_ICON)
+                .setNumber(42);
+        NotificationHelper.notify(0, notificationBuilder.build());
     }
 
     @Override
