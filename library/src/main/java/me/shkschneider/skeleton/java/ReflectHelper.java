@@ -8,9 +8,9 @@ import java.util.List;
 
 import me.shkschneider.skeleton.helper.LogHelper;
 
-@Deprecated // Discouraged
 public class ReflectHelper {
 
+    @Deprecated // Discouraged
     public static class Field {
 
         @Nullable
@@ -70,6 +70,7 @@ public class ReflectHelper {
 
     }
 
+    @Deprecated // Discouraged
     public static class Method {
 
         private static final Object EMPTY_SIGNATURE = (Object) new Class[] {};
