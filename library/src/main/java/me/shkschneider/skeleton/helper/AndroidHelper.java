@@ -35,7 +35,7 @@ public class AndroidHelper {
     public static final int API_23 = Build.VERSION_CODES.M; // 6.0 "Marshmallow"
     public static final int API_24 = Build.VERSION_CODES.N; // 7.0 "Nougat"
     public static final int API_25 = Build.VERSION_CODES.N_MR1; // 7.1.1
-    public static final int API_26 = Build.VERSION_CODES.O; // 8.0
+    public static final int API_26 = Build.VERSION_CODES.O; // 8.0 "Oreo"
 
     public static final String PLATFORM = "Android";
 
@@ -89,7 +89,7 @@ public class AndroidHelper {
             case API_25:
                 return "Nougat";
             case API_26:
-                return "O";
+                return "Oreo";
             default:
                 return "*Preview*";
         }
