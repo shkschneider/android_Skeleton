@@ -14,10 +14,6 @@ GRADLE		= bash gradlew
 all:
 	@echo "[ $(APP_ID) $(VERSION) ]"
 	@echo "debug release lint clean distclean"
-ifeq (,$(wildcard $(HOME)/.gradle/gradle.properties))
-	@mkdir -p "$(HOME)/.gradle"
-	@echo "org.gradle.daemon=true" > "$(HOME)/.gradle/gradle.properties"
-endif
 
 debug:
 	@echo "[ $(APP_ID) $(VERSION) ]"
