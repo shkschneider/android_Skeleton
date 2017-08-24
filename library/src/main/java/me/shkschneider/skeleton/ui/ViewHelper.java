@@ -32,4 +32,20 @@ public class ViewHelper {
         return views;
     }
 
+    public static boolean show(@NonNull final View view) {
+        if (view.getVisibility() != View.VISIBLE) {
+            view.setVisibility(View.VISIBLE);
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean hide(@NonNull final View view) {
+        if (view.getVisibility() != View.GONE) {
+            view.setVisibility(View.GONE);
+            return true;
+        }
+        return false;
+    }
+
 }
