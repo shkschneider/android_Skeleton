@@ -106,8 +106,10 @@ public class SkFragment extends SkeletonFragment {
                 me.shkschneider.skeleton.ui.PaletteHelper.class,
                 me.shkschneider.skeleton.ui.ScrollHelper.class,
                 me.shkschneider.skeleton.ui.ScrollViewHelper.class,
+                me.shkschneider.skeleton.ui.Snack.class,
                 me.shkschneider.skeleton.ui.TextViewHelper.class,
                 me.shkschneider.skeleton.ui.ThemeHelper.class,
+                me.shkschneider.skeleton.ui.Toaster.class,
                 me.shkschneider.skeleton.ui.UiHelper.class,
                 me.shkschneider.skeleton.ui.ViewHelper.class,
                 me.shkschneider.skeleton.ui.WebViewHelper.class
