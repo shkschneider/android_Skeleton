@@ -7,6 +7,7 @@ import android.support.annotation.FloatRange;
 import android.support.annotation.NonNull;
 import android.util.TypedValue;
 import android.view.Display;
+import android.view.Surface;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -30,10 +31,10 @@ public class ScreenHelper {
     public static final float BRIGHTNESS_MIN = 0.0F;
     public static final float BRIGHTNESS_MAX = 1.0F;
 
-    public static final int ROTATION_0 = 0;
-    public static final int ROTATION_90 = 1; // 90 counter-clockwise
-    public static final int ROTATION_180 = 2; // upside-down
-    public static final int ROTATION_240 = 3; // 90 clockwise
+    public static final int ROTATION_0 = Surface.ROTATION_0;
+    public static final int ROTATION_90 = Surface.ROTATION_90;
+    public static final int ROTATION_180 = Surface.ROTATION_180;
+    public static final int ROTATION_270 = Surface.ROTATION_270;
 
     // Does NOT @RequiresPermission(Manifest.permission.WAKE_LOCK)
     public static void wakeLock(@NonNull final Window window) {

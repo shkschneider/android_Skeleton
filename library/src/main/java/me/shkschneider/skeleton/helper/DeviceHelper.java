@@ -19,7 +19,6 @@ public class DeviceHelper {
     }
 
     // <https://github.com/eyeem/deviceinfo>
-    @SuppressWarnings("deprecation")
     @SuppressLint("NewApi")
     public static float screenSize() {
         final WindowManager windowManager = SystemServices.windowManager();
@@ -30,11 +29,8 @@ public class DeviceHelper {
         if (AndroidHelper.api() >= AndroidHelper.API_17) {
             display.getRealSize(point);
         }
-        else if (AndroidHelper.api() >= AndroidHelper.API_13) {
-            display.getSize(point);
-        }
         else {
-            point = new Point(display.getWidth(), display.getHeight());
+            display.getSize(point);
         }
         float w = point.x / displayMetrics.xdpi;
         float h = point.y / displayMetrics.ydpi;
@@ -83,18 +79,23 @@ public class DeviceHelper {
 
     @Nullable
     @RequiresPermission(Manifest.permission.READ_PHONE_STATE)
-    @SuppressWarnings("deprecation")
-    @SuppressLint("HardwareIds")
     public static String serial() {
         if (AndroidHelper.api() >= AndroidHelper.API_26) {
             return serial26();
         }
-        return Build.SERIAL;
+        return serial9();
     }
 
     @TargetApi(AndroidHelper.API_26)
     private static String serial26() {
         return Build.getSerial();
+    }
+
+    @SuppressWarnings("deprecation")
+    @SuppressLint("HardwareIds")
+    @TargetApi(AndroidHelper.API_9)
+    private static String serial9() {
+        return Build.SERIAL;
     }
 
 }

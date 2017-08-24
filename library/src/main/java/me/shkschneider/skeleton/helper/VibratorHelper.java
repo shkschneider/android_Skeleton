@@ -38,7 +38,6 @@ public class VibratorHelper {
         SystemServices.vibrator().vibrate(VibrationEffect.createWaveform(durations, (repeat ? DO_REPEAT : DO_NOT_REPEAT)));
     }
 
-    @SuppressWarnings("deprecation")
     @RequiresPermission(Manifest.permission.VIBRATE)
     public static void vibrate() {
         if (AndroidHelper.api() >= AndroidHelper.API_26) {

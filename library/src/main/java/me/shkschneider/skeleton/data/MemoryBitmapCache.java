@@ -8,7 +8,6 @@ import android.support.v4.util.LruCache;
 // <http://developer.android.com/training/displaying-bitmaps/cache-bitmap.html#memory-cache>
 public final class MemoryBitmapCache extends LruCache<String, Bitmap> {
 
-    @SuppressWarnings("deprecation")
     public MemoryBitmapCache() {
         // Get max available VM memory, exceeding this amount will throw an
         // OutOfMemory exception. Stored in kilobytes as LruCache takes an
