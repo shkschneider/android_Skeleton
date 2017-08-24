@@ -18,11 +18,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 
 import me.shkschneider.skeleton.SkeletonFragment;
-import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.IntentHelper;
 import me.shkschneider.skeleton.helper.SpannableStringHelper;
 import me.shkschneider.skeleton.network.Proxy;
 import me.shkschneider.skeleton.ui.BitmapHelper;
+import me.shkschneider.skeleton.ui.Toaster;
 
 public class ShkFragment extends SkeletonFragment {
 
@@ -50,7 +50,7 @@ public class ShkFragment extends SkeletonFragment {
             }
             @Override
             public void onErrorResponse(final VolleyError error) {
-                ActivityHelper.toast(error.getMessage());
+                Toaster.lengthLong(error.getMessage());
             }
         });
 

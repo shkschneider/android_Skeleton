@@ -23,7 +23,6 @@ import android.view.View;
 
 import me.shkschneider.skeleton.SkeletonActivity;
 import me.shkschneider.skeleton.demo.data.ShkMod;
-import me.shkschneider.skeleton.helper.ActivityHelper;
 import me.shkschneider.skeleton.helper.ApplicationHelper;
 import me.shkschneider.skeleton.helper.BroadcastHelper;
 import me.shkschneider.skeleton.helper.DateTimeHelper;
@@ -37,6 +36,7 @@ import me.shkschneider.skeleton.network.WebService;
 import me.shkschneider.skeleton.network.WebServiceException;
 import me.shkschneider.skeleton.ui.AnimationHelper;
 import me.shkschneider.skeleton.ui.BottomSheet;
+import me.shkschneider.skeleton.ui.Toaster;
 
 /**
  * SkeletonActivity
@@ -182,14 +182,14 @@ public class MainActivity extends SkeletonActivity {
                     @Override
                     public void success(@Nullable final ShkMod result) {
                         if (result == null) {
-                            ActivityHelper.toast(ClassHelper.simpleName(ShkMod.class));
+                            Toaster.lengthShort(ClassHelper.simpleName(ShkMod.class));
                             return;
                         }
                         notification((int) DateTimeHelper.timestamp(), ClassHelper.simpleName(ShkMod.class), ObjectHelper.jsonify(result));
                     }
                     @Override
                     public void failure(@NonNull final WebServiceException e) {
-                        ActivityHelper.toast(e.getClass().getSimpleName());
+                        Toaster.lengthLong(e.getClass().getSimpleName());
                     }
                 }).run();
 //        final String tag = URL; // defaults to URL anyway
