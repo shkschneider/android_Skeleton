@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 16 // Jelly Bean 4.1.x
         targetSdkVersion 26
-        versionCode 35
-        versionName '7.0.1'
+        versionCode 36
+        versionName '7.0.2'
         setProperty('archivesBaseName', "skeleton-$versionName")
     }
     defaultPublishConfig 'release'
