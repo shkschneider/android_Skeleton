@@ -9,16 +9,16 @@ android {
     defaultConfig {
         minSdkVersion 16 // Jelly Bean 4.1.x
         targetSdkVersion 26
-        versionCode 36
-        versionName '7.0.2'
-        setProperty('archivesBaseName', "skeleton-$versionName")
+        versionCode 40
+        versionName '7.1.0'
+        // setProperty('archivesBaseName', "skeleton-$versionName")
     }
     defaultPublishConfig 'release'
     lintOptions {
         checkReleaseBuilds true
         abortOnError false
     }
-    publishNonDefault true
+    // publishNonDefault true
 }
 
 dependencies {
@@ -50,12 +50,28 @@ task javadoc(type: Javadoc) {
     exclude '**/R.java'
 }
 
+// build a jar with source files
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
     classifier = 'sources'
+}
+
+// build a jar with javadoc
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
 }
 
 artifacts {
     archives sourcesJar
     archives javadocJar
 }
+
+// uncomment to build a jar file in addition to the default aar file
+//android.libraryVariants.all { variant ->
+//    def name = variant.buildType.name
+//    def task = project.tasks.create "jar${name.capitalize()}", Jar
+//    task.dependsOn variant.javaCompile
+//    task.from variant.javaCompile.destinationDir
+//    artifacts.add('archives', task);
+//}

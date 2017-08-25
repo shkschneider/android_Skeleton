@@ -8,8 +8,8 @@ android {
         applicationId 'me.shkschneider.skeleton.demo'
         minSdkVersion 16 // Jelly Bean 4.1.x
         targetSdkVersion 26
-        versionCode 36
-        versionName '7.0.2'
+        versionCode 40
+        versionName '7.1.0'
         archivesBaseName = "Skeleton-${android.defaultConfig.versionName}"
     }
     signingConfigs {
@@ -90,5 +90,5 @@ dependencies {
     compile 'com.android.volley:volley:1.0.0'
 
     compile project(':library')
-    // compile 'com.github.shkschneider:android_Skeleton:7.0.0'
+    // compile 'com.github.shkschneider:android_Skeleton:7.1.0'
 }
