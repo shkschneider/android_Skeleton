@@ -72,6 +72,11 @@ public class MyScrollView extends ScrollView {
         mParallax = parallax;
     }
 
+    public static boolean canScroll(@NonNull final ScrollView scrollView) {
+        final int childHeight = scrollView.getHeight();
+        return (scrollView.getHeight() < childHeight + scrollView.getPaddingTop() + scrollView.getPaddingBottom());
+    }
+
     public interface OnScrollViewListener {
 
         void onScrollChanged(int l, int t, int oldl, int oldt);
