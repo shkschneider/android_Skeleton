@@ -1,7 +1,6 @@
 package me.shkschneider.skeleton.demo;
 
 import android.annotation.SuppressLint;
-import android.app.NotificationChannel;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -218,15 +217,15 @@ public class MainActivity extends SkeletonActivity {
 
     private void notification(final int id, final String title, final String message) {
         final Intent intent = new Intent(getBaseContext(), MainActivity.class)
-                .putExtra("Skeleton", title)
-                .putExtra("for Android", message);
+                .putExtra("title", title)
+                .putExtra("message", message);
         final NotificationHelper.Channel channel = new NotificationHelper.Channel(String.valueOf(id), String.valueOf(id), true, true, true);
-        final NotificationChannel notificationChannel = channel.get();
+        // final NotificationChannel notificationChannel = channel.get();
         final NotificationCompat.Builder notificationBuilder = new NotificationHelper.Builder(channel)
                 .setContentTitle("Skeleton")
                 .setContentText("for Android")
                 .setContentIntent(NotificationHelper.pendingIntent(MainActivity.this, intent))
-                .setTicker("Skel!")
+                .setTicker("Sk!")
                 .setColor(ContextCompat.getColor(getApplicationContext(), R.color.accentColor))
                 .setSmallIcon(ApplicationHelper.DEFAULT_ICON)
                 .setNumber(42);
@@ -239,6 +238,7 @@ public class MainActivity extends SkeletonActivity {
 
         final String title = intent.getStringExtra("title");
         final String message = intent.getStringExtra("message");
+
         new BottomSheet.Builder(MainActivity.this)
                 .setTitle(title)
                 .setContent(message)
