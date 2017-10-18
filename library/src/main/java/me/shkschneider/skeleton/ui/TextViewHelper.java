@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.ui;
 
+import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.TextViewCompat;
 import android.text.Html;
@@ -12,6 +13,17 @@ import android.widget.TextView;
 import me.shkschneider.skeleton.network.MyImageGetter;
 
 public class TextViewHelper {
+
+    // <https://stackoverflow.com/a/10947374>
+    public static void underline(@NonNull final TextView textView, final boolean underline) {
+        int flags = (underline ? textView.getPaintFlags() | Paint.DEV_KERN_TEXT_FLAG : textView.getPaintFlags() & ~Paint.DEV_KERN_TEXT_FLAG);
+        textView.setPaintFlags(flags);
+    }
+
+    public static void strikeThrough(@NonNull final TextView textView, final boolean strikeThrough) {
+        int flags = (strikeThrough ? textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG : textView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+        textView.setPaintFlags(flags);
+    }
 
     @SuppressWarnings("deprecation")
     public static Spanned html(@NonNull final String html) {
