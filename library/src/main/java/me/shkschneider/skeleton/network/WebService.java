@@ -113,11 +113,18 @@ public class WebService {
         return this;
     }
 
+    public <T> WebService callback(final Class type, @Nullable final WebService.Callback<T> callback) {
+        mType = type;
+        mCallback = callback;
+        return this;
+    }
+
     @SkHide
     public Callback callback() {
         return mCallback;
     }
 
+    @Deprecated // Not Kotlin-friendly
     public WebService as(final Class type) {
         mType = type;
         return this;

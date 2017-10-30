@@ -1,12 +1,18 @@
 // <https://developer.android.com/studio/releases/gradle-plugin.html>
 
 buildscript {
+    ext.versions = [
+        skeleton: '8.0.0',
+        kotlin: '1.1.51',
+        support: '26.1.0'
+    ]
     repositories {
         jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
     }
 }
 
