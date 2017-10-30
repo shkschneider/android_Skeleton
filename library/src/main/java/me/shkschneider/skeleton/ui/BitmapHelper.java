@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.ui;
 
+import android.annotation.TargetApi;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,8 +14,13 @@ import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.renderscript.Allocation;
+import android.renderscript.Element;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Base64;
@@ -48,6 +54,28 @@ public class BitmapHelper {
         final Canvas canvas = new Canvas(bitmap);
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);
+        return bitmap;
+    }
+
+    // <https://stackoverflow.com/a/44525044>
+    @TargetApi(AndroidHelper.API_17)
+    public static Bitmap blur(@NonNull final Bitmap original) {
+        final Bitmap input = Bitmap.createScaledBitmap(original, original.getWidth() / 2, original.getHeight() / 2, false);
+        final Bitmap output = Bitmap.createBitmap(input);
+        final RenderScript renderScript = RenderScript.create(ContextHelper.applicationContext());
+        final ScriptIntrinsicBlur scriptIntrinsicBlur = ScriptIntrinsicBlur.create(renderScript, Element.U8_4(renderScript));
+        final Allocation allocation = Allocation.createFromBitmap(renderScript, output);
+        scriptIntrinsicBlur.setRadius(9.5F);
+        scriptIntrinsicBlur.setInput(Allocation.createFromBitmap(renderScript, input));
+        scriptIntrinsicBlur.forEach(allocation);
+        allocation.copyTo(output);
+        return output;
+    }
+
+    public static Bitmap alpha(@NonNull final Bitmap bitmap, @IntRange(from=0, to=255) final int alpha) {
+        final Canvas canvas = new Canvas(bitmap);
+        canvas.drawARGB(alpha, 0, 0, 0);
+        canvas.drawBitmap(bitmap, new Matrix(), new Paint());
         return bitmap;
     }
 
