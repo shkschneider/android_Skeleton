@@ -27,7 +27,7 @@ public class LogHelper {
 
     @SkHide
     private static String tag() {
-        String tag = SkeletonApplication.TAG;
+        String tag = SkeletonApplication.Companion.getTAG();
         if (TextUtils.isEmpty(tag)) {
             tag = BuildConfig.APPLICATION_ID;
         }

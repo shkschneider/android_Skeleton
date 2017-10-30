@@ -23,8 +23,8 @@ import me.shkschneider.skeleton.ui.Toaster
 
 class ShkFragment : SkeletonFragment() {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return super.onCreateView(inflater, R.layout.fragment_shk, container, savedInstanceState)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return super.onCreateView(inflater, R.layout.fragment_shk, container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

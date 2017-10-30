@@ -55,8 +55,8 @@ class MainActivity : SkeletonActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mToolbar.title = "Skeleton"
-        mToolbar.subtitle = "for Android"
+        mToolbar?.title = "Skeleton"
+        mToolbar?.subtitle = "for Android"
         val viewPager = findViewById<ViewPager>(R.id.viewPager)
         viewPager.adapter = object : FragmentStatePagerAdapter(supportFragmentManager) {
             override fun getItem(position: Int): Fragment? {

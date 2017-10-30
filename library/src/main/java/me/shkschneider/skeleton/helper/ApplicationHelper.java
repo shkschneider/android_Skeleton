@@ -32,7 +32,7 @@ public class ApplicationHelper {
 
     public static boolean debuggable() {
         // <https://stackoverflow.com/a/25517680/603270>
-        return SkeletonApplication.DEBUGGABLE;
+        return SkeletonApplication.Companion.getDEBUGGABLE();
     }
 
     public static Resources resources() {

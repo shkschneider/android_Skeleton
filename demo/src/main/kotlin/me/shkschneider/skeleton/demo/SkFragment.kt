@@ -18,8 +18,8 @@ import java.util.Collections
 
 class SkFragment : SkeletonFragment() {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return super.onCreateView(inflater, R.layout.fragment_sk, container, savedInstanceState)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return super.onCreateView(inflater, R.layout.fragment_sk, container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -108,7 +108,7 @@ class SkFragment : SkeletonFragment() {
         ))
     }
 
-    private fun fill(linearLayout: LinearLayout, cs: Array<Class<*>>) {
+    private fun fill(linearLayout: LinearLayout?, cs: Array<Class<*>>) {
         for (c in cs) {
             val ui = LayoutInflater.from(context).inflate(R.layout.ui, linearLayout, false)
             (ui.findViewById<View>(R.id.textView1) as TextView).text = c.name
@@ -171,7 +171,7 @@ class SkFragment : SkeletonFragment() {
                 }
                 textView2.append(method)
             }
-            linearLayout.addView(ui)
+            linearLayout?.addView(ui)
         }
     }
 
