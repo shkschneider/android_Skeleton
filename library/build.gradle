@@ -4,14 +4,16 @@ group='com.github.shkschneider'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '26.0.1'
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
         minSdkVersion 16 // Jelly Bean 4.1.x
         targetSdkVersion 26
-        versionCode 40
-        versionName '7.1.0'
+        versionCode 41
+        versionName '8.0.0'
         // setProperty('archivesBaseName', "skeleton-$versionName")
+        renderscriptTargetApi 19
+        renderscriptSupportModeEnabled true
     }
     defaultPublishConfig 'release'
     lintOptions {
@@ -22,10 +24,10 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:design:26.0.1'
-    compile 'com.android.support:palette-v7:26.0.1'
-    compile 'com.android.support:recyclerview-v7:26.0.1'
-    compile 'com.android.support:preference-v14:26.0.1'
+    compile 'com.android.support:design:26.1.0'
+    compile 'com.android.support:palette-v7:26.1.0'
+    compile 'com.android.support:recyclerview-v7:26.1.0'
+    compile 'com.android.support:preference-v14:26.1.0'
 
     compile 'com.android.volley:volley:1.0.0'
 
