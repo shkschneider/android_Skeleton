@@ -31,8 +31,8 @@ class MySecretCodeReceiver : BroadcastReceiver() {
 
     companion object {
 
-        val SECRET_CODE = "SECRET_CODE"
-        val ACTION = "android.provider.Telephony.SECRET_CODE"
+        const val SECRET_CODE = "SECRET_CODE"
+        const val ACTION = "android.provider.Telephony.SECRET_CODE"
 
     }
 

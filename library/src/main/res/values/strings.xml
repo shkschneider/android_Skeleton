@@ -5,7 +5,7 @@
         @android:string/cancel
         @android:string/yes
         @android:string/no
-        @android:string/loading
+        @android:str_loadingding
     -->
     <string name="dots">"&#8230;"</string>
     <string name="lorem_ipsum">"Lorem ipsum dolor sit amet"</string>

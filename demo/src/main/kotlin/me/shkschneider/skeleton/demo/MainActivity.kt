@@ -14,21 +14,13 @@ import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.view.ViewPager
 import android.view.Menu
 import android.view.MenuItem
-import demo.SkFragment
 
 import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.demo.data.ShkMod
-import me.shkschneider.skeleton.helper.ApplicationHelper
-import me.shkschneider.skeleton.helper.BroadcastHelper
-import me.shkschneider.skeleton.helper.DateTimeHelper
-import me.shkschneider.skeleton.helper.DeviceHelper
-import me.shkschneider.skeleton.helper.LogHelper
-import me.shkschneider.skeleton.helper.NotificationHelper
+import me.shkschneider.skeleton.helper.*
 import me.shkschneider.skeleton.java.ClassHelper
 import me.shkschneider.skeleton.java.ObjectHelper
-import me.shkschneider.skeleton.network.Proxy
-import me.shkschneider.skeleton.network.WebService
-import me.shkschneider.skeleton.network.WebServiceException
+import me.shkschneider.skeleton.network.*
 import me.shkschneider.skeleton.ui.AnimationHelper
 import me.shkschneider.skeleton.ui.BottomSheet
 import me.shkschneider.skeleton.ui.Toaster
@@ -55,8 +47,8 @@ class MainActivity : SkeletonActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mToolbar?.title = "Skeleton"
-        mToolbar?.subtitle = "for Android"
+        toolbar?.title = "Skeleton"
+        toolbar?.subtitle = "for Android"
         val viewPager = findViewById<ViewPager>(R.id.viewPager)
         viewPager.adapter = object : FragmentStatePagerAdapter(supportFragmentManager) {
             override fun getItem(position: Int): Fragment? {
@@ -98,7 +90,7 @@ class MainActivity : SkeletonActivity() {
         floatingActionButton.setImageResource(android.R.drawable.ic_dialog_info)
         floatingActionButton.setOnClickListener {
             val intent = Intent(BROADCAST_SECRET).putExtra(BROADCAST_SECRET_CODE, 42)
-            LocalBroadcastManager.getInstance(this@MainActivity).sendBroadcast(intent)
+            LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
         }
         AnimationHelper.revealOn(floatingActionButton)
     }
@@ -111,7 +103,7 @@ class MainActivity : SkeletonActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_about -> {
-                startActivity(Intent(this@MainActivity, AboutActivity::class.java))
+                startActivity(Intent(this, AboutActivity::class.java))
                 return true
             }
         }
@@ -130,13 +122,12 @@ class MainActivity : SkeletonActivity() {
 
     override fun onStop() {
         super.onStop()
-        Proxy.get().requestQueue.cancelAll(URL)
         BroadcastHelper.unregister(mBroadcastReceiver)
     }
 
     private fun network() {
-        WebService.get(URL)
-                .callback(ShkMod::class.java, object : WebService.Callback<ShkMod> {
+        WebService(WebService.Method.GET, URL)
+                .callback(ShkMod.javaClass, object : WebService.Callback<ShkMod?> {
                     override fun success(result: ShkMod?) {
                         if (result == null) {
                             Toaster.lengthShort(ClassHelper.simpleName(ShkMod::class.java))
@@ -148,28 +139,22 @@ class MainActivity : SkeletonActivity() {
                         Toaster.lengthLong(ClassHelper.simpleName(e::class.java))
                     }
                 }).run()
-        //        final String tag = URL; // defaults to URL anyway
-        //        Proxy.get().getRequestQueue().cancelAll(tag);
-        //        Proxy.get().getRequestQueue().add(
-        //                new MyRequest(Request.Method.GET, URL,
-        //                        new Response.Listener<MyResponse>() {
-        //                            @Override
-        //                            public void onResponse(final MyResponse response) {
-        //                                final ShkMod shkMod = new Gson().fromJson(response.toString(), ShkMod.class);
-        //                                notification((int) DateTimeHelper.timestamp(), ClassHelper.simpleName(ShkMod.class), ObjectHelper.jsonify(shkMod));
-        //                            }
-        //                        },
-        //                        new Response.ErrorListener() {
-        //                            @Override
-        //                            public void onErrorResponse(final VolleyError error) {
-        //                                ActivityHelper.toast(error.getClass().getSimpleName());
-        //                            }
-        //                        })
-        //                        .setCacheTimeout((int) TimeUnit.SECONDS.toMillis(10)) // timeout
-        //                        .setPriority(Request.Priority.NORMAL) // priority
-        //                        .setRetryPolicy(new DefaultRetryPolicy(2500, 1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)) // timeout reties
-        //                        .setTag(tag) // tag
-        //        );
+//        val tag: String = URL // defaults to URL anyway
+//        Proxy.requestQueue().cancelAll(tag)
+//        Proxy.requestQueue().add(
+//                MyRequest(Request.Method.GET, URL,
+//                        Response.Listener { response ->
+//                            val shkMod: ShkMod = Gson().fromJson(response.toString(), ShkMod::class.java)
+//                            notification(DateTimeHelper.timestamp().toInt(), ClassHelper.simpleName(ShkMod::class.java), ObjectHelper.jsonify(shkMod))
+//                        },
+//                        Response.ErrorListener { error ->
+//                            Toaster.lengthShort(ClassHelper.simpleName(error::class.java))
+//                        })
+//                        .setCacheTimeout(TimeUnit.SECONDS.toMillis(10).toInt())
+//                        .setPriority(Request.Priority.NORMAL)
+//                        .setRetryPolicy(DefaultRetryPolicy(2500, 1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT))
+//                        .setTag(tag)
+//        )
     }
 
     private fun notification(id: Int, title: String, message: String) {
@@ -181,7 +166,7 @@ class MainActivity : SkeletonActivity() {
         val notificationBuilder = NotificationHelper.Builder(channel)
                 .setContentTitle("Skeleton")
                 .setContentText("for Android")
-                .setContentIntent(NotificationHelper.pendingIntent(this@MainActivity, intent))
+                .setContentIntent(NotificationHelper.pendingIntent(this, intent))
                 .setTicker("Sk!")
                 .setColor(ContextCompat.getColor(applicationContext, R.color.accentColor))
                 .setSmallIcon(ApplicationHelper.DEFAULT_ICON)
@@ -193,7 +178,7 @@ class MainActivity : SkeletonActivity() {
         super.onNewIntent(intent)
         val title = intent.getStringExtra("title")
         val message = intent.getStringExtra("message")
-        BottomSheet.Builder(this@MainActivity)
+        BottomSheet.Builder(this)
                 .setTitle(title)
                 .setContent(message)
                 .setPositive(resources.getString(android.R.string.ok), null)

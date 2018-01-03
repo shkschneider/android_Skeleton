@@ -9,7 +9,6 @@ import android.os.Bundle
 import android.support.annotation.ColorInt
 import android.support.annotation.LayoutRes
 import android.support.v4.content.ContextCompat
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
 import android.support.v7.widget.Toolbar
@@ -28,7 +27,7 @@ import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.IntentHelper
 import me.shkschneider.skeleton.helper.KeyboardHelper
 import me.shkschneider.skeleton.helper.LogHelper
-import me.shkschneider.skeleton.ui.MySwipeRefreshLayout
+import me.shkschneider.skeleton.ui.OverlayLoader
 
 /**
  * https://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle
@@ -50,33 +49,43 @@ import me.shkschneider.skeleton.ui.MySwipeRefreshLayout
  * onSaveInstanceState()
  * onStop()
  * onDestroy()
+ *
+ * Toolbar
+ * OverlayLoader
  */
 abstract class SkeletonActivity : AppCompatActivity() {
 
-    protected var mToolbar: Toolbar? = null
-    protected var mMySwipeRefreshLayout: MySwipeRefreshLayout? = null
+    // Search
+    // <http://stackoverflow.com/q/18438890>
 
-    private var mAlive = false
+    companion object {
+
+        const val RESULT_SEARCH_CHANGE = "onQueryTextChange"
+        const val RESULT_SEARCH_SUBMIT = "onQueryTextSubmit"
+
+    }
+
+    protected var toolbar: Toolbar? = null
+
+    private var _alive = false
 
     // Refresh
     // <https://gist.github.com/antoniolg/9837398>
 
-    private var mLoading: Int = 0
+    private var _loading: Int = 0
 
-    private var mSearchHint: String? = null
-    private var mSkeletonReceiver: SkeletonReceiver? = null
-    private var mSearchMenuItem: MenuItem? = null
-    private var mSearchView: SearchView? = null
+    private var _searchHint: String? = null
+    private var _skeletonReceiver: SkeletonReceiver? = null
+    private var _searchMenuItem: MenuItem? = null
+    private var _searchView: SearchView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         setContentView(R.layout.sk_activity)
-
         if (AndroidHelper.api() >= AndroidHelper.API_21) {
             init21()
         }
-
         val intent = intent
         if (intent != null && intent.extras != null) {
             LogHelper.verbose("onNewIntent: " + intent)
@@ -87,7 +96,6 @@ abstract class SkeletonActivity : AppCompatActivity() {
     @TargetApi(AndroidHelper.API_21)
     private fun init21() {
         statusBarColor(window, ContextCompat.getColor(applicationContext, R.color.statusBarColor))
-
         val name = ApplicationHelper.name()
         val icon = ApplicationHelper.icon()
         val color = ContextCompat.getColor(applicationContext, R.color.primaryColor)
@@ -106,25 +114,17 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     override fun setContentView(@LayoutRes id: Int) {
         super.setContentView(id)
-        bindViews()
         onViewCreated()
     }
 
     override fun setContentView(view: View) {
         super.setContentView(view)
-        bindViews()
         onViewCreated()
     }
 
     override fun setContentView(view: View, layoutParams: ViewGroup.LayoutParams) {
         super.setContentView(view, layoutParams)
-        bindViews()
         onViewCreated()
-    }
-
-    private fun bindViews() {
-        bindToolbar()
-        bindMySwipeRefreshLayout()
     }
 
     @TargetApi(AndroidHelper.API_21)
@@ -145,38 +145,30 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     fun toolbarColor(@ColorInt color: Int): Boolean {
-        if (mToolbar == null) {
+        if (toolbar == null) {
             LogHelper.warning("Toolbar was NULL")
             return false
         }
-        mToolbar!!.setBackgroundColor(color)
+        toolbar!!.setBackgroundColor(color)
         return true
     }
 
     protected fun bindToolbar() {
-        mToolbar = findViewById(R.id.toolbar)
-        if (mToolbar != null) {
+        toolbar = findViewById(R.id.toolbar)
+        if (toolbar != null) {
             // LogHelper.verbose("Found a Toolbar");
-            setSupportActionBar(mToolbar)
+            setSupportActionBar(toolbar)
             title(ApplicationHelper.name())
         }
     }
 
     override fun setSupportActionBar(toolbar: Toolbar?) {
         super.setSupportActionBar(toolbar)
-        mToolbar = toolbar
-    }
-
-    fun bindMySwipeRefreshLayout() {
-        mMySwipeRefreshLayout = findViewById(R.id.mySwipeRefreshLayout)
-        if (mMySwipeRefreshLayout != null) {
-            // LogHelper.verbose("Found a MySwipeRefreshLayout");
-            mMySwipeRefreshLayout!!.setColorSchemeResources(R.color.primaryColor)
-        }
+        this.toolbar = toolbar
     }
 
     protected fun onViewCreated() {
-        // Override
+        bindToolbar()
     }
 
     // Lifecycle
@@ -188,15 +180,17 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-
-        mAlive = true
+        _alive = true
     }
 
     override fun onPause() {
         super.onPause()
+        _skeletonReceiver = null
+        _alive = false
+    }
 
-        mSkeletonReceiver = null
-        mAlive = false
+    override fun onStop() {
+        super.onStop()
         loading(false)
     }
 
@@ -206,22 +200,22 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     fun alive(): Boolean {
-        return mAlive
+        return _alive
     }
 
     // ToolBar
 
     fun toolbar(): Toolbar? {
-        return mToolbar
+        return toolbar
     }
 
     fun toolbar(b: Boolean) {
-        if (mToolbar == null) {
+        if (toolbar == null) {
             LogHelper.warning("Toolbar was NULL")
             return
         }
         val visibility = if (b) View.VISIBLE else View.GONE
-        mToolbar!!.visibility = visibility
+        toolbar!!.visibility = visibility
     }
 
     fun home(b: Boolean) {
@@ -235,14 +229,14 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     @Deprecated("")
     fun home(drawable: Drawable) {
-        if (mToolbar == null) {
+        if (toolbar == null) {
             LogHelper.warning("Toolbar was NULL")
             return
         }
-        mToolbar!!.navigationIcon = drawable
+        toolbar!!.navigationIcon = drawable
     }
 
-    @Deprecated("")
+    @Deprecated("Use logo()")
     fun icon(drawable: Drawable) {
         logo(drawable)
     }
@@ -298,124 +292,93 @@ abstract class SkeletonActivity : AppCompatActivity() {
         return subtitle?.toString()
     }
 
-    // MySwipeRefreshLayout
+    // Loading
 
-    fun mySwipeRefreshLayout(): MySwipeRefreshLayout? {
-        return mMySwipeRefreshLayout
-    }
-
-    fun refreshable(): Boolean {
-        return mMySwipeRefreshLayout != null && mMySwipeRefreshLayout!!.isEnabled
-    }
-
-    fun refreshable(b: Boolean, onRefreshListener: SwipeRefreshLayout.OnRefreshListener?) {
-        // Resets loading count to avoid side-effects upon re-loading
-        mLoading = 0
-        if (!b) {
-            mMySwipeRefreshLayout = null
-        } else {
-            if (mMySwipeRefreshLayout == null) {
-                LogHelper.warning("MySwipeRefreshLayout was NULL")
-                return
-            }
-            mMySwipeRefreshLayout!!.isRefreshing = false
-            mMySwipeRefreshLayout!!.setOnRefreshListener(onRefreshListener)
-        }
-    }
+    protected var overlayLoader: OverlayLoader? = null
 
     fun loading(): Int {
-        return mLoading
+        return _loading
     }
 
     fun loading(i: Int) {
-        val count = mLoading + i
+        val count = _loading + i
         if (count < 0) {
             loading(false)
-            mLoading = 0
+            _loading = 0
             return
         }
-        if (mLoading == 0 && count > 0) {
+        if (_loading == 0 && count > 0) {
             loading(true)
-        } else if (mLoading > 0 && count == 0) {
+        } else if (_loading > 0 && count == 0) {
             loading(false)
         }
-        mLoading = count
+        _loading = count
     }
 
     fun loading(b: Boolean) {
-        if (!b) {
+        if (! b) {
             // Resets loading count to avoid side-effects upon re-loading
-            mLoading = 0
+            _loading = 0
         }
-        if (mMySwipeRefreshLayout == null) {
-            if (b) {
-                LogHelper.warning("MySwipeRefreshLayout was NULL")
+        if (b) {
+            if (overlayLoader != null) {
+                overlayLoader = OverlayLoader.show(this)
             }
-            return
-        }
-        if (!b) {
-            mMySwipeRefreshLayout!!.isRefreshing = false
-            mMySwipeRefreshLayout!!.destroyDrawingCache()
-            mMySwipeRefreshLayout!!.clearAnimation()
-        } else if (!mMySwipeRefreshLayout!!.isRefreshing) {
-            mMySwipeRefreshLayout!!.isRefreshing = true
+        } else {
+            overlayLoader?.hide(this)
+            overlayLoader = null
         }
     }
 
     fun searchable(): Boolean {
-        return mSkeletonReceiver != null
+        return _skeletonReceiver != null
     }
 
     fun searchable(hint: String, skeletonReceiver: SkeletonReceiver?) {
-        mSearchHint = hint
-        mSkeletonReceiver = skeletonReceiver
+        _searchHint = hint
+        _skeletonReceiver = skeletonReceiver
         // AVOID supportInvalidateOptionsMenu()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        if (mSkeletonReceiver == null) {
+        if (_skeletonReceiver == null) {
             return super.onCreateOptionsMenu(menu)
         }
-
         menuInflater.inflate(R.menu.sk_search, menu)
-
-        mSearchMenuItem = menu.findItem(R.id.menu_search)
-        if (mSearchMenuItem == null) {
+        _searchMenuItem = menu.findItem(R.id.menu_search)
+        if (_searchMenuItem == null) {
             LogHelper.warning("SearchMenuItem was NULL")
             return super.onCreateOptionsMenu(menu)
         }
-        mSearchView = mSearchMenuItem!!.actionView as SearchView
-        if (mSearchView == null) {
+        _searchView = _searchMenuItem!!.actionView as SearchView
+        if (_searchView == null) {
             LogHelper.warning("SearchView was NULL")
             return super.onCreateOptionsMenu(menu)
         }
-        mSearchView!!.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
-        mSearchView!!.imeOptions = EditorInfo.IME_ACTION_SEARCH
-        mSearchView!!.setIconifiedByDefault(true)
-        mSearchView!!.queryHint = mSearchHint
-        mSearchView!!.setOnCloseListener {
-            mSkeletonReceiver!!.post(RESULT_SEARCH_CHANGE, "")
+        _searchView!!.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+        _searchView!!.imeOptions = EditorInfo.IME_ACTION_SEARCH
+        _searchView!!.setIconifiedByDefault(true)
+        _searchView!!.queryHint = _searchHint
+        _searchView!!.setOnCloseListener {
+            _skeletonReceiver!!.post(RESULT_SEARCH_CHANGE, "")
             false
         }
-        mSearchView!!.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-
+        _searchView!!.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(q: String): Boolean {
                 stopSearch()
-                mSkeletonReceiver!!.post(RESULT_SEARCH_SUBMIT, q)
+                _skeletonReceiver!!.post(RESULT_SEARCH_SUBMIT, q)
                 return true
             }
-
             override fun onQueryTextChange(q: String): Boolean {
-                mSkeletonReceiver!!.post(RESULT_SEARCH_CHANGE, q)
+                _skeletonReceiver!!.post(RESULT_SEARCH_CHANGE, q)
                 return true
             }
-
         })
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (mSkeletonReceiver == null) {
+        if (_skeletonReceiver == null) {
             return super.onOptionsItemSelected(item)
         }
         val searchView = item.actionView as SearchView ?: return false
@@ -427,9 +390,9 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     private fun stopSearch() {
-        mSearchMenuItem!!.collapseActionView()
+        _searchMenuItem!!.collapseActionView()
         KeyboardHelper.hide(window)
-        mSearchView!!.clearFocus()
+        _searchView!!.clearFocus()
     }
 
     // Navigation
@@ -440,7 +403,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (mSearchView != null && !mSearchView!!.isIconified) {
+        if (_searchView != null && !_searchView!!.isIconified) {
             stopSearch()
         } else {
             finish()
@@ -451,16 +414,6 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
-
-    companion object {
-
-        // Search
-        // <http://stackoverflow.com/q/18438890>
-
-        val RESULT_SEARCH_CHANGE = "onQueryTextChange"
-        val RESULT_SEARCH_SUBMIT = "onQueryTextSubmit"
-
     }
 
 }

@@ -18,6 +18,7 @@ abstract class SkeletonFragmentActivity : SkeletonActivity() {
 
     override fun onResumeFragments() {
         super.onResumeFragments()
+        // fragmentManager.executePendingTransactions()
     }
 
     override fun onSupportNavigateUp(): Boolean {

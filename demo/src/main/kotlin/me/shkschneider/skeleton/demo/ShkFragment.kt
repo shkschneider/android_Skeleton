@@ -23,14 +23,17 @@ import me.shkschneider.skeleton.ui.Toaster
 
 class ShkFragment : SkeletonFragment() {
 
+    private val AVATAR = "https://raw.githubusercontent.com/shkschneider/shkschneider.github.io/master/shkschneider.png"
+    private val GITHUB = "https://github.com/shkschneider/android_Skeleton"
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return super.onCreateView(inflater, R.layout.fragment_shk, container)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        Proxy.get().imageLoader.get(AVATAR, object : ImageLoader.ImageListener {
+        // Personal
+        Proxy.imageLoader().get(AVATAR, object : ImageLoader.ImageListener {
             override fun onResponse(response: ImageLoader.ImageContainer, isImmediate: Boolean) {
                 if (response.bitmap != null) {
                     val avatar = BitmapHelper.circular(response.bitmap)
@@ -42,7 +45,6 @@ class ShkFragment : SkeletonFragment() {
                 Toaster.lengthLong(error.message!!)
             }
         })
-
         fill(view.findViewById(R.id.id_id), "#", SpannableString("42"))
         fill(view.findViewById(R.id.id_name), "Name", SpannableString("Alan SCHNEIDER\n" + "a.k.a. ShkSchneider"))
         fill(view.findViewById(R.id.id_age), "Age", SpannableString("Born in 1989"))
@@ -54,7 +56,7 @@ class ShkFragment : SkeletonFragment() {
                 .italize(16, 17).apply())
         fill(view.findViewById(R.id.id_position), "Position", SpannableString("Android developer\n" + "Open-Source believer"))
         fill(view.findViewById(R.id.id_personal), "Personal", SpannableString("Blockchains, RaspberryPi, Android, Writing, Reading, Economics, History..."))
-
+        // Professional
         fill(view.findViewById(R.id.code_projects), "Projects", SpannableString("BitNode\n" +
                 "Android 'ShkMod' ROM\n" +
                 "RuntimePermissionsCompat\n" +
@@ -68,13 +70,13 @@ class ShkFragment : SkeletonFragment() {
         fill(view.findViewById(R.id.code_technologies), "Technologies", SpannableString("GNU/Linux, Android, Blockchains, NodeJS, MongoDB, Firebase..."))
         fill(view.findViewById(R.id.code_likes), "Likes", SpannableString("Android, Debian, Fedora, Gnome-Shell, Emacs, NginX, uWSGI, Terminator, Makefiles, Bash scripts, HTML5..."))
         fill(view.findViewById(R.id.code_dislikes), "Dislikes", SpannableString("Apple, Microsoft, Oracle, Facebook (also Google in a way)..."))
-
+        // Personal
         fill(view.findViewById(R.id.personal_music), "Music", SpannableString("Ambient, Progressive, Chill-Out, Elektro-Dark, Trance, Drum'n'Bass..."))
         fill(view.findViewById(R.id.personal_movies), "Movies", SpannableString("Old French movies + The Matrix, The Fifth Element, Old Boy, V For Vendetta, Fight Club, Seven Pounds, The Fountain, Sucker Punch..."))
         fill(view.findViewById(R.id.personal_games), "Games", SpannableString("Half-Life, StarCraft, Minecraft, Portal, The Witness..."))
         fill(view.findViewById(R.id.personal_books), "Books", SpannableString("Peter F. Hamilton, Mikio Kaku, Le Comte de Monte-Cristo..."))
         fill(view.findViewById(R.id.personal_other), "Other", SpannableString("Hiking & camping, Bicycle & Rollers, Biology, Cosmology, Economics..."))
-
+        // Professional
         fill(view.findViewById(R.id.skills_systems), "Systems", SpannableStringHelper("GNU/Linux: Debian (and Ubuntu, LinuxMint), Fedora\n" +
                 "Windows: XP, Seven\n" +
                 "MacOS: MacOS X")
@@ -90,7 +92,7 @@ class ShkFragment : SkeletonFragment() {
                 "IDEs: Emacs, Android Studio, Atom, Eclipse, Netbeans")
                 .boldify(0, 7).boldify(37, 10).boldify(76, 4).apply())
         fill(view.findViewById(R.id.skills_languages), "Languages", SpannableString("French (native)\n" + "English (fluent, TOIEC 850+)"))
-
+        // Footer
         val github = view.findViewById<Button>(R.id.github)
         github.text = GITHUB.replaceFirst("https://github.com/".toRegex(), "")
         github.setOnClickListener { startActivity(IntentHelper.web(GITHUB)) }
@@ -99,13 +101,6 @@ class ShkFragment : SkeletonFragment() {
     private fun fill(view: View, string: String, spannable: Spannable) {
         (view.findViewById<View>(R.id.textView1) as TextView).text = string
         (view.findViewById<View>(R.id.textView2) as TextView).text = spannable
-    }
-
-    companion object {
-
-        val AVATAR = "https://raw.githubusercontent.com/shkschneider/shkschneider.github.io/master/shkschneider.png"
-        val GITHUB = "https://github.com/shkschneider/android_Skeleton"
-
     }
 
 }

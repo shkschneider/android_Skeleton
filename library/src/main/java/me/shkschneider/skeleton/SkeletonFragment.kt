@@ -4,6 +4,8 @@ import android.content.Context
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,20 +35,7 @@ import me.shkschneider.skeleton.helper.ContextHelper
  */
 abstract class SkeletonFragment : Fragment() {
 
-    protected var mActivity: SkeletonActivity? = null
-
-    init {
-        mActivity = activity as SkeletonActivity
-    }
-
-    val applicationContext: Context get() {
-        if (mActivity != null) {
-            return mActivity!!.applicationContext
-        }
-        return if (context != null) {
-            context.applicationContext
-        } else ContextHelper.applicationContext()
-    }
+    protected var activity: AppCompatActivity? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,11 +44,13 @@ abstract class SkeletonFragment : Fragment() {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
+        activity = context as AppCompatActivity
+        ContextHelper.applicationContext(context.applicationContext)
+    }
 
-        if (context !is SkeletonActivity) {
-            throw RuntimeException("Activity was not SkeletonActivity")
-        }
-        mActivity = context
+    fun fragmentManager(): FragmentManager {
+        val childFragmentManager: FragmentManager? = childFragmentManager
+        return childFragmentManager ?: fragmentManager
     }
 
     fun onCreateView(inflater: LayoutInflater, @LayoutRes resid: Int, container: ViewGroup?): View? {
@@ -75,7 +66,6 @@ abstract class SkeletonFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mActivity!!.bindMySwipeRefreshLayout()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -86,14 +76,9 @@ abstract class SkeletonFragment : Fragment() {
         return isVisible
     }
 
-    // @Nullable
-    fun skeletonActivity(): SkeletonActivity {
-        return mActivity!!
-    }
-
     override fun onDetach() {
         super.onDetach()
-        mActivity = null
+        activity = null
     }
 
     // Lifecycle

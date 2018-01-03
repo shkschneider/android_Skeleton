@@ -18,7 +18,6 @@ class MainApplication : SkeletonApplication() {
     override fun onCreate() {
         super.onCreate()
         LogHelper.verbose("DEBUGGABLE=" + ApplicationHelper.debuggable())
-        Proxy.get().requestQueue.cache.clear()
         shortcut("About")
     }
 

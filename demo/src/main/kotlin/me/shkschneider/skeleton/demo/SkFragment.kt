@@ -1,4 +1,4 @@
-package demo
+package me.shkschneider.skeleton.demo
 
 import android.os.Bundle
 import android.text.TextUtils
@@ -45,6 +45,7 @@ class SkFragment : SkeletonFragment() {
                 me.shkschneider.skeleton.helper.ApplicationHelper::class.java,
                 me.shkschneider.skeleton.helper.AssetsHelper::class.java,
                 me.shkschneider.skeleton.helper.BundleHelper::class.java,
+                me.shkschneider.skeleton.helper.CountdownHelper::class.java,
                 me.shkschneider.skeleton.helper.DateTimeHelper::class.java,
                 me.shkschneider.skeleton.helper.DeviceHelper::class.java,
                 me.shkschneider.skeleton.helper.IdHelper::class.java,
@@ -95,6 +96,7 @@ class SkFragment : SkeletonFragment() {
                 me.shkschneider.skeleton.ui.DrawableHelper::class.java,
                 me.shkschneider.skeleton.ui.EditTextHelper::class.java,
                 me.shkschneider.skeleton.ui.FloatingActionButtonCompat::class.java,
+                me.shkschneider.skeleton.ui.OverlayLoader::class.java,
                 me.shkschneider.skeleton.ui.PaletteHelper::class.java,
                 me.shkschneider.skeleton.ui.ScrollHelper::class.java,
                 me.shkschneider.skeleton.ui.ScrollViewHelper::class.java,

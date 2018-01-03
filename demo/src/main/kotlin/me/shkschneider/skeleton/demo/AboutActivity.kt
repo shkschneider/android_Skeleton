@@ -15,8 +15,8 @@ class AboutActivity : SkeletonActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about)
         home(true)
-        mToolbar?.title = "Skeleton"
-        mToolbar?.subtitle = "for Android"
+        toolbar?.title = "Skeleton"
+        toolbar?.subtitle = "for Android"
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -32,9 +32,7 @@ class AboutActivity : SkeletonActivity() {
 
         override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
-
             // Application
-
             val appPackage = findPreference("app_package")
             appPackage.title = "PackageName"
             appPackage.summary = ApplicationHelper.packageName()
@@ -50,9 +48,7 @@ class AboutActivity : SkeletonActivity() {
             val appFlavor = findPreference("app_flavor")
             appFlavor.title = "Flavor"
             appFlavor.summary = StringHelper.capitalize(BuildConfig.FLAVOR)
-
             // OS
-
             val osVersion = findPreference("os_version")
             osVersion.title = "Version"
             osVersion.summary = AndroidHelper.codename()

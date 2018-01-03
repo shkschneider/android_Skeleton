@@ -5,7 +5,7 @@
         @android:string/cancel
         @android:string/yes
         @android:string/no
-        @android:string/loading
+        @android:str_loadingding
         @string/dots
     -->
 

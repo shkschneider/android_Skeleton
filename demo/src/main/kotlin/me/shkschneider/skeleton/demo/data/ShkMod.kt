@@ -3,7 +3,7 @@ package me.shkschneider.skeleton.demo.data
 import com.google.gson.JsonArray
 import com.google.gson.annotations.SerializedName
 
-class ShkMod {
+object ShkMod {
 
     @SerializedName("api")
     var api: Int? = null
