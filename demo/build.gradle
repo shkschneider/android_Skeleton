@@ -1,6 +1,13 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
+Properties versionProperties = new Properties()
+def versionPropertiesFile = file('version.properties')
+if (versionPropertiesFile.exists()) versionProperties.load(new FileInputStream(versionPropertiesFile))
+def androidDefaultConfigVersionCode = (versionProperties['versionCode'] ?: "0").toInteger() + 1
+versionProperties['versionCode'] = androidDefaultConfigVersionCode.toString()
+versionProperties.store(versionPropertiesFile.newWriter(), null)
+
 android {
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
@@ -9,9 +16,9 @@ android {
         applicationId 'me.shkschneider.skeleton.demo'
         minSdkVersion 16 // Jelly Bean 4.1.x
         targetSdkVersion 26
-        versionCode 41
+        versionCode androidDefaultConfigVersionCode
         versionName "${versions.skeleton}"
-        archivesBaseName = "Skeleton-${android.defaultConfig.versionName}"
+        archivesBaseName = "Skeleton-$versionName"
     }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'

@@ -3,6 +3,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.shkschneider'
 
+Properties versionProperties = new Properties()
+def versionPropertiesFile = file('version.properties')
+if (versionPropertiesFile.exists()) versionProperties.load(new FileInputStream(versionPropertiesFile))
+def androidDefaultConfigVersionCode = (versionProperties['versionCode'] ?: "0").toInteger() + 1
+versionProperties['versionCode'] = androidDefaultConfigVersionCode.toString()
+versionProperties.store(versionPropertiesFile.newWriter(), null)
+
 android {
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
@@ -10,8 +17,8 @@ android {
     defaultConfig {
         minSdkVersion 16 // Jelly Bean 4.1.x
         targetSdkVersion 26
-        versionCode 41
-        versionName '8.0.0'
+        versionCode androidDefaultConfigVersionCode
+        versionName "${versions.skeleton}"
         // setProperty('archivesBaseName', "skeleton-$versionName")
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true
@@ -22,6 +29,10 @@ android {
         abortOnError false
     }
     // publishNonDefault true
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
 }
 
 dependencies {
