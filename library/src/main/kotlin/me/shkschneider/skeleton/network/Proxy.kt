@@ -25,7 +25,7 @@ object Proxy {
         })
     }
 
-    @Deprecated("")
+    @Deprecated("") // FIXME
     fun options(url: String): WebService {
         throw UnsupportedOperationException(WebService.Method.OPTIONS.name)
     }
@@ -34,7 +34,7 @@ object Proxy {
         return WebService(WebService.Method.GET, url)
     }
 
-    @Deprecated("")
+    @Deprecated("") // FIXME
     fun head(url: String): WebService {
         throw UnsupportedOperationException(WebService.Method.HEAD.name)
     }
@@ -51,12 +51,12 @@ object Proxy {
         return WebService(WebService.Method.DELETE, url)
     }
 
-    @Deprecated("")
+    @Deprecated("") // FIXME
     fun trace(url: String): WebService {
         throw UnsupportedOperationException(WebService.Method.TRACE.name)
     }
 
-    @Deprecated("")
+    @Deprecated("") // FIXME
     fun connect(url: String): WebService {
         throw UnsupportedOperationException(WebService.Method.CONNECT.name)
     }

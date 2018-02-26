@@ -40,6 +40,7 @@ abstract class ABaseTransformer : PageTransformer {
         }
     }
 
+    @Suppress("UNUSED_PARAMETER")
     private fun onPostTransform(page: View, position: Float) {
         // Empty
     }

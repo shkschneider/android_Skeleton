@@ -127,34 +127,19 @@ class MainActivity : SkeletonActivity() {
 
     private fun network() {
         WebService(WebService.Method.GET, URL)
-                .callback(ShkMod.javaClass, object : WebService.Callback<ShkMod?> {
-                    override fun success(result: ShkMod?) {
+                .callback(ShkMod.javaClass, object : WebService.Callback<Any?> {
+                    override fun success(result: Any?) {
                         if (result == null) {
                             Toaster.lengthShort(ClassHelper.simpleName(ShkMod::class.java))
                             return
                         }
+                        // val shkMod = result as ShkMod
                         notification(DateTimeHelper.timestamp().toInt(), ClassHelper.simpleName(ShkMod::class.java), ObjectHelper.jsonify(result))
                     }
                     override fun failure(e: WebServiceException) {
                         Toaster.lengthLong(ClassHelper.simpleName(e::class.java))
                     }
                 }).run()
-//        val tag: String = URL // defaults to URL anyway
-//        Proxy.requestQueue().cancelAll(tag)
-//        Proxy.requestQueue().add(
-//                MyRequest(Request.Method.GET, URL,
-//                        Response.Listener { response ->
-//                            val shkMod: ShkMod = Gson().fromJson(response.toString(), ShkMod::class.java)
-//                            notification(DateTimeHelper.timestamp().toInt(), ClassHelper.simpleName(ShkMod::class.java), ObjectHelper.jsonify(shkMod))
-//                        },
-//                        Response.ErrorListener { error ->
-//                            Toaster.lengthShort(ClassHelper.simpleName(error::class.java))
-//                        })
-//                        .setCacheTimeout(TimeUnit.SECONDS.toMillis(10).toInt())
-//                        .setPriority(Request.Priority.NORMAL)
-//                        .setRetryPolicy(DefaultRetryPolicy(2500, 1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT))
-//                        .setTag(tag)
-//        )
     }
 
     private fun notification(id: Int, title: String, message: String) {

@@ -31,6 +31,7 @@ object KeyboardHelper {
             editText.setOnEditorActionListener(null)
             return false
         }
+        @Suppress("UNUSED_ANONYMOUS_PARAMETER")
         editText.setOnEditorActionListener(TextView.OnEditorActionListener { textView, actionId, keyEvent ->
             if (all) {
                 skeletonReceiver.post(ClassHelper.simpleName(KeyboardHelper.javaClass), actionId)

@@ -1,14 +1,11 @@
 package me.shkschneider.skeleton.helper
 
 import android.annotation.SuppressLint
-import android.annotation.TargetApi
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.pm.ResolveInfo
 import android.media.RingtoneManager
 import android.net.Uri
-import android.os.Bundle
 import android.provider.ContactsContract
 import android.provider.MediaStore
 import android.provider.Settings
@@ -52,13 +49,22 @@ object IntentHelper {
     private val REQUEST_CODE_RINGTONE = 333
     private val REQUEST_CODE_PERMISSIONS = AndroidHelper.API_23
 
-    fun home(): Intent? {
+    fun main(): Intent? {
         val intent = ApplicationHelper.packageManager().getLaunchIntentForPackage(ApplicationHelper.packageName())
         if (intent == null) {
             LogHelper.warning("Intent was NULL")
             return null
         }
-        return intent.setFlags(FLAGS_HOME)
+        return Intent.makeMainActivity(intent.component).addFlags(FLAGS_HOME)
+    }
+
+    fun restart(): Intent? {
+        val intent = ApplicationHelper.packageManager().getLaunchIntentForPackage(ApplicationHelper.packageName())
+        if (intent == null) {
+            LogHelper.warning("Intent was NULL")
+            return null
+        }
+        return Intent.makeRestartActivityTask(intent.component).addFlags(FLAGS_CLEAR)
     }
 
     fun view(uri: Uri): Intent {
@@ -208,7 +214,6 @@ object IntentHelper {
                     LogHelper.warning("Uri was NULL")
                     return null
                 }
-
                 return BitmapHelper.decodeUri(uri)
             }
             REQUEST_CODE_RINGTONE -> {

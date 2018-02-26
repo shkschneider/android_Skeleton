@@ -181,7 +181,6 @@ object BitmapHelper {
         return BitmapFactory.decodeByteArray(bytes, 0, bytes.size, options)
     }
 
-    @Deprecated("") // TODO
     fun decodeUri(uri: Uri): Bitmap? {
         val options = BitmapFactory.Options()
         options.inJustDecodeBounds = true
@@ -215,7 +214,6 @@ object BitmapHelper {
             LogHelper.wtf(e)
             return null
         }
-
     }
 
     fun rotate(bitmap: Bitmap, degrees: Float): Bitmap {

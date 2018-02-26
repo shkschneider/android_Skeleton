@@ -227,7 +227,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
         actionBar.setDisplayHomeAsUpEnabled(b)
     }
 
-    @Deprecated("")
+    @Deprecated("Avoid")
     fun home(drawable: Drawable) {
         if (toolbar == null) {
             LogHelper.warning("Toolbar was NULL")
@@ -381,7 +381,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
         if (_skeletonReceiver == null) {
             return super.onOptionsItemSelected(item)
         }
-        val searchView = item.actionView as SearchView ?: return false
+        val searchView = item.actionView as SearchView
         if (item.itemId == R.id.menu_search) {
             searchView.isIconified = false
             return true
@@ -398,7 +398,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
     // Navigation
 
     override fun onSupportNavigateUp(): Boolean {
-        startActivity(IntentHelper.home())
+        startActivity(IntentHelper.main())
         return true
     }
 

@@ -26,6 +26,7 @@ object NetworkHelper {
     fun hostname(): String? {
         val cls = ClassHelper.get("android.os.SystemProperties")
         return if (cls != null) {
+            @Suppress("DEPRECATION")
             ReflectHelper.Method.method(cls, "get", arrayOf(String::class.java), "net.hostname") as String?
         } else SystemProperties.get("net.hostname")
         // Most probably null
