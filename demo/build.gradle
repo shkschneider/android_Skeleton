@@ -83,6 +83,14 @@ android {
             dimension 'default'
         }
     }
+    task myTask(type:Exec) {
+        print '> MyTask... ' + '\n'
+    }
+    tasks.whenTaskAdded { task ->
+        if (task.name == 'preDebugBuild' || task.name == 'preReleaseBuild') {
+            task.dependsOn myTask
+        }
+    }
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'
         exclude 'META-INF/DEPENDENCIES'
