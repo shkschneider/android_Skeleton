@@ -17,19 +17,19 @@ class MySwipeRefreshLayout : SwipeRefreshLayout {
 
     // Bugfix <https://code.google.com/p/android/issues/detail?id=87789>
 
-    private var _handleTouch = true
+    private var handleTouch = true
 
     // Prevents gesture conflicts with NavigationDrawer
     // <http://stackoverflow.com/a/24453194>
 
-    private var _touchSlop: Int = 0
-    private var _x: Float = 0.toFloat()
-    private var _declined: Boolean = false
+    private var touchSlop = 0
+    private var width = 0.toFloat()
+    private var declined = false
 
     init {
         isEnabled = false
         setColorSchemeResources(R.color.primaryColor)
-        _touchSlop = ViewConfiguration.get(context).scaledTouchSlop
+        touchSlop = ViewConfiguration.get(context).scaledTouchSlop
     }
 
     constructor(context: Context, attrs: AttributeSet? = null) : super(context, attrs)
@@ -56,14 +56,14 @@ class MySwipeRefreshLayout : SwipeRefreshLayout {
     override fun onTouchEvent(motionEvent: MotionEvent): Boolean {
         val action = motionEvent.action
         when (action) {
-            MotionEvent.ACTION_DOWN -> _handleTouch = false
+            MotionEvent.ACTION_DOWN -> handleTouch = false
             else -> {
-                if (_handleTouch) {
+                if (handleTouch) {
                     return super.onTouchEvent(motionEvent)
                 }
-                _handleTouch = onInterceptTouchEvent(motionEvent)
+                handleTouch = onInterceptTouchEvent(motionEvent)
                 when (action) {
-                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> _handleTouch = true
+                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> handleTouch = true
                 }
             }
         }
@@ -73,14 +73,14 @@ class MySwipeRefreshLayout : SwipeRefreshLayout {
     override fun onInterceptTouchEvent(motionEvent: MotionEvent): Boolean {
         when (motionEvent.action) {
             MotionEvent.ACTION_DOWN -> {
-                _x = MotionEvent.obtain(motionEvent).x
-                _declined = false
+                width = MotionEvent.obtain(motionEvent).x
+                declined = false
             }
             MotionEvent.ACTION_MOVE -> {
                 val x = motionEvent.x
-                val diff = Math.abs(x - _x)
-                if (_declined || diff > _touchSlop) {
-                    _declined = true
+                val diff = Math.abs(x - width)
+                if (declined || diff > touchSlop) {
+                    declined = true
                     return false
                 }
             }

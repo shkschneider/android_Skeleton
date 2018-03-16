@@ -4,14 +4,12 @@ import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.text.Html
-import android.text.TextUtils
 import android.widget.TextView
 
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.ImageLoader
 
 import me.shkschneider.skeleton.helper.ApplicationHelper
-import me.shkschneider.skeleton.helper.ContextHelper
 import me.shkschneider.skeleton.helper.LogHelper
 
 // android.text.Html.fromHtml(String, MyImageGetter, null)
@@ -42,7 +40,7 @@ class MyImageGetter : Html.ImageGetter {
                 _textView.text = _textView.text // HACK: invalidate()
             }
             override fun onErrorResponse(error: VolleyError) {
-                if (TextUtils.isEmpty(error.cause?.message)) {
+                if (! error.cause?.message.isNullOrBlank()) {
                     LogHelper.error(error.cause!!.message!!)
                 }
             }
@@ -53,14 +51,14 @@ class MyImageGetter : Html.ImageGetter {
     @Suppress("DEPRECATION")
     private class BitmapDrawablePlaceholder : BitmapDrawable() {
 
-        private var _drawable: Drawable? = null
+        private var drawable: Drawable? = null
 
         override fun draw(canvas: Canvas) {
-            _drawable?.draw(canvas)
+            drawable?.draw(canvas)
         }
 
         fun setDrawable(drawable: Drawable) {
-            _drawable = drawable
+            this.drawable = drawable
         }
 
     }

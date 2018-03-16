@@ -1,13 +1,17 @@
 package me.shkschneider.skeleton.network
 
+import android.annotation.SuppressLint
 import android.os.AsyncTask
 import android.support.annotation.Size
-import android.text.TextUtils
-
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.google.gson.JsonSyntaxException
-
+import me.shkschneider.skeleton.data.CharsetHelper
+import me.shkschneider.skeleton.data.FileHelper
+import me.shkschneider.skeleton.data.MimeTypeHelper
+import me.shkschneider.skeleton.extensions.isNotNull
+import me.shkschneider.skeleton.helper.LogHelper
+import me.shkschneider.skeleton.java.SkHide
 import java.io.BufferedWriter
 import java.io.DataOutputStream
 import java.io.IOException
@@ -16,69 +20,64 @@ import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
 
-import me.shkschneider.skeleton.data.CharsetHelper
-import me.shkschneider.skeleton.data.FileHelper
-import me.shkschneider.skeleton.data.MimeTypeHelper
-import me.shkschneider.skeleton.helper.LogHelper
-import me.shkschneider.skeleton.java.ClassHelper
-import me.shkschneider.skeleton.java.SkHide
-
 class WebService {
 
-    private val _TYPE = JsonElement::class.java
+    private val TYPE = JsonElement::class.java
+    private val TIMEOUT_CONNECT = 15000
+    private val TIMEOUT_READ = 60000
 
-    private val _method: WebService.Method
-    private val _url: String
-    private var _type: Class<*> = _TYPE
-    private var _headers: Map<String, String>? = null
-    private var _body: Map<String, String>? = null
-    private var _callback: Callback<Any>? = null
+    private val method: WebService.Method
+    private val url: String
+    private var type: Class<*> = TYPE
+    private var headers: Map<String, String>? = null
+    private var body: Map<String, String>? = null
+    private var callback: Callback<Any>? = null
 
     constructor(method: WebService.Method, url: String) {
-        _method = method
-        _url = url
+        this.method = method
+        this.url = url
     }
 
     @SkHide
     fun url(): String? {
-        return _url
+        return url
     }
 
     fun headers(headers: Map<String, String>?): WebService {
-        _headers = headers
+        this.headers = headers
         return this
     }
 
     @SkHide
     fun headers(): Map<String, String>? {
-        return _headers
+        return headers
     }
 
     fun body(body: Map<String, String>?): WebService {
-        _body = body
+        this.body = body
         return this
     }
 
     @SkHide
     fun body(): Map<String, String>? {
-        return _body
+        return body
     }
 
     @Deprecated("WebService.callback(Class<*>, WebService.Callback<Any>)")
     fun callback(callback: WebService.Callback<Any>?): WebService {
-        _callback = callback
+        this.callback = callback
         return this
     }
 
     fun callback(type: Class<*>, callback: WebService.Callback<Any>?): WebService {
-        _type = type
-        _callback = callback
+        this.type = type
+        this.callback = callback
         return this
     }
 
     @SkHide
     fun callback(): Callback<*>? {
-        return _callback
+        return callback
     }
 
     fun run() {
@@ -98,103 +97,87 @@ class WebService {
         CONNECT;
 
         fun allowsBody(): Boolean {
-            when (this) {
+            return when (this) {
                 POST, PUT, DELETE // Although SHOULD be ignored
-                -> return true
-                else -> return false
+                -> true
+                else -> false
             }
         }
 
     }
 
+    @SuppressLint("StaticFieldLeak") // FIXME
     private inner class Task : AsyncTask<Void, Void, Any>() {
-
-        private val _TIMEOUT_CONNECT = 15000
-        private val _TIMEOUT_READ = 60000
 
         override fun doInBackground(@Size(0) vararg voids: Void): Any {
             var httpURLConnection: HttpURLConnection? = null
             try {
-                val url = URL(_url)
+                val url = URL(url)
                 httpURLConnection = url.openConnection() as HttpURLConnection
-                httpURLConnection.connectTimeout = _TIMEOUT_CONNECT
-                httpURLConnection.readTimeout = _TIMEOUT_READ
-                httpURLConnection.useCaches = false
-                httpURLConnection.doInput = true
-                if (_headers != null) {
-                    for ((key, value) in _headers!!) {
-                        httpURLConnection.setRequestProperty(key, value)
+                with (httpURLConnection) {
+                    connectTimeout = TIMEOUT_CONNECT
+                    readTimeout = TIMEOUT_READ
+                    useCaches = false
+                    doInput = true
+                    headers?.forEach {
+                        setRequestProperty(it.key, it.value)
                     }
-                }
-                val allowsBody = _method.allowsBody()
-                httpURLConnection.requestMethod = _method.name
-                httpURLConnection.doOutput = allowsBody
-                if (!allowsBody && _body != null) {
-                    return WebServiceException(WebServiceException.INTERNAL_ERROR, "Body not allowed")
-                }
-                if (_body != null) {
-                    httpURLConnection.setRequestProperty("Content-Type", MimeTypeHelper.APPLICATION_FORMURLENCODED)
-                    val dataOutputStream = DataOutputStream(httpURLConnection.outputStream)
-                    var params = ""
-                    for (key in _body!!.keys) {
-                        if (!TextUtils.isEmpty(params)) params += "&"
-                        params += key + "=" + UrlHelper.encode(_body!![key]!!)
+                    requestMethod = method.name
+                    doOutput = method.allowsBody()
+                    if (! doOutput && body != null) {
+                        return WebServiceException(WebServiceException.INTERNAL_ERROR, "Body not allowed")
                     }
-                    val bufferedWriter = BufferedWriter(OutputStreamWriter(dataOutputStream, CharsetHelper.UTF8))
-                    bufferedWriter.write(params)
-                    bufferedWriter.flush()
-                    bufferedWriter.close()
-                    dataOutputStream.close()
-                }
-                LogHelper.debug("=> " + _method.name + " " + url + " " + (if (_headers != null) _headers!!.toString() else "{}") + " " + if (_body != null) _body!!.toString() else "{}")
-                val responseCode = httpURLConnection.responseCode
-                val responseMessage = httpURLConnection.responseMessage
-                LogHelper.debug("<= $responseCode $responseMessage $url")
-                val errorStream = httpURLConnection.errorStream
-                if (errorStream != null) {
-                    val body = FileHelper.readString(errorStream)
-                    if (!TextUtils.isEmpty(body)) {
-                        LogHelper.verbose("<- " + body!!)
-                        return WebServiceException(responseCode, body)
+                    body?.let {
+                        setRequestProperty("Content-Type", MimeTypeHelper.APPLICATION_FORMURLENCODED)
+                        val dataOutputStream = DataOutputStream(outputStream)
+                        var params = ""
+                        it.keys.forEach {
+                            params += it + "=" + UrlHelper.encode(it)
+                        }
+                        val bufferedWriter = BufferedWriter(OutputStreamWriter(dataOutputStream, CharsetHelper.UTF8))
+                        bufferedWriter.write(params)
+                        bufferedWriter.flush()
+                        bufferedWriter.close()
+                        dataOutputStream.close()
                     }
-                    return WebServiceException(responseCode, responseMessage)
-                }
-                val inputStream = httpURLConnection.inputStream
-                val body = FileHelper.readString(inputStream)
-                LogHelper.verbose("<- " + body!!)
-                if (TextUtils.isEmpty(body)) {
-                    return ""
-                } else {
-                    val result = Gson().fromJson(body, _type)
-                    if (result != null) {
-                        return result
+                    LogHelper.debug("=> " + method.name + " " + url + " " + (if (headers != null) headers!!.toString() else "{}") + " " + if (body != null) body!!.toString() else "{}")
+                    LogHelper.debug("<= $responseCode $responseMessage $url")
+                    if (errorStream.isNotNull()) {
+                        val body = FileHelper.readString(errorStream)
+                        if (! body.isNullOrEmpty()) {
+                            LogHelper.verbose("<- " + body!!)
+                            return WebServiceException(responseCode, body)
+                        }
+                        return WebServiceException(responseCode, responseMessage)
                     }
+                    val body = FileHelper.readString(inputStream)
+                    LogHelper.verbose("<- " + body!!)
+                    return Gson().fromJson(body, type) ?: WebServiceException(responseCode, responseMessage)
                 }
-                return WebServiceException(responseCode, responseMessage)
             } catch (e: JsonSyntaxException) {
                 LogHelper.wtf(e)
-                return WebServiceException(WebServiceException.INTERNAL_ERROR, ClassHelper.simpleName(e.javaClass))
+                return WebServiceException(WebServiceException.INTERNAL_ERROR, JsonSyntaxException::class.java.simpleName)
             } catch (e: MalformedURLException) {
                 LogHelper.wtf(e)
-                return WebServiceException(WebServiceException.INTERNAL_ERROR, ClassHelper.simpleName(e.javaClass))
+                return WebServiceException(WebServiceException.INTERNAL_ERROR, MalformedURLException::class.java.simpleName)
             } catch (e: IOException) {
                 LogHelper.wtf(e)
-                return WebServiceException(WebServiceException.INTERNAL_ERROR, ClassHelper.simpleName(e.javaClass))
+                return WebServiceException(WebServiceException.INTERNAL_ERROR, IOException::class.java.simpleName)
             } finally {
-                if (httpURLConnection != null) {
-                    httpURLConnection.disconnect()
-                }
+                httpURLConnection?.disconnect()
             }
         }
 
         override fun onPostExecute(result: Any?) {
             super.onPostExecute(result)
-            when (result) {
-                is WebServiceException -> _callback!!.failure((result as WebServiceException?)!!)
-                null -> _callback!!.success(null)
-                _type.javaClass == result.javaClass -> _callback!!.success(result)
-                else -> _callback!!.failure(WebServiceException(WebServiceException.INTERNAL_ERROR,
-                        ClassHelper.simpleName(result.javaClass) + " != " + ClassHelper.simpleName(_type)))
+            callback?.let {
+                when (result) {
+                    is WebServiceException -> it.failure((result as WebServiceException?)!!)
+                    null -> it.success(null)
+                    type::class.java == result::class.java -> it.success(result)
+                    else -> it.failure(WebServiceException(WebServiceException.INTERNAL_ERROR,
+                            result::class.java.simpleName + " != " + type::class.java.simpleName))
+                }
             }
         }
 

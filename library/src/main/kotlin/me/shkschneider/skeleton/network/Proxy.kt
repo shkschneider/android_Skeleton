@@ -7,6 +7,7 @@ import com.android.volley.toolbox.ImageLoader
 import com.android.volley.toolbox.Volley
 
 import me.shkschneider.skeleton.helper.ContextHelper
+import me.shkschneider.skeleton.helper.LogHelper
 
 // <https://developer.android.com/training/volley/requestqueue.html>
 object Proxy {
@@ -16,8 +17,13 @@ object Proxy {
     init {
         imageLoader = ImageLoader(Volley.newRequestQueue(ContextHelper.applicationContext()), object : ImageLoader.ImageCache {
             private val CACHE = LruCache<String, Bitmap>(42)
-            override fun getBitmap(url: String): Bitmap {
-                return CACHE.get(url)
+            override fun getBitmap(url: String): Bitmap? {
+                try {
+                    return CACHE.get(url)
+                } catch (e: IllegalStateException) {
+                    LogHelper.wtf(e)
+                    return null
+                }
             }
             override fun putBitmap(url: String, bitmap: Bitmap) {
                 CACHE.put(url, bitmap)
@@ -25,7 +31,7 @@ object Proxy {
         })
     }
 
-    @Deprecated("") // FIXME
+    @Deprecated("Not implemented")
     fun options(url: String): WebService {
         throw UnsupportedOperationException(WebService.Method.OPTIONS.name)
     }
@@ -34,7 +40,7 @@ object Proxy {
         return WebService(WebService.Method.GET, url)
     }
 
-    @Deprecated("") // FIXME
+    @Deprecated("Not implemented")
     fun head(url: String): WebService {
         throw UnsupportedOperationException(WebService.Method.HEAD.name)
     }
@@ -51,12 +57,12 @@ object Proxy {
         return WebService(WebService.Method.DELETE, url)
     }
 
-    @Deprecated("") // FIXME
+    @Deprecated("Not implemented")
     fun trace(url: String): WebService {
         throw UnsupportedOperationException(WebService.Method.TRACE.name)
     }
 
-    @Deprecated("") // FIXME
+    @Deprecated("Not implemented")
     fun connect(url: String): WebService {
         throw UnsupportedOperationException(WebService.Method.CONNECT.name)
     }

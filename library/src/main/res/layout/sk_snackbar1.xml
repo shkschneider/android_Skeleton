@@ -14,10 +14,10 @@
         android:layout_height="match_parent"
         android:textSize="@dimen/textSizeSmall"
         android:textColor="@color/snackBarForegroundColor"
-        android:maxLines="1"
         android:ellipsize="marquee"
         android:gravity="start|center_vertical"
-        android:text="@string/dots" />
+        android:text="@string/dots"
+        android:singleLine="true" />
 
     <Space
         android:layout_width="@dimen/spaceTinish"
@@ -36,9 +36,9 @@
         android:textSize="@dimen/textSizeSmall"
         android:textAllCaps="true"
         android:textColor="@color/accentColor"
-        android:maxLines="1"
         android:ellipsize="marquee"
         android:gravity="center"
-        android:text="@string/dots" />
+        android:text="@string/dots"
+        android:singleLine="true" />
 
 </LinearLayout>

@@ -3,27 +3,17 @@ package me.shkschneider.skeleton.data
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.support.annotation.RawRes
-
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.InputStream
-import java.io.OutputStream
-import java.util.ArrayList
-import java.util.NoSuchElementException
-import java.util.Scanner
-
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.AssetsHelper
 import me.shkschneider.skeleton.helper.LogHelper
 import me.shkschneider.skeleton.ui.BitmapHelper
+import java.io.*
+import java.util.*
 
 object FileHelper {
 
-    const val PREFIX_ASSETS = "file:///android_asset/"
-    const val PREFIX_RES = "file:///android_res/"
+    val PREFIX_ASSETS = "file:///android_asset/"
+    val PREFIX_RES = "file:///android_res/"
 
     fun join(dirname: String, basename: String): String {
         val file = File(dirname, basename)
@@ -113,16 +103,13 @@ object FileHelper {
     }
 
     fun list(file: File): List<String>? {
-        if (!file.isDirectory) {
+        if (! file.isDirectory) {
             LogHelper.debug("File was not a directory")
             return null
         }
-        val files = file.listFiles()
-        if (files == null) {
-            LogHelper.debug("Files was NULL")
-            return null
+        return file.listFiles()?.let {
+            it.mapTo(ArrayList<String>()) { it.absolutePath }
         }
-        return files.mapTo(ArrayList<String>()) { it.absolutePath }
     }
 
     fun remove(file: File): Boolean {

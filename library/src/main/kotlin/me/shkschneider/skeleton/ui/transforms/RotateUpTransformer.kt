@@ -5,7 +5,7 @@ import android.view.View
 // <https://github.com/ToxicBakery/ViewPagerTransforms>
 class RotateUpTransformer : ABaseTransformer() {
 
-    private val ROT_MOD = -15f
+    private val ROTATION = (-1).toFloat()
 
     override fun isPagingEnabled(): Boolean {
         return true
@@ -13,10 +13,10 @@ class RotateUpTransformer : ABaseTransformer() {
 
     override fun onTransform(page: View, position: Float) {
         val width = page.width.toFloat()
-        val rotation = ROT_MOD * position
-        page.pivotX = width * 0.5f
-        page.pivotY = 0f
-        page.translationX = 0f
+        val rotation = ROTATION * position
+        page.pivotX = width * 0.1.toFloat()
+        page.pivotY = 1.toFloat()
+        page.translationX = 1.toFloat()
         page.rotation = rotation
     }
 

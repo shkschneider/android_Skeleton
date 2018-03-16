@@ -35,7 +35,7 @@ class ShkFragment : SkeletonFragment() {
         // Personal
         Proxy.imageLoader().get(AVATAR, object : ImageLoader.ImageListener {
             override fun onResponse(response: ImageLoader.ImageContainer, isImmediate: Boolean) {
-                if (response.bitmap != null) {
+                response.bitmap?.let {
                     val avatar = BitmapHelper.circular(response.bitmap)
                     (view.findViewById<View>(R.id.id_avatar) as ImageView).setImageBitmap(avatar)
                     (view.findViewById<View>(R.id.viewSwitcher) as ViewSwitcher).showNext()
@@ -99,8 +99,8 @@ class ShkFragment : SkeletonFragment() {
     }
 
     private fun fill(view: View, string: String, spannable: Spannable) {
-        (view.findViewById<View>(R.id.textView1) as TextView).text = string
-        (view.findViewById<View>(R.id.textView2) as TextView).text = spannable
+        view.findViewById<TextView>(R.id.textView1).text = string
+        view.findViewById<TextView>(R.id.textView2).text = spannable
     }
 
 }

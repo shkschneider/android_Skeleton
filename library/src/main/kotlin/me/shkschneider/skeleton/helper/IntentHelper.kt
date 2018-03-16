@@ -9,20 +9,17 @@ import android.net.Uri
 import android.provider.ContactsContract
 import android.provider.MediaStore
 import android.provider.Settings
-import android.text.TextUtils
-
-import java.io.File
-
+import me.shkschneider.skeleton.data.MimeTypeHelper
 import me.shkschneider.skeleton.java.SkHide
 import me.shkschneider.skeleton.network.UrlHelper
 import me.shkschneider.skeleton.ui.BitmapHelper
-import me.shkschneider.skeleton.data.MimeTypeHelper
+import java.io.File
 
 // <http://developer.android.com/reference/android/content/Intent.html>
 object IntentHelper {
 
-    const val FLAGS_HOME = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-    const val FLAGS_CLEAR = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_CLEAR_TOP
+    val FLAGS_HOME = (Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+    val FLAGS_CLEAR = (Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
     object GooglePlay {
 
@@ -72,7 +69,7 @@ object IntentHelper {
     }
 
     fun web(url: String): Intent? {
-        if (!UrlHelper.valid(url)) {
+        if (! UrlHelper.valid(url)) {
             LogHelper.warning("Url was invalid")
             return null
         }
@@ -84,10 +81,10 @@ object IntentHelper {
                 .setType(MimeTypeHelper.TEXT_PLAIN)
         // Email: intent.setData(Uri.parse("mailto:"));
         //        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { ... });
-        if (!TextUtils.isEmpty(subject)) {
+        if (! subject.isNullOrBlank()) {
             intent.putExtra(Intent.EXTRA_SUBJECT, subject)
         }
-        if (!TextUtils.isEmpty(text)) {
+        if (! text.isNullOrBlank()) {
             intent.putExtra(Intent.EXTRA_TEXT, text)
         }
         return Intent.createChooser(intent, null)
@@ -104,8 +101,8 @@ object IntentHelper {
 
     fun ringtone(existingUri: String?): Intent {
         val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER)
-        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION)
-        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, if (existingUri != null) Uri.parse(existingUri) else null)
+                .putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION)
+                .putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, if (existingUri != null) Uri.parse(existingUri) else null)
         return intent
     }
 
@@ -144,14 +141,14 @@ object IntentHelper {
     }
 
     fun camera(file: File): Intent? {
-        if (!FeaturesHelper.has(FeaturesHelper.FEATURE_CAMERA)) {
+        if (! FeaturesHelper.has(FeaturesHelper.FEATURE_CAMERA)) {
             LogHelper.warning("Camera was unavailable")
             return null
         }
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 .putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file))
                 .putExtra(MediaStore.EXTRA_SHOW_ACTION_ICONS, true)
-        if (!canHandle(intent)) {
+        if (! canHandle(intent)) {
             LogHelper.warning("Cannot handle Intent")
             return null
         }

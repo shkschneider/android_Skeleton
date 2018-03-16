@@ -7,7 +7,7 @@ class AccordionTransformer : ABaseTransformer() {
 
     override fun onTransform(page: View, position: Float) {
         page.pivotX = (if (position < 0) 0 else page.width).toFloat()
-        page.scaleX = if (position < 0) 1f + position else 1f - position
+        page.scaleX = if (position < 0) 1.toFloat() + position else 1.toFloat() - position
     }
 
 }

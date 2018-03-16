@@ -4,12 +4,9 @@ import android.content.Context
 import android.content.res.Resources
 import android.support.v7.widget.AppCompatSpinner
 import android.util.AttributeSet
-import android.widget.AdapterView
 
 // <http://stackoverflow.com/a/11227847>
 class MySpinner : AppCompatSpinner {
-
-    private var mOnItemSelectedListener: AdapterView.OnItemSelectedListener? = null
 
     constructor(context: Context) : super(context)
 
@@ -25,13 +22,7 @@ class MySpinner : AppCompatSpinner {
 
     override fun setSelection(position: Int) {
         super.setSelection(position)
-        if (mOnItemSelectedListener != null) {
-            mOnItemSelectedListener!!.onItemSelected(null, null, position, 0)
-        }
-    }
-
-    override fun setOnItemSelectedListener(listener: AdapterView.OnItemSelectedListener?) {
-        mOnItemSelectedListener = listener
+        onItemSelectedListener?.onItemSelected(null, null, position, 0)
     }
 
 }

@@ -2,29 +2,28 @@ package me.shkschneider.skeleton.ui
 
 import android.annotation.TargetApi
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Rect
-import android.graphics.Typeface
+import android.graphics.*
 import android.support.annotation.ColorInt
 import android.support.annotation.IntRange
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
-
 import me.shkschneider.skeleton.helper.AndroidHelper
 import me.shkschneider.skeleton.helper.LogHelper
+import me.shkschneider.skeleton.helper.Metrics
 import me.shkschneider.skeleton.helper.ScreenHelper
-import me.shkschneider.skeleton.java.StringHelper
 
 // <https://github.com/IvBaranov/MaterialLetterIcon>
 class LetterIcon : View {
 
-    private var shapePaint: Paint = Paint()
-    private var letterPaint: Paint = Paint()
+    private val DEFAULT = "#"
+    private val DP = 40
+    private val RECT = Rect()
+
+    private var shapePaint = Paint()
+    private var letterPaint = Paint()
     private var shapeColor = Color.BLACK
-    private var letter: String? = null
+    private var letter = DEFAULT
     private var letterColor = Color.WHITE
     private var letterSize = 26 // R.dimen.textSizeBig
 
@@ -50,7 +49,7 @@ class LetterIcon : View {
             return
         }
         if (layoutParams.width == ViewGroup.LayoutParams.WRAP_CONTENT) {
-            val dp = ScreenHelper.pixelsFromDp(DP.toFloat())
+            val dp = Metrics.pixelsFromDp(DP.toFloat())
             layoutParams.width = dp
             layoutParams.height = dp
             invalidate()
@@ -58,25 +57,19 @@ class LetterIcon : View {
     }
 
     override fun onDraw(canvas: Canvas) {
-        val w = measuredWidth / 2
-        val h = measuredHeight / 2
-        val radius = if (w > h) h else w
-        drawCircle(canvas, radius, w, h)
-        if (letter != null) {
-            drawLetter(canvas, w.toFloat(), h.toFloat())
+        val width = measuredWidth / 2
+        val height = measuredHeight / 2
+        val radius = if (width > height) height else width
+        with (shapePaint) {
+            color = shapeColor
+            canvas.drawCircle(width.toFloat(), height.toFloat(), radius.toFloat(), this)
         }
-    }
-
-    private fun drawCircle(canvas: Canvas, radius: Int, width: Int, height: Int) {
-        shapePaint.color = shapeColor
-        canvas.drawCircle(width.toFloat(), height.toFloat(), radius.toFloat(), shapePaint)
-    }
-
-    private fun drawLetter(canvas: Canvas, cx: Float, cy: Float) {
-        letterPaint.color = letterColor
-        letterPaint.textSize = ScreenHelper.pixelsFromSp(letterSize.toFloat()).toFloat()
-        letterPaint.getTextBounds(letter, 0, letter!!.length, RECT)
-        canvas.drawText(letter!!, cx - RECT.exactCenterX(), cy - RECT.exactCenterY(), letterPaint)
+        with (letterPaint) {
+            color = letterColor
+            textSize = Metrics.pixelsFromSp(letterSize.toFloat()).toFloat()
+            getTextBounds(letter, 0, letter.length, RECT)
+            canvas.drawText(letter, width - RECT.exactCenterX(), height - RECT.exactCenterY(), this)
+        }
     }
 
     fun setShapeColor(@ColorInt color: Int) {
@@ -85,10 +78,8 @@ class LetterIcon : View {
     }
 
     fun setLetter(string: String) {
-        letter = StringHelper.upper(string.replace("\\s+".toRegex(), ""))
-        if (letter!!.isNotEmpty()) {
-            letter = letter!!.substring(0, 1)
-        }
+        letter = string.replace("\\s+".toRegex(), "").toUpperCase()
+        letter = if (letter.isNotEmpty()) letter.first().toString() else DEFAULT
         invalidate()
     }
 
@@ -105,13 +96,6 @@ class LetterIcon : View {
     fun setLetterTypeface(typeface: Typeface) {
         letterPaint.typeface = typeface
         invalidate()
-    }
-
-    companion object {
-
-        private val DP = 40
-        private val RECT = Rect()
-
     }
 
 }

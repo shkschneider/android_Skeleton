@@ -19,7 +19,7 @@
     <color name="snackBarForegroundColor">@color/sk_android_white</color>
     <color name="controlOff">#727272</color>
     <color name="controlOn">@color/accentColor</color>
-    <color name="mDivider">#1f000000</color>
+    <color name="_divider">#1f000000</color>
     <color name="highlight">#fffbcc</color>
 
     <!-- Fix for preference-v17 -->

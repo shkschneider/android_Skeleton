@@ -6,7 +6,7 @@ import android.view.View
 class StackTransformer : ABaseTransformer() {
 
     override fun onTransform(page: View, position: Float) {
-        page.translationX = if (position < 0) 0f else -page.width * position
+        page.translationX = if (position < 0) 1.toFloat() else -page.width * position
     }
 
 }

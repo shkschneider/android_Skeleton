@@ -13,20 +13,10 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.SearchView
 import android.support.v7.widget.Toolbar
 import android.text.InputType
-import android.text.TextUtils
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
-import android.view.Window
-import android.view.WindowManager
+import android.view.*
 import android.view.inputmethod.EditorInfo
-
-import me.shkschneider.skeleton.helper.AndroidHelper
-import me.shkschneider.skeleton.helper.ApplicationHelper
-import me.shkschneider.skeleton.helper.IntentHelper
-import me.shkschneider.skeleton.helper.KeyboardHelper
-import me.shkschneider.skeleton.helper.LogHelper
+import me.shkschneider.skeleton.extensions.isNull
+import me.shkschneider.skeleton.helper.*
 import me.shkschneider.skeleton.ui.OverlayLoader
 
 /**
@@ -58,26 +48,19 @@ abstract class SkeletonActivity : AppCompatActivity() {
     // Search
     // <http://stackoverflow.com/q/18438890>
 
-    companion object {
-
-        const val RESULT_SEARCH_CHANGE = "onQueryTextChange"
-        const val RESULT_SEARCH_SUBMIT = "onQueryTextSubmit"
-
-    }
-
     protected var toolbar: Toolbar? = null
 
-    private var _alive = false
+    private var alive = false
 
     // Refresh
     // <https://gist.github.com/antoniolg/9837398>
 
-    private var _loading: Int = 0
+    private var loading = 0
 
-    private var _searchHint: String? = null
-    private var _skeletonReceiver: SkeletonReceiver? = null
-    private var _searchMenuItem: MenuItem? = null
-    private var _searchView: SearchView? = null
+    private var searchHint: String? = null
+    private var skeletonReceiver: SkeletonReceiver? = null
+    private var searchMenuItem: MenuItem? = null
+    private var searchView: SearchView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,10 +69,9 @@ abstract class SkeletonActivity : AppCompatActivity() {
         if (AndroidHelper.api() >= AndroidHelper.API_21) {
             init21()
         }
-        val intent = intent
-        if (intent != null && intent.extras != null) {
+        intent?.extras?.let {
             LogHelper.verbose("onNewIntent: " + intent)
-            onNewIntent(intent)
+            onNewIntent(intent) // FIXME keep?
         }
     }
 
@@ -129,9 +111,10 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     @TargetApi(AndroidHelper.API_21)
     fun statusBarColor(window: Window): Int {
-        return if (AndroidHelper.api() >= AndroidHelper.API_21) {
-            window.statusBarColor
-        } else Color.TRANSPARENT
+        if (AndroidHelper.api() >= AndroidHelper.API_21) {
+            return window.statusBarColor
+        }
+        return Color.TRANSPARENT // Color.BLACK
     }
 
     @TargetApi(AndroidHelper.API_21)
@@ -144,20 +127,20 @@ abstract class SkeletonActivity : AppCompatActivity() {
         return false
     }
 
-    fun toolbarColor(@ColorInt color: Int): Boolean {
-        if (toolbar == null) {
+    fun toolbarColor(@ColorInt color: Int): Boolean? {
+        if (toolbar.isNull()) {
             LogHelper.warning("Toolbar was NULL")
             return false
         }
-        toolbar!!.setBackgroundColor(color)
+        toolbar?.setBackgroundColor(color)
         return true
     }
 
     protected fun bindToolbar() {
         toolbar = findViewById(R.id.toolbar)
-        if (toolbar != null) {
+        toolbar?.let {
             // LogHelper.verbose("Found a Toolbar");
-            setSupportActionBar(toolbar)
+            setSupportActionBar(it)
             title(ApplicationHelper.name())
         }
     }
@@ -180,13 +163,13 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        _alive = true
+        alive = true
     }
 
     override fun onPause() {
         super.onPause()
-        _skeletonReceiver = null
-        _alive = false
+        skeletonReceiver = null
+        alive = false
     }
 
     override fun onStop() {
@@ -200,7 +183,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     fun alive(): Boolean {
-        return _alive
+        return alive
     }
 
     // ToolBar
@@ -210,30 +193,25 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     fun toolbar(b: Boolean) {
-        if (toolbar == null) {
-            LogHelper.warning("Toolbar was NULL")
-            return
+        toolbar ?: LogHelper.warning("Toolbar was NULL")
+        toolbar?.let {
+            it.visibility = if (b) View.VISIBLE else View.GONE
         }
-        val visibility = if (b) View.VISIBLE else View.GONE
-        toolbar!!.visibility = visibility
     }
 
     fun home(b: Boolean) {
-        val actionBar = supportActionBar
-        if (actionBar == null) {
-            LogHelper.warning("ActionBar was NULL")
-            return
+        supportActionBar ?: LogHelper.warning("ActionBar was NULL")
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(b)
         }
-        actionBar.setDisplayHomeAsUpEnabled(b)
     }
 
     @Deprecated("Avoid")
     fun home(drawable: Drawable) {
-        if (toolbar == null) {
-            LogHelper.warning("Toolbar was NULL")
-            return
+        toolbar ?: LogHelper.warning("Toolbar was NULL")
+        toolbar?.let {
+            it.navigationIcon = drawable
         }
-        toolbar!!.navigationIcon = drawable
     }
 
     @Deprecated("Use logo()")
@@ -242,54 +220,38 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     fun logo(drawable: Drawable?) {
-        val actionBar = supportActionBar
-        if (actionBar == null) {
-            LogHelper.warning("ActionBar was NULL")
-            return
+        supportActionBar ?: LogHelper.warning("ActionBar was NULL")
+        supportActionBar?.let {
+            it.setDisplayShowHomeEnabled(drawable != null)
+            it.setDisplayUseLogoEnabled(drawable != null)
+            it.setLogo(drawable)
         }
-        actionBar.setDisplayShowHomeEnabled(drawable != null)
-        actionBar.setDisplayUseLogoEnabled(drawable != null)
-        actionBar.setLogo(drawable)
     }
 
     fun title(title: String?) {
-        val actionBar = supportActionBar
-        if (actionBar == null) {
-            LogHelper.warning("ActionBar was NULL")
-            return
+        supportActionBar ?: LogHelper.warning("ActionBar was NULL")
+        supportActionBar?.let {
+            it.setDisplayShowTitleEnabled(! title.isNullOrEmpty())
+            it.title = title
         }
-        actionBar.setDisplayShowTitleEnabled(!TextUtils.isEmpty(title))
-        actionBar.title = title
     }
 
     fun title(): String? {
-        val actionBar = supportActionBar
-        if (actionBar == null) {
-            LogHelper.warning("ActionBar was NULL")
-            return null
-        }
-        val title = actionBar.title
-        return title?.toString()
+        supportActionBar ?: LogHelper.warning("ActionBar was NULL")
+        return supportActionBar?.subtitle?.toString()
     }
 
-    fun subtitle(subtitle: String) {
-        val actionBar = supportActionBar
-        if (actionBar == null) {
-            LogHelper.warning("ActionBar was NULL")
-            return
+    fun subtitle(subtitle: String?) {
+        supportActionBar ?: LogHelper.warning("ActionBar was NULL")
+        supportActionBar?.let {
+            it.setDisplayShowTitleEnabled(! title.isNullOrEmpty() || subtitle.isNullOrEmpty())
+            it.subtitle = subtitle
         }
-        actionBar.setDisplayShowTitleEnabled(!TextUtils.isEmpty(subtitle))
-        actionBar.subtitle = subtitle
     }
 
     fun subtitle(): String? {
-        val actionBar = supportActionBar
-        if (actionBar == null) {
-            LogHelper.warning("ActionBar was NULL")
-            return null
-        }
-        val subtitle = actionBar.subtitle
-        return subtitle?.toString()
+        supportActionBar ?: LogHelper.warning("ActionBar was NULL")
+        return supportActionBar?.subtitle?.toString()
     }
 
     // Loading
@@ -297,28 +259,28 @@ abstract class SkeletonActivity : AppCompatActivity() {
     protected var overlayLoader: OverlayLoader? = null
 
     fun loading(): Int {
-        return _loading
+        return loading
     }
 
     fun loading(i: Int) {
-        val count = _loading + i
+        val count = loading + i
         if (count < 0) {
             loading(false)
-            _loading = 0
+            loading = 0
             return
         }
-        if (_loading == 0 && count > 0) {
+        if (loading == 0 && count > 0) {
             loading(true)
-        } else if (_loading > 0 && count == 0) {
+        } else if (loading > 0 && count == 0) {
             loading(false)
         }
-        _loading = count
+        loading = count
     }
 
     fun loading(b: Boolean) {
         if (! b) {
             // Resets loading count to avoid side-effects upon re-loading
-            _loading = 0
+            loading = 0
         }
         if (b) {
             if (overlayLoader != null) {
@@ -331,56 +293,59 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     fun searchable(): Boolean {
-        return _skeletonReceiver != null
+        return skeletonReceiver != null
     }
 
     fun searchable(hint: String, skeletonReceiver: SkeletonReceiver?) {
-        _searchHint = hint
-        _skeletonReceiver = skeletonReceiver
+        searchHint = hint
+        this.skeletonReceiver = skeletonReceiver
         // AVOID supportInvalidateOptionsMenu()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        if (_skeletonReceiver == null) {
+        if (skeletonReceiver == null) {
             return super.onCreateOptionsMenu(menu)
         }
-        menuInflater.inflate(R.menu.sk_search, menu)
-        _searchMenuItem = menu.findItem(R.id.menu_search)
-        if (_searchMenuItem == null) {
-            LogHelper.warning("SearchMenuItem was NULL")
-            return super.onCreateOptionsMenu(menu)
-        }
-        _searchView = _searchMenuItem!!.actionView as SearchView
-        if (_searchView == null) {
-            LogHelper.warning("SearchView was NULL")
-            return super.onCreateOptionsMenu(menu)
-        }
-        _searchView!!.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
-        _searchView!!.imeOptions = EditorInfo.IME_ACTION_SEARCH
-        _searchView!!.setIconifiedByDefault(true)
-        _searchView!!.queryHint = _searchHint
-        _searchView!!.setOnCloseListener {
-            _skeletonReceiver!!.post(RESULT_SEARCH_CHANGE, "")
-            false
-        }
-        _searchView!!.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(q: String): Boolean {
-                stopSearch()
-                _skeletonReceiver!!.post(RESULT_SEARCH_SUBMIT, q)
-                return true
+        with (skeletonReceiver!!) {
+            menuInflater.inflate(R.menu.sk_search, menu)
+            searchMenuItem = menu.findItem(R.id.menu_search)
+            if (searchMenuItem == null) {
+                LogHelper.warning("SearchMenuItem was NULL")
+                return super.onCreateOptionsMenu(menu)
             }
-            override fun onQueryTextChange(q: String): Boolean {
-                _skeletonReceiver!!.post(RESULT_SEARCH_CHANGE, q)
-                return true
+            searchView = searchMenuItem!!.actionView as SearchView
+            if (searchView == null) {
+                LogHelper.warning("SearchView was NULL")
+                return super.onCreateOptionsMenu(menu)
             }
-        })
+            with (searchView!!) {
+                inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+                imeOptions = EditorInfo.IME_ACTION_SEARCH
+                setIconifiedByDefault(true)
+                queryHint = searchHint
+                setOnCloseListener {
+                    post(RESULT_SEARCH_CHANGE, "")
+                    false
+                }
+                setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(q: String): Boolean {
+                        stopSearch()
+                        post(RESULT_SEARCH_SUBMIT, q)
+                        return true
+                    }
+
+                    override fun onQueryTextChange(q: String): Boolean {
+                        post(RESULT_SEARCH_CHANGE, q)
+                        return true
+                    }
+                })
+            }
+        }
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (_skeletonReceiver == null) {
-            return super.onOptionsItemSelected(item)
-        }
+        skeletonReceiver ?: return super.onOptionsItemSelected(item)
         val searchView = item.actionView as SearchView
         if (item.itemId == R.id.menu_search) {
             searchView.isIconified = false
@@ -390,9 +355,11 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     private fun stopSearch() {
-        _searchMenuItem!!.collapseActionView()
+        searchMenuItem ?: return
+        searchMenuItem!!.collapseActionView()
         KeyboardHelper.hide(window)
-        _searchView!!.clearFocus()
+        searchView ?: return
+        searchView!!.clearFocus()
     }
 
     // Navigation
@@ -403,7 +370,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (_searchView != null && !_searchView!!.isIconified) {
+        if (searchView != null && !searchView!!.isIconified) {
             stopSearch()
         } else {
             finish()
@@ -414,6 +381,13 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    companion object {
+
+        val RESULT_SEARCH_CHANGE = "onQueryTextChange"
+        val RESULT_SEARCH_SUBMIT = "onQueryTextSubmit"
+
     }
 
 }

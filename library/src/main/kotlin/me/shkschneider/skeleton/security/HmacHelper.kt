@@ -1,17 +1,15 @@
 package me.shkschneider.skeleton.security
 
+import me.shkschneider.skeleton.helper.LogHelper
+import me.shkschneider.skeleton.java.StringHelper
 import java.security.InvalidKeyException
 import java.security.NoSuchAlgorithmException
-
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 
-import me.shkschneider.skeleton.helper.LogHelper
-import me.shkschneider.skeleton.java.StringHelper
-
 object HmacHelper {
 
-    private const val ALGORITHM = "HmacSHA1"
+    private val ALGORITHM = "HmacSHA1"
 
     fun hash(key: String, string: String): String? {
         try {

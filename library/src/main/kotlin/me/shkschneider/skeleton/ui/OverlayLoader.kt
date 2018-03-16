@@ -1,11 +1,16 @@
 package me.shkschneider.skeleton.ui
 
-import android.widget.FrameLayout
-import android.widget.ProgressBar
 import android.os.Bundle
+import android.support.annotation.UiThread
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.view.*
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.ProgressBar
+import me.shkschneider.skeleton.R
 
 class OverlayLoader : Fragment() {
 
@@ -27,12 +32,14 @@ class OverlayLoader : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val progressBar = ProgressBar(context)
         if (container is FrameLayout) {
-            val layoutParams = FrameLayout.LayoutParams(100, 100, Gravity.CENTER)
+            val size = resources.getDimensionPixelSize(R.dimen.spaceMedium)
+            val layoutParams = FrameLayout.LayoutParams(size, size, Gravity.CENTER)
             progressBar.layoutParams = layoutParams
         }
         return progressBar
     }
 
+    @UiThread
     fun hide(activity: AppCompatActivity) {
         activity.supportFragmentManager.beginTransaction().remove(this).commit()
     }

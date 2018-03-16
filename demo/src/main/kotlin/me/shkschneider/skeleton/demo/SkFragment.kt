@@ -1,20 +1,16 @@
 package me.shkschneider.skeleton.demo
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import me.shkschneider.skeleton.SkeletonFragment
-import me.shkschneider.skeleton.demo.R
 import me.shkschneider.skeleton.java.AlphanumComparator
 import me.shkschneider.skeleton.java.SkHide
-
 import java.lang.reflect.Modifier
-import java.util.ArrayList
-import java.util.Collections
+import java.util.*
 
 class SkFragment : SkeletonFragment() {
 
@@ -26,15 +22,13 @@ class SkFragment : SkeletonFragment() {
         super.onViewCreated(view, savedInstanceState)
         fill(view.findViewById<View>(R.id.data) as LinearLayout, arrayOf(
                 me.shkschneider.skeleton.data.CharsetHelper::class.java,
-                me.shkschneider.skeleton.data.DiskCache.Internal::class.java,
-                me.shkschneider.skeleton.data.DiskCache.External::class.java,
+                me.shkschneider.skeleton.data.DatabaseHelper::class.java,
+                me.shkschneider.skeleton.data.DiskCache.Cache::class.java,
                 me.shkschneider.skeleton.data.ExternalDataHelper::class.java,
                 me.shkschneider.skeleton.data.FileHelper::class.java,
                 me.shkschneider.skeleton.data.GsonParser::class.java,
                 me.shkschneider.skeleton.data.InternalDataHelper::class.java,
                 me.shkschneider.skeleton.data.JsonParser::class.java,
-                me.shkschneider.skeleton.data.MemoryBitmapCache::class.java,
-                me.shkschneider.skeleton.data.MemoryCache::class.java,
                 me.shkschneider.skeleton.data.SerializeHelper::class.java,
                 me.shkschneider.skeleton.data.SharedPreferencesHelper::class.java
         ))
@@ -63,12 +57,7 @@ class SkFragment : SkeletonFragment() {
                 me.shkschneider.skeleton.helper.VibratorHelper::class.java
         ))
         fill(view.findViewById<View>(R.id.java) as LinearLayout, arrayOf(
-                me.shkschneider.skeleton.java.ArrayHelper::class.java,
-                me.shkschneider.skeleton.java.ClassHelper::class.java,
                 me.shkschneider.skeleton.java.JobManager::class.java,
-                me.shkschneider.skeleton.java.EnumHelper::class.java,
-                me.shkschneider.skeleton.java.ListHelper::class.java,
-                me.shkschneider.skeleton.java.MapHelper::class.java,
                 me.shkschneider.skeleton.java.ObjectHelper::class.java,
                 me.shkschneider.skeleton.java.RandomHelper::class.java,
                 me.shkschneider.skeleton.java.StringHelper::class.java,
@@ -133,15 +122,13 @@ class SkFragment : SkeletonFragment() {
                     continue
                 }
                 val name = field.name
-                if (!name.equals("serialVersionUID", ignoreCase = true) && !name.contains("$")) {
+                if (! name.equals("serialVersionUID", true) && !name.contains("$")) {
                     fields.add(field.type.simpleName + " " + name)
                 }
             }
-            Collections.sort(fields, AlphanumComparator())
+            fields.sortWith(AlphanumComparator())
             for (field in fields) {
-                if (!TextUtils.isEmpty(textView2.text)) {
-                    textView2.append("\n")
-                }
+                textView2.append(if (! textView2.text.isNullOrEmpty()) "\n" else "")
                 textView2.append(field)
             }
             // methods
@@ -158,7 +145,7 @@ class SkFragment : SkeletonFragment() {
                     continue
                 }
                 val name = method.name
-                if (!name.contains("$")) {
+                if (! name.contains("$")) {
                     val signature = method.returnType.simpleName + " " + name + "()"
                     if (methods.contains(signature)) {
                         continue
@@ -166,12 +153,10 @@ class SkFragment : SkeletonFragment() {
                     methods.add(signature)
                 }
             }
-            Collections.sort(methods, AlphanumComparator())
-            for (method in methods) {
-                if (!TextUtils.isEmpty(textView2.text)) {
-                    textView2.append("\n")
-                }
-                textView2.append(method)
+            methods.sortWith(AlphanumComparator())
+            methods.forEach {
+                textView2.append(if (! textView2.text.isNullOrEmpty()) "\n" else "")
+                textView2.append(it)
             }
             linearLayout?.addView(ui)
         }

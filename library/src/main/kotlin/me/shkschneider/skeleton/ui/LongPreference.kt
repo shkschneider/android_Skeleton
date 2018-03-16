@@ -22,7 +22,7 @@ class LongPreference : Preference {
 
     override fun onBindView(view: View) {
         super.onBindView(view)
-        (view.findViewById<View>(android.R.id.summary) as TextView).maxLines = 5
+        view.findViewById<TextView>(android.R.id.summary).maxLines = 5
     }
 
 }

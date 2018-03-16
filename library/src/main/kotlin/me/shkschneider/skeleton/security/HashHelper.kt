@@ -1,17 +1,16 @@
 package me.shkschneider.skeleton.security
 
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
-
 import me.shkschneider.skeleton.helper.LogHelper
 import me.shkschneider.skeleton.java.StringHelper
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 import kotlin.experimental.and
 
 object HashHelper {
 
-    private const val MD5 = "MD5"
-    private const val SHA1 = "SHA-1"
-    private const val SHA2 = "SHA-2"
+    private val MD5 = "MD5"
+    private val SHA1 = "SHA-1"
+    private val SHA2 = "SHA-2"
 
     private fun hash(algorithm: String, string: String): String? {
         try {

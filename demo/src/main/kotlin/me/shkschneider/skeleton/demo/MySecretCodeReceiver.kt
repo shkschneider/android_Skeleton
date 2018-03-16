@@ -3,7 +3,6 @@ package me.shkschneider.skeleton.demo
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.text.TextUtils
 
 import me.shkschneider.skeleton.helper.IntentHelper
 import me.shkschneider.skeleton.helper.LogHelper
@@ -13,15 +12,17 @@ class MySecretCodeReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         var secretCode = intent.dataString
-        val scheme = intent.data!!.scheme
-        if (!TextUtils.isEmpty(scheme)) {
-            //                                  android_secret_code://
-            secretCode = secretCode!!.substring(intent.data!!.scheme.length)
+        if (secretCode.isNullOrEmpty() || intent.data == null) return
+
+        val scheme = intent.data.scheme
+        if (! scheme.isNullOrBlank()) {
+            //      android_secret_code://
+            secretCode = secretCode!!.substring(scheme.length)
             if (secretCode.startsWith("://")) {
                 secretCode = secretCode.substring("://".length, secretCode.length)
             }
         }
-        LogHelper.debug("SecretCode: " + secretCode!!)
+        LogHelper.debug("SecretCode: " + secretCode)
         if (intent.action == ACTION) {
             context.startActivity(Intent(context, MainActivity::class.java)
                     .setFlags(IntentHelper.FLAGS_HOME)

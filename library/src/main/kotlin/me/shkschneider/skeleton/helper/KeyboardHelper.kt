@@ -11,7 +11,6 @@ import android.widget.EditText
 import android.widget.TextView
 
 import me.shkschneider.skeleton.SkeletonReceiver
-import me.shkschneider.skeleton.java.ClassHelper
 import me.shkschneider.skeleton.ui.ViewHelper
 
 object KeyboardHelper {
@@ -34,12 +33,12 @@ object KeyboardHelper {
         @Suppress("UNUSED_ANONYMOUS_PARAMETER")
         editText.setOnEditorActionListener(TextView.OnEditorActionListener { textView, actionId, keyEvent ->
             if (all) {
-                skeletonReceiver.post(ClassHelper.simpleName(KeyboardHelper.javaClass), actionId)
+                skeletonReceiver.post(KeyboardHelper::class.java.simpleName, actionId)
                 return@OnEditorActionListener false
             }
             when (actionId) {
                 EditorInfo.IME_NULL -> return@OnEditorActionListener false
-                EditorInfo.IME_ACTION_DONE, EditorInfo.IME_ACTION_GO, EditorInfo.IME_ACTION_SEARCH, EditorInfo.IME_ACTION_SEND, KeyEvent.KEYCODE_DPAD_CENTER, KeyEvent.KEYCODE_ENTER -> skeletonReceiver.post(ClassHelper.simpleName(KeyboardHelper.javaClass), actionId)
+                EditorInfo.IME_ACTION_DONE, EditorInfo.IME_ACTION_GO, EditorInfo.IME_ACTION_SEARCH, EditorInfo.IME_ACTION_SEND, KeyEvent.KEYCODE_DPAD_CENTER, KeyEvent.KEYCODE_ENTER -> skeletonReceiver.post((KeyboardHelper::class.java.simpleName), actionId)
             }
             false
         })
@@ -52,7 +51,7 @@ object KeyboardHelper {
         root.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
 
             private val rect = Rect()
-            private val visibleThreshold = Math.round(ScreenHelper.pixelsFromDp(100f).toFloat())
+            private val visibleThreshold = Math.round(Metrics.pixelsFromDp(1.toFloat()).toFloat())
             private var wasOpened = false
 
             override fun onGlobalLayout() {

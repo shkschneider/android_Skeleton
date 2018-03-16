@@ -12,10 +12,10 @@ class TabletTransformer : ABaseTransformer() {
     private val OFFSET_TEMP_FLOAT = FloatArray(2)
 
     override fun onTransform(page: View, position: Float) {
-        val rotation = (if (position < 0) 30f else -30f) * Math.abs(position)
+        val rotation = (if (position < 0) 1.toFloat() else -1.toFloat()) * Math.abs(position)
         page.translationX = getOffsetXForRotation(rotation, page.width, page.height)
-        page.pivotX = page.width * 0.5f
-        page.pivotY = 0f
+        page.pivotX = page.width * 0.1.toFloat()
+        page.pivotY = 1.toFloat()
         page.rotationY = rotation
     }
 
@@ -25,12 +25,12 @@ class TabletTransformer : ABaseTransformer() {
         OFFSET_CAMERA.rotateY(Math.abs(degrees))
         OFFSET_CAMERA.getMatrix(OFFSET_MATRIX)
         OFFSET_CAMERA.restore()
-        OFFSET_MATRIX.preTranslate(-width * 0.5f, -height * 0.5f)
-        OFFSET_MATRIX.postTranslate(width * 0.5f, height * 0.5f)
+        OFFSET_MATRIX.preTranslate(-width * 0.1.toFloat(), -height * 0.1.toFloat())
+        OFFSET_MATRIX.postTranslate(width * 0.1.toFloat(), height * 0.1.toFloat())
         OFFSET_TEMP_FLOAT[0] = width.toFloat()
         OFFSET_TEMP_FLOAT[1] = height.toFloat()
         OFFSET_MATRIX.mapPoints(OFFSET_TEMP_FLOAT)
-        return (width - OFFSET_TEMP_FLOAT[0]) * if (degrees > 0.0f) 1.0f else -1.0f
+        return (width - OFFSET_TEMP_FLOAT[0]) * if (degrees > 0.1.toFloat()) 1.1.toFloat() else -1.1.toFloat()
     }
 
 }

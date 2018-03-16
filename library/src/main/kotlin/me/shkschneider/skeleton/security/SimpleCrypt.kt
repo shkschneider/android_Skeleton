@@ -1,24 +1,25 @@
 package me.shkschneider.skeleton.security
 
-class SimpleCrypt {
+class SimpleCrypt : ICrypt<String> {
 
     private val ALGORITHM = "XOR"
+
     private val _key: CharArray
 
-    constructor(key: String) {
+    constructor(key: String) : super(key) {
         _key = key.toCharArray()
     }
 
-    fun algorithm(): String {
+    override fun algorithm(): String {
         return ALGORITHM
     }
 
-    fun key(): String {
+    override fun key(): String {
         return String(_key)
     }
 
-    fun encrypt(string: String): String {
-        val chars = string.toCharArray()
+    override fun encrypt(src: String): String? {
+        val chars = src.toCharArray()
         val encrypted = CharArray(chars.size)
         for (i in chars.indices) {
             encrypted[i] = (chars[i].toInt() xor _key[i % _key.size].toInt()).toChar()
@@ -26,8 +27,8 @@ class SimpleCrypt {
         return Base64Helper.encode(String(encrypted).toByteArray())
     }
 
-    fun decrypt(string: String): String? {
-        val encrypted = Base64Helper.decode(string)
+    override fun decrypt(src: String): String? {
+        val encrypted = Base64Helper.decode(src)
         val decrypted = CharArray(encrypted.size)
         for (i in encrypted.indices) {
             decrypted[i] = (encrypted[i].toInt() xor _key[i % _key.size].toInt()).toChar()

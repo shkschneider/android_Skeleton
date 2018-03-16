@@ -1,11 +1,7 @@
 package me.shkschneider.skeleton.helper
 
 import android.annotation.TargetApi
-import android.app.Activity
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
+import android.app.*
 import android.content.Intent
 import android.support.annotation.IntRange
 import android.support.v4.app.NotificationCompat
@@ -39,7 +35,7 @@ object NotificationHelper {
     }
 
     fun pendingIntent(activity: Activity): PendingIntent {
-        return pendingIntent(activity, Intent(activity, activity.javaClass))
+        return pendingIntent(activity, Intent(activity, activity::class.java))
     }
 
     class Builder : NotificationCompat.Builder {
@@ -67,10 +63,12 @@ object NotificationHelper {
                 return
             }
             val notificationChannel = NotificationChannel(channel.id, channel.name, NotificationManager.IMPORTANCE_DEFAULT)
-            notificationChannel.lockscreenVisibility = NotificationCompat.VISIBILITY_PUBLIC
-            notificationChannel.setShowBadge(channel.badge)
-            notificationChannel.enableLights(channel.lights)
-            notificationChannel.enableVibration(channel.vibration)
+            with (notificationChannel) {
+                lockscreenVisibility = NotificationCompat.VISIBILITY_PUBLIC
+                setShowBadge(channel.badge)
+                enableLights(channel.lights)
+                enableVibration(channel.vibration)
+            }
             SystemServices.notificationManager()?.createNotificationChannel(notificationChannel)
         }
 
@@ -99,15 +97,17 @@ object NotificationHelper {
         @TargetApi(AndroidHelper.API_26)
         fun get(): NotificationChannel {
             var notificationChannel = get(id)
-            if (notificationChannel != null) {
-                return notificationChannel
+            notificationChannel?.let {
+                return it
             }
             notificationChannel = NotificationChannel(id, name, NotificationManager.IMPORTANCE_DEFAULT)
-            notificationChannel.lockscreenVisibility = NotificationCompat.VISIBILITY_PUBLIC
-            notificationChannel.setShowBadge(badge)
-            notificationChannel.enableLights(lights)
-            notificationChannel.enableVibration(vibration)
-            return notificationChannel
+            with (notificationChannel) {
+                lockscreenVisibility = NotificationCompat.VISIBILITY_PUBLIC
+                setShowBadge(badge)
+                enableLights(lights)
+                enableVibration(vibration)
+                return this
+            }
         }
 
         companion object {
@@ -133,7 +133,7 @@ object NotificationHelper {
 
     fun notify(@IntRange(from = 0) id: Int, notification: Notification) {
         // final String channelId = NotificationCompat.getChannelId(notification);
-        notification.`when` = DateTimeHelper.timestamp()
+        notification.`when` = DateTimeHelper.timestamp() // FIXME when keyword
         SystemServices.notificationManager()?.notify(id, notification)
     }
 

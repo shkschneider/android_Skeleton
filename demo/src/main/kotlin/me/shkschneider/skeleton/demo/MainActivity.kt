@@ -17,13 +17,13 @@ import android.view.MenuItem
 
 import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.demo.data.ShkMod
+import me.shkschneider.skeleton.extensions.isNull
 import me.shkschneider.skeleton.helper.*
-import me.shkschneider.skeleton.java.ClassHelper
 import me.shkschneider.skeleton.java.ObjectHelper
-import me.shkschneider.skeleton.network.*
-import me.shkschneider.skeleton.ui.AnimationHelper
-import me.shkschneider.skeleton.ui.BottomSheet
-import me.shkschneider.skeleton.ui.Toaster
+import me.shkschneider.skeleton.network.NetworkHelper
+import me.shkschneider.skeleton.network.WebService
+import me.shkschneider.skeleton.network.WebServiceException
+import me.shkschneider.skeleton.ui.*
 
 /**
  * SkeletonActivity
@@ -47,23 +47,24 @@ class MainActivity : SkeletonActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        LogHelper.debug("IP: " + NetworkHelper.ipAddress("192.168.0.1"))
         toolbar?.title = "Skeleton"
         toolbar?.subtitle = "for Android"
         val viewPager = findViewById<ViewPager>(R.id.viewPager)
         viewPager.adapter = object : FragmentStatePagerAdapter(supportFragmentManager) {
             override fun getItem(position: Int): Fragment? {
-                when (position) {
-                    0 -> return ShkFragment()
-                    1 -> return SkFragment()
+                return when (position) {
+                    0 -> ShkFragment()
+                    1 -> SkFragment()
+                    else -> null
                 }
-                return null
             }
             override fun getPageTitle(position: Int): CharSequence? {
-                when (position) {
-                    0 -> return "ShkSchneider"
-                    1 -> return "Skeleton"
+                return when (position) {
+                    0 -> "ShkSchneider"
+                    1 -> "Skeleton"
+                    else -> null
                 }
-                return null
             }
             override fun getCount(): Int {
                 return 2
@@ -117,7 +118,7 @@ class MainActivity : SkeletonActivity() {
 
     override fun onResume() {
         super.onResume()
-        DeviceHelper.screenSize()
+        ScreenHelper.inches()
     }
 
     override fun onStop() {
@@ -127,17 +128,17 @@ class MainActivity : SkeletonActivity() {
 
     private fun network() {
         WebService(WebService.Method.GET, URL)
-                .callback(ShkMod.javaClass, object : WebService.Callback<Any?> {
+                .callback(ShkMod::class.java, object : WebService.Callback<Any?> {
                     override fun success(result: Any?) {
-                        if (result == null) {
-                            Toaster.lengthShort(ClassHelper.simpleName(ShkMod::class.java))
+                        if (result.isNull()) {
+                            Toaster.lengthShort(ShkMod::class.java.simpleName)
                             return
                         }
                         // val shkMod = result as ShkMod
-                        notification(DateTimeHelper.timestamp().toInt(), ClassHelper.simpleName(ShkMod::class.java), ObjectHelper.jsonify(result))
+                        notification(DateTimeHelper.timestamp().toInt(), ShkMod::class.java.simpleName, ObjectHelper.jsonify(result!!))
                     }
                     override fun failure(e: WebServiceException) {
-                        Toaster.lengthLong(ClassHelper.simpleName(e::class.java))
+                        Toaster.lengthLong(WebServiceException::class.java.simpleName)
                     }
                 }).run()
     }

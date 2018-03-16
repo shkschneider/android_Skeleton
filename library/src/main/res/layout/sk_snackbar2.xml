@@ -36,9 +36,9 @@
         android:textSize="@dimen/textSizeSmall"
         android:textAllCaps="true"
         android:textColor="@color/accentColor"
-        android:maxLines="1"
         android:ellipsize="marquee"
         android:gravity="center"
-        android:text="@string/dots" />
+        android:text="@string/dots"
+        android:singleLine="true" />
 
 </LinearLayout>

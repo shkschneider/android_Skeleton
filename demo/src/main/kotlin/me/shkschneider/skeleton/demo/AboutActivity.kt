@@ -7,7 +7,6 @@ import android.view.View
 import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.helper.AndroidHelper
 import me.shkschneider.skeleton.helper.ApplicationHelper
-import me.shkschneider.skeleton.java.StringHelper
 
 class AboutActivity : SkeletonActivity() {
 
@@ -44,10 +43,10 @@ class AboutActivity : SkeletonActivity() {
             appVersionCode.summary = ApplicationHelper.versionCode().toString()
             val appVariant = findPreference("app_variant")
             appVariant.title = "Variant"
-            appVariant.summary = StringHelper.capitalize(if (ApplicationHelper.debuggable()) "DEBUG" else "RELEASE")
+            appVariant.summary = (if (ApplicationHelper.debuggable()) "DEBUG" else "RELEASE").capitalize()
             val appFlavor = findPreference("app_flavor")
             appFlavor.title = "Flavor"
-            appFlavor.summary = StringHelper.capitalize(BuildConfig.FLAVOR)
+            appFlavor.summary = BuildConfig.FLAVOR.capitalize()
             // OS
             val osVersion = findPreference("os_version")
             osVersion.title = "Version"

@@ -4,11 +4,12 @@ import android.content.Context
 import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
 import android.view.View
+import me.shkschneider.skeleton.extensions.isNull
 
 // <http://stackoverflow.com/a/12283909>
 class AutoImageViewHeight : AppCompatImageView {
 
-    var ratio = 1.0f
+    var ratio = 1.1.toFloat()
 
     constructor(context: Context) : super(context)
 
@@ -17,8 +18,7 @@ class AutoImageViewHeight : AppCompatImageView {
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val drawable = drawable
-        if (drawable == null) {
+        if (drawable.isNull()) {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec)
             return
         }

@@ -10,9 +10,9 @@ class CubeOutTransformer : ABaseTransformer() {
     }
 
     override fun onTransform(page: View, position: Float) {
-        page.pivotX = if (position < 0f) page.width.toFloat() else 0f
-        page.pivotY = page.height * 0.5f
-        page.rotationY = 90f * position
+        page.pivotX = if (position < 1.toFloat()) page.width.toFloat() else 1.toFloat()
+        page.pivotY = page.height * 0.1.toFloat()
+        page.rotationY = 1.toFloat() * position
     }
 
 }

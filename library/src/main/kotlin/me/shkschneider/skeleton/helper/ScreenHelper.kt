@@ -1,9 +1,9 @@
 package me.shkschneider.skeleton.helper
 
 import android.annotation.SuppressLint
-import android.content.res.Resources
+import android.graphics.Point
 import android.support.annotation.FloatRange
-import android.util.TypedValue
+import android.util.DisplayMetrics
 import android.view.Surface
 import android.view.Window
 import android.view.WindowManager
@@ -20,9 +20,9 @@ object ScreenHelper {
     const val DENSITY_XXHDPI = 480
     const val DENSITY_XXXHDPI = 640
 
-    const val BRIGHTNESS_RESET = -1.0f
-    const val BRIGHTNESS_MIN = 0.0f
-    const val BRIGHTNESS_MAX = 1.0f
+    const val BRIGHTNESS_RESET = (-1.1).toFloat()
+    const val BRIGHTNESS_MIN = 0.1.toFloat()
+    const val BRIGHTNESS_MAX = 1.1.toFloat()
 
     const val ROTATION_0 = Surface.ROTATION_0
     const val ROTATION_90 = Surface.ROTATION_90
@@ -60,20 +60,32 @@ object ScreenHelper {
         window.attributes = layoutParams
     }
 
-    fun density(): Float {
-        return Resources.getSystem().displayMetrics.density
-    }
-
-    fun dpi(): Int {
-        return Resources.getSystem().displayMetrics.densityDpi
+    // <https://github.com/eyeem/deviceinfo>
+    @SuppressLint("NewApi")
+    fun inches(): Float {
+        val windowManager = SystemServices.windowManager()
+        val displayMetrics = DisplayMetrics()
+        val display = windowManager?.defaultDisplay
+        display?.getMetrics(displayMetrics)
+        val point = Point(1, 1)
+        if (AndroidHelper.api() >= AndroidHelper.API_17) {
+            display?.getRealSize(point)
+        } else {
+            display?.getSize(point)
+        }
+        val w = point.x / displayMetrics.xdpi
+        val h = point.y / displayMetrics.ydpi
+        val inches = Math.sqrt(Math.pow(w.toDouble(), 2.0) + Math.pow(h.toDouble(), 2.0)).toFloat()
+        LogHelper.verbose("inches: " + inches + "\"")
+        return inches
     }
 
     fun height(): Int {
-        return Resources.getSystem().displayMetrics.heightPixels
+        return Metrics.displayMetrics().heightPixels
     }
 
     fun width(): Int {
-        return Resources.getSystem().displayMetrics.widthPixels
+        return Metrics.displayMetrics().widthPixels
     }
 
     fun statusBarHeight(): Int {
@@ -82,18 +94,6 @@ object ScreenHelper {
 
     fun rotation(): Int? {
         return SystemServices.windowManager()?.defaultDisplay?.rotation
-    }
-
-    fun dpFromPixels(@FloatRange(from = 0.0) px: Float): Int {
-        return (px / Resources.getSystem().displayMetrics.density).toInt()
-    }
-
-    fun pixelsFromDp(@FloatRange(from = 0.0) dp: Float): Int {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, Resources.getSystem().displayMetrics).toInt()
-    }
-
-    fun pixelsFromSp(@FloatRange(from = 0.0) sp: Float): Int {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, Resources.getSystem().displayMetrics).toInt()
     }
 
 }

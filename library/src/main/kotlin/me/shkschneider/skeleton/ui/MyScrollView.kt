@@ -14,20 +14,9 @@ import me.shkschneider.skeleton.helper.LogHelper
 // MyScrollView.setOnScrollViewListener()
 class MyScrollView : ScrollView {
 
-    companion object {
-
-        const val PARALLAX = 0.5f
-
-        fun canScroll(scrollView: ScrollView): Boolean {
-            val childHeight = scrollView.height
-            return scrollView.height < childHeight + scrollView.paddingTop + scrollView.paddingBottom
-        }
-
-    }
-
-    private var mOnScrollViewListener: OnScrollViewListener? = null
-    private var mView: View? = null
-    private var mParallax: Float? = null
+    private var onScrollViewListener: OnScrollViewListener? = null
+    private var view: View? = null
+    private var parallax: Float? = null
 
     constructor(context: Context) : super(context)
 
@@ -39,41 +28,51 @@ class MyScrollView : ScrollView {
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes)
 
     fun setOnScrollViewListener(onScrollViewListener: OnScrollViewListener) {
-        mOnScrollViewListener = onScrollViewListener
+        this.onScrollViewListener = onScrollViewListener
     }
 
     override fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int) {
         super.onScrollChanged(l, t, oldl, oldt)
-        if (mView != null) {
-            mView!!.translationY = scrollY * mParallax!!
+        view?.let {
+            it.translationY = scrollY * parallax!!
         }
-        if (mOnScrollViewListener != null) {
-            mOnScrollViewListener!!.onScrollChanged(l, t, oldl, oldt)
+        if (onScrollViewListener != null) {
+            onScrollViewListener!!.onScrollChanged(l, t, oldl, oldt)
         }
     }
 
     fun parallax(view: View) {
-        mView = view
-        mParallax = PARALLAX
+        this.view = view
+        parallax = PARALLAX
     }
 
     fun parallax(view: View, parallax: Float) {
-        var _parallax = parallax
-        if (_parallax <= 0) {
+        this.view = view
+        this.parallax = parallax
+        if (parallax <= 0) {
             LogHelper.warning("Parallax effect too low")
-            _parallax = PARALLAX
+            this.parallax = PARALLAX
         }
-        if (_parallax > 1) {
+        if (parallax > 1) {
             LogHelper.warning("Parallax effect too high")
-            _parallax = PARALLAX
+            this.parallax = PARALLAX
         }
-        mView = view
-        mParallax = _parallax
     }
 
     interface OnScrollViewListener {
 
         fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int)
+
+    }
+
+    companion object {
+
+        val PARALLAX = 0.1.toFloat()
+
+        fun canScroll(scrollView: ScrollView): Boolean {
+            val childHeight = scrollView.height
+            return scrollView.height < childHeight + scrollView.paddingTop + scrollView.paddingBottom
+        }
 
     }
 

@@ -2,13 +2,11 @@ package me.shkschneider.skeleton.network
 
 import android.net.Uri
 import android.webkit.URLUtil
-
+import me.shkschneider.skeleton.data.CharsetHelper
+import me.shkschneider.skeleton.helper.LogHelper
 import java.io.UnsupportedEncodingException
 import java.net.URLDecoder
 import java.net.URLEncoder
-
-import me.shkschneider.skeleton.data.CharsetHelper
-import me.shkschneider.skeleton.helper.LogHelper
 
 object UrlHelper {
 

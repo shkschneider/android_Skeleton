@@ -1,11 +1,9 @@
 package me.shkschneider.skeleton.data
 
 import android.os.Environment
-
-import java.io.File
-
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.ContextHelper
+import java.io.File
 
 object ExternalDataHelper {
 

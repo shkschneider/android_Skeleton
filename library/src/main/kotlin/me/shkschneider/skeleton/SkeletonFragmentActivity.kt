@@ -1,7 +1,8 @@
 package me.shkschneider.skeleton
 
-import android.support.v4.app.Fragment
 import android.os.Bundle
+import android.support.v4.app.Fragment
+import me.shkschneider.skeleton.extensions.isNotNull
 
 abstract class SkeletonFragmentActivity : SkeletonActivity() {
 
@@ -26,9 +27,8 @@ abstract class SkeletonFragmentActivity : SkeletonActivity() {
     }
 
     override fun onBackPressed() {
-        val fragmentManager = supportFragmentManager
-        if (fragmentManager != null) {
-            if (fragmentManager.backStackEntryCount > 0) {
+        if (supportFragmentManager.isNotNull()) {
+            if (fragmentManager.backStackEntryCount != 0) {
                 fragmentManager.popBackStack()
                 return
             }

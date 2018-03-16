@@ -4,34 +4,31 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.support.annotation.IntRange
-import android.text.TextUtils
 import android.text.format.DateFormat
 import android.text.format.DateUtils
-
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.TimeZone
+import java.util.*
 
 object DateTimeHelper {
 
     // <http://developer.android.com/intl/ru/reference/java/text/SimpleDateFormat.html>
-    const val ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+    val ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
     // <https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1>
-    const val HTTP_DATE = "EEE, dd MMM yyyy HH:mm:ss z"
+    val HTTP_DATE = "EEE, dd MMM yyyy HH:mm:ss z"
 
-    private var _calendar: Calendar? = null
+    private var calendar: Calendar? = null
 
     @Synchronized
     fun calendar(): Calendar {
-        if (_calendar == null) {
-            _calendar = Calendar.getInstance(LocaleHelper.locale())
+        if (calendar == null) {
+            calendar = Calendar.getInstance(LocaleHelper.locale())
         }
-        return _calendar!!
+        return calendar!!
     }
 
     fun epoch(): Calendar {
         val calendar = calendar()
-        calendar.timeInMillis = 0L
+        calendar.timeInMillis = 0.toLong()
         return calendar
     }
 
@@ -49,7 +46,7 @@ object DateTimeHelper {
 
     // <http://howtodoinjava.com/2012/12/16/always-use-setlenient-false-when-using-simpledateformat-for-date-validation-in-java/>
     fun format(calendar: Calendar, f: String?): String {
-        val format: String = if (TextUtils.isEmpty(f)) ISO_8601 else f!!
+        val format: String = if (f.isNullOrBlank()) ISO_8601 else f!!
         calendar.isLenient = false
         return SimpleDateFormat(format, LocaleHelper.locale()).format(calendar.time)
     }

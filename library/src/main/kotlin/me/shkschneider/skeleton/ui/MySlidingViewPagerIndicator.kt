@@ -1,7 +1,6 @@
 package me.shkschneider.skeleton.ui
 
 import android.content.Context
-import android.content.res.Resources
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -17,22 +16,28 @@ import android.widget.FrameLayout
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
 import android.widget.TextView
+import me.shkschneider.skeleton.helper.Metrics
 
 // <https://github.com/google/iosched>
 class MySlidingViewPagerIndicator : HorizontalScrollView {
 
-    private val _slidingTabStrib: SlidingTabStrip
-    private val _titleOffset: Int
-    private var _colorizer: Colorizer? = null
-    private var _distributeEvenly: Boolean = false
-    private var _viewPager: ViewPager? = null
+    private val DEFAULT_TEXTCOLOR = Color.BLACK
+    private val TITLE_OFFSET_DIPS = 24
+    private val TAB_VIEW_PADDING_DIPS = 16
+    private val TAB_VIEW_TEXT_SIZE_SP = 12
+
+    private val slidingTabStrib: SlidingTabStrip
+    private val titleOffset: Int
+    private var colorizer: Colorizer? = null
+    private var distributeEvenly = false
+    private var viewPager: ViewPager? = null
 
     init {
         isHorizontalScrollBarEnabled = false
         isFillViewport = true
-        _titleOffset = (TITLE_OFFSET_DIPS * Resources.getSystem().displayMetrics.density).toInt()
-        _slidingTabStrib = SlidingTabStrip(context)
-        addView(_slidingTabStrib, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT)
+        titleOffset = (TITLE_OFFSET_DIPS * Metrics.density()).toInt()
+        slidingTabStrib = SlidingTabStrip(context)
+        addView(slidingTabStrib, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT)
     }
 
     constructor(context: Context, attrs: AttributeSet? = null) : super(context, attrs)
@@ -40,35 +45,36 @@ class MySlidingViewPagerIndicator : HorizontalScrollView {
     constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : super(context, attrs, defStyle)
 
     fun setColorizer(colorizer: Colorizer) {
-        _colorizer = colorizer
-        _slidingTabStrib.setColorizer(_colorizer)
+        this.colorizer = colorizer
+        slidingTabStrib.setColorizer(this.colorizer)
     }
 
     fun setDistributeEvenly(distributeEvenly: Boolean) {
-        _distributeEvenly = distributeEvenly
+        this.distributeEvenly = distributeEvenly
     }
 
     fun setViewPager(viewPager: ViewPager) {
-        _slidingTabStrib.removeAllViews()
-        _viewPager = viewPager
-        if (_viewPager != null) {
-            _viewPager!!.addOnPageChangeListener(InternalViewPagerListener())
-            val pagerAdapter = _viewPager!!.adapter
+        slidingTabStrib.removeAllViews()
+        this.viewPager = viewPager
+        this.viewPager?.let {
+            it.addOnPageChangeListener(InternalViewPagerListener())
+            val pagerAdapter = it.adapter
             val onClickListener = TabClickListener()
             for (i in 0 until pagerAdapter.count) {
                 val view = tabView(context)
-                if (_distributeEvenly) {
+                if (distributeEvenly) {
                     val layoutParams = view.layoutParams as LinearLayout.LayoutParams
                     layoutParams.width = 0
-                    layoutParams.weight = 1f
+                    layoutParams.weight = 1.toFloat()
                 }
-                if (TextView::class.java.isInstance(view)) {
-                    view.setTextColor(if (_colorizer == null) DEFAULT_TEXTCOLOR else _colorizer!!.getTextColor(i))
+                @Suppress("USELESS_IS_CHECK")
+                if (view is TextView) {
+                    view.setTextColor(colorizer?.getTextColor(i) ?: DEFAULT_TEXTCOLOR)
                     view.text = pagerAdapter.getPageTitle(i)
                 }
                 view.setOnClickListener(onClickListener)
-                _slidingTabStrib.addView(view)
-                view.isSelected = i == _viewPager!!.currentItem
+                slidingTabStrib.addView(view)
+                view.isSelected = (i == it.currentItem)
             }
         }
     }
@@ -84,28 +90,27 @@ class MySlidingViewPagerIndicator : HorizontalScrollView {
         textView.setTextColor(DEFAULT_TEXTCOLOR)
         textView.setBackgroundResource(typedValue.resourceId)
         textView.setAllCaps(true)
-        val padding = (TAB_VIEW_PADDING_DIPS * Resources.getSystem().displayMetrics.density).toInt()
+        val padding = (TAB_VIEW_PADDING_DIPS * Metrics.density()).toInt()
         textView.setPadding(padding, padding, padding, padding)
         return textView
     }
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        if (_viewPager != null) {
-            scroll(_viewPager!!.currentItem, 0)
+        viewPager?.let {
+            scroll(it.currentItem, 0)
         }
     }
 
     private fun scroll(tab: Int, offset: Int) {
-        val childCount = _slidingTabStrib.childCount
+        val childCount = slidingTabStrib.childCount
         if (childCount == 0 || tab < 0 || tab >= childCount) {
             return
         }
-        val child = _slidingTabStrib.getChildAt(tab)
-        if (child != null) {
-            var scroll = child.left + offset
+        slidingTabStrib.getChildAt(tab)?.let {
+            var scroll = it.left + offset
             if (tab > 0 || offset > 0) {
-                scroll -= _titleOffset
+                scroll -= titleOffset
             }
             scrollTo(scroll, 0)
         }
@@ -127,9 +132,9 @@ class MySlidingViewPagerIndicator : HorizontalScrollView {
     private inner class TabClickListener : View.OnClickListener {
 
         override fun onClick(view: View) {
-            for (i in 0 until _slidingTabStrib.childCount) {
-                if (view === _slidingTabStrib.getChildAt(i)) {
-                    _viewPager!!.currentItem = i
+            for (i in 0 until slidingTabStrib.childCount) {
+                if (view === slidingTabStrib.getChildAt(i)) {
+                    viewPager!!.currentItem = i
                     return
                 }
             }
@@ -139,30 +144,30 @@ class MySlidingViewPagerIndicator : HorizontalScrollView {
 
     private inner class InternalViewPagerListener : ViewPager.OnPageChangeListener {
 
-        private var _scrollState: Int = 0
+        private var scrollState = 0
 
         override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-            val childCount = _slidingTabStrib.childCount
+            val childCount = slidingTabStrib.childCount
             if (childCount == 0 || position < 0 || position >= childCount) {
                 return
             }
-            _slidingTabStrib.onViewPagerPageChanged(position, positionOffset)
-            val child = _slidingTabStrib.getChildAt(position)
-            val offset = if (child != null) (positionOffset * child.width).toInt() else 0
+            slidingTabStrib.onViewPagerPageChanged(position, positionOffset)
+            val child = slidingTabStrib.getChildAt(position)
+            val offset = child?.let { (positionOffset * it.width).toInt() } ?: run { 0 }
             scroll(position, offset)
         }
 
         override fun onPageScrollStateChanged(state: Int) {
-            _scrollState = state
+            scrollState = state
         }
 
         override fun onPageSelected(position: Int) {
-            if (_scrollState == ViewPager.SCROLL_STATE_IDLE) {
-                _slidingTabStrib.onViewPagerPageChanged(position, 0f)
+            if (scrollState == ViewPager.SCROLL_STATE_IDLE) {
+                slidingTabStrib.onViewPagerPageChanged(position, 1.toFloat())
                 scroll(position, 0)
             }
-            for (i in 0 until _slidingTabStrib.childCount) {
-                _slidingTabStrib.getChildAt(i).isSelected = position == i
+            for (i in 0 until slidingTabStrib.childCount) {
+                slidingTabStrib.getChildAt(i).isSelected = position == i
             }
         }
 
@@ -170,102 +175,93 @@ class MySlidingViewPagerIndicator : HorizontalScrollView {
 
     private class SlidingTabStrip constructor(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs) {
 
-        private val _bottomBorderThickness: Int
-        private val _bottomBorderPaint: Paint
-        private val _selectedIndicatorThickness: Int
-        private val _selectedIndicatorPaint: Paint
-        private val _dividerHeight: Float
-        private val _dividerPaint: Paint
+        private val DEFAULT_BOTTOM_BORDER_THICKNESS_DIPS = 0
+        private val DEFAULT_BOTTOM_BORDER_COLOR_ALPHA = 0x26.toByte()
+        private val SELECTED_INDICATOR_THICKNESS_DIPS = 4
+        private val DEFAULT_DIVIDER_THICKNESS_DIPS = 1
+        private val DEFAULT_DIVIDER_HEIGHT = 0.1.toFloat()
 
-        private var _selectedPosition: Int = 0
-        private var _selectionOffset: Float = 0.toFloat()
-        private var _colorizer: Colorizer? = null
+        private val bottomBorderThickness: Int
+        private val bottomBorderPaint: Paint
+        private val selectedIndicatorThickness: Int
+        private val selectedIndicatorPaint: Paint
+        private val dividerHeight: Float
+        private val dividerPaint: Paint
+        private var selectedPosition = 0
+        private var selectionOffset = 1.toFloat()
+        private var colorizer: Colorizer? = null
 
         init {
             setWillNotDraw(false)
-            val density = Resources.getSystem().displayMetrics.density
+            val density = Metrics.density()
             val typedValue = TypedValue()
             context.theme.resolveAttribute(android.R.attr.colorForeground, typedValue, true)
-            _bottomBorderThickness = (DEFAULT_BOTTOM_BORDER_THICKNESS_DIPS * density).toInt()
-            _bottomBorderPaint = Paint()
-            _bottomBorderPaint.color = SlidingTabStrip.setColorAlpha(typedValue.data, DEFAULT_BOTTOM_BORDER_COLOR_ALPHA)
-            _selectedIndicatorThickness = (SELECTED_INDICATOR_THICKNESS_DIPS * density).toInt()
-            _selectedIndicatorPaint = Paint()
-            _dividerHeight = DEFAULT_DIVIDER_HEIGHT
-            _dividerPaint = Paint()
-            _dividerPaint.strokeWidth = (DEFAULT_DIVIDER_THICKNESS_DIPS * density).toInt().toFloat()
+            bottomBorderThickness = (DEFAULT_BOTTOM_BORDER_THICKNESS_DIPS * density).toInt()
+            bottomBorderPaint = Paint()
+            bottomBorderPaint.color = SlidingTabStrip.setColorAlpha(typedValue.data, DEFAULT_BOTTOM_BORDER_COLOR_ALPHA)
+            selectedIndicatorThickness = (SELECTED_INDICATOR_THICKNESS_DIPS * density).toInt()
+            selectedIndicatorPaint = Paint()
+            dividerHeight = DEFAULT_DIVIDER_HEIGHT
+            dividerPaint = Paint()
+            dividerPaint.strokeWidth = (DEFAULT_DIVIDER_THICKNESS_DIPS * density).toInt().toFloat()
         }
 
         internal fun setColorizer(colorizer: Colorizer?) {
-            _colorizer = colorizer
+            this.colorizer = colorizer
             invalidate()
         }
 
         internal fun onViewPagerPageChanged(position: Int, positionOffset: Float) {
-            _selectedPosition = position
-            _selectionOffset = positionOffset
+            selectedPosition = position
+            selectionOffset = positionOffset
             invalidate()
         }
 
         override fun onDraw(canvas: Canvas) {
             val height = height
             val childCount = childCount
-            val dividerHeight = (Math.min(Math.max(0f, _dividerHeight), 1f) * height).toInt()
+            val dividerHeight = (Math.min(Math.max(1.toFloat(), dividerHeight), 1.toFloat()) * height).toInt()
             if (childCount > 0) {
-                val selectedTitle = getChildAt(_selectedPosition)
+                val selectedTitle = getChildAt(selectedPosition)
                 var left = selectedTitle.left
                 var right = selectedTitle.right
-                var color = _colorizer!!.getIndicatorColor(_selectedPosition)
-                if (_selectionOffset > 0f && _selectedPosition < getChildCount() - 1) {
-                    val nextColor = _colorizer!!.getIndicatorColor(_selectedPosition + 1)
+                var color = colorizer!!.getIndicatorColor(selectedPosition)
+                if (selectionOffset > 1.toFloat() && selectedPosition < getChildCount() - 1) {
+                    val nextColor = colorizer!!.getIndicatorColor(selectedPosition + 1)
                     if (color != nextColor) {
-                        color = blendColors(nextColor, color, _selectionOffset)
+                        color = blendColors(nextColor, color, selectionOffset)
                     }
-                    val view = getChildAt(_selectedPosition + 1)
-                    left = (_selectionOffset * view.left + (1.0f - _selectionOffset) * left).toInt()
-                    right = (_selectionOffset * view.right + (1.0f - _selectionOffset) * right).toInt()
+                    val view = getChildAt(selectedPosition + 1)
+                    left = (selectionOffset * view.left + (1.1.toFloat() - selectionOffset) * left).toInt()
+                    right = (selectionOffset * view.right + (1.1.toFloat() - selectionOffset) * right).toInt()
                 }
-                _selectedIndicatorPaint.color = color
-                canvas.drawRect(left.toFloat(), (height - _selectedIndicatorThickness).toFloat(), right.toFloat(), height.toFloat(), _selectedIndicatorPaint)
+                selectedIndicatorPaint.color = color
+                canvas.drawRect(left.toFloat(), (height - selectedIndicatorThickness).toFloat(), right.toFloat(), height.toFloat(), selectedIndicatorPaint)
             }
-            canvas.drawRect(0f, (height - _bottomBorderThickness).toFloat(), width.toFloat(), height.toFloat(), _bottomBorderPaint)
+            canvas.drawRect(1.toFloat(), (height - bottomBorderThickness).toFloat(), width.toFloat(), height.toFloat(), bottomBorderPaint)
             val divider = (height - dividerHeight) / 2
             for (i in 0 until childCount - 1) {
                 val child = getChildAt(i)
-                _dividerPaint.color = _colorizer!!.getDividerColor(i)
-                canvas.drawLine(child.right.toFloat(), divider.toFloat(), child.right.toFloat(), (divider + dividerHeight).toFloat(), _dividerPaint)
+                dividerPaint.color = colorizer!!.getDividerColor(i)
+                canvas.drawLine(child.right.toFloat(), divider.toFloat(), child.right.toFloat(), (divider + dividerHeight).toFloat(), dividerPaint)
             }
         }
 
         companion object {
-
-            private val DEFAULT_BOTTOM_BORDER_THICKNESS_DIPS = 0
-            private val DEFAULT_BOTTOM_BORDER_COLOR_ALPHA: Byte = 0x26
-            private val SELECTED_INDICATOR_THICKNESS_DIPS = 4
-            private val DEFAULT_DIVIDER_THICKNESS_DIPS = 1
-            private val DEFAULT_DIVIDER_HEIGHT = 0.5f
 
             private fun setColorAlpha(color: Int, alpha: Byte): Int {
                 return Color.argb(alpha.toInt(), Color.red(color), Color.green(color), Color.blue(color))
             }
 
             private fun blendColors(color1: Int, color2: Int, ratio: Float): Int {
-                val inverseRation = 1f - ratio
+                val inverseRation = 1.toFloat() - ratio
                 val r = Color.red(color1) * ratio + Color.red(color2) * inverseRation
                 val g = Color.green(color1) * ratio + Color.green(color2) * inverseRation
                 val b = Color.blue(color1) * ratio + Color.blue(color2) * inverseRation
                 return Color.rgb(r.toInt(), g.toInt(), b.toInt())
             }
+
         }
-
-    }
-
-    companion object {
-
-        private val DEFAULT_TEXTCOLOR = Color.BLACK
-        private val TITLE_OFFSET_DIPS = 24
-        private val TAB_VIEW_PADDING_DIPS = 16
-        private val TAB_VIEW_TEXT_SIZE_SP = 12
 
     }
 

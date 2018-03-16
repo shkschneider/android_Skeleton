@@ -1,24 +1,24 @@
 package me.shkschneider.skeleton.data
 
+import me.shkschneider.skeleton.extensions.isNull
+import me.shkschneider.skeleton.helper.LogHelper
 import java.io.BufferedReader
 import java.io.IOException
-import java.util.ArrayList
-
-import me.shkschneider.skeleton.helper.LogHelper
+import java.util.*
 
 // <http://opencsv.sourceforge.net>
 class CsvReader {
 
-    private val _bufferedReader: BufferedReader
-    private val _separator: Char
-    private val _quote: Char
-    private var _hasNext: Boolean = false
+    private val bufferedReader: BufferedReader
+    private val separator: Char
+    private val quote: Char
+    private var hasNext = false
 
     constructor(bufferedReader: BufferedReader, separator: Char = ',', quote: Char = '"', skip: Int = 0) {
-        _bufferedReader = bufferedReader
-        _separator = separator
-        _quote = quote
-        _hasNext = true
+        this.bufferedReader = bufferedReader
+        this.separator = separator
+        this.quote = quote
+        hasNext = true
         if (skip > 0) {
             try {
                 for (i in 0 until skip) {
@@ -32,16 +32,16 @@ class CsvReader {
 
     @Throws(IOException::class)
     private fun getNextLine(): String {
-        val nextLine = _bufferedReader.readLine()
-        if (nextLine == null) {
-            _hasNext = false
+        val nextLine = bufferedReader.readLine()
+        if (nextLine.isNull()) {
+            hasNext = false
             throw IOException("EOF")
         }
         return nextLine
     }
 
     fun hasNext(): Boolean {
-        return _hasNext
+        return hasNext
     }
 
     fun readNext(): List<String>? {
@@ -68,27 +68,27 @@ class CsvReader {
             var i = 0
             while (i < line.length) {
                 val c = line[i]
-                if (c == _quote) {
-                    // this gets complex... the _quote may end a quoted block, or escape another _quote.
+                if (c == quote) {
+                    // this gets complex... the quote may end a quoted block, or escape another quote.
                     // do a 1-char lookahead:
                     if (inQuotes  // we are in quotes, therefore there can be escaped quotes in here.
                             && line.length > i + 1  // there is indeed another character to check.
-                            && line[i + 1] == _quote) { // ..and that char. is a _quote also.
-                        // we have two _quote chars in a row == one _quote char, so consume them both and
+                            && line[i + 1] == quote) { // ..and that char. is a quote also.
+                        // we have two quote chars in a row == one quote char, so consume them both and
                         // put one on the token. we do *not* exit the quoted text.
                         stringBuffer.append(line[i + 1])
                         i++
                     } else {
                         inQuotes = !inQuotes
-                        // the tricky case of an embedded _quote in the middle: a,bc"d"ef,g
+                        // the tricky case of an embedded quote in the middle: a,bc"d"ef,g
                         if (i > 2 // not on the beginning of the line
-                                && line[i - 1] != _separator // not at the beginning of an escape sequence
+                                && line[i - 1] != separator // not at the beginning of an escape sequence
                                 && line.length > i + 1
-                                && line[i + 1] != _separator) { // not at the	end of an escape sequence
+                                && line[i + 1] != separator) { // not at the	end of an escape sequence
                             stringBuffer.append(c)
                         }
                     }
-                } else if (c == _separator && !inQuotes) {
+                } else if (c == separator && !inQuotes) {
                     tokensOnThisLine.add(stringBuffer.toString())
                     stringBuffer = StringBuffer() // start work on next token
                 } else {
@@ -103,7 +103,7 @@ class CsvReader {
 
     @Throws(IOException::class)
     fun close() {
-        _bufferedReader.close()
+        bufferedReader.close()
     }
 
 }

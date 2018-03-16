@@ -39,7 +39,8 @@
             android:name=".AboutActivity"
             android:label="@string/skeleton" />
 
-        <receiver android:name=".MySecretCodeReceiver"
+        <receiver
+            android:name=".MySecretCodeReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

@@ -6,25 +6,25 @@ import android.widget.AbsListView
 // AbsListView.setOnScrollListener()
 abstract class MyListViewScrollListener : AbsListView.OnScrollListener {
 
-    // The minimum amount of items to have below your current scroll position before _loading more.
-    private var _visibleThreshold = 5
+    // The minimum amount of items to have below your current scroll position before loading more.
+    private var visibleThreshold = 5
     // The current offset index of data you have loaded
-    private var _currentPage = 0
+    private var currentPage = 0
     // The total number of items in the dataset after the last load
-    private var _previousTotalItemCount = 0
+    private var previousTotalItemCount = 0
     // True if we are still waiting for the last set of data to load.
-    private var _loading = true
+    private var loading = true
     // Sets the starting page index
-    private var _startingPageIndex = 0
+    private var startingPageIndex = 0
 
     constructor(visibleThreshold: Int) {
-        _visibleThreshold = visibleThreshold
+        this.visibleThreshold = visibleThreshold
     }
 
     constructor(visibleThreshold: Int, startPage: Int) {
-        _visibleThreshold = visibleThreshold
-        _startingPageIndex = startPage
-        _currentPage = startPage
+        this.visibleThreshold = visibleThreshold
+        startingPageIndex = startPage
+        currentPage = startPage
     }
 
     // This happens many times a second during a scroll, so be wary of the code you place here.
@@ -33,29 +33,29 @@ abstract class MyListViewScrollListener : AbsListView.OnScrollListener {
     override fun onScroll(view: AbsListView, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
         // If the total item count is zero and the previous isn't, assume the
         // list is invalidated and should be reset back to initial state
-        if (totalItemCount < _previousTotalItemCount) {
-            _currentPage = _startingPageIndex
-            _previousTotalItemCount = totalItemCount
-            if (totalItemCount == 0) _loading = true
+        if (totalItemCount < previousTotalItemCount) {
+            currentPage = startingPageIndex
+            previousTotalItemCount = totalItemCount
+            if (totalItemCount == 0) loading = true
         }
-        // If it's still _loading, we check to see if the dataset count has
-        // changed, if so we conclude it has finished _loading and update the current page
+        // If it's still loading, we check to see if the dataset count has
+        // changed, if so we conclude it has finished loading and update the current page
         // number and total item count.
-        if (_loading && totalItemCount > _previousTotalItemCount) {
-            _loading = false
-            _previousTotalItemCount = totalItemCount
-            _currentPage++
+        if (loading && totalItemCount > previousTotalItemCount) {
+            loading = false
+            previousTotalItemCount = totalItemCount
+            currentPage++
         }
 
-        // If it isn't currently _loading, we check to see if we have breached
-        // the _visibleThreshold and need to reload more data.
+        // If it isn't currently loading, we check to see if we have breached
+        // the visibleThreshold and need to reload more data.
         // If we do need to reload some more data, we execute onLoadMore to fetch the data.
-        if (!_loading && firstVisibleItem + visibleItemCount + _visibleThreshold >= totalItemCount) {
-            _loading = onLoadMore(_currentPage + 1, totalItemCount)
+        if (!loading && firstVisibleItem + visibleItemCount + visibleThreshold >= totalItemCount) {
+            loading = onLoadMore(currentPage + 1, totalItemCount)
         }
     }
 
-    // Defines the process for actually _loading more data based on page
+    // Defines the process for actually loading more data based on page
     // Returns true if more data is being loaded; returns false if there is no more data to load.
     abstract fun onLoadMore(page: Int, totalItemsCount: Int): Boolean
 

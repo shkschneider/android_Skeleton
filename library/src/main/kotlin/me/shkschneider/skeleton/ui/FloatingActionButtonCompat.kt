@@ -9,7 +9,6 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.AbsListView
 import android.widget.ListView
-
 import me.shkschneider.skeleton.R
 import me.shkschneider.skeleton.helper.ContextHelper
 
@@ -21,13 +20,13 @@ object FloatingActionButtonCompat {
     fun show(floatingActionButton: FloatingActionButton, animate: Boolean) {
         if (floatingActionButton.visibility == View.VISIBLE) return
         floatingActionButton.visibility = View.VISIBLE
-        if (!animate) return
+        if (! animate) return
         floatingActionButton.startAnimation(AnimationUtils.loadAnimation(ContextHelper.applicationContext(), me.shkschneider.skeleton.R.anim.sk_scale_up))
     }
 
     fun hide(floatingActionButton: FloatingActionButton, animate: Boolean) {
         if (floatingActionButton.visibility == View.GONE) return
-        if (!animate) {
+        if (! animate) {
             floatingActionButton.visibility = View.GONE
             return
         }
@@ -54,8 +53,8 @@ object FloatingActionButtonCompat {
 
     fun absListView(floatingActionButton: FloatingActionButton, listView: ListView, onScrollListener: AbsListView.OnScrollListener?) {
         listView.setOnScrollListener(object : AbsListView.OnScrollListener {
-            private var lastScrollY: Int = 0
-            private var previousFirstVisibleItem: Int = 0
+            private var lastScrollY = 0
+            private var previousFirstVisibleItem = 0
             private val topItemScrollY: Int
                 get() {
                     val topChild = listView.getChildAt(0) ?: return 0
@@ -96,7 +95,7 @@ object FloatingActionButtonCompat {
 
     fun myScrollView(floatingActionButton: FloatingActionButton, myScrollView: MyScrollView) {
         myScrollView.setOnScrollViewListener(object : MyScrollView.OnScrollViewListener {
-            private var mLastScrollY: Int = 0
+            private var mLastScrollY = 0
             override fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int) {
                 val isSignificantDelta = Math.abs(t - mLastScrollY) > THRESHOLD
                 if (isSignificantDelta) {

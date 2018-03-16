@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.ui
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Dialog
 import android.content.DialogInterface
@@ -8,14 +7,9 @@ import android.graphics.drawable.Drawable
 import android.support.annotation.UiThread
 import android.view.Gravity
 import android.view.View
-import android.widget.Button
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-
+import android.widget.*
 import me.shkschneider.skeleton.R
-import me.shkschneider.skeleton.helper.ScreenHelper
+import me.shkschneider.skeleton.helper.Metrics
 
 // <https://github.com/javiersantos/BottomDialogs>
 class BottomSheet {
@@ -24,52 +18,44 @@ class BottomSheet {
 
     constructor(builder: Builder) {
         dialog = Dialog(builder.activity, R.style.SkeletonTheme_BottomSheet)
-        @SuppressLint("InflateParams")
         val view = builder.activity.layoutInflater.inflate(R.layout.sk_bottomsheet, null)
         val icon = view.findViewById<ImageView>(R.id.sk_bottomsheet_icon)
-        if (builder.icon != null) {
-            icon.visibility = View.VISIBLE
-            icon.setImageDrawable(builder.icon)
-        }
+        icon.visibility = View.VISIBLE
+        icon.setImageDrawable(builder.icon)
         val title = view.findViewById<TextView>(R.id.sk_bottomsheet_title)
-        if (builder.title != null) {
-            title.text = builder.title
-        }
+        title.text = builder.title
         val content = view.findViewById<TextView>(R.id.sk_bottomsheet_content)
-        if (builder.content != null) {
-            content.text = builder.content
-        }
+        content.text = builder.content
         val customView = view.findViewById<FrameLayout>(R.id.sk_bottomsheet_customView)
-        if (builder.customView != null) {
+        builder.customView?.let {
             customView.addView(builder.customView)
             customView.setPadding(builder.paddingLeft, builder.paddingTop, builder.paddingRight, builder.paddingBottom)
         }
         val negative = view.findViewById<Button>(R.id.sk_bottomsheet_cancel)
-        if (builder.negative != null) {
+        builder.negative?.let {
             negative.visibility = View.VISIBLE
             negative.text = builder.negative
             negative.setOnClickListener {
-                if (builder.negativeCallback != null)
-                    builder.negativeCallback!!.onClick(dialog, DialogInterface.BUTTON_NEGATIVE)
+                builder.negativeCallback?.onClick(dialog, DialogInterface.BUTTON_NEGATIVE)
                 dialog?.dismiss()
             }
         }
         val positive = view.findViewById<Button>(R.id.sk_bottomsheet_ok)
-        if (builder.positive != null) {
+        builder.positive?.let {
             positive.visibility = View.VISIBLE
             positive.text = builder.positive
             positive.setOnClickListener {
-                if (builder.positiveCallback != null)
-                    builder.positiveCallback!!.onClick(dialog, DialogInterface.BUTTON_POSITIVE)
+                builder.positiveCallback?.onClick(dialog, DialogInterface.BUTTON_POSITIVE)
                 dialog?.dismiss()
             }
         }
-        dialog?.setContentView(view)
-        dialog?.setCancelable(builder.cancelable)
-        val window = dialog?.window
-        if (window != null) {
-            window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-            window.setGravity(Gravity.BOTTOM)
+        dialog?.let {
+            it.setContentView(view)
+            it.setCancelable(builder.cancelable)
+            it.window?.let {
+                it.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                it.setGravity(Gravity.BOTTOM)
+            }
         }
     }
 
@@ -94,15 +80,15 @@ class BottomSheet {
         var negativeCallback: DialogInterface.OnClickListener? = null
         var positiveCallback: DialogInterface.OnClickListener? = null
         var customView: View? = null
-        var paddingLeft: Int = 0
-        var paddingTop: Int = 0
-        var paddingRight: Int = 0
-        var paddingBottom: Int = 0
-        var cancelable: Boolean = false
+        var paddingLeft = 0
+        var paddingTop = 0
+        var paddingRight = 0
+        var paddingBottom = 0
+        var cancelable = false
 
         constructor(activity: Activity) {
             this.activity = activity
-            this.cancelable = true
+            cancelable = true
         }
 
         fun setTitle(title: String): Builder {
@@ -122,13 +108,13 @@ class BottomSheet {
 
         fun setPositive(positive: String, onClickListener: DialogInterface.OnClickListener?): Builder {
             this.positive = positive
-            this.positiveCallback = onClickListener
+            positiveCallback = onClickListener
             return this
         }
 
         fun setNegative(negative: String, onClickListener: DialogInterface.OnClickListener?): Builder {
             this.negative = negative
-            this.negativeCallback = onClickListener
+            negativeCallback = onClickListener
             return this
         }
 
@@ -139,19 +125,19 @@ class BottomSheet {
 
         fun setCustomView(customView: View): Builder {
             this.customView = customView
-            this.paddingLeft = 0
-            this.paddingTop = 0
-            this.paddingRight = 0
-            this.paddingBottom = 0
+            paddingLeft = 0
+            paddingTop = 0
+            paddingRight = 0
+            paddingBottom = 0
             return this
         }
 
         fun setCustomView(customView: View, left: Int, top: Int, right: Int, bottom: Int): Builder {
             this.customView = customView
-            this.paddingLeft = ScreenHelper.pixelsFromDp(left.toFloat())
-            this.paddingTop = ScreenHelper.pixelsFromDp(top.toFloat())
-            this.paddingRight = ScreenHelper.pixelsFromDp(right.toFloat())
-            this.paddingBottom = ScreenHelper.pixelsFromDp(bottom.toFloat())
+            paddingLeft = Metrics.pixelsFromDp(left.toFloat())
+            paddingTop = Metrics.pixelsFromDp(top.toFloat())
+            paddingRight = Metrics.pixelsFromDp(right.toFloat())
+            paddingBottom = Metrics.pixelsFromDp(bottom.toFloat())
             return this
         }
 

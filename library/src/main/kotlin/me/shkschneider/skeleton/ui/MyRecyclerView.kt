@@ -13,7 +13,7 @@ class MyRecyclerView : RecyclerView {
     init {
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         setHasFixedSize(true)
-        addItemDecoration(MyRecyclerViewSeparator(context, MyRecyclerViewSeparator.VERTICAL))
+        addItemDecoration(MyRecyclerViewSeparator(0, 1)) // dummy
     }
 
 }

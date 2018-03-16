@@ -8,10 +8,8 @@ import com.android.volley.toolbox.HttpHeaderParser
 import com.android.volley.toolbox.JsonRequest
 import com.google.gson.Gson
 import com.google.gson.JsonObject
-
-import java.io.UnsupportedEncodingException
-
 import me.shkschneider.skeleton.data.CharsetHelper
+import java.io.UnsupportedEncodingException
 import java.nio.charset.Charset
 
 // <https://android.googlesource.com/platform/frameworks/volley/+/master/src/main/java/com/android/volley/toolbox/JsonObjectRequest.java>

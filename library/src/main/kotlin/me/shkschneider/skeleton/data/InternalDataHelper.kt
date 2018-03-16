@@ -2,14 +2,12 @@ package me.shkschneider.skeleton.data
 
 import android.content.Context
 import android.os.Environment
-
+import me.shkschneider.skeleton.helper.ContextHelper
+import me.shkschneider.skeleton.helper.LogHelper
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
-
-import me.shkschneider.skeleton.helper.ContextHelper
-import me.shkschneider.skeleton.helper.LogHelper
 
 object InternalDataHelper {
 

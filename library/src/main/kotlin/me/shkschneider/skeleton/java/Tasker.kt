@@ -1,31 +1,30 @@
 package me.shkschneider.skeleton.java
 
+import me.shkschneider.skeleton.SkeletonReceiver
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
 
-import me.shkschneider.skeleton.SkeletonReceiver
-
 // <http://stackoverflow.com/a/9458785>
 class Tasker {
 
-    private val _executorService: ExecutorService = Executors.newSingleThreadExecutor()
-    private var _future: Future<*>? = null
+    private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
+    private var future: Future<*>? = null
 
     fun done(): Boolean? {
-        return _future?.isDone
+        return future?.isDone
     }
 
     fun cancelled(): Boolean? {
-        return _future?.isCancelled
+        return future?.isCancelled
     }
 
     fun run(task: Task) {
-        _future = _executorService.submit(task)
+        future = executorService.submit(task)
     }
 
     fun cancel(mayInterruptIfRunning: Boolean): Boolean? {
-        return _future?.cancel(mayInterruptIfRunning)
+        return future?.cancel(mayInterruptIfRunning)
     }
 
     // <http://stackoverflow.com/a/826283>
@@ -41,7 +40,7 @@ class Tasker {
 
         override fun run() {
             _runnable.run()
-            _skeletonReceiver?.post(ClassHelper.simpleName(Tasker::class.java), null)
+            _skeletonReceiver?.post(Tasker::class.java.simpleName, null)
         }
 
     }

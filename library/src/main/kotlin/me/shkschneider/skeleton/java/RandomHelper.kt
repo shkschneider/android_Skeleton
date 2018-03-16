@@ -1,10 +1,8 @@
 package me.shkschneider.skeleton.java
 
 import android.support.annotation.IntRange
-
-import java.util.Random
-
 import me.shkschneider.skeleton.helper.LogHelper
+import java.util.*
 
 object RandomHelper {
 
@@ -12,18 +10,13 @@ object RandomHelper {
         return Math.random() < 0.5
     }
 
-    fun string(characters: String, @IntRange(from = 0) length: Int): String {
+    fun string(@IntRange(from = 0) length: Int, characters: String = StringHelper.HEX): String {
         val random = Random()
         val stringBuilder = StringBuilder()
         for (i in 0 until length) {
             stringBuilder.append(characters[random.nextInt(characters.length)])
         }
         return stringBuilder.toString()
-    }
-
-    @JvmStatic
-    fun string(@IntRange(from = 0) length: Int): String {
-        return string(StringHelper.lower(StringHelper.HEX), length)
     }
 
     fun inclusive(min: Int, max: Int): Int {

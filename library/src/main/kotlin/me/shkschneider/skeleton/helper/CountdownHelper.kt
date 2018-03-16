@@ -8,7 +8,7 @@ class CountdownHelper {
     private val _timer: Long
     private val _ticker: Long
 
-    constructor(timer: Long = TimeUnit.SECONDS.toMillis(10), ticker: Long = TimeUnit.SECONDS.toMillis(1)) {
+    constructor(timer: Long = TimeUnit.SECONDS.toMillis(60), ticker: Long = TimeUnit.SECONDS.toMillis(1)) {
         _timer = timer
         _ticker = ticker
     }

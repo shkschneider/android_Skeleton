@@ -20,19 +20,19 @@ abstract class MyRecyclerViewScrollListener : RecyclerView.OnScrollListener {
     // Sets the starting page index
     private val startingPageIndex = 0
 
-    private val mLayoutManager: RecyclerView.LayoutManager
+    private val layoutManager: RecyclerView.LayoutManager
 
-    constructor(layoutManager: LinearLayoutManager) {
-        this.mLayoutManager = layoutManager
+    constructor(linearLayoutManager: LinearLayoutManager) {
+        layoutManager = linearLayoutManager
     }
 
-    constructor(layoutManager: GridLayoutManager) {
-        this.mLayoutManager = layoutManager
+    constructor(gridLayoutManager: GridLayoutManager) {
+        layoutManager = gridLayoutManager
     }
 
-    constructor(layoutManager: StaggeredGridLayoutManager) {
-        this.mLayoutManager = layoutManager
-        visibleThreshold *= layoutManager.spanCount
+    constructor(staggeredGridLayoutManager: StaggeredGridLayoutManager) {
+        layoutManager = staggeredGridLayoutManager
+        visibleThreshold *= staggeredGridLayoutManager.spanCount
     }
 
     fun getLastVisibleItem(lastVisibleItemPositions: IntArray): Int {
@@ -52,23 +52,23 @@ abstract class MyRecyclerViewScrollListener : RecyclerView.OnScrollListener {
     // but first we check if we are waiting for the previous load to finish.
     override fun onScrolled(view: RecyclerView?, dx: Int, dy: Int) {
         var lastVisibleItemPosition = 0
-        val totalItemCount = mLayoutManager.itemCount
+        val totalItemCount = layoutManager.itemCount
 
-        if (mLayoutManager is StaggeredGridLayoutManager) {
-            val lastVisibleItemPositions = mLayoutManager.findLastVisibleItemPositions(null)
+        if (layoutManager is StaggeredGridLayoutManager) {
+            val lastVisibleItemPositions = layoutManager.findLastVisibleItemPositions(null)
             // get maximum element within the list
             lastVisibleItemPosition = getLastVisibleItem(lastVisibleItemPositions)
-        } else if (mLayoutManager is LinearLayoutManager) {
-            lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition()
-        } else if (mLayoutManager is GridLayoutManager) {
-            lastVisibleItemPosition = mLayoutManager.findLastVisibleItemPosition()
+        } else if (layoutManager is LinearLayoutManager) {
+            lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
+        } else if (layoutManager is GridLayoutManager) {
+            lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
         }
 
         // If the total item count is zero and the previous isn't, assume the
         // list is invalidated and should be reset back to initial state
         if (totalItemCount < previousTotalItemCount) {
-            this.currentPage = this.startingPageIndex
-            this.previousTotalItemCount = totalItemCount
+            currentPage = startingPageIndex
+            previousTotalItemCount = totalItemCount
             if (totalItemCount == 0) {
                 this.loading = true
             }
@@ -85,7 +85,7 @@ abstract class MyRecyclerViewScrollListener : RecyclerView.OnScrollListener {
         // the visibleThreshold and need to reload more data.
         // If we do need to reload some more data, we execute onLoadMore to fetch the data.
         // threshold should reflect how many total columns there are too
-        if (!loading && lastVisibleItemPosition + visibleThreshold > totalItemCount) {
+        if (! loading && lastVisibleItemPosition + visibleThreshold > totalItemCount) {
             currentPage++
             onLoadMore(currentPage, totalItemCount)
             loading = true

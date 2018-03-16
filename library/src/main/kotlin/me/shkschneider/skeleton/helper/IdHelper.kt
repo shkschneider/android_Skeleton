@@ -4,11 +4,7 @@ import android.annotation.SuppressLint
 import android.net.Uri
 import android.provider.Settings
 import android.support.annotation.RequiresPermission
-import android.text.TextUtils
-
-import java.util.UUID
-
-import me.shkschneider.skeleton.java.StringHelper
+import java.util.*
 
 // <https://developers.google.com/instance-id/>
 object IdHelper {
@@ -20,7 +16,7 @@ object IdHelper {
         val cursor = ContextHelper.applicationContext().contentResolver.query(Uri.parse("content://com.google.android.gsf.gservices"), null, null, arrayOf("android_id"), null) ?: return null
         var gsfId: String? = null
         try {
-            if (!cursor.moveToFirst() || cursor.columnCount < 2) {
+            if (! cursor.moveToFirst() || cursor.columnCount < 2) {
                 throw Exception()
             }
             gsfId = java.lang.Long.toHexString(java.lang.Long.parseLong(cursor.getString(1)))
@@ -36,11 +32,11 @@ object IdHelper {
     @Deprecated("Using getString to get device identifiers is not recommended.")
     fun androidId(): String? {
         val androidId = Settings.Secure.getString(ContextHelper.applicationContext().contentResolver, Settings.Secure.ANDROID_ID)
-        if (TextUtils.isEmpty(androidId)) {
+        if (androidId.isNullOrBlank()) {
             LogHelper.warning("AndroidId was NULL")
             return null
         }
-        return StringHelper.lower(androidId)
+        return androidId.toLowerCase()
     }
 
     fun uuid(id: String): String {

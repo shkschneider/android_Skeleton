@@ -1,18 +1,15 @@
 package me.shkschneider.skeleton
 
-import android.os.Handler
-
-import java.io.Serializable
-
 import me.shkschneider.skeleton.helper.HandlerHelper
+import java.io.Serializable
 
 // android.support.v4.os.ResultReceiver
 abstract class SkeletonReceiver {
 
-    private var _handler: Handler = HandlerHelper.main()
+    private var handler = HandlerHelper.main()
 
     fun post(id: String, serializable: Serializable?) {
-        _handler.post(MyRunnable(id, serializable))
+        handler.post(MyRunnable(id, serializable))
     }
 
     protected abstract fun onReceive(id: String, serializable: Serializable?)

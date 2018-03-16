@@ -11,8 +11,8 @@ class CubeInTransformer : ABaseTransformer() {
 
     override fun onTransform(page: View, position: Float) {
         page.pivotX = (if (position > 0) 0 else page.width).toFloat()
-        page.pivotY = 0f
-        page.rotationY = -90f * position
+        page.pivotY = 1.toFloat()
+        page.rotationY = -1.toFloat() * position
     }
 
 }

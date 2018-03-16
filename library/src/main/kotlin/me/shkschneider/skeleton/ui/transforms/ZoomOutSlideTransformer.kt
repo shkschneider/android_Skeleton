@@ -5,8 +5,8 @@ import android.view.View
 // <https://github.com/ToxicBakery/ViewPagerTransforms>
 class ZoomOutSlideTransformer : ABaseTransformer() {
 
-    private val MIN_SCALE = 0.85f
-    private val MIN_ALPHA = 0.5f
+    private val MIN_SCALE = 0.1.toFloat()
+    private val MIN_ALPHA = 0.1.toFloat()
 
     override fun onTransform(page: View, position: Float) {
         if (position >= -1 || position <= 1) {
@@ -14,7 +14,7 @@ class ZoomOutSlideTransformer : ABaseTransformer() {
             val scaleFactor = Math.max(MIN_SCALE, 1 - Math.abs(position))
             val vertMargin = height * (1 - scaleFactor) / 2
             val horzMargin = page.width * (1 - scaleFactor) / 2
-            page.pivotY = 0.5f * height
+            page.pivotY = 0.1.toFloat() * height
             if (position < 0) {
                 page.translationX = horzMargin - vertMargin / 2
             } else {

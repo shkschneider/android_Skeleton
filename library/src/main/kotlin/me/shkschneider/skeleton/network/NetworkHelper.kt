@@ -1,47 +1,43 @@
 package me.shkschneider.skeleton.network
 
 import android.Manifest
-import android.annotation.TargetApi
+import android.annotation.SuppressLint
 import android.net.wifi.WifiManager
 import android.support.annotation.RequiresPermission
+import android.util.Patterns
 import android.webkit.WebSettings
-
+import me.shkschneider.skeleton.helper.*
+import me.shkschneider.skeleton.java.ReflectHelper
 import java.net.Inet4Address
 import java.net.NetworkInterface
 import java.net.SocketException
-import java.util.ArrayList
-
-import me.shkschneider.skeleton.helper.AndroidHelper
-import me.shkschneider.skeleton.helper.ContextHelper
-import me.shkschneider.skeleton.helper.LogHelper
-import me.shkschneider.skeleton.helper.SystemProperties
-import me.shkschneider.skeleton.helper.SystemServices
-import me.shkschneider.skeleton.java.ClassHelper
-import me.shkschneider.skeleton.java.ReflectHelper
+import java.util.*
 
 object NetworkHelper {
 
     // <https://stackoverflow.com/a/39149126>
     @Deprecated("Does NOT work on API-26+")
+    @SuppressLint("PrivateApi")
     fun hostname(): String? {
-        val cls = ClassHelper.get("android.os.SystemProperties")
-        return if (cls != null) {
-            @Suppress("DEPRECATION")
-            ReflectHelper.Method.method(cls, "get", arrayOf(String::class.java), "net.hostname") as String?
-        } else SystemProperties.get("net.hostname")
+        try {
+            val cls = Class.forName("android.os.SystemProperties")
+            if (cls != null) {
+                @Suppress("DEPRECATION")
+                return ReflectHelper.Method.method(cls, "get", arrayOf(String::class.java), "net.hostname") as String?
+            }
+        }
+        catch (e: ClassNotFoundException) {
+            LogHelper.wtf(e)
+        }
         // Most probably null
+        return SystemProperties.get("net.hostname")
     }
 
+    @SuppressLint("NewApi")
     fun userAgent(): String? {
         return if (AndroidHelper.api() >= AndroidHelper.API_17) {
-            userAgent17()
+            WebSettings.getDefaultUserAgent(ContextHelper.applicationContext())
         } else SystemProperties.get("http.agent")
-    }
-
-    // <https://stackoverflow.com/a/43238397>
-    @TargetApi(AndroidHelper.API_17)
-    private fun userAgent17(): String {
-        return WebSettings.getDefaultUserAgent(ContextHelper.applicationContext())
     }
 
     @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
@@ -75,7 +71,7 @@ object NetworkHelper {
                 while (enumerationInetAddress.hasMoreElements()) {
                     val inetAddress = enumerationInetAddress.nextElement()
                     val ipAddress = inetAddress.hostAddress
-                    if (!inetAddress.isLoopbackAddress && inetAddress is Inet4Address) {
+                    if (! inetAddress.isLoopbackAddress && inetAddress is Inet4Address) {
                         ipAddresses.add(ipAddress)
                     }
                 }
@@ -88,6 +84,10 @@ object NetworkHelper {
 
     }
 
+    fun ipAddress(string: String): Boolean {
+        return string.matches(Patterns.IP_ADDRESS.toRegex())
+    }
+
     fun ipAddress(): String? {
         try {
             val enumerationNetworkInterface = NetworkInterface.getNetworkInterfaces()
@@ -97,7 +97,7 @@ object NetworkHelper {
                 while (enumerationInetAddress.hasMoreElements()) {
                     val inetAddress = enumerationInetAddress.nextElement()
                     val ipAddress = inetAddress.hostAddress
-                    if (!inetAddress.isLoopbackAddress && inetAddress is Inet4Address) {
+                    if (! inetAddress.isLoopbackAddress && inetAddress is Inet4Address) {
                         return ipAddress
                     }
                 }

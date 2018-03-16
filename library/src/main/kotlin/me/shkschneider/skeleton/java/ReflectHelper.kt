@@ -8,7 +8,7 @@ object ReflectHelper {
     object Field {
 
         fun fields(obj: Any): List<String>? {
-            return fields(obj.javaClass)
+            return fields(obj::class.java)
         }
 
         fun fields(cls: Class<Any>): List<String>? {
@@ -21,7 +21,7 @@ object ReflectHelper {
         }
 
         fun field(obj: Any, declaredField: String): Any? {
-            return field(obj.javaClass, declaredField)
+            return field(obj::class.java, declaredField)
         }
 
         fun field(cls: Class<Any>, declaredField: String): Any? {
@@ -36,7 +36,7 @@ object ReflectHelper {
         }
 
         fun field(obj: Any, declaredField: String, value: Any): Boolean {
-            return field(obj.javaClass, declaredField, value)
+            return field(obj::class.java, declaredField, value)
         }
 
         fun field(cls: Class<Any>, declaredField: String, value: Any): Boolean {
@@ -59,15 +59,15 @@ object ReflectHelper {
         private val EMPTY_SIGNATURE = arrayOf<Class<*>>()
 
         fun methods(obj: Any): List<String>? {
-            return methods(obj.javaClass)
+            return methods(obj::class.java)
         }
 
         fun method(obj: Any, declaredMethod: String, signature: Array<Class<*>>): Any? {
-            return method(obj.javaClass, declaredMethod, signature, EMPTY_SIGNATURE)
+            return method(obj::class.java, declaredMethod, signature, EMPTY_SIGNATURE)
         }
 
         fun method(obj: Any, declaredMethod: String, signature: Array<Class<*>>, vararg params: Any): Any? {
-            return method(obj.javaClass, declaredMethod, signature, *params)
+            return method(obj::class.java, declaredMethod, signature, *params)
         }
 
         fun methods(cls: Class<*>): List<String>? {

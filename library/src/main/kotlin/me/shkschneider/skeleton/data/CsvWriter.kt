@@ -7,6 +7,7 @@ import java.io.Writer
 class CsvWriter {
 
     private val NULL = '\u0000'
+
     private val _writer: PrintWriter
     private val _separator: Char
     private val _quote: Char
@@ -22,13 +23,11 @@ class CsvWriter {
     }
 
     fun writeNext(nextLine: String) {
-        writeNext(nextLine.split(_separator.toString().toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray())
+        writeNext(nextLine.split(_separator.toString().toRegex()).toTypedArray())
     }
 
     fun writeNext(nextLine: Array<String>?) {
-        if (nextLine == null) {
-            return
-        }
+        if (nextLine == null) return
         val stringBuilder = StringBuilder()
         for (i in nextLine.indices) {
             if (i != 0) {

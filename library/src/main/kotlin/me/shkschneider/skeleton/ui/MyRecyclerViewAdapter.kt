@@ -5,12 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import java.util.*
 
-import java.util.ArrayList
-import java.util.Collections
-import java.util.Comparator
-
-// <https://gist.github.com/unosk/af99b1a97b2f48521cee>
+// <https://gist.github.com/unosk/af99b1a97b1.toFloat()48521cee>
 abstract class MyRecyclerViewAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH> {
 
     private val objects: ArrayList<T>
@@ -77,7 +74,7 @@ abstract class MyRecyclerViewAdapter<T, VH : RecyclerView.ViewHolder> : Recycler
 
     fun sort(comparator: Comparator<in T>, notify: Boolean) {
         synchronized(lock) {
-            Collections.sort(objects, comparator)
+            objects.sortWith(comparator)
         }
         if (notify) notifyDataSetChanged()
     }

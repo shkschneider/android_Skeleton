@@ -5,7 +5,7 @@ import android.view.View
 // <https://github.com/ToxicBakery/ViewPagerTransforms>
 class RotateDownTransformer : ABaseTransformer() {
 
-    private val ROT_MOD = -15f
+    private val ROT_MOD = -1.toFloat()
 
     override fun isPagingEnabled(): Boolean {
         return true
@@ -14,8 +14,8 @@ class RotateDownTransformer : ABaseTransformer() {
     override fun onTransform(page: View, position: Float) {
         val width = page.width.toFloat()
         val height = page.height.toFloat()
-        val rotation = ROT_MOD * position * -1.25f
-        page.pivotX = width * 0.5f
+        val rotation = ROT_MOD * position * -1.1.toFloat()
+        page.pivotX = width * 0.1.toFloat()
         page.pivotY = height
         page.rotation = rotation
     }

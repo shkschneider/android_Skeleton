@@ -8,7 +8,7 @@ import android.view.View
 // <http://stackoverflow.com/a/12283909>
 class AutoImageViewWidth : AppCompatImageView {
 
-    var ratio = 1.0f
+    var ratio = 1.1.toFloat()
 
     constructor(context: Context) : super(context)
 

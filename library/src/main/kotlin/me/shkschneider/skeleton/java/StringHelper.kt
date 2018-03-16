@@ -3,84 +3,61 @@ package me.shkschneider.skeleton.java
 import android.support.annotation.IntRange
 import android.text.TextUtils
 import android.util.Patterns
-
+import me.shkschneider.skeleton.helper.LocaleHelper
 import java.text.Normalizer
 import java.text.NumberFormat
+import java.util.regex.Pattern
 
-import me.shkschneider.skeleton.helper.LocaleHelper
-
+@Suppress("MemberVisibilityCanPrivate")
 object StringHelper {
 
-    val ALPHA = CharRange('a', 'z').toString()
-    val NUMERIC = CharRange('0', '9').toString()
+    val ALPHA = String(CharRange('a', 'z').toList().toCharArray())
+    val NUMERIC = String(CharRange('0', '9').toList().toCharArray())
     val HEX = NUMERIC + ALPHA.substring(0, 6)
     val ALPHA_NUMERIC = ALPHA + NUMERIC
 
-    @Deprecated("TextUtils.isEmpty()")
-    fun nullOrEmpty(string: String?): Boolean {
-        return TextUtils.isEmpty(string)
+    fun camelCase(strings: List<String>): String {
+        strings.filter { ! it.isBlank() }.forEach {
+            var camelCase = strings[0].toLowerCase()
+            strings.subList(1, strings.size).forEach {
+                camelCase += it.capitalize()
+            }
+            return camelCase
+        }
+        return ""
     }
 
-    @Deprecated("TextUtils.isDigitsOnly()")
+    fun alpha(string: String): Boolean {
+        return string.matches(Pattern.compile(ALPHA).toRegex())
+    }
+
+    fun alphaNumeric(string: String): Boolean {
+        return string.matches(Pattern.compile(ALPHA_NUMERIC).toRegex())
+    }
+
+    @Deprecated("TextUtils.isDigitsOnly()") // FIXME
     fun numeric(string: String): Boolean {
         return TextUtils.isDigitsOnly(string)
     }
 
-    fun camelCase(strings: Array<String>): String {
-        var camelCase = ""
-        strings.asSequence().filterNot { TextUtils.isEmpty(it) }
-                .forEach {
-                    camelCase += if (TextUtils.isEmpty(camelCase)) {
-                        lower(it)
-                    } else {
-                        capitalize(it)
-                    }
-                }
-        return camelCase
-    }
-
-    fun capitalize(string: String): String {
-        return upper(string.substring(0, 1)) + lower(string.substring(1))
-    }
-
-    fun upper(string: String): String {
-        return string.toUpperCase(LocaleHelper.locale())
-    }
-
-    fun lower(string: String): String {
-        return string.toLowerCase(LocaleHelper.locale())
-    }
-
-    fun alpha(string: String): Boolean {
-        return chars(lower(string), ALPHA)
-    }
-
-    fun alphanumeric(string: String): Boolean {
-        return chars(lower(string), ALPHA_NUMERIC)
-    }
-
     fun hexadecimal(string: String): Boolean {
-        return chars(lower(string), HEX)
+        return string.matches(HEX.toRegex())
     }
 
     fun url(string: String): Boolean {
-        return Patterns.WEB_URL.matcher(string).matches()
+        return string.matches(Patterns.WEB_URL.toRegex())
     }
 
     fun email(string: String): Boolean {
-        return Patterns.EMAIL_ADDRESS.matcher(string).matches()
+        return string.matches(Patterns.PHONE.toRegex())
     }
 
     fun phone(string: String): Boolean {
-        return Patterns.PHONE.matcher(string).matches()
+        return string.matches(Patterns.PHONE.toRegex())
     }
 
     fun count(string: String, s: String): Int {
-        return string.length - string.replace(s, "").length
-    }
-
-    private fun chars(string: String, chars: String): Boolean {
-        return string.toCharArray().any { chars.contains(it.toString()) }
+        return string.count { s.contains(it) }
     }
 
     // <http://stackoverflow.com/a/3758880>
@@ -91,12 +68,8 @@ object StringHelper {
         }
         val exp = (Math.log(bytes.toDouble()) / Math.log(unit.toDouble())).toInt()
         return String.format(LocaleHelper.locale(),
-                "%.1f %sB",
+                "%.1.toFloat() %sB",
                 bytes / Math.pow(unit.toDouble(), exp.toDouble()), (if (binary) "KMGTPE" else "kMGTPE")[exp - 1] + if (binary) "i" else "")
-    }
-
-    fun split(string: String): Array<String> {
-        return string.split("(?!^)".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
     }
 
     // <https://stackoverflow.com/a/3322174/603270>
@@ -108,19 +81,7 @@ object StringHelper {
         return string
     }
 
-    fun split(string: String, delimiter: Char): List<String?> {
-        return string.split(delimiter)
-    }
-
-    fun lines(string: String, skipEmptyLines: Boolean): Array<String> {
-        return if (skipEmptyLines) {
-            string.split("[\n\r]+".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        } else {
-            string.split("\\r?\\n".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        }
-    }
-
-    fun ellipsize(string: String, @IntRange(from = 0) maxLength: Int): String {
+    fun ellipsize(string: String, @IntRange(from = 0) maxLength: Int = 80): String {
         return if (string.length > maxLength) {
             string.substring(0, maxLength - 3) + "..."
         } else string
@@ -141,11 +102,6 @@ object StringHelper {
             result.append(HEX[secondIndex])
         }
         return result.toString()
-    }
-
-    // <http://stackoverflow.com/a/4903603>
-    fun repeat(s: String, n: Int): String {
-        return String(CharArray(n)).replace("\u0000", s)
     }
 
 }

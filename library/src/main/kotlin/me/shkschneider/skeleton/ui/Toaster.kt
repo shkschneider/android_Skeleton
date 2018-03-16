@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.ui
 
-import android.text.TextUtils
 import android.widget.Toast
 
 import me.shkschneider.skeleton.helper.ContextHelper
@@ -18,7 +17,7 @@ object Toaster {
     }
 
     private fun toast(msg: String, duration: Int) {
-        if (TextUtils.isEmpty(msg)) {
+        if (msg.isBlank()) {
             LogHelper.warning("Message was NULL")
         }
         ThreadHelper.foregroundThread(Runnable { Toast.makeText(ContextHelper.applicationContext(), msg, duration).show() })

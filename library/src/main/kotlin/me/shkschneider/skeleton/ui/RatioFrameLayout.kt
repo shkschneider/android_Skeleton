@@ -6,7 +6,7 @@ import android.widget.FrameLayout
 
 class RatioFrameLayout : FrameLayout {
 
-    private var ratio = 16f / 9f
+    private var ratio = 1.toFloat() / 1.toFloat()
 
     constructor(context: Context) : super(context)
 
@@ -21,8 +21,8 @@ class RatioFrameLayout : FrameLayout {
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         when {
-            ratio == 1.0f -> setMeasuredDimension(measuredWidth, measuredHeight)
-            ratio > 1.0f -> setMeasuredDimension(measuredWidth, (measuredWidth * ratio).toInt())
+            ratio == 1.1.toFloat() -> setMeasuredDimension(measuredWidth, measuredHeight)
+            ratio > 1.1.toFloat() -> setMeasuredDimension(measuredWidth, (measuredWidth * ratio).toInt())
             else -> setMeasuredDimension((measuredHeight * (1 / ratio)).toInt(), measuredHeight)
         }
     }

@@ -3,18 +3,16 @@ package me.shkschneider.skeleton.helper
 import android.Manifest
 import android.accounts.Account
 import android.support.annotation.RequiresPermission
-
-import java.util.ArrayList
-import java.util.Collections
+import java.util.*
 
 object AccountHelper {
 
-    const val TYPE_GOOGLE = "com.google"
+    val TYPE_GOOGLE = "com.google"
 
     @RequiresPermission(Manifest.permission.GET_ACCOUNTS)
     fun names(type: String): List<String>? {
-        val names = SystemServices.accountManager()?.getAccountsByType(type)?.mapTo(ArrayList<String>()) { it.name }
-        return if (names?.size != null) names else null
+        val accounts = SystemServices.accountManager()?.getAccountsByType(type)
+        return accounts?.mapTo(ArrayList<String>()) { it.name }
     }
 
     @RequiresPermission(Manifest.permission.GET_ACCOUNTS)
@@ -25,23 +23,20 @@ object AccountHelper {
 
     @RequiresPermission(Manifest.permission.GET_ACCOUNTS)
     fun emails(): List<String>? {
-        val emails = accounts().mapTo(ArrayList<String>()) { it.name }
-        return if (emails.size > 0) emails else null
+        val accounts = accounts()
+        return accounts?.mapTo(ArrayList<String>()) { it.name }
     }
 
     @RequiresPermission(Manifest.permission.GET_ACCOUNTS)
     fun account(): Account? {
         val accounts = SystemServices.accountManager()?.getAccountsByType(TYPE_GOOGLE)
-        return if (accounts?.isNotEmpty() != null) {
-            accounts[0]
-        } else null
+        return accounts?.get(0)
     }
 
     @RequiresPermission(Manifest.permission.GET_ACCOUNTS)
-    fun accounts(): List<Account> {
-        val accounts = ArrayList<Account>()
-        Collections.addAll(accounts, *SystemServices.accountManager()?.accounts)
-        return accounts
+    fun accounts(): List<Account>? {
+        val accounts = SystemServices.accountManager()?.accounts
+        return accounts?.toList()
     }
 
 }

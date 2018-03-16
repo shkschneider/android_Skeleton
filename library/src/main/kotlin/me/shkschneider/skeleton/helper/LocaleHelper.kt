@@ -1,8 +1,7 @@
 package me.shkschneider.skeleton.helper
 
 import android.support.v4.os.LocaleListCompat
-
-import java.util.Locale
+import java.util.*
 
 object LocaleHelper {
 

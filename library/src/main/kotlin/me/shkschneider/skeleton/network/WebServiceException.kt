@@ -5,12 +5,6 @@ import java.util.*
 
 class WebServiceException : Exception {
 
-    companion object {
-
-        const val INTERNAL_ERROR = 666
-
-    }
-
     private val _code: Int
     private val _message: String
 
@@ -29,6 +23,12 @@ class WebServiceException : Exception {
 
     override fun toString(): String {
         return String.format(Locale.getDefault(), "%d %s", code(), message())
+    }
+
+    companion object {
+
+        const val INTERNAL_ERROR = 666
+
     }
 
 }

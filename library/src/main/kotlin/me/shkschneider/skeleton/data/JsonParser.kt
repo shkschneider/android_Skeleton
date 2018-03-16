@@ -1,15 +1,11 @@
 package me.shkschneider.skeleton.data
 
-import android.text.TextUtils
-
+import me.shkschneider.skeleton.helper.LogHelper
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
-
 import java.io.InputStream
-import java.util.ArrayList
-
-import me.shkschneider.skeleton.helper.LogHelper
+import java.util.*
 
 object JsonParser {
 
@@ -24,7 +20,7 @@ object JsonParser {
 
     fun parse(inputStream: InputStream): JSONObject? {
         val string = FileHelper.readString(inputStream)
-        if (TextUtils.isEmpty(string)) {
+        if (string.isNullOrEmpty()) {
             LogHelper.warning("String was NULL")
             return null
         }

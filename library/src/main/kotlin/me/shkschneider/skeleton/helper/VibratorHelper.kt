@@ -2,13 +2,12 @@ package me.shkschneider.skeleton.helper
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.annotation.TargetApi
 import android.os.VibrationEffect
 import android.support.annotation.RequiresPermission
 
 object VibratorHelper {
 
-    private val DEFAULT_DURATION = longArrayOf(1000L, 1000L, 1000L, 1000L, 1000L)
+    private val DEFAULT_DURATION = longArrayOf(1000, 1000, 1000, 1000, 1000)
     private val DO_REPEAT = 0
     private val DO_NOT_REPEAT = -1
 

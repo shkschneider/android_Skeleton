@@ -5,18 +5,14 @@ import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.support.annotation.Size
-
-import java.util.ArrayList
-import java.util.Collections
-
+import me.shkschneider.skeleton.SkeletonApplication
 import me.shkschneider.skeleton.java.SkHide
 import me.shkschneider.skeleton.ui.BitmapHelper
-import me.shkschneider.skeleton.SkeletonApplication
 
 object ApplicationHelper {
 
-    const val DEFAULT_ICON = android.R.drawable.sym_def_app_icon
-    const val INSTALLER = "com.android.vending"
+    val DEFAULT_ICON = android.R.drawable.sym_def_app_icon
+    val INSTALLER = "com.android.vending"
 
     fun debuggable(): Boolean {
         // <https://stackoverflow.com/a/25517680/603270>
@@ -55,12 +51,12 @@ object ApplicationHelper {
     @Size(3)
     fun semanticVersions(): Array<Int>? {
         val versionName = versionName() ?: return null
-        if (!versionName.matches("^\\d+\\.\\d+\\.\\d+$".toRegex())) {
+        if (! versionName.matches("^\\d+\\.\\d+\\.\\d+$".toRegex())) {
             LogHelper.warning("Not semantic versioning")
             return null
         }
-        val versionNames = versionName.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        return arrayOf(Integer.valueOf(versionNames[0]), Integer.valueOf(versionNames[1]), Integer.valueOf(versionNames[2]))
+        val versionNames = versionName.split("\\.".toRegex())
+        return arrayOf(versionNames[0].toInt(), versionNames[1].toInt(), versionNames[2].toInt())
     }
 
     fun versionName(): String? {
@@ -83,7 +79,9 @@ object ApplicationHelper {
         }
     }
 
-    // TODO flavor()
+    fun flavor(): String? {
+        TODO()
+    }
 
     fun icon(): Bitmap? {
         try {
@@ -101,9 +99,7 @@ object ApplicationHelper {
         try {
             val packageManager = packageManager()
             val packageInfo = packageManager.getPackageInfo(packageName(), PackageManager.GET_PERMISSIONS)
-            val list = ArrayList<String>()
-            Collections.addAll(list, *packageInfo.requestedPermissions)
-            return list
+            return packageInfo.requestedPermissions.toList()
         } catch (e: PackageManager.NameNotFoundException) {
             LogHelper.wtf(e)
             return null
@@ -116,7 +112,7 @@ object ApplicationHelper {
         try {
             val packageInfo = packageManager.getPackageInfo(packageName(), PackageManager.GET_SIGNATURES)
             val signatures = packageInfo.signatures
-            return signatures[0].toCharsString()
+            return signatures[0].toString()
         } catch (e: PackageManager.NameNotFoundException) {
             LogHelper.wtf(e)
             return null

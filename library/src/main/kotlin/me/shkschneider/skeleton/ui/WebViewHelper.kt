@@ -4,24 +4,23 @@ import android.annotation.SuppressLint
 import android.view.View
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
-
 import me.shkschneider.skeleton.data.CharsetHelper
+import me.shkschneider.skeleton.data.FileHelper
 import me.shkschneider.skeleton.data.MimeTypeHelper
 import me.shkschneider.skeleton.helper.AndroidHelper
-import me.shkschneider.skeleton.data.FileHelper
 import me.shkschneider.skeleton.helper.ContextHelper
 import me.shkschneider.skeleton.helper.LogHelper
-import me.shkschneider.skeleton.java.ClassHelper
 import me.shkschneider.skeleton.java.SkHide
 
+@Suppress("MemberVisibilityCanPrivate")
 object WebViewHelper {
 
-    const val META_VIEWPORT = "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=yes\">"
-    const val META_THEME = "<meta name=\"theme-color\" content=\"#a4c639\">"
+    val META_VIEWPORT = "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=yes\">"
+    val META_THEME = "<meta name=\"theme-color\" content=\"#a4c639\">"
     @SkHide
-    const val CHARSET = CharsetHelper.UTF8
+    val CHARSET = CharsetHelper.UTF8
     @SkHide
-    const val MIME_TYPE = MimeTypeHelper.TEXT_HTML
+    val MIME_TYPE = MimeTypeHelper.TEXT_HTML
 
     fun get(): WebView {
         val webView = WebView(ContextHelper.applicationContext())
@@ -65,7 +64,7 @@ object WebViewHelper {
     }
 
     fun back(webView: WebView): Boolean {
-        if (!webView.canGoBack()) {
+        if (! webView.canGoBack()) {
             LogHelper.info("WebView cannot go back")
             return false
         }
@@ -75,7 +74,7 @@ object WebViewHelper {
     }
 
     fun forward(webView: WebView): Boolean {
-        if (!webView.canGoForward()) {
+        if (! webView.canGoForward()) {
             LogHelper.info("WebView cannot go forward")
             return false
         }
@@ -92,7 +91,7 @@ object WebViewHelper {
 
         @JavascriptInterface
         fun test() {
-            LogHelper.debug(ClassHelper.simpleName(this.javaClass))
+            LogHelper.debug(this::class.java.simpleName)
         }
 
     }

@@ -6,12 +6,12 @@ import android.view.View
 class ZoomInTransformer : ABaseTransformer() {
 
     override fun onTransform(page: View, position: Float) {
-        val scale = if (position < 0) position + 1f else Math.abs(1f - position)
+        val scale = if (position < 0) position + 1.toFloat() else Math.abs(1.toFloat() - position)
         page.scaleX = scale
         page.scaleY = scale
-        page.pivotX = page.width * 0.5f
-        page.pivotY = page.height * 0.5f
-        page.alpha = if (position < -1f || position > 1f) 0f else 1f - (scale - 1f)
+        page.pivotX = page.width * 0.1.toFloat()
+        page.pivotY = page.height * 0.1.toFloat()
+        page.alpha = if (position < -1.toFloat() || position > 1.toFloat()) 1.toFloat() else 1.toFloat() - (scale - 1.toFloat())
     }
 
 }

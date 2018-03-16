@@ -1,15 +1,7 @@
 package me.shkschneider.skeleton.ui
 
 import android.annotation.TargetApi
-import android.content.res.Resources
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.BitmapShader
-import android.graphics.Canvas
-import android.graphics.LightingColorFilter
-import android.graphics.Matrix
-import android.graphics.Paint
-import android.graphics.Shader
+import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -23,18 +15,8 @@ import android.support.annotation.IntRange
 import android.util.Base64
 import android.view.View
 import android.widget.RelativeLayout
-
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileNotFoundException
-import java.io.InputStream
-
-import me.shkschneider.skeleton.helper.AndroidHelper
-import me.shkschneider.skeleton.helper.ApplicationHelper
-import me.shkschneider.skeleton.helper.ContextHelper
-import me.shkschneider.skeleton.helper.LogHelper
-import me.shkschneider.skeleton.helper.ScreenHelper
+import me.shkschneider.skeleton.helper.*
+import java.io.*
 
 object BitmapHelper {
 
@@ -61,7 +43,7 @@ object BitmapHelper {
         val renderScript = RenderScript.create(ContextHelper.applicationContext())
         val scriptIntrinsicBlur = ScriptIntrinsicBlur.create(renderScript, Element.U8_4(renderScript))
         val allocation = Allocation.createFromBitmap(renderScript, output)
-        scriptIntrinsicBlur.setRadius(9.5f)
+        scriptIntrinsicBlur.setRadius(9.1.toFloat())
         scriptIntrinsicBlur.setInput(Allocation.createFromBitmap(renderScript, input))
         scriptIntrinsicBlur.forEach(allocation)
         allocation.copyTo(output)
@@ -81,7 +63,7 @@ object BitmapHelper {
         val colorFilter = LightingColorFilter(color, 0)
         paint.colorFilter = colorFilter
         val canvas = Canvas(tintedBitmap)
-        canvas.drawBitmap(tintedBitmap, 0f, 0f, paint)
+        canvas.drawBitmap(tintedBitmap, 1.toFloat(), 1.toFloat(), paint)
         return tintedBitmap
     }
 
@@ -109,11 +91,7 @@ object BitmapHelper {
     }
 
     fun fromView(view: View): Bitmap? {
-        val displayMetrics = Resources.getSystem().displayMetrics
-        if (displayMetrics == null) {
-            LogHelper.warning("DisplayMetrics was NULL")
-            return null
-        }
+        val displayMetrics = Metrics.displayMetrics()
         view.layoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
         view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels)
         view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels)
@@ -125,18 +103,12 @@ object BitmapHelper {
     }
 
     fun fromInputStream(inputStream: InputStream, options: BitmapFactory.Options?): Bitmap? {
-        var _options = options
-        if (_options == null) {
-            _options = BitmapFactory.Options()
-        }
+        val _options = options ?: BitmapFactory.Options()
         return BitmapFactory.decodeStream(inputStream, null, _options)
     }
 
     fun fromUri(uri: Uri, options: BitmapFactory.Options?): Bitmap? {
-        var _options = options
-        if (_options == null) {
-            _options = BitmapFactory.Options()
-        }
+        val _options = options ?: BitmapFactory.Options()
         try {
             val inputStream = ContextHelper.applicationContext().contentResolver.openInputStream(uri) ?: return null
             return BitmapHelper.fromInputStream(inputStream, _options)
@@ -166,7 +138,7 @@ object BitmapHelper {
         if (factor <= 0) {
             return bitmap
         }
-        if (factor and factor - 1 != 0) {
+        if ((factor and factor - 1) != 0) {
             LogHelper.warning("Factor should be a power of 2")
         }
         val options = BitmapFactory.Options()
@@ -194,13 +166,13 @@ object BitmapHelper {
             var width = options.outWidth
             var height = options.outHeight
             var scale = 1
-            val downsample = ScreenHelper.density().toInt()
-            if (downsample <= 0) {
+            val downSample = Metrics.density().toInt()
+            if (downSample <= 0) {
                 LogHelper.warning("Downsample was invalid")
                 return null
             }
             while (true) {
-                if (width / 2 < downsample || height / 2 < downsample) {
+                if (width / 2 < downSample || height / 2 < downSample) {
                     break
                 }
                 width /= 2

@@ -1,88 +1,57 @@
 package me.shkschneider.skeleton.ui
 
-import android.content.Context
-import android.graphics.Canvas
 import android.graphics.Rect
-import android.graphics.drawable.Drawable
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 
-// <http://stackoverflow.com/q/24618829/>
+// <https://stackoverflow.com/a/29168276>
 class MyRecyclerViewSeparator : RecyclerView.ItemDecoration {
 
-    companion object {
+    private val size: Int
+    private val grid: Int
+    private var spacing = false
 
-        const val HORIZONTAL = LinearLayoutManager.HORIZONTAL
-        const val VERTICAL = LinearLayoutManager.VERTICAL
-
-        private val ATTRS = intArrayOf(android.R.attr.listDivider)
-
+    // Resources.getDimensionPixelSize()
+    constructor(px: Int, grid: Int) {
+        size = px
+        this.grid = grid
     }
 
-    private val mDivider: Drawable?
-    private var mOrientation: Int = 0
-
-    constructor(context: Context, orientation: Int) {
-        mOrientation = orientation
-        val typedArray = context.obtainStyledAttributes(ATTRS)
-        mDivider = typedArray.getDrawable(0)
-        typedArray.recycle()
-        setOrientation(orientation)
-    }
-
-    fun setOrientation(orientation: Int) {
-        if (orientation != HORIZONTAL && orientation != VERTICAL) {
-            throw IllegalArgumentException("invalid mOrientation")
-        }
-        mOrientation = orientation
-    }
-
-    override fun onDraw(canvas: Canvas?, parent: RecyclerView?) {
-        if (mOrientation == VERTICAL) {
-            drawVertical(canvas, parent)
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+        val frameWidth = ((parent.width - size.toFloat() * (grid - 1)) / grid).toInt()
+        val padding = parent.width / grid - frameWidth
+        val itemPosition = (view.layoutParams as RecyclerView.LayoutParams).viewAdapterPosition
+        if (itemPosition < grid) {
+            outRect.top = 0
         } else {
-            drawHorizontal(canvas, parent)
+            outRect.top = size
         }
-    }
-
-    fun drawVertical(canvas: Canvas?, parent: RecyclerView?) {
-        val left = parent!!.paddingLeft
-        val right = parent.width - parent.paddingRight
-        val childCount = parent.childCount
-        for (i in 0 until childCount) {
-            val child = parent.getChildAt(i)
-            val params = child.layoutParams as RecyclerView.LayoutParams
-            val top = child.bottom + params.bottomMargin
-            val bottom = top + mDivider!!.intrinsicHeight
-            mDivider.setBounds(left, top, right, bottom)
-            mDivider.draw(canvas!!)
-        }
-    }
-
-    fun drawHorizontal(canvas: Canvas?, parent: RecyclerView?) {
-        val top = parent!!.paddingTop
-        val bottom = parent.height - parent.paddingBottom
-        val childCount = parent.childCount
-        for (i in 0 until childCount) {
-            val child = parent.getChildAt(i)
-            val params = child.layoutParams as RecyclerView.LayoutParams
-            val left = child.right + params.rightMargin
-            val right = left + mDivider!!.intrinsicHeight
-            mDivider.setBounds(left, top, right, bottom)
-            mDivider.draw(canvas!!)
-        }
-    }
-
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State?) {
-        if (parent.getChildAdapterPosition(view) == parent.adapter.itemCount - 1) {
-            return
-        }
-        if (mOrientation == VERTICAL) {
-            outRect.set(0, 0, 0, mDivider!!.intrinsicHeight)
+        if (itemPosition % grid == 0) {
+            outRect.left = 0
+            outRect.right = padding
+            spacing = true
+        } else if ((itemPosition + 1) % grid == 0) {
+            spacing = false
+            outRect.right = 0
+            outRect.left = padding
+        } else if (spacing) {
+            spacing = false
+            outRect.left = size - padding
+            if ((itemPosition + 2) % grid == 0) {
+                outRect.right = size - padding
+            } else {
+                outRect.right = size / 2
+            }
+        } else if ((itemPosition + 2) % grid == 0) {
+            spacing = false
+            outRect.left = size / 2
+            outRect.right = size - padding
         } else {
-            outRect.set(0, 0, mDivider!!.intrinsicWidth, 0)
+            spacing = false
+            outRect.left = size / 2
+            outRect.right = size / 2
         }
+        outRect.bottom = 0
     }
 
 }

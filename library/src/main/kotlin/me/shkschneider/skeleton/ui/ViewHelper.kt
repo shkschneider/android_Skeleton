@@ -5,16 +5,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import me.shkschneider.skeleton.java.SkHide
-
-import java.util.ArrayList
+import java.util.*
 
 object ViewHelper {
 
-    const val ANDROIDXML = "http://schemas.android.com/apk/res/android"
-    const val RESAUTOXML = "http://schemas.android.com/apk/res-auto"
+    val ANDROIDXML = "http://schemas.android.com/apk/res/android"
+    val RESAUTOXML = "http://schemas.android.com/apk/res-auto"
     @SkHide
-    const val CONTENT = Window.ID_ANDROID_CONTENT
-    const val NO_ID = View.NO_ID
+    val CONTENT = Window.ID_ANDROID_CONTENT
+    val NO_ID = View.NO_ID
 
     fun <T : View> content(activity: Activity): T {
         return activity.findViewById(CONTENT)

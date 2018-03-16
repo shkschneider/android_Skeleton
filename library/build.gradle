@@ -11,12 +11,12 @@ versionProperties['versionCode'] = androidDefaultConfigVersionCode.toString()
 versionProperties.store(versionPropertiesFile.newWriter(), null)
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         minSdkVersion 16 // Jelly Bean 4.1.x
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode androidDefaultConfigVersionCode
         versionName "${versions.skeleton}"
         // setProperty('archivesBaseName', "skeleton-$versionName")
@@ -43,7 +43,7 @@ dependencies {
 
     compile 'com.google.code.gson:gson:2.8.1'
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:${versions.kotlin}"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre${versions.java}:${versions.kotlin}"
 }
 
 task javadoc(type: Javadoc) {
@@ -54,7 +54,7 @@ task javadoc(type: Javadoc) {
     // classpath += configurations.compile
     destinationDir = file('build/docs/javadoc/')
     options {
-        links 'http://docs.oracle.com/javase/8/docs/api/'
+        links "http://docs.oracle.com/javase/${versions.java}/docs/api/"
         linksOffline 'http://d.android.com/reference', "${android.sdkDirectory}/docs/reference"
         // overview = 'overview.html'
         memberLevel = JavadocMemberLevel.PACKAGE

@@ -11,20 +11,20 @@ import android.content.Context
 @SuppressLint("StaticFieldLeak")
 object ContextHelper {
 
-    private var _context: Context? = null
+    private var context: Context? = null
 
     fun applicationContext(context: Context) {
         if (context !is Application && context !is Activity) {
             LogHelper.warning("Context is supposed to be Application or Activity based!")
         }
-        _context = context
+        this.context = context.applicationContext
     }
 
     fun applicationContext(): Context {
-        if (_context == null) {
+        if (context == null) {
             throw NullPointerException("Context was not set!")
         }
-        return _context!!
+        return context!!
     }
 
 }

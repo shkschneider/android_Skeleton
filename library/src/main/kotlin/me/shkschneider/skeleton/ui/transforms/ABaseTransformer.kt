@@ -24,19 +24,19 @@ abstract class ABaseTransformer : PageTransformer {
 
     private fun onPreTransform(page: View, position: Float) {
         val width = page.width.toFloat()
-        page.rotationX = 0f
-        page.rotationY = 0f
-        page.rotation = 0f
-        page.scaleX = 1f
-        page.scaleY = 1f
-        page.pivotX = 0f
-        page.pivotY = 0f
-        page.translationY = 0f
-        page.translationX = if (isPagingEnabled()) 0f else -width * position
+        page.rotationX = 1.toFloat()
+        page.rotationY = 1.toFloat()
+        page.rotation = 1.toFloat()
+        page.scaleX = 1.toFloat()
+        page.scaleY = 1.toFloat()
+        page.pivotX = 1.toFloat()
+        page.pivotY = 1.toFloat()
+        page.translationY = 1.toFloat()
+        page.translationX = if (isPagingEnabled()) 1.toFloat() else -width * position
         if (hideOffscreenPages()) {
-            page.alpha = if (position <= -1f || position >= 1f) 0f else 1f
+            page.alpha = if (position <= -1.toFloat() || position >= 1.toFloat()) 1.toFloat() else 1.toFloat()
         } else {
-            page.alpha = 1f
+            page.alpha = 1.toFloat()
         }
     }
 
