@@ -1,6 +1,6 @@
 package me.shkschneider.skeleton.security
 
-import me.shkschneider.skeleton.helper.LogHelper
+import me.shkschneider.skeleton.helper.Logger
 import me.shkschneider.skeleton.java.StringHelper
 import java.security.InvalidKeyException
 import java.security.NoSuchAlgorithmException
@@ -19,10 +19,10 @@ object HmacHelper {
             val digest = mac.doFinal(string.toByteArray()) ?: return null
             return StringHelper.hexadecimal(digest)
         } catch (e: NoSuchAlgorithmException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         } catch (e: InvalidKeyException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         }
     }

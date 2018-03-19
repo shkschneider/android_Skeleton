@@ -60,7 +60,7 @@ class MySlidingViewPagerIndicator : HorizontalScrollView {
             it.addOnPageChangeListener(InternalViewPagerListener())
             val pagerAdapter = it.adapter
             val onClickListener = TabClickListener()
-            for (i in 0 until pagerAdapter.count) {
+            for (i in 0 until pagerAdapter!!.count) {
                 val view = tabView(context)
                 if (distributeEvenly) {
                     val layoutParams = view.layoutParams as LinearLayout.LayoutParams

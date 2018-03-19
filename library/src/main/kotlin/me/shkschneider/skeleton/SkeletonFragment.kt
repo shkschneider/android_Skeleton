@@ -50,11 +50,11 @@ abstract class SkeletonFragment : Fragment() {
 
     fun fragmentManager(): FragmentManager {
         val childFragmentManager: FragmentManager? = childFragmentManager
-        return childFragmentManager ?: fragmentManager
+        return childFragmentManager ?: fragmentManager!!
     }
 
-    fun onCreateView(inflater: LayoutInflater, @LayoutRes resid: Int, container: ViewGroup?): View? {
-        val view = inflater.inflate(resid, container, false)
+    fun onCreateView(inflater: LayoutInflater, @LayoutRes resId: Int, container: ViewGroup?): View? {
+        val view = inflater.inflate(resId, container, false)
         // HACK: <http://stackoverflow.com/a/18274767>
         view.setBackgroundResource(R.color.sk_android_background)
         return view
@@ -83,7 +83,7 @@ abstract class SkeletonFragment : Fragment() {
 
     // Lifecycle
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
     }
 

@@ -1,6 +1,6 @@
 package me.shkschneider.skeleton.data
 
-import me.shkschneider.skeleton.helper.LogHelper
+import me.shkschneider.skeleton.helper.Logger
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -13,7 +13,7 @@ object JsonParser {
         try {
             return JSONObject(string)
         } catch (e: JSONException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         }
     }
@@ -21,7 +21,7 @@ object JsonParser {
     fun parse(inputStream: InputStream): JSONObject? {
         val string = FileHelper.readString(inputStream)
         if (string.isNullOrEmpty()) {
-            LogHelper.warning("String was NULL")
+            Logger.warning("String was NULL")
             return null
         }
         return parse(string!!)
@@ -59,7 +59,7 @@ object JsonParser {
         try {
             keys(jsonObject).mapTo(values) { jsonObject.get(it) }
         } catch (e: JSONException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
         }
         return values
     }

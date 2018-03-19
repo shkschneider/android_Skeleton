@@ -2,7 +2,7 @@ package me.shkschneider.skeleton.data
 
 import android.text.TextUtils
 import com.google.gson.*
-import me.shkschneider.skeleton.helper.LogHelper
+import me.shkschneider.skeleton.helper.Logger
 import me.shkschneider.skeleton.java.StringHelper
 import java.io.InputStream
 import java.util.*
@@ -14,7 +14,7 @@ object GsonParser {
         try {
             return Gson().fromJson(string, JsonObject::class.java)
         } catch (e: JsonParseException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         }
     }
@@ -22,7 +22,7 @@ object GsonParser {
     fun parse(inputStream: InputStream): JsonObject? {
         val string = FileHelper.readString(inputStream)
         if (string.isNullOrEmpty()) {
-            LogHelper.warning("String was NULL")
+            Logger.warning("String was NULL")
             return null
         }
         return parse(string!!)
@@ -31,15 +31,15 @@ object GsonParser {
     fun get(jsonObject: JsonObject, string: String): JsonElement? {
         // bad formats
         if (StringHelper.count(string, "\\{") != StringHelper.count(string, "\\}")) {
-            LogHelper.error("Bad {} format: " + string)
+            Logger.error("Bad {} format: " + string)
             return null
         }
         if (StringHelper.count(string, "\\[") != StringHelper.count(string, "\\]")) {
-            LogHelper.error("Bad [] format: " + string)
+            Logger.error("Bad [] format: " + string)
             return null
         }
         if (! string.matches("^([\\{|\\[][^\\{|\\[|\\}|\\]]+(:[0-9]+)?[\\}|\\]])+$".toRegex())) {
-            LogHelper.error("Bad format: " + string)
+            Logger.error("Bad format: " + string)
             return null
         }
         // tags and paths
@@ -48,13 +48,13 @@ object GsonParser {
         while (matcherTags.find()) {
             tags.add(matcherTags.group())
         }
-        LogHelper.verbose("Tags: " + tags.toString())
+        Logger.verbose("Tags: " + tags.toString())
         val matcherPaths = Pattern.compile("[\\{|\\[]([^\\{|\\[|\\}|\\]]+)[\\}|\\]]").matcher(string)
         val paths = ArrayList<String>()
         while (matcherPaths.find()) {
             paths.add(matcherPaths.group(1))
         }
-        LogHelper.verbose("Paths: " + paths.toString())
+        Logger.verbose("Paths: " + paths.toString())
         // loop
         var obj = jsonObject
         for (i in tags.indices) {
@@ -64,13 +64,13 @@ object GsonParser {
             val p = paths[i]
             // forced end
             if (obj.isJsonNull) {
-                LogHelper.warning("Reached a JsonNull")
+                Logger.warning("Reached a JsonNull")
                 return null
             }
             // object
             if (t == "{") {
                 if (! obj.has(p)) {
-                    LogHelper.error("No such object path: " + p)
+                    Logger.error("No such object path: " + p)
                     return null
                 }
                 val jsonElement = obj.get(p)
@@ -80,7 +80,7 @@ object GsonParser {
                 }
                 // keep going so check the type
                 if (! jsonElement.isJsonObject) {
-                    LogHelper.error("Invalid type (not JsonObject): " + p)
+                    Logger.error("Invalid type (not JsonObject): " + p)
                     return null
                 }
                 // prepare next loop
@@ -91,12 +91,12 @@ object GsonParser {
                 if (d.size == 1) {
                     val s = d[0]
                     if (! obj.has(s)) {
-                        LogHelper.error("No such array path: " + p)
+                        Logger.error("No such array path: " + p)
                         return null
                     }
                     // has to be an array
                     if (! obj.isJsonArray) {
-                        LogHelper.error("Invalid type (not JsonArray): " + p)
+                        Logger.error("Invalid type (not JsonArray): " + p)
                         return null
                     }
                     // returns as nothing more can be done
@@ -104,16 +104,16 @@ object GsonParser {
                 } else if (d.size == 2) {
                     val s = d[0]
                     if (! obj.has(s)) {
-                        LogHelper.error("No such array path: " + p)
+                        Logger.error("No such array path: " + p)
                         return null
                     }
                     if (! TextUtils.isDigitsOnly(d[1])) {
-                        LogHelper.error("Invalid index: " + d[1])
+                        Logger.error("Invalid index: " + d[1])
                         return null
                     }
                     val n = Integer.valueOf(d[1])!!
                     if (n >= d.size) {
-                        LogHelper.error("Invalid index: " + n)
+                        Logger.error("Invalid index: " + n)
                         return null
                     }
                     val jsonElement = obj.get(s)
@@ -124,13 +124,13 @@ object GsonParser {
                     }
                     // keep going so check the type
                     if (! jsonElement.isJsonArray) {
-                        LogHelper.error("Invalid type (not JsonArray): " + s)
+                        Logger.error("Invalid type (not JsonArray): " + s)
                         return null
                     }
                     // prepare next loop
                     obj = array.get(n).asJsonObject
                 } else {
-                    LogHelper.error("Bad format: " + p)
+                    Logger.error("Bad format: " + p)
                     return null
                 }
             }

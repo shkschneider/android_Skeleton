@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.network
 import android.Manifest
 import android.annotation.SuppressLint
 import android.net.wifi.WifiManager
+import android.os.Build
 import android.support.annotation.RequiresPermission
 import android.util.Patterns
 import android.webkit.WebSettings
@@ -27,17 +28,18 @@ object NetworkHelper {
             }
         }
         catch (e: ClassNotFoundException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
         }
         // Most probably null
         return SystemProperties.get("net.hostname")
     }
 
-    @SuppressLint("NewApi")
     fun userAgent(): String? {
-        return if (AndroidHelper.api() >= AndroidHelper.API_17) {
-            WebSettings.getDefaultUserAgent(ContextHelper.applicationContext())
-        } else SystemProperties.get("http.agent")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            return WebSettings.getDefaultUserAgent(ContextHelper.applicationContext())
+        } else {
+            return SystemProperties.get("http.agent")
+        }
     }
 
     @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
@@ -45,7 +47,7 @@ object NetworkHelper {
         val connectivityManager = SystemServices.connectivityManager()
         val networkInfo = connectivityManager?.activeNetworkInfo
         if (networkInfo == null) {
-            LogHelper.warning("NetworkInfo was NULL")
+            Logger.warning("NetworkInfo was NULL")
             return false
         }
         return networkInfo.isConnectedOrConnecting
@@ -55,7 +57,7 @@ object NetworkHelper {
     fun wifi(): Boolean {
         val wifiManager = SystemServices.wifiManager()
         if (wifiManager == null) {
-            LogHelper.warning("wifiManager was NULL")
+            Logger.warning("wifiManager was NULL")
             return false
         }
         return wifiManager.wifiState == WifiManager.WIFI_STATE_ENABLED
@@ -78,7 +80,7 @@ object NetworkHelper {
             }
             return ipAddresses
         } catch (e: SocketException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         }
 
@@ -104,7 +106,7 @@ object NetworkHelper {
             }
             return null
         } catch (e: SocketException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         }
 

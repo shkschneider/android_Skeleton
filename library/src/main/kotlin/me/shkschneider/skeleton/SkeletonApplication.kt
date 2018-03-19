@@ -6,7 +6,7 @@ import me.shkschneider.skeleton.extensions.has
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.ContextHelper
 import me.shkschneider.skeleton.helper.DeviceHelper
-import me.shkschneider.skeleton.helper.LogHelper
+import me.shkschneider.skeleton.helper.Logger
 import me.shkschneider.skeleton.java.ExceptionHelper
 
 /**
@@ -31,7 +31,7 @@ abstract class SkeletonApplication : Application() {
                 }
             })
         }
-        LogHelper.verbose("Hello, " + DeviceHelper.codename() + "!")
+        Logger.verbose("Hello, " + DeviceHelper.codename() + "!")
     }
 
     companion object {

@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.ui
 
-import android.annotation.TargetApi
 import android.content.Context
 import android.graphics.*
 import android.support.annotation.ColorInt
@@ -8,10 +7,8 @@ import android.support.annotation.IntRange
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
-import me.shkschneider.skeleton.helper.AndroidHelper
-import me.shkschneider.skeleton.helper.LogHelper
+import me.shkschneider.skeleton.helper.Logger
 import me.shkschneider.skeleton.helper.Metrics
-import me.shkschneider.skeleton.helper.ScreenHelper
 
 // <https://github.com/IvBaranov/MaterialLetterIcon>
 class LetterIcon : View {
@@ -29,9 +26,6 @@ class LetterIcon : View {
 
     constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr)
 
-    @TargetApi(AndroidHelper.API_21)
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes)
-
     init {
         shapePaint = Paint()
         shapePaint.style = Paint.Style.FILL
@@ -45,7 +39,7 @@ class LetterIcon : View {
         super.onAttachedToWindow()
         val layoutParams = layoutParams
         if (layoutParams == null) {
-            LogHelper.warning("ViewGroup.LayoutParams was NULL")
+            Logger.warning("ViewGroup.LayoutParams was NULL")
             return
         }
         if (layoutParams.width == ViewGroup.LayoutParams.WRAP_CONTENT) {

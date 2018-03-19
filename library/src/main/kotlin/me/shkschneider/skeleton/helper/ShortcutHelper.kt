@@ -10,7 +10,12 @@ import android.support.annotation.RequiresApi
 @RequiresApi(AndroidHelper.API_25)
 object ShortcutHelper {
 
-    private val MAX_RECOMMENDED_SHORTCUTS = 4
+    private val DEFAULT = 4
+    private var maxRecommendedShortcuts = DEFAULT
+
+    init {
+        maxRecommendedShortcuts = SystemServices.shortcutManager()?.maxShortcutCountPerActivity ?: DEFAULT
+    }
 
     class Shortcut {
 
@@ -43,17 +48,16 @@ object ShortcutHelper {
         val shortcutManager = SystemServices.shortcutManager() ?: return false
         val dynamicShortcuts = shortcutManager.dynamicShortcuts
         dynamicShortcuts?.let {
-            if (it.size + 1 >= MAX_RECOMMENDED_SHORTCUTS) {
-                LogHelper.warning("Lots of shortcuts")
+            if (it.size + 1 >= maxRecommendedShortcuts) {
+                Logger.warning("Lots of shortcuts")
             }
         }
         return shortcutManager.isRateLimitingActive && shortcutManager.addDynamicShortcuts(listOf(shortcut.shortcutInfo()))
     }
 
     fun setDynamicShortcuts(vararg shortcuts: Shortcut): Boolean {
-        if (AndroidHelper.api() < AndroidHelper.API_25) return false
-        if (shortcuts.size >= MAX_RECOMMENDED_SHORTCUTS) {
-            LogHelper.warning("Lots of shortcuts")
+        if (shortcuts.size >= maxRecommendedShortcuts) {
+            Logger.warning("Lots of shortcuts")
         }
         val shortcutManager = SystemServices.shortcutManager() ?: return false
         if (shortcutManager.isRateLimitingActive) {

@@ -4,7 +4,6 @@ import android.os.Build
 import android.support.annotation.IntRange
 
 // <https://source.android.com/source/build-numbers#platform-code-names-versions-api-levels-and-ndk-releases>
-@Suppress("MemberVisibilityCanPrivate")
 object AndroidHelper {
 
     const val API_1 = Build.VERSION_CODES.BASE // 1.0
@@ -33,7 +32,7 @@ object AndroidHelper {
     const val API_24 = Build.VERSION_CODES.N // 7.0 "Nougat"
     const val API_25 = Build.VERSION_CODES.N_MR1 // 7.1.1
     const val API_26 = Build.VERSION_CODES.O // 8.0 "Oreo"
-    // FIXME API_27
+    const val API_27 = Build.VERSION_CODES.O_MR1 // 8.1
 
     const val PLATFORM = "Android"
 
@@ -61,8 +60,7 @@ object AndroidHelper {
             API_21, API_22 -> return "Lollipop"
             API_23 -> return "Marshmallow"
             API_24, API_25 -> return "Nougat"
-            API_26 -> return "Oreo"
-        // FIXME API_27
+            API_26, API_27 -> return "Oreo"
             else -> return "*Preview*"
         }
     }

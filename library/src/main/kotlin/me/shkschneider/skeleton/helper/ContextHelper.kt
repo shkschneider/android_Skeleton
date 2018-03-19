@@ -15,13 +15,13 @@ object ContextHelper {
 
     fun applicationContext(context: Context) {
         if (context !is Application && context !is Activity) {
-            LogHelper.warning("Context is supposed to be Application or Activity based!")
+            Logger.warning("Context is supposed to be Application or Activity based!")
         }
         this.context = context.applicationContext
     }
 
     fun applicationContext(): Context {
-        if (context == null) {
+        context ?: run {
             throw NullPointerException("Context was not set!")
         }
         return context!!

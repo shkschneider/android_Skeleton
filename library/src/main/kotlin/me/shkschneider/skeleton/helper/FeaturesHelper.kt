@@ -90,10 +90,16 @@ object FeaturesHelper {
     val FEATURE_NFC_HOST_CARD_EMULATION_NFCF = PackageManager.FEATURE_NFC_HOST_CARD_EMULATION_NFCF
     @SuppressLint("InlinedApi") // API-21+
     val FEATURE_OPENGLES_EXTENSION_PACK = PackageManager.FEATURE_OPENGLES_EXTENSION_PACK
+    @SuppressLint("InlinedApi") // API-27+
+    val FEATURE_PC = PackageManager.FEATURE_PC
     @SuppressLint("InlinedApi") // API-24+
     val FEATURE_PICTURE_IN_PICTURE = PackageManager.FEATURE_PICTURE_IN_PICTURE
     @SuppressLint("InlinedApi") // API-20+
     val FEATURE_PRINTING = PackageManager.FEATURE_PRINTING
+    @SuppressLint("InlinedApi") // API-27+
+    val FEATURE_RAM_LOW = PackageManager.FEATURE_RAM_LOW
+    @SuppressLint("InlinedApi") // API-27+
+    val FEATURE_RAM_NORMAL = PackageManager.FEATURE_RAM_NORMAL
     val FEATURE_SCREEN_LANDSCAPE = PackageManager.FEATURE_SCREEN_LANDSCAPE
     val FEATURE_SCREEN_PORTRAIT = PackageManager.FEATURE_SCREEN_PORTRAIT
     @SuppressLint("InlinedApi") // API-21+
@@ -150,6 +156,8 @@ object FeaturesHelper {
     @SuppressLint("InlinedApi") // API-26+
     val FEATURE_WIFI_AWARE = PackageManager.FEATURE_WIFI_AWARE
     val FEATURE_WIFI_DIRECT = PackageManager.FEATURE_WIFI_DIRECT
+    @SuppressLint("InlinedApi") // API-27+
+    val FEATURE_WIFI_PASSPOINT = PackageManager.FEATURE_WIFI_PASSPOINT
 
     fun has(feature: String): Boolean {
         return ApplicationHelper.packageManager().hasSystemFeature(feature)

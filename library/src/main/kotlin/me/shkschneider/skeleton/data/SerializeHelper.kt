@@ -1,6 +1,6 @@
 package me.shkschneider.skeleton.data
 
-import me.shkschneider.skeleton.helper.LogHelper
+import me.shkschneider.skeleton.helper.Logger
 import java.io.*
 
 object SerializeHelper {
@@ -12,9 +12,9 @@ object SerializeHelper {
             objectOutputStream.close()
             return true
         } catch (e: FileNotFoundException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
         } catch (e: IOException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
         }
         return false
     }
@@ -26,11 +26,11 @@ object SerializeHelper {
             objectInputStream.close()
             return obj
         } catch (e: FileNotFoundException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
         } catch (e: IOException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
         } catch (e: ClassNotFoundException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
         }
         return null
     }

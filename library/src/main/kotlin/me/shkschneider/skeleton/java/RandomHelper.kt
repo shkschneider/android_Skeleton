@@ -1,7 +1,7 @@
 package me.shkschneider.skeleton.java
 
 import android.support.annotation.IntRange
-import me.shkschneider.skeleton.helper.LogHelper
+import me.shkschneider.skeleton.helper.Logger
 import java.util.*
 
 object RandomHelper {
@@ -21,11 +21,11 @@ object RandomHelper {
 
     fun inclusive(min: Int, max: Int): Int {
         if (min > max) {
-            LogHelper.warning("MIN was greater than MAX")
+            Logger.warning("MIN was greater than MAX")
             return -1
         }
         if (min == max) {
-            LogHelper.info("MIN was equal to MAX")
+            Logger.info("MIN was equal to MAX")
             return min
         }
         return min + (Math.random() * (max - min + 1)).toInt()

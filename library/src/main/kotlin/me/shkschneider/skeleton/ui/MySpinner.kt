@@ -8,17 +8,9 @@ import android.util.AttributeSet
 // <http://stackoverflow.com/a/11227847>
 class MySpinner : AppCompatSpinner {
 
-    constructor(context: Context) : super(context)
+    constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, mode: Int = 0) : super(context, attrs, defStyleAttr, mode)
 
-    constructor(context: Context, mode: Int) : super(context, mode)
-
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
-
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
-
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int, mode: Int) : super(context, attrs, defStyleAttr, mode)
-
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int, mode: Int, popupTheme: Resources.Theme) : super(context, attrs, defStyleAttr, mode, popupTheme)
+    constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int, mode: Int, popupTheme: Resources.Theme) : super(context, attrs, defStyleAttr, mode, popupTheme)
 
     override fun setSelection(position: Int) {
         super.setSelection(position)

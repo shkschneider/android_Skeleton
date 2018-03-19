@@ -7,7 +7,7 @@ import com.android.volley.toolbox.ImageLoader
 import com.android.volley.toolbox.Volley
 
 import me.shkschneider.skeleton.helper.ContextHelper
-import me.shkschneider.skeleton.helper.LogHelper
+import me.shkschneider.skeleton.helper.Logger
 
 // <https://developer.android.com/training/volley/requestqueue.html>
 object Proxy {
@@ -21,7 +21,7 @@ object Proxy {
                 try {
                     return CACHE.get(url)
                 } catch (e: IllegalStateException) {
-                    LogHelper.wtf(e)
+                    Logger.wtf(e)
                     return null
                 }
             }

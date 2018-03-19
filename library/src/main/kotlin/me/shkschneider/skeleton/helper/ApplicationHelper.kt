@@ -37,12 +37,12 @@ object ApplicationHelper {
             val applicationInfo = packageManager.getApplicationInfo(packageName(), 0)
             val label = applicationInfo.loadLabel(packageManager)
             if (label == null) {
-                LogHelper.warning("Label was NULL")
+                Logger.warning("Label was NULL")
                 return null
             }
             return label.toString()
         } catch (e: PackageManager.NameNotFoundException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         }
     }
@@ -52,7 +52,7 @@ object ApplicationHelper {
     fun semanticVersions(): Array<Int>? {
         val versionName = versionName() ?: return null
         if (! versionName.matches("^\\d+\\.\\d+\\.\\d+$".toRegex())) {
-            LogHelper.warning("Not semantic versioning")
+            Logger.warning("Not semantic versioning")
             return null
         }
         val versionNames = versionName.split("\\.".toRegex())
@@ -64,7 +64,7 @@ object ApplicationHelper {
             val packageManager = packageManager()
             return packageManager.getPackageInfo(packageName(), PackageManager.GET_META_DATA).versionName
         } catch (e: PackageManager.NameNotFoundException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         }
     }
@@ -74,7 +74,7 @@ object ApplicationHelper {
             val packageManager = packageManager()
             return packageManager.getPackageInfo(packageName(), PackageManager.GET_META_DATA).versionCode
         } catch (e: PackageManager.NameNotFoundException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return -1
         }
     }
@@ -90,7 +90,7 @@ object ApplicationHelper {
             val drawable = applicationInfo.loadIcon(packageManager)
             return BitmapHelper.fromDrawable(drawable)
         } catch (e: PackageManager.NameNotFoundException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         }
     }
@@ -101,7 +101,7 @@ object ApplicationHelper {
             val packageInfo = packageManager.getPackageInfo(packageName(), PackageManager.GET_PERMISSIONS)
             return packageInfo.requestedPermissions.toList()
         } catch (e: PackageManager.NameNotFoundException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         }
     }
@@ -114,7 +114,7 @@ object ApplicationHelper {
             val signatures = packageInfo.signatures
             return signatures[0].toString()
         } catch (e: PackageManager.NameNotFoundException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         }
 

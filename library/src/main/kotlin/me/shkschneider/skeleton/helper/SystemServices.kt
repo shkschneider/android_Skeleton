@@ -1,7 +1,6 @@
 package me.shkschneider.skeleton.helper
 
 import android.accounts.AccountManager
-import android.annotation.TargetApi
 import android.app.*
 import android.app.admin.DevicePolicyManager
 import android.app.job.JobScheduler
@@ -41,6 +40,7 @@ import android.os.health.SystemHealthManager
 import android.os.storage.StorageManager
 import android.print.PrintManager
 import android.service.wallpaper.WallpaperService
+import android.support.annotation.RequiresApi
 import android.telecom.TelecomManager
 import android.telephony.CarrierConfigManager
 import android.telephony.SubscriptionManager
@@ -60,7 +60,7 @@ object SystemServices {
         return ContextHelper.applicationContext().getSystemService(service)
     }
 
-    @TargetApi(AndroidHelper.API_23)
+    @RequiresApi(AndroidHelper.API_23)
     private fun get(service: Class<Any>): Any? {
         return ContextHelper.applicationContext().getSystemService(service)
     }
@@ -81,12 +81,12 @@ object SystemServices {
         return get(Context.ALARM_SERVICE) as AlarmManager?
     }
 
-    @TargetApi(AndroidHelper.API_21)
+    @RequiresApi(AndroidHelper.API_21)
     fun appWidgetManager(): AppWidgetManager? {
         return get(Context.APPWIDGET_SERVICE) as AppWidgetManager?
     }
 
-    @TargetApi(AndroidHelper.API_19)
+    @RequiresApi(AndroidHelper.API_19)
     fun appOpsManager(): AppOpsManager? {
         return get(Context.APP_OPS_SERVICE) as AppOpsManager?
     }
@@ -95,27 +95,27 @@ object SystemServices {
         return get(Context.AUDIO_SERVICE) as AudioManager?
     }
 
-    @TargetApi(AndroidHelper.API_21)
+    @RequiresApi(AndroidHelper.API_21)
     fun batteryManager(): BatteryManager? {
         return get(Context.BATTERY_SERVICE) as BatteryManager?
     }
 
-    @TargetApi(AndroidHelper.API_18)
+    @RequiresApi(AndroidHelper.API_18)
     fun bluetoothManager(): BluetoothManager? {
         return get(Context.BLUETOOTH_SERVICE) as BluetoothManager?
     }
 
-    @TargetApi(AndroidHelper.API_21)
+    @RequiresApi(AndroidHelper.API_21)
     fun cameraManager(): CameraManager? {
         return get(Context.CAMERA_SERVICE) as CameraManager?
     }
 
-    @TargetApi(AndroidHelper.API_19)
+    @RequiresApi(AndroidHelper.API_19)
     fun captioningManager(): CaptioningManager? {
         return get(Context.CAPTIONING_SERVICE) as CaptioningManager?
     }
 
-    @TargetApi(AndroidHelper.API_23)
+    @RequiresApi(AndroidHelper.API_23)
     fun carrierConfigManager(): CarrierConfigManager? {
         return get(Context.CARRIER_CONFIG_SERVICE) as CarrierConfigManager?
     }
@@ -124,7 +124,7 @@ object SystemServices {
         return get(Context.CLIPBOARD_SERVICE) as ClipboardManager?
     }
 
-    @TargetApi(AndroidHelper.API_26)
+    @RequiresApi(AndroidHelper.API_26)
     fun companionDeviceManager(): CompanionDeviceManager? {
         return get(Context.COMPANION_DEVICE_SERVICE) as CompanionDeviceManager?
     }
@@ -133,7 +133,7 @@ object SystemServices {
         return get(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
     }
 
-    @TargetApi(AndroidHelper.API_19)
+    @RequiresApi(AndroidHelper.API_19)
     fun consumerIrManager(): ConsumerIrManager? {
         return get(Context.CONSUMER_IR_SERVICE) as ConsumerIrManager?
     }
@@ -142,7 +142,7 @@ object SystemServices {
         return get(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager?
     }
 
-    @TargetApi(AndroidHelper.API_17)
+    @RequiresApi(AndroidHelper.API_17)
     fun displayManager(): DisplayManager? {
         return get(Context.DISPLAY_SERVICE) as DisplayManager?
     }
@@ -155,12 +155,12 @@ object SystemServices {
         return get(Context.DROPBOX_SERVICE) as DropBoxManager?
     }
 
-    @TargetApi(AndroidHelper.API_23)
+    @RequiresApi(AndroidHelper.API_23)
     fun fingerprintManager(): FingerprintManager? {
         return get(Context.FINGERPRINT_SERVICE) as FingerprintManager?
     }
 
-    @TargetApi(AndroidHelper.API_24)
+    @RequiresApi(AndroidHelper.API_24)
     fun hardwarePropertiesService(): HardwarePropertiesManager? {
         return get(Context.HARDWARE_PROPERTIES_SERVICE) as HardwarePropertiesManager?
     }
@@ -169,12 +169,12 @@ object SystemServices {
         return get(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
     }
 
-    @TargetApi(AndroidHelper.API_16)
+    @RequiresApi(AndroidHelper.API_16)
     fun inputManager(): InputManager? {
         return get(Context.INPUT_SERVICE) as InputManager?
     }
 
-    @TargetApi(AndroidHelper.API_21)
+    @RequiresApi(AndroidHelper.API_21)
     fun jobScheduler(): JobScheduler? {
         return get(Context.JOB_SCHEDULER_SERVICE) as JobScheduler?
     }
@@ -183,7 +183,7 @@ object SystemServices {
         return get(Context.KEYGUARD_SERVICE) as KeyguardManager?
     }
 
-    @TargetApi(AndroidHelper.API_21)
+    @RequiresApi(AndroidHelper.API_21)
     fun launcherApps(): LauncherApps? {
         return get(Context.LAUNCHER_APPS_SERVICE) as LauncherApps?
     }
@@ -196,27 +196,27 @@ object SystemServices {
         return get(Context.LOCATION_SERVICE) as LocationManager?
     }
 
-    @TargetApi(AndroidHelper.API_21)
+    @RequiresApi(AndroidHelper.API_21)
     fun mediaProjectionManager(): MediaProjectionManager? {
         return get(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager?
     }
 
-    @TargetApi(AndroidHelper.API_16)
+    @RequiresApi(AndroidHelper.API_16)
     fun mediaRouter(): MediaRouter? {
         return get(Context.MEDIA_ROUTER_SERVICE) as MediaRouter?
     }
 
-    @TargetApi(AndroidHelper.API_21)
+    @RequiresApi(AndroidHelper.API_21)
     fun mediaSessionManager(): MediaSessionManager? {
         return get(Context.MEDIA_SESSION_SERVICE) as MediaSessionManager?
     }
 
-    @TargetApi(AndroidHelper.API_23)
+    @RequiresApi(AndroidHelper.API_23)
     fun midiManager(): MidiManager? {
         return get(Context.MIDI_SERVICE) as MidiManager?
     }
 
-    @TargetApi(AndroidHelper.API_23)
+    @RequiresApi(AndroidHelper.API_23)
     fun networkStatsManager(): NetworkStatsManager? {
         return get(Context.NETWORK_STATS_SERVICE) as NetworkStatsManager?
     }
@@ -229,7 +229,7 @@ object SystemServices {
         return get(Context.NOTIFICATION_SERVICE) as NotificationManager?
     }
 
-    @TargetApi(AndroidHelper.API_16)
+    @RequiresApi(AndroidHelper.API_16)
     fun nsdManager(): NsdManager? {
         return get(Context.NSD_SERVICE) as NsdManager?
     }
@@ -238,12 +238,12 @@ object SystemServices {
         return get(Context.POWER_SERVICE) as PowerManager?
     }
 
-    @TargetApi(AndroidHelper.API_19)
+    @RequiresApi(AndroidHelper.API_19)
     fun printManager(): PrintManager? {
         return get(Context.PRINT_SERVICE) as PrintManager?
     }
 
-    @TargetApi(AndroidHelper.API_21)
+    @RequiresApi(AndroidHelper.API_21)
     fun restrictionsManager(): RestrictionsManager? {
         return get(Context.RESTRICTIONS_SERVICE) as RestrictionsManager?
     }
@@ -256,7 +256,7 @@ object SystemServices {
         return get(Context.SENSOR_SERVICE) as SensorManager?
     }
 
-    @TargetApi(AndroidHelper.API_25)
+    @RequiresApi(AndroidHelper.API_25)
     fun shortcutManager(): ShortcutManager? {
         return get(Context.SHORTCUT_SERVICE) as ShortcutManager?
     }
@@ -265,17 +265,17 @@ object SystemServices {
         return get(Context.STORAGE_SERVICE) as StorageManager?
     }
 
-    @TargetApi(AndroidHelper.API_26)
+    @RequiresApi(AndroidHelper.API_26)
     fun storageStatsManager(): StorageStatsManager? {
         return get(Context.STORAGE_STATS_SERVICE) as StorageStatsManager?
     }
 
-    @TargetApi(AndroidHelper.API_24)
+    @RequiresApi(AndroidHelper.API_24)
     fun systemHealthService(): SystemHealthManager? {
         return get(Context.SYSTEM_HEALTH_SERVICE) as SystemHealthManager?
     }
 
-    @TargetApi(AndroidHelper.API_21)
+    @RequiresApi(AndroidHelper.API_21)
     fun telecomManager(): TelecomManager? {
         return get(Context.TELECOM_SERVICE) as TelecomManager?
     }
@@ -284,12 +284,12 @@ object SystemServices {
         return get(Context.TELEPHONY_SERVICE) as TelephonyManager?
     }
 
-    @TargetApi(AndroidHelper.API_22)
+    @RequiresApi(AndroidHelper.API_22)
     fun subscriptionManager(): SubscriptionManager? {
         return get(Context.TELEPHONY_SUBSCRIPTION_SERVICE) as SubscriptionManager?
     }
 
-    @TargetApi(AndroidHelper.API_26)
+    @RequiresApi(AndroidHelper.API_26)
     fun textClassificationManager(): TextClassificationManager? {
         return get(Context.TEXT_CLASSIFICATION_SERVICE) as TextClassificationManager?
     }
@@ -298,7 +298,7 @@ object SystemServices {
         return get(Context.TEXT_SERVICES_MANAGER_SERVICE) as TextServicesManager?
     }
 
-    @TargetApi(AndroidHelper.API_21)
+    @RequiresApi(AndroidHelper.API_21)
     fun tvInputManager(): TvInputManager? {
         return get(Context.TV_INPUT_SERVICE) as TvInputManager?
     }
@@ -307,7 +307,7 @@ object SystemServices {
         return get(Context.UI_MODE_SERVICE) as UiModeManager?
     }
 
-    @TargetApi(AndroidHelper.API_22)
+    @RequiresApi(AndroidHelper.API_22)
     fun usageStatsManager(): UsageStatsManager? {
         return get(Context.USAGE_STATS_SERVICE) as UsageStatsManager?
     }
@@ -316,7 +316,7 @@ object SystemServices {
         return get(Context.USB_SERVICE) as UsbManager?
     }
 
-    @TargetApi(AndroidHelper.API_17)
+    @RequiresApi(AndroidHelper.API_17)
     fun userManager(): UserManager? {
         return get(Context.USER_SERVICE) as UserManager?
     }
@@ -329,7 +329,7 @@ object SystemServices {
         return get(Context.WALLPAPER_SERVICE) as WallpaperService?
     }
 
-    @TargetApi(AndroidHelper.API_26)
+    @RequiresApi(AndroidHelper.API_26)
     fun wifiAwareManager(): WifiAwareManager? {
         return get(Context.WIFI_AWARE_SERVICE) as WifiAwareManager?
     }

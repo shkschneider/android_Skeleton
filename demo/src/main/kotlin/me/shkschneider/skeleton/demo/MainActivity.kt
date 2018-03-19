@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.LocalBroadcastManager
@@ -47,33 +48,18 @@ class MainActivity : SkeletonActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        LogHelper.debug("IP: " + NetworkHelper.ipAddress("192.168.0.1"))
-        toolbar?.title = "Skeleton"
-        toolbar?.subtitle = "for Android"
-        val viewPager = findViewById<ViewPager>(R.id.viewPager)
-        viewPager.adapter = object : FragmentStatePagerAdapter(supportFragmentManager) {
-            override fun getItem(position: Int): Fragment? {
-                return when (position) {
-                    0 -> ShkFragment()
-                    1 -> SkFragment()
-                    else -> null
-                }
-            }
-            override fun getPageTitle(position: Int): CharSequence? {
-                return when (position) {
-                    0 -> "ShkSchneider"
-                    1 -> "Skeleton"
-                    else -> null
-                }
-            }
-            override fun getCount(): Int {
-                return 2
-            }
+        Logger.debug("IP: " + NetworkHelper.ipAddress("192.168.0.1"))
+        toolbar?.let {
+            it.title = "Skeleton"
+            it.subtitle = "for Android"
         }
-        viewPager.offscreenPageLimit = viewPager.adapter.count
+        val viewPager = findViewById<ViewPager>(R.id.viewPager)
+        val pagerAdapter = MyPagerAdapter(supportFragmentManager)
+        viewPager.adapter = pagerAdapter
+        viewPager.offscreenPageLimit = pagerAdapter.count
         val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
-        for (i in 0 until viewPager.adapter.count) {
-            tabLayout.addTab(tabLayout.newTab().setText(viewPager.adapter.getPageTitle(i)))
+        for (i in 0 until pagerAdapter.count) {
+            tabLayout.addTab(tabLayout.newTab().setText(pagerAdapter.getPageTitle(i)))
         }
         tabLayout.setupWithViewPager(viewPager)
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -81,7 +67,7 @@ class MainActivity : SkeletonActivity() {
                 // Ignore
             }
             override fun onPageSelected(position: Int) {
-                LogHelper.verbose("Page: " + position)
+                Logger.verbose("Page: $position")
             }
             override fun onPageScrollStateChanged(state: Int) {
                 // Ignore
@@ -131,14 +117,14 @@ class MainActivity : SkeletonActivity() {
                 .callback(ShkMod::class.java, object : WebService.Callback<Any?> {
                     override fun success(result: Any?) {
                         if (result.isNull()) {
-                            Toaster.lengthShort(ShkMod::class.java.simpleName)
+                            Toaster.show(ShkMod::class.java.simpleName)
                             return
                         }
                         // val shkMod = result as ShkMod
-                        notification(DateTimeHelper.timestamp().toInt(), ShkMod::class.java.simpleName, ObjectHelper.jsonify(result!!))
+                        notification(DateTimeHelper.timestamp().toInt(), ShkMod::class.java.simpleName, ObjectHelper.jsonify(result))
                     }
                     override fun failure(e: WebServiceException) {
-                        Toaster.lengthLong(WebServiceException::class.java.simpleName)
+                        Toaster.show(WebServiceException::class.java.simpleName)
                     }
                 }).run()
     }
@@ -171,6 +157,30 @@ class MainActivity : SkeletonActivity() {
                 .setNegative(resources.getString(android.R.string.cancel), null)
                 .build()
                 .show()
+    }
+
+    private class MyPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
+
+        override fun getItem(position: Int): Fragment? {
+            return when (position) {
+                0 -> ShkFragment()
+                1 -> SkFragment()
+                else -> null
+            }
+        }
+
+        override fun getPageTitle(position: Int): CharSequence? {
+            return when (position) {
+                0 -> "ShkSchneider"
+                1 -> "Skeleton"
+                else -> null
+            }
+        }
+
+        override fun getCount(): Int {
+            return 2
+        }
+
     }
 
     companion object {

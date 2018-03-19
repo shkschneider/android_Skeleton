@@ -1,11 +1,11 @@
 package me.shkschneider.skeleton.helper
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.RingtoneManager
 import android.net.Uri
+import android.os.Build
 import android.provider.ContactsContract
 import android.provider.MediaStore
 import android.provider.Settings
@@ -24,18 +24,18 @@ object IntentHelper {
     object GooglePlay {
 
         fun application(packageName: String): Intent {
-            return external(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName)))
+            return external(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName")))
         }
 
         fun publisher(pub: String): Intent {
             val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse("market://search?pub:" + pub)
+            intent.data = Uri.parse("market://search?pub:$pub")
             return external(intent)
         }
 
         fun search(q: String): Intent {
             val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse("market://search?q=" + q)
+            intent.data = Uri.parse("market://search?q=$q")
             return external(intent)
         }
 
@@ -49,7 +49,7 @@ object IntentHelper {
     fun main(): Intent? {
         val intent = ApplicationHelper.packageManager().getLaunchIntentForPackage(ApplicationHelper.packageName())
         if (intent == null) {
-            LogHelper.warning("Intent was NULL")
+            Logger.warning("Intent was NULL")
             return null
         }
         return Intent.makeMainActivity(intent.component).addFlags(FLAGS_HOME)
@@ -58,7 +58,7 @@ object IntentHelper {
     fun restart(): Intent? {
         val intent = ApplicationHelper.packageManager().getLaunchIntentForPackage(ApplicationHelper.packageName())
         if (intent == null) {
-            LogHelper.warning("Intent was NULL")
+            Logger.warning("Intent was NULL")
             return null
         }
         return Intent.makeRestartActivityTask(intent.component).addFlags(FLAGS_CLEAR)
@@ -70,7 +70,7 @@ object IntentHelper {
 
     fun web(url: String): Intent? {
         if (! UrlHelper.valid(url)) {
-            LogHelper.warning("Url was invalid")
+            Logger.warning("Url was invalid")
             return null
         }
         return external(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
@@ -142,14 +142,14 @@ object IntentHelper {
 
     fun camera(file: File): Intent? {
         if (! FeaturesHelper.has(FeaturesHelper.FEATURE_CAMERA)) {
-            LogHelper.warning("Camera was unavailable")
+            Logger.warning("Camera was unavailable")
             return null
         }
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 .putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file))
                 .putExtra(MediaStore.EXTRA_SHOW_ACTION_ICONS, true)
         if (! canHandle(intent)) {
-            LogHelper.warning("Cannot handle Intent")
+            Logger.warning("Cannot handle Intent")
             return null
         }
         return external(intent)
@@ -162,12 +162,12 @@ object IntentHelper {
 
     fun dial(phone: String): Intent {
         return external(Intent(Intent.ACTION_DIAL)
-                .setData(Uri.parse("tel:" + phone)))
+                .setData(Uri.parse("tel:$phone")))
     }
 
     fun call(phone: String): Intent {
         return external(Intent(Intent.ACTION_CALL)
-                .setData(Uri.parse("tel:" + phone)))
+                .setData(Uri.parse("tel:$phone")))
     }
 
     fun contact(): Intent {
@@ -185,37 +185,37 @@ object IntentHelper {
     @SkHide
     fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?): Any? {
         if (resultCode != Activity.RESULT_OK) {
-            LogHelper.debug("ResultCode was not OK")
+            Logger.debug("ResultCode was not OK")
             return null
         }
         when (requestCode) {
             REQUEST_CODE_CAMERA -> {
                 if (intent == null) {
-                    LogHelper.warning("Intent was NULL")
+                    Logger.warning("Intent was NULL")
                     return null
                 }
                 val bundle = intent.extras
                 if (bundle == null) {
-                    LogHelper.warning("Bundle was NULL")
+                    Logger.warning("Bundle was NULL")
                     return null
                 }
                 return bundle.get("data")
             }
             REQUEST_CODE_GALLERY -> {
                 if (intent == null) {
-                    LogHelper.warning("Intent was NULL")
+                    Logger.warning("Intent was NULL")
                     return null
                 }
                 val uri = intent.data
                 if (uri == null) {
-                    LogHelper.warning("Uri was NULL")
+                    Logger.warning("Uri was NULL")
                     return null
                 }
                 return BitmapHelper.decodeUri(uri)
             }
             REQUEST_CODE_RINGTONE -> {
                 if (intent == null) {
-                    LogHelper.warning("Intent was NULL")
+                    Logger.warning("Intent was NULL")
                     return null
                 }
                 val uri = intent.getParcelableExtra<Uri>(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
@@ -229,11 +229,12 @@ object IntentHelper {
 
     // <http://developer.android.com/training/implementing-navigation/descendant.html#external-activities>
     @Suppress("DEPRECATION")
-    @SuppressLint("InlinedApi")
     private fun external(intent: Intent): Intent {
-        if (AndroidHelper.api() >= AndroidHelper.API_21) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
-        } else intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET)
+        } else {
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET)
+        }
         return intent
     }
 

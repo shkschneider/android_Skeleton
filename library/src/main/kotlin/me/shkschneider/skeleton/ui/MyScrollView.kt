@@ -1,13 +1,11 @@
 package me.shkschneider.skeleton.ui
 
-import android.annotation.TargetApi
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.ScrollView
 
-import me.shkschneider.skeleton.helper.AndroidHelper
-import me.shkschneider.skeleton.helper.LogHelper
+import me.shkschneider.skeleton.helper.Logger
 
 // <http://cyrilmottier.com/2013/05/24/pushing-the-actionbar-to-the-next-level/>
 // <https://stackoverflow.com/a/26990539/603270>
@@ -18,14 +16,7 @@ class MyScrollView : ScrollView {
     private var view: View? = null
     private var parallax: Float? = null
 
-    constructor(context: Context) : super(context)
-
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
-
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
-
-    @TargetApi(AndroidHelper.API_21)
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes)
+    constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr)
 
     fun setOnScrollViewListener(onScrollViewListener: OnScrollViewListener) {
         this.onScrollViewListener = onScrollViewListener
@@ -50,11 +41,11 @@ class MyScrollView : ScrollView {
         this.view = view
         this.parallax = parallax
         if (parallax <= 0) {
-            LogHelper.warning("Parallax effect too low")
+            Logger.warning("Parallax effect too low")
             this.parallax = PARALLAX
         }
         if (parallax > 1) {
-            LogHelper.warning("Parallax effect too high")
+            Logger.warning("Parallax effect too high")
             this.parallax = PARALLAX
         }
     }

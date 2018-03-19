@@ -29,7 +29,7 @@ class OverlayLoader : Fragment() {
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val progressBar = ProgressBar(context)
         if (container is FrameLayout) {
             val size = resources.getDimensionPixelSize(R.dimen.spaceMedium)

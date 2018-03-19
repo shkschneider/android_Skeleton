@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.helper
 
-import android.content.res.Resources
 import android.support.annotation.FloatRange
 import android.util.DisplayMetrics
 import android.util.TypedValue
@@ -8,7 +7,7 @@ import android.util.TypedValue
 object Metrics {
 
     fun displayMetrics(): DisplayMetrics {
-        return Resources.getSystem().displayMetrics
+        return ContextHelper.applicationContext().resources.displayMetrics
     }
 
     fun density(): Float {

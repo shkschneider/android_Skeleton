@@ -1,6 +1,6 @@
 package me.shkschneider.skeleton.security
 
-import me.shkschneider.skeleton.helper.LogHelper
+import me.shkschneider.skeleton.helper.Logger
 import java.security.InvalidAlgorithmParameterException
 import java.security.InvalidKeyException
 import javax.crypto.BadPaddingException
@@ -37,16 +37,16 @@ class ComplexCrypt : ICrypt<ByteArray> {
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec)
             return cipher.doFinal(src)
         } catch (e: InvalidKeyException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         } catch (e: InvalidAlgorithmParameterException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         } catch (e: IllegalBlockSizeException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         } catch (e: BadPaddingException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         }
     }
@@ -57,16 +57,16 @@ class ComplexCrypt : ICrypt<ByteArray> {
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec)
             return cipher.doFinal(src)
         } catch (e: InvalidKeyException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         } catch (e: InvalidAlgorithmParameterException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         } catch (e: IllegalBlockSizeException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         } catch (e: BadPaddingException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         }
     }

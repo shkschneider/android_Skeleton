@@ -46,7 +46,7 @@ class SkFragment : SkeletonFragment() {
                 me.shkschneider.skeleton.helper.IntentHelper::class.java,
                 me.shkschneider.skeleton.helper.KeyboardHelper::class.java,
                 me.shkschneider.skeleton.helper.LocaleHelper::class.java,
-                me.shkschneider.skeleton.helper.LogHelper::class.java,
+                me.shkschneider.skeleton.helper.Logger::class.java,
                 me.shkschneider.skeleton.helper.NotificationHelper::class.java,
                 me.shkschneider.skeleton.helper.RunnableHelper::class.java,
                 me.shkschneider.skeleton.helper.ScreenHelper::class.java,
@@ -58,7 +58,6 @@ class SkFragment : SkeletonFragment() {
         ))
         fill(view.findViewById<View>(R.id.java) as LinearLayout, arrayOf(
                 me.shkschneider.skeleton.java.JobManager::class.java,
-                me.shkschneider.skeleton.java.ObjectHelper::class.java,
                 me.shkschneider.skeleton.java.RandomHelper::class.java,
                 me.shkschneider.skeleton.java.StringHelper::class.java,
                 me.shkschneider.skeleton.java.Tasker::class.java

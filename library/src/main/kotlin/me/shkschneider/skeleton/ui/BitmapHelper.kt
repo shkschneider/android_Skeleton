@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.ui
 
-import android.annotation.TargetApi
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
@@ -12,6 +11,7 @@ import android.renderscript.ScriptIntrinsicBlur
 import android.support.annotation.ColorInt
 import android.support.annotation.DrawableRes
 import android.support.annotation.IntRange
+import android.support.annotation.RequiresApi
 import android.util.Base64
 import android.view.View
 import android.widget.RelativeLayout
@@ -36,7 +36,7 @@ object BitmapHelper {
     }
 
     // <https://stackoverflow.com/a/44525044>
-    @TargetApi(AndroidHelper.API_17)
+    @RequiresApi(AndroidHelper.API_17)
     fun blur(original: Bitmap): Bitmap {
         val input = Bitmap.createScaledBitmap(original, original.width / 2, original.height / 2, false)
         val output = Bitmap.createBitmap(input)
@@ -113,7 +113,7 @@ object BitmapHelper {
             val inputStream = ContextHelper.applicationContext().contentResolver.openInputStream(uri) ?: return null
             return BitmapHelper.fromInputStream(inputStream, _options)
         } catch (e: FileNotFoundException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         }
 
@@ -127,19 +127,18 @@ object BitmapHelper {
                 }
             })
         } catch (e: FileNotFoundException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         }
 
     }
 
-    @Suppress("DEPRECATION")
     fun compress(bitmap: Bitmap, factor: Int): Bitmap {
         if (factor <= 0) {
             return bitmap
         }
         if ((factor and factor - 1) != 0) {
-            LogHelper.warning("Factor should be a power of 2")
+            Logger.warning("Factor should be a power of 2")
         }
         val options = BitmapFactory.Options()
         options.inPreferredConfig = Bitmap.Config.ARGB_8888
@@ -159,7 +158,7 @@ object BitmapHelper {
         try {
             val inputStream = ContextHelper.applicationContext().contentResolver.openInputStream(uri)
             if (inputStream == null) {
-                LogHelper.warning("InputStream was NULL")
+                Logger.warning("InputStream was NULL")
                 return null
             }
             // Tries to optimize the process
@@ -168,7 +167,7 @@ object BitmapHelper {
             var scale = 1
             val downSample = Metrics.density().toInt()
             if (downSample <= 0) {
-                LogHelper.warning("Downsample was invalid")
+                Logger.warning("Downsample was invalid")
                 return null
             }
             while (true) {
@@ -183,7 +182,7 @@ object BitmapHelper {
             options.inSampleSize = scale
             return BitmapHelper.fromInputStream(inputStream, options)
         } catch (e: FileNotFoundException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         }
     }

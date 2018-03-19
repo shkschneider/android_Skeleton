@@ -1,10 +1,10 @@
 package me.shkschneider.skeleton
 
-import android.annotation.TargetApi
 import android.app.ActivityManager
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
 import android.support.annotation.ColorInt
 import android.support.annotation.LayoutRes
@@ -67,22 +67,18 @@ abstract class SkeletonActivity : AppCompatActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         setContentView(R.layout.sk_activity)
         if (AndroidHelper.api() >= AndroidHelper.API_21) {
-            init21()
+            statusBarColor(window, ContextCompat.getColor(applicationContext, R.color.statusBarColor))
+            val name = ApplicationHelper.name()
+            val icon = ApplicationHelper.icon()
+            val color = ContextCompat.getColor(applicationContext, R.color.primaryColor)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                setTaskDescription(ActivityManager.TaskDescription(name, icon, color))
+            }
         }
         intent?.extras?.let {
-            LogHelper.verbose("onNewIntent: " + intent)
+            Logger.verbose("onNewIntent: $intent")
             onNewIntent(intent) // FIXME keep?
         }
-    }
-
-    @TargetApi(AndroidHelper.API_21)
-    private fun init21() {
-        statusBarColor(window, ContextCompat.getColor(applicationContext, R.color.statusBarColor))
-        val name = ApplicationHelper.name()
-        val icon = ApplicationHelper.icon()
-        val color = ContextCompat.getColor(applicationContext, R.color.primaryColor)
-        val taskDescription = ActivityManager.TaskDescription(name, icon, color)
-        setTaskDescription(taskDescription)
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -109,17 +105,16 @@ abstract class SkeletonActivity : AppCompatActivity() {
         onViewCreated()
     }
 
-    @TargetApi(AndroidHelper.API_21)
     fun statusBarColor(window: Window): Int {
-        if (AndroidHelper.api() >= AndroidHelper.API_21) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             return window.statusBarColor
+        } else {
+            return Color.TRANSPARENT // Color.BLACK
         }
-        return Color.TRANSPARENT // Color.BLACK
     }
 
-    @TargetApi(AndroidHelper.API_21)
     fun statusBarColor(window: Window, @ColorInt color: Int): Boolean {
-        if (AndroidHelper.api() >= AndroidHelper.API_21) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.statusBarColor = color
             return true
@@ -129,7 +124,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     fun toolbarColor(@ColorInt color: Int): Boolean? {
         if (toolbar.isNull()) {
-            LogHelper.warning("Toolbar was NULL")
+            Logger.warning("Toolbar was NULL")
             return false
         }
         toolbar?.setBackgroundColor(color)
@@ -139,7 +134,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
     protected fun bindToolbar() {
         toolbar = findViewById(R.id.toolbar)
         toolbar?.let {
-            // LogHelper.verbose("Found a Toolbar");
+            // Logger.verbose("Found a Toolbar");
             setSupportActionBar(it)
             title(ApplicationHelper.name())
         }
@@ -193,14 +188,14 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     fun toolbar(b: Boolean) {
-        toolbar ?: LogHelper.warning("Toolbar was NULL")
+        toolbar ?: Logger.warning("Toolbar was NULL")
         toolbar?.let {
             it.visibility = if (b) View.VISIBLE else View.GONE
         }
     }
 
     fun home(b: Boolean) {
-        supportActionBar ?: LogHelper.warning("ActionBar was NULL")
+        supportActionBar ?: Logger.warning("ActionBar was NULL")
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(b)
         }
@@ -208,7 +203,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     @Deprecated("Avoid")
     fun home(drawable: Drawable) {
-        toolbar ?: LogHelper.warning("Toolbar was NULL")
+        toolbar ?: Logger.warning("Toolbar was NULL")
         toolbar?.let {
             it.navigationIcon = drawable
         }
@@ -220,7 +215,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     fun logo(drawable: Drawable?) {
-        supportActionBar ?: LogHelper.warning("ActionBar was NULL")
+        supportActionBar ?: Logger.warning("ActionBar was NULL")
         supportActionBar?.let {
             it.setDisplayShowHomeEnabled(drawable != null)
             it.setDisplayUseLogoEnabled(drawable != null)
@@ -229,7 +224,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     fun title(title: String?) {
-        supportActionBar ?: LogHelper.warning("ActionBar was NULL")
+        supportActionBar ?: Logger.warning("ActionBar was NULL")
         supportActionBar?.let {
             it.setDisplayShowTitleEnabled(! title.isNullOrEmpty())
             it.title = title
@@ -237,12 +232,12 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     fun title(): String? {
-        supportActionBar ?: LogHelper.warning("ActionBar was NULL")
+        supportActionBar ?: Logger.warning("ActionBar was NULL")
         return supportActionBar?.subtitle?.toString()
     }
 
     fun subtitle(subtitle: String?) {
-        supportActionBar ?: LogHelper.warning("ActionBar was NULL")
+        supportActionBar ?: Logger.warning("ActionBar was NULL")
         supportActionBar?.let {
             it.setDisplayShowTitleEnabled(! title.isNullOrEmpty() || subtitle.isNullOrEmpty())
             it.subtitle = subtitle
@@ -250,7 +245,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     fun subtitle(): String? {
-        supportActionBar ?: LogHelper.warning("ActionBar was NULL")
+        supportActionBar ?: Logger.warning("ActionBar was NULL")
         return supportActionBar?.subtitle?.toString()
     }
 
@@ -310,12 +305,12 @@ abstract class SkeletonActivity : AppCompatActivity() {
             menuInflater.inflate(R.menu.sk_search, menu)
             searchMenuItem = menu.findItem(R.id.menu_search)
             if (searchMenuItem == null) {
-                LogHelper.warning("SearchMenuItem was NULL")
+                Logger.warning("SearchMenuItem was NULL")
                 return super.onCreateOptionsMenu(menu)
             }
             searchView = searchMenuItem!!.actionView as SearchView
             if (searchView == null) {
-                LogHelper.warning("SearchView was NULL")
+                Logger.warning("SearchView was NULL")
                 return super.onCreateOptionsMenu(menu)
             }
             with (searchView!!) {

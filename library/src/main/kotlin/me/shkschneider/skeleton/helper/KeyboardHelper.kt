@@ -16,12 +16,12 @@ import me.shkschneider.skeleton.ui.ViewHelper
 object KeyboardHelper {
 
     fun show(window: Window) {
-        LogHelper.verbose("SOFT_INPUT_STATE_ALWAYS_VISIBLE")
+        Logger.verbose("SOFT_INPUT_STATE_ALWAYS_VISIBLE")
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
     }
 
     fun hide(window: Window) {
-        LogHelper.verbose("SOFT_INPUT_STATE_ALWAYS_HIDDEN")
+        Logger.verbose("SOFT_INPUT_STATE_ALWAYS_HIDDEN")
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
     }
 

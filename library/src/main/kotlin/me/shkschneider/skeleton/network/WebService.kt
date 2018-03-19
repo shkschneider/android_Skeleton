@@ -10,7 +10,7 @@ import me.shkschneider.skeleton.data.CharsetHelper
 import me.shkschneider.skeleton.data.FileHelper
 import me.shkschneider.skeleton.data.MimeTypeHelper
 import me.shkschneider.skeleton.extensions.isNotNull
-import me.shkschneider.skeleton.helper.LogHelper
+import me.shkschneider.skeleton.helper.Logger
 import me.shkschneider.skeleton.java.SkHide
 import java.io.BufferedWriter
 import java.io.DataOutputStream
@@ -106,7 +106,7 @@ class WebService {
 
     }
 
-    @SuppressLint("StaticFieldLeak") // FIXME
+    @SuppressLint("StaticFieldLeak")
     private inner class Task : AsyncTask<Void, Void, Any>() {
 
         override fun doInBackground(@Size(0) vararg voids: Void): Any {
@@ -140,28 +140,28 @@ class WebService {
                         bufferedWriter.close()
                         dataOutputStream.close()
                     }
-                    LogHelper.debug("=> " + method.name + " " + url + " " + (if (headers != null) headers!!.toString() else "{}") + " " + if (body != null) body!!.toString() else "{}")
-                    LogHelper.debug("<= $responseCode $responseMessage $url")
+                    Logger.debug("=> " + method.name + " " + url + " " + (headers?.toString() ?: "{}") + " " + (body?.toString() ?: "{}"))
+                    Logger.debug("<= $responseCode $responseMessage $url")
                     if (errorStream.isNotNull()) {
                         val body = FileHelper.readString(errorStream)
                         if (! body.isNullOrEmpty()) {
-                            LogHelper.verbose("<- " + body!!)
+                            Logger.verbose("<- " + body!!)
                             return WebServiceException(responseCode, body)
                         }
                         return WebServiceException(responseCode, responseMessage)
                     }
                     val body = FileHelper.readString(inputStream)
-                    LogHelper.verbose("<- " + body!!)
+                    Logger.verbose("<- " + body!!)
                     return Gson().fromJson(body, type) ?: WebServiceException(responseCode, responseMessage)
                 }
             } catch (e: JsonSyntaxException) {
-                LogHelper.wtf(e)
+                Logger.wtf(e)
                 return WebServiceException(WebServiceException.INTERNAL_ERROR, JsonSyntaxException::class.java.simpleName)
             } catch (e: MalformedURLException) {
-                LogHelper.wtf(e)
+                Logger.wtf(e)
                 return WebServiceException(WebServiceException.INTERNAL_ERROR, MalformedURLException::class.java.simpleName)
             } catch (e: IOException) {
-                LogHelper.wtf(e)
+                Logger.wtf(e)
                 return WebServiceException(WebServiceException.INTERNAL_ERROR, IOException::class.java.simpleName)
             } finally {
                 httpURLConnection?.disconnect()
@@ -173,10 +173,7 @@ class WebService {
             callback?.let {
                 when (result) {
                     is WebServiceException -> it.failure((result as WebServiceException?)!!)
-                    null -> it.success(null)
-                    type::class.java == result::class.java -> it.success(result)
-                    else -> it.failure(WebServiceException(WebServiceException.INTERNAL_ERROR,
-                            result::class.java.simpleName + " != " + type::class.java.simpleName))
+                    else -> it.success(result)
                 }
             }
         }

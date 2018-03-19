@@ -1,6 +1,6 @@
 package me.shkschneider.skeleton.security
 
-import me.shkschneider.skeleton.helper.LogHelper
+import me.shkschneider.skeleton.helper.Logger
 import me.shkschneider.skeleton.java.StringHelper
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -25,7 +25,7 @@ object HashHelper {
             }
             return stringBuilder.toString()
         } catch (e: NoSuchAlgorithmException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         }
     }

@@ -1,24 +1,10 @@
 package me.shkschneider.skeleton.extensions
 
-// FIXME TODO () init {}
 // FIXME TODO == null + != null
-// FIXME TODO TargetApi -> RequiresApi
 
-// = ?: x
+// = ?: x FIXME
 fun <T:Any> T?.orElse(any: T) : Any {
     return this ?: any
-}
-
-fun Any?.ifNull(block: () -> Unit) {
-    if (this == null) {
-        block()
-    }
-}
-
-fun Any?.ifNotNull(block: () -> Unit) {
-    if (this == null) {
-        block()
-    }
 }
 
 fun <T:Any> T?.isNull(): Boolean {

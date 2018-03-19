@@ -20,7 +20,7 @@ object BundleHelper {
 
     fun unpack(bundle: Bundle, key: String): Serializable? {
         if (! bundle.containsKey(key)) {
-            LogHelper.warning("Bundle has no such key")
+            Logger.warning("Bundle has no such key")
             return null
         }
         return bundle.getSerializable(key)

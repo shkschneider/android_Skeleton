@@ -1,6 +1,6 @@
 package me.shkschneider.skeleton.java
 
-import me.shkschneider.skeleton.helper.LogHelper
+import me.shkschneider.skeleton.helper.Logger
 
 object ReflectHelper {
 
@@ -15,7 +15,7 @@ object ReflectHelper {
             try {
                 return cls.declaredFields.map { it.name }
             } catch (e: Exception) {
-                LogHelper.wtf(e)
+                Logger.wtf(e)
             }
             return null
         }
@@ -30,7 +30,7 @@ object ReflectHelper {
                 field.isAccessible = true
                 return field.get(cls)
             } catch (e: Exception) {
-                LogHelper.wtf(e)
+                Logger.wtf(e)
             }
             return null
         }
@@ -46,7 +46,7 @@ object ReflectHelper {
                 field.set(cls, value)
                 return true
             } catch (e: Exception) {
-                LogHelper.wtf(e)
+                Logger.wtf(e)
             }
             return false
         }
@@ -74,7 +74,7 @@ object ReflectHelper {
             try {
                 return cls.declaredMethods.map { it.name }
             } catch (e: Exception) {
-                LogHelper.wtf(e)
+                Logger.wtf(e)
             }
             return null
         }
@@ -85,7 +85,7 @@ object ReflectHelper {
                 method.isAccessible = true
                 return method.invoke(cls, *params)
             } catch (e: Exception) {
-                LogHelper.wtf(e)
+                Logger.wtf(e)
             }
             return null
         }

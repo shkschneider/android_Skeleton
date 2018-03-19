@@ -1,7 +1,7 @@
 package me.shkschneider.skeleton.data
 
 import me.shkschneider.skeleton.extensions.isNull
-import me.shkschneider.skeleton.helper.LogHelper
+import me.shkschneider.skeleton.helper.Logger
 import java.io.BufferedReader
 import java.io.IOException
 import java.util.*
@@ -25,7 +25,7 @@ class CsvReader {
                     bufferedReader.readLine()
                 }
             } catch (e: IOException) {
-                LogHelper.warning(e)
+                Logger.warning(e.toString())
             }
         }
     }

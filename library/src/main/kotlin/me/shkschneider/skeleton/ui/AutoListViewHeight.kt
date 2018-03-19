@@ -1,26 +1,16 @@
 package me.shkschneider.skeleton.ui
 
-import android.annotation.TargetApi
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.ListView
-
-import me.shkschneider.skeleton.helper.AndroidHelper
 
 // <http://stackoverflow.com/a/4536955>
 class AutoListViewHeight : ListView {
 
     var isExpanded = false
 
-    constructor(context: Context) : super(context)
-
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
-
-    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle)
-
-    @TargetApi(AndroidHelper.API_21)
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes)
+    constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : super(context, attrs, defStyle)
 
     public override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         if (isExpanded) {

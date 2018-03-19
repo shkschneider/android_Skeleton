@@ -1,7 +1,7 @@
 package me.shkschneider.skeleton.helper
 
-import android.annotation.SuppressLint
 import android.graphics.Point
+import android.os.Build
 import android.support.annotation.FloatRange
 import android.util.DisplayMetrics
 import android.view.Surface
@@ -39,14 +39,12 @@ object ScreenHelper {
         window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
 
-    @Suppress("DEPRECATION")
-    @SuppressLint("NewApi")
     fun on(): Boolean? {
         val powerManager = SystemServices.powerManager()
-        return if (AndroidHelper.api() >= AndroidHelper.API_20) {
-            powerManager?.isInteractive
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
+            return powerManager?.isInteractive
         } else {
-            powerManager?.isScreenOn
+            return powerManager?.isScreenOn
         }
     }
 
@@ -61,14 +59,13 @@ object ScreenHelper {
     }
 
     // <https://github.com/eyeem/deviceinfo>
-    @SuppressLint("NewApi")
     fun inches(): Float {
         val windowManager = SystemServices.windowManager()
         val displayMetrics = DisplayMetrics()
         val display = windowManager?.defaultDisplay
         display?.getMetrics(displayMetrics)
         val point = Point(1, 1)
-        if (AndroidHelper.api() >= AndroidHelper.API_17) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             display?.getRealSize(point)
         } else {
             display?.getSize(point)
@@ -76,7 +73,7 @@ object ScreenHelper {
         val w = point.x / displayMetrics.xdpi
         val h = point.y / displayMetrics.ydpi
         val inches = Math.sqrt(Math.pow(w.toDouble(), 2.0) + Math.pow(h.toDouble(), 2.0)).toFloat()
-        LogHelper.verbose("inches: " + inches + "\"")
+        Logger.verbose("inches: $inches\"")
         return inches
     }
 

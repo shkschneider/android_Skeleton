@@ -9,7 +9,7 @@ import me.shkschneider.skeleton.data.FileHelper
 import me.shkschneider.skeleton.data.MimeTypeHelper
 import me.shkschneider.skeleton.helper.AndroidHelper
 import me.shkschneider.skeleton.helper.ContextHelper
-import me.shkschneider.skeleton.helper.LogHelper
+import me.shkschneider.skeleton.helper.Logger
 import me.shkschneider.skeleton.java.SkHide
 
 @Suppress("MemberVisibilityCanPrivate")
@@ -65,7 +65,7 @@ object WebViewHelper {
 
     fun back(webView: WebView): Boolean {
         if (! webView.canGoBack()) {
-            LogHelper.info("WebView cannot go back")
+            Logger.info("WebView cannot go back")
             return false
         }
 
@@ -75,7 +75,7 @@ object WebViewHelper {
 
     fun forward(webView: WebView): Boolean {
         if (! webView.canGoForward()) {
-            LogHelper.info("WebView cannot go forward")
+            Logger.info("WebView cannot go forward")
             return false
         }
 
@@ -91,7 +91,7 @@ object WebViewHelper {
 
         @JavascriptInterface
         fun test() {
-            LogHelper.debug(this::class.java.simpleName)
+            Logger.debug(this::class.java.simpleName)
         }
 
     }

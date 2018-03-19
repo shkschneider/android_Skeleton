@@ -35,7 +35,7 @@ object SystemProperties {
     fun get(property: String): String? {
         val systemProperty = System.getProperty(property)
         if (property.isEmpty()) {
-            LogHelper.warning("SystemProperty was NULL")
+            Logger.warning("SystemProperty was NULL")
             return null
         }
         return systemProperty

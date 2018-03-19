@@ -8,24 +8,12 @@ import java.text.Normalizer
 import java.text.NumberFormat
 import java.util.regex.Pattern
 
-@Suppress("MemberVisibilityCanPrivate")
 object StringHelper {
 
     val ALPHA = String(CharRange('a', 'z').toList().toCharArray())
     val NUMERIC = String(CharRange('0', '9').toList().toCharArray())
     val HEX = NUMERIC + ALPHA.substring(0, 6)
     val ALPHA_NUMERIC = ALPHA + NUMERIC
-
-    fun camelCase(strings: List<String>): String {
-        strings.filter { ! it.isBlank() }.forEach {
-            var camelCase = strings[0].toLowerCase()
-            strings.subList(1, strings.size).forEach {
-                camelCase += it.capitalize()
-            }
-            return camelCase
-        }
-        return ""
-    }
 
     fun alpha(string: String): Boolean {
         return string.matches(Pattern.compile(ALPHA).toRegex())
@@ -35,7 +23,7 @@ object StringHelper {
         return string.matches(Pattern.compile(ALPHA_NUMERIC).toRegex())
     }
 
-    @Deprecated("TextUtils.isDigitsOnly()") // FIXME
+    @Deprecated("TextUtils.isDigitsOnly()")
     fun numeric(string: String): Boolean {
         return TextUtils.isDigitsOnly(string)
     }
@@ -79,12 +67,6 @@ object StringHelper {
         // string = string.replaceAll("[^\\p{ASCII}]", ""); // ascii
         string = string.replace("\\p{M}".toRegex(), "") // unicode
         return string
-    }
-
-    fun ellipsize(string: String, @IntRange(from = 0) maxLength: Int = 80): String {
-        return if (string.length > maxLength) {
-            string.substring(0, maxLength - 3) + "..."
-        } else string
     }
 
     fun number(number: Int): String {

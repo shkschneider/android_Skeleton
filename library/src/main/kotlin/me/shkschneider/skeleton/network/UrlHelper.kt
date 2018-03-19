@@ -3,7 +3,7 @@ package me.shkschneider.skeleton.network
 import android.net.Uri
 import android.webkit.URLUtil
 import me.shkschneider.skeleton.data.CharsetHelper
-import me.shkschneider.skeleton.helper.LogHelper
+import me.shkschneider.skeleton.helper.Logger
 import java.io.UnsupportedEncodingException
 import java.net.URLDecoder
 import java.net.URLEncoder
@@ -26,7 +26,7 @@ object UrlHelper {
          try {
              return URLEncoder.encode(string, CharsetHelper.UTF8)
         } catch (e: UnsupportedEncodingException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
              return null
         }
     }
@@ -35,7 +35,7 @@ object UrlHelper {
         try {
             return URLDecoder.decode(string, CharsetHelper.UTF8)
         } catch (e: UnsupportedEncodingException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         }
     }

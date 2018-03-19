@@ -25,7 +25,7 @@ object BroadcastHelper {
             LocalBroadcastManager.getInstance(ContextHelper.applicationContext())
                     .unregisterReceiver(broadcastReceiver)
         } catch (e: IllegalArgumentException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
         }
     }
 

@@ -5,7 +5,7 @@ import android.graphics.Bitmap
 import android.support.annotation.RawRes
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.AssetsHelper
-import me.shkschneider.skeleton.helper.LogHelper
+import me.shkschneider.skeleton.helper.Logger
 import me.shkschneider.skeleton.ui.BitmapHelper
 import java.io.*
 import java.util.*
@@ -32,7 +32,7 @@ object FileHelper {
         try {
             return FileInputStream(file)
         } catch (e: FileNotFoundException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         }
     }
@@ -41,7 +41,7 @@ object FileHelper {
         try {
             return ApplicationHelper.resources().openRawResource(id)
         } catch (e: Resources.NotFoundException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         }
     }
@@ -63,7 +63,7 @@ object FileHelper {
         try {
             return readString(FileInputStream(file))
         } catch (e: FileNotFoundException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         }
     }
@@ -74,7 +74,7 @@ object FileHelper {
             outputStream.close()
             return true
         } catch (e: IOException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return false
         }
     }
@@ -83,7 +83,7 @@ object FileHelper {
         try {
             return writeString(FileOutputStream(file), content)
         } catch (e: FileNotFoundException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return false
         }
     }
@@ -97,14 +97,14 @@ object FileHelper {
             val fileOutputStream = FileOutputStream(file)
             return bitmap.compress(Bitmap.CompressFormat.PNG, 90, fileOutputStream)
         } catch (e: FileNotFoundException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return false
         }
     }
 
     fun list(file: File): List<String>? {
         if (! file.isDirectory) {
-            LogHelper.debug("File was not a directory")
+            Logger.debug("File was not a directory")
             return null
         }
         return file.listFiles()?.let {

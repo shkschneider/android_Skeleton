@@ -2,6 +2,7 @@ package me.shkschneider.skeleton.helper
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.VibrationEffect
 import android.support.annotation.RequiresPermission
 
@@ -16,11 +17,9 @@ object VibratorHelper {
         return vibrator != null && vibrator.hasVibrator()
     }
 
-    @Suppress("DEPRECATION")
-    @SuppressLint("NewApi")
     @RequiresPermission(Manifest.permission.VIBRATE)
     fun vibrate(durations: LongArray, repeat: Boolean = false) {
-        if (AndroidHelper.api() >= AndroidHelper.API_26) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             SystemServices.vibrator()?.vibrate(VibrationEffect.createWaveform(durations, if (repeat) DO_REPEAT else DO_NOT_REPEAT))
         } else {
             SystemServices.vibrator()?.vibrate(durations, if (repeat) DO_REPEAT else DO_NOT_REPEAT)

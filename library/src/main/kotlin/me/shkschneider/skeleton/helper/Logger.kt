@@ -5,10 +5,9 @@ import android.util.Log
 
 import me.shkschneider.skeleton.BuildConfig
 import me.shkschneider.skeleton.SkeletonApplication
-import me.shkschneider.skeleton.java.ObjectHelper
 import me.shkschneider.skeleton.java.SkHide
 
-object LogHelper {
+object Logger {
 
     private const val VERBOSE = Log.VERBOSE
     private const val DEBUG = Log.DEBUG
@@ -20,9 +19,6 @@ object LogHelper {
     @SkHide
     private fun tag(): String {
         var tag = SkeletonApplication.TAG
-        if (tag.isEmpty()) {
-            tag = BuildConfig.APPLICATION_ID
-        }
         while (tag.length > 23 && tag.contains(".")) {
             tag = tag.substring(tag.indexOf(".") + 1, tag.length)
         }
@@ -58,91 +54,30 @@ object LogHelper {
             WARN -> Log.w(tag(), stack + msg, throwable)
             ERROR -> Log.e(tag(), stack + msg, throwable)
             WTF -> Log.wtf(tag(), stack + msg, throwable)
-        // else -> {}
         }
     }
 
-    fun debug(obj: Any) {
-        log(DEBUG, ObjectHelper.jsonify(obj), null)
-    }
-
-    fun debug(obj: Any, throwable: Throwable) {
-        log(DEBUG, ObjectHelper.jsonify(obj), throwable)
-    }
-
-    fun debug(msg: String) {
-        log(DEBUG, msg, null)
-    }
-
-    fun debug(msg: String, throwable: Throwable) {
+    fun debug(msg: String, throwable: Throwable? = null) {
         log(DEBUG, msg, throwable)
     }
 
-    fun verbose(obj: Any) {
-        log(DEBUG, ObjectHelper.jsonify(obj), null)
-    }
-
-    fun verbose(obj: Any, throwable: Throwable) {
-        log(DEBUG, ObjectHelper.jsonify(obj), throwable)
-    }
-
-    fun verbose(msg: String) {
-        log(VERBOSE, msg, null)
-    }
-
-    fun verbose(msg: String, throwable: Throwable) {
+    fun verbose(msg: String, throwable: Throwable? = null) {
         log(VERBOSE, msg, throwable)
     }
 
-    fun info(obj: Any) {
-        log(DEBUG, ObjectHelper.jsonify(obj), null)
-    }
-
-    fun info(obj: Any, throwable: Throwable) {
-        log(DEBUG, ObjectHelper.jsonify(obj), throwable)
-    }
-
-    fun info(msg: String) {
-        log(INFO, msg, null)
-    }
-
-    fun info(msg: String, throwable: Throwable) {
+    fun info(msg: String, throwable: Throwable? = null) {
         log(INFO, msg, throwable)
     }
 
-    fun warning(obj: Any) {
-        log(DEBUG, ObjectHelper.jsonify(obj), null)
-    }
-
-    fun warning(obj: Any, throwable: Throwable) {
-        log(DEBUG, ObjectHelper.jsonify(obj), throwable)
-    }
-
-    fun warning(msg: String) {
-        log(WARN, msg, null)
-    }
-
-    fun warning(msg: String, throwable: Throwable) {
+    fun warning(msg: String, throwable: Throwable? = null) {
         log(WARN, msg, throwable)
     }
 
-    fun error(obj: Any) {
-        log(DEBUG, ObjectHelper.jsonify(obj), null)
-    }
-
-    fun error(obj: Any, throwable: Throwable) {
-        log(DEBUG, ObjectHelper.jsonify(obj), throwable)
-    }
-
-    fun error(msg: String) {
-        log(ERROR, msg, null)
-    }
-
-    fun error(msg: String, throwable: Throwable) {
+    fun error(msg: String, throwable: Throwable? = null) {
         log(ERROR, msg, throwable)
     }
 
-    fun wtf(throwable: Throwable) { // FIXME
+    fun wtf(throwable: Throwable) {
         log(WTF, throwable.message, throwable)
     }
 

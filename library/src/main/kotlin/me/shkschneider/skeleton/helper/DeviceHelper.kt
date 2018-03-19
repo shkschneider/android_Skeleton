@@ -35,21 +35,21 @@ object DeviceHelper {
         return SystemProperties.get(SystemProperties.OS_ARCH)
     }
 
-    @SuppressLint("NewApi")
     fun is64bits(): Boolean {
         val is64bits: Boolean = AndroidHelper.api() >= AndroidHelper.ANDROID_5
-        return if (AndroidHelper.api() >= AndroidHelper.API_21) {
-            is64bits && Build.SUPPORTED_64_BIT_ABIS.isNotEmpty()
-        } else is64bits
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return is64bits && Build.SUPPORTED_64_BIT_ABIS.isNotEmpty()
+        }
+        return is64bits
     }
 
     @Suppress("DEPRECATION")
-    @SuppressLint("NewApi", "HardwareIds")
+    @SuppressLint( "HardwareIds")
     @RequiresPermission(Manifest.permission.READ_PHONE_STATE)
     fun serial(): String? {
-        if (AndroidHelper.api() >= AndroidHelper.API_26
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
                 && ContextCompat.checkSelfPermission(ContextHelper.applicationContext(),
-                Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
+                        Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
             return Build.getSerial()
         }
         return Build.SERIAL

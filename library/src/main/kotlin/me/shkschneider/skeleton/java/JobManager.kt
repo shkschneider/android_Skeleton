@@ -1,12 +1,12 @@
 package me.shkschneider.skeleton.java
 
 import android.Manifest
-import android.annotation.TargetApi
 import android.app.job.JobInfo
 import android.app.job.JobScheduler
 import android.app.job.JobService
 import android.content.ComponentName
 import android.os.PersistableBundle
+import android.support.annotation.RequiresApi
 import android.support.annotation.RequiresPermission
 
 import me.shkschneider.skeleton.helper.AndroidHelper
@@ -16,7 +16,7 @@ import me.shkschneider.skeleton.helper.SystemServices
 /**
  * <service android:name=".MyJobService" android:permission="android.permission.BIND_JOB_SERVICE"></service>
  */
-@TargetApi(AndroidHelper.API_21)
+@RequiresApi(AndroidHelper.API_21)
 class JobManager {
 
     private var id: Int
@@ -51,21 +51,21 @@ class JobManager {
         return this
     }
 
-    @TargetApi(AndroidHelper.API_24)
+    @RequiresApi(AndroidHelper.API_24)
     @SkHide
     fun addTriggerContentUri(uri: JobInfo.TriggerContentUri): JobManager {
         builder.addTriggerContentUri(uri)
         return this
     }
 
-    @TargetApi(AndroidHelper.API_24)
+    @RequiresApi(AndroidHelper.API_24)
     @SkHide
     fun setTriggerContentUpdateDelay(durationMs: Long): JobManager {
         builder.setTriggerContentUpdateDelay(durationMs)
         return this
     }
 
-    @TargetApi(AndroidHelper.API_24)
+    @RequiresApi(AndroidHelper.API_24)
     @SkHide
     fun setTriggerContentMaxDelay(durationMs: Long): JobManager {
         builder.setTriggerContentMaxDelay(durationMs)
@@ -78,7 +78,7 @@ class JobManager {
         return this
     }
 
-    @TargetApi(AndroidHelper.API_24)
+    @RequiresApi(AndroidHelper.API_24)
     @SkHide
     fun setPeriodic(intervalMillis: Long, flexMillis: Long): JobManager {
         builder.setPeriodic(intervalMillis, flexMillis)

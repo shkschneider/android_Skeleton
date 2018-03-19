@@ -5,6 +5,7 @@ import android.support.v7.preference.PreferenceFragmentCompat
 import android.view.View
 
 import me.shkschneider.skeleton.SkeletonActivity
+import me.shkschneider.skeleton.extensions.camelCase
 import me.shkschneider.skeleton.helper.AndroidHelper
 import me.shkschneider.skeleton.helper.ApplicationHelper
 
@@ -14,8 +15,10 @@ class AboutActivity : SkeletonActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about)
         home(true)
-        toolbar?.title = "Skeleton"
-        toolbar?.subtitle = "for Android"
+        toolbar?.let {
+            it.title = "Skeleton"
+            it.subtitle = "for Android"
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -29,31 +32,38 @@ class AboutActivity : SkeletonActivity() {
             addPreferencesFromResource(R.xml.about)
         }
 
-        override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
             // Application
-            val appPackage = findPreference("app_package")
-            appPackage.title = "PackageName"
-            appPackage.summary = ApplicationHelper.packageName()
-            val appVersionName = findPreference("app_versionName")
-            appVersionName.title = "VersionName"
-            appVersionName.summary = ApplicationHelper.versionName()
-            val appVersionCode = findPreference("app_versionCode")
-            appVersionCode.title = "VersionCode"
-            appVersionCode.summary = ApplicationHelper.versionCode().toString()
-            val appVariant = findPreference("app_variant")
-            appVariant.title = "Variant"
-            appVariant.summary = (if (ApplicationHelper.debuggable()) "DEBUG" else "RELEASE").capitalize()
-            val appFlavor = findPreference("app_flavor")
-            appFlavor.title = "Flavor"
-            appFlavor.summary = BuildConfig.FLAVOR.capitalize()
+            with(findPreference("app_package")) {
+                title = "PackageName"
+                summary = ApplicationHelper.packageName()
+            }
+            with(findPreference("app_versionName")) {
+                title = "VersionName"
+                summary = ApplicationHelper.versionName()
+            }
+            with(findPreference("app_versionCode")) {
+                title = "VersionCode"
+                summary = ApplicationHelper.versionCode().toString()
+            }
+            with(findPreference("app_variant")) {
+                title = "Variant"
+                summary = (if (ApplicationHelper.debuggable()) "Debug" else "Release")
+            }
+            with(findPreference("app_flavor")) {
+                title = "Flavor"
+                summary = BuildConfig.FLAVOR.camelCase()
+            }
             // OS
-            val osVersion = findPreference("os_version")
-            osVersion.title = "Version"
-            osVersion.summary = AndroidHelper.codename()
-            val osApi = findPreference("os_api")
-            osApi.title = "API"
-            osApi.summary = AndroidHelper.api().toString()
+            with(findPreference("os_version")) {
+                title = "Version"
+                summary = AndroidHelper.codename()
+            }
+            with(findPreference("os_api")) {
+                title = "API"
+                summary = AndroidHelper.api().toString()
+            }
         }
 
     }

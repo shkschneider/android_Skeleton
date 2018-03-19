@@ -1,7 +1,7 @@
 package me.shkschneider.skeleton.ui
 
-import android.annotation.TargetApi
 import android.content.Context
+import android.support.annotation.RequiresApi
 import android.support.v4.view.GravityCompat
 import android.util.AttributeSet
 import android.view.Gravity
@@ -27,15 +27,13 @@ class AutoGridLayout : FrameLayout {
     private var gravity = Gravity.TOP or Gravity.START
     private val positions = ArrayList<ViewPosition>()
 
-    constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : super(context, attrs, defStyle) {
+    constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr) {
         init(attrs)
     }
-
-    @TargetApi(AndroidHelper.API_21)
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
+    @RequiresApi(AndroidHelper.API_21)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
         init(attrs)
     }
-
     private fun init(attrs: AttributeSet?) {
         val orientation = attrs?.getAttributeResourceValue(ViewHelper.ANDROIDXML, "orientation", -1) ?: -1
         when (orientation) {

@@ -21,7 +21,7 @@ object IdHelper {
             }
             gsfId = java.lang.Long.toHexString(java.lang.Long.parseLong(cursor.getString(1)))
         } catch (e: Exception) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
         } finally {
             cursor.close()
         }
@@ -33,7 +33,7 @@ object IdHelper {
     fun androidId(): String? {
         val androidId = Settings.Secure.getString(ContextHelper.applicationContext().contentResolver, Settings.Secure.ANDROID_ID)
         if (androidId.isNullOrBlank()) {
-            LogHelper.warning("AndroidId was NULL")
+            Logger.warning("AndroidId was NULL")
             return null
         }
         return androidId.toLowerCase()

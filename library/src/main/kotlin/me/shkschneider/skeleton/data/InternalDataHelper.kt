@@ -3,7 +3,7 @@ package me.shkschneider.skeleton.data
 import android.content.Context
 import android.os.Environment
 import me.shkschneider.skeleton.helper.ContextHelper
-import me.shkschneider.skeleton.helper.LogHelper
+import me.shkschneider.skeleton.helper.Logger
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
@@ -15,7 +15,7 @@ object InternalDataHelper {
         try {
             return ContextHelper.applicationContext().openFileInput(name)
         } catch (e: FileNotFoundException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         }
     }
@@ -24,7 +24,7 @@ object InternalDataHelper {
         try {
             return ContextHelper.applicationContext().openFileOutput(name, Context.MODE_PRIVATE)
         } catch (e: FileNotFoundException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         }
     }

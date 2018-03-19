@@ -7,7 +7,7 @@ import android.support.v4.content.SharedPreferencesCompat
 
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.ContextHelper
-import me.shkschneider.skeleton.helper.LogHelper
+import me.shkschneider.skeleton.helper.Logger
 
 @SuppressLint("CommitPrefEdits")
 object SharedPreferencesHelper {
@@ -37,7 +37,7 @@ object SharedPreferencesHelper {
     // String
 
     fun putString(key: String, value: String, name: String? = null) {
-        LogHelper.verbose("$name: $key = $value")
+        Logger.verbose("$name: $key = $value")
         SharedPreferencesCompat.EditorCompat.getInstance().apply(get(name).edit().putString(key, value))
     }
 
@@ -48,7 +48,7 @@ object SharedPreferencesHelper {
     // Set<String>
 
     fun putStringSet(key: String, value: Set<String>, name: String? = null) {
-        LogHelper.verbose("$name: $key = $value")
+        Logger.verbose("$name: $key = $value")
         SharedPreferencesCompat.EditorCompat.getInstance().apply(get(name).edit().putStringSet(key, value))
     }
 
@@ -59,7 +59,7 @@ object SharedPreferencesHelper {
     // Integer
 
     fun putInteger(key: String, value: Int?, name: String? = null) {
-        LogHelper.verbose("$name: $key = $value")
+        Logger.verbose("$name: $key = $value")
         SharedPreferencesCompat.EditorCompat.getInstance().apply(get(name).edit().putInt(key, value!!))
     }
 
@@ -70,7 +70,7 @@ object SharedPreferencesHelper {
     // Long
 
     fun putLong(key: String, value: Long?, name: String? = null) {
-        LogHelper.verbose("$name: $key = $value")
+        Logger.verbose("$name: $key = $value")
         SharedPreferencesCompat.EditorCompat.getInstance().apply(get(name).edit().putLong(key, value!!))
     }
 
@@ -81,7 +81,7 @@ object SharedPreferencesHelper {
     // Float
 
     fun putFloat(key: String, value: Float?, name: String? = null) {
-        LogHelper.verbose("$name: $key = $value")
+        Logger.verbose("$name: $key = $value")
         SharedPreferencesCompat.EditorCompat.getInstance().apply(get(name).edit().putFloat(key, value!!))
     }
 
@@ -92,7 +92,7 @@ object SharedPreferencesHelper {
     // Boolean
 
     fun putBoolean(key: String, value: Boolean, name: String? = null) {
-        LogHelper.verbose("$name: $key = $value")
+        Logger.verbose("$name: $key = $value")
         SharedPreferencesCompat.EditorCompat.getInstance().apply(get(name).edit().putBoolean(key, value))
     }
 

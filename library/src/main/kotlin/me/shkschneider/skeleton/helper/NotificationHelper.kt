@@ -1,9 +1,10 @@
 package me.shkschneider.skeleton.helper
 
-import android.annotation.TargetApi
 import android.app.*
 import android.content.Intent
+import android.os.Build
 import android.support.annotation.IntRange
+import android.support.annotation.RequiresApi
 import android.support.v4.app.NotificationCompat
 
 /**
@@ -41,8 +42,17 @@ object NotificationHelper {
     class Builder : NotificationCompat.Builder {
 
         constructor(channel: Channel) : super(ContextHelper.applicationContext(), channel.id) {
-            if (AndroidHelper.api() >= AndroidHelper.API_26) {
-                notificationChannel26(channel)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                if (Channel.get(channel.id) != null) {
+                    return
+                }
+                with(NotificationChannel(channel.id, channel.name, NotificationManager.IMPORTANCE_DEFAULT)) {
+                    lockscreenVisibility = NotificationCompat.VISIBILITY_PUBLIC
+                    setShowBadge(channel.badge)
+                    enableLights(channel.lights)
+                    enableVibration(channel.vibration)
+                    SystemServices.notificationManager()?.createNotificationChannel(this)
+                }
             }
         }
 
@@ -55,21 +65,6 @@ object NotificationHelper {
             // setDefaults(NotificationCompat.DEFAULT_ALL);
             // setOngoing(false);
             // setAutoCancel(true);
-        }
-
-        @TargetApi(AndroidHelper.API_26)
-        private fun notificationChannel26(channel: Channel) {
-            if (Channel.get(channel.id) != null) {
-                return
-            }
-            val notificationChannel = NotificationChannel(channel.id, channel.name, NotificationManager.IMPORTANCE_DEFAULT)
-            with (notificationChannel) {
-                lockscreenVisibility = NotificationCompat.VISIBILITY_PUBLIC
-                setShowBadge(channel.badge)
-                enableLights(channel.lights)
-                enableVibration(channel.vibration)
-            }
-            SystemServices.notificationManager()?.createNotificationChannel(notificationChannel)
         }
 
         override fun build(): Notification {
@@ -94,11 +89,11 @@ object NotificationHelper {
             this.vibration = vibration
         }
 
-        @TargetApi(AndroidHelper.API_26)
+        @RequiresApi(AndroidHelper.API_26)
         fun get(): NotificationChannel {
             var notificationChannel = get(id)
-            notificationChannel?.let {
-                return it
+            if (notificationChannel != null) {
+                return notificationChannel
             }
             notificationChannel = NotificationChannel(id, name, NotificationManager.IMPORTANCE_DEFAULT)
             with (notificationChannel) {
@@ -112,17 +107,17 @@ object NotificationHelper {
 
         companion object {
 
-            @TargetApi(AndroidHelper.API_26)
+            @RequiresApi(AndroidHelper.API_26)
             fun get(id: String): NotificationChannel? {
                 return SystemServices.notificationManager()?.getNotificationChannel(id)
             }
 
-            @TargetApi(AndroidHelper.API_26)
+            @RequiresApi(AndroidHelper.API_26)
             fun create(notificationChannel: NotificationChannel) {
                 SystemServices.notificationManager()?.createNotificationChannel(notificationChannel)
             }
 
-            @TargetApi(AndroidHelper.API_26)
+            @RequiresApi(AndroidHelper.API_26)
             fun delete(id: String) {
                 SystemServices.notificationManager()?.deleteNotificationChannel(id)
             }

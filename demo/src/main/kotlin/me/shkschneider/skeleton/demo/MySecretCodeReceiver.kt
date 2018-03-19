@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.Intent
 
 import me.shkschneider.skeleton.helper.IntentHelper
-import me.shkschneider.skeleton.helper.LogHelper
+import me.shkschneider.skeleton.helper.Logger
 
 // <https://github.com/SimonMarquis/Android-SecretCodes>
 class MySecretCodeReceiver : BroadcastReceiver() {
@@ -22,7 +22,7 @@ class MySecretCodeReceiver : BroadcastReceiver() {
                 secretCode = secretCode.substring("://".length, secretCode.length)
             }
         }
-        LogHelper.debug("SecretCode: " + secretCode)
+        Logger.debug("SecretCode: " + secretCode)
         if (intent.action == ACTION) {
             context.startActivity(Intent(context, MainActivity::class.java)
                     .setFlags(IntentHelper.FLAGS_HOME)

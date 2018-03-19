@@ -10,7 +10,7 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.ImageLoader
 
 import me.shkschneider.skeleton.helper.ApplicationHelper
-import me.shkschneider.skeleton.helper.LogHelper
+import me.shkschneider.skeleton.helper.Logger
 
 // android.text.Html.fromHtml(String, MyImageGetter, null)
 // <http://stackoverflow.com/a/25530488>
@@ -28,7 +28,7 @@ class MyImageGetter : Html.ImageGetter {
             override fun onResponse(response: ImageLoader.ImageContainer, isImmediate: Boolean) {
                 val bitmap = response.bitmap
                 if (bitmap == null) {
-                    LogHelper.warning("Bitmap was NULL")
+                    Logger.warning("Bitmap was NULL")
                     return
                 }
                 val bitmapDrawable = BitmapDrawable(ApplicationHelper.resources(), bitmap)
@@ -41,7 +41,7 @@ class MyImageGetter : Html.ImageGetter {
             }
             override fun onErrorResponse(error: VolleyError) {
                 if (! error.cause?.message.isNullOrBlank()) {
-                    LogHelper.error(error.cause!!.message!!)
+                    Logger.error(error.cause!!.message!!)
                 }
             }
         })

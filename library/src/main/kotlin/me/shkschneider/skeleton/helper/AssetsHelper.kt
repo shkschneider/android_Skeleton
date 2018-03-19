@@ -16,7 +16,7 @@ object AssetsHelper {
         try {
             return assetManager.list("")?.toList()
         } catch (e: IOException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         }
     }
@@ -26,7 +26,7 @@ object AssetsHelper {
         try {
             return assetManager.open(name)
         } catch (e: IOException) {
-            LogHelper.wtf(e)
+            Logger.wtf(e)
             return null
         }
     }
@@ -44,7 +44,7 @@ object AssetsHelper {
                 outputStream.flush()
                 outputStream.close()
             } catch (e: IOException) {
-                LogHelper.wtf(e)
+                Logger.wtf(e)
                 errors++
             }
         }
