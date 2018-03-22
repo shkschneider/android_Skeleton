@@ -3,9 +3,7 @@ package me.shkschneider.skeleton.network
 import android.annotation.SuppressLint
 import android.os.AsyncTask
 import android.support.annotation.Size
-import com.google.gson.Gson
-import com.google.gson.JsonElement
-import com.google.gson.JsonSyntaxException
+import com.google.gson.*
 import me.shkschneider.skeleton.data.CharsetHelper
 import me.shkschneider.skeleton.data.FileHelper
 import me.shkschneider.skeleton.data.MimeTypeHelper
@@ -22,16 +20,14 @@ import java.net.URL
 
 class WebService {
 
-    private val TYPE = JsonElement::class.java
     private val TIMEOUT_CONNECT = 15000
     private val TIMEOUT_READ = 60000
 
     private val method: WebService.Method
     private val url: String
-    private var type: Class<*> = TYPE
     private var headers: Map<String, String>? = null
     private var body: Map<String, String>? = null
-    private var callback: Callback<Any>? = null
+    private var callback: Callback? = null
 
     constructor(method: WebService.Method, url: String) {
         this.method = method
@@ -63,20 +59,13 @@ class WebService {
         return body
     }
 
-    @Deprecated("WebService.callback(Class<*>, WebService.Callback<Any>)")
-    fun callback(callback: WebService.Callback<Any>?): WebService {
-        this.callback = callback
-        return this
-    }
-
-    fun callback(type: Class<*>, callback: WebService.Callback<Any>?): WebService {
-        this.type = type
+    fun callback(callback: WebService.Callback?): WebService {
         this.callback = callback
         return this
     }
 
     @SkHide
-    fun callback(): Callback<*>? {
+    fun callback(): WebService.Callback? {
         return callback
     }
 
@@ -107,9 +96,9 @@ class WebService {
     }
 
     @SuppressLint("StaticFieldLeak")
-    private inner class Task : AsyncTask<Void, Void, Any>() {
+    private inner class Task : AsyncTask<Void, Void, Any?>() {
 
-        override fun doInBackground(@Size(0) vararg voids: Void): Any {
+        override fun doInBackground(@Size(0) vararg voids: Void): Any? {
             var httpURLConnection: HttpURLConnection? = null
             try {
                 val url = URL(url)
@@ -152,7 +141,7 @@ class WebService {
                     }
                     val body = FileHelper.readString(inputStream)
                     Logger.verbose("<- " + body!!)
-                    return Gson().fromJson(body, type) ?: WebServiceException(responseCode, responseMessage)
+                    return body
                 }
             } catch (e: JsonSyntaxException) {
                 Logger.wtf(e)
@@ -170,19 +159,17 @@ class WebService {
 
         override fun onPostExecute(result: Any?) {
             super.onPostExecute(result)
-            callback?.let {
-                when (result) {
-                    is WebServiceException -> it.failure((result as WebServiceException?)!!)
-                    else -> it.success(result)
-                }
+            when (result) {
+                is WebServiceException -> callback?.failure(result)
+                else -> callback?.success(result as? String)
             }
         }
 
     }
 
-    interface Callback<in T> {
+    interface Callback {
 
-        fun success(result: T?)
+        fun success(result: String?)
         fun failure(e: WebServiceException)
 
     }

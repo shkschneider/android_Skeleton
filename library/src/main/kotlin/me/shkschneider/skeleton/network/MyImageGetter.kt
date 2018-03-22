@@ -16,10 +16,10 @@ import me.shkschneider.skeleton.helper.Logger
 // <http://stackoverflow.com/a/25530488>
 class MyImageGetter : Html.ImageGetter {
 
-    private val _textView: TextView
+    private val textView: TextView
 
     constructor(textView: TextView) {
-        _textView = textView
+        this.textView = textView
     }
 
     override fun getDrawable(source: String): Drawable {
@@ -37,7 +37,7 @@ class MyImageGetter : Html.ImageGetter {
                 bitmapDrawable.setBounds(0, 0, width, height)
                 bitmapDrawablePlaceholder.setDrawable(bitmapDrawable)
                 bitmapDrawablePlaceholder.setBounds(0, 0, width, height)
-                _textView.text = _textView.text // HACK: invalidate()
+                textView.text = textView.text // HACK: invalidate()
             }
             override fun onErrorResponse(error: VolleyError) {
                 if (! error.cause?.message.isNullOrBlank()) {

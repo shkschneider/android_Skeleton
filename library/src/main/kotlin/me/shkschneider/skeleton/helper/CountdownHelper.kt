@@ -5,16 +5,16 @@ import java.util.concurrent.TimeUnit
 
 class CountdownHelper {
 
-    private val _timer: Long
-    private val _ticker: Long
+    private val timer: Long
+    private val ticker: Long
 
     constructor(timer: Long = TimeUnit.SECONDS.toMillis(60), ticker: Long = TimeUnit.SECONDS.toMillis(1)) {
-        _timer = timer
-        _ticker = ticker
+        this.timer = timer
+        this.ticker = ticker
     }
 
     fun run(callback: Callback) {
-        object : CountDownTimer(_timer, _ticker) {
+        object : CountDownTimer(timer, ticker) {
             override fun onTick(millisUntilFinished: Long) {
                 callback.onCountdownTick(millisUntilFinished)
             }

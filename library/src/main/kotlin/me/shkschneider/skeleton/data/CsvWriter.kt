@@ -8,22 +8,22 @@ class CsvWriter {
 
     private val NULL = '\u0000'
 
-    private val _writer: PrintWriter
-    private val _separator: Char
-    private val _quote: Char
-    private val _escape: Char
-    private val _eol: String
+    private val writer: PrintWriter
+    private val separator: Char
+    private val quote: Char
+    private val escape: Char
+    private val eol: String
 
     constructor(writer: Writer, separator: Char = ',', quote: Char = '"', escape: Char = '"', eol: String = "\n") {
-        _writer = PrintWriter(writer)
-        _separator = separator
-        _quote = quote
-        _escape = escape
-        _eol = eol
+        this.writer = PrintWriter(writer)
+        this.separator = separator
+        this.quote = quote
+        this.escape = escape
+        this.eol = eol
     }
 
     fun writeNext(nextLine: String) {
-        writeNext(nextLine.split(_separator.toString().toRegex()).toTypedArray())
+        writeNext(nextLine.split(separator.toString().toRegex()).toTypedArray())
     }
 
     fun writeNext(nextLine: Array<String>?) {
@@ -31,29 +31,29 @@ class CsvWriter {
         val stringBuilder = StringBuilder()
         for (i in nextLine.indices) {
             if (i != 0) {
-                stringBuilder.append(_separator)
+                stringBuilder.append(separator)
             }
             val nextElement = nextLine[i]
-            if (_quote != NULL) {
-                stringBuilder.append(_quote)
+            if (quote != NULL) {
+                stringBuilder.append(quote)
             }
             (0 until nextElement.length)
                     .map { nextElement[it] }
                     .forEach {
-                        if (_escape != NULL && it == _quote) {
-                            stringBuilder.append(_escape).append(it)
-                        } else if (_escape != NULL && it == _escape) {
-                            stringBuilder.append(_escape).append(it)
+                        if (escape != NULL && it == quote) {
+                            stringBuilder.append(escape).append(it)
+                        } else if (escape != NULL && it == escape) {
+                            stringBuilder.append(escape).append(it)
                         } else {
                             stringBuilder.append(it)
                         }
                     }
-            if (_quote != NULL) {
-                stringBuilder.append(_quote)
+            if (quote != NULL) {
+                stringBuilder.append(quote)
             }
         }
-        stringBuilder.append(_eol)
-        _writer.write(stringBuilder.toString())
+        stringBuilder.append(eol)
+        writer.write(stringBuilder.toString())
     }
 
 }

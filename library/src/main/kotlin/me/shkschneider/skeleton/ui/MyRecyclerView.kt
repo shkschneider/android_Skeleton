@@ -8,6 +8,8 @@ import android.util.AttributeSet
 // <https://guides.codepath.com/android/using-the-recyclerview>
 class MyRecyclerView : RecyclerView {
 
+    constructor(context: Context) : super(context)
+    constructor(context: Context, attrs: AttributeSet? = null) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : super(context, attrs, defStyle)
 
     init {

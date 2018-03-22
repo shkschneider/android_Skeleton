@@ -7,9 +7,7 @@ import java.io.Serializable
 object BundleHelper {
 
     fun pack(bundle: Bundle, key: String, serializable: Serializable?): Bundle {
-        if (serializable != null) {
-            bundle.putSerializable(key, serializable)
-        }
+        bundle.putSerializable(key, serializable)
         return bundle
     }
 

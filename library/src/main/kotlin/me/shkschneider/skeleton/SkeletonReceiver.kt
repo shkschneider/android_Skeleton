@@ -16,16 +16,16 @@ abstract class SkeletonReceiver {
 
     private inner class MyRunnable : Runnable {
 
-        private val _id: String
-        private val _serializable: Serializable?
+        private val id: String
+        private val serializable: Serializable?
 
         constructor(id: String, serializable: Serializable?) {
-            _id = id
-            _serializable = serializable
+            this.id = id
+            this.serializable = serializable
         }
 
         override fun run() {
-            onReceive(_id, _serializable)
+            onReceive(id, serializable)
         }
 
     }

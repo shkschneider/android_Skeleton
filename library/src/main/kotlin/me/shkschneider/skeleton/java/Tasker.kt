@@ -30,17 +30,17 @@ class Tasker {
     // <http://stackoverflow.com/a/826283>
     class Task : Runnable {
 
-        private val _runnable: Runnable
-        private val _skeletonReceiver: SkeletonReceiver?
+        private val runnable: Runnable
+        private val skeletonReceiver: SkeletonReceiver?
 
         constructor(runnable: Runnable, skeletonReceiver: SkeletonReceiver? = null) {
-            this._runnable = runnable
-            this._skeletonReceiver = skeletonReceiver
+            this.runnable = runnable
+            this.skeletonReceiver = skeletonReceiver
         }
 
         override fun run() {
-            _runnable.run()
-            _skeletonReceiver?.post(Tasker::class.java.simpleName, null)
+            runnable.run()
+            skeletonReceiver?.post(Tasker::class.java.simpleName, null)
         }
 
     }

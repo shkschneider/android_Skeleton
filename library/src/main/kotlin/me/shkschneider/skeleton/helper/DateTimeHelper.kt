@@ -71,24 +71,24 @@ object DateTimeHelper {
         return DateUtils.getRelativeTimeSpanString(from, to, DateUtils.SECOND_IN_MILLIS, DateUtils.FORMAT_ABBREV_RELATIVE).toString()
     }
 
-    fun pickTime(activity: Activity, date: Calendar?, onTimeSetListener: TimePickerDialog.OnTimeSetListener) {
+    fun pickTime(activity: Activity, date: Calendar? = null, onTimeSetListener: TimePickerDialog.OnTimeSetListener) {
         val calendar = date ?: calendar()
         val is24HourFormat = DateFormat.is24HourFormat(activity)
         TimePickerDialog(activity, onTimeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), is24HourFormat).show()
     }
 
-    fun pickDate(activity: Activity, min: Calendar?, date: Calendar?, max: Calendar?, onDateSetListener: DatePickerDialog.OnDateSetListener) {
+    fun pickDate(activity: Activity, min: Calendar? = null, date: Calendar? = null, max: Calendar? = null, onDateSetListener: DatePickerDialog.OnDateSetListener) {
         val calendar = date ?: calendar() // now by default
         val datePickerDialog = DatePickerDialog(activity,
                 onDateSetListener,
                 calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
         val datePicker = datePickerDialog.datePicker
-        if (min != null) {
+        min?.let {
             datePicker.minDate = 0 // HACK: <http://stackoverflow.com/a/19722636>
-            datePicker.minDate = min.timeInMillis
+            datePicker.minDate = it.timeInMillis
         }
-        if (max != null) {
-            datePicker.maxDate = max.timeInMillis
+        max?.let {
+            datePicker.maxDate = it.timeInMillis
         }
         datePickerDialog.show()
     }

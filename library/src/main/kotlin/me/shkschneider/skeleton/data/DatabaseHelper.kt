@@ -8,16 +8,29 @@ import android.support.v4.app.LoaderManager
 // <http://satyan.github.io/sugar/>
 object DatabaseHelper {
 
-    fun loader(loaderManager: LoaderManager, id: Int, args: Bundle, callbacks: LoaderManager.LoaderCallbacks<Any>) {
-        loaderManager.getLoader<Any>(id)?.let {
-            loaderManager.restartLoader(id, args, callbacks)
-        } ?: run {
-            loaderManager.initLoader(id, args, callbacks)
+    object Loader {
+
+        fun start(loaderManager: LoaderManager, id: Int, args: Bundle? = null, callbacks: LoaderManager.LoaderCallbacks<Any>) {
+            loaderManager.getLoader<Any>(id)?.let {
+                loaderManager.restartLoader(id, args, callbacks)
+            } ?: run {
+                loaderManager.initLoader(id, args, callbacks)
+            }
         }
+
+        fun stop(loaderManager: LoaderManager, id: Int) {
+            loaderManager.destroyLoader(id)
+        }
+
     }
 
-    fun rows(sqLiteDatabase: SQLiteDatabase, table: String): Int {
-        return DatabaseUtils.queryNumEntries(sqLiteDatabase, table).toInt()
+    fun empty(db: SQLiteDatabase, table: String): Boolean {
+        // DatabaseUtils.queryIsEmpty(db, table)
+        return rows(db, table) == 0
+    }
+
+    fun rows(db: SQLiteDatabase, table: String, selection: String? = null, selectionArgs: Array<String>? = null): Int {
+        return DatabaseUtils.queryNumEntries(db, table, selection, selectionArgs).toInt()
     }
 
 }

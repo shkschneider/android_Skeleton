@@ -5,24 +5,14 @@ import java.util.*
 
 class WebServiceException : Exception {
 
-    private val _code: Int
-    private val _message: String
+    val code: Int
 
-    constructor(@IntRange(from = 0, to = INTERNAL_ERROR.toLong()) code: Int, message: String) {
-        _code = code
-        _message = message
-    }
-
-    fun code(): Int {
-        return _code
-    }
-
-    fun message(): String {
-        return _message
+    constructor(@IntRange(from = 0, to = INTERNAL_ERROR.toLong()) code: Int, message: String? = null) : super(message, null) {
+        this.code = code
     }
 
     override fun toString(): String {
-        return String.format(Locale.getDefault(), "%d %s", code(), message())
+        return String.format(Locale.getDefault(), "%d %s", code, message)
     }
 
     companion object {

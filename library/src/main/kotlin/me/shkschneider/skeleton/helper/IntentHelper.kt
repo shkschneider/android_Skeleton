@@ -183,7 +183,7 @@ object IntentHelper {
     }
 
     @SkHide
-    fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?): Any? {
+    fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent? = null): Any? {
         if (resultCode != Activity.RESULT_OK) {
             Logger.debug("ResultCode was not OK")
             return null

@@ -4,10 +4,10 @@ class SimpleCrypt : ICrypt<String> {
 
     private val ALGORITHM = "XOR"
 
-    private val _key: CharArray
+    private val key: CharArray
 
     constructor(key: String) : super(key) {
-        _key = key.toCharArray()
+        this.key = key.toCharArray()
     }
 
     override fun algorithm(): String {
@@ -15,14 +15,14 @@ class SimpleCrypt : ICrypt<String> {
     }
 
     override fun key(): String {
-        return String(_key)
+        return String(key)
     }
 
     override fun encrypt(src: String): String? {
         val chars = src.toCharArray()
         val encrypted = CharArray(chars.size)
         for (i in chars.indices) {
-            encrypted[i] = (chars[i].toInt() xor _key[i % _key.size].toInt()).toChar()
+            encrypted[i] = (chars[i].toInt() xor key[i % key.size].toInt()).toChar()
         }
         return Base64Helper.encode(String(encrypted).toByteArray())
     }
@@ -31,7 +31,7 @@ class SimpleCrypt : ICrypt<String> {
         val encrypted = Base64Helper.decode(src)
         val decrypted = CharArray(encrypted.size)
         for (i in encrypted.indices) {
-            decrypted[i] = (encrypted[i].toInt() xor _key[i % _key.size].toInt()).toChar()
+            decrypted[i] = (encrypted[i].toInt() xor key[i % key.size].toInt()).toChar()
         }
         return String(decrypted)
     }

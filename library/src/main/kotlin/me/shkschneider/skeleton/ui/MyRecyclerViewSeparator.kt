@@ -17,6 +17,18 @@ class MyRecyclerViewSeparator : RecyclerView.ItemDecoration {
         this.grid = grid
     }
 
+    fun getPosition(view: View, parent: RecyclerView) : Int {
+        return parent.getChildAdapterPosition(view)
+    }
+
+    fun getItemCount(parent: RecyclerView): Int {
+        return parent.childCount
+    }
+
+    fun getItemDecorationCount(parent: RecyclerView): Int {
+        return parent.itemDecorationCount
+    }
+
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         val frameWidth = ((parent.width - size.toFloat() * (grid - 1)) / grid).toInt()
         val padding = parent.width / grid - frameWidth

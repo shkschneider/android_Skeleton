@@ -15,16 +15,16 @@ object DiskCache {
     // Prevents direct initialization
     open class Cache {
 
-        private val _dir: File
+        private val dir: File
 
         constructor(dir: File) {
-            _dir = dir
+            this.dir = dir
         }
 
         @Synchronized
         fun put(key: String, value: Serializable): Boolean {
-            if (_dir.exists()) {
-                val path = FileHelper.join(_dir.absolutePath, key)
+            if (dir.exists()) {
+                val path = FileHelper.join(dir.absolutePath, key)
                 val file = FileHelper.get(path)
                 if (file.exists()) {
                     file.delete()
@@ -36,8 +36,8 @@ object DiskCache {
 
         @Synchronized
         fun get(key: String): Serializable? {
-            if (_dir.exists()) {
-                val path = FileHelper.join(_dir.absolutePath, key)
+            if (dir.exists()) {
+                val path = FileHelper.join(dir.absolutePath, key)
                 val file = FileHelper.get(path)
                 if (file.exists()) {
                     return SerializeHelper.read(file) as Serializable?
@@ -48,8 +48,8 @@ object DiskCache {
 
         @Synchronized
         fun clear() {
-            if (_dir.exists()) {
-                _dir.list().map { FileHelper.join(_dir.absolutePath, it) }
+            if (dir.exists()) {
+                dir.list().map { FileHelper.join(dir.absolutePath, it) }
                         .forEach { FileHelper.get(it).delete() }
             }
         }

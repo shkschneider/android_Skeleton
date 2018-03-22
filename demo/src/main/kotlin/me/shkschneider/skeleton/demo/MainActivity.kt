@@ -15,6 +15,7 @@ import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.view.ViewPager
 import android.view.Menu
 import android.view.MenuItem
+import com.google.gson.Gson
 
 import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.demo.data.ShkMod
@@ -114,13 +115,13 @@ class MainActivity : SkeletonActivity() {
 
     private fun network() {
         WebService(WebService.Method.GET, URL)
-                .callback(ShkMod::class.java, object : WebService.Callback<Any?> {
-                    override fun success(result: Any?) {
+                .callback(object : WebService.Callback {
+                    override fun success(result: String?) {
                         if (result.isNull()) {
                             Toaster.show(ShkMod::class.java.simpleName)
                             return
                         }
-                        // val shkMod = result as ShkMod
+                        val shkMod = Gson().fromJson(result, ShkMod::class.java)
                         notification(DateTimeHelper.timestamp().toInt(), ShkMod::class.java.simpleName, ObjectHelper.jsonify(result))
                     }
                     override fun failure(e: WebServiceException) {
