@@ -6,12 +6,12 @@ Skeleton [![Travis-CI](https://travis-ci.org/shkschneider/android_Skeleton.svg?b
 Setup
 -----
 
-[![JitPack](https://jitpack.io/v/com.github.shkschneider/android_Skeleton.svg)](https://jitpack.io/#shkschneider/android_Skeleton/7.1.0)
+[![JitPack](https://jitpack.io/v/com.github.shkschneider/android_Skeleton.svg)](https://jitpack.io/#shkschneider/android_Skeleton/8.0.0)
 
 Specifications
 --------------
 
-[![API-16+](https://img.shields.io/badge/API-16+-blue.svg?style=flat)](https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#JELLY_BEAN)
+[![API-16+](https://img.shields.io/badge/API-16+-blue.svg?style=flat)](https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#JELLY_BEAN) [![API-27](https://img.shields.io/badge/API-27-green.svg?style=flat)](https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#O_MR1)
 
 [![Apache 2](https://img.shields.io/badge/license-Apache%202-blue.svg?style=flat)](https://raw.githubusercontent.com/shkschneider/android_Skeleton/master/LICENSE)
 
@@ -25,8 +25,8 @@ Specifications
 
 **Uses**
 
-- [Gradle 2.3.3](https://developer.android.com/studio/build/index.html) (wrapper 3.3)
-- [Android Studio 2.3](https://developer.android.com/studio/index.html)
+- [Gradle 3+](https://developer.android.com/studio/build/index.html) (wrapper 3.3)
+- [Android Studio 3+](https://developer.android.com/studio/index.html)
 - [android.support.v7.app.AppCompatActivity](https://developer.android.com/reference/android/support/v7/app/AppCompatActivity.html)
 - [android.support.v7.widget.Toolbar](https://developer.android.com/reference/android/support/v7/widget/Toolbar.html)
 - [android.support.v4.app.Fragment](https://developer.android.com/reference/android/support/v4/app/Fragment.html)
