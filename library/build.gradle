@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'org.jetbrains.dokka-android'
 apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.shkschneider'
 
@@ -35,60 +36,37 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:design:${versions.support}"
-    compile "com.android.support:palette-v7:${versions.support}"
-    compile "com.android.support:recyclerview-v7:${versions.support}"
-    compile "com.android.support:preference-v14:${versions.support}"
-    compile 'com.android.volley:volley:1.0.0'
+    implementation "com.android.support:design:${versions.support}"
+    implementation "com.android.support:palette-v7:${versions.support}"
+    implementation "com.android.support:recyclerview-v7:${versions.support}"
+    implementation "com.android.support:preference-v14:${versions.support}"
+    implementation 'com.android.volley:volley:1.0.0'
 
-    compile 'com.google.code.gson:gson:2.8.1'
+    implementation 'com.google.code.gson:gson:2.8.1'
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre${versions.java}:${versions.kotlin}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk${versions.java}:${versions.kotlin}"
 }
 
-task javadoc(type: Javadoc) {
-    failOnError false
-    title = 'Skeleton'
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    // classpath += configurations.compile
-    destinationDir = file('build/docs/javadoc/')
-    options {
-        links "http://docs.oracle.com/javase/${versions.java}/docs/api/"
-        linksOffline 'http://d.android.com/reference', "${android.sdkDirectory}/docs/reference"
-        // overview = 'overview.html'
-        memberLevel = JavadocMemberLevel.PACKAGE
+// ./build/dokka/skeleton/index.html
+task doc(type: org.jetbrains.dokka.gradle.DokkaAndroidTask) {
+    moduleName = 'skeleton'
+    outputFormat = 'html'
+    outputDirectory = "$buildDir/dokka"
+    jdkVersion = versions.java
+    skipEmptyPackages = true
+    includeNonPublic = false
+    reportUndocumented = false
+    noStdlibLink = false
+    externalDocumentationLink {
+        url = new URL('https://developer.android.com/reference/')
+        packageListUrl = new URL('https://developer.android.com/reference/package-list')
     }
-    include '**/me/shkschneider/skeleton/**'
-    exclude '**/BuildConfig.java'
-    exclude '**/R.java'
+    externalDocumentationLink {
+        url = new URL('https://developer.android.com/reference/')
+        packageListUrl = new URL('https://developer.android.com/reference/android/support/package-list')
+    }
 }
 
-// build a jar with source files
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-
-// build a jar with javadoc
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-artifacts {
-    archives sourcesJar
-    archives javadocJar
-}
 repositories {
     mavenCentral()
 }
-
-// uncomment to build a jar file in addition to the default aar file
-//android.libraryVariants.all { variant ->
-//    def name = variant.buildType.name
-//    def task = project.tasks.create "jar${name.capitalize()}", Jar
-//    task.dependsOn variant.javaCompile
-//    task.from variant.javaCompile.destinationDir
-//    artifacts.add('archives', task);
-//}
