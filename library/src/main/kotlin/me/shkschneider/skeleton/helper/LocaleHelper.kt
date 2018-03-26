@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.helper
 
 import android.app.Activity
+import android.content.Context
 import android.os.Build
 import android.support.v4.os.LocaleListCompat
 import java.util.*
@@ -10,8 +11,13 @@ object LocaleHelper {
     object Application {
 
         fun switch(activity: Activity, locale: Locale) {
-            Locale.setDefault(locale)
-            with(activity.resources) {
+            switch(activity.applicationContext, locale)
+            activity.recreate()
+        }
+
+        fun switch(context: Context, locale: Locale) {
+            // Locale.setDefault(locale)
+            with(context.resources) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                     configuration.setLocale(locale)
                 } else {
@@ -19,12 +25,11 @@ object LocaleHelper {
                     configuration.locale = locale
                 }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                    activity.createConfigurationContext(configuration)
+                    context.createConfigurationContext(configuration)
                 } else {
                     @Suppress("DEPRECATION")
                     updateConfiguration(configuration, displayMetrics)
                 }
-                activity.recreate()
             }
         }
 
