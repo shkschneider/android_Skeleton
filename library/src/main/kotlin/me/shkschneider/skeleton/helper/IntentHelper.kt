@@ -93,7 +93,7 @@ object IntentHelper {
     fun directions(fromLatitude: Long, fromLongitude: Long,
                    toLatitude: Long, toLongitude: Long): Intent {
         return external(Intent(android.content.Intent.ACTION_VIEW,
-                Uri.parse(String.format(LocaleHelper.locale(),
+                Uri.parse(String.format(LocaleHelper.Device.locale(),
                         "http://maps.google.com/maps?saddr=%s,%s&daddr=%s,%s",
                         fromLatitude, fromLongitude,
                         toLatitude, toLongitude))))

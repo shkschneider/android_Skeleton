@@ -109,7 +109,10 @@ dependencies {
     implementation "com.android.support:cardview-v7:${versions.support}"
     implementation "com.android.support:design:${versions.support}"
     implementation 'com.android.support:multidex:1.0.3'
+    implementation "com.android.support:preference-v7:${versions.support}"
     implementation 'com.android.volley:volley:1.0.0'
+    implementation 'com.google.code.gson:gson:2.8.1'
+
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
 

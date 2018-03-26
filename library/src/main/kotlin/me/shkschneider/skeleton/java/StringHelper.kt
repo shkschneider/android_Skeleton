@@ -55,7 +55,7 @@ object StringHelper {
             return bytes.toString() + " B"
         }
         val exp = (Math.log(bytes.toDouble()) / Math.log(unit.toDouble())).toInt()
-        return String.format(LocaleHelper.locale(),
+        return String.format(LocaleHelper.Device.locale(),
                 "%.1.toFloat() %sB",
                 bytes / Math.pow(unit.toDouble(), exp.toDouble()), (if (binary) "KMGTPE" else "kMGTPE")[exp - 1] + if (binary) "i" else "")
     }
@@ -70,7 +70,7 @@ object StringHelper {
     }
 
     fun number(number: Int): String {
-        return NumberFormat.getNumberInstance(LocaleHelper.locale()).format(number)
+        return NumberFormat.getNumberInstance(LocaleHelper.Device.locale()).format(number)
     }
 
     // <http://stackoverflow.com/a/9855338>

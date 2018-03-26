@@ -122,7 +122,7 @@ class MainActivity : SkeletonActivity() {
                             return
                         }
                         val shkMod = Gson().fromJson(result, ShkMod::class.java)
-                        notification(DateTimeHelper.timestamp().toInt(), ShkMod::class.java.simpleName, ObjectHelper.jsonify(result))
+                        notification(DateTimeHelper.timestamp().toInt(), ShkMod::class.java.simpleName, ObjectHelper.jsonify(shkMod))
                     }
                     override fun failure(e: WebServiceException) {
                         Toaster.show(WebServiceException::class.java.simpleName)

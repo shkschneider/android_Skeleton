@@ -21,7 +21,7 @@ object DateTimeHelper {
     @Synchronized
     fun calendar(): Calendar {
         if (calendar == null) {
-            calendar = Calendar.getInstance(LocaleHelper.locale())
+            calendar = Calendar.getInstance(LocaleHelper.Device.locale())
         }
         return calendar!!
     }
@@ -48,7 +48,7 @@ object DateTimeHelper {
     fun format(calendar: Calendar, f: String?): String {
         val format: String = if (f.isNullOrBlank()) ISO_8601 else f!!
         calendar.isLenient = false
-        return SimpleDateFormat(format, LocaleHelper.locale()).format(calendar.time)
+        return SimpleDateFormat(format, LocaleHelper.Device.locale()).format(calendar.time)
     }
 
     fun now(): Long {

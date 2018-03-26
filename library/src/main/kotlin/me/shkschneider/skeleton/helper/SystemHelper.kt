@@ -6,7 +6,7 @@ import android.os.SystemClock
 object SystemHelper {
 
     fun uname(): String {
-        return String.format(LocaleHelper.locale(),
+        return String.format(LocaleHelper.Device.locale(),
                 "%s %s %s",
                 System.getProperty(SystemProperties.OS_NAME),
                 System.getProperty(SystemProperties.OS_VERSION),
