@@ -28,8 +28,8 @@ class AboutActivity : SkeletonActivity() {
 
     class AboutFragment : PreferenceFragmentCompat() {
 
-        override fun onCreatePreferences(bundle: Bundle, rootKey: String) {
-            addPreferencesFromResource(R.xml.about)
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            setPreferencesFromResource(R.xml.about, rootKey)
         }
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

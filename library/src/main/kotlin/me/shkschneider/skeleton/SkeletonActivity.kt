@@ -22,7 +22,7 @@ import me.shkschneider.skeleton.ui.OverlayLoader
 
 /**
  * https://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle
- * https://developer.android.com/reference/android/support/v4/app/FragmentActivity.html
+ * https://developer.android.com/reference/android/support/v7/app/AppCompatActivity.html
  *
  * onCreate()
  * onAttachFragments()
