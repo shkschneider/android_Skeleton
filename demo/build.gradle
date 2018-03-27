@@ -114,7 +114,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.1'
 
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions.kotlin}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk${versions.java}:${versions.kotlin}"
 
     implementation project(':library')
     // implementation 'com.github.shkschneider:android_Skeleton:${versions.skeleton}'

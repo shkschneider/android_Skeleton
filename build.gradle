@@ -15,7 +15,6 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.1'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.5'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:${versions.dokka}"
     }
@@ -25,9 +24,6 @@ allprojects {
     repositories {
         jcenter()
         google()
-        maven {
-            url 'https://jitpack.io'
-        }
         flatDir {
             dirs 'libs'
         }
