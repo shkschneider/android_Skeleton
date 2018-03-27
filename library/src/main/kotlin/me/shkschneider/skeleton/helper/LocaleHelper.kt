@@ -1,7 +1,8 @@
 package me.shkschneider.skeleton.helper
 
-import android.app.Activity
 import android.content.Context
+import android.content.ContextWrapper
+import android.content.res.Configuration
 import android.os.Build
 import android.support.v4.os.LocaleListCompat
 import java.util.*
@@ -10,14 +11,11 @@ object LocaleHelper {
 
     object Application {
 
-        fun switch(activity: Activity, locale: Locale) {
-            switch(activity.applicationContext, locale)
-            activity.recreate()
-        }
-
-        fun switch(context: Context, locale: Locale) {
-            // Locale.setDefault(locale)
+        // attachBaseContext() -> super.attachBaseContext(switch())
+        fun switch(context: Context?, locale: Locale): ContextWrapper {
+            context ?: return ContextWrapper(null)
             with(context.resources) {
+                val configuration = Configuration()
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                     configuration.setLocale(locale)
                 } else {
@@ -25,11 +23,21 @@ object LocaleHelper {
                     configuration.locale = locale
                 }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                    context.createConfigurationContext(configuration)
+                    return ContextWrapper(context.createConfigurationContext(configuration))
                 } else {
                     @Suppress("DEPRECATION")
                     updateConfiguration(configuration, displayMetrics)
+                    return ContextWrapper(context)
                 }
+            }
+        }
+
+        fun locale(context: Context): Locale {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                return context.resources.configuration.locales[0]
+            } else {
+                @Suppress("DEPRECATION")
+                return context.resources.configuration.locale
             }
         }
 
@@ -43,7 +51,7 @@ object LocaleHelper {
         }
 
         fun locale(): Locale {
-            return LocaleListCompat.getDefault().get(0)
+            return locales()[0]
         }
 
     }

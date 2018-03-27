@@ -26,6 +26,7 @@ import me.shkschneider.skeleton.network.NetworkHelper
 import me.shkschneider.skeleton.network.WebService
 import me.shkschneider.skeleton.network.WebServiceException
 import me.shkschneider.skeleton.ui.*
+import java.util.*
 
 /**
  * SkeletonActivity
@@ -35,7 +36,7 @@ import me.shkschneider.skeleton.ui.*
  * -> LocalBroadcast
  * -> Volley request (Proxy)
  * -> Notification (RunnableHelper.delay())
- * -> onNewIntent() (ActivityHelper.toast())
+ * -> onNewIntent() (Toaster.show())
  */
 class MainActivity : SkeletonActivity() {
 
@@ -46,13 +47,17 @@ class MainActivity : SkeletonActivity() {
         }
     }
 
+//    override fun attachBaseContext(newBase: Context?) {
+//        super.attachBaseContext(LocaleHelper.Application.switch(newBase, LocaleHelper.Device.locale()))
+//    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Logger.debug("IP: " + NetworkHelper.ipAddress("192.168.0.1"))
         toolbar?.let {
-            it.title = "Skeleton"
-            it.subtitle = "for Android"
+            it.title = getString(R.string.title)
+            it.subtitle = getString(R.string.subtitle)
         }
         val viewPager = findViewById<ViewPager>(R.id.viewPager)
         val pagerAdapter = MyPagerAdapter(supportFragmentManager)

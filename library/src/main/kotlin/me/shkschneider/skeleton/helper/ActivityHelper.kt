@@ -1,17 +1,8 @@
 package me.shkschneider.skeleton.helper
 
 import android.app.ActivityOptions
-import android.content.res.Configuration
 
 object ActivityHelper {
-
-    fun portrait(): Boolean {
-        return ApplicationHelper.resources().configuration.orientation == Configuration.ORIENTATION_PORTRAIT
-    }
-
-    fun landscape(): Boolean {
-        return ApplicationHelper.resources().configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
-    }
 
     // <https://developer.android.com/reference/android/app/ActivityOptions.html>
 

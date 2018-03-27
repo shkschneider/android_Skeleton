@@ -16,8 +16,8 @@ class AboutActivity : SkeletonActivity() {
         setContentView(R.layout.activity_about)
         home(true)
         toolbar?.let {
-            it.title = "Skeleton"
-            it.subtitle = "for Android"
+            it.title = getString(R.string.title)
+            it.subtitle = getString(R.string.subtitle)
         }
     }
 

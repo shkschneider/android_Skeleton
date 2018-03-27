@@ -8,7 +8,7 @@ import me.shkschneider.skeleton.helper.ThreadHelper
 
 object Toaster {
 
-    fun show(msg: String, duration: Int = Toast.LENGTH_SHORT) {
+    fun show(msg: String, duration: Int = Toast.LENGTH_LONG) {
         if (msg.isBlank()) {
             Logger.warning("Message was NULL")
         }

@@ -1,5 +1,8 @@
 package me.shkschneider.skeleton.helper
 
+import android.app.Activity
+import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Point
 import android.os.Build
 import android.support.annotation.FloatRange
@@ -87,6 +90,10 @@ object ScreenHelper {
 
     fun statusBarHeight(): Int {
         return ApplicationHelper.resources().getDimension(R.dimen.statusBar).toInt()
+    }
+
+    fun orientation(context: Context): Int {
+        return context.resources.configuration.orientation
     }
 
     fun rotation(): Int? {

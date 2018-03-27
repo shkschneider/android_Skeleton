@@ -1,0 +1,9 @@
+<resources>
+
+    <string name="title">"Skeleton"</string>
+    <string name="subtitle">"pour Android"</string>
+
+    <string name="application">"Application"</string>
+    <string name="os">"Système"</string>
+
+</resources>

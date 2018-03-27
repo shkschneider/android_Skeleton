@@ -9,6 +9,9 @@
         @string/dots
     -->
 
+    <string name="title">"Skeleton"</string>
+    <string name="subtitle">"for Android"</string>
+
     <string name="skeleton">"Skeleton"</string>
     <string name="application">"Application"</string>
     <string name="os">"OS"</string>
