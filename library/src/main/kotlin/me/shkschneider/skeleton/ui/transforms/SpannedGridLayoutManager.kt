@@ -479,15 +479,15 @@ class SpannedGridLayoutManager : RecyclerView.LayoutManager {
     /* Adapted from GridLayoutManager */
 
     private fun measureChildWithDecorationsAndMargin(child: View, widthSpec: Int, heightSpec: Int) {
-        var widthSpec = widthSpec
-        var heightSpec = heightSpec
+        var width = widthSpec
+        var height = heightSpec
         calculateItemDecorationsForChild(child, itemDecorationInsets)
         val lp = child.layoutParams as RecyclerView.LayoutParams
-        widthSpec = updateSpecWithExtra(widthSpec, lp.leftMargin + itemDecorationInsets.left,
+        width = updateSpecWithExtra(width, lp.leftMargin + itemDecorationInsets.left,
                 lp.rightMargin + itemDecorationInsets.right)
-        heightSpec = updateSpecWithExtra(heightSpec, lp.topMargin + itemDecorationInsets.top,
+        height = updateSpecWithExtra(height, lp.topMargin + itemDecorationInsets.top,
                 lp.bottomMargin + itemDecorationInsets.bottom)
-        child.measure(widthSpec, heightSpec)
+        child.measure(width, height)
     }
 
     private fun updateSpecWithExtra(spec: Int, startInset: Int, endInset: Int): Int {
