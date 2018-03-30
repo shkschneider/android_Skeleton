@@ -99,7 +99,7 @@ class SkFragment : SkeletonFragment() {
     }
 
     private fun fill(linearLayout: LinearLayout?, cs: Array<Class<*>>) {
-        for (c in cs) {
+        for (c in cs.distinct()) {
             val ui = LayoutInflater.from(context).inflate(R.layout.ui, linearLayout, false)
             (ui.findViewById<View>(R.id.textView1) as TextView).text = c.name
                     .replaceFirst("^.+\\.".toRegex(), "")

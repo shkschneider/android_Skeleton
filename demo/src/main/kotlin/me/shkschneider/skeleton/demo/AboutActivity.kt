@@ -49,11 +49,11 @@ class AboutActivity : SkeletonActivity() {
             }
             with(findPreference("app_variant")) {
                 title = "Variant"
-                summary = (if (ApplicationHelper.debuggable()) "Debug" else "Release")
+                summary = (if (ApplicationHelper.debuggable()) "debug" else "release")
             }
             with(findPreference("app_flavor")) {
                 title = "Flavor"
-                summary = BuildConfig.FLAVOR.camelCase()
+                summary = BuildConfig.FLAVOR
             }
             // OS
             with(findPreference("os_version")) {

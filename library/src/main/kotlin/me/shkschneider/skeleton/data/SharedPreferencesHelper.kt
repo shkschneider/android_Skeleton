@@ -3,7 +3,6 @@ package me.shkschneider.skeleton.data
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
-import android.support.v4.content.SharedPreferencesCompat
 
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.ContextHelper
@@ -27,18 +26,18 @@ object SharedPreferencesHelper {
     }
 
     fun remove(key: String, name: String? = null) {
-        SharedPreferencesCompat.EditorCompat.getInstance().apply(get(name).edit().remove(key))
+        get(name).edit().remove(key)
     }
 
     fun clear(name: String? = null) {
-        SharedPreferencesCompat.EditorCompat.getInstance().apply(get(name).edit().clear())
+        get(name).edit().clear()
     }
 
     // String
 
     fun putString(key: String, value: String, name: String? = null) {
         Logger.verbose("$name: $key = $value")
-        SharedPreferencesCompat.EditorCompat.getInstance().apply(get(name).edit().putString(key, value))
+        get(name).edit().putString(key, value)
     }
 
     fun getString(key: String, defaultValue: String, name: String? = null): String? {
@@ -49,7 +48,7 @@ object SharedPreferencesHelper {
 
     fun putStringSet(key: String, value: Set<String>, name: String? = null) {
         Logger.verbose("$name: $key = $value")
-        SharedPreferencesCompat.EditorCompat.getInstance().apply(get(name).edit().putStringSet(key, value))
+        get(name).edit().putStringSet(key, value)
     }
 
     fun getStringSet(key: String, defaultValue: Set<String>, name: String? = null): Set<String>? {
@@ -58,9 +57,9 @@ object SharedPreferencesHelper {
 
     // Integer
 
-    fun putInteger(key: String, value: Int?, name: String? = null) {
+    fun putInteger(key: String, value: Int, name: String? = null) {
         Logger.verbose("$name: $key = $value")
-        SharedPreferencesCompat.EditorCompat.getInstance().apply(get(name).edit().putInt(key, value!!))
+        get(name).edit().putInt(key, value)
     }
 
     fun getInteger(key: String, defaultValue: Int, name: String? = null): Int? {
@@ -69,9 +68,9 @@ object SharedPreferencesHelper {
 
     // Long
 
-    fun putLong(key: String, value: Long?, name: String? = null) {
+    fun putLong(key: String, value: Long, name: String? = null) {
         Logger.verbose("$name: $key = $value")
-        SharedPreferencesCompat.EditorCompat.getInstance().apply(get(name).edit().putLong(key, value!!))
+        get(name).edit().putLong(key, value)
     }
 
     fun getLong(key: String, defaultValue: Long, name: String? = null): Long? {
@@ -80,9 +79,9 @@ object SharedPreferencesHelper {
 
     // Float
 
-    fun putFloat(key: String, value: Float?, name: String? = null) {
+    fun putFloat(key: String, value: Float, name: String? = null) {
         Logger.verbose("$name: $key = $value")
-        SharedPreferencesCompat.EditorCompat.getInstance().apply(get(name).edit().putFloat(key, value!!))
+        get(name).edit().putFloat(key, value)
     }
 
     fun getFloat(key: String, defaultValue: Float, name: String? = null): Float? {
@@ -93,7 +92,7 @@ object SharedPreferencesHelper {
 
     fun putBoolean(key: String, value: Boolean, name: String? = null) {
         Logger.verbose("$name: $key = $value")
-        SharedPreferencesCompat.EditorCompat.getInstance().apply(get(name).edit().putBoolean(key, value))
+        get(name).edit().putBoolean(key, value)
     }
 
     fun getBoolean(key: String, defaultValue: Boolean, name: String? = null): Boolean? {

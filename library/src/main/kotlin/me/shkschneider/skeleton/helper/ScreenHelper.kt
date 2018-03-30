@@ -47,6 +47,7 @@ object ScreenHelper {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
             return powerManager?.isInteractive
         } else {
+            @Suppress("DEPRECATION")
             return powerManager?.isScreenOn
         }
     }
