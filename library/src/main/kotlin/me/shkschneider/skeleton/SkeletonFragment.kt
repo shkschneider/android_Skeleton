@@ -10,8 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import me.shkschneider.skeleton.helper.ContextHelper
-
 /**
  * https://developer.android.com/guide/components/fragments.html#Lifecycle
  * https://developer.android.com/reference/android/support/v4/app/Fragment.html
@@ -45,7 +43,6 @@ abstract class SkeletonFragment : Fragment() {
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         activity = context as AppCompatActivity
-        ContextHelper.applicationContext(context.applicationContext)
     }
 
     fun fragmentManager(): FragmentManager {
@@ -73,7 +70,7 @@ abstract class SkeletonFragment : Fragment() {
     }
 
     fun alive(): Boolean {
-        return isVisible
+        return isAdded && isVisible
     }
 
     override fun onDetach() {
