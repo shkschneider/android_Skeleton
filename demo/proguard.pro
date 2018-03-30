@@ -9,3 +9,4 @@
 -keep class android.support.v13.app.** { *; }
 -keep interface android.support.v13.app.** { *; }
 # NOT android.support.design
+-keep public class *extends java.lang.annotation.Annotation { *; }
