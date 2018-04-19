@@ -13,6 +13,7 @@ object ViewHelper {
     val RESAUTOXML = "http://schemas.android.com/apk/res-auto"
     @SkHide
     val CONTENT = Window.ID_ANDROID_CONTENT
+    @SkHide
     val NO_ID = View.NO_ID
 
     fun <T : View> content(activity: Activity): T {
