@@ -6,8 +6,8 @@ SKELETON	= library
 SKELETON_ID	= me.shkschneider.skeleton
 MIN_SDK		= $(shell grep 'minSdkVersion' $(APP)/build.gradle | head -1 | rev | cut -d' ' -f1 | rev)
 TARGET_SDK	= $(shell grep 'targetSdkVersion' $(APP)/build.gradle | head -1 | rev | cut -d' ' -f1 | rev)
-VERSION_NAME	= $(shell grep 'versionName' $(APP)/build.gradle | head -1 | rev | cut -d' ' -f1 | rev | tr -d \' | tr -d \")
-VERSION_CODE	= $(shell grep 'versionCode' $(APP)/build.gradle | head -1 | rev | cut -d' ' -f1 | rev | tr -d \' | tr -d \")
+VERSION_NAME	= $(shell grep 'skeleton' build.gradle | head -1 | rev | cut -d' ' -f1 | rev | tr -d \' | tr -d \" | tr -d \,)
+VERSION_CODE	= $(shell cat $(APP)/version.properties | sed -n '2p' | cut -d'=' -f2)
 VERSION		= "v$(VERSION_NAME)r$(VERSION_CODE)"
 GRADLE		= bash gradlew
 
