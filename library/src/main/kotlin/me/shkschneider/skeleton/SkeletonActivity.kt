@@ -210,7 +210,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
         }
     }
 
-    @Deprecated("Avoid")
+    @Deprecated("Obsolete.", ReplaceWith("home(boolean)"))
     fun home(drawable: Drawable) {
         toolbar ?: Logger.warning("Toolbar was NULL")
         toolbar?.let {
@@ -218,7 +218,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
         }
     }
 
-    @Deprecated("Use logo()")
+    @Deprecated("Obsolete.", ReplaceWith("logo(drawable)"))
     fun icon(drawable: Drawable) {
         logo(drawable)
     }

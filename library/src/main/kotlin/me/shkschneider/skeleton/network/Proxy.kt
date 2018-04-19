@@ -31,7 +31,7 @@ object Proxy {
         })
     }
 
-    @Deprecated("Not implemented")
+    @Deprecated("Not implemented.")
     fun options(url: String): WebService {
         throw UnsupportedOperationException(WebService.Method.OPTIONS.name)
     }
@@ -40,7 +40,7 @@ object Proxy {
         return WebService(WebService.Method.GET, url)
     }
 
-    @Deprecated("Not implemented")
+    @Deprecated("Not implemented.")
     fun head(url: String): WebService {
         throw UnsupportedOperationException(WebService.Method.HEAD.name)
     }
@@ -57,12 +57,12 @@ object Proxy {
         return WebService(WebService.Method.DELETE, url)
     }
 
-    @Deprecated("Not implemented")
+    @Deprecated("Not implemented.")
     fun trace(url: String): WebService {
         throw UnsupportedOperationException(WebService.Method.TRACE.name)
     }
 
-    @Deprecated("Not implemented")
+    @Deprecated("Not implemented.")
     fun connect(url: String): WebService {
         throw UnsupportedOperationException(WebService.Method.CONNECT.name)
     }

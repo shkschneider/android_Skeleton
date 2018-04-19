@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.security
 
+import android.Manifest
 import android.hardware.fingerprint.FingerprintManager
 import android.os.CancellationSignal
 import android.security.keystore.KeyProperties
@@ -10,6 +11,7 @@ import java.security.KeyStore
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
 import android.security.keystore.KeyGenParameterSpec
+import android.support.annotation.RequiresPermission
 import javax.crypto.SecretKey
 
 @RequiresApi(AndroidHelper.API_23)
@@ -51,6 +53,7 @@ object FingerprintHelper {
         return FingerprintManager.CryptoObject(cipher)
     }
 
+    @RequiresPermission(Manifest.permission.USE_FINGERPRINT)
     fun background(callback: FingerprintManager.AuthenticationCallback) {
         SystemServices.fingerprintManager()
                 ?.authenticate(signature(), CancellationSignal(), 0, callback, null)
@@ -58,6 +61,7 @@ object FingerprintHelper {
 
 //    TODO <https://cdn-images-1.medium.com/max/1000/1*8_pvcPgA_CwK2ddt1gH-KQ.png>
 //    @TargetApi(AndroidHelper.API_28)
+    @RequiresPermission(Manifest.permission.USE_FINGERPRINT)
     fun foreground(callback: FingerprintManager.AuthenticationCallback) {
 //        SystemServices.fingerprintManager()?.let {
 //            FingerprintDialog.Builder()

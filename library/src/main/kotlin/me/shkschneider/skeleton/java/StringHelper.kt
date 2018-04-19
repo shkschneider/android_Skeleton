@@ -10,7 +10,7 @@ import java.util.regex.Pattern
 
 object StringHelper {
 
-    @Deprecated("Unsafe")
+    @Deprecated("Unsafe.")
     val NULL = "null"
     val ALPHA = String(CharRange('a', 'z').toList().toCharArray())
     val NUMERIC = String(CharRange('0', '9').toList().toCharArray())
@@ -25,7 +25,7 @@ object StringHelper {
         return string.matches(Pattern.compile(ALPHA_NUMERIC).toRegex())
     }
 
-    @Deprecated("TextUtils.isDigitsOnly()")
+    @Deprecated("Obsolete", ReplaceWith("TextUtils.isDigitsOnly(string)", "android.text.TextUtils"))
     fun numeric(string: String): Boolean {
         return TextUtils.isDigitsOnly(string)
     }

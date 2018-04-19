@@ -30,12 +30,12 @@ object HashHelper {
         }
     }
 
-    @Deprecated("Unsecure")
+    @Deprecated("Unsafe.")
     fun md5(string: String): String? {
         return hash(MD5, string)
     }
 
-    @Deprecated("Unsecure")
+    @Deprecated("Unsafe.")
     fun sha1(string: String): String? {
         return hash(SHA1, string)
     }

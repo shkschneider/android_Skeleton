@@ -12,7 +12,7 @@ fun SkeletonActivity.landscape(): Boolean {
     return ScreenHelper.orientation(this) == Configuration.ORIENTATION_LANDSCAPE
 }
 
-@Deprecated("Use recreate()")
+@Deprecated("Never existed.", ReplaceWith("recreate()"))
 fun SkeletonActivity.restart() {
     recreate()
 }

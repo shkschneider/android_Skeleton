@@ -22,8 +22,9 @@ class OverlayLoader : Fragment() {
             return overlayLoader
         }
 
-        @Deprecated("Use on instance")
+        @Deprecated("Obsolete.", ReplaceWith("OverlayLoader.hide()"))
         fun hide(activity: AppCompatActivity, overlayLoader: OverlayLoader) {
+            overlayLoader.hide(activity)
             activity.supportFragmentManager.beginTransaction().remove(overlayLoader).commit()
         }
 

@@ -17,7 +17,7 @@ import java.util.*
 object NetworkHelper {
 
     // <https://stackoverflow.com/a/39149126>
-    @Deprecated("Does NOT work on API-26+")
+    @Deprecated("Does NOT work on API-26+!")
     @SuppressLint("PrivateApi")
     fun hostname(): String? {
         try {

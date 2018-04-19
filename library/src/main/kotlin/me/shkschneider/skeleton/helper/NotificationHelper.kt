@@ -56,7 +56,7 @@ object NotificationHelper {
             }
         }
 
-        @Deprecated("Use a NotificationChannel")
+        @Deprecated("Use a NotificationChannel.")
         constructor(id: String) : super(ContextHelper.applicationContext(), id) {
             setChannelId(id)
             // setShowWhen(AndroidHelper.api() < AndroidHelper.API_24);
