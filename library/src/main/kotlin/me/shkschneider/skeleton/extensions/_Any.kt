@@ -14,3 +14,11 @@ fun <T:Any> T?.isNull(): Boolean {
 fun <T:Any> T?.isNotNull(): Boolean {
     return (this != null)
 }
+
+fun <T:Any?> T?.toStringOrEmpty(): String {
+    if (this === null) {
+        return ""
+    } else {
+        return this.toString()
+    }
+}

@@ -11,7 +11,7 @@ import javax.crypto.spec.SecretKeySpec
 
 class ComplexCrypt : ICrypt<ByteArray> {
 
-    private val ALGORITHM = "AES" // AES/CTR/NoPadding" // CFB OFB CTR
+    private val ALGORITHM = "AES" // KeyProperties.KEY_ALGORITHM_AES
     private val ALGORITHM_KEY_PAD = 16
 
     private var ivParameterSpec: IvParameterSpec

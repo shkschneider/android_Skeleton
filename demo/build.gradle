@@ -118,6 +118,3 @@ dependencies {
     implementation project(':library')
     // implementation 'com.github.shkschneider:android_Skeleton:${versions.skeleton}'
 }
-repositories {
-    mavenCentral()
-}

@@ -6,7 +6,7 @@ buildscript {
         java: '8',
         kotlin: '1.2.31',
         dokka: '0.9.16',
-        support: '27.1.0'
+        support: '27.1.1'
     ]
     repositories {
         jcenter()
@@ -14,38 +14,38 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.0'
+        classpath 'com.android.tools.build:gradle:3.1.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:${versions.dokka}"
     }
     // <https://stackoverflow.com/a/37357786>
     configurations.all {
         // <https://developer.android.com/topic/libraries/support-library/packages.html>
-        resolutionStrategy.force 'com.android.support:support-compat:27.1.0'
-        resolutionStrategy.force 'com.android.support:support-core-utils:27.1.0'
-        resolutionStrategy.force 'com.android.support:support-core-ui:27.1.0'
-        resolutionStrategy.force 'com.android.support:support-media-compat:27.1.0'
-        resolutionStrategy.force 'com.android.support:support-fragment:27.1.0'
-        resolutionStrategy.force 'com.android.support:appcompat-v7:27.1.0'
-        resolutionStrategy.force 'com.android.support:cardview-v7:27.1.0'
-        resolutionStrategy.force 'com.android.support:gridlayout-v7:27.1.0'
-        resolutionStrategy.force 'com.android.support:mediarouter-v7:27.1.0'
-        resolutionStrategy.force 'com.android.support:palette-v7:27.1.0'
-        resolutionStrategy.force 'com.android.support:recyclerview-v7:27.1.0'
-        resolutionStrategy.force 'com.android.support:preference-v7:27.1.0'
-        resolutionStrategy.force 'com.android.support:support-v13:27.1.0'
-        resolutionStrategy.force 'com.android.support:preference-v14:27.1.0'
-        resolutionStrategy.force 'com.android.support:preference-leanback-v17:27.1.0'
-        resolutionStrategy.force 'com.android.support:leanback-v17:27.1.0'
-        resolutionStrategy.force 'com.android.support:support-vector-drawable:27.1.0'
-        resolutionStrategy.force 'com.android.support:animated-vector-drawable:27.1.0'
-        resolutionStrategy.force 'com.android.support:support-annotations:27.1.0'
-        resolutionStrategy.force 'com.android.support:design:27.1.0'
-        resolutionStrategy.force 'com.android.support:customtabs:27.1.0'
-        resolutionStrategy.force 'com.android.support:percent:27.1.0'
-        resolutionStrategy.force 'com.android.support:exifinterface:27.1.0'
-        resolutionStrategy.force 'com.android.support:recommandation:27.1.0'
-        resolutionStrategy.force 'com.android.support:wear:27.1.0'
+        resolutionStrategy.force "com.android.support:support-compat:${versions.support}"
+        resolutionStrategy.force "com.android.support:support-core-utils:${versions.support}"
+        resolutionStrategy.force "com.android.support:support-core-ui:${versions.support}"
+        resolutionStrategy.force "com.android.support:support-media-compat:${versions.support}"
+        resolutionStrategy.force "com.android.support:support-fragment:${versions.support}"
+        resolutionStrategy.force "com.android.support:appcompat-v7:${versions.support}"
+        resolutionStrategy.force "com.android.support:cardview-v7:${versions.support}"
+        resolutionStrategy.force "com.android.support:gridlayout-v7:${versions.support}"
+        resolutionStrategy.force "com.android.support:mediarouter-v7:${versions.support}"
+        resolutionStrategy.force "com.android.support:palette-v7:${versions.support}"
+        resolutionStrategy.force "com.android.support:recyclerview-v7:${versions.support}"
+        resolutionStrategy.force "com.android.support:preference-v7:${versions.support}"
+        resolutionStrategy.force "com.android.support:support-v13:${versions.support}"
+        resolutionStrategy.force "com.android.support:preference-v14:${versions.support}"
+        resolutionStrategy.force "com.android.support:preference-leanback-v17:${versions.support}"
+        resolutionStrategy.force "com.android.support:leanback-v17:${versions.support}"
+        resolutionStrategy.force "com.android.support:support-vector-drawable:${versions.support}"
+        resolutionStrategy.force "com.android.support:animated-vector-drawable:${versions.support}"
+        resolutionStrategy.force "com.android.support:support-annotations:${versions.support}"
+        resolutionStrategy.force "com.android.support:design:${versions.support}"
+        resolutionStrategy.force "com.android.support:customtabs:${versions.support}"
+        resolutionStrategy.force "com.android.support:percent:${versions.support}"
+        resolutionStrategy.force "com.android.support:exifinterface:${versions.support}"
+        resolutionStrategy.force "com.android.support:recommandation:${versions.support}"
+        resolutionStrategy.force "com.android.support:wear:${versions.support}"
     }
 }
 
@@ -53,8 +53,7 @@ allprojects {
     repositories {
         jcenter()
         google()
-        flatDir {
-            dirs 'libs'
-        }
+        // maven { url 'https://jitpack.io' }
+        flatDir { dirs 'libs' }
     }
 }

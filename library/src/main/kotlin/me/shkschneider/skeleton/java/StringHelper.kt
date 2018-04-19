@@ -10,6 +10,8 @@ import java.util.regex.Pattern
 
 object StringHelper {
 
+    @Deprecated("Unsafe")
+    val NULL = "null"
     val ALPHA = String(CharRange('a', 'z').toList().toCharArray())
     val NUMERIC = String(CharRange('0', '9').toList().toCharArray())
     val HEX = NUMERIC + ALPHA.substring(0, 6)

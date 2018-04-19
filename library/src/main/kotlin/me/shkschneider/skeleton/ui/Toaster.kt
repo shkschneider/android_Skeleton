@@ -12,7 +12,9 @@ object Toaster {
         if (msg.isBlank()) {
             Logger.warning("Message was NULL")
         }
-        ThreadHelper.foregroundThread(Runnable { Toast.makeText(ContextHelper.applicationContext(), msg, duration).show() })
+        ThreadHelper.foregroundThread(Runnable {
+            Toast.makeText(ContextHelper.applicationContext(), msg, duration).show()
+        })
     }
 
 }

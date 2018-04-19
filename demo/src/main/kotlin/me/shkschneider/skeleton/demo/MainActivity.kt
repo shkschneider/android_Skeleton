@@ -4,6 +4,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.hardware.fingerprint.FingerprintManager
+import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.TabLayout
@@ -20,13 +22,14 @@ import com.google.gson.Gson
 import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.demo.data.ShkMod
 import me.shkschneider.skeleton.extensions.isNull
+import me.shkschneider.skeleton.extensions.toStringOrEmpty
 import me.shkschneider.skeleton.helper.*
 import me.shkschneider.skeleton.java.ObjectHelper
 import me.shkschneider.skeleton.network.NetworkHelper
 import me.shkschneider.skeleton.network.WebService
 import me.shkschneider.skeleton.network.WebServiceException
+import me.shkschneider.skeleton.security.FingerprintHelper
 import me.shkschneider.skeleton.ui.*
-import java.util.*
 
 /**
  * SkeletonActivity
@@ -34,7 +37,7 @@ import java.util.*
  * ViewPager
  * FloatingActionButton
  * -> LocalBroadcast
- * -> Volley request (Proxy)
+ * -> WebService request
  * -> Notification (RunnableHelper.delay())
  * -> onNewIntent() (Toaster.show())
  */
@@ -111,6 +114,23 @@ class MainActivity : SkeletonActivity() {
     override fun onResume() {
         super.onResume()
         ScreenHelper.inches()
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && FingerprintHelper.available()) {
+            FingerprintHelper.background(object: FingerprintManager.AuthenticationCallback() {
+                override fun onAuthenticationSucceeded(result: FingerprintManager.AuthenticationResult?) {
+                    super.onAuthenticationSucceeded(result)
+                    Toaster.show("Fingerprint recognized!")
+                }
+                override fun onAuthenticationHelp(helpCode: Int, helpString: CharSequence?) {
+                    super.onAuthenticationHelp(helpCode, helpString)
+                    Toaster.show(helpCode.toStringOrEmpty())
+                }
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence?) {
+                    super.onAuthenticationError(errorCode, errString)
+                    Toaster.show(errString.toStringOrEmpty())
+                }
+            })
+        }
     }
 
     override fun onStop() {
