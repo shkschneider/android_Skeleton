@@ -89,6 +89,9 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
+        // This part is necessary to ensure that getIntent returns the latest intent when
+        // this activity is started. By default, getIntent() returns the initial intent
+        // that was set from another activity that started this activity.
         setIntent(intent)
     }
 
@@ -293,6 +296,8 @@ abstract class SkeletonActivity : AppCompatActivity() {
         }
     }
 
+    // Search
+
     fun searchable(): Boolean {
         return skeletonReceiver != null
     }
@@ -368,6 +373,12 @@ abstract class SkeletonActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         startActivity(IntentHelper.main())
         return true
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        if (hasFocus) {
+            // getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+        }
     }
 
     override fun onBackPressed() {
