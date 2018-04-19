@@ -7,6 +7,7 @@ import android.content.IntentFilter
 import android.hardware.fingerprint.FingerprintManager
 import android.os.Build
 import android.os.Bundle
+import android.os.CancellationSignal
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -17,14 +18,11 @@ import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.view.ViewPager
 import android.view.Menu
 import android.view.MenuItem
-import com.google.gson.Gson
 
 import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.demo.data.ShkMod
-import me.shkschneider.skeleton.extensions.isNull
 import me.shkschneider.skeleton.extensions.toStringOrEmpty
 import me.shkschneider.skeleton.helper.*
-import me.shkschneider.skeleton.java.ObjectHelper
 import me.shkschneider.skeleton.network.NetworkHelper
 import me.shkschneider.skeleton.network.WebService
 import me.shkschneider.skeleton.network.WebServiceException
@@ -111,12 +109,14 @@ class MainActivity : SkeletonActivity() {
         BroadcastHelper.register(mBroadcastReceiver, IntentFilter(BROADCAST_SECRET))
     }
 
+    private var cancellationSignal: CancellationSignal? = null
+
     override fun onResume() {
         super.onResume()
         ScreenHelper.inches()
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && FingerprintHelper.available()) {
-            FingerprintHelper.background(object: FingerprintManager.AuthenticationCallback() {
+            cancellationSignal = FingerprintHelper.background(object: FingerprintManager.AuthenticationCallback() {
                 override fun onAuthenticationSucceeded(result: FingerprintManager.AuthenticationResult?) {
                     super.onAuthenticationSucceeded(result)
                     Toaster.show("Fingerprint recognized!")
@@ -136,18 +136,16 @@ class MainActivity : SkeletonActivity() {
     override fun onStop() {
         super.onStop()
         BroadcastHelper.unregister(mBroadcastReceiver)
+        FingerprintHelper.cancel(cancellationSignal)
     }
 
     private fun network() {
         WebService(WebService.Method.GET, URL)
                 .callback(object : WebService.Callback {
                     override fun success(result: String?) {
-                        if (result.isNull()) {
-                            Toaster.show(ShkMod::class.java.simpleName)
-                            return
+                        if (result.orEmpty().isNotBlank()) {
+                            notification(DateTimeHelper.timestamp().toInt(), ShkMod::class.java.simpleName, result!!)
                         }
-                        val shkMod = Gson().fromJson(result, ShkMod::class.java)
-                        notification(DateTimeHelper.timestamp().toInt(), ShkMod::class.java.simpleName, ObjectHelper.jsonify(shkMod))
                     }
                     override fun failure(e: WebServiceException) {
                         Toaster.show(WebServiceException::class.java.simpleName)
@@ -156,7 +154,7 @@ class MainActivity : SkeletonActivity() {
     }
 
     private fun notification(id: Int, title: String, message: String) {
-        val intent = Intent(baseContext, MainActivity::class.java)
+        val intent = Intent(applicationContext, MainActivity::class.java)
                 .putExtra("title", title)
                 .putExtra("message", message)
         val channel = NotificationHelper.Channel(id.toString(), id.toString(), true, true, true)
