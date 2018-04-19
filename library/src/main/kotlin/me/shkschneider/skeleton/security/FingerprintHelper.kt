@@ -14,12 +14,12 @@ import android.security.keystore.KeyGenParameterSpec
 import android.support.annotation.RequiresPermission
 import javax.crypto.SecretKey
 
-@RequiresApi(AndroidHelper.API_23)
 object FingerprintHelper {
 
     private const val KEYSTORE = "AndroidKeyStore"
     private const val KEY = "FingerPrint"
 
+    @RequiresApi(AndroidHelper.API_23)
     fun available(): Boolean {
         // if (ActivityCompat.checkSelfPermission(ContextHelper.applicationContext(), Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) return false
         val keyguardManager = SystemServices.keyguardManager()
@@ -34,6 +34,7 @@ object FingerprintHelper {
         return true
     }
 
+    @RequiresApi(AndroidHelper.API_23)
     private fun signature(): FingerprintManager.CryptoObject {
         val keyStore = KeyStore.getInstance(KEYSTORE)
         val keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, KEYSTORE)
@@ -53,13 +54,18 @@ object FingerprintHelper {
         return FingerprintManager.CryptoObject(cipher)
     }
 
+    @RequiresApi(AndroidHelper.API_23)
     @RequiresPermission(Manifest.permission.USE_FINGERPRINT)
-    fun background(callback: FingerprintManager.AuthenticationCallback) {
-        SystemServices.fingerprintManager()
-                ?.authenticate(signature(), CancellationSignal(), 0, callback, null)
+    fun background(callback: FingerprintManager.AuthenticationCallback): CancellationSignal? {
+        SystemServices.fingerprintManager()?.let {
+            val cancellationSignal = CancellationSignal()
+            it.authenticate(signature(), cancellationSignal, 0, callback, null)
+            return cancellationSignal
+        } ?: return null
     }
 
 //    TODO <https://cdn-images-1.medium.com/max/1000/1*8_pvcPgA_CwK2ddt1gH-KQ.png>
+    @RequiresApi(AndroidHelper.API_23)
 //    @TargetApi(AndroidHelper.API_28)
     @RequiresPermission(Manifest.permission.USE_FINGERPRINT)
     fun foreground(callback: FingerprintManager.AuthenticationCallback) {
@@ -71,7 +77,15 @@ object FingerprintHelper {
 //                    .setNegativeButton(android.R.string.cancel, Executors.newSingleThreadExecutor(), null)
 //                    .build(this)
 //        }
-        throw NotImplementedError("API-28")
+        throw NotImplementedError("Coming soon on Android P!")
+    }
+
+    fun cancel(cancellationSignal: CancellationSignal?) {
+        cancellationSignal?.let {
+            if (it.isCanceled) {
+                it.cancel()
+            }
+        }
     }
 
 }
