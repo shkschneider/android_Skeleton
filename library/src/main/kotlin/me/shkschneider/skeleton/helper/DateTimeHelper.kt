@@ -8,6 +8,7 @@ import android.text.format.DateFormat
 import android.text.format.DateUtils
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 object DateTimeHelper {
 
@@ -56,11 +57,11 @@ object DateTimeHelper {
     }
 
     fun timestamp(): Long {
-        return now() / 1000
+        return TimeUnit.MILLISECONDS.toSeconds(now())
     }
 
     fun gmtOffset(): Int {
-        return Math.round((TimeZone.getDefault().getOffset(calendar().timeInMillis) / DateUtils.SECOND_IN_MILLIS).toFloat())
+        return Math.round((TimeZone.getDefault().getOffset(TimeUnit.MILLISECONDS.toSeconds(calendar().timeInMillis))).toFloat())
     }
 
     fun relative(@IntRange(from = 0) time: Long): String {

@@ -160,6 +160,7 @@ class MainActivity : SkeletonActivity() {
         val channel = NotificationHelper.Channel(id.toString(), id.toString(), true, true, true)
         // final NotificationChannel notificationChannel = channel.get();
         val notificationBuilder = NotificationHelper.Builder(channel)
+                .setShowWhen(false)
                 .setContentTitle("Skeleton")
                 .setContentText("for Android")
                 .setContentIntent(NotificationHelper.pendingIntent(this, intent))

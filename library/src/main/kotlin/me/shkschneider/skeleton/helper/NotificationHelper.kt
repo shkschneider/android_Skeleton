@@ -6,6 +6,7 @@ import android.os.Build
 import android.support.annotation.IntRange
 import android.support.annotation.RequiresApi
 import android.support.v4.app.NotificationCompat
+import java.util.concurrent.TimeUnit
 
 /**
  * +------+------------------------------+
@@ -54,6 +55,27 @@ object NotificationHelper {
                     SystemServices.notificationManager()?.createNotificationChannel(this)
                 }
             }
+            // For apps targeting N and above, this time is not shown anymore by default.
+            if (AndroidHelper.api() < AndroidHelper.API_24) {
+                setShowWhen(false)
+            }
+            // OnClick
+            setAutoCancel(true)
+        }
+
+        override fun setOngoing(ongoing: Boolean): NotificationCompat.Builder {
+            if (ongoing) {
+                setShowWhen(false)
+            }
+            return super.setOngoing(ongoing)
+        }
+
+        fun setWhenMilliseconds(ms: Long): NotificationCompat.Builder {
+            return super.setWhen(ms)
+        }
+
+        fun setWhenSeconds(s: Long): NotificationCompat.Builder {
+            return super.setWhen(TimeUnit.SECONDS.toMillis(s))
         }
 
         @Deprecated("Use a NotificationChannel.")
@@ -126,9 +148,10 @@ object NotificationHelper {
 
     }
 
-    fun notify(@IntRange(from = 0) id: Int, notification: Notification) {
-        // final String channelId = NotificationCompat.getChannelId(notification);
-        notification.`when` = DateTimeHelper.timestamp() // FIXME when keyword
+    fun notify(@IntRange(from = 0) id: Int, notification: Notification, ms: Long? = null) {
+        ms?.let {
+            notification.`when` = ms
+        }
         SystemServices.notificationManager()?.notify(id, notification)
     }
 
