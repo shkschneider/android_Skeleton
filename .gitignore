@@ -42,3 +42,7 @@ captures/
 # Keystore files
 *.jks
 release.keystore
+
+# Garbage
+.DS_Store
+.Trash*
