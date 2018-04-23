@@ -3,16 +3,18 @@ package me.shkschneider.skeleton.data
 import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import android.support.annotation.UiThread
 import android.support.v4.app.LoaderManager
 
 // <http://satyan.github.io/sugar/>
+@UiThread
 object DatabaseHelper {
 
     object Loader {
 
         fun start(loaderManager: LoaderManager, id: Int, args: Bundle? = null, callbacks: LoaderManager.LoaderCallbacks<Any>) {
             loaderManager.getLoader<Any>(id)?.let {
-                loaderManager.restartLoader(id, args, callbacks)
+                loaderManager.restartLoader(id, args, callbacks) // starts or restarts
             } ?: run {
                 loaderManager.initLoader(id, args, callbacks)
             }

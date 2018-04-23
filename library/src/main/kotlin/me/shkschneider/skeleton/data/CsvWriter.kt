@@ -27,7 +27,7 @@ class CsvWriter {
     }
 
     fun writeNext(nextLine: Array<String>?) {
-        if (nextLine == null) return
+        nextLine ?: return
         val stringBuilder = StringBuilder()
         for (i in nextLine.indices) {
             if (i != 0) {

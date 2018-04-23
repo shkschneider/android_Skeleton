@@ -17,6 +17,7 @@ import com.android.volley.toolbox.ImageLoader
 import me.shkschneider.skeleton.SkeletonFragment
 import me.shkschneider.skeleton.helper.IntentHelper
 import me.shkschneider.skeleton.helper.SpannableStringHelper
+import me.shkschneider.skeleton.java.StringHelper
 import me.shkschneider.skeleton.network.Proxy
 import me.shkschneider.skeleton.ui.BitmapHelper
 import me.shkschneider.skeleton.ui.Toaster
@@ -42,7 +43,7 @@ class ShkFragment : SkeletonFragment() {
                 }
             }
             override fun onErrorResponse(error: VolleyError) {
-                Toaster.show(error.message!!)
+                Toaster.show(error.message ?: "")
             }
         })
         fill(view.findViewById(R.id.id_id), "#", SpannableString("42"))

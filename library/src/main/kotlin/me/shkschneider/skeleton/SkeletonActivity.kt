@@ -16,7 +16,6 @@ import android.support.v7.widget.Toolbar
 import android.text.InputType
 import android.view.*
 import android.view.inputmethod.EditorInfo
-import me.shkschneider.skeleton.extensions.isNull
 import me.shkschneider.skeleton.helper.*
 import me.shkschneider.skeleton.ui.OverlayLoader
 
@@ -83,7 +82,6 @@ abstract class SkeletonActivity : AppCompatActivity() {
         }
         intent?.extras?.let {
             Logger.verbose("onNewIntent: $intent")
-            onNewIntent(intent) // FIXME keep?
         }
     }
 
@@ -115,10 +113,10 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     fun statusBarColor(window: Window): Int {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            return window.statusBarColor
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.statusBarColor
         } else {
-            return Color.TRANSPARENT // Color.BLACK
+            Color.TRANSPARENT // Color.BLACK
         }
     }
 
@@ -132,12 +130,13 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     fun toolbarColor(@ColorInt color: Int): Boolean? {
-        if (toolbar.isNull()) {
+        return toolbar?.let {
+            it.setBackgroundColor(color)
+            return true
+        } ?: run {
             Logger.warning("Toolbar was NULL")
             return false
         }
-        toolbar?.setBackgroundColor(color)
-        return true
     }
 
     protected fun bindToolbar() {
@@ -198,24 +197,18 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     fun toolbar(b: Boolean) {
         toolbar ?: Logger.warning("Toolbar was NULL")
-        toolbar?.let {
-            it.visibility = if (b) View.VISIBLE else View.GONE
-        }
+        toolbar?.visibility = if (b) View.VISIBLE else View.GONE
     }
 
     fun home(b: Boolean) {
         supportActionBar ?: Logger.warning("ActionBar was NULL")
-        supportActionBar?.let {
-            it.setDisplayHomeAsUpEnabled(b)
-        }
+        supportActionBar?.setDisplayHomeAsUpEnabled(b)
     }
 
     @Deprecated("Obsolete.", ReplaceWith("home(boolean)"))
     fun home(drawable: Drawable) {
         toolbar ?: Logger.warning("Toolbar was NULL")
-        toolbar?.let {
-            it.navigationIcon = drawable
-        }
+        toolbar?.navigationIcon = drawable
     }
 
     @Deprecated("Obsolete.", ReplaceWith("logo(drawable)"))
@@ -226,8 +219,8 @@ abstract class SkeletonActivity : AppCompatActivity() {
     fun logo(drawable: Drawable?) {
         supportActionBar ?: Logger.warning("ActionBar was NULL")
         supportActionBar?.let {
-            it.setDisplayShowHomeEnabled(drawable != null)
-            it.setDisplayUseLogoEnabled(drawable != null)
+            it.setDisplayShowHomeEnabled(drawable?.let { true } ?: false)
+            it.setDisplayUseLogoEnabled(drawable?.let { true } ?: false)
             it.setLogo(drawable)
         }
     }
@@ -248,7 +241,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
     fun subtitle(subtitle: String?) {
         supportActionBar ?: Logger.warning("ActionBar was NULL")
         supportActionBar?.let {
-            it.setDisplayShowTitleEnabled(! title.isNullOrEmpty() || subtitle.isNullOrEmpty())
+            it.setDisplayShowTitleEnabled(! (title.isNullOrBlank() || subtitle.isNullOrBlank()))
             it.subtitle = subtitle
         }
     }
@@ -287,7 +280,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
             loading = 0
         }
         if (b) {
-            if (overlayLoader != null) {
+            overlayLoader?.let {
                 overlayLoader = OverlayLoader.show(this)
             }
         } else {
@@ -299,7 +292,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
     // Search
 
     fun searchable(): Boolean {
-        return skeletonReceiver != null
+        return skeletonReceiver?.let { true } ?: false
     }
 
     fun searchable(hint: String, skeletonReceiver: SkeletonReceiver?) {
@@ -309,44 +302,40 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        if (skeletonReceiver == null) {
+        val skeletonReceiver = this.skeletonReceiver ?: run {
             return super.onCreateOptionsMenu(menu)
         }
-        with (skeletonReceiver!!) {
-            menuInflater.inflate(R.menu.sk_search, menu)
-            searchMenuItem = menu.findItem(R.id.menu_search)
-            if (searchMenuItem == null) {
-                Logger.warning("SearchMenuItem was NULL")
-                return super.onCreateOptionsMenu(menu)
-            }
-            searchView = searchMenuItem!!.actionView as SearchView
-            if (searchView == null) {
-                Logger.warning("SearchView was NULL")
-                return super.onCreateOptionsMenu(menu)
-            }
-            with (searchView!!) {
-                inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
-                imeOptions = EditorInfo.IME_ACTION_SEARCH
-                setIconifiedByDefault(true)
-                queryHint = searchHint
-                setOnCloseListener {
-                    post(RESULT_SEARCH_CHANGE, "")
-                    false
-                }
-                setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                    override fun onQueryTextSubmit(q: String): Boolean {
-                        stopSearch()
-                        post(RESULT_SEARCH_SUBMIT, q)
-                        return true
-                    }
-
-                    override fun onQueryTextChange(q: String): Boolean {
-                        post(RESULT_SEARCH_CHANGE, q)
-                        return true
-                    }
-                })
-            }
+        menuInflater.inflate(R.menu.sk_search, menu)
+        searchMenuItem = menu.findItem(R.id.menu_search)
+        val searchMenuItem = this.searchMenuItem ?: run {
+            Logger.warning("SearchMenuItem was NULL")
+            return super.onCreateOptionsMenu(menu)
         }
+        searchView = searchMenuItem.actionView as SearchView
+        val searchView = this.searchView ?: run {
+            Logger.warning("SearchView was NULL")
+            return super.onCreateOptionsMenu(menu)
+        }
+        menuInflater.inflate(R.menu.sk_search, menu)
+        searchView.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+        searchView.imeOptions = EditorInfo.IME_ACTION_SEARCH
+        searchView.setIconifiedByDefault(true)
+        searchView.queryHint = searchHint
+        searchView.setOnCloseListener {
+            skeletonReceiver.post(RESULT_SEARCH_CHANGE, "")
+            return@setOnCloseListener false
+        }
+        searchView.setOnQueryTextListener (object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(q: String): Boolean {
+                stopSearch()
+                skeletonReceiver.post(RESULT_SEARCH_SUBMIT, q)
+                return true
+            }
+            override fun onQueryTextChange(q: String): Boolean {
+                skeletonReceiver.post(RESULT_SEARCH_CHANGE, q)
+                return true
+            }
+        })
         return true
     }
 
@@ -361,11 +350,11 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     private fun stopSearch() {
-        searchMenuItem ?: return
-        searchMenuItem!!.collapseActionView()
+        val searchMenuItem = this.searchMenuItem ?: return
+        searchMenuItem.collapseActionView()
         KeyboardHelper.hide(window)
-        searchView ?: return
-        searchView!!.clearFocus()
+        val searchView = this.searchView ?: return
+        searchView.clearFocus()
     }
 
     // Navigation
@@ -382,11 +371,13 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (searchView != null && !searchView!!.isIconified) {
-            stopSearch()
-        } else {
-            finish()
+        searchView?.let {
+            if (it.isIconified) {
+                stopSearch()
+                return
+            }
         }
+        finish()
     }
 
     // Runtime Permissions

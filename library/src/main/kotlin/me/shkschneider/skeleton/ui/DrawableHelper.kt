@@ -12,7 +12,7 @@ import me.shkschneider.skeleton.helper.ContextHelper
 object DrawableHelper {
 
     fun fromResource(@DrawableRes id: Int): Drawable {
-        return ContextCompat.getDrawable(ContextHelper.applicationContext(), id)!!
+        return ContextCompat.getDrawable(ContextHelper.applicationContext(), id) as Drawable
     }
 
     fun fromBitmap(bitmap: Bitmap): Drawable {

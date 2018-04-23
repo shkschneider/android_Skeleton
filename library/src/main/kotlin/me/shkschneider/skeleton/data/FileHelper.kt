@@ -17,10 +17,10 @@ object FileHelper {
 
     fun join(dirname: String, basename: String): String {
         val file = File(dirname, basename)
-        try {
-            return file.canonicalPath
+        return try {
+            file.canonicalPath
         } catch (e: IOException) {
-            return file.path
+            file.path
         }
     }
 
@@ -29,20 +29,20 @@ object FileHelper {
     }
 
     fun openFile(file: File): InputStream? {
-        try {
-            return FileInputStream(file)
+        return try {
+            FileInputStream(file)
         } catch (e: FileNotFoundException) {
             Logger.wtf(e)
-            return null
+            null
         }
     }
 
     fun openRaw(@RawRes id: Int): InputStream? {
-        try {
-            return ApplicationHelper.resources().openRawResource(id)
+        return try {
+            ApplicationHelper.resources().openRawResource(id)
         } catch (e: Resources.NotFoundException) {
             Logger.wtf(e)
-            return null
+            null
         }
     }
 
@@ -51,40 +51,40 @@ object FileHelper {
     }
 
     fun readString(inputStream: InputStream): String? {
-        try {
+        return try {
             // TRICK: The stream gets tokenized, \A meaning the beginning, \\A means the second beginning... so its end.
-            return Scanner(inputStream).useDelimiter("\\A").next()
+            Scanner(inputStream).useDelimiter("\\A").next()
         } catch (e: NoSuchElementException) {
-            return null
+            null
         }
     }
 
     fun readString(file: File): String? {
-        try {
-            return readString(FileInputStream(file))
+        return try {
+            readString(FileInputStream(file))
         } catch (e: FileNotFoundException) {
             Logger.wtf(e)
-            return null
+            null
         }
     }
 
     fun writeString(outputStream: OutputStream, content: String): Boolean {
-        try {
+        return try {
             outputStream.write(content.toByteArray())
             outputStream.close()
-            return true
+            true
         } catch (e: IOException) {
             Logger.wtf(e)
-            return false
+            false
         }
     }
 
     fun writeString(file: File, content: String): Boolean {
-        try {
-            return writeString(FileOutputStream(file), content)
+        return try {
+            writeString(FileOutputStream(file), content)
         } catch (e: FileNotFoundException) {
             Logger.wtf(e)
-            return false
+            false
         }
     }
 
@@ -93,12 +93,12 @@ object FileHelper {
     }
 
     fun writeBitmap(file: File, bitmap: Bitmap): Boolean {
-        try {
+        return try {
             val fileOutputStream = FileOutputStream(file)
-            return bitmap.compress(Bitmap.CompressFormat.PNG, 90, fileOutputStream)
+            bitmap.compress(Bitmap.CompressFormat.PNG, 90, fileOutputStream)
         } catch (e: FileNotFoundException) {
             Logger.wtf(e)
-            return false
+            false
         }
     }
 

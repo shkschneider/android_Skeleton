@@ -26,8 +26,7 @@ class MyImageGetter : Html.ImageGetter {
         val bitmapDrawablePlaceholder = BitmapDrawablePlaceholder()
         Proxy.imageLoader().get(source, object : ImageLoader.ImageListener {
             override fun onResponse(response: ImageLoader.ImageContainer, isImmediate: Boolean) {
-                val bitmap = response.bitmap
-                if (bitmap == null) {
+                val bitmap = response.bitmap ?: run {
                     Logger.warning("Bitmap was NULL")
                     return
                 }
@@ -41,7 +40,7 @@ class MyImageGetter : Html.ImageGetter {
             }
             override fun onErrorResponse(error: VolleyError) {
                 if (! error.cause?.message.isNullOrBlank()) {
-                    Logger.error(error.cause!!.message!!)
+                    Logger.error(error.cause?.message ?: "")
                 }
             }
         })

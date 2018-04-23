@@ -44,9 +44,7 @@ object NotificationHelper {
 
         constructor(channel: Channel) : super(ContextHelper.applicationContext(), channel.id) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                if (Channel.get(channel.id) != null) {
-                    return
-                }
+                Channel.get(channel.id) ?: return
                 with(NotificationChannel(channel.id, channel.name, NotificationManager.IMPORTANCE_DEFAULT)) {
                     lockscreenVisibility = NotificationCompat.VISIBILITY_PUBLIC
                     setShowBadge(channel.badge)
@@ -113,11 +111,10 @@ object NotificationHelper {
 
         @RequiresApi(AndroidHelper.API_26)
         fun get(): NotificationChannel {
-            var notificationChannel = get(id)
-            if (notificationChannel != null) {
-                return notificationChannel
+            get(id)?.let {
+                return it
             }
-            notificationChannel = NotificationChannel(id, name, NotificationManager.IMPORTANCE_DEFAULT)
+            val notificationChannel = NotificationChannel(id, name, NotificationManager.IMPORTANCE_DEFAULT)
             with (notificationChannel) {
                 lockscreenVisibility = NotificationCompat.VISIBILITY_PUBLIC
                 setShowBadge(badge)

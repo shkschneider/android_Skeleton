@@ -21,10 +21,9 @@ object NetworkHelper {
     @SuppressLint("PrivateApi")
     fun hostname(): String? {
         try {
-            val cls = Class.forName("android.os.SystemProperties")
-            if (cls != null) {
+            Class.forName("android.os.SystemProperties")?.let {
                 @Suppress("DEPRECATION")
-                return ReflectHelper.Method.method(cls, "get", arrayOf(String::class.java), "net.hostname") as String?
+                return ReflectHelper.Method.method(it, "get", arrayOf(String::class.java), "net.hostname") as String?
             }
         }
         catch (e: ClassNotFoundException) {
@@ -46,21 +45,21 @@ object NetworkHelper {
     fun connectedOrConnecting(): Boolean {
         val connectivityManager = SystemServices.connectivityManager()
         val networkInfo = connectivityManager?.activeNetworkInfo
-        if (networkInfo == null) {
+        return networkInfo?.isConnectedOrConnecting ?: run {
             Logger.warning("NetworkInfo was NULL")
             return false
         }
-        return networkInfo.isConnectedOrConnecting
     }
 
     @RequiresPermission(Manifest.permission.ACCESS_WIFI_STATE)
     fun wifi(): Boolean {
         val wifiManager = SystemServices.wifiManager()
-        if (wifiManager == null) {
+        return wifiManager?.let {
+            return it.wifiState == WifiManager.WIFI_STATE_ENABLED
+        } ?: run {
             Logger.warning("wifiManager was NULL")
             return false
         }
-        return wifiManager.wifiState == WifiManager.WIFI_STATE_ENABLED
     }
 
     fun ipAddresses(): List<String>? {

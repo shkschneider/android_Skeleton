@@ -57,7 +57,7 @@ object FingerprintHelper {
     @RequiresApi(AndroidHelper.API_23)
     @RequiresPermission(Manifest.permission.USE_FINGERPRINT)
     fun background(callback: FingerprintManager.AuthenticationCallback): CancellationSignal? {
-        SystemServices.fingerprintManager()?.let {
+        return SystemServices.fingerprintManager()?.let {
             val cancellationSignal = CancellationSignal()
             it.authenticate(signature(), cancellationSignal, 0, callback, null)
             return cancellationSignal

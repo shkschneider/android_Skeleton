@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.ui
 
+import android.annotation.SuppressLint
 import android.text.InputFilter
 import android.view.MotionEvent
 import android.widget.EditText
@@ -10,6 +11,7 @@ object EditTextHelper {
         editText.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(maxLength))
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     // <http://stackoverflow.com/a/20520755>
     fun scrollCompat(editText: EditText, editTextId: Int) {
         editText.setOnTouchListener { v, event ->

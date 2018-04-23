@@ -12,17 +12,19 @@ class MySecretCodeReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         var secretCode = intent.dataString
-        if (secretCode.isNullOrEmpty() || intent.data == null) return
-
+        if (secretCode.isNullOrEmpty()) return
+        intent.data ?: return
         val scheme = intent.data.scheme
         if (! scheme.isNullOrBlank()) {
-            //      android_secret_code://
-            secretCode = secretCode!!.substring(scheme.length)
-            if (secretCode.startsWith("://")) {
-                secretCode = secretCode.substring("://".length, secretCode.length)
+            // android_secret_code://
+            with (secretCode) {
+                secretCode = substring(scheme.length)
+                if (startsWith("://")) {
+                    secretCode = substring("://".length, length)
+                }
             }
         }
-        Logger.debug("SecretCode: " + secretCode)
+        Logger.debug("SecretCode: $secretCode")
         if (intent.action == ACTION) {
             context.startActivity(Intent(context, MainActivity::class.java)
                     .setFlags(IntentHelper.FLAGS_HOME)

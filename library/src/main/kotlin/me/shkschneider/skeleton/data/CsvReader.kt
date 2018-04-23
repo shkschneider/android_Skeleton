@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.data
 
-import me.shkschneider.skeleton.extensions.isNull
 import me.shkschneider.skeleton.helper.Logger
 import java.io.BufferedReader
 import java.io.IOException
@@ -33,7 +32,7 @@ class CsvReader {
     @Throws(IOException::class)
     private fun getNextLine(): String {
         val nextLine = bufferedReader.readLine()
-        if (nextLine.isNull()) {
+        nextLine ?: run {
             hasNext = false
             throw IOException("EOF")
         }

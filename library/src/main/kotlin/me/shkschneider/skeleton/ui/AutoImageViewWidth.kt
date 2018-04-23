@@ -13,8 +13,7 @@ class AutoImageViewWidth : AppCompatImageView {
     constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr)
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        val drawable = drawable
-        if (drawable == null) {
+        val drawable = drawable ?: run {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec)
             return
         }

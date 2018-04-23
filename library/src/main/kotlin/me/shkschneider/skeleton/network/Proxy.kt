@@ -18,11 +18,11 @@ object Proxy {
         imageLoader = ImageLoader(Volley.newRequestQueue(ContextHelper.applicationContext()), object : ImageLoader.ImageCache {
             private val CACHE = LruCache<String, Bitmap>(42)
             override fun getBitmap(url: String): Bitmap? {
-                try {
-                    return CACHE.get(url)
+                return try {
+                    CACHE.get(url)
                 } catch (e: IllegalStateException) {
                     Logger.wtf(e)
-                    return null
+                    null
                 }
             }
             override fun putBitmap(url: String, bitmap: Bitmap) {
@@ -33,7 +33,7 @@ object Proxy {
 
     @Deprecated("Not implemented.")
     fun options(url: String): WebService {
-        throw UnsupportedOperationException(WebService.Method.OPTIONS.name)
+        throw NotImplementedError(WebService.Method.OPTIONS.name)
     }
 
     fun get(url: String): WebService {
@@ -42,7 +42,7 @@ object Proxy {
 
     @Deprecated("Not implemented.")
     fun head(url: String): WebService {
-        throw UnsupportedOperationException(WebService.Method.HEAD.name)
+        throw NotImplementedError(WebService.Method.HEAD.name)
     }
 
     fun post(url: String): WebService {
@@ -59,12 +59,12 @@ object Proxy {
 
     @Deprecated("Not implemented.")
     fun trace(url: String): WebService {
-        throw UnsupportedOperationException(WebService.Method.TRACE.name)
+        throw NotImplementedError(WebService.Method.TRACE.name)
     }
 
     @Deprecated("Not implemented.")
     fun connect(url: String): WebService {
-        throw UnsupportedOperationException(WebService.Method.CONNECT.name)
+        throw NotImplementedError(WebService.Method.CONNECT.name)
     }
 
     fun imageLoader(): ImageLoader {

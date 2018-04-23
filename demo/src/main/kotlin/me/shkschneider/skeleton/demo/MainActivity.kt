@@ -21,7 +21,6 @@ import android.view.MenuItem
 
 import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.demo.data.ShkMod
-import me.shkschneider.skeleton.extensions.toStringOrEmpty
 import me.shkschneider.skeleton.helper.*
 import me.shkschneider.skeleton.network.NetworkHelper
 import me.shkschneider.skeleton.network.WebService
@@ -123,11 +122,11 @@ class MainActivity : SkeletonActivity() {
                 }
                 override fun onAuthenticationHelp(helpCode: Int, helpString: CharSequence?) {
                     super.onAuthenticationHelp(helpCode, helpString)
-                    Toaster.show(helpCode.toStringOrEmpty())
+                    Toaster.show(helpString?.toString() ?: "")
                 }
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence?) {
                     super.onAuthenticationError(errorCode, errString)
-                    Toaster.show(errString.toStringOrEmpty())
+                    Toaster.show(errString?.toString() ?: "")
                 }
             })
         }
@@ -143,8 +142,10 @@ class MainActivity : SkeletonActivity() {
         WebService(WebService.Method.GET, URL)
                 .callback(object : WebService.Callback {
                     override fun success(result: String?) {
-                        if (result.orEmpty().isNotBlank()) {
-                            notification(DateTimeHelper.timestamp().toInt(), ShkMod::class.java.simpleName, result!!)
+                        result?.let {
+                            if (it.isNotBlank()) {
+                                notification(DateTimeHelper.timestamp().toInt(), ShkMod::class.java.simpleName, result)
+                            }
                         }
                     }
                     override fun failure(e: WebServiceException) {

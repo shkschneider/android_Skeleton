@@ -45,10 +45,10 @@ abstract class SkeletonFragment : Fragment() {
         activity = context as AppCompatActivity
     }
 
-    fun fragmentManager(): FragmentManager {
-        val childFragmentManager: FragmentManager? = childFragmentManager
-        return childFragmentManager ?: fragmentManager!!
-    }
+//    fun fragmentManager(): FragmentManager? {
+//        val childFragmentManager: FragmentManager? = childFragmentManager
+//        return childFragmentManager ?: fragmentManager
+//    }
 
     fun onCreateView(inflater: LayoutInflater, @LayoutRes resId: Int, container: ViewGroup?): View? {
         val view = inflater.inflate(resId, container, false)

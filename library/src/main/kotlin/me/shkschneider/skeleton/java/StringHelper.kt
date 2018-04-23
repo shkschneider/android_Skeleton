@@ -1,37 +1,23 @@
 package me.shkschneider.skeleton.java
 
 import android.support.annotation.IntRange
-import android.text.TextUtils
 import android.util.Patterns
 import me.shkschneider.skeleton.helper.LocaleHelper
 import java.text.Normalizer
 import java.text.NumberFormat
-import java.util.regex.Pattern
 
 object StringHelper {
 
-    @Deprecated("Unsafe.")
+    // val EMPTY = ""
     val NULL = "null"
-    val ALPHA = String(CharRange('a', 'z').toList().toCharArray())
-    val NUMERIC = String(CharRange('0', '9').toList().toCharArray())
+    val ALPHA = ('a' .. 'z').toString()
+    val NUMERIC = ('0' .. '9').toString()
     val HEX = NUMERIC + ALPHA.substring(0, 6)
-    val ALPHA_NUMERIC = ALPHA + NUMERIC
-
-    fun alpha(string: String): Boolean {
-        return string.matches(Pattern.compile(ALPHA).toRegex())
-    }
-
-    fun alphaNumeric(string: String): Boolean {
-        return string.matches(Pattern.compile(ALPHA_NUMERIC).toRegex())
-    }
-
-    @Deprecated("Obsolete", ReplaceWith("TextUtils.isDigitsOnly(string)", "android.text.TextUtils"))
-    fun numeric(string: String): Boolean {
-        return TextUtils.isDigitsOnly(string)
-    }
 
     fun hexadecimal(string: String): Boolean {
-        return string.matches(HEX.toRegex())
+        return string.toLowerCase().all {
+            it in ('a' .. 'f') || it.isDigit()
+        }
     }
 
     fun url(string: String): Boolean {
@@ -76,7 +62,7 @@ object StringHelper {
     }
 
     // <http://stackoverflow.com/a/9855338>
-    fun hexadecimal(bytes: ByteArray): String? {
+    fun hexadecimal(bytes: ByteArray): String {
         val result = StringBuffer()
         bytes.forEach {
             val octet = it.toInt()

@@ -55,12 +55,10 @@ class MySlidingViewPagerIndicator : HorizontalScrollView {
 
     fun setViewPager(viewPager: ViewPager) {
         slidingTabStrib.removeAllViews()
-        this.viewPager = viewPager
-        this.viewPager?.let {
-            it.addOnPageChangeListener(InternalViewPagerListener())
-            val pagerAdapter = it.adapter
-            val onClickListener = TabClickListener()
-            for (i in 0 until pagerAdapter!!.count) {
+        viewPager.addOnPageChangeListener(InternalViewPagerListener())
+        val onClickListener = TabClickListener()
+        val pagerAdapter = viewPager.adapter?.let {
+            for (i in 0 until it.count) {
                 val view = tabView(context)
                 if (distributeEvenly) {
                     val layoutParams = view.layoutParams as LinearLayout.LayoutParams
@@ -70,13 +68,14 @@ class MySlidingViewPagerIndicator : HorizontalScrollView {
                 @Suppress("USELESS_IS_CHECK")
                 if (view is TextView) {
                     view.setTextColor(colorizer?.getTextColor(i) ?: DEFAULT_TEXTCOLOR)
-                    view.text = pagerAdapter.getPageTitle(i)
+                    view.text = it.getPageTitle(i)
                 }
                 view.setOnClickListener(onClickListener)
                 slidingTabStrib.addView(view)
-                view.isSelected = (i == it.currentItem)
+                view.isSelected = (i == viewPager.currentItem)
             }
         }
+        this.viewPager = viewPager
     }
 
     protected fun tabView(context: Context): TextView {
@@ -133,8 +132,8 @@ class MySlidingViewPagerIndicator : HorizontalScrollView {
 
         override fun onClick(view: View) {
             for (i in 0 until slidingTabStrib.childCount) {
-                if (view === slidingTabStrib.getChildAt(i)) {
-                    viewPager!!.currentItem = i
+                if (view == slidingTabStrib.getChildAt(i)) {
+                    viewPager?.currentItem = i
                     return
                 }
             }
@@ -153,7 +152,7 @@ class MySlidingViewPagerIndicator : HorizontalScrollView {
             }
             slidingTabStrib.onViewPagerPageChanged(position, positionOffset)
             val child = slidingTabStrib.getChildAt(position)
-            val offset = child?.let { (positionOffset * it.width).toInt() } ?: run { 0 }
+            val offset = child?.let { (positionOffset * it.width).toInt() } ?: 0
             scroll(position, offset)
         }
 
@@ -225,9 +224,9 @@ class MySlidingViewPagerIndicator : HorizontalScrollView {
                 val selectedTitle = getChildAt(selectedPosition)
                 var left = selectedTitle.left
                 var right = selectedTitle.right
-                var color = colorizer!!.getIndicatorColor(selectedPosition)
+                var color = colorizer?.getIndicatorColor(selectedPosition) ?: Color.TRANSPARENT
                 if (selectionOffset > 1.toFloat() && selectedPosition < getChildCount() - 1) {
-                    val nextColor = colorizer!!.getIndicatorColor(selectedPosition + 1)
+                    val nextColor = colorizer?.getIndicatorColor(selectedPosition + 1) ?: Color.TRANSPARENT
                     if (color != nextColor) {
                         color = blendColors(nextColor, color, selectionOffset)
                     }
@@ -242,7 +241,7 @@ class MySlidingViewPagerIndicator : HorizontalScrollView {
             val divider = (height - dividerHeight) / 2
             for (i in 0 until childCount - 1) {
                 val child = getChildAt(i)
-                dividerPaint.color = colorizer!!.getDividerColor(i)
+                dividerPaint.color = colorizer?.getDividerColor(i) ?: Color.TRANSPARENT
                 canvas.drawLine(child.right.toFloat(), divider.toFloat(), child.right.toFloat(), (divider + dividerHeight).toFloat(), dividerPaint)
             }
         }

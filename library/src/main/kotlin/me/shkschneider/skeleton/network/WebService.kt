@@ -7,7 +7,6 @@ import com.google.gson.*
 import me.shkschneider.skeleton.data.CharsetHelper
 import me.shkschneider.skeleton.data.FileHelper
 import me.shkschneider.skeleton.data.MimeTypeHelper
-import me.shkschneider.skeleton.extensions.isNotNull
 import me.shkschneider.skeleton.helper.Logger
 import me.shkschneider.skeleton.java.SkHide
 import java.io.BufferedWriter
@@ -113,10 +112,10 @@ class WebService {
                     }
                     requestMethod = method.name
                     doOutput = method.allowsBody()
-                    if (! doOutput && body != null) {
-                        return WebServiceException(WebServiceException.INTERNAL_ERROR, "Body not allowed")
-                    }
                     body?.let {
+                        if (! doOutput) {
+                            return WebServiceException(WebServiceException.INTERNAL_ERROR, "Body not allowed")
+                        }
                         setRequestProperty("Content-Type", MimeTypeHelper.APPLICATION_FORMURLENCODED)
                         val dataOutputStream = DataOutputStream(outputStream)
                         var params = ""
@@ -131,17 +130,16 @@ class WebService {
                     }
                     Logger.debug("=> " + method.name + " " + url + " " + (headers?.toString() ?: "{}") + " " + (body?.toString() ?: "{}"))
                     Logger.debug("<= $responseCode $responseMessage $url")
-                    if (errorStream.isNotNull()) {
-                        val body = FileHelper.readString(errorStream)
-                        if (! body.isNullOrEmpty()) {
-                            Logger.verbose("<- " + body!!)
-                            return WebServiceException(responseCode, body)
+                    return errorStream?.let {
+                        FileHelper.readString(errorStream).takeIf {
+                            return it?.isNotBlank()
+                        } ?.let {
+                            Logger.verbose("<- $it")
+                            return it
+                        } ?: run {
+                            return WebServiceException(responseCode, responseMessage)
                         }
-                        return WebServiceException(responseCode, responseMessage)
                     }
-                    val body = FileHelper.readString(inputStream)
-                    Logger.verbose("<- " + body!!)
-                    return body
                 }
             } catch (e: JsonSyntaxException) {
                 Logger.wtf(e)

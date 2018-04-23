@@ -26,7 +26,7 @@ object KeyboardHelper {
     }
 
     fun keyboardCallback(editText: EditText, skeletonReceiver: SkeletonReceiver?, all: Boolean = false): Boolean {
-        if (skeletonReceiver == null) {
+        skeletonReceiver ?: run {
             editText.setOnEditorActionListener(null)
             return false
         }

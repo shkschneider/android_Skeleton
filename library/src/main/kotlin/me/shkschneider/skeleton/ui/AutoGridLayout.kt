@@ -149,31 +149,30 @@ class AutoGridLayout : FrameLayout {
         var column = 0
         var maxChildWidth = 0
         for (i in 0 until childCount) {
-            getChildAt(i)?.let {
-                if (it.visibility != View.GONE) {
-                    if (it.measuredHeight == 0 || it.measuredWidth == 0) {
-                        it.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.AT_MOST), View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.AT_MOST))
-                    }
-                    val layoutParams = it.layoutParams as FrameLayout.LayoutParams
-                    val childWidth = it.measuredWidth
-                    val childHeight = it.measuredHeight
-                    if (childTop + childHeight + layoutParams.topMargin + layoutParams.bottomMargin > height + paddingTop) {
-                        updateChildPositionVertical(height, totalVertical, column, maxChildWidth)
-                        childTop = paddingTop
-                        childLeft += maxChildWidth
-                        maxChildWidth = 0
-                        column++
-                        totalVertical = 0
-                    }
-                    childTop += layoutParams.topMargin
-                    positions.add(ViewPosition(childLeft, childTop, column))
-                    val currentWidth = childWidth + layoutParams.leftMargin + layoutParams.rightMargin
-                    if (maxChildWidth < currentWidth) {
-                        maxChildWidth = currentWidth
-                    }
-                    childTop += childHeight + layoutParams.bottomMargin
-                    totalVertical += childHeight + layoutParams.topMargin + layoutParams.bottomMargin
+            val viewGroup = getChildAt(i) ?: continue
+            if (viewGroup.visibility != View.GONE) {
+                if (viewGroup.measuredHeight == 0 || viewGroup.measuredWidth == 0) {
+                    viewGroup.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.AT_MOST), View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.AT_MOST))
                 }
+                val layoutParams = viewGroup.layoutParams as FrameLayout.LayoutParams
+                val childWidth = viewGroup.measuredWidth
+                val childHeight = viewGroup.measuredHeight
+                if (childTop + childHeight + layoutParams.topMargin + layoutParams.bottomMargin > height + paddingTop) {
+                    updateChildPositionVertical(height, totalVertical, column, maxChildWidth)
+                    childTop = paddingTop
+                    childLeft += maxChildWidth
+                    maxChildWidth = 0
+                    column++
+                    totalVertical = 0
+                }
+                childTop += layoutParams.topMargin
+                positions.add(ViewPosition(childLeft, childTop, column))
+                val currentWidth = childWidth + layoutParams.leftMargin + layoutParams.rightMargin
+                if (maxChildWidth < currentWidth) {
+                    maxChildWidth = currentWidth
+                }
+                childTop += childHeight + layoutParams.bottomMargin
+                totalVertical += childHeight + layoutParams.topMargin + layoutParams.bottomMargin
             }
         }
         updateChildPositionVertical(height, totalVertical, column, maxChildWidth)
@@ -196,31 +195,30 @@ class AutoGridLayout : FrameLayout {
         var row = 0
         var maxChildHeight = 0
         for (i in 0 until count) {
-            getChildAt(i)?.let {
-                if (it.visibility != View.GONE) {
-                    if (it.measuredHeight == 0 || it.measuredWidth == 0) {
-                        it.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.AT_MOST), View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.AT_MOST))
-                    }
-                    val layoutParams = it.layoutParams as FrameLayout.LayoutParams
-                    val childWidth = it.measuredWidth
-                    val childHeight = it.measuredHeight
-                    if (childLeft + childWidth + layoutParams.leftMargin + layoutParams.rightMargin > width + paddingLeft) {
-                        updateChildPositionHorizontal(width, totalHorizontal, row, maxChildHeight)
-                        childLeft = paddingLeft
-                        childTop += maxChildHeight
-                        maxChildHeight = 0
-                        row++
-                        totalHorizontal = 0
-                    }
-                    childLeft += layoutParams.leftMargin
-                    positions.add(ViewPosition(childLeft, childTop, row))
-                    val currentHeight = childHeight + layoutParams.topMargin + layoutParams.bottomMargin
-                    if (maxChildHeight < currentHeight) {
-                        maxChildHeight = currentHeight
-                    }
-                    childLeft += childWidth + layoutParams.rightMargin
-                    totalHorizontal += childWidth + layoutParams.rightMargin + layoutParams.leftMargin
+            val viewGroup = getChildAt(i) ?: continue
+            if (viewGroup.visibility != View.GONE) {
+                if (viewGroup.measuredHeight == 0 || viewGroup.measuredWidth == 0) {
+                    viewGroup.measure(View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.AT_MOST), View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.AT_MOST))
                 }
+                val layoutParams = viewGroup.layoutParams as FrameLayout.LayoutParams
+                val childWidth = viewGroup.measuredWidth
+                val childHeight = viewGroup.measuredHeight
+                if (childLeft + childWidth + layoutParams.leftMargin + layoutParams.rightMargin > width + paddingLeft) {
+                    updateChildPositionHorizontal(width, totalHorizontal, row, maxChildHeight)
+                    childLeft = paddingLeft
+                    childTop += maxChildHeight
+                    maxChildHeight = 0
+                    row++
+                    totalHorizontal = 0
+                }
+                childLeft += layoutParams.leftMargin
+                positions.add(ViewPosition(childLeft, childTop, row))
+                val currentHeight = childHeight + layoutParams.topMargin + layoutParams.bottomMargin
+                if (maxChildHeight < currentHeight) {
+                    maxChildHeight = currentHeight
+                }
+                childLeft += childWidth + layoutParams.rightMargin
+                totalHorizontal += childWidth + layoutParams.rightMargin + layoutParams.leftMargin
             }
         }
         updateChildPositionHorizontal(width, totalHorizontal, row, maxChildHeight)

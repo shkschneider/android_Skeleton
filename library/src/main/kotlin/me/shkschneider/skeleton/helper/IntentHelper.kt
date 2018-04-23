@@ -48,7 +48,7 @@ object IntentHelper {
 
     fun main(): Intent? {
         val intent = ApplicationHelper.packageManager().getLaunchIntentForPackage(ApplicationHelper.packageName())
-        if (intent == null) {
+        intent ?: run {
             Logger.warning("Intent was NULL")
             return null
         }
@@ -57,7 +57,7 @@ object IntentHelper {
 
     fun restart(): Intent? {
         val intent = ApplicationHelper.packageManager().getLaunchIntentForPackage(ApplicationHelper.packageName())
-        if (intent == null) {
+        intent ?: run {
             Logger.warning("Intent was NULL")
             return null
         }
@@ -102,7 +102,9 @@ object IntentHelper {
     fun ringtone(existingUri: String?): Intent {
         val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER)
                 .putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION)
-                .putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, if (existingUri != null) Uri.parse(existingUri) else null)
+                .putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, existingUri?.let {
+                    Uri.parse(it)
+                })
         return intent
     }
 
@@ -177,7 +179,7 @@ object IntentHelper {
 
     @SkHide
     fun canHandle(intent: Intent): Boolean {
-        // return (intent.resolveActivity(ApplicationHelper.packageManager()) != null);
+        // return (intent.resolveActivity(ApplicationHelper.packageManager())?.let { true } ?: false);
         val resolveInfos = ApplicationHelper.packageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
         return resolveInfos.size > 0
     }
@@ -190,38 +192,37 @@ object IntentHelper {
         }
         when (requestCode) {
             REQUEST_CODE_CAMERA -> {
-                if (intent == null) {
+                intent ?: run {
                     Logger.warning("Intent was NULL")
                     return null
                 }
-                val bundle = intent.extras
-                if (bundle == null) {
+                intent.extras ?: run {
                     Logger.warning("Bundle was NULL")
                     return null
                 }
-                return bundle.get("data")
+                return intent.extras?.get("data")
             }
             REQUEST_CODE_GALLERY -> {
-                if (intent == null) {
+                intent ?: run {
                     Logger.warning("Intent was NULL")
                     return null
                 }
-                val uri = intent.data
-                if (uri == null) {
+                return intent.data?.let {
+                    return BitmapHelper.decodeUri(it)
+                } ?: run {
                     Logger.warning("Uri was NULL")
                     return null
                 }
-                return BitmapHelper.decodeUri(uri)
             }
             REQUEST_CODE_RINGTONE -> {
-                if (intent == null) {
+                intent ?: run {
                     Logger.warning("Intent was NULL")
                     return null
                 }
                 val uri = intent.getParcelableExtra<Uri>(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
-                return if (uri != null) {
-                    RingtoneManager.getRingtone(ContextHelper.applicationContext(), uri)
-                } else null
+                return uri?.let {
+                    RingtoneManager.getRingtone(ContextHelper.applicationContext(), it)
+                }
             }
             else -> return null
         }

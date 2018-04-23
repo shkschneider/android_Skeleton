@@ -11,35 +11,36 @@ import java.util.regex.Pattern
 object GsonParser {
 
     fun parse(string: String): JsonObject? {
-        try {
-            return Gson().fromJson(string, JsonObject::class.java)
+        return try {
+            Gson().fromJson(string, JsonObject::class.java)
         } catch (e: JsonParseException) {
             Logger.wtf(e)
-            return null
+            null
         }
     }
 
     fun parse(inputStream: InputStream): JsonObject? {
         val string = FileHelper.readString(inputStream)
-        if (string.isNullOrEmpty()) {
+        return string?.let {
+            return parse(it)
+        } ?: run {
             Logger.warning("String was NULL")
             return null
         }
-        return parse(string!!)
     }
 
     fun get(jsonObject: JsonObject, string: String): JsonElement? {
         // bad formats
         if (StringHelper.count(string, "\\{") != StringHelper.count(string, "\\}")) {
-            Logger.error("Bad {} format: " + string)
+            Logger.error("Bad {} format: $string")
             return null
         }
         if (StringHelper.count(string, "\\[") != StringHelper.count(string, "\\]")) {
-            Logger.error("Bad [] format: " + string)
+            Logger.error("Bad [] format: $string")
             return null
         }
         if (! string.matches("^([\\{|\\[][^\\{|\\[|\\}|\\]]+(:[0-9]+)?[\\}|\\]])+$".toRegex())) {
-            Logger.error("Bad format: " + string)
+            Logger.error("Bad format: $string")
             return null
         }
         // tags and paths
@@ -70,7 +71,7 @@ object GsonParser {
             // object
             if (t == "{") {
                 if (! obj.has(p)) {
-                    Logger.error("No such object path: " + p)
+                    Logger.error("No such object path: $p")
                     return null
                 }
                 val jsonElement = obj.get(p)
@@ -80,7 +81,7 @@ object GsonParser {
                 }
                 // keep going so check the type
                 if (! jsonElement.isJsonObject) {
-                    Logger.error("Invalid type (not JsonObject): " + p)
+                    Logger.error("Invalid type (not JsonObject): $p")
                     return null
                 }
                 // prepare next loop
@@ -91,12 +92,12 @@ object GsonParser {
                 if (d.size == 1) {
                     val s = d[0]
                     if (! obj.has(s)) {
-                        Logger.error("No such array path: " + p)
+                        Logger.error("No such array path: $p")
                         return null
                     }
                     // has to be an array
                     if (! obj.isJsonArray) {
-                        Logger.error("Invalid type (not JsonArray): " + p)
+                        Logger.error("Invalid type (not JsonArray): $p")
                         return null
                     }
                     // returns as nothing more can be done
@@ -104,16 +105,16 @@ object GsonParser {
                 } else if (d.size == 2) {
                     val s = d[0]
                     if (! obj.has(s)) {
-                        Logger.error("No such array path: " + p)
+                        Logger.error("No such array path: $p")
                         return null
                     }
                     if (! TextUtils.isDigitsOnly(d[1])) {
                         Logger.error("Invalid index: " + d[1])
                         return null
                     }
-                    val n = Integer.valueOf(d[1])!!
+                    val n = Integer.valueOf(d[1])
                     if (n >= d.size) {
-                        Logger.error("Invalid index: " + n)
+                        Logger.error("Invalid index: $n")
                         return null
                     }
                     val jsonElement = obj.get(s)
@@ -124,13 +125,13 @@ object GsonParser {
                     }
                     // keep going so check the type
                     if (! jsonElement.isJsonArray) {
-                        Logger.error("Invalid type (not JsonArray): " + s)
+                        Logger.error("Invalid type (not JsonArray): $s")
                         return null
                     }
                     // prepare next loop
                     obj = array.get(n).asJsonObject
                 } else {
-                    Logger.error("Bad format: " + p)
+                    Logger.error("Bad format: $p")
                     return null
                 }
             }
@@ -151,11 +152,9 @@ object GsonParser {
     }
 
     fun values(jsonObject: JsonObject): List<JsonElement> {
-        val values = ArrayList<JsonElement>()
-        for ((_, value) in jsonObject.entrySet()) {
-            values.add(value)
+        return jsonObject.entrySet().map {
+            it.value
         }
-        return values
     }
 
     fun has(jsonObject: JsonObject, key: String): Boolean? {
@@ -163,43 +162,23 @@ object GsonParser {
     }
 
     fun copy(jsonObject: JsonObject, key: String): JsonObject? {
-        val jsonElement = element(jsonObject, key)
-        return if (jsonElement != null && jsonElement is JsonObject) {
-            jsonElement.asJsonObject
-        } else null
+        return element(jsonObject, key)?.asJsonObject
     }
 
     fun array(jsonObject: JsonObject, key: String): JsonArray? {
-        val jsonElement = element(jsonObject, key)
-        return if (jsonElement != null && jsonElement is JsonArray) {
-            jsonElement.asJsonArray
-        } else null
+        return element(jsonObject, key)?.asJsonArray
     }
 
     fun string(jsonObject: JsonObject, key: String, fallback: String? = null): String? {
-        val jsonElement = jsonObject.get(key)
-        return if (jsonElement != null && jsonElement !is JsonNull) {
-            jsonElement.asString
-        } else fallback
+        return jsonObject.get(key)?.asString ?: fallback
     }
 
-    // NOT @Nullable
-    fun number(jsonObject: JsonObject, key: String, fallback: Number): Number {
-        val jsonElement = jsonObject.get(key)
-        return if (jsonElement != null && jsonElement !is JsonNull) {
-            jsonElement.asNumber
-        } else fallback
-    }
-
-    fun number(jsonObject: JsonObject, key: String): Number? {
-        return number(jsonObject, key, 0)
+    fun number(jsonObject: JsonObject, key: String, fallback: Number? = null): Number? {
+        return jsonObject.get(key)?.asNumber ?: fallback
     }
 
     fun bool(jsonObject: JsonObject, key: String, fallback: Boolean? = null): Boolean? {
-        val jsonElement = jsonObject.get(key)
-        return if (jsonElement != null && jsonElement !is JsonNull) {
-            jsonElement.asBoolean
-        } else fallback
+        return jsonObject.get(key)?.asBoolean ?: fallback
     }
 
 }

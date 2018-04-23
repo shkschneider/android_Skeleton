@@ -10,29 +10,21 @@ import android.support.v4.content.ContextCompat
 // <http://developer.android.com/reference/android/os/Build.html>
 object DeviceHelper {
 
-    fun tablet(): Boolean {
-        val screenSize = ScreenHelper.inches().toDouble()
-        return screenSize >= 7.0
+    fun architecture(): String? {
+        return SystemProperties.get(SystemProperties.OS_ARCH)
     }
 
     fun brand(): String {
         return Build.BRAND
     }
 
-    fun manufacturer(): String {
-        return Build.MANUFACTURER
-    }
-
-    fun model(): String {
-        return Build.MODEL
-    }
-
     fun codename(): String {
         return Build.DEVICE
     }
 
-    fun architecture(): String? {
-        return SystemProperties.get(SystemProperties.OS_ARCH)
+    // Hidden Build.IS_EMULATOR
+    fun emulator(): Boolean {
+        return (SystemProperties.get("ro.kernel.qemu") == "1")
     }
 
     fun is64bits(): Boolean {
@@ -41,6 +33,14 @@ object DeviceHelper {
             return is64bits && Build.SUPPORTED_64_BIT_ABIS.isNotEmpty()
         }
         return is64bits
+    }
+
+    fun manufacturer(): String {
+        return Build.MANUFACTURER
+    }
+
+    fun model(): String {
+        return Build.MODEL
     }
 
     @Suppress("DEPRECATION")
@@ -53,6 +53,11 @@ object DeviceHelper {
             return Build.getSerial()
         }
         return Build.SERIAL
+    }
+
+    fun tablet(): Boolean {
+        val screenSize = ScreenHelper.inches().toDouble()
+        return screenSize >= 7.0
     }
 
 }

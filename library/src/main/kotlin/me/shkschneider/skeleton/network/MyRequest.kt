@@ -47,10 +47,8 @@ class MyRequest : Request<MyResponse> {
 
     @SkHide
     override fun deliverResponse(response: MyResponse) {
-        listener?.let {
-            Logger.verbose(response.code().toString() + ": " + response.toString())
-            it.onResponse(response)
-        }
+        Logger.verbose(response.code().toString() + ": " + response.toString())
+        listener?.onResponse(response)
     }
 
     @SkHide

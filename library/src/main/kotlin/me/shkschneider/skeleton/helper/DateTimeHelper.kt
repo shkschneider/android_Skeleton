@@ -21,10 +21,10 @@ object DateTimeHelper {
 
     @Synchronized
     fun calendar(): Calendar {
-        if (calendar == null) {
+        calendar ?: run {
             calendar = Calendar.getInstance(LocaleHelper.Device.locale())
         }
-        return calendar!!
+        return calendar as Calendar
     }
 
     fun epoch(): Calendar {
@@ -47,7 +47,7 @@ object DateTimeHelper {
 
     // <http://howtodoinjava.com/2012/12/16/always-use-setlenient-false-when-using-simpledateformat-for-date-validation-in-java/>
     fun format(calendar: Calendar, f: String?): String {
-        val format: String = if (f.isNullOrBlank()) ISO_8601 else f!!
+        val format = if (f?.isNotBlank() == true) f else ISO_8601
         calendar.isLenient = false
         return SimpleDateFormat(format, LocaleHelper.Device.locale()).format(calendar.time)
     }

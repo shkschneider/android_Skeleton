@@ -35,8 +35,7 @@ object ApplicationHelper {
         try {
             val packageManager = packageManager()
             val applicationInfo = packageManager.getApplicationInfo(packageName(), 0)
-            val label = applicationInfo.loadLabel(packageManager)
-            if (label == null) {
+            val label = applicationInfo.loadLabel(packageManager) ?: run {
                 Logger.warning("Label was NULL")
                 return null
             }

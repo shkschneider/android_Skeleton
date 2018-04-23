@@ -37,8 +37,7 @@ class LetterIcon : View {
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        val layoutParams = layoutParams
-        if (layoutParams == null) {
+        val layoutParams = layoutParams ?: run {
             Logger.warning("ViewGroup.LayoutParams was NULL")
             return
         }

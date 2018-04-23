@@ -19,12 +19,11 @@ object JsonParser {
     }
 
     fun parse(inputStream: InputStream): JSONObject? {
-        val string = FileHelper.readString(inputStream)
-        if (string.isNullOrEmpty()) {
+        val string = FileHelper.readString(inputStream) ?: run {
             Logger.warning("String was NULL")
             return null
         }
-        return parse(string!!)
+        return parse(string)
     }
 
     fun <T> get(jsonObject: JSONObject, key: String, fallback: T): T? {

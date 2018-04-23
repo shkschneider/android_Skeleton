@@ -157,7 +157,7 @@ object BitmapHelper {
         options.inJustDecodeBounds = true
         try {
             val inputStream = ContextHelper.applicationContext().contentResolver.openInputStream(uri)
-            if (inputStream == null) {
+            inputStream ?: run {
                 Logger.warning("InputStream was NULL")
                 return null
             }
