@@ -28,8 +28,12 @@ fun String.kebabCase(): String {
     return case(this).joinToString(separator = "-")
 }
 
-fun String.ellipsize(@IntRange(from = 0) maxLength: Int = 80): String {
+fun String.ellipsize(@IntRange(from = 0) maxLength: Int = 80, reverse: Boolean = false): String {
     return if (length > maxLength) {
-        substring(0, maxLength - 3) + ".".repeat(3)
+        if (reverse) {
+            ".".repeat(3) + substring((length - maxLength - 3), length)
+        } else {
+            substring(0, maxLength - 3) + ".".repeat(3)
+        }
     } else this
 }

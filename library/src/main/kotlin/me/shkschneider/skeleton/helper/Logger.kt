@@ -3,7 +3,7 @@ package me.shkschneider.skeleton.helper
 import android.support.annotation.IntRange
 import android.util.Log
 import me.shkschneider.skeleton.SkeletonApplication
-import me.shkschneider.skeleton.java.SkHide
+import me.shkschneider.skeleton.extensions.ellipsize
 
 object Logger {
 
@@ -14,44 +14,24 @@ object Logger {
     private const val ERROR = Log.ERROR
     private const val WTF = Log.ASSERT
 
-    @SkHide
-    private fun tag(): String {
-        var tag = SkeletonApplication.TAG
-        while (tag.length > 23 && tag.contains(".")) {
-            tag = tag.substring(tag.indexOf(".") + 1, tag.length)
-        }
-        if (tag.length > 23) {
-            tag = tag.substring(tag.length - 23, tag.length)
-        }
-        return tag
-    }
-
     private fun log(@IntRange(from = VERBOSE.toLong(), to = WTF.toLong()) level: Int, msg: String?, throwable: Throwable?) {
-        val elements = Throwable().stackTrace
-        var callerClassName = "?"
-        var callerMethodName = "?"
-        var callerLineNumber = "?"
-        if (elements.size >= 3) {
-            callerClassName = elements[2].className
-            callerClassName = callerClassName.substring(callerClassName.lastIndexOf('.') + 1)
-            if (callerClassName.indexOf("$") > 0) {
-                callerClassName = callerClassName.substring(0, callerClassName.indexOf("$"))
+        // <https://developer.android.com/reference/android/util/Log.html>
+        val tag = SkeletonApplication.TAG.ellipsize(23, reverse = true)
+        var prefix = ""
+        if (ApplicationHelper.debuggable()) {
+            Throwable().stackTrace.dropWhile { it.className == this.javaClass.name }.also { elements ->
+                elements[0]?.let { element ->
+                    prefix = "[${element.className.substringAfterLast(".")}.${element.methodName.substringBefore("$")}():${element.lineNumber}] "
+                }
             }
-            callerMethodName = elements[2].methodName
-            callerMethodName = callerMethodName.substring(callerMethodName.lastIndexOf('_') + 1)
-            if (callerMethodName == "<init>") {
-                callerMethodName = callerClassName
-            }
-            callerLineNumber = elements[2].lineNumber.toString()
         }
-        val stack = "[" + callerClassName + "." + callerMethodName + "():" + callerLineNumber + "]" + if (msg.isNullOrBlank()) "" else " "
         when (level) {
-            VERBOSE -> Log.v(tag(), stack + msg, throwable)
-            DEBUG -> Log.d(tag(), stack + msg, throwable)
-            INFO -> Log.i(tag(), stack + msg, throwable)
-            WARN -> Log.w(tag(), stack + msg, throwable)
-            ERROR -> Log.e(tag(), stack + msg, throwable)
-            WTF -> Log.wtf(tag(), stack + msg, throwable)
+            VERBOSE -> Log.v(tag, prefix + msg, throwable)
+            DEBUG -> Log.d(tag, prefix + msg, throwable)
+            INFO -> Log.i(tag, prefix + msg, throwable)
+            WARN -> Log.w(tag, prefix + msg, throwable)
+            ERROR -> Log.e(tag, prefix + msg, throwable)
+            WTF -> Log.wtf(tag, prefix + msg, throwable)
         }
     }
 
