@@ -43,7 +43,7 @@ class ShkFragment : SkeletonFragment() {
                 }
             }
             override fun onErrorResponse(error: VolleyError) {
-                Toaster.show(error.message ?: "")
+                Toaster.show(error.message.orEmpty())
             }
         })
         fill(view.findViewById(R.id.id_id), "#", SpannableString("42"))

@@ -31,7 +31,7 @@ abstract class SkeletonApplication : Application() {
                 }
             })
         }
-        Logger.verbose("Hello, " + DeviceHelper.codename() + "!")
+        Logger.verbose("Hello, ${DeviceHelper.codename()}!")
     }
 
     companion object {

@@ -21,6 +21,7 @@ import android.view.MenuItem
 
 import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.demo.data.ShkMod
+import me.shkschneider.skeleton.extensions.klass
 import me.shkschneider.skeleton.helper.*
 import me.shkschneider.skeleton.network.NetworkHelper
 import me.shkschneider.skeleton.network.WebService
@@ -119,11 +120,11 @@ class MainActivity : SkeletonActivity() {
                 }
                 override fun onAuthenticationHelp(helpCode: Int, helpString: CharSequence?) {
                     super.onAuthenticationHelp(helpCode, helpString)
-                    Toaster.show(helpString?.toString() ?: "")
+                    Toaster.show(helpString?.toString().orEmpty())
                 }
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence?) {
                     super.onAuthenticationError(errorCode, errString)
-                    Toaster.show(errString?.toString() ?: "")
+                    Toaster.show(errString?.toString().orEmpty())
                 }
             })
         }
@@ -138,13 +139,13 @@ class MainActivity : SkeletonActivity() {
     private fun network() {
         WebService(WebService.Method.GET, URL)
                 .callback(object : WebService.Callback {
-                    override fun success(result: String?) {
-                        if (result?.isNotBlank() == true) {
-                            notification(DateTimeHelper.timestamp().toInt(), ShkMod::class.java.simpleName, result)
+                    override fun success(result: WebService.Response?) {
+                        if (result?.message?.isNotBlank() == true) {
+                            notification(DateTimeHelper.timestamp(), ShkMod::class.java.simpleName, result.message!!)
                         }
                     }
-                    override fun failure(e: WebServiceException) {
-                        Toaster.show(WebServiceException::class.java.simpleName)
+                    override fun failure(e: WebService.Error) {
+                        Toaster.show(WebService.Error::class.java.simpleName)
                     }
                 }).run()
     }

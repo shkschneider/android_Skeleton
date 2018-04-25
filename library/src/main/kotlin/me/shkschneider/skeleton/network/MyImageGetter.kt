@@ -40,7 +40,7 @@ class MyImageGetter : Html.ImageGetter {
             }
             override fun onErrorResponse(error: VolleyError) {
                 if (! error.cause?.message.isNullOrBlank()) {
-                    Logger.error(error.cause?.message ?: "")
+                    Logger.error(error.cause?.message.orEmpty())
                 }
             }
         })
