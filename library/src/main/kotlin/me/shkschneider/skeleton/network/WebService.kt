@@ -2,8 +2,9 @@ package me.shkschneider.skeleton.network
 
 import android.annotation.SuppressLint
 import android.os.AsyncTask
+import android.support.annotation.IntRange
 import android.support.annotation.Size
-import com.google.gson.*
+import com.google.gson.JsonSyntaxException
 import me.shkschneider.skeleton.data.CharsetHelper
 import me.shkschneider.skeleton.data.FileHelper
 import me.shkschneider.skeleton.data.MimeTypeHelper
@@ -16,11 +17,13 @@ import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 class WebService {
 
-    private val TIMEOUT_CONNECT = 15000
-    private val TIMEOUT_READ = 60000
+    private val TIMEOUT_CONNECT = TimeUnit.SECONDS.toMillis(15).toInt()
+    private val TIMEOUT_READ = TimeUnit.MINUTES.toMillis(1).toInt()
 
     private val method: WebService.Method
     private val url: String
@@ -107,20 +110,20 @@ class WebService {
                     readTimeout = TIMEOUT_READ
                     useCaches = false
                     doInput = true
-                    headers?.forEach {
-                        setRequestProperty(it.key, it.value)
+                    headers?.forEach { entry ->
+                        setRequestProperty(entry.key, entry.value)
                     }
                     requestMethod = method.name
                     doOutput = method.allowsBody()
-                    body?.let {
+                    body?.let { body ->
                         if (! doOutput) {
-                            return WebServiceException(WebServiceException.INTERNAL_ERROR, "Body not allowed")
+                            return Error(INTERNAL_ERROR, "Body not allowed")
                         }
                         setRequestProperty("Content-Type", MimeTypeHelper.APPLICATION_FORMURLENCODED)
                         val dataOutputStream = DataOutputStream(outputStream)
                         var params = ""
-                        it.keys.forEach {
-                            params += it + "=" + UrlHelper.encode(it)
+                        body.keys.forEach { key ->
+                            params += key + "=" + UrlHelper.encode(key)
                         }
                         val bufferedWriter = BufferedWriter(OutputStreamWriter(dataOutputStream, CharsetHelper.UTF8))
                         bufferedWriter.write(params)
@@ -130,26 +133,25 @@ class WebService {
                     }
                     Logger.debug("=> " + method.name + " " + url + " " + (headers?.toString() ?: "{}") + " " + (body?.toString() ?: "{}"))
                     Logger.debug("<= $responseCode $responseMessage $url")
-                    return errorStream?.let {
-                        FileHelper.readString(errorStream).takeIf {
-                            return it?.isNotBlank()
-                        } ?.let {
-                            Logger.verbose("<- $it")
-                            return it
-                        } ?: run {
-                            return WebServiceException(responseCode, responseMessage)
+                    errorStream?.let { errorStream ->
+                        return Response(responseCode, FileHelper.readString(errorStream) ?: responseMessage)
+                    } ?: run {
+                        FileHelper.readString(inputStream)?.let { response ->
+                            Logger.verbose("<- $response")
+                            return Response(responseCode, response)
                         }
                     }
+                    return Response(responseCode, responseMessage)
                 }
             } catch (e: JsonSyntaxException) {
                 Logger.wtf(e)
-                return WebServiceException(WebServiceException.INTERNAL_ERROR, JsonSyntaxException::class.java.simpleName)
+                return Error(INTERNAL_ERROR, JsonSyntaxException::class.java.simpleName)
             } catch (e: MalformedURLException) {
                 Logger.wtf(e)
-                return WebServiceException(WebServiceException.INTERNAL_ERROR, MalformedURLException::class.java.simpleName)
+                return Error(INTERNAL_ERROR, MalformedURLException::class.java.simpleName)
             } catch (e: IOException) {
                 Logger.wtf(e)
-                return WebServiceException(WebServiceException.INTERNAL_ERROR, IOException::class.java.simpleName)
+                return Error(INTERNAL_ERROR, IOException::class.java.simpleName)
             } finally {
                 httpURLConnection?.disconnect()
             }
@@ -158,17 +160,54 @@ class WebService {
         override fun onPostExecute(result: Any?) {
             super.onPostExecute(result)
             when (result) {
-                is WebServiceException -> callback?.failure(result)
-                else -> callback?.success(result as? String)
+                is Response -> callback?.success(result)
+                is Error -> callback?.failure(result)
+                else -> throw UnsupportedOperationException("Result was not a Response nor an Exception!")
             }
         }
 
     }
 
+    class Response {
+
+        val code: Int
+        val message: String?
+
+        constructor(@IntRange(from = 0, to = INTERNAL_ERROR.toLong()) code: Int, message: String? = null) {
+            this.code = code
+            this.message = message
+        }
+
+        override fun toString(): String {
+            return String.format(Locale.getDefault(), "%d %s", code, message)
+        }
+
+    }
+
+    class Error : Exception {
+
+        val code: Int
+
+        constructor(@IntRange(from = 0, to = INTERNAL_ERROR.toLong()) code: Int, message: String? = null) : super(message, null) {
+            this.code = code
+        }
+
+        override fun toString(): String {
+            return String.format(Locale.getDefault(), "%d %s", code, message)
+        }
+
+    }
+
+    companion object {
+
+        const val INTERNAL_ERROR = 666
+
+    }
+
     interface Callback {
 
-        fun success(result: String?)
-        fun failure(e: WebServiceException)
+        fun success(result: Response?)
+        fun failure(e: Error)
 
     }
 
