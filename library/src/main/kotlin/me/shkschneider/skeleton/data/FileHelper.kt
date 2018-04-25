@@ -107,8 +107,8 @@ object FileHelper {
             Logger.debug("File was not a directory")
             return null
         }
-        return file.listFiles()?.let {
-            it.mapTo(ArrayList<String>()) { it.absolutePath }
+        return file.listFiles()?.let { files ->
+            files.mapTo(ArrayList<String>()) { file -> file.absolutePath }
         }
     }
 

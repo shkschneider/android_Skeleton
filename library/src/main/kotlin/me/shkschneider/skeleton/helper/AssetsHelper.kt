@@ -13,41 +13,41 @@ object AssetsHelper {
 
     fun list(): List<String>? {
         val assetManager = assetManager()
-        try {
-            return assetManager.list("")?.toList()
+        return try {
+            assetManager.list("")?.toList()
         } catch (e: IOException) {
             Logger.wtf(e)
-            return null
+            null
         }
     }
 
     fun open(name: String): InputStream? {
         val assetManager = assetManager()
-        try {
-            return assetManager.open(name)
+        return try {
+            assetManager.open(name)
         } catch (e: IOException) {
             Logger.wtf(e)
-            return null
+            null
         }
     }
 
     fun dump(): Boolean {
         var errors = 0
-        val assets = list()
-        assets ?: errors++
-        assets?.forEach {
+        list()?.forEach { file ->
             try {
-                val inputStream = open(it) ?: throw NullPointerException()
-                val outputStream = InternalDataHelper.openOutput(it) ?: throw NullPointerException()
-                inputStream.copyTo(outputStream)
-                inputStream.close()
-                outputStream.flush()
-                outputStream.close()
+                open(file)?.let { inputStream ->
+                    InternalDataHelper.openOutput(file)?.let { outputStream ->
+                        inputStream.copyTo(outputStream)
+                        inputStream.close()
+                        outputStream.flush()
+                        outputStream.close()
+                    }
+                }
             } catch (e: IOException) {
                 Logger.wtf(e)
                 errors++
             }
-        }
+        } ?: errors++
         return errors == 0
     }
 

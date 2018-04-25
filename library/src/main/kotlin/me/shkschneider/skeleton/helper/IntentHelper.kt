@@ -102,9 +102,7 @@ object IntentHelper {
     fun ringtone(existingUri: String?): Intent {
         val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER)
                 .putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION)
-                .putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, existingUri?.let {
-                    Uri.parse(it)
-                })
+                .putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Uri.parse(existingUri.orEmpty()))
         return intent
     }
 
@@ -207,12 +205,11 @@ object IntentHelper {
                     Logger.warning("Intent was NULL")
                     return null
                 }
-                return intent.data?.let {
-                    return BitmapHelper.decodeUri(it)
-                } ?: run {
+                intent.data ?: run {
                     Logger.warning("Uri was NULL")
                     return null
                 }
+                return BitmapHelper.decodeUri(intent.data)
             }
             REQUEST_CODE_RINGTONE -> {
                 intent ?: run {
@@ -220,8 +217,8 @@ object IntentHelper {
                     return null
                 }
                 val uri = intent.getParcelableExtra<Uri>(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
-                return uri?.let {
-                    RingtoneManager.getRingtone(ContextHelper.applicationContext(), it)
+                return uri?.let { uri ->
+                    RingtoneManager.getRingtone(ContextHelper.applicationContext(), uri)
                 }
             }
             else -> return null

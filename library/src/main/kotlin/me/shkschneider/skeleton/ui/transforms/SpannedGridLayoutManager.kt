@@ -26,7 +26,7 @@ import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
 import me.shkschneider.skeleton.helper.ContextHelper
-import java.util.ArrayList
+import java.util.*
 
 // <https://github.com/nickbutcher/plaid/blob/6a3cb17ede0ffeffb4ca16e4fd3c2ab60900d6b8/app/src/main/java/io/plaidapp/ui/recyclerview/SpannedGridLayoutManager.java>
 class SpannedGridLayoutManager : RecyclerView.LayoutManager {
@@ -105,8 +105,8 @@ class SpannedGridLayoutManager : RecyclerView.LayoutManager {
     override fun onLayoutChildren(recycler: RecyclerView.Recycler?, state: RecyclerView.State?) {
         calculateWindowSize()
         calculateCellPositions(recycler, state)
-        state?.let {
-            if (it.itemCount == 0) {
+        state?.let { state ->
+            if (state.itemCount == 0) {
                 detachAndScrapAttachedViews(recycler)
                 firstVisibleRow = 0
                 resetVisibleItemTracking()
@@ -350,9 +350,9 @@ class SpannedGridLayoutManager : RecyclerView.LayoutManager {
     }
 
     private fun getRowIndex(position: Int): Int {
-        cells?.let {
-            if (position < it.size()) {
-                return it.get(position).row
+        cells?.let { cells ->
+            if (position < cells.size()) {
+                return cells.get(position).row
             }
         }
         return -1

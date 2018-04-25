@@ -12,20 +12,20 @@ import java.io.FileOutputStream
 object InternalDataHelper {
 
     fun openInput(name: String): FileInputStream? {
-        try {
-            return ContextHelper.applicationContext().openFileInput(name)
+        return try {
+            ContextHelper.applicationContext().openFileInput(name)
         } catch (e: FileNotFoundException) {
             Logger.wtf(e)
-            return null
+            null
         }
     }
 
     fun openOutput(name: String): FileOutputStream? {
-        try {
-            return ContextHelper.applicationContext().openFileOutput(name, Context.MODE_PRIVATE)
+        return try {
+            ContextHelper.applicationContext().openFileOutput(name, Context.MODE_PRIVATE)
         } catch (e: FileNotFoundException) {
             Logger.wtf(e)
-            return null
+            null
         }
     }
 

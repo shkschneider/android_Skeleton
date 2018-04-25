@@ -6,8 +6,6 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.TextView
 
-import me.shkschneider.skeleton.helper.AndroidHelper
-
 class LongPreference : Preference {
 
     constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr)

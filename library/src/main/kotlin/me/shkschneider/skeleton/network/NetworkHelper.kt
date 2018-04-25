@@ -7,7 +7,10 @@ import android.os.Build
 import android.support.annotation.RequiresPermission
 import android.util.Patterns
 import android.webkit.WebSettings
-import me.shkschneider.skeleton.helper.*
+import me.shkschneider.skeleton.helper.ContextHelper
+import me.shkschneider.skeleton.helper.Logger
+import me.shkschneider.skeleton.helper.SystemProperties
+import me.shkschneider.skeleton.helper.SystemServices
 import me.shkschneider.skeleton.java.ReflectHelper
 import java.net.Inet4Address
 import java.net.NetworkInterface
@@ -21,9 +24,9 @@ object NetworkHelper {
     @SuppressLint("PrivateApi")
     fun hostname(): String? {
         try {
-            Class.forName("android.os.SystemProperties")?.let {
+            Class.forName("android.os.SystemProperties")?.let { cls ->
                 @Suppress("DEPRECATION")
-                return ReflectHelper.Method.method(it, "get", arrayOf(String::class.java), "net.hostname") as String?
+                return ReflectHelper.Method.method(cls, "get", arrayOf(String::class.java), "net.hostname") as String?
             }
         }
         catch (e: ClassNotFoundException) {
@@ -53,11 +56,10 @@ object NetworkHelper {
 
     @RequiresPermission(Manifest.permission.ACCESS_WIFI_STATE)
     fun wifi(): Boolean {
-        val wifiManager = SystemServices.wifiManager()
-        return wifiManager?.let {
-            return it.wifiState == WifiManager.WIFI_STATE_ENABLED
+        SystemServices.wifiManager()?.let { wifiManager ->
+            return wifiManager.wifiState == WifiManager.WIFI_STATE_ENABLED
         } ?: run {
-            Logger.warning("wifiManager was NULL")
+            Logger.warning("WifiManager was NULL")
             return false
         }
     }
@@ -65,12 +67,11 @@ object NetworkHelper {
     fun ipAddresses(): List<String>? {
         try {
             val ipAddresses = ArrayList<String>()
-            val enumerationNetworkInterface = NetworkInterface.getNetworkInterfaces()
-            while (enumerationNetworkInterface.hasMoreElements()) {
-                val networkInterface = enumerationNetworkInterface.nextElement()
-                val enumerationInetAddress = networkInterface.inetAddresses
-                while (enumerationInetAddress.hasMoreElements()) {
-                    val inetAddress = enumerationInetAddress.nextElement()
+            val networkInterfaces = NetworkInterface.getNetworkInterfaces()
+            while (networkInterfaces.hasMoreElements()) {
+                val inetAddresses = networkInterfaces.nextElement().inetAddresses
+                while (inetAddresses.hasMoreElements()) {
+                    val inetAddress = inetAddresses.nextElement()
                     val ipAddress = inetAddress.hostAddress
                     if (! inetAddress.isLoopbackAddress && inetAddress is Inet4Address) {
                         ipAddresses.add(ipAddress)
@@ -91,12 +92,11 @@ object NetworkHelper {
 
     fun ipAddress(): String? {
         try {
-            val enumerationNetworkInterface = NetworkInterface.getNetworkInterfaces()
-            while (enumerationNetworkInterface.hasMoreElements()) {
-                val networkInterface = enumerationNetworkInterface.nextElement()
-                val enumerationInetAddress = networkInterface.inetAddresses
-                while (enumerationInetAddress.hasMoreElements()) {
-                    val inetAddress = enumerationInetAddress.nextElement()
+            val networkInterfaces = NetworkInterface.getNetworkInterfaces()
+            while (networkInterfaces.hasMoreElements()) {
+                val inetAddresses = networkInterfaces.nextElement().inetAddresses
+                while (inetAddresses.hasMoreElements()) {
+                    val inetAddress = inetAddresses.nextElement()
                     val ipAddress = inetAddress.hostAddress
                     if (! inetAddress.isLoopbackAddress && inetAddress is Inet4Address) {
                         return ipAddress

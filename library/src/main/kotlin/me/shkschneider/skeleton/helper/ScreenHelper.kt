@@ -1,8 +1,6 @@
 package me.shkschneider.skeleton.helper
 
-import android.app.Activity
 import android.content.Context
-import android.content.res.Configuration
 import android.graphics.Point
 import android.os.Build
 import android.support.annotation.FloatRange
@@ -10,7 +8,6 @@ import android.util.DisplayMetrics
 import android.view.Surface
 import android.view.Window
 import android.view.WindowManager
-
 import me.shkschneider.skeleton.R
 
 object ScreenHelper {

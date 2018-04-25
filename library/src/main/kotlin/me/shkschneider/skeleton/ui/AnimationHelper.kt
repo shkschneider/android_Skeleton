@@ -2,13 +2,10 @@ package me.shkschneider.skeleton.ui
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import android.annotation.SuppressLint
 import android.os.Build
 import android.view.View
 import android.view.ViewAnimationUtils
-
 import me.shkschneider.skeleton.R
-import me.shkschneider.skeleton.helper.AndroidHelper
 import me.shkschneider.skeleton.helper.ApplicationHelper
 
 object AnimationHelper {

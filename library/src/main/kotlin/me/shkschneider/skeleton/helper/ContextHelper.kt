@@ -21,9 +21,7 @@ object ContextHelper {
     }
 
     fun applicationContext(): Context {
-        return context?.let {
-            return it
-        } ?: throw NullPointerException("Context was not set!")
+        return context ?: throw NullPointerException("Context was not set!")
     }
 
 }

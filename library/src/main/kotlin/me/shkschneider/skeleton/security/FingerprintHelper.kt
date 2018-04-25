@@ -3,15 +3,15 @@ package me.shkschneider.skeleton.security
 import android.Manifest
 import android.hardware.fingerprint.FingerprintManager
 import android.os.CancellationSignal
+import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.support.annotation.RequiresApi
+import android.support.annotation.RequiresPermission
 import me.shkschneider.skeleton.helper.AndroidHelper
 import me.shkschneider.skeleton.helper.SystemServices
 import java.security.KeyStore
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
-import android.security.keystore.KeyGenParameterSpec
-import android.support.annotation.RequiresPermission
 import javax.crypto.SecretKey
 
 object FingerprintHelper {
@@ -57,11 +57,11 @@ object FingerprintHelper {
     @RequiresApi(AndroidHelper.API_23)
     @RequiresPermission(Manifest.permission.USE_FINGERPRINT)
     fun background(callback: FingerprintManager.AuthenticationCallback): CancellationSignal? {
-        return SystemServices.fingerprintManager()?.let {
+        return SystemServices.fingerprintManager()?.let { fingerPrintManager ->
             val cancellationSignal = CancellationSignal()
-            it.authenticate(signature(), cancellationSignal, 0, callback, null)
+            fingerPrintManager.authenticate(signature(), cancellationSignal, 0, callback, null)
             return cancellationSignal
-        } ?: return null
+        }
     }
 
 //    TODO <https://cdn-images-1.medium.com/max/1000/1*8_pvcPgA_CwK2ddt1gH-KQ.png>
@@ -81,10 +81,8 @@ object FingerprintHelper {
     }
 
     fun cancel(cancellationSignal: CancellationSignal?) {
-        cancellationSignal?.let {
-            if (it.isCanceled) {
-                it.cancel()
-            }
+        if (cancellationSignal?.isCanceled == false) {
+            cancellationSignal.cancel()
         }
     }
 

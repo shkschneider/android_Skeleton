@@ -76,6 +76,10 @@ object NotificationHelper {
             return super.setWhen(TimeUnit.SECONDS.toMillis(s))
         }
 
+        override fun setUsesChronometer(b: Boolean): NotificationCompat.Builder {
+            return super.setUsesChronometer(b)
+        }
+
         @Deprecated("Use a NotificationChannel.")
         constructor(id: String) : super(ContextHelper.applicationContext(), id) {
             setChannelId(id)
@@ -111,8 +115,8 @@ object NotificationHelper {
 
         @RequiresApi(AndroidHelper.API_26)
         fun get(): NotificationChannel {
-            get(id)?.let {
-                return it
+            get(id)?.let { notificationChannel ->
+                return notificationChannel
             }
             val notificationChannel = NotificationChannel(id, name, NotificationManager.IMPORTANCE_DEFAULT)
             with (notificationChannel) {
@@ -146,9 +150,7 @@ object NotificationHelper {
     }
 
     fun notify(@IntRange(from = 0) id: Int, notification: Notification, ms: Long? = null) {
-        ms?.let {
-            notification.`when` = ms
-        }
+        notification.`when` = ms ?: DateTimeHelper.now()
         SystemServices.notificationManager()?.notify(id, notification)
     }
 

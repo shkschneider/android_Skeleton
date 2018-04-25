@@ -57,8 +57,8 @@ class MySlidingViewPagerIndicator : HorizontalScrollView {
         slidingTabStrib.removeAllViews()
         viewPager.addOnPageChangeListener(InternalViewPagerListener())
         val onClickListener = TabClickListener()
-        val pagerAdapter = viewPager.adapter?.let {
-            for (i in 0 until it.count) {
+        viewPager.adapter?.let { pagerAdapter ->
+            for (i in 0 until pagerAdapter.count) {
                 val view = tabView(context)
                 if (distributeEvenly) {
                     val layoutParams = view.layoutParams as LinearLayout.LayoutParams
@@ -68,7 +68,7 @@ class MySlidingViewPagerIndicator : HorizontalScrollView {
                 @Suppress("USELESS_IS_CHECK")
                 if (view is TextView) {
                     view.setTextColor(colorizer?.getTextColor(i) ?: DEFAULT_TEXTCOLOR)
-                    view.text = it.getPageTitle(i)
+                    view.text = pagerAdapter.getPageTitle(i)
                 }
                 view.setOnClickListener(onClickListener)
                 slidingTabStrib.addView(view)
@@ -96,8 +96,8 @@ class MySlidingViewPagerIndicator : HorizontalScrollView {
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        viewPager?.let {
-            scroll(it.currentItem, 0)
+        viewPager?.let { viewPager ->
+            scroll(viewPager.currentItem, 0)
         }
     }
 
@@ -106,8 +106,8 @@ class MySlidingViewPagerIndicator : HorizontalScrollView {
         if (childCount == 0 || tab < 0 || tab >= childCount) {
             return
         }
-        slidingTabStrib.getChildAt(tab)?.let {
-            var scroll = it.left + offset
+        slidingTabStrib.getChildAt(tab)?.let { view ->
+            var scroll = view.left + offset
             if (tab > 0 || offset > 0) {
                 scroll -= titleOffset
             }

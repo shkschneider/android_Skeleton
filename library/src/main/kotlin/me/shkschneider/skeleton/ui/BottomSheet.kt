@@ -27,8 +27,8 @@ class BottomSheet {
         val content = view.findViewById<TextView>(R.id.sk_bottomsheet_content)
         content.text = builder.content
         val customView = view.findViewById<FrameLayout>(R.id.sk_bottomsheet_customView)
-        builder.customView?.let {
-            customView.addView(builder.customView)
+        builder.customView?.let { view ->
+            customView.addView(view)
             customView.setPadding(builder.paddingLeft, builder.paddingTop, builder.paddingRight, builder.paddingBottom)
         }
         val negative = view.findViewById<Button>(R.id.sk_bottomsheet_cancel)
@@ -49,14 +49,10 @@ class BottomSheet {
                 dialog?.dismiss()
             }
         }
-        dialog?.let {
-            it.setContentView(view)
-            it.setCancelable(builder.cancelable)
-            it.window?.let {
-                it.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-                it.setGravity(Gravity.BOTTOM)
-            }
-        }
+        dialog?.setContentView(view)
+        dialog?.setCancelable(builder.cancelable)
+        dialog?.window?.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        dialog?.window?.setGravity(Gravity.BOTTOM)
     }
 
     @UiThread

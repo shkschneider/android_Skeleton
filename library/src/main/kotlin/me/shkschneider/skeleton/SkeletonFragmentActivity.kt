@@ -26,11 +26,9 @@ abstract class SkeletonFragmentActivity : SkeletonActivity() {
     }
 
     override fun onBackPressed() {
-        supportFragmentManager?.let {
-            if (it.backStackEntryCount != 0) {
-                it.popBackStack()
-                return
-            }
+        if (supportFragmentManager?.backStackEntryCount != 0) {
+            supportFragmentManager.popBackStack()
+            return
         }
         super.onBackPressed()
     }

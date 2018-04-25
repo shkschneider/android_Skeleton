@@ -15,10 +15,8 @@ class AboutActivity : SkeletonActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about)
         home(true)
-        toolbar?.let {
-            it.title = getString(R.string.title)
-            it.subtitle = getString(R.string.subtitle)
-        }
+        toolbar?.title = getString(R.string.title)
+        toolbar?.subtitle = getString(R.string.subtitle)
     }
 
     override fun onSupportNavigateUp(): Boolean {

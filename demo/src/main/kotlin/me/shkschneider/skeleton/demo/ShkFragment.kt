@@ -36,8 +36,8 @@ class ShkFragment : SkeletonFragment() {
         // Personal
         Proxy.imageLoader().get(AVATAR, object : ImageLoader.ImageListener {
             override fun onResponse(response: ImageLoader.ImageContainer, isImmediate: Boolean) {
-                response.bitmap?.let {
-                    val avatar = BitmapHelper.circular(response.bitmap)
+                response.bitmap?.let { bitmap ->
+                    val avatar = BitmapHelper.circular(bitmap)
                     (view.findViewById<View>(R.id.id_avatar) as ImageView).setImageBitmap(avatar)
                     (view.findViewById<View>(R.id.viewSwitcher) as ViewSwitcher).showNext()
                 }

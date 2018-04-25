@@ -24,8 +24,8 @@ class MyScrollView : ScrollView {
 
     override fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int) {
         super.onScrollChanged(l, t, oldl, oldt)
-        parallax?.let {
-            view?.translationY = scrollY * it
+        parallax?.let { parallax ->
+            view?.translationY = scrollY * parallax
         }
         onScrollViewListener?.onScrollChanged(l, t, oldl, oldt)
     }

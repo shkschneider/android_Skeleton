@@ -56,8 +56,8 @@ object DateTimeHelper {
         return System.currentTimeMillis()
     }
 
-    fun timestamp(): Long {
-        return TimeUnit.MILLISECONDS.toSeconds(now())
+    fun timestamp(): Int {
+        return TimeUnit.MILLISECONDS.toSeconds(now()).toInt()
     }
 
     fun gmtOffset(): Int {
@@ -65,7 +65,7 @@ object DateTimeHelper {
     }
 
     fun relative(@IntRange(from = 0) time: Long): String {
-        return relative(time, timestamp())
+        return relative(time, timestamp().toLong())
     }
 
     fun relative(@IntRange(from = 0) from: Long, @IntRange(from = 0) to: Long): String {
@@ -84,12 +84,12 @@ object DateTimeHelper {
                 onDateSetListener,
                 calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
         val datePicker = datePickerDialog.datePicker
-        min?.let {
+        min?.let { calendar ->
             datePicker.minDate = 0 // HACK: <http://stackoverflow.com/a/19722636>
-            datePicker.minDate = it.timeInMillis
+            datePicker.minDate = calendar.timeInMillis
         }
-        max?.let {
-            datePicker.maxDate = it.timeInMillis
+        max?.let { calendar ->
+            datePicker.maxDate = calendar.timeInMillis
         }
         datePickerDialog.show()
     }

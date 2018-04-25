@@ -3,7 +3,6 @@ package me.shkschneider.skeleton.ui
 import android.os.Bundle
 import android.support.annotation.UiThread
 import android.support.v4.app.Fragment
-import android.support.v7.app.AppCompatActivity
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -11,19 +10,23 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ProgressBar
 import me.shkschneider.skeleton.R
+import me.shkschneider.skeleton.SkeletonActivity
 
 class OverlayLoader : Fragment() {
 
     companion object {
 
-        fun show(activity: AppCompatActivity) : OverlayLoader {
-            val overlayLoader = OverlayLoader()
-            activity.supportFragmentManager.beginTransaction().add(ViewHelper.CONTENT, overlayLoader).commit()
-            return overlayLoader
+        fun show(activity: SkeletonActivity) : OverlayLoader? {
+            if (activity.alive()) {
+                val overlayLoader = OverlayLoader()
+                activity.supportFragmentManager.beginTransaction().add(ViewHelper.CONTENT, overlayLoader).commit()
+                return overlayLoader
+            }
+            return null
         }
 
         @Deprecated("Obsolete.", ReplaceWith("OverlayLoader.hide()"))
-        fun hide(activity: AppCompatActivity, overlayLoader: OverlayLoader) {
+        fun hide(activity: SkeletonActivity, overlayLoader: OverlayLoader) {
             overlayLoader.hide(activity)
             activity.supportFragmentManager.beginTransaction().remove(overlayLoader).commit()
         }
@@ -41,8 +44,12 @@ class OverlayLoader : Fragment() {
     }
 
     @UiThread
-    fun hide(activity: AppCompatActivity) {
-        activity.supportFragmentManager.beginTransaction().remove(this).commit()
+    fun hide(activity: SkeletonActivity): Boolean {
+        if (activity.alive()) {
+            activity.supportFragmentManager.beginTransaction().remove(this).commit()
+            return true
+        }
+        return false
     }
 
 }

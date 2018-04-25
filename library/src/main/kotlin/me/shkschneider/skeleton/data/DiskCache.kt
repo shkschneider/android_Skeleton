@@ -56,10 +56,7 @@ object DiskCache {
 
         fun size(): Int {
             val dir = ExternalDataHelper.cache()
-            return dir?.let {
-                if (dir.exists()) return dir.list().size
-                return 0
-            } ?: 0
+            return dir?.exists()?.let { dir.list().size } ?: 0
         }
 
     }

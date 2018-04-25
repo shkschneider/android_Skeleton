@@ -13,7 +13,7 @@ class AutoImageViewHeight : AppCompatImageView {
     constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr)
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
-        drawable?.let {
+        drawable?.let { drawable ->
             val height = View.MeasureSpec.getSize(heightMeasureSpec)
             val width = Math.ceil((height.toFloat() * drawable.intrinsicHeight.toFloat() / drawable.intrinsicWidth.toFloat()).toDouble()).toInt()
             setMeasuredDimension((ratio * width).toInt(), (ratio * height).toInt())

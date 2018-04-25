@@ -24,7 +24,6 @@ import me.shkschneider.skeleton.demo.data.ShkMod
 import me.shkschneider.skeleton.helper.*
 import me.shkschneider.skeleton.network.NetworkHelper
 import me.shkschneider.skeleton.network.WebService
-import me.shkschneider.skeleton.network.WebServiceException
 import me.shkschneider.skeleton.security.FingerprintHelper
 import me.shkschneider.skeleton.ui.*
 
@@ -55,10 +54,8 @@ class MainActivity : SkeletonActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Logger.debug("IP: " + NetworkHelper.ipAddress("192.168.0.1"))
-        toolbar?.let {
-            it.title = getString(R.string.title)
-            it.subtitle = getString(R.string.subtitle)
-        }
+        toolbar?.title = getString(R.string.title)
+        toolbar?.subtitle = getString(R.string.subtitle)
         val viewPager = findViewById<ViewPager>(R.id.viewPager)
         val pagerAdapter = MyPagerAdapter(supportFragmentManager)
         viewPager.adapter = pagerAdapter
@@ -142,10 +139,8 @@ class MainActivity : SkeletonActivity() {
         WebService(WebService.Method.GET, URL)
                 .callback(object : WebService.Callback {
                     override fun success(result: String?) {
-                        result?.let {
-                            if (it.isNotBlank()) {
-                                notification(DateTimeHelper.timestamp().toInt(), ShkMod::class.java.simpleName, result)
-                            }
+                        if (result?.isNotBlank() == true) {
+                            notification(DateTimeHelper.timestamp().toInt(), ShkMod::class.java.simpleName, result)
                         }
                     }
                     override fun failure(e: WebServiceException) {

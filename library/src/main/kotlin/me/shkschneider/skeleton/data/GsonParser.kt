@@ -20,13 +20,11 @@ object GsonParser {
     }
 
     fun parse(inputStream: InputStream): JsonObject? {
-        val string = FileHelper.readString(inputStream)
-        return string?.let {
-            return parse(it)
-        } ?: run {
-            Logger.warning("String was NULL")
-            return null
+        FileHelper.readString(inputStream)?.let { string ->
+            return parse(string)
         }
+        Logger.warning("String was NULL")
+        return null
     }
 
     fun get(jsonObject: JsonObject, string: String): JsonElement? {
@@ -152,9 +150,7 @@ object GsonParser {
     }
 
     fun values(jsonObject: JsonObject): List<JsonElement> {
-        return jsonObject.entrySet().map {
-            it.value
-        }
+        return jsonObject.entrySet().map { entry -> entry.value }
     }
 
     fun has(jsonObject: JsonObject, key: String): Boolean? {

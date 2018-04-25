@@ -2,8 +2,6 @@ package me.shkschneider.skeleton.helper
 
 import android.support.annotation.IntRange
 import android.util.Log
-
-import me.shkschneider.skeleton.BuildConfig
 import me.shkschneider.skeleton.SkeletonApplication
 import me.shkschneider.skeleton.java.SkHide
 

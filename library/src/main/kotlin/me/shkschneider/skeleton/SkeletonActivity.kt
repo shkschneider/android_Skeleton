@@ -80,13 +80,11 @@ abstract class SkeletonActivity : AppCompatActivity() {
                 setTaskDescription(ActivityManager.TaskDescription(name, icon, color))
             }
         }
-        intent?.extras?.let {
-            Logger.verbose("onNewIntent: $intent")
-        }
     }
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
+        Logger.verbose("onNewIntent ${intent.action.toUpperCase()}" + if (intent.extras != null) " (has extras)" else "")
         // This part is necessary to ensure that getIntent returns the latest intent when
         // this activity is started. By default, getIntent() returns the initial intent
         // that was set from another activity that started this activity.
@@ -130,20 +128,17 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     fun toolbarColor(@ColorInt color: Int): Boolean? {
-        return toolbar?.let {
-            it.setBackgroundColor(color)
-            return true
-        } ?: run {
+        toolbar?.setBackgroundColor(color) ?: run {
             Logger.warning("Toolbar was NULL")
             return false
         }
+        return true
     }
 
     protected fun bindToolbar() {
         toolbar = findViewById(R.id.toolbar)
-        toolbar?.let {
-            // Logger.verbose("Found a Toolbar");
-            setSupportActionBar(it)
+        toolbar?.let { toolbar ->
+            setSupportActionBar(toolbar)
             title(ApplicationHelper.name())
         }
     }
@@ -218,19 +213,15 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     fun logo(drawable: Drawable?) {
         supportActionBar ?: Logger.warning("ActionBar was NULL")
-        supportActionBar?.let {
-            it.setDisplayShowHomeEnabled(drawable?.let { true } ?: false)
-            it.setDisplayUseLogoEnabled(drawable?.let { true } ?: false)
-            it.setLogo(drawable)
-        }
+        supportActionBar?.setDisplayShowHomeEnabled(drawable?.let { true } ?: false)
+        supportActionBar?.setDisplayUseLogoEnabled(drawable?.let { true } ?: false)
+        supportActionBar?.setLogo(drawable)
     }
 
     fun title(title: String?) {
         supportActionBar ?: Logger.warning("ActionBar was NULL")
-        supportActionBar?.let {
-            it.setDisplayShowTitleEnabled(! title.isNullOrEmpty())
-            it.title = title
-        }
+        supportActionBar?.setDisplayShowTitleEnabled(! title.isNullOrEmpty())
+        supportActionBar?.title = title
     }
 
     fun title(): String? {
@@ -240,10 +231,8 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     fun subtitle(subtitle: String?) {
         supportActionBar ?: Logger.warning("ActionBar was NULL")
-        supportActionBar?.let {
-            it.setDisplayShowTitleEnabled(! (title.isNullOrBlank() || subtitle.isNullOrBlank()))
-            it.subtitle = subtitle
-        }
+        supportActionBar?.setDisplayShowTitleEnabled(! (title.isNullOrBlank() || subtitle.isNullOrBlank()))
+        supportActionBar?.subtitle = subtitle
     }
 
     fun subtitle(): String? {
@@ -260,18 +249,8 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     fun loading(i: Int) {
-        val count = loading + i
-        if (count < 0) {
-            loading(false)
-            loading = 0
-            return
-        }
-        if (loading == 0 && count > 0) {
-            loading(true)
-        } else if (loading > 0 && count == 0) {
-            loading(false)
-        }
-        loading = count
+        loading += i
+        loading(loading > 0)
     }
 
     fun loading(b: Boolean) {
@@ -280,7 +259,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
             loading = 0
         }
         if (b) {
-            overlayLoader?.let {
+            overlayLoader ?: run {
                 overlayLoader = OverlayLoader.show(this)
             }
         } else {
@@ -371,11 +350,9 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        searchView?.let {
-            if (it.isIconified) {
-                stopSearch()
-                return
-            }
+        if (searchView?.isIconified == true) {
+            stopSearch()
+            return
         }
         finish()
     }
