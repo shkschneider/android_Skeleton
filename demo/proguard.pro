@@ -9,3 +9,7 @@
 -keep class android.support.v13.app.** { *; }
 -keep interface android.support.v13.app.** { *; }
 # NOT android.support.design
+
+# minifyEnabled true
+-dontobfuscate
+-dontoptimize
