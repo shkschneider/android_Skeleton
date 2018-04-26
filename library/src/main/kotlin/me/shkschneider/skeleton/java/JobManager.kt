@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.java
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.job.JobInfo
 import android.app.job.JobScheduler
 import android.app.job.JobService
@@ -8,6 +9,7 @@ import android.content.ComponentName
 import android.os.PersistableBundle
 import android.support.annotation.RequiresApi
 import android.support.annotation.RequiresPermission
+import me.shkschneider.skeleton.extensions.ComponentName
 
 import me.shkschneider.skeleton.helper.AndroidHelper
 import me.shkschneider.skeleton.helper.ContextHelper
@@ -22,9 +24,10 @@ class JobManager {
     private var id: Int
     private val builder: JobInfo.Builder
 
+    @SuppressLint("JobSchedulerService")
     constructor(id: Int, cls: Class<out JobService>) {
         this.id = id
-        builder = JobInfo.Builder(this.id, ComponentName(ContextHelper.applicationContext(), cls::class.java))
+        builder = JobInfo.Builder(this.id, ComponentName(ContextHelper.applicationContext(), cls::class))
     }
 
     @SkHide

@@ -52,6 +52,8 @@ import android.view.accessibility.CaptioningManager
 import android.view.inputmethod.InputMethodManager
 import android.view.textclassifier.TextClassificationManager
 import android.view.textservice.TextServicesManager
+import me.shkschneider.skeleton.extensions.getSystemService
+import kotlin.reflect.KClass
 
 // <http://developer.android.com/reference/android/content/Context.html>
 object SystemServices {
@@ -61,8 +63,8 @@ object SystemServices {
     }
 
     @RequiresApi(AndroidHelper.API_23)
-    private fun get(service: Class<Any>): Any? {
-        return ContextHelper.applicationContext().getSystemService(service)
+    private fun <T:Any> get(klass: KClass<T>): T? {
+        return ContextHelper.applicationContext().getSystemService(klass)
     }
 
     fun accessibilityManager(): AccessibilityManager? {

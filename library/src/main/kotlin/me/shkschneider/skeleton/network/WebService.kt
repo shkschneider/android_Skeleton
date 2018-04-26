@@ -8,6 +8,7 @@ import com.google.gson.JsonSyntaxException
 import me.shkschneider.skeleton.data.CharsetHelper
 import me.shkschneider.skeleton.data.FileHelper
 import me.shkschneider.skeleton.data.MimeTypeHelper
+import me.shkschneider.skeleton.data.StreamHelper
 import me.shkschneider.skeleton.helper.Logger
 import me.shkschneider.skeleton.java.SkHide
 import java.io.BufferedWriter
@@ -134,9 +135,9 @@ class WebService {
                     Logger.debug("=> " + method.name + " " + url + " " + (headers?.toString() ?: "{}") + " " + (body?.toString() ?: "{}"))
                     Logger.debug("<= $responseCode $responseMessage $url")
                     errorStream?.let { errorStream ->
-                        return Response(responseCode, FileHelper.readString(errorStream) ?: responseMessage)
+                        return Response(responseCode, StreamHelper.read(errorStream) ?: responseMessage)
                     } ?: run {
-                        FileHelper.readString(inputStream)?.let { response ->
+                        StreamHelper.read(inputStream)?.let { response ->
                             Logger.verbose("<- $response")
                             return Response(responseCode, response)
                         }

@@ -6,6 +6,7 @@ import android.os.Build
 import android.support.annotation.IntRange
 import android.support.annotation.RequiresApi
 import android.support.v4.app.NotificationCompat
+import me.shkschneider.skeleton.extensions.Intent
 import java.util.concurrent.TimeUnit
 
 /**
@@ -37,7 +38,7 @@ object NotificationHelper {
     }
 
     fun pendingIntent(activity: Activity): PendingIntent {
-        return pendingIntent(activity, Intent(activity, activity::class.java))
+        return pendingIntent(activity, Intent(activity, activity::class))
     }
 
     class Builder : NotificationCompat.Builder {

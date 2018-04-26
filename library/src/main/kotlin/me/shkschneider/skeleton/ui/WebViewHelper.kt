@@ -7,6 +7,7 @@ import android.webkit.WebView
 import me.shkschneider.skeleton.data.CharsetHelper
 import me.shkschneider.skeleton.data.FileHelper
 import me.shkschneider.skeleton.data.MimeTypeHelper
+import me.shkschneider.skeleton.extensions.simpleName
 import me.shkschneider.skeleton.helper.AndroidHelper
 import me.shkschneider.skeleton.helper.ContextHelper
 import me.shkschneider.skeleton.helper.Logger
@@ -91,7 +92,7 @@ object WebViewHelper {
 
         @JavascriptInterface
         fun test() {
-            Logger.debug(this::class.java.simpleName)
+            Logger.debug(this::class.simpleName())
         }
 
     }
