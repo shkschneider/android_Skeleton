@@ -50,38 +50,18 @@ object FileHelper {
         return AssetsHelper.open(assetName)
     }
 
-    fun readString(inputStream: InputStream): String? {
-        return try {
-            // TRICK: The stream gets tokenized, \A meaning the beginning, \\A means the second beginning... so its end.
-            Scanner(inputStream).useDelimiter("\\A").next()
-        } catch (e: NoSuchElementException) {
-            null
-        }
-    }
-
     fun readString(file: File): String? {
         return try {
-            readString(FileInputStream(file))
+            StreamHelper.read(FileInputStream(file))
         } catch (e: FileNotFoundException) {
             Logger.wtf(e)
             null
         }
     }
 
-    fun writeString(outputStream: OutputStream, content: String): Boolean {
-        return try {
-            outputStream.write(content.toByteArray())
-            outputStream.close()
-            true
-        } catch (e: IOException) {
-            Logger.wtf(e)
-            false
-        }
-    }
-
     fun writeString(file: File, content: String): Boolean {
         return try {
-            writeString(FileOutputStream(file), content)
+            StreamHelper.write(FileOutputStream(file), content)
         } catch (e: FileNotFoundException) {
             Logger.wtf(e)
             false
