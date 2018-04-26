@@ -18,11 +18,11 @@ object Proxy {
         imageLoader = ImageLoader(Volley.newRequestQueue(ContextHelper.applicationContext()), object : ImageLoader.ImageCache {
             private val CACHE = LruCache<String, Bitmap>(42)
             override fun getBitmap(url: String): Bitmap? {
-                return try {
-                    CACHE.get(url)
+                try {
+                    return CACHE.get(url)
                 } catch (e: IllegalStateException) {
                     Logger.wtf(e)
-                    null
+                    return null
                 }
             }
             override fun putBitmap(url: String, bitmap: Bitmap) {

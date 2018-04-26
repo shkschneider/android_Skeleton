@@ -17,10 +17,10 @@ object FileHelper {
 
     fun join(dirname: String, basename: String): String {
         val file = File(dirname, basename)
-        return try {
-            file.canonicalPath
+        try {
+            return file.canonicalPath
         } catch (e: IOException) {
-            file.path
+            return file.path
         }
     }
 
@@ -29,20 +29,20 @@ object FileHelper {
     }
 
     fun openFile(file: File): InputStream? {
-        return try {
-            FileInputStream(file)
+        try {
+            return FileInputStream(file)
         } catch (e: FileNotFoundException) {
             Logger.wtf(e)
-            null
+            return null
         }
     }
 
     fun openRaw(@RawRes id: Int): InputStream? {
-        return try {
-            ApplicationHelper.resources().openRawResource(id)
+        try {
+            return ApplicationHelper.resources().openRawResource(id)
         } catch (e: Resources.NotFoundException) {
             Logger.wtf(e)
-            null
+            return null
         }
     }
 
@@ -51,20 +51,20 @@ object FileHelper {
     }
 
     fun readString(file: File): String? {
-        return try {
-            StreamHelper.read(FileInputStream(file))
+        try {
+            return StreamHelper.read(FileInputStream(file))
         } catch (e: FileNotFoundException) {
             Logger.wtf(e)
-            null
+            return null
         }
     }
 
     fun writeString(file: File, content: String): Boolean {
-        return try {
-            StreamHelper.write(FileOutputStream(file), content)
+        try {
+            return StreamHelper.write(FileOutputStream(file), content)
         } catch (e: FileNotFoundException) {
             Logger.wtf(e)
-            false
+            return false
         }
     }
 
@@ -73,12 +73,12 @@ object FileHelper {
     }
 
     fun writeBitmap(file: File, bitmap: Bitmap): Boolean {
-        return try {
+        try {
             val fileOutputStream = FileOutputStream(file)
-            bitmap.compress(Bitmap.CompressFormat.PNG, 90, fileOutputStream)
+            return bitmap.compress(Bitmap.CompressFormat.PNG, 90, fileOutputStream)
         } catch (e: FileNotFoundException) {
             Logger.wtf(e)
-            false
+            return false
         }
     }
 

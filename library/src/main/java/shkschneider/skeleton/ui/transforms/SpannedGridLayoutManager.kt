@@ -239,17 +239,17 @@ class SpannedGridLayoutManager : RecyclerView.LayoutManager {
     }
 
     override fun computeVerticalScrollOffset(state: RecyclerView.State?): Int {
-        return if (childCount == 0)
-            0
+        if (childCount == 0)
+            return 0
         else
-            paddingTop + firstVisibleRow * cellHeight - getDecoratedTop(getChildAt(0))
+            return paddingTop + firstVisibleRow * cellHeight - getDecoratedTop(getChildAt(0))
     }
 
     override fun findViewByPosition(position: Int): View? {
-        return if (position < firstVisibleItemPosition || position > lastVisiblePosition)
-            null
+        if (position < firstVisibleItemPosition || position > lastVisiblePosition)
+            return null
         else
-            getChildAt(position - firstVisibleItemPosition)
+            return getChildAt(position - firstVisibleItemPosition)
     }
 
     private class GridCell internal constructor(internal val row: Int, internal val rowSpan: Int, internal val column: Int, internal val columnSpan: Int)
@@ -373,12 +373,12 @@ class SpannedGridLayoutManager : RecyclerView.LayoutManager {
 
     private fun getLastPositionInSpannedRow(rowIndex: Int, state: RecyclerView.State?): Int {
         val nextRow = getNextSpannedRow(rowIndex)
-        return if (nextRow != spannedRowCount) {
+        if (nextRow != spannedRowCount) {
             // check if reached boundary
-            getFirstPositionInSpannedRow(nextRow) - 1
+            return getFirstPositionInSpannedRow(nextRow) - 1
         }
         else
-            (state?.itemCount ?: 1) - 1
+            return (state?.itemCount ?: 1) - 1
     }
 
     /**
@@ -500,9 +500,11 @@ class SpannedGridLayoutManager : RecyclerView.LayoutManager {
             return spec
         }
         val mode = View.MeasureSpec.getMode(spec)
-        return if (mode == View.MeasureSpec.AT_MOST || mode == View.MeasureSpec.EXACTLY) {
-            View.MeasureSpec.makeMeasureSpec(View.MeasureSpec.getSize(spec) - startInset - endInset, mode)
-        } else spec
+        if (mode == View.MeasureSpec.AT_MOST || mode == View.MeasureSpec.EXACTLY) {
+            return View.MeasureSpec.makeMeasureSpec(View.MeasureSpec.getSize(spec) - startInset - endInset, mode)
+        } else {
+            return spec
+        }
     }
 
     /* Adapted from ConstraintLayout */

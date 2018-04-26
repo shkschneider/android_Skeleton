@@ -90,10 +90,10 @@ object FingerprintHelper {
     }
 
     fun simplyCancelled(errCode: Int): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            errCode == FingerprintManager.FINGERPRINT_ERROR_CANCELED
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return errCode == FingerprintManager.FINGERPRINT_ERROR_CANCELED
         } else {
-            false
+            return false
         }
     }
 

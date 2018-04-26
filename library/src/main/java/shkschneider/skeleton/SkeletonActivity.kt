@@ -111,10 +111,10 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     fun statusBarColor(window: Window): Int {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.statusBarColor
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return window.statusBarColor
         } else {
-            Color.TRANSPARENT // Color.BLACK
+            return Color.TRANSPARENT // Color.BLACK
         }
     }
 

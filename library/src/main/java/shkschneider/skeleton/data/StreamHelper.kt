@@ -9,22 +9,22 @@ import java.util.*
 object StreamHelper {
 
     fun read(inputStream: InputStream): String? {
-        return try {
+        try {
             // TRICK: The stream gets tokenized, \A meaning the beginning, \\A means the second beginning... so its end.
-            Scanner(inputStream).useDelimiter("\\A").next()
+            return Scanner(inputStream).useDelimiter("\\A").next()
         } catch (e: NoSuchElementException) {
-            null
+            return null
         }
     }
 
     fun write(outputStream: OutputStream, content: String): Boolean {
-        return try {
+        try {
             outputStream.write(content.toByteArray())
             outputStream.close()
-            true
+            return true
         } catch (e: IOException) {
             Logger.wtf(e)
-            false
+            return false
         }
     }
 

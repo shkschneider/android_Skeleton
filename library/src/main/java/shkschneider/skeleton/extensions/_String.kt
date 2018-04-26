@@ -29,11 +29,12 @@ fun String.kebabCase(): String {
 }
 
 fun String.ellipsize(@IntRange(from = 0) maxLength: Int = 80, reverse: Boolean = false): String {
-    return if (length > maxLength) {
+    if (length > maxLength) {
         if (reverse) {
-            ".".repeat(3) + substring((length - maxLength - 3), length)
+            return ".".repeat(3) + substring((length - maxLength - 3), length)
         } else {
-            substring(0, maxLength - 3) + ".".repeat(3)
+            return substring(0, maxLength - 3) + ".".repeat(3)
         }
-    } else this
+    }
+    return this
 }

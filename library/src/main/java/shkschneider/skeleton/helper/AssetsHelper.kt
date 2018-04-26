@@ -13,21 +13,21 @@ object AssetsHelper {
 
     fun list(): List<String>? {
         val assetManager = assetManager()
-        return try {
-            assetManager.list("")?.toList()
+        try {
+            return assetManager.list("")?.toList()
         } catch (e: IOException) {
             Logger.wtf(e)
-            null
+            return null
         }
     }
 
     fun open(name: String): InputStream? {
         val assetManager = assetManager()
-        return try {
-            assetManager.open(name)
+        try {
+            return assetManager.open(name)
         } catch (e: IOException) {
             Logger.wtf(e)
-            null
+            return null
         }
     }
 

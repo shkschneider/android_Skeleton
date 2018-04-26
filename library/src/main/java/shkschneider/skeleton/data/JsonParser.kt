@@ -10,11 +10,11 @@ import java.util.*
 object JsonParser : IParser<JSONObject, JSONArray> {
 
     override fun parse(string: String): JSONObject? {
-        return try {
-            JSONObject(string)
+        try {
+            return JSONObject(string)
         } catch (e: JSONException) {
             Logger.wtf(e)
-            null
+            return null
         }
     }
 
@@ -83,40 +83,40 @@ object JsonParser : IParser<JSONObject, JSONArray> {
     // from Array
 
     override fun get(jsonArray: JSONArray, index: Int, fallback: JSONObject?): JSONObject? {
-        return try {
-            jsonArray.getJSONObject(index) ?: fallback
+        try {
+            return jsonArray.getJSONObject(index) ?: fallback
         } catch (e: JSONException) {
             return fallback
         }
     }
 
     override fun array(jsonArray: JSONArray, index: Int, fallback: JSONArray?): JSONArray? {
-        return try {
-            jsonArray.getJSONArray(index) ?: fallback
+        try {
+            return jsonArray.getJSONArray(index) ?: fallback
         } catch (e: JSONException) {
             return fallback
         }
     }
 
     override fun string(jsonArray: JSONArray, index: Int, fallback: String?): String? {
-        return try {
-            jsonArray.getString(index) ?: fallback
+        try {
+            return jsonArray.getString(index) ?: fallback
         } catch (e: JSONException) {
             return fallback
         }
     }
 
     override fun number(jsonArray: JSONArray, index: Int, fallback: Number?): Number? {
-        return try {
-            jsonArray.get(index) as? Number? ?: fallback
+        try {
+            return jsonArray.get(index) as? Number? ?: fallback
         } catch (e: JSONException) {
             return fallback
         }
     }
 
     override fun bool(jsonArray: JSONArray, index: Int, fallback: Boolean?): Boolean? {
-        return try {
-            jsonArray.getBoolean(index)
+        try {
+            return jsonArray.getBoolean(index)
         } catch (e: JSONException) {
             return fallback
         }

@@ -10,11 +10,11 @@ import java.util.regex.Pattern
 object GsonParser : IParser<JsonObject, JsonArray> {
 
     override fun parse(string: String): JsonObject? {
-        return try {
-            Gson().fromJson(string, JsonObject::class.java)
+        try {
+            return Gson().fromJson(string, JsonObject::class.java)
         } catch (e: JsonParseException) {
             Logger.wtf(e)
-            null
+            return null
         }
     }
 
