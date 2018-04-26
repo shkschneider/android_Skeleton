@@ -3,6 +3,7 @@ package me.shkschneider.skeleton
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Build
@@ -184,6 +185,11 @@ abstract class SkeletonActivity : AppCompatActivity() {
         return alive
     }
 
+    @Deprecated("Never existed.", ReplaceWith("recreate()"))
+    fun SkeletonActivity.restart() {
+        recreate()
+    }
+
     // ToolBar
 
     fun toolbar(): Toolbar? {
@@ -238,6 +244,16 @@ abstract class SkeletonActivity : AppCompatActivity() {
     fun subtitle(): String? {
         supportActionBar ?: Logger.warning("ActionBar was NULL")
         return supportActionBar?.subtitle?.toString()
+    }
+
+    // Orientations
+
+    fun portrait(): Boolean {
+        return ScreenHelper.orientation(this) != Configuration.ORIENTATION_LANDSCAPE
+    }
+
+    fun landscape(): Boolean {
+        return ScreenHelper.orientation(this) == Configuration.ORIENTATION_LANDSCAPE
     }
 
     // Loading
