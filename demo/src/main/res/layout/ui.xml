@@ -16,7 +16,7 @@
         android:gravity="top|right"
         tools:ignore="RtlHardcoded" />
 
-    <android.support.v4.widget.Space
+    <Space
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.05" />
