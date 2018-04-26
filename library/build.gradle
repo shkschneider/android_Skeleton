@@ -30,7 +30,7 @@ android {
     // publishNonDefault true
     sourceSets {
         // main.kotlin.srcDirs += 'src/main/kotlin'
-        main.java.srcDirs += 'src/main/kotlin'
+        // main.java.srcDirs += 'src/main/kotlin'
     }
 }
 
