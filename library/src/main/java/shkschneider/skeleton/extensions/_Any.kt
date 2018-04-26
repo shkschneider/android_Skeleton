@@ -2,10 +2,6 @@ package me.shkschneider.skeleton.extensions
 
 import kotlin.reflect.KClass
 
-// FIXME ClassHelper
-// FIXME ObjectHelper
-// FIXME ReflectionHelper
-
 // Uses no reflection
 fun <T:Any> KClass<T>.simpleName(): String {
     return this.java.simpleName.orEmpty()

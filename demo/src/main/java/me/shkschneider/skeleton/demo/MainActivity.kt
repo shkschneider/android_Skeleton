@@ -130,6 +130,8 @@ class MainActivity : SkeletonActivity() {
                 }
             })
         }
+
+        Toaster.show("HOST:" + NetworkHelper.hostname())
     }
 
     override fun onStop() {

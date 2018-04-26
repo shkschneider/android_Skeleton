@@ -2,9 +2,9 @@ package me.shkschneider.skeleton.java
 
 import me.shkschneider.skeleton.helper.Logger
 
+@Deprecated("Reflection allows programmatic access to information about the methods of loaded classes.")
 object ReflectHelper {
 
-    @Deprecated("Reflection allows programmatic access to information about the fields of loaded classes.")
     object Field {
 
         fun fields(obj: Any): List<String>? {
@@ -53,7 +53,6 @@ object ReflectHelper {
 
     }
 
-    @Deprecated("Reflection allows programmatic access to information about the methods of loaded classes.")
     object Method {
 
         private val EMPTY_SIGNATURE = arrayOf<Class<*>>()
