@@ -1,10 +1,10 @@
 package me.shkschneider.skeleton.demo
 
 import android.content.Context
-import android.content.Intent
 import android.os.Build
 import android.support.multidex.MultiDex
 import me.shkschneider.skeleton.SkeletonApplication
+import me.shkschneider.skeleton.extensions.Intent
 import me.shkschneider.skeleton.helper.*
 
 class MainApplication : SkeletonApplication() {
@@ -20,7 +20,7 @@ class MainApplication : SkeletonApplication() {
             ShortcutHelper.setDynamicShortcuts(ShortcutHelper.Shortcut(shortcut.toLowerCase(),
                     R.mipmap.ic_launcher,
                     shortcut.capitalize(),
-                    Intent(ContextHelper.applicationContext(), AboutActivity::class.java)
+                    Intent(ContextHelper.applicationContext(), AboutActivity::class)
                             .setFlags(IntentHelper.FLAGS_CLEAR)))
         }
     }

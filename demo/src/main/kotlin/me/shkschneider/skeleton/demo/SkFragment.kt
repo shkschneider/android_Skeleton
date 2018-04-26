@@ -28,9 +28,9 @@ class SkFragment : SkeletonFragment() {
                 me.shkschneider.skeleton.data.FileHelper::class.java,
                 me.shkschneider.skeleton.data.GsonParser::class.java,
                 me.shkschneider.skeleton.data.InternalDataHelper::class.java,
-                me.shkschneider.skeleton.data.JsonParser::class.java,
                 me.shkschneider.skeleton.data.SerializeHelper::class.java,
-                me.shkschneider.skeleton.data.SharedPreferencesHelper::class.java
+                me.shkschneider.skeleton.data.SharedPreferencesHelper::class.java,
+                me.shkschneider.skeleton.data.StreamHelper::class.java
         ))
         fill(view.findViewById<View>(R.id.helper) as LinearLayout, arrayOf(
                 me.shkschneider.skeleton.helper.ActivityHelper::class.java,

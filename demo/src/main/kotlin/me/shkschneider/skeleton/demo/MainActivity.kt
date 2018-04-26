@@ -21,7 +21,7 @@ import android.view.MenuItem
 
 import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.demo.data.ShkMod
-import me.shkschneider.skeleton.extensions.klass
+import me.shkschneider.skeleton.extensions.*
 import me.shkschneider.skeleton.helper.*
 import me.shkschneider.skeleton.network.NetworkHelper
 import me.shkschneider.skeleton.network.WebService
@@ -94,7 +94,7 @@ class MainActivity : SkeletonActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_about -> {
-                startActivity(Intent(this, AboutActivity::class.java))
+                startActivity(Intent(this, AboutActivity::class))
                 return true
             }
         }
@@ -124,7 +124,9 @@ class MainActivity : SkeletonActivity() {
                 }
                 override fun onAuthenticationError(errorCode: Int, errString: CharSequence?) {
                     super.onAuthenticationError(errorCode, errString)
-                    Toaster.show(errString?.toString().orEmpty())
+                    if (! FingerprintHelper.simplyCancelled(errorCode)) {
+                        Toaster.show(errString?.toString().orEmpty())
+                    }
                 }
             })
         }
@@ -141,17 +143,17 @@ class MainActivity : SkeletonActivity() {
                 .callback(object : WebService.Callback {
                     override fun success(result: WebService.Response?) {
                         if (result?.message?.isNotBlank() == true) {
-                            notification(DateTimeHelper.timestamp(), ShkMod::class.java.simpleName, result.message!!)
+                            notification(DateTimeHelper.timestamp(), ShkMod::class.simpleName(), result.message!!)
                         }
                     }
                     override fun failure(e: WebService.Error) {
-                        Toaster.show(WebService.Error::class.java.simpleName)
+                        Toaster.show(WebService.Error::class.simpleName())
                     }
                 }).run()
     }
 
     private fun notification(id: Int, title: String, message: String) {
-        val intent = Intent(applicationContext, MainActivity::class.java)
+        val intent = Intent(applicationContext, MainActivity::class)
                 .putExtra("title", title)
                 .putExtra("message", message)
         val channel = NotificationHelper.Channel(id.toString(), id.toString(), true, true, true)

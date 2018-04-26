@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.demo
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import me.shkschneider.skeleton.extensions.Intent
 
 import me.shkschneider.skeleton.helper.IntentHelper
 import me.shkschneider.skeleton.helper.Logger
@@ -26,7 +27,7 @@ class MySecretCodeReceiver : BroadcastReceiver() {
         }
         Logger.debug("SecretCode: $secretCode")
         if (intent.action == ACTION) {
-            context.startActivity(Intent(context, MainActivity::class.java)
+            context.startActivity(Intent(context, MainActivity::class)
                     .setFlags(IntentHelper.FLAGS_HOME)
                     .putExtra(SECRET_CODE, secretCode))
         }
