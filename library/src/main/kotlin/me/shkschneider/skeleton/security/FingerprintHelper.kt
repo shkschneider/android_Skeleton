@@ -2,6 +2,7 @@ package me.shkschneider.skeleton.security
 
 import android.Manifest
 import android.hardware.fingerprint.FingerprintManager
+import android.os.Build
 import android.os.CancellationSignal
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
@@ -19,8 +20,10 @@ object FingerprintHelper {
     private const val KEYSTORE = "AndroidKeyStore"
     private const val KEY = "FingerPrint"
 
-    @RequiresApi(AndroidHelper.API_23)
     fun available(): Boolean {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return false
+        }
         // if (ActivityCompat.checkSelfPermission(ContextHelper.applicationContext(), Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) return false
         val keyguardManager = SystemServices.keyguardManager()
         keyguardManager ?: return false
@@ -83,6 +86,14 @@ object FingerprintHelper {
     fun cancel(cancellationSignal: CancellationSignal?) {
         if (cancellationSignal?.isCanceled == false) {
             cancellationSignal.cancel()
+        }
+    }
+
+    fun simplyCancelled(errCode: Int): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            errCode == FingerprintManager.FINGERPRINT_ERROR_CANCELED
+        } else {
+            false
         }
     }
 
