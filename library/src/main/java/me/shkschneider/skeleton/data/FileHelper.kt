@@ -12,8 +12,8 @@ import java.util.*
 
 object FileHelper {
 
-    val PREFIX_ASSETS = "file:///android_asset/"
-    val PREFIX_RES = "file:///android_res/"
+    const val PREFIX_ASSETS = "file:///android_asset/"
+    const val PREFIX_RES = "file:///android_res/"
 
     fun join(dirname: String, basename: String): String {
         val file = File(dirname, basename)

@@ -84,12 +84,12 @@ object DateTimeHelper {
                 onDateSetListener,
                 calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH))
         val datePicker = datePickerDialog.datePicker
-        min?.let { calendar ->
+        min?.let {
             datePicker.minDate = 0 // HACK: <http://stackoverflow.com/a/19722636>
-            datePicker.minDate = calendar.timeInMillis
+            datePicker.minDate = it.timeInMillis
         }
-        max?.let { calendar ->
-            datePicker.maxDate = calendar.timeInMillis
+        max?.let {
+            datePicker.maxDate = it.timeInMillis
         }
         datePickerDialog.show()
     }

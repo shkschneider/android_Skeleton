@@ -6,7 +6,6 @@ import android.support.annotation.IntRange
 import android.support.annotation.Size
 import com.google.gson.JsonSyntaxException
 import me.shkschneider.skeleton.data.CharsetHelper
-import me.shkschneider.skeleton.data.FileHelper
 import me.shkschneider.skeleton.data.MimeTypeHelper
 import me.shkschneider.skeleton.data.StreamHelper
 import me.shkschneider.skeleton.helper.Logger
@@ -23,11 +22,9 @@ import java.util.concurrent.TimeUnit
 
 class WebService {
 
-    private val TIMEOUT_CONNECT = TimeUnit.SECONDS.toMillis(15).toInt()
-    private val TIMEOUT_READ = TimeUnit.MINUTES.toMillis(1).toInt()
-
     private val method: WebService.Method
     private val url: String
+
     private var headers: Map<String, String>? = null
     private var body: Map<String, String>? = null
     private var callback: Callback? = null
@@ -115,32 +112,28 @@ class WebService {
                         setRequestProperty(entry.key, entry.value)
                     }
                     requestMethod = method.name
-                    doOutput = method.allowsBody()
-                    body?.let { body ->
-                        if (! doOutput) {
-                            return Error(INTERNAL_ERROR, "Body not allowed")
+                    doOutput = method.allowsBody().also {
+                        body?.let { body ->
+                            setRequestProperty("Content-Type", MimeTypeHelper.APPLICATION_FORMURLENCODED)
+                            val dataOutputStream = DataOutputStream(outputStream)
+                            var params = ""
+                            body.keys.forEach { key ->
+                                params += key + "=" + UrlHelper.encode(key)
+                            }
+                            val bufferedWriter = BufferedWriter(OutputStreamWriter(dataOutputStream, CharsetHelper.UTF8))
+                            bufferedWriter.write(params)
+                            bufferedWriter.flush()
+                            bufferedWriter.close()
+                            dataOutputStream.close()
                         }
-                        setRequestProperty("Content-Type", MimeTypeHelper.APPLICATION_FORMURLENCODED)
-                        val dataOutputStream = DataOutputStream(outputStream)
-                        var params = ""
-                        body.keys.forEach { key ->
-                            params += key + "=" + UrlHelper.encode(key)
-                        }
-                        val bufferedWriter = BufferedWriter(OutputStreamWriter(dataOutputStream, CharsetHelper.UTF8))
-                        bufferedWriter.write(params)
-                        bufferedWriter.flush()
-                        bufferedWriter.close()
-                        dataOutputStream.close()
                     }
                     Logger.debug("=> " + method.name + " " + url + " " + (headers?.toString() ?: "{}") + " " + (body?.toString() ?: "{}"))
                     Logger.debug("<= $responseCode $responseMessage $url")
                     errorStream?.let { errorStream ->
                         return Response(responseCode, StreamHelper.read(errorStream) ?: responseMessage)
-                    } ?: run {
-                        StreamHelper.read(inputStream)?.let { response ->
-                            Logger.verbose("<- $response")
-                            return Response(responseCode, response)
-                        }
+                    } ?: StreamHelper.read(inputStream)?.let { response ->
+                        Logger.verbose("<- $response")
+                        return Response(responseCode, response)
                     }
                     return Response(responseCode, responseMessage)
                 }
@@ -202,6 +195,8 @@ class WebService {
     companion object {
 
         const val INTERNAL_ERROR = 666
+        val TIMEOUT_CONNECT = TimeUnit.SECONDS.toMillis(15).toInt()
+        val TIMEOUT_READ = TimeUnit.MINUTES.toMillis(1).toInt()
 
     }
 

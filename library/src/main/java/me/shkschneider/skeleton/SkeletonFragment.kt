@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton
 
-import android.content.Context
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v4.app.Fragment
@@ -32,16 +31,13 @@ import android.view.ViewGroup
  */
 abstract class SkeletonFragment : Fragment() {
 
-    protected var activity: AppCompatActivity? = null
+    protected val activity: AppCompatActivity by lazy {
+        context as AppCompatActivity
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // setHasOptionsMenu();
-    }
-
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        activity = context as AppCompatActivity
     }
 
 //    fun fragmentManager(): FragmentManager? {
@@ -70,11 +66,6 @@ abstract class SkeletonFragment : Fragment() {
 
     fun alive(): Boolean {
         return isAdded && isVisible
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        activity = null
     }
 
     // Lifecycle

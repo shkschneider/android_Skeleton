@@ -219,15 +219,19 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     fun logo(drawable: Drawable?) {
         supportActionBar ?: Logger.warning("ActionBar was NULL")
-        supportActionBar?.setDisplayShowHomeEnabled(drawable?.let { true } ?: false)
-        supportActionBar?.setDisplayUseLogoEnabled(drawable?.let { true } ?: false)
-        supportActionBar?.setLogo(drawable)
+        supportActionBar?.let { actionBar ->
+            actionBar.setDisplayShowHomeEnabled(drawable?.let { true } ?: false)
+            actionBar.setDisplayUseLogoEnabled(drawable?.let { true } ?: false)
+            actionBar.setLogo(drawable)
+        }
     }
 
     fun title(title: String?) {
         supportActionBar ?: Logger.warning("ActionBar was NULL")
-        supportActionBar?.setDisplayShowTitleEnabled(! title.isNullOrEmpty())
-        supportActionBar?.title = title
+        supportActionBar?.let { actionBar ->
+            actionBar.setDisplayShowTitleEnabled(! title.isNullOrEmpty())
+            actionBar.title = title
+        }
     }
 
     fun title(): String? {
@@ -237,8 +241,10 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     fun subtitle(subtitle: String?) {
         supportActionBar ?: Logger.warning("ActionBar was NULL")
-        supportActionBar?.setDisplayShowTitleEnabled(! (title.isNullOrBlank() || subtitle.isNullOrBlank()))
-        supportActionBar?.subtitle = subtitle
+        supportActionBar?.let { actionBar ->
+            actionBar.setDisplayShowTitleEnabled(! (title.isNullOrBlank() || subtitle.isNullOrBlank()))
+            actionBar.subtitle = subtitle
+        }
     }
 
     fun subtitle(): String? {

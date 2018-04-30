@@ -11,8 +11,8 @@ import me.shkschneider.skeleton.ui.BitmapHelper
 
 object ApplicationHelper {
 
-    val DEFAULT_ICON = android.R.drawable.sym_def_app_icon
-    val INSTALLER = "com.android.vending"
+    const val DEFAULT_ICON = android.R.drawable.sym_def_app_icon
+    const val INSTALLER = "com.android.vending"
 
     fun debuggable(): Boolean {
         // <https://stackoverflow.com/a/25517680/603270>

@@ -3,11 +3,9 @@ package me.shkschneider.skeleton
 import android.app.Application
 import android.content.pm.ApplicationInfo
 import me.shkschneider.skeleton.extensions.has
-import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.ContextHelper
 import me.shkschneider.skeleton.helper.DeviceHelper
 import me.shkschneider.skeleton.helper.Logger
-import me.shkschneider.skeleton.java.ExceptionHelper
 
 /**
  * https://developer.android.com/reference/android/app/Application.html
@@ -21,16 +19,15 @@ abstract class SkeletonApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         ContextHelper.applicationContext(applicationContext)
-        val applicationInfo = applicationInfo
         DEBUGGABLE = applicationInfo.flags.has(ApplicationInfo.FLAG_DEBUGGABLE)
         TAG = applicationInfo.packageName
-        if (ApplicationHelper.debuggable()) {
-            ExceptionHelper.uncaughtException(object: ExceptionHelper.Callback {
-                override fun uncaughtException(throwable: Throwable) {
-                    throwable.printStackTrace()
-                }
-            })
-        }
+//        if (ApplicationHelper.debuggable()) {
+//            ExceptionHelper.uncaughtException(object: ExceptionHelper.Callback {
+//                override fun uncaughtException(throwable: Throwable) {
+//                    throwable.printStackTrace()
+//                }
+//            })
+//        }
         Logger.verbose("Hello, ${DeviceHelper.codename()}!")
     }
 

@@ -6,8 +6,6 @@ import java.io.Writer
 // <http://opencsv.sourceforge.net>
 class CsvWriter {
 
-    private val NULL = '\u0000'
-
     private val writer: PrintWriter
     private val separator: Char
     private val quote: Char
@@ -54,6 +52,11 @@ class CsvWriter {
         }
         stringBuilder.append(eol)
         writer.write(stringBuilder.toString())
+    }
+
+    companion object {
+
+        const val NULL = '\u0000'
     }
 
 }

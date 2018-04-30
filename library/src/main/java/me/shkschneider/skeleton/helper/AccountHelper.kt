@@ -7,7 +7,7 @@ import java.util.*
 
 object AccountHelper {
 
-    val TYPE_GOOGLE = "com.google"
+    const val TYPE_GOOGLE = "com.google"
 
     @RequiresPermission(Manifest.permission.GET_ACCOUNTS)
     fun names(type: String): List<String>? {

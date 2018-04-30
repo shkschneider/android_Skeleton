@@ -10,11 +10,8 @@ import android.support.annotation.RequiresApi
 @RequiresApi(AndroidHelper.API_25)
 object ShortcutHelper {
 
-    private val DEFAULT = 4
-    private var maxRecommendedShortcuts = DEFAULT
-
-    init {
-        maxRecommendedShortcuts = SystemServices.shortcutManager()?.maxShortcutCountPerActivity ?: DEFAULT
+    private val maxRecommendedShortcuts by lazy {
+        SystemServices.shortcutManager()?.maxShortcutCountPerActivity ?: 4
     }
 
     class Shortcut {

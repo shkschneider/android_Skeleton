@@ -5,12 +5,10 @@ import android.annotation.SuppressLint
 import android.app.job.JobInfo
 import android.app.job.JobScheduler
 import android.app.job.JobService
-import android.content.ComponentName
 import android.os.PersistableBundle
 import android.support.annotation.RequiresApi
 import android.support.annotation.RequiresPermission
 import me.shkschneider.skeleton.extensions.ComponentName
-
 import me.shkschneider.skeleton.helper.AndroidHelper
 import me.shkschneider.skeleton.helper.ContextHelper
 import me.shkschneider.skeleton.helper.SystemServices
