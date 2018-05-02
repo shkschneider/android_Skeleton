@@ -177,7 +177,7 @@ object IntentHelper {
 
     @SkHide
     fun canHandle(intent: Intent): Boolean {
-        // return (intent.resolveActivity(ApplicationHelper.packageManager())?.let { true } ?: false);
+        // return (intent.resolveActivity(ApplicationHelper.packageManager()) != null)
         val resolveInfos = ApplicationHelper.packageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
         return resolveInfos.size > 0
     }

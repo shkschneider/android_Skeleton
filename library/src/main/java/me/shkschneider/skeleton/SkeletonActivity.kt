@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar
 import android.text.InputType
 import android.view.*
 import android.view.inputmethod.EditorInfo
+import me.shkschneider.skeleton.extensions.toStringOrEmpty
 import me.shkschneider.skeleton.helper.*
 import me.shkschneider.skeleton.ui.OverlayLoader
 
@@ -42,6 +43,7 @@ import me.shkschneider.skeleton.ui.OverlayLoader
  * onDestroy()
  *
  * Toolbar
+ * Search
  * OverlayLoader
  */
 abstract class SkeletonActivity : AppCompatActivity() {
@@ -136,21 +138,16 @@ abstract class SkeletonActivity : AppCompatActivity() {
         return true
     }
 
-    protected fun bindToolbar() {
-        toolbar = findViewById(R.id.toolbar)
-        toolbar?.let { toolbar ->
-            setSupportActionBar(toolbar)
-            title(ApplicationHelper.name())
-        }
-    }
-
     override fun setSupportActionBar(toolbar: Toolbar?) {
-        super.setSupportActionBar(toolbar)
+        try {
+            super.setSupportActionBar(toolbar)
+        }
+        catch (e: IllegalStateException) {
+            /**
+             * java.lang.RuntimeException: Unable to start activity ComponentInfo{am.sounds.shksounds/am.sounds.shksounds.MainActivity}: java.lang.IllegalStateException: This Activity already has an action bar supplied by the window decor. Do not request Window.FEATURE_SUPPORT_ACTION_BAR and set windowActionBar to false in your theme to use a Toolbar instead.
+             */
+        }
         this.toolbar = toolbar
-    }
-
-    protected fun onViewCreated() {
-        bindToolbar()
     }
 
     // Lifecycle
@@ -158,6 +155,14 @@ abstract class SkeletonActivity : AppCompatActivity() {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         // BundleHelper.unpack()
+    }
+
+    protected fun onViewCreated() {
+        toolbar = findViewById(R.id.toolbar)
+        toolbar?.let { toolbar ->
+            setSupportActionBar(toolbar)
+            title(ApplicationHelper.name())
+        }
     }
 
     override fun onResume() {
@@ -196,38 +201,41 @@ abstract class SkeletonActivity : AppCompatActivity() {
         return toolbar
     }
 
+    fun toolbar(show: Boolean = true, home: Boolean = false, logo: Drawable? = null, title: String? = null, subtitle: String? = null) {
+        toolbar(show)
+        home(home)
+        logo(logo)
+        title(title)
+        subtitle(subtitle)
+    }
+
     fun toolbar(b: Boolean) {
-        toolbar ?: Logger.warning("Toolbar was NULL")
         toolbar?.visibility = if (b) View.VISIBLE else View.GONE
     }
 
     fun home(b: Boolean) {
-        supportActionBar ?: Logger.warning("ActionBar was NULL")
+        supportActionBar?.setDisplayShowHomeEnabled(b)
         supportActionBar?.setDisplayHomeAsUpEnabled(b)
     }
 
-    @Deprecated("Obsolete.", ReplaceWith("home(boolean)"))
-    fun home(drawable: Drawable) {
-        toolbar ?: Logger.warning("Toolbar was NULL")
-        toolbar?.navigationIcon = drawable
-    }
-
-    @Deprecated("Obsolete.", ReplaceWith("logo(drawable)"))
-    fun icon(drawable: Drawable) {
+    @Deprecated("NavigationIcon is probably NOT what you want.", ReplaceWith("logo(drawable)"))
+    fun icon(drawable: Drawable?) {
         logo(drawable)
     }
 
     fun logo(drawable: Drawable?) {
-        supportActionBar ?: Logger.warning("ActionBar was NULL")
         supportActionBar?.let { actionBar ->
-            actionBar.setDisplayShowHomeEnabled(drawable?.let { true } ?: false)
-            actionBar.setDisplayUseLogoEnabled(drawable?.let { true } ?: false)
+            actionBar.setDisplayShowHomeEnabled(drawable != null)
+            actionBar.setDisplayUseLogoEnabled(drawable != null)
             actionBar.setLogo(drawable)
         }
     }
 
     fun title(title: String?) {
-        supportActionBar ?: Logger.warning("ActionBar was NULL")
+        toolbar?.let { toolbar ->
+            toolbar.title = title
+            return
+        }
         supportActionBar?.let { actionBar ->
             actionBar.setDisplayShowTitleEnabled(! title.isNullOrEmpty())
             actionBar.title = title
@@ -235,21 +243,33 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     fun title(): String? {
-        supportActionBar ?: Logger.warning("ActionBar was NULL")
-        return supportActionBar?.subtitle?.toString()
+        toolbar?.let { toolbar ->
+            return toolbar.title.toStringOrEmpty()
+        }
+        supportActionBar?.let { actionBar ->
+            return actionBar.title.toStringOrEmpty()
+        }
+        return null
     }
 
     fun subtitle(subtitle: String?) {
-        supportActionBar ?: Logger.warning("ActionBar was NULL")
+        toolbar?.let { toolbar ->
+            toolbar.subtitle = subtitle
+        }
         supportActionBar?.let { actionBar ->
-            actionBar.setDisplayShowTitleEnabled(! (title.isNullOrBlank() || subtitle.isNullOrBlank()))
+            actionBar.setDisplayShowTitleEnabled(! (title.isNullOrEmpty() && subtitle.isNullOrEmpty()))
             actionBar.subtitle = subtitle
         }
     }
 
     fun subtitle(): String? {
-        supportActionBar ?: Logger.warning("ActionBar was NULL")
-        return supportActionBar?.subtitle?.toString()
+        toolbar?.let { toolbar ->
+            return toolbar.subtitle.toStringOrEmpty()
+        }
+        supportActionBar?.let { actionBar ->
+            return actionBar.subtitle.toStringOrEmpty()
+        }
+        return null
     }
 
     // Orientations
@@ -276,16 +296,12 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     fun loading(b: Boolean) {
-        if (! b) {
-            // Resets loading count to avoid side-effects upon re-loading
-            loading = 0
-        }
         if (b) {
             overlayLoader ?: run {
                 overlayLoader = OverlayLoader.show(this)
             }
         } else {
-            overlayLoader?.hide(this)
+            overlayLoader?.hide(this)?.also { loading = 0 }
             overlayLoader = null
         }
     }
@@ -293,7 +309,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
     // Search
 
     fun searchable(): Boolean {
-        return skeletonReceiver?.let { true } ?: false
+        return skeletonReceiver != null
     }
 
     fun searchable(hint: String, skeletonReceiver: SkeletonReceiver?) {
@@ -317,7 +333,6 @@ abstract class SkeletonActivity : AppCompatActivity() {
             Logger.warning("SearchView was NULL")
             return super.onCreateOptionsMenu(menu)
         }
-        menuInflater.inflate(R.menu.sk_search, menu)
         searchView.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
         searchView.imeOptions = EditorInfo.IME_ACTION_SEARCH
         searchView.setIconifiedByDefault(true)

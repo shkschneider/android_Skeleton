@@ -23,7 +23,6 @@ import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.demo.data.ShkMod
 import me.shkschneider.skeleton.extensions.*
 import me.shkschneider.skeleton.helper.*
-import me.shkschneider.skeleton.network.NetworkHelper
 import me.shkschneider.skeleton.network.WebService
 import me.shkschneider.skeleton.security.FingerprintHelper
 import me.shkschneider.skeleton.ui.*
@@ -54,9 +53,8 @@ class MainActivity : SkeletonActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        Logger.debug("IP: " + NetworkHelper.ipAddress("192.168.0.1"))
-        toolbar?.title = getString(R.string.title)
-        toolbar?.subtitle = getString(R.string.subtitle)
+        toolbar(home = false, title = getString(R.string.title), subtitle = getString(R.string.subtitle))
+
         val viewPager = findViewById<ViewPager>(R.id.viewPager)
         val pagerAdapter = MyPagerAdapter(supportFragmentManager)
         viewPager.adapter = pagerAdapter
@@ -77,6 +75,7 @@ class MainActivity : SkeletonActivity() {
                 // Ignore
             }
         })
+
         val floatingActionButton = findViewById<FloatingActionButton>(R.id.floatingActionButton)
         floatingActionButton.setImageResource(android.R.drawable.ic_dialog_info)
         floatingActionButton.setOnClickListener {
@@ -130,8 +129,6 @@ class MainActivity : SkeletonActivity() {
                 }
             })
         }
-
-        Toaster.show("HOST:" + NetworkHelper.hostname())
     }
 
     override fun onStop() {

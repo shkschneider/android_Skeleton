@@ -56,27 +56,27 @@ object LocaleHelper {
 
     }
 
-    fun language(locale: Locale): String {
+    fun language(locale: Locale = LocaleHelper.Device.locale()): String {
         return locale.displayLanguage
     }
 
-    fun language2(locale: Locale): String {
+    fun language2(locale: Locale = LocaleHelper.Device.locale()): String {
         return locale.language
     }
 
-    fun language3(locale: Locale): String {
+    fun language3(locale: Locale = LocaleHelper.Device.locale()): String {
         return locale.isO3Language
     }
 
-    fun country(locale: Locale): String {
+    fun country(locale: Locale = LocaleHelper.Device.locale()): String {
         return locale.displayCountry
     }
 
-    fun country2(locale: Locale): String {
+    fun country2(locale: Locale = LocaleHelper.Device.locale()): String {
         return locale.country
     }
 
-    fun country3(locale: Locale): String {
+    fun country3(locale: Locale = LocaleHelper.Device.locale()): String {
         return locale.isO3Country
     }
 

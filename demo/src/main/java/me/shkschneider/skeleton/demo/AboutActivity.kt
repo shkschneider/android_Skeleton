@@ -5,7 +5,6 @@ import android.support.v7.preference.PreferenceFragmentCompat
 import android.view.View
 
 import me.shkschneider.skeleton.SkeletonActivity
-import me.shkschneider.skeleton.extensions.camelCase
 import me.shkschneider.skeleton.helper.AndroidHelper
 import me.shkschneider.skeleton.helper.ApplicationHelper
 
@@ -14,9 +13,7 @@ class AboutActivity : SkeletonActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about)
-        home(true)
-        toolbar?.title = getString(R.string.title)
-        toolbar?.subtitle = getString(R.string.subtitle)
+        toolbar(home = true, title = getString(R.string.title))
     }
 
     override fun onSupportNavigateUp(): Boolean {
