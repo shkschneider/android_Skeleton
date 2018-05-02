@@ -7,6 +7,7 @@ import android.support.annotation.IntRange
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
+import me.shkschneider.skeleton.extensions.then
 import me.shkschneider.skeleton.helper.Logger
 import me.shkschneider.skeleton.helper.Metrics
 
@@ -52,7 +53,7 @@ class LetterIcon : View {
     override fun onDraw(canvas: Canvas) {
         val width = measuredWidth / 2
         val height = measuredHeight / 2
-        val radius = if (width > height) height else width
+        val radius = (width > height) then height ?: width
         with (shapePaint) {
             color = shapeColor
             canvas.drawCircle(width.toFloat(), height.toFloat(), radius.toFloat(), this)
@@ -72,7 +73,7 @@ class LetterIcon : View {
 
     fun setLetter(string: String) {
         letter = string.replace("\\s+".toRegex(), "").toUpperCase()
-        letter = if (letter.isNotEmpty()) letter.first().toString() else DEFAULT
+        letter = (letter.isNotEmpty()) then letter.first().toString() ?: DEFAULT
         invalidate()
     }
 

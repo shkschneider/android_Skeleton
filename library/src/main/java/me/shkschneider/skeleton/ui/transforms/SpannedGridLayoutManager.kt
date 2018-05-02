@@ -25,6 +25,7 @@ import android.util.AttributeSet
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
+import me.shkschneider.skeleton.extensions.then
 import me.shkschneider.skeleton.helper.ContextHelper
 import java.util.*
 
@@ -212,7 +213,7 @@ class SpannedGridLayoutManager : RecyclerView.LayoutManager {
     }
 
     override fun scrollToPosition(position: Int) {
-        firstVisibleRow = getRowIndex(if (position >= itemCount) itemCount - 1 else position)
+        firstVisibleRow = getRowIndex((position >= itemCount) then itemCount - 1 ?: position)
         resetVisibleItemTracking()
         forceClearOffsets = true
         removeAllViews()
@@ -226,7 +227,7 @@ class SpannedGridLayoutManager : RecyclerView.LayoutManager {
                 return PointF(0f, (rowOffset * cellHeight).toFloat())
             }
         }
-        scroller.targetPosition = if (position >= itemCount) itemCount - 1 else position
+        scroller.targetPosition = (position >= itemCount) then itemCount - 1 ?: position
         startSmoothScroll(scroller)
     }
 
@@ -393,7 +394,7 @@ class SpannedGridLayoutManager : RecyclerView.LayoutManager {
         val firstPositionInRow = getFirstPositionInSpannedRow(rowIndex)
         val lastPositionInRow = getLastPositionInSpannedRow(rowIndex, state)
         var containsRemovedItems = false
-        var insertPosition = if (rowIndex < firstVisibleRow) 0 else childCount
+        var insertPosition = (rowIndex < firstVisibleRow) then 0 ?: childCount
         var position = firstPositionInRow
         while (position <= lastPositionInRow) {
             val view = recycler?.getViewForPosition(position) ?: continue

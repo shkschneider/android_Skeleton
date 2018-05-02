@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import me.shkschneider.skeleton.SkeletonFragment
+import me.shkschneider.skeleton.extensions.then
 import me.shkschneider.skeleton.java.AlphanumComparator
 import me.shkschneider.skeleton.java.SkHide
 import java.lang.reflect.Modifier
@@ -127,7 +128,7 @@ class SkFragment : SkeletonFragment() {
             }
             fields.sortWith(AlphanumComparator())
             for (field in fields) {
-                textView2.append(if (! textView2.text.isNullOrEmpty()) "\n" else "")
+                textView2.append((! textView2.text.isNullOrEmpty()) then "\n" ?: "")
                 textView2.append(field)
             }
             // methods
@@ -154,7 +155,7 @@ class SkFragment : SkeletonFragment() {
             }
             methods.sortWith(AlphanumComparator())
             methods.forEach {
-                textView2.append(if (! textView2.text.isNullOrEmpty()) "\n" else "")
+                textView2.append((! textView2.text.isNullOrEmpty()) then "\n" ?: "")
                 textView2.append(it)
             }
             linearLayout?.addView(ui)

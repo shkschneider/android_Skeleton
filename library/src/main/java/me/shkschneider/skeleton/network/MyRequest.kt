@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.network
 import com.android.volley.*
 import com.android.volley.toolbox.HttpHeaderParser
 import me.shkschneider.skeleton.data.CharsetHelper
+import me.shkschneider.skeleton.extensions.then
 import me.shkschneider.skeleton.helper.DateTimeHelper
 import me.shkschneider.skeleton.helper.Logger
 import me.shkschneider.skeleton.java.SkHide
@@ -123,7 +124,7 @@ class MyRequest : Request<MyResponse> {
             etag = headers["ETag"]
             softTtl = DateTimeHelper.now() + timeout
             ttl = entry.softTtl
-            serverDate = if (headers.containsKey("Date")) HttpHeaderParser.parseDateAsEpoch(headers["Date"]) else 0
+            serverDate = (headers.containsKey("Date")) then HttpHeaderParser.parseDateAsEpoch(headers["Date"]) ?: 0
             responseHeaders = headers
         }
         return entry

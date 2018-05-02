@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar
 import android.text.InputType
 import android.view.*
 import android.view.inputmethod.EditorInfo
+import me.shkschneider.skeleton.extensions.then
 import me.shkschneider.skeleton.extensions.toStringOrEmpty
 import me.shkschneider.skeleton.helper.*
 import me.shkschneider.skeleton.ui.OverlayLoader
@@ -87,7 +88,8 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        Logger.verbose("onNewIntent ${intent.action.orEmpty().toUpperCase()}" + if (intent.extras != null) " (has extras)" else "")
+        Logger.verbose("onNewIntent ${intent.action.orEmpty().toUpperCase()}"
+                + ((intent.extras != null) then " (has extras)" ?: ""))
         // This part is necessary to ensure that getIntent returns the latest intent when
         // this activity is started. By default, getIntent() returns the initial intent
         // that was set from another activity that started this activity.
@@ -210,7 +212,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     fun toolbar(b: Boolean) {
-        toolbar?.visibility = if (b) View.VISIBLE else View.GONE
+        toolbar?.visibility = (b) then View.VISIBLE ?: View.GONE
     }
 
     fun home(b: Boolean) {
@@ -270,16 +272,6 @@ abstract class SkeletonActivity : AppCompatActivity() {
             return actionBar.subtitle.toStringOrEmpty()
         }
         return null
-    }
-
-    // Orientations
-
-    fun portrait(): Boolean {
-        return ScreenHelper.orientation(this) != Configuration.ORIENTATION_LANDSCAPE
-    }
-
-    fun landscape(): Boolean {
-        return ScreenHelper.orientation(this) == Configuration.ORIENTATION_LANDSCAPE
     }
 
     // Loading

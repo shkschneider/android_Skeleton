@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.ui
 import android.support.annotation.UiThread
 import android.support.design.widget.Snackbar
 import android.view.View
+import me.shkschneider.skeleton.extensions.then
 
 import me.shkschneider.skeleton.helper.Logger
 
@@ -17,7 +18,7 @@ object Snack {
         onClickListener?.let { onClickListener ->
             snackBar.setAction(action, onClickListener)
         }
-        snackBar.duration = duration ?: (if (action.isNullOrBlank()) Snackbar.LENGTH_SHORT else Snackbar.LENGTH_INDEFINITE)
+        snackBar.duration = duration ?: (action.isNullOrBlank()) then Snackbar.LENGTH_SHORT ?: Snackbar.LENGTH_INDEFINITE
         snackBar.show()
     }
 

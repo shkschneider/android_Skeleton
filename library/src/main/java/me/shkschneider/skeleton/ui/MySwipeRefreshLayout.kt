@@ -12,6 +12,7 @@ import android.widget.AbsListView
 import android.widget.ScrollView
 
 import me.shkschneider.skeleton.R
+import me.shkschneider.skeleton.extensions.then
 
 class MySwipeRefreshLayout : SwipeRefreshLayout {
 
@@ -113,7 +114,7 @@ class MySwipeRefreshLayout : SwipeRefreshLayout {
                     // Ignore
                 }
                 override fun onScroll(view: AbsListView, firstVisibleItem: Int, visibleItemCount: Int, totalItemCount: Int) {
-                    val topRowVerticalPosition = if (absListView.childCount == 0) 0 else absListView.getChildAt(0).top
+                    val topRowVerticalPosition = (absListView.childCount == 0) then 0 ?: absListView.getChildAt(0).top
                     mySwipeRefreshLayout.isEnabled = firstVisibleItem == 0 && topRowVerticalPosition >= 0
                 }
             })

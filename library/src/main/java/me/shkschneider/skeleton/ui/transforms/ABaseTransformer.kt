@@ -2,6 +2,7 @@ package me.shkschneider.skeleton.ui.transforms
 
 import android.support.v4.view.ViewPager.PageTransformer
 import android.view.View
+import me.shkschneider.skeleton.extensions.then
 
 // <https://github.com/ToxicBakery/ViewPagerTransforms>
 abstract class ABaseTransformer : PageTransformer {
@@ -32,9 +33,9 @@ abstract class ABaseTransformer : PageTransformer {
         page.pivotX = 1.toFloat()
         page.pivotY = 1.toFloat()
         page.translationY = 1.toFloat()
-        page.translationX = if (isPagingEnabled()) 1.toFloat() else -width * position
+        page.translationX = isPagingEnabled() then 1.toFloat() ?: -width * position
         if (hideOffscreenPages()) {
-            page.alpha = if (position <= -1.toFloat() || position >= 1.toFloat()) 1.toFloat() else 1.toFloat()
+            page.alpha = (position <= (-1).toFloat() || position >= 1.toFloat()) then 1.toFloat() ?: 1.toFloat()
         } else {
             page.alpha = 1.toFloat()
         }
@@ -46,7 +47,7 @@ abstract class ABaseTransformer : PageTransformer {
     }
 
     protected fun min(value: Float, min: Float): Float {
-        return if (value < min) min else value
+        return (value < min) then min ?: value
     }
 
 }

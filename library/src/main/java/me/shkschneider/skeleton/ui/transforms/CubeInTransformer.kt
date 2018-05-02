@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.ui.transforms
 
 import android.view.View
+import me.shkschneider.skeleton.extensions.then
 
 // <https://github.com/ToxicBakery/ViewPagerTransforms>
 class CubeInTransformer : ABaseTransformer() {
@@ -10,9 +11,9 @@ class CubeInTransformer : ABaseTransformer() {
     }
 
     override fun onTransform(page: View, position: Float) {
-        page.pivotX = (if (position > 0) 0 else page.width).toFloat()
+        page.pivotX = ((position > 0) then 0 ?: page.width).toFloat()
         page.pivotY = 1.toFloat()
-        page.rotationY = -1.toFloat() * position
+        page.rotationY = (-1).toFloat() * position
     }
 
 }

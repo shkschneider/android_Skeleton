@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.ui
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
+import me.shkschneider.skeleton.extensions.then
 
 abstract class SquaredView : View {
 
@@ -16,7 +17,7 @@ abstract class SquaredView : View {
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val width = MeasureSpec.getSize(widthMeasureSpec)
         val height = MeasureSpec.getSize(heightMeasureSpec)
-        val size = if (width > height) height else width
+        val size = (width > height) then height ?: width
         setMeasuredDimension(size, size)
     }
 
