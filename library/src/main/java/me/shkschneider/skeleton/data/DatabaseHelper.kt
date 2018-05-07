@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.data
 import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import android.support.annotation.MainThread
 import android.support.annotation.UiThread
 import android.support.v4.app.LoaderManager
 
@@ -12,6 +13,7 @@ object DatabaseHelper {
 
     object Loader {
 
+        @MainThread
         fun start(loaderManager: LoaderManager, id: Int, args: Bundle? = null, callbacks: LoaderManager.LoaderCallbacks<Any>) {
             loaderManager.getLoader<Any>(id)?.let {
                 loaderManager.restartLoader(id, args, callbacks) // starts or restarts
@@ -20,6 +22,7 @@ object DatabaseHelper {
             }
         }
 
+        @MainThread
         fun stop(loaderManager: LoaderManager, id: Int) {
             loaderManager.destroyLoader(id)
         }
