@@ -57,11 +57,12 @@ task doc(type: org.jetbrains.dokka.gradle.DokkaAndroidTask) {
     reportUndocumented = false
     noStdlibLink = false
     externalDocumentationLink {
-        url = new URL('https://developer.android.com/reference/')
+        url = new URL('https://developer.android.com/reference/kotlin')
         packageListUrl = new URL('https://developer.android.com/reference/package-list')
     }
     externalDocumentationLink {
         url = new URL('https://developer.android.com/reference/')
         packageListUrl = new URL('https://developer.android.com/reference/android/support/package-list')
     }
+    print "$outputDirectory\n"
 }
