@@ -9,22 +9,19 @@ import me.shkschneider.skeleton.helper.Logger
 import me.shkschneider.skeleton.java.SkHide
 import java.util.concurrent.TimeUnit
 
-class MyRequest : Request<MyResponse> {
-
-    private val listener: Response.Listener<MyResponse>?
-    private val body: Map<String, String>?
-
-    constructor(method: Int, url: String, body: Map<String, String>?, listener: Response.Listener<MyResponse>?, errorListener: Response.ErrorListener?) : super(method, url, errorListener) {
-        this.listener = listener
-        this.body = body
-        Logger.debug(methodName() + " $url $body")
-    }
-
-    constructor(method: Int = Request.Method.DEPRECATED_GET_OR_POST, url: String, listener: Response.Listener<MyResponse>?, errorListener: Response.ErrorListener?) : this(method, url, null, listener, errorListener)
+class MyRequest(
+        method: Int = Request.Method.DEPRECATED_GET_OR_POST,
+        url: String,
+        private val body: Map<String, String>? = null,
+        private val listener: Response.Listener<MyResponse>? = null,
+        errorListener: Response.ErrorListener? = null
+) : Request<MyResponse>(
+        method, url, errorListener
+) {
 
     private var cacheTimeout = TimeUnit.HOURS.toMillis(1).toInt()
 
-    // CONNECT not available using Volley
+    // CONNECT not available using VolleyBall
     fun methodName(): String {
         return when (method) {
             Request.Method.DEPRECATED_GET_OR_POST -> "GET/POST"
@@ -91,12 +88,12 @@ class MyRequest : Request<MyResponse> {
 
     @SkHide
     override fun parseNetworkResponse(networkResponse: NetworkResponse): Response<MyResponse> {
-        var cacheEntry = parseCacheHeaders(networkResponse, cacheTimeout)
+        val cacheEntry = parseCacheHeaders(networkResponse, cacheTimeout)
         with (cacheEntry) {
             if (!cached) {
-                Logger.verbose("networkTime: " + networkResponse.networkTimeMs + "ms")
+                Logger.verbose("networkTime: ${networkResponse.networkTimeMs}ms")
             } else {
-                Logger.verbose("cached: " + etag)
+                Logger.verbose("cached: $etag")
             }
             data = networkResponse.data
             softTtl = DateTimeHelper.now() + cacheTimeout

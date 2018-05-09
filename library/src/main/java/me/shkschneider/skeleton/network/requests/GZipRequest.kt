@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.network
+package me.shkschneider.skeleton.network.requests
 
 import com.android.volley.NetworkResponse
 import com.android.volley.ParseError
@@ -12,11 +12,13 @@ import java.io.IOException
 import java.util.zip.GZIPInputStream
 
 // <https://github.com/DWorkS/VolleyPlus>
-class GZipRequest : StringRequest {
-
-    constructor(method: Int, url: String, listener: Response.Listener<String>, errorListener: Response.ErrorListener) : super(method, url, listener, errorListener)
-
-    constructor(url: String, listener: Response.Listener<String>, errorListener: Response.ErrorListener) : super(url, listener, errorListener)
+class GZipRequest(method: Int = Method.GET,
+                  url: String,
+                  listener: Response.Listener<String>? = null,
+                  errorListener: Response.ErrorListener? = null
+) : StringRequest(
+        method, url, listener, errorListener
+) {
 
     override fun parseNetworkResponse(response: NetworkResponse): Response<String> {
         try {

@@ -1,23 +1,20 @@
 package me.shkschneider.skeleton.demo.data
 
-import com.google.gson.JsonArray
 import com.google.gson.annotations.SerializedName
 
-object ShkMod {
-
-    @SerializedName("api")
-    var api: Int? = null
-    @SerializedName("buildId")
-    var buildId: String? = null
-    @SerializedName("revision")
-    var revision: String? = null
-    @SerializedName("securityPatch")
-    var securityPatch: String? = null
-    @SerializedName("ro.mod.name")
-    var roModName: String? = null
-    @SerializedName("ro.mod.verison")
-    var roModVersion: String? = null
-    @SerializedName("devices")
-    var devices: JsonArray? = null
-
-}
+data class ShkMod(
+        @SerializedName("api")
+        val api: Int? = null,
+        @SerializedName("buildId")
+        val buildId: String?,
+        @SerializedName("revision")
+        val revision: String?,
+        @SerializedName("securityPatch")
+        val securityPatch: String?,
+        @SerializedName("ro.mod.name")
+        val roModName: String?,
+        @SerializedName("ro.mod.version")
+        val roModVersion: String?,
+        @SerializedName("devices")
+        val devices: List<String>?
+)

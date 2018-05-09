@@ -2,9 +2,15 @@ package me.shkschneider.skeleton.network
 
 import com.android.volley.NetworkResponse
 
-class MyResponse : NetworkResponse {
-
-    constructor(networkResponse: NetworkResponse) : super(networkResponse.statusCode, networkResponse.data, networkResponse.headers, networkResponse.notModified, networkResponse.networkTimeMs)
+class MyResponse(
+        networkResponse: NetworkResponse
+) : NetworkResponse(
+        networkResponse.statusCode,
+        networkResponse.data,
+        networkResponse.headers,
+        networkResponse.notModified,
+        networkResponse.networkTimeMs
+) {
 
     fun code(): Int {
         return statusCode

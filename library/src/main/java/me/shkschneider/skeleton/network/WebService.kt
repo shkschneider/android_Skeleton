@@ -20,19 +20,14 @@ import java.net.URL
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-class WebService {
-
-    private val method: WebService.Method
-    private val url: String
+class WebService(
+        private val method: WebService.Method,
+        private val url: String
+) {
 
     private var headers: Map<String, String>? = null
     private var body: Map<String, String>? = null
     private var callback: Callback? = null
-
-    constructor(method: WebService.Method, url: String) {
-        this.method = method
-        this.url = url
-    }
 
     @SkHide
     fun url(): String? {

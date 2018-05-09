@@ -14,13 +14,9 @@ import me.shkschneider.skeleton.helper.Logger
 
 // android.text.Html.fromHtml(String, MyImageGetter, null)
 // <http://stackoverflow.com/a/25530488>
-class MyImageGetter : Html.ImageGetter {
-
-    private val textView: TextView
-
-    constructor(textView: TextView) {
-        this.textView = textView
-    }
+class MyImageGetter(
+        private val textView: TextView
+) : Html.ImageGetter {
 
     override fun getDrawable(source: String): Drawable {
         val bitmapDrawablePlaceholder = BitmapDrawablePlaceholder()

@@ -18,12 +18,16 @@ import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.view.ViewPager
 import android.view.Menu
 import android.view.MenuItem
+import com.android.volley.DefaultRetryPolicy
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.Volley
 
 import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.demo.data.ShkMod
 import me.shkschneider.skeleton.extensions.*
 import me.shkschneider.skeleton.helper.*
-import me.shkschneider.skeleton.network.WebService
+import me.shkschneider.skeleton.network.requests.ApiRequest
 import me.shkschneider.skeleton.security.FingerprintHelper
 import me.shkschneider.skeleton.ui.*
 
@@ -138,17 +142,19 @@ class MainActivity : SkeletonActivity() {
     }
 
     private fun network() {
-        WebService(WebService.Method.GET, URL)
-                .callback(object : WebService.Callback {
-                    override fun success(result: WebService.Response?) {
-                        if (result?.message?.isNotBlank() == true) {
-                            notification(DateTimeHelper.timestamp(), ShkMod::class.simpleName(), result.message!!)
-                        }
-                    }
-                    override fun failure(e: WebService.Error) {
-                        Toaster.show(WebService.Error::class.simpleName())
-                    }
-                }).run()
+        Volley.newRequestQueue(applicationContext)
+                .add(ApiRequest(Request.Method.GET, URL, ShkMod::class,
+                        listener = Response.Listener { response ->
+                            response?.let {
+                                notification(DateTimeHelper.timestamp(), ShkMod::class.simpleName(), response.toString())
+                            } ?: run {
+                                Toaster.show(response.toStringOrEmpty())
+                            }
+                        },
+                        errorListener = Response.ErrorListener { error ->
+                            Toaster.show(error.toStringOrEmpty())
+                        },
+                        retryPolicy = DefaultRetryPolicy()))
     }
 
     private fun notification(id: Int, title: String, message: String) {
@@ -208,9 +214,9 @@ class MainActivity : SkeletonActivity() {
 
     companion object {
 
-        val BROADCAST_SECRET = "BROADCAST_SECRET"
-        val BROADCAST_SECRET_CODE = "BROADCAST_SECRET_CODE"
-        val URL = "https://raw.githubusercontent.com/shkschneider/android_manifest/master/VERSION.json"
+        const val BROADCAST_SECRET = "BROADCAST_SECRET"
+        const val BROADCAST_SECRET_CODE = "BROADCAST_SECRET_CODE"
+        const val URL = "https://raw.githubusercontent.com/shkschneider/android_manifest/master/VERSION.json"
 
     }
 
