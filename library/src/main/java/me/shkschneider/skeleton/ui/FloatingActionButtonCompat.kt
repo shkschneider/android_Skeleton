@@ -31,7 +31,7 @@ object FloatingActionButtonCompat {
             return
         }
         val animation = AnimationUtils.loadAnimation(ContextHelper.applicationContext(), R.anim.sk_scale_down)
-        animation.setAnimationListener(object : Animation.AnimationListener {
+        animation.setAnimationListener(object: Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation) {
                 // Ignore
             }
@@ -52,7 +52,7 @@ object FloatingActionButtonCompat {
     }
 
     fun absListView(floatingActionButton: FloatingActionButton, listView: ListView, onScrollListener: AbsListView.OnScrollListener?) {
-        listView.setOnScrollListener(object : AbsListView.OnScrollListener {
+        listView.setOnScrollListener(object: AbsListView.OnScrollListener {
             private var lastScrollY = 0
             private var previousFirstVisibleItem = 0
             private val topItemScrollY: Int
@@ -94,7 +94,7 @@ object FloatingActionButtonCompat {
     }
 
     fun myScrollView(floatingActionButton: FloatingActionButton, myScrollView: MyScrollView) {
-        myScrollView.setOnScrollViewListener(object : MyScrollView.OnScrollViewListener {
+        myScrollView.setOnScrollViewListener(object: MyScrollView.OnScrollViewListener {
             private var mLastScrollY = 0
             override fun onScrollChanged(l: Int, t: Int, oldl: Int, oldt: Int) {
                 val isSignificantDelta = Math.abs(t - mLastScrollY) > THRESHOLD
@@ -112,7 +112,7 @@ object FloatingActionButtonCompat {
 
     // <http://stackoverflow.com/a/35981886>
     fun recyclerView(floatingActionButton: FloatingActionButton, recyclerView: RecyclerView) {
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     floatingActionButton.show()

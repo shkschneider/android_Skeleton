@@ -333,7 +333,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
             skeletonReceiver.post(RESULT_SEARCH_CHANGE, "")
             return@setOnCloseListener false
         }
-        searchView.setOnQueryTextListener (object : SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener (object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(q: String): Boolean {
                 stopSearch()
                 skeletonReceiver.post(RESULT_SEARCH_SUBMIT, q)

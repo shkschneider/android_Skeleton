@@ -53,7 +53,7 @@ object KeyboardHelper {
     // <https://github.com/yshrsmz/KeyboardVisibilityEvent>
     fun keyboardListener(activity: Activity, listener: Listener) {
         val root = ViewHelper.children(ViewHelper.content(activity))[0]
-        root.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        root.viewTreeObserver.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener {
 
             private val rect = Rect()
             private val visibleThreshold = Math.round(Metrics.pixelsFromDp(1.toFloat()).toFloat())

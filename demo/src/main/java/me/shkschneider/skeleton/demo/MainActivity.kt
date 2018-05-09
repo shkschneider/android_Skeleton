@@ -27,6 +27,7 @@ import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.demo.data.ShkMod
 import me.shkschneider.skeleton.extensions.*
 import me.shkschneider.skeleton.helper.*
+import me.shkschneider.skeleton.network.Proxy
 import me.shkschneider.skeleton.network.requests.ApiRequest
 import me.shkschneider.skeleton.security.FingerprintHelper
 import me.shkschneider.skeleton.ui.*
@@ -43,7 +44,7 @@ import me.shkschneider.skeleton.ui.*
  */
 class MainActivity : SkeletonActivity() {
 
-    private val mBroadcastReceiver = object : BroadcastReceiver() {
+    private val mBroadcastReceiver = object: BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             // val code = intent.getIntExtra(BROADCAST_SECRET_CODE, 0)
             network()
@@ -68,7 +69,7 @@ class MainActivity : SkeletonActivity() {
             tabLayout.addTab(tabLayout.newTab().setText(pagerAdapter.getPageTitle(i)))
         }
         tabLayout.setupWithViewPager(viewPager)
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        viewPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                 // Ignore
             }
@@ -142,8 +143,7 @@ class MainActivity : SkeletonActivity() {
     }
 
     private fun network() {
-        Volley.newRequestQueue(applicationContext)
-                .add(ApiRequest(Request.Method.GET, URL, ShkMod::class,
+        Proxy.request(ApiRequest(Request.Method.GET, URL, ShkMod::class,
                         listener = Response.Listener { response ->
                             response?.let {
                                 notification(DateTimeHelper.timestamp(), ShkMod::class.simpleName(), response.toString())

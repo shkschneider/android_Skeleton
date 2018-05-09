@@ -11,7 +11,6 @@ import me.shkschneider.skeleton.helper.ContextHelper
 import me.shkschneider.skeleton.helper.Logger
 import me.shkschneider.skeleton.helper.SystemProperties
 import me.shkschneider.skeleton.helper.SystemServices
-import me.shkschneider.skeleton.java.ReflectHelper
 import java.net.Inet4Address
 import java.net.NetworkInterface
 import java.net.SocketException
@@ -26,7 +25,7 @@ object NetworkHelper {
         try {
             Class.forName("android.os.SystemProperties")?.let { cls ->
                 @Suppress("DEPRECATION")
-                return ReflectHelper.Method.method(cls, "get", arrayOf(String::class.java), "net.hostname") as String?
+                return me.shkschneider.skeleton.java.ReflectHelper.Method.method(cls, "get", arrayOf(String::class.java), "net.hostname") as String?
             }
         }
         catch (e: ClassNotFoundException) {

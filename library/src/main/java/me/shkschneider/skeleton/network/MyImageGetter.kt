@@ -20,7 +20,7 @@ class MyImageGetter(
 
     override fun getDrawable(source: String): Drawable {
         val bitmapDrawablePlaceholder = BitmapDrawablePlaceholder()
-        Proxy.imageLoader().get(source, object : ImageLoader.ImageListener {
+        Proxy.imageLoader.get(source, object: ImageLoader.ImageListener {
             override fun onResponse(response: ImageLoader.ImageContainer, isImmediate: Boolean) {
                 val bitmap = response.bitmap ?: run {
                     Logger.warning("Bitmap was NULL")

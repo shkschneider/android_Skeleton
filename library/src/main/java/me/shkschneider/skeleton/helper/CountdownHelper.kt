@@ -14,7 +14,7 @@ class CountdownHelper {
     }
 
     fun run(callback: Callback) {
-        object : CountDownTimer(timer, ticker) {
+        object: CountDownTimer(timer, ticker) {
             override fun onTick(millisUntilFinished: Long) {
                 callback.onCountdownTick(millisUntilFinished)
             }

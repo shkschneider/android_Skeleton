@@ -221,7 +221,7 @@ class SpannedGridLayoutManager : RecyclerView.LayoutManager {
     }
 
     override fun smoothScrollToPosition(recyclerView: RecyclerView?, state: RecyclerView.State?, position: Int) {
-        val scroller = object : LinearSmoothScroller(recyclerView?.context ?: ContextHelper.applicationContext()) {
+        val scroller = object: LinearSmoothScroller(recyclerView?.context ?: ContextHelper.applicationContext()) {
             override fun computeScrollVectorForPosition(targetPosition: Int): PointF {
                 val rowOffset = getRowIndex(targetPosition) - firstVisibleRow
                 return PointF(0f, (rowOffset * cellHeight).toFloat())

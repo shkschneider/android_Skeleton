@@ -95,7 +95,7 @@ class MySwipeRefreshLayout : SwipeRefreshLayout {
         // <http://stackoverflow.com/q/25178329>
 
         fun recyclerViewCompat(mySwipeRefreshLayout: MySwipeRefreshLayout, recyclerView: RecyclerView, linearLayoutManager: LinearLayoutManager) {
-            recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
                 override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                     super.onScrollStateChanged(recyclerView, newState)
                     val idle = newState == RecyclerView.SCROLL_STATE_IDLE
@@ -109,7 +109,7 @@ class MySwipeRefreshLayout : SwipeRefreshLayout {
         // <http://nlopez.io/swiperefreshlayout-with-listview-done-right/>
 
         fun absListViewCompat(mySwipeRefreshLayout: MySwipeRefreshLayout, absListView: AbsListView) {
-            absListView.setOnScrollListener(object : AbsListView.OnScrollListener {
+            absListView.setOnScrollListener(object: AbsListView.OnScrollListener {
                 override fun onScrollStateChanged(view: AbsListView, scrollState: Int) {
                     // Ignore
                 }

@@ -4,6 +4,7 @@ import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
 import android.renderscript.Allocation
 import android.renderscript.Element
 import android.renderscript.RenderScript
@@ -121,7 +122,7 @@ object BitmapHelper {
 
     fun fromFile(file: File): Bitmap? {
         try {
-            return BitmapHelper.fromInputStream(FileInputStream(file), object : BitmapFactory.Options() {
+            return BitmapHelper.fromInputStream(FileInputStream(file), object: BitmapFactory.Options() {
                 init {
                     inPreferredConfig = Bitmap.Config.ARGB_8888
                 }
@@ -144,6 +145,7 @@ object BitmapHelper {
         options.inPreferredConfig = Bitmap.Config.ARGB_8888
         options.inSampleSize = factor
         if (AndroidHelper.api() < AndroidHelper.API_24) {
+            @Suppress("DEPRECATION")
             options.inPreferQualityOverSpeed = true
         }
         val byteArrayOutputStream = ByteArrayOutputStream()
