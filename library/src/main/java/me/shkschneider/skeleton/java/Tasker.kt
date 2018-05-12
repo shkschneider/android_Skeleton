@@ -28,15 +28,10 @@ class Tasker {
     }
 
     // <http://stackoverflow.com/a/826283>
-    class Task : Runnable {
-
-        private val runnable: Runnable
-        private val skeletonReceiver: SkeletonReceiver?
-
-        constructor(runnable: Runnable, skeletonReceiver: SkeletonReceiver? = null) {
-            this.runnable = runnable
-            this.skeletonReceiver = skeletonReceiver
-        }
+    class Task (
+            private val runnable: Runnable,
+            private val skeletonReceiver: SkeletonReceiver? = null
+    ) : Runnable {
 
         override fun run() {
             runnable.run()

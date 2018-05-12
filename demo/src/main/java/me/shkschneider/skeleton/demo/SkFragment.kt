@@ -40,7 +40,7 @@ class SkFragment : SkeletonFragment() {
                 me.shkschneider.skeleton.helper.ApplicationHelper::class.java,
                 me.shkschneider.skeleton.helper.AssetsHelper::class.java,
                 me.shkschneider.skeleton.helper.BundleHelper::class.java,
-                me.shkschneider.skeleton.helper.CountdownHelper::class.java,
+                me.shkschneider.skeleton.helper.FinalCountdown::class.java,
                 me.shkschneider.skeleton.helper.DateTimeHelper::class.java,
                 me.shkschneider.skeleton.helper.DeviceHelper::class.java,
                 me.shkschneider.skeleton.helper.IdHelper::class.java,
@@ -64,6 +64,9 @@ class SkFragment : SkeletonFragment() {
                 me.shkschneider.skeleton.java.Tasker::class.java
         ))
         fill(view.findViewById<View>(R.id.network) as LinearLayout, arrayOf(
+                me.shkschneider.skeleton.network.requests.ApiRequest::class.java,
+                me.shkschneider.skeleton.network.requests.GsonArrayRequest::class.java,
+                me.shkschneider.skeleton.network.requests.GsonObjectRequest::class.java,
                 me.shkschneider.skeleton.network.MyRequest::class.java,
                 me.shkschneider.skeleton.network.MyResponse::class.java,
                 me.shkschneider.skeleton.network.NetworkHelper::class.java,

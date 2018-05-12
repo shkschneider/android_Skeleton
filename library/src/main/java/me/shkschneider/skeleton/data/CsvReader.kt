@@ -6,28 +6,14 @@ import java.io.IOException
 import java.util.*
 
 // <http://opencsv.sourceforge.net>
-class CsvReader {
+class CsvReader(
+        private val bufferedReader: BufferedReader,
+        private val separator: Char = ',',
+        private val quote: Char = '"',
+        skip: Int = 0
+) {
 
-    private val bufferedReader: BufferedReader
-    private val separator: Char
-    private val quote: Char
     private var hasNext = false
-
-    constructor(bufferedReader: BufferedReader, separator: Char = ',', quote: Char = '"', skip: Int = 0) {
-        this.bufferedReader = bufferedReader
-        this.separator = separator
-        this.quote = quote
-        hasNext = true
-        if (skip > 0) {
-            try {
-                for (i in 0 until skip) {
-                    bufferedReader.readLine()
-                }
-            } catch (e: IOException) {
-                Logger.warning(e.toString())
-            }
-        }
-    }
 
     @Throws(IOException::class)
     private fun getNextLine(): String {
@@ -103,6 +89,19 @@ class CsvReader {
     @Throws(IOException::class)
     fun close() {
         bufferedReader.close()
+    }
+
+    init {
+        hasNext = true
+        if (skip > 0) {
+            try {
+                for (i in 0 until skip) {
+                    bufferedReader.readLine()
+                }
+            } catch (e: IOException) {
+                Logger.warning(e.toString())
+            }
+        }
     }
 
 }

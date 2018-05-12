@@ -30,6 +30,7 @@ import me.shkschneider.skeleton.helper.*
 import me.shkschneider.skeleton.network.Proxy
 import me.shkschneider.skeleton.network.requests.ApiRequest
 import me.shkschneider.skeleton.security.FingerprintHelper
+import me.shkschneider.skeleton.security.SimpleCrypt
 import me.shkschneider.skeleton.ui.*
 
 /**

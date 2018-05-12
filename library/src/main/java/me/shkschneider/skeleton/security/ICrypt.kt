@@ -1,8 +1,6 @@
 package me.shkschneider.skeleton.security
 
-abstract class ICrypt<T> {
-
-    constructor(key: T)
+abstract class ICrypt<T>(key: T) {
 
     abstract fun algorithm(): String
 

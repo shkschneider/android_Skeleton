@@ -1,24 +1,19 @@
 package me.shkschneider.skeleton.data
 
+import me.shkschneider.skeleton.extensions.then
 import java.io.PrintWriter
 import java.io.Writer
 
 // <http://opencsv.sourceforge.net>
-class CsvWriter {
+class CsvWriter(
+        writer: Writer,
+        private val separator: Char = ',',
+        private val quote: Char = '"',
+        private val escape: Char = '"',
+        private val eol: String = "\n"
+) {
 
-    private val writer: PrintWriter
-    private val separator: Char
-    private val quote: Char
-    private val escape: Char
-    private val eol: String
-
-    constructor(writer: Writer, separator: Char = ',', quote: Char = '"', escape: Char = '"', eol: String = "\n") {
-        this.writer = PrintWriter(writer)
-        this.separator = separator
-        this.quote = quote
-        this.escape = escape
-        this.eol = eol
-    }
+    private val writer: PrintWriter = (writer is PrintWriter) then writer as PrintWriter ?: PrintWriter(writer)
 
     fun writeNext(nextLine: String) {
         writeNext(nextLine.split(separator.toString().toRegex()).toTypedArray())

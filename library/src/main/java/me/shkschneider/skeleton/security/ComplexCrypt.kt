@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.security
 
+import android.annotation.SuppressLint
 import me.shkschneider.skeleton.helper.Logger
 import java.security.InvalidAlgorithmParameterException
 import java.security.InvalidKeyException
@@ -9,20 +10,15 @@ import javax.crypto.IllegalBlockSizeException
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
-class ComplexCrypt : ICrypt<ByteArray> {
+class ComplexCrypt(key: ByteArray) : ICrypt<ByteArray>(key) {
 
     private val ALGORITHM = "AES" // KeyProperties.KEY_ALGORITHM_AES
     private val ALGORITHM_KEY_PAD = 16
 
-    private var ivParameterSpec: IvParameterSpec
-    private var secretKeySpec: SecretKeySpec
-    private var cipher: Cipher
-
-    constructor(key: ByteArray) : super(key) {
-        ivParameterSpec = IvParameterSpec(key)
-        secretKeySpec = SecretKeySpec(pad(key), ALGORITHM.split("/")[0])
-        cipher = Cipher.getInstance(ALGORITHM)
-    }
+    private var ivParameterSpec = IvParameterSpec(key)
+    private var secretKeySpec = SecretKeySpec(pad(key), ALGORITHM.split("/")[0])
+    @SuppressLint("GetInstance")
+    private var cipher = Cipher.getInstance(ALGORITHM)
 
     override fun algorithm(): String {
         return secretKeySpec.algorithm

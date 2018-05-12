@@ -146,8 +146,11 @@ abstract class SkeletonActivity : AppCompatActivity() {
         }
         catch (e: IllegalStateException) {
             /**
-             * java.lang.RuntimeException: Unable to start activity ComponentInfo{am.sounds.shksounds/am.sounds.shksounds.MainActivity}: java.lang.IllegalStateException: This Activity already has an action bar supplied by the window decor. Do not request Window.FEATURE_SUPPORT_ACTION_BAR and set windowActionBar to false in your theme to use a Toolbar instead.
+             * java.lang.RuntimeException: Unable to start activity
+             * java.lang.IllegalStateException: This Activity already has an action bar supplied by the window decor.
+             * Do not request Window.FEATURE_SUPPORT_ACTION_BAR and set windowActionBar to false in your theme to use a Toolbar instead.
              */
+            e.printStackTrace()
         }
         this.toolbar = toolbar
     }
@@ -159,7 +162,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
         // BundleHelper.unpack()
     }
 
-    protected fun onViewCreated() {
+    private fun onViewCreated() {
         toolbar = findViewById(R.id.toolbar)
         toolbar?.let { toolbar ->
             setSupportActionBar(toolbar)

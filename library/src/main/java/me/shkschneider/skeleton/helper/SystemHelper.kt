@@ -23,7 +23,8 @@ object SystemHelper {
         return SystemClock.uptimeMillis()
     }
 
-    @Deprecated("Does not return until at least the specified number of milliseconds has elapsed.")
+
+    @Deprecated("Does not return until at least the specified number of milliseconds has elapsed.", ReplaceWith("")) // Avoid
     fun sleep(milliseconds: Long) {
         SystemClock.sleep(milliseconds)
     }

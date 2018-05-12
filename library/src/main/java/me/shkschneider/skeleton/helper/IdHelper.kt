@@ -10,7 +10,6 @@ import java.util.*
 object IdHelper {
 
     // <http://stackoverflow.com/q/22743087>
-    @SuppressLint("Recycle")
     @RequiresPermission("com.google.android.providers.gsf.permission.READ_GSERVICES")
     fun googleServiceFrameworkId(): String? {
         val cursor = ContextHelper.applicationContext().contentResolver.query(Uri.parse("content://com.google.android.gsf.gservices"), null, null, arrayOf("android_id"), null) ?: return null

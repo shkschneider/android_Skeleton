@@ -1,14 +1,8 @@
 package me.shkschneider.skeleton.security
 
-class SimpleCrypt : ICrypt<String> {
+class SimpleCrypt(key: String) : ICrypt<String>(key) {
 
-    private val ALGORITHM = "XOR"
-
-    private val key: CharArray
-
-    constructor(key: String) : super(key) {
-        this.key = key.toCharArray()
-    }
+    private val key: CharArray = key.toCharArray()
 
     override fun algorithm(): String {
         return ALGORITHM
@@ -34,6 +28,12 @@ class SimpleCrypt : ICrypt<String> {
             decrypted[i] = (encrypted[i].toInt() xor key[i % key.size].toInt()).toChar()
         }
         return String(decrypted)
+    }
+
+    companion object {
+
+        private const val ALGORITHM = "XOR"
+
     }
 
 }

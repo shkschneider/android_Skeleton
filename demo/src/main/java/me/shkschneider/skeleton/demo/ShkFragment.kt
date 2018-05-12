@@ -24,9 +24,6 @@ import me.shkschneider.skeleton.ui.Toaster
 
 class ShkFragment : SkeletonFragment() {
 
-    private val AVATAR = "https://raw.githubusercontent.com/shkschneider/shkschneider.github.io/master/shkschneider.png"
-    private val GITHUB = "https://github.com/shkschneider/android_Skeleton"
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return super.onCreateView(inflater, R.layout.fragment_shk, container)
     }
@@ -102,6 +99,13 @@ class ShkFragment : SkeletonFragment() {
     private fun fill(view: View, string: String, spannable: Spannable) {
         view.findViewById<TextView>(R.id.textView1).text = string
         view.findViewById<TextView>(R.id.textView2).text = spannable
+    }
+
+    companion object {
+
+        private const val AVATAR = "https://raw.githubusercontent.com/shkschneider/shkschneider.github.io/master/shkschneider.png"
+        private const val GITHUB = "https://github.com/shkschneider/android_Skeleton"
+
     }
 
 }

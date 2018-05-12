@@ -18,22 +18,23 @@ import java.util.*
 
 object NetworkHelper {
 
-    // <https://stackoverflow.com/a/39149126>
-    @Deprecated("Does NOT work on API-26+!")
-    @SuppressLint("PrivateApi")
-    fun hostname(): String? {
-        try {
-            Class.forName("android.os.SystemProperties")?.let { cls ->
-                @Suppress("DEPRECATION")
-                return me.shkschneider.skeleton.java.ReflectHelper.Method.method(cls, "get", arrayOf(String::class.java), "net.hostname") as String?
-            }
-        }
-        catch (e: ClassNotFoundException) {
-            Logger.wtf(e)
-        }
-        // Most probably null
-        return SystemProperties.get("net.hostname")
-    }
+    /**
+     * BROKEN: does NOT work on API-26+
+     * <https://stackoverflow.com/a/39149126>
+     */
+//    fun hostname(): String? {
+//        try {
+//            Class.forName("android.os.SystemProperties")?.let { cls ->
+//                @Suppress("DEPRECATION")
+//                return me.shkschneider.skeleton.java.ReflectHelper.Method.method(cls, "get", arrayOf(String::class.java), "net.hostname") as String?
+//            }
+//        }
+//        catch (e: ClassNotFoundException) {
+//            Logger.wtf(e)
+//        }
+//        // Most probably null
+//        return SystemProperties.get("net.hostname")
+//    }
 
     fun userAgent(): String? {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {

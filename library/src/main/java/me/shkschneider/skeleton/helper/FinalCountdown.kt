@@ -3,15 +3,10 @@ package me.shkschneider.skeleton.helper
 import android.os.CountDownTimer
 import java.util.concurrent.TimeUnit
 
-class CountdownHelper {
-
-    private val timer: Long
-    private val ticker: Long
-
-    constructor(timer: Long = TimeUnit.SECONDS.toMillis(60), ticker: Long = TimeUnit.SECONDS.toMillis(1)) {
-        this.timer = timer
-        this.ticker = ticker
-    }
+class FinalCountdown(
+        private val timer: Long = TimeUnit.SECONDS.toMillis(60),
+        private val ticker: Long = TimeUnit.SECONDS.toMillis(1)
+) {
 
     fun run(callback: Callback) {
         object: CountDownTimer(timer, ticker) {

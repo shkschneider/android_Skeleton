@@ -9,7 +9,7 @@ import javax.crypto.spec.SecretKeySpec
 
 object HmacHelper {
 
-    private val ALGORITHM = "HmacSHA1"
+    private const val ALGORITHM = "HmacSHA1"
 
     fun hash(key: String, string: String): String? {
         try {
@@ -25,6 +25,10 @@ object HmacHelper {
             Logger.wtf(e)
             return null
         }
+    }
+
+    fun algorithm(): String {
+        return ALGORITHM
     }
 
 }

@@ -17,16 +17,13 @@ import me.shkschneider.skeleton.helper.SystemServices
  * <service android:name=".MyJobService" android:permission="android.permission.BIND_JOB_SERVICE"></service>
  */
 @RequiresApi(AndroidHelper.API_21)
-class JobManager {
-
-    private var id: Int
-    private val builder: JobInfo.Builder
+class JobManager(
+        private var id: Int,
+        cls: Class<out JobService>
+) {
 
     @SuppressLint("JobSchedulerService")
-    constructor(id: Int, cls: Class<out JobService>) {
-        this.id = id
-        builder = JobInfo.Builder(this.id, ComponentName(ContextHelper.applicationContext(), cls::class))
-    }
+    private val builder: JobInfo.Builder = JobInfo.Builder(this.id, ComponentName(ContextHelper.applicationContext(), cls::class))
 
     @SkHide
     fun setExtras(extras: PersistableBundle): JobManager {

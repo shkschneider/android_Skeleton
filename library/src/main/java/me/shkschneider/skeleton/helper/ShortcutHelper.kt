@@ -14,22 +14,12 @@ object ShortcutHelper {
         SystemServices.shortcutManager()?.maxShortcutCountPerActivity ?: 4
     }
 
-    class Shortcut {
-
-        private var id: String
-        private var icon: Int
-        private var label: String
-        private var intent: Intent
-
-        constructor(id: String, @DrawableRes icon: Int, label: String, intent: Intent) {
-            this.id = id
-            this.icon = icon
-            this.label = label
-            this.intent = intent
-            if (intent.action.isNullOrEmpty()) {
-                intent.action = ApplicationHelper.packageName() + "\\." + this.id
-            }
-        }
+    class Shortcut(
+            private var id: String,
+            @DrawableRes private var icon: Int,
+            private var label: String,
+            private var intent: Intent
+    ) {
 
         fun shortcutInfo(): ShortcutInfo {
             return ShortcutInfo.Builder(ContextHelper.applicationContext(), id)
@@ -37,6 +27,12 @@ object ShortcutHelper {
                     .setShortLabel(label)
                     .setIntent(intent)
                     .build()
+        }
+
+        init {
+            if (intent.action.isNullOrEmpty()) {
+                intent.action = ApplicationHelper.packageName() + "\\." + this.id
+            }
         }
 
     }
