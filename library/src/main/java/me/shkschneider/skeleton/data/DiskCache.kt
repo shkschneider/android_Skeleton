@@ -13,7 +13,7 @@ object DiskCache {
     class External(dir: File) : Cache(dir)
 
     // Prevents direct initialization
-    open class Cache(private val dir: File) {
+    sealed class Cache(private val dir: File) {
 
         @Synchronized
         fun put(key: String, value: Serializable): Boolean {
