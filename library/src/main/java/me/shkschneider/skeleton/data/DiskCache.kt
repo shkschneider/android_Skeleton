@@ -12,8 +12,7 @@ object DiskCache {
     // <http://developer.android.com/guide/topics/data/data-storage.html#filesExternal>
     class External(dir: File) : Cache(dir)
 
-    // Prevents direct initialization
-    sealed class Cache(private val dir: File) {
+    abstract class Cache(private val dir: File) {
 
         @Synchronized
         fun put(key: String, value: Serializable): Boolean {
