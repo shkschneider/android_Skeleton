@@ -331,8 +331,8 @@ class AutoGridLayout : FrameLayout {
 
     companion object {
 
-        val HORIZONTAL = 0
-        val VERTICAL = 1
+        const val HORIZONTAL = 0
+        const val VERTICAL = 1
 
     }
 

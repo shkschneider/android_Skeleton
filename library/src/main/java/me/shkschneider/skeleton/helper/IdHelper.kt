@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.net.Uri
 import android.provider.Settings
 import android.support.annotation.RequiresPermission
-import java.util.*
+import java.util.UUID
 
 // <https://developers.google.com/instance-id/>
 object IdHelper {
@@ -19,7 +19,7 @@ object IdHelper {
                 throw Exception()
             }
             gsfId = java.lang.Long.toHexString(java.lang.Long.parseLong(cursor.getString(1)))
-        } catch (e: Exception) {
+        } catch (e: NumberFormatException) {
             Logger.wtf(e)
         } finally {
             cursor.close()

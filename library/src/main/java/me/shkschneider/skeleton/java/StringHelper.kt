@@ -10,7 +10,7 @@ import java.text.NumberFormat
 object StringHelper {
 
     // val EMPTY = ""
-    val NULL = "null"
+    const val NULL = "null"
     val ALPHA = ('a' .. 'z').toString()
     val NUMERIC = ('0' .. '9').toString()
     val HEX = NUMERIC + ALPHA.substring(0, 6)

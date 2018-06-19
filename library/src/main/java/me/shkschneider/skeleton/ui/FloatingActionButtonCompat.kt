@@ -15,7 +15,7 @@ import me.shkschneider.skeleton.helper.ContextHelper
 // <https://github.com/makovkastar/FloatingActionButton>
 object FloatingActionButtonCompat {
 
-    private val THRESHOLD = 5
+    private const val THRESHOLD = 5
 
     fun show(floatingActionButton: FloatingActionButton, animate: Boolean) {
         if (floatingActionButton.visibility == View.VISIBLE) return

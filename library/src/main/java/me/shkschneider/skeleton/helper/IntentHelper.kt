@@ -18,8 +18,8 @@ import java.io.File
 // <http://developer.android.com/reference/android/content/Intent.html>
 object IntentHelper {
 
-    val FLAGS_HOME = (Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
-    val FLAGS_CLEAR = (Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    const val FLAGS_HOME = (Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+    const val FLAGS_CLEAR = (Intent.FLAG_ACTIVITY_REORDER_TO_FRONT or Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
     object GooglePlay {
 
@@ -41,10 +41,10 @@ object IntentHelper {
 
     }
 
-    private val REQUEST_CODE_CAMERA = 111
-    private val REQUEST_CODE_GALLERY = 222
-    private val REQUEST_CODE_RINGTONE = 333
-    private val REQUEST_CODE_PERMISSIONS = AndroidHelper.API_23
+    private const val REQUEST_CODE_CAMERA = 111
+    private const val REQUEST_CODE_GALLERY = 222
+    private const val REQUEST_CODE_RINGTONE = 333
+    private const val REQUEST_CODE_PERMISSIONS = AndroidHelper.API_23
 
     fun main(): Intent? {
         val intent = ApplicationHelper.packageManager().getLaunchIntentForPackage(ApplicationHelper.packageName())
@@ -217,7 +217,7 @@ object IntentHelper {
                     return null
                 }
                 val uri = intent.getParcelableExtra<Uri>(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
-                return uri?.let { uri ->
+                return uri?.let {
                     RingtoneManager.getRingtone(ContextHelper.applicationContext(), uri)
                 }
             }

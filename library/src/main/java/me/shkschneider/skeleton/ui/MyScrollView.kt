@@ -51,7 +51,7 @@ class MyScrollView : ScrollView {
 
     companion object {
 
-        val PARALLAX = 0.1.toFloat()
+        const val PARALLAX = 0.1.toFloat()
 
         fun canScroll(scrollView: ScrollView): Boolean {
             val childHeight = scrollView.height

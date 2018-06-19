@@ -16,6 +16,7 @@ object Logger {
 
     private fun log(@IntRange(from = VERBOSE.toLong(), to = WTF.toLong()) level: Int, msg: String?, throwable: Throwable?) {
         // <https://developer.android.com/reference/android/util/Log.html>
+        // <https://developer.android.com/studio/debug/am-logcat>
         val tag = SkeletonApplication.TAG.ellipsize(23, reverse = true)
         var prefix = ""
         if (ApplicationHelper.debuggable()) {
@@ -35,10 +36,12 @@ object Logger {
         }
     }
 
+    // Debug logs are compiled in but stripped at runtime.
     fun debug(msg: String, throwable: Throwable? = null) {
         log(DEBUG, msg, throwable)
     }
 
+    // You should never compile verbose logs into your app, except during development.
     fun verbose(msg: String, throwable: Throwable? = null) {
         log(VERBOSE, msg, throwable)
     }
@@ -55,6 +58,7 @@ object Logger {
         log(ERROR, msg, throwable)
     }
 
+    // Useful to log exceptions (avoids Exception.printStackTrace())
     fun wtf(throwable: Throwable) {
         log(WTF, throwable.message, throwable)
     }

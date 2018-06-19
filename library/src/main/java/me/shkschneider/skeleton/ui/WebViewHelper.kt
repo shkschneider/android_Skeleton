@@ -16,8 +16,8 @@ import me.shkschneider.skeleton.java.SkHide
 @Suppress("MemberVisibilityCanPrivate")
 object WebViewHelper {
 
-    val META_VIEWPORT = "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=yes\">"
-    val META_THEME = "<meta name=\"theme-color\" content=\"#a4c639\">"
+    const val META_VIEWPORT = "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=yes\">"
+    const val META_THEME = "<meta name=\"theme-color\" content=\"#a4c639\">"
     @SkHide
     val CHARSET = CharsetHelper.UTF8
     @SkHide

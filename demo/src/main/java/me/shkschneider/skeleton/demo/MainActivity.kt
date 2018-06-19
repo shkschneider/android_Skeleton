@@ -21,7 +21,6 @@ import android.view.MenuItem
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.toolbox.Volley
 
 import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.demo.data.ShkMod
@@ -30,7 +29,6 @@ import me.shkschneider.skeleton.helper.*
 import me.shkschneider.skeleton.network.Proxy
 import me.shkschneider.skeleton.network.requests.ApiRequest
 import me.shkschneider.skeleton.security.FingerprintHelper
-import me.shkschneider.skeleton.security.SimpleCrypt
 import me.shkschneider.skeleton.ui.*
 
 /**
@@ -115,7 +113,6 @@ class MainActivity : SkeletonActivity() {
 
     override fun onResume() {
         super.onResume()
-        ScreenHelper.inches()
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && FingerprintHelper.available()) {
             cancellationSignal = FingerprintHelper.background(object: FingerprintManager.AuthenticationCallback() {
@@ -145,17 +142,17 @@ class MainActivity : SkeletonActivity() {
 
     private fun network() {
         Proxy.request(ApiRequest(Request.Method.GET, URL, ShkMod::class,
-                        listener = Response.Listener { response ->
-                            response?.let {
-                                notification(DateTimeHelper.timestamp(), ShkMod::class.simpleName(), response.toString())
-                            } ?: run {
-                                Toaster.show(response.toStringOrEmpty())
-                            }
-                        },
-                        errorListener = Response.ErrorListener { error ->
-                            Toaster.show(error.toStringOrEmpty())
-                        },
-                        retryPolicy = DefaultRetryPolicy()))
+                listener = Response.Listener { response ->
+                    response?.let {
+                        notification(DateTimeHelper.timestamp(), ShkMod::class.simpleName(), response.toString())
+                    } ?: run {
+                        Toaster.show(response.toStringOrEmpty())
+                    }
+                },
+                errorListener = Response.ErrorListener { error ->
+                    Toaster.show(error.toStringOrEmpty())
+                },
+                retryPolicy = DefaultRetryPolicy()))
     }
 
     private fun notification(id: Int, title: String, message: String) {

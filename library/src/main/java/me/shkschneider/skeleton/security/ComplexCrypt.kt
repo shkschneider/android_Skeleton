@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.security
 
 import android.annotation.SuppressLint
+import android.util.Base64
 import me.shkschneider.skeleton.helper.Logger
 import java.security.InvalidAlgorithmParameterException
 import java.security.InvalidKeyException
@@ -10,13 +11,10 @@ import javax.crypto.IllegalBlockSizeException
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
-class ComplexCrypt(key: ByteArray) : ICrypt<ByteArray>(key) {
+class ComplexCrypt(key: String) : ICrypt<String>(key) {
 
-    private val ALGORITHM = "AES" // KeyProperties.KEY_ALGORITHM_AES
-    private val ALGORITHM_KEY_PAD = 16
-
-    private var ivParameterSpec = IvParameterSpec(key)
-    private var secretKeySpec = SecretKeySpec(pad(key), ALGORITHM.split("/")[0])
+    private var ivParameterSpec = IvParameterSpec(key.toByteArray())
+    private var secretKeySpec = SecretKeySpec(pad(key.toByteArray()), ALGORITHM.split("/")[0])
     @SuppressLint("GetInstance")
     private var cipher = Cipher.getInstance(ALGORITHM)
 
@@ -24,14 +22,14 @@ class ComplexCrypt(key: ByteArray) : ICrypt<ByteArray>(key) {
         return secretKeySpec.algorithm
     }
 
-    override fun key(): ByteArray {
-        return secretKeySpec.encoded
+    override fun key(): String {
+        return Base64.encodeToString(secretKeySpec.encoded, Base64.NO_WRAP)
     }
 
-    override fun encrypt(src: ByteArray): ByteArray? {
+    override fun encrypt(src: String): String? {
         try {
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec)
-            return cipher.doFinal(src)
+            return Base64Helper.encode(cipher.doFinal(Base64Helper.decode(src)))
         } catch (e: InvalidKeyException) {
             Logger.wtf(e)
             return null
@@ -47,11 +45,10 @@ class ComplexCrypt(key: ByteArray) : ICrypt<ByteArray>(key) {
         }
     }
 
-    // Format with String(decrypt) and not decrypt.toString()
-    override fun decrypt(src: ByteArray): ByteArray? {
+    override fun decrypt(src: String): String? {
         try {
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec)
-            return cipher.doFinal(src)
+            return Base64Helper.encode(cipher.doFinal(Base64Helper.decode(src)))
         } catch (e: InvalidKeyException) {
             Logger.wtf(e)
             return null
@@ -70,9 +67,17 @@ class ComplexCrypt(key: ByteArray) : ICrypt<ByteArray>(key) {
     private fun pad(bytes: ByteArray): ByteArray {
         val padded = bytes.size + (ALGORITHM_KEY_PAD - bytes.size % ALGORITHM_KEY_PAD)
         return bytes.copyOf(padded)
-                .apply {
-                    fill(0x00.toByte(), bytes.size, size)
-                }
+    }
+
+    companion object {
+
+        /**
+         * Stronger encryption requires higher API levels.
+         * See https://developer.android.com/reference/javax/crypto/Cipher
+         */
+        private const val ALGORITHM = "AES" // KeyProperties.KEY_ALGORITHM_AES
+        private const val ALGORITHM_KEY_PAD = 16
+
     }
 
 }

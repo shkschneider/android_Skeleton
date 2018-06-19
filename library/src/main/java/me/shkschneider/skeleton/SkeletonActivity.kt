@@ -3,7 +3,6 @@ package me.shkschneider.skeleton
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Build
@@ -397,8 +396,8 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     companion object {
 
-        val RESULT_SEARCH_CHANGE = "onQueryTextChange"
-        val RESULT_SEARCH_SUBMIT = "onQueryTextSubmit"
+        const val RESULT_SEARCH_CHANGE = "onQueryTextChange"
+        const val RESULT_SEARCH_SUBMIT = "onQueryTextSubmit"
 
     }
 
