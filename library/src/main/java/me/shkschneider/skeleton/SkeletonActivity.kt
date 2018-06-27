@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
+import android.support.annotation.AnimRes
 import android.support.annotation.ColorInt
 import android.support.annotation.LayoutRes
 import android.support.v4.content.ContextCompat
@@ -54,6 +55,8 @@ abstract class SkeletonActivity : AppCompatActivity() {
     protected var toolbar: Toolbar? = null
 
     private var alive = false
+    private var enterAnim: Int? = null
+    private var exitAnim: Int? = null
 
     // Refresh
     // <https://gist.github.com/antoniolg/9837398>
@@ -71,6 +74,11 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        if (enterAnim != null && exitAnim != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                window.requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
+            }
+        }
         super.onCreate(savedInstanceState)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         setContentView(R.layout.sk_activity)
@@ -83,6 +91,11 @@ abstract class SkeletonActivity : AppCompatActivity() {
                 setTaskDescription(ActivityManager.TaskDescription(name, icon, color))
             }
         }
+    }
+
+    fun overridePendingTransitions(@AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
+        this.enterAnim = enterAnim
+        this.exitAnim = exitAnim
     }
 
     override fun onNewIntent(intent: Intent) {
@@ -172,12 +185,18 @@ abstract class SkeletonActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         alive = true
+        if (enterAnim != null && exitAnim != null) {
+            overridePendingTransition(enterAnim!!, exitAnim!!)
+        }
     }
 
     override fun onPause() {
         super.onPause()
         skeletonReceiver = null
         alive = false
+        if (enterAnim != null && exitAnim != null) {
+            overridePendingTransition(enterAnim!!, exitAnim!!)
+        }
     }
 
     override fun onStop() {
