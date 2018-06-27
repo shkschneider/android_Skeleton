@@ -2,6 +2,7 @@ package me.shkschneider.skeleton.helper
 
 import android.content.Context
 import android.graphics.Point
+import android.graphics.Rect
 import android.os.Build
 import android.support.annotation.FloatRange
 import android.util.DisplayMetrics
@@ -87,8 +88,32 @@ object ScreenHelper {
         return Metrics.displayMetrics().widthPixels
     }
 
-    fun statusBarHeight(): Int {
-        return ApplicationHelper.resources().getDimension(R.dimen.statusBar).toInt()
+    // Live measure if Window is provided
+    fun statusBarHeight(window: Window? = null): Int {
+        val resId = ApplicationHelper.resources().getIdentifier("status_bar_height", "dimen", "android")
+        if (resId > 0) {
+            return ApplicationHelper.resources().getDimensionPixelSize(resId)
+        }
+        window?.let {
+            val rect = Rect()
+            window.decorView.getWindowVisibleDisplayFrame(rect)
+            return rect.top
+        }
+        return ApplicationHelper.resources().getDimensionPixelSize(R.dimen.statusBar)
+    }
+
+    // Live measure if Window is provided
+    fun navigationBarHeight(window: Window? = null): Int {
+        val resId = ApplicationHelper.resources().getIdentifier("navigation_bar_height", "dimen", "android")
+        if (resId > 0) {
+            return ApplicationHelper.resources().getDimensionPixelSize(resId)
+        }
+        window?.let {
+            val rect = Rect()
+            window.decorView.getWindowVisibleDisplayFrame(rect)
+            return rect.bottom
+        }
+        return ApplicationHelper.resources().getDimensionPixelSize(R.dimen.statusBar)
     }
 
     fun orientation(context: Context): Int {

@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="UnusedResources">
 
-    <dimen name="statusBar">24dp</dimen>
+    <dimen name="statusBar">25dp</dimen>
     <dimen name="toolbar">56dp</dimen>
     <dimen name="toolbar2">72dp</dimen>
     <dimen name="navigationDrawer">240dp</dimen>
