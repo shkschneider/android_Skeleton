@@ -4,7 +4,6 @@ import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Build
 import android.renderscript.Allocation
 import android.renderscript.Element
 import android.renderscript.RenderScript
@@ -81,6 +80,7 @@ object BitmapHelper {
         return tintedBitmap
     }
 
+    @Deprecated("android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory")
     fun circular(bitmap: Bitmap): Bitmap {
         val circularBitmap = Bitmap.createBitmap(bitmap.width, bitmap.height, Bitmap.Config.ARGB_8888)
         val paint = Paint()

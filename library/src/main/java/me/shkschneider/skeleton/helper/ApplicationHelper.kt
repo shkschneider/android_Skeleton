@@ -20,6 +20,7 @@ object ApplicationHelper {
     }
 
     fun resources(): Resources {
+        // Resources.getSystem()
         return ContextHelper.applicationContext().resources
     }
 
