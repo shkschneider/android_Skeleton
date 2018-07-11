@@ -40,7 +40,7 @@
     <color name="robins_egg_blue">#00cccc</color>
     <color name="green">#00ff00</color>
     <color name="spring_green">#00ff7f</color>
-    <color name="cyan_">#00ffff/_Aqua</color>
+    <color name="cyan_aqua">#00ffff</color>
     <color name="blue_charcoal">#010d1a</color>
     <color name="midnight">#011635</color>
     <color name="holly">#011d13</color>
@@ -1440,7 +1440,7 @@
     <color name="red">#ff0000</color>
     <color name="rose">#ff007f</color>
     <color name="purple_pizzazz">#ff00cc</color>
-    <color name="magenta_">#ff00ff/_Fuchsia</color>
+    <color name="magenta_fuchsia">#ff00ff</color>
     <color name="scarlet">#ff2400</color>
     <color name="wild_strawberry">#ff3399</color>
     <color name="razzle_dazzle_rose">#ff33cc</color>
