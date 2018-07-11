@@ -27,8 +27,8 @@ class BottomSheet {
         val content = view.findViewById<TextView>(R.id.sk_bottomsheet_content)
         content.text = builder.content
         val customView = view.findViewById<FrameLayout>(R.id.sk_bottomsheet_customView)
-        builder.customView?.let { view ->
-            customView.addView(view)
+        builder.customView?.let {
+            customView.addView(it)
             customView.setPadding(builder.paddingLeft, builder.paddingTop, builder.paddingRight, builder.paddingBottom)
         }
         val negative = view.findViewById<Button>(R.id.sk_bottomsheet_cancel)

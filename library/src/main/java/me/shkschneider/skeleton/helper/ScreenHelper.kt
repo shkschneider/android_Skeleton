@@ -88,30 +88,18 @@ object ScreenHelper {
         return Metrics.displayMetrics().widthPixels
     }
 
-    // Live measure if Window is provided
-    fun statusBarHeight(window: Window? = null): Int {
+    fun statusBarHeight(): Int {
         val resId = ApplicationHelper.resources().getIdentifier("status_bar_height", "dimen", "android")
         if (resId > 0) {
             return ApplicationHelper.resources().getDimensionPixelSize(resId)
         }
-        window?.let {
-            val rect = Rect()
-            window.decorView.getWindowVisibleDisplayFrame(rect)
-            return rect.top
-        }
         return ApplicationHelper.resources().getDimensionPixelSize(R.dimen.statusBar)
     }
 
-    // Live measure if Window is provided
-    fun navigationBarHeight(window: Window? = null): Int {
+    fun navigationBarHeight(): Int {
         val resId = ApplicationHelper.resources().getIdentifier("navigation_bar_height", "dimen", "android")
         if (resId > 0) {
             return ApplicationHelper.resources().getDimensionPixelSize(resId)
-        }
-        window?.let {
-            val rect = Rect()
-            window.decorView.getWindowVisibleDisplayFrame(rect)
-            return rect.bottom
         }
         return ApplicationHelper.resources().getDimensionPixelSize(R.dimen.statusBar)
     }

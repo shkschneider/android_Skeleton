@@ -2,11 +2,17 @@ package me.shkschneider.skeleton.ui
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.content.res.Resources
 import android.os.Build
+import android.support.annotation.AnimRes
 import android.view.View
 import android.view.ViewAnimationUtils
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import me.shkschneider.skeleton.R
 import me.shkschneider.skeleton.helper.ApplicationHelper
+import me.shkschneider.skeleton.helper.ContextHelper
+import me.shkschneider.skeleton.helper.Logger
 
 object AnimationHelper {
 
@@ -53,6 +59,15 @@ object AnimationHelper {
             }
         } else {
             view.visibility = View.INVISIBLE
+        }
+    }
+
+    fun load(@AnimRes anim: Int): Animation? {
+        try {
+            return AnimationUtils.loadAnimation(ContextHelper.applicationContext(), anim)
+        } catch (e: Resources.NotFoundException) {
+            Logger.wtf(e)
+            return null
         }
     }
 

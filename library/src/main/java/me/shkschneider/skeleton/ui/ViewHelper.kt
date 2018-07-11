@@ -41,4 +41,6 @@ object ViewHelper {
         return false
     }
 
+    // TODO fun visibilityListener(view: View)
+
 }

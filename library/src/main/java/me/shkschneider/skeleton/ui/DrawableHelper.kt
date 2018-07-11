@@ -20,6 +20,7 @@ object DrawableHelper {
     }
 
     fun circular(bitmap: Bitmap): Drawable {
+        @Suppress("DEPRECATION")
         return BitmapDrawable(ApplicationHelper.resources(), BitmapHelper.circular(bitmap))
     }
 

@@ -106,8 +106,8 @@ class SpannedGridLayoutManager : RecyclerView.LayoutManager {
     override fun onLayoutChildren(recycler: RecyclerView.Recycler?, state: RecyclerView.State?) {
         calculateWindowSize()
         calculateCellPositions(recycler, state)
-        state?.let { state ->
-            if (state.itemCount == 0) {
+        state?.let {
+            if (it.itemCount == 0) {
                 detachAndScrapAttachedViews(recycler)
                 firstVisibleRow = 0
                 resetVisibleItemTracking()

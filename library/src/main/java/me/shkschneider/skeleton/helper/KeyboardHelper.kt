@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.helper
 
 import android.app.Activity
+import android.content.res.Configuration
 import android.graphics.Rect
 import android.view.KeyEvent
 import android.view.ViewTreeObserver
@@ -15,14 +16,22 @@ import me.shkschneider.skeleton.ui.ViewHelper
 
 object KeyboardHelper {
 
+    fun has(): Boolean {
+        return ApplicationHelper.resources().configuration.keyboard != Configuration.KEYBOARD_NOKEYS
+    }
+
     fun show(window: Window) {
         Logger.verbose("SOFT_INPUT_STATE_ALWAYS_VISIBLE")
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+        if (has()) {
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
+        }
     }
 
     fun hide(window: Window) {
         Logger.verbose("SOFT_INPUT_STATE_ALWAYS_HIDDEN")
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+        if (has()) {
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+        }
     }
 
     fun keyboardCallback(editText: EditText, skeletonReceiver: SkeletonReceiver?, all: Boolean = false): Boolean {

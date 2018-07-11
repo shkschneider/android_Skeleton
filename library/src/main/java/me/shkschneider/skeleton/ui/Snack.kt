@@ -15,8 +15,8 @@ object Snack {
             Logger.warning("Message was NULL")
         }
         val snackBar = Snackbar.make(view, msg, Snackbar.LENGTH_SHORT)
-        onClickListener?.let { onClickListener ->
-            snackBar.setAction(action, onClickListener)
+        onClickListener?.let {
+            snackBar.setAction(action, it)
         }
         snackBar.duration = duration ?: (action.isNullOrBlank()) then Snackbar.LENGTH_SHORT ?: Snackbar.LENGTH_INDEFINITE
         snackBar.show()

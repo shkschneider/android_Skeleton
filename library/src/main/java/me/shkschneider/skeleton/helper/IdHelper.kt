@@ -1,7 +1,9 @@
 package me.shkschneider.skeleton.helper
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.net.Uri
+import android.os.Build
 import android.provider.Settings
 import android.support.annotation.RequiresPermission
 import java.util.UUID
@@ -27,9 +29,19 @@ object IdHelper {
         return gsfId
     }
 
+    @RequiresPermission(Manifest.permission.READ_PHONE_STATE)
+    fun serial(): String {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return Build.getSerial()
+        } else {
+            @Suppress("DEPRECATION")
+            return androidId() ?: Build.UNKNOWN
+        }
+    }
+
     @SuppressLint("HardwareIds")
     @Deprecated("Using getString to get device identifiers is not recommended.")
-    fun androidId(): String? {
+    private fun androidId(): String? {
         val androidId = Settings.Secure.getString(ContextHelper.applicationContext().contentResolver, Settings.Secure.ANDROID_ID)
         if (androidId.isNullOrBlank()) {
             Logger.warning("AndroidId was NULL")
