@@ -2,7 +2,6 @@ package me.shkschneider.skeleton.ui
 
 import android.os.Bundle
 import android.support.annotation.UiThread
-import android.support.v4.app.Fragment
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +10,9 @@ import android.widget.FrameLayout
 import android.widget.ProgressBar
 import me.shkschneider.skeleton.R
 import me.shkschneider.skeleton.SkeletonActivity
+import me.shkschneider.skeleton.SkeletonDialog
 
-class OverlayLoader : Fragment() {
+class OverlayLoader : SkeletonDialog() {
 
     companion object {
 
