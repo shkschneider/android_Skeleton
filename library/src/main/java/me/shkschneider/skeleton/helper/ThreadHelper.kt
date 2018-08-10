@@ -6,13 +6,18 @@ import java.util.concurrent.FutureTask
 
 object ThreadHelper {
 
-    fun uiThread(): Boolean {
+    fun mainThread(): Boolean {
         return Looper.getMainLooper() == Looper.myLooper()
+    }
+
+    @Deprecated("UIThread is MainThread.", ReplaceWith("mainThread()"))
+    fun uiThread(): Boolean {
+        return mainThread()
     }
 
     // android.support.annotation.UiThread
     fun foregroundThread(runnable: Runnable) {
-        if (uiThread()) {
+        if (mainThread()) {
             runnable.run()
             return
         }
