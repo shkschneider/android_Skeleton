@@ -4,6 +4,7 @@ import android.app.Activity
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import me.shkschneider.skeleton.SkeletonReceiver
 import me.shkschneider.skeleton.java.SkHide
 import java.util.*
 
@@ -15,6 +16,7 @@ object ViewHelper {
     val CONTENT = Window.ID_ANDROID_CONTENT
     @SkHide
     val NO_ID = View.NO_ID
+    val RESULT_VISIBILITY = "VISIBILITY"
 
     fun <T : View> content(activity: Activity): T {
         return activity.findViewById(CONTENT)
@@ -41,6 +43,15 @@ object ViewHelper {
         return false
     }
 
-    // TODO fun visibilityListener(view: View)
+    // <https://stackoverflow.com/a/32778292>
+    fun visibilityListener(view: View, skeletonReceiver: SkeletonReceiver) {
+        view.tag = view.visibility
+        view.viewTreeObserver.addOnGlobalLayoutListener {
+            if (view.tag != view.visibility) {
+                view.tag = view.visibility
+                skeletonReceiver.post(RESULT_VISIBILITY, view.visibility)
+            }
+        }
+    }
 
 }
