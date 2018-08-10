@@ -20,6 +20,7 @@ import me.shkschneider.skeleton.helper.SpannableStringHelper
 import me.shkschneider.skeleton.java.StringHelper
 import me.shkschneider.skeleton.network.Proxy
 import me.shkschneider.skeleton.ui.BitmapHelper
+import me.shkschneider.skeleton.ui.ImageHelper
 import me.shkschneider.skeleton.ui.Toaster
 
 class ShkFragment : SkeletonFragment() {
@@ -34,8 +35,8 @@ class ShkFragment : SkeletonFragment() {
         Proxy.imageLoader.get(AVATAR, object: ImageLoader.ImageListener {
             override fun onResponse(response: ImageLoader.ImageContainer, isImmediate: Boolean) {
                 response.bitmap?.let { bitmap ->
-                    val avatar = BitmapHelper.circular(bitmap)
-                    (view.findViewById<View>(R.id.id_avatar) as ImageView).setImageBitmap(avatar)
+                    val avatar = ImageHelper.circular(bitmap)
+                    (view.findViewById<View>(R.id.id_avatar) as ImageView).setImageDrawable(avatar)
                     (view.findViewById<View>(R.id.viewSwitcher) as ViewSwitcher).showNext()
                 }
             }
@@ -64,32 +65,32 @@ class ShkFragment : SkeletonFragment() {
                 "Git scripts\n" +
                 "Linux scripts\n" +
                 "C/UNIX"))
-        fill(view.findViewById(R.id.code_languages), "Languages", SpannableString("Java, C, Python, Bash, PHP, Objective-C, JavaScript, HTML & CSS, MySQL, RegExp..."))
-        fill(view.findViewById(R.id.code_technologies), "Technologies", SpannableString("GNU/Linux, Android, Blockchains, NodeJS, MongoDB, Firebase..."))
-        fill(view.findViewById(R.id.code_likes), "Likes", SpannableString("Android, Debian, Fedora, Gnome-Shell, Emacs, NginX, uWSGI, Terminator, Makefiles, Bash scripts, HTML5..."))
+        fill(view.findViewById(R.id.code_languages), "Languages", SpannableString("Kotlin, Java, C, Python, Bash, JavaScript, SQL, RegExp..."))
+        fill(view.findViewById(R.id.code_technologies), "Technologies", SpannableString("UNIX, Android, Blockchains, NodeJS, MongoDB, Firebase..."))
+        fill(view.findViewById(R.id.code_likes), "Likes", SpannableString("Android, Linux, Gnome-Shell, Emacs, NginX, uWSGI, Terminator, Makefiles, Bash scripts, HTML5..."))
         fill(view.findViewById(R.id.code_dislikes), "Dislikes", SpannableString("Apple, Microsoft, Oracle, Facebook (also Google in a way)..."))
         // Personal
         fill(view.findViewById(R.id.personal_music), "Music", SpannableString("Ambient, Progressive, Chill-Out, Elektro-Dark, Trance, Drum'n'Bass..."))
-        fill(view.findViewById(R.id.personal_movies), "Movies", SpannableString("Old French movies + The Matrix, The Fifth Element, Old Boy, V For Vendetta, Fight Club, Seven Pounds, The Fountain, Sucker Punch..."))
-        fill(view.findViewById(R.id.personal_games), "Games", SpannableString("Half-Life, StarCraft, Minecraft, Portal, The Witness..."))
-        fill(view.findViewById(R.id.personal_books), "Books", SpannableString("Peter F. Hamilton, Mikio Kaku, Le Comte de Monte-Cristo..."))
-        fill(view.findViewById(R.id.personal_other), "Other", SpannableString("Hiking & camping, Bicycle & Rollers, Biology, Cosmology, Economics..."))
+        fill(view.findViewById(R.id.personal_movies), "Movies", SpannableString("Old French movies, The Matrix, The Fifth Element, Old Boy, V For Vendetta, Fight Club, The Fountain, Sucker Punch, Ex Machina..."))
+        fill(view.findViewById(R.id.personal_games), "Games", SpannableString("Half-Life, StarCraft, Minecraft, Portal, The Witness, World of Warships..."))
+        fill(view.findViewById(R.id.personal_books), "Books", SpannableString("Peter F. Hamilton, Arthur C. Clarke, Alexandre Dumas (Le Comte de Monte-Cristo...)"))
+        fill(view.findViewById(R.id.personal_other), "Other", SpannableString("Economics, Biology, Cosmology, Hiking & camping, Bicycle & Roller..."))
         // Professional
-        fill(view.findViewById(R.id.skills_systems), "Systems", SpannableStringHelper("GNU/Linux: Debian (and Ubuntu, LinuxMint), Fedora\n" +
+        fill(view.findViewById(R.id.skills_systems), "Systems", SpannableStringHelper("GNU/Linux: Debian, Arch, Fedora\n" +
                 "Windows: XP, Seven\n" +
                 "MacOS: MacOS X")
                 .boldify(0, 9).boldify(49, 8).boldify(69, 5).apply())
-        fill(view.findViewById(R.id.skills_coding), "Coding", SpannableStringHelper("Object-oriented: Java, Python, PHP, Objective-C\n" +
+        fill(view.findViewById(R.id.skills_coding), "Coding", SpannableStringHelper("Object-oriented: Kotlin, Java, Python\n" +
                 "Compiled: C (with Makefiles)\n" +
                 "Shell: Bash (commands & shell scripting)\n" +
                 "Web-oriented: JavaScript (NodeJS)\n" +
-                "Databases: MySQL, MongoDB")
+                "Databases: SQLite, MySQL, MongoDB")
                 .boldify(0, 15).boldify(48, 8).boldify(77, 5).boldify(118, 12).boldify(152, 9).apply())
         fill(view.findViewById(R.id.skills_softwares), "Softwares", SpannableStringHelper("Daemons: NginX, SSHd, uWSGI, Apache2\n" +
                 "Versioning: Git, Mercurial, Subversion\n" +
-                "IDEs: Emacs, Android Studio, Atom, Eclipse, Netbeans")
+                "IDEs: IntellijIDEA (Android Studio), Emacs, Atom")
                 .boldify(0, 7).boldify(37, 10).boldify(76, 4).apply())
-        fill(view.findViewById(R.id.skills_languages), "Languages", SpannableString("French (native)\n" + "English (fluent, TOIEC 850+)"))
+        fill(view.findViewById(R.id.skills_languages), "Languages", SpannableString("French (native)\n" + "English (TOIEC 850+, CEFR B2)"))
         // Footer
         val github = view.findViewById<Button>(R.id.github)
         github.text = GITHUB.replaceFirst("https://github.com/".toRegex(), "")
