@@ -1,17 +1,18 @@
 package me.shkschneider.skeleton.data
 
-import android.text.TextUtils
 import com.google.gson.*
 import me.shkschneider.skeleton.helper.Logger
-import me.shkschneider.skeleton.java.StringHelper
 import java.util.*
-import java.util.regex.Pattern
 
 object GsonParser : IParser<JsonObject, JsonArray> {
 
     override fun parse(string: String): JsonObject? {
+        return parse(string, Gson())
+    }
+
+    fun parse(string: String, gson: Gson): JsonObject? {
         try {
-            return Gson().fromJson(string, JsonObject::class.java)
+            return gson.fromJson(string, JsonObject::class.java)
         } catch (e: JsonParseException) {
             Logger.wtf(e)
             return null
