@@ -6,13 +6,16 @@ import me.shkschneider.skeleton.helper.ApplicationHelper
 
 object StrictModeHelper {
 
+    fun defaults() {
+        StrictMode.enableDefaults()
+    }
+
     fun on(death: Boolean = false) {
         if (! ApplicationHelper.debuggable()) {
             return
         }
         val threadPolicyBuilder = StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog()
         if (death) {
-            // threadPolicyBuilder.penaltyDialog();
             threadPolicyBuilder.penaltyDeath()
         }
         StrictMode.setThreadPolicy(threadPolicyBuilder.build())

@@ -1,6 +1,6 @@
 package me.shkschneider.skeleton.security
 
-abstract class ICrypt<T>(key: T) {
+abstract class ICrypt<T>(@Suppress("UNUSED_PARAMETER") key: T) {
 
     abstract fun algorithm(): String
 

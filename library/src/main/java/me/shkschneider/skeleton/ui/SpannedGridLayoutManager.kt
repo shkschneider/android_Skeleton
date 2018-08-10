@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.ui.transforms
+package me.shkschneider.skeleton.ui
 
 /*
  * Copyright 2016 Google Inc.
@@ -30,6 +30,7 @@ import me.shkschneider.skeleton.helper.ContextHelper
 import java.util.*
 
 // <https://github.com/nickbutcher/plaid/blob/6a3cb17ede0ffeffb4ca16e4fd3c2ab60900d6b8/app/src/main/java/io/plaidapp/ui/recyclerview/SpannedGridLayoutManager.java>
+@Deprecated("Use Gradle: com.arasthel:spannedgridlayoutmanager:+")
 class SpannedGridLayoutManager : RecyclerView.LayoutManager {
 
     private var spanLookup: GridSpanLookup? = null

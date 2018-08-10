@@ -2,6 +2,8 @@ package me.shkschneider.skeleton.extensions
 
 import android.support.annotation.IntRange
 
+// Cases
+
 internal fun case(string: String): List<String> {
     return string.toLowerCase()
             .split("[^a-zA-Z]".toRegex())
@@ -27,6 +29,8 @@ fun String.snakeCase(): String {
 fun String.kebabCase(): String {
     return case(this).joinToString(separator = "-")
 }
+
+// Ellipsize
 
 fun String.ellipsize(@IntRange(from = 0) maxLength: Int = 80, reverse: Boolean = false): String {
     if (length > maxLength) {

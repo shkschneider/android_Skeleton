@@ -14,10 +14,6 @@ import me.shkschneider.skeleton.helper.Metrics
 // <https://github.com/IvBaranov/MaterialLetterIcon>
 class LetterIcon : View {
 
-    private val DEFAULT = "#"
-    private val DP = 40
-    private val RECT = Rect()
-
     private var shapePaint = Paint()
     private var letterPaint = Paint()
     private var shapeColor = Color.BLACK
@@ -90,6 +86,14 @@ class LetterIcon : View {
     fun setLetterTypeface(typeface: Typeface) {
         letterPaint.typeface = typeface
         invalidate()
+    }
+
+    companion object {
+
+        private val DEFAULT = "#"
+        private val DP = 40
+        private val RECT = Rect()
+
     }
 
 }

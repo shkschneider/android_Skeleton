@@ -25,7 +25,7 @@ open class AutoCompleteSearchManager<T:Any>(
     private val viewHolderMapper: IViewHolderMapper<T>
 ) : ArrayAdapter<T>(context, layoutId) {
 
-    private var items: List<T>? = null
+    private var items: List<T>? = null // FIXME set
 
     override fun getCount(): Int {
         return if (items == null) 0 else items!!.size

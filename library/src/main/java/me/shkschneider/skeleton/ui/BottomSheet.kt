@@ -12,6 +12,7 @@ import me.shkschneider.skeleton.R
 import me.shkschneider.skeleton.helper.Metrics
 
 // <https://github.com/javiersantos/BottomDialogs>
+// app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
 class BottomSheet {
 
     private var dialog: Dialog? = null

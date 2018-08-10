@@ -23,7 +23,7 @@ class Tasker {
         future = executorService.submit(task)
     }
 
-    fun cancel(mayInterruptIfRunning: Boolean): Boolean? {
+    fun cancel(mayInterruptIfRunning: Boolean = true): Boolean? {
         return future?.cancel(mayInterruptIfRunning)
     }
 

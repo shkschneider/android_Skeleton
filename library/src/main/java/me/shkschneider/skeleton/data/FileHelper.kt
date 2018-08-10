@@ -14,6 +14,7 @@ object FileHelper {
 
     const val PREFIX_ASSETS = "file:///android_asset/"
     const val PREFIX_RES = "file:///android_res/"
+    const val BUFFER_SIZE = DEFAULT_BUFFER_SIZE
 
     fun join(dirname: String, basename: String): String {
         val file = File(dirname, basename)

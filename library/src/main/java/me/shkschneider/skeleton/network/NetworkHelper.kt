@@ -1,9 +1,9 @@
 package me.shkschneider.skeleton.network
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.net.wifi.WifiManager
 import android.os.Build
+import android.security.NetworkSecurityPolicy
 import android.support.annotation.RequiresPermission
 import android.util.Patterns
 import android.webkit.WebSettings
@@ -18,29 +18,20 @@ import java.util.*
 
 object NetworkHelper {
 
-    /**
-     * BROKEN: does NOT work on API-26+
-     * <https://stackoverflow.com/a/39149126>
-     */
-//    fun hostname(): String? {
-//        try {
-//            Class.forName("android.os.SystemProperties")?.let { cls ->
-//                @Suppress("DEPRECATION")
-//                return me.shkschneider.skeleton.java.ReflectHelper.Method.method(cls, "get", arrayOf(String::class.java), "net.hostname") as String?
-//            }
-//        }
-//        catch (e: ClassNotFoundException) {
-//            Logger.wtf(e)
-//        }
-//        // Most probably null
-//        return SystemProperties.get("net.hostname")
-//    }
-
     fun userAgent(): String? {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             return WebSettings.getDefaultUserAgent(ContextHelper.applicationContext())
         } else {
             return SystemProperties.get("http.agent")
+        }
+    }
+
+    // Affects platform's components like DownloadManager or MediaPlayer...
+    fun isCleartextTrafficPermitted(): Boolean {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted
+        } else {
+            return true
         }
     }
 

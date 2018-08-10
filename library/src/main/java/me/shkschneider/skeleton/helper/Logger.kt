@@ -59,7 +59,7 @@ object Logger {
     }
 
     // Useful to log exceptions (avoids Exception.printStackTrace())
-    fun wtf(throwable: Throwable) {
+    fun wtf(throwable: Throwable) { // "What a Terrible Failure"
         log(WTF, throwable.message, throwable)
     }
 

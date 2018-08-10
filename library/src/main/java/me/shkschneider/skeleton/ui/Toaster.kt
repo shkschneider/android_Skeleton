@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.ui
 
 import android.support.annotation.UiThread
+import android.view.Gravity
 import android.widget.Toast
 
 import me.shkschneider.skeleton.helper.ContextHelper
@@ -13,7 +14,10 @@ object Toaster {
         if (msg.isBlank()) {
             Logger.warning("Message was NULL")
         }
-        Toast.makeText(ContextHelper.applicationContext(), msg, duration).show()
+        Toast.makeText(ContextHelper.applicationContext(), msg, duration)?.let {
+            it.setGravity(Gravity.CENTER_HORIZONTAL or Gravity.CENTER_VERTICAL, 0, 0)
+            it.show()
+        }
     }
 
 }
