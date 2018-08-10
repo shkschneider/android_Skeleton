@@ -1,9 +1,14 @@
 package me.shkschneider.skeleton
 
+import android.arch.lifecycle.Lifecycle
 import android.os.Bundle
 import android.support.v4.app.Fragment
 
 abstract class SkeletonFragmentActivity : SkeletonActivity() {
+
+    override fun getLifecycle(): Lifecycle {
+        return super.getLifecycle()
+    }
 
     protected fun setContentFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()

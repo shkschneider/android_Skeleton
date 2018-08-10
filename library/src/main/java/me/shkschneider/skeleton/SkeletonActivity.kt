@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton
 
 import android.app.ActivityManager
+import android.arch.lifecycle.Lifecycle
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -67,6 +68,10 @@ abstract class SkeletonActivity : AppCompatActivity() {
     private var skeletonReceiver: SkeletonReceiver? = null
     private var searchMenuItem: MenuItem? = null
     private var searchView: SearchView? = null
+
+    override fun getLifecycle(): Lifecycle {
+        return super.getLifecycle()
+    }
 
     override fun attachBaseContext(newBase: Context?) {
         // LocaleHelper.Application.switch()

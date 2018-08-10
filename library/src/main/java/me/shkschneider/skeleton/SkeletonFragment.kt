@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton
 
+import android.arch.lifecycle.Lifecycle
 import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v4.app.Fragment
@@ -33,6 +34,10 @@ abstract class SkeletonFragment : Fragment() {
 
     protected val activity: AppCompatActivity by lazy {
         context as AppCompatActivity
+    }
+
+    override fun getLifecycle(): Lifecycle {
+        return super.getLifecycle()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
