@@ -18,18 +18,14 @@ all:
 debug:
 	@echo "[ $(APP_ID) $(VERSION) ]"
 	@$(GRADLE) assembleDebug #installDebug
-	@cp "$(SKELETON)/build/outputs/aar/$(SKELETON)-debug.aar" "$(SKELETON_ID)-debug-$(VERSION).aar"
-	@echo "$(SKELETON_ID)-debug-$(VERSION).aar"
-	@cp "$(APP)/build/outputs/apk/$(APP)-universal-debug.apk" "$(APP_ID)-debug-$(VERSION).apk"
-	@echo "$(APP_ID)-debug-$(VERSION).apk"
+	@echo "$(SKELETON_ID)-*_$(VERSION)-debug.aar"
+	@echo "$(APP_ID)-*_$(VERSION)-debug.apk"
 
 release:
 	@echo "[ $(APP_ID) $(VERSION) ]"
 	@$(GRADLE) assembleRelease #installRelease
-	@cp "$(SKELETON)/build/outputs/aar/$(SKELETON)-release.aar" "$(SKELETON_ID)-release-$(VERSION).aar"
-	@echo "$(SKELETON_ID)-release-$(VERSION).aar"
-	@cp "$(APP)/build/outputs/apk/$(APP)-universal-release.apk" "$(APP_ID)-release-$(VERSION).apk"
-	@echo "$(APP_ID)-release-$(VERSION).apk"
+	@echo "$(SKELETON_ID)-*_$(VERSION)-release.aar"
+	@echo "$(APP_ID)-*_$(VERSION)-release.apk"
 
 lint:
 	@echo "[ $(APP_ID) $(VERSION) ]"

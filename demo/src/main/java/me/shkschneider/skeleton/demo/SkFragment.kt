@@ -90,7 +90,6 @@ class SkFragment : SkeletonFragment() {
                 me.shkschneider.skeleton.ui.FloatingActionButtonCompat::class.java,
                 me.shkschneider.skeleton.ui.OverlayLoader::class.java,
                 me.shkschneider.skeleton.ui.PaletteHelper::class.java,
-                me.shkschneider.skeleton.ui.ScrollHelper::class.java,
                 me.shkschneider.skeleton.ui.ScrollViewHelper::class.java,
                 me.shkschneider.skeleton.ui.Snack::class.java,
                 me.shkschneider.skeleton.ui.TextViewHelper::class.java,
