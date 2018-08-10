@@ -41,7 +41,7 @@ dependencies {
     implementation "com.android.support:preference-v14:${versions.support}"
     implementation 'com.android.volley:volley:1.0.0'
 
-    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.google.code.gson:gson:2.8.5'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk${versions.java}:${versions.kotlin}"
 }

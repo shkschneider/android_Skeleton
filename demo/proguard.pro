@@ -10,6 +10,20 @@
 -keep interface android.support.v13.app.** { *; }
 # NOT android.support.design
 
+# kotlin <https://stackoverflow.com/q/3354764>
+-keep class kotlin.** { *; }
+-keep class kotlin.Metadata { *; }
+-dontwarn kotlin.**
+-keepclassmembers class **$WhenMappings {
+    <fields>;
+}
+-keepclassmembers class kotlin.Metadata {
+    public <methods>;
+}
+-assumenosideeffects class kotlin.jvm.internal.Intrinsics {
+    static void checkParameterIsNotNull(java.lang.Object, java.lang.String);
+}
+
 # minifyEnabled true
 -dontobfuscate
 -dontoptimize

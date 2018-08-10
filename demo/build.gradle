@@ -122,6 +122,8 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk${versions.java}:${versions.kotlin}"
 
+    implementation 'br.com.mauker.materialsearchview:materialsearchview:1.2.3'
+
     implementation project(':library')
     // implementation 'com.github.shkschneider:android_Skeleton:${versions.skeleton}'
 }
