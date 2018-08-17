@@ -2,11 +2,11 @@
 
 buildscript {
     ext.versions = [
-        skeleton: '8.0.0',
+        skeleton: '9.0.0',
         java: '8',
         kotlin: '1.2.60',
         dokka: '0.9.17',
-        support: '27.1.1'
+        support: '28.0.0-rc01'
     ]
     repositories {
         jcenter()
