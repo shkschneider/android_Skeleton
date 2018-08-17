@@ -7,7 +7,7 @@ class MemoryCache<K, V>(
         @IntRange(from = 0) maxSize: Int = 42
 ) : LruCache<K, V>(maxSize) {
 
-    override fun sizeOf(key: K?, value: V?): Int {
+    override fun sizeOf(key: K, value: V): Int {
         return 1
     }
 

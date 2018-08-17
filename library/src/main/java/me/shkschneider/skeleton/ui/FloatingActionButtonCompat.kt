@@ -113,13 +113,13 @@ object FloatingActionButtonCompat {
     // <http://stackoverflow.com/a/35981886>
     fun recyclerView(floatingActionButton: FloatingActionButton, recyclerView: RecyclerView) {
         recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                     floatingActionButton.show()
                 }
                 super.onScrollStateChanged(recyclerView, newState)
             }
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 val isSignificantDelta = Math.abs(dy) > 5
                 if (/*dy < 0 || */isSignificantDelta && dy > 0) {
                     floatingActionButton.hide()

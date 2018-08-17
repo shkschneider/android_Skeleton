@@ -33,6 +33,7 @@ object AndroidHelper {
     const val API_25 = Build.VERSION_CODES.N_MR1 // 7.1.1
     const val API_26 = Build.VERSION_CODES.O // 8.0 "Oreo"
     const val API_27 = Build.VERSION_CODES.O_MR1 // 8.1
+    const val API_28 = Build.VERSION_CODES.P // 9.0 "Pie"
 
     const val PLATFORM = "Android"
 
@@ -44,6 +45,7 @@ object AndroidHelper {
     const val ANDROID_6 = API_23
     const val ANDROID_7 = API_24
     const val ANDROID_8 = API_26
+    const val ANDROID_9 = API_28
 
     fun codename(@IntRange(from = API_1.toLong()) api: Int = api()): String {
         when (api) {
@@ -61,6 +63,7 @@ object AndroidHelper {
             API_23 -> return "Marshmallow"
             API_24, API_25 -> return "Nougat"
             API_26, API_27 -> return "Oreo"
+            API_28 -> return "Pie"
             else -> return "*Preview*"
         }
     }

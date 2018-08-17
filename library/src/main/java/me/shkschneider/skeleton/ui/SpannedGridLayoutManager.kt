@@ -104,7 +104,7 @@ class SpannedGridLayoutManager : RecyclerView.LayoutManager {
 
     }
 
-    override fun onLayoutChildren(recycler: RecyclerView.Recycler?, state: RecyclerView.State?) {
+    override fun onLayoutChildren(recycler: RecyclerView.Recycler, state: RecyclerView.State?) {
         calculateWindowSize()
         calculateCellPositions(recycler, state)
         state?.let {
@@ -121,8 +121,8 @@ class SpannedGridLayoutManager : RecyclerView.LayoutManager {
         if (forceClearOffsets) { // see #scrollToPosition
             startTop = -(firstVisibleRow * cellHeight)
             forceClearOffsets = false
-        } else if (childCount != 0) {
-            scrollOffset = getDecoratedTop(getChildAt(0))
+        } else if (childCount > 0) {
+            scrollOffset = getDecoratedTop(getChildAt(0)!!)
             startTop = scrollOffset - firstVisibleRow * cellHeight
             resetVisibleItemTracking()
         }
@@ -165,10 +165,10 @@ class SpannedGridLayoutManager : RecyclerView.LayoutManager {
         return true
     }
 
-    override fun scrollVerticallyBy(dy: Int, recycler: RecyclerView.Recycler?, state: RecyclerView.State?): Int {
+    override fun scrollVerticallyBy(dy: Int, recycler: RecyclerView.Recycler, state: RecyclerView.State?): Int {
         if (childCount == 0 || dy == 0) return 0
         val scrolled: Int
-        val top = getDecoratedTop(getChildAt(0))
+        val top = getDecoratedTop(getChildAt(0)!!)
         if (dy < 0) { // scrolling content down
             scrolled = if (firstVisibleRow == 0) { // at top of content
                 val scrollRange = -(paddingTop - top)
@@ -184,12 +184,12 @@ class SpannedGridLayoutManager : RecyclerView.LayoutManager {
                 }
             }
             val firstPositionOfLastRow = getFirstPositionInSpannedRow(lastVisibleRow)
-            val lastRowTop = getDecoratedTop(getChildAt(firstPositionOfLastRow - firstVisibleItemPosition))
+            val lastRowTop = getDecoratedTop(getChildAt(firstPositionOfLastRow - firstVisibleItemPosition)!!)
             if (lastRowTop - scrolled > height) { // last spanned row scrolled out
                 recycleRow(lastVisibleRow, recycler, state)
             }
         } else { // scrolling content up
-            val bottom = getDecoratedBottom(getChildAt(childCount - 1))
+            val bottom = getDecoratedBottom(getChildAt(childCount - 1)!!)
             scrolled = if (lastVisiblePosition == itemCount - 1) { // is at end of content
                 val scrollRange = Math.max(bottom - height + paddingBottom, 0)
                 Math.min(dy, scrollRange)
@@ -204,7 +204,7 @@ class SpannedGridLayoutManager : RecyclerView.LayoutManager {
                 }
             }
             val lastPositionInRow = getLastPositionInSpannedRow(firstVisibleRow, state)
-            val bottomOfFirstRow = getDecoratedBottom(getChildAt(lastPositionInRow - firstVisibleItemPosition))
+            val bottomOfFirstRow = getDecoratedBottom(getChildAt(lastPositionInRow - firstVisibleItemPosition)!!)
             if (bottomOfFirstRow - scrolled < 0) { // first spanned row scrolled out
                 recycleRow(firstVisibleRow, recycler, state)
             }
@@ -232,19 +232,19 @@ class SpannedGridLayoutManager : RecyclerView.LayoutManager {
         startSmoothScroll(scroller)
     }
 
-    override fun computeVerticalScrollRange(state: RecyclerView.State?): Int {
+    override fun computeVerticalScrollRange(state: RecyclerView.State): Int {
         return spannedRowCount * cellHeight + paddingTop + paddingBottom
     }
 
-    override fun computeVerticalScrollExtent(state: RecyclerView.State?): Int {
+    override fun computeVerticalScrollExtent(state: RecyclerView.State): Int {
         return height
     }
 
-    override fun computeVerticalScrollOffset(state: RecyclerView.State?): Int {
+    override fun computeVerticalScrollOffset(state: RecyclerView.State): Int {
         if (childCount == 0)
             return 0
         else
-            return paddingTop + firstVisibleRow * cellHeight - getDecoratedTop(getChildAt(0))
+            return paddingTop + firstVisibleRow * cellHeight - getDecoratedTop(getChildAt(0)!!)
     }
 
     override fun findViewByPosition(position: Int): View? {
@@ -335,7 +335,7 @@ class SpannedGridLayoutManager : RecyclerView.LayoutManager {
 
     private fun getSpanInfoFromAttachedView(position: Int): SpanInfo {
         for (i in 0 until childCount) {
-            val child = getChildAt(i)
+            val child = getChildAt(i)!!
             if (position == getPosition(child)) {
                 val lp = child.layoutParams as LayoutParams
                 return SpanInfo(lp.columnSpan, lp.rowSpan)
@@ -437,7 +437,7 @@ class SpannedGridLayoutManager : RecyclerView.LayoutManager {
      * Remove and recycle all items in this 'row'. If the row includes a row-spanning cell then all
      * cells in the spanned rows will be removed.
      */
-    private fun recycleRow(rowIndex: Int, recycler: RecyclerView.Recycler?, state: RecyclerView.State?) {
+    private fun recycleRow(rowIndex: Int, recycler: RecyclerView.Recycler, state: RecyclerView.State?) {
         val firstPositionInRow = getFirstPositionInSpannedRow(rowIndex)
         val lastPositionInRow = getLastPositionInSpannedRow(rowIndex, state)
         var toRemove = lastPositionInRow

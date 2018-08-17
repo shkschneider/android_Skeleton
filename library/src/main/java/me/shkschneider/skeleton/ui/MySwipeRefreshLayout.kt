@@ -96,7 +96,7 @@ class MySwipeRefreshLayout : SwipeRefreshLayout {
 
         fun recyclerViewCompat(mySwipeRefreshLayout: MySwipeRefreshLayout, recyclerView: RecyclerView, linearLayoutManager: LinearLayoutManager) {
             recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
-                override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                     super.onScrollStateChanged(recyclerView, newState)
                     val idle = newState == RecyclerView.SCROLL_STATE_IDLE
                     val firstCompletelyVisibleItem = linearLayoutManager.findFirstCompletelyVisibleItemPosition() == 0
