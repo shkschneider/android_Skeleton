@@ -190,7 +190,7 @@ class WebService(
 
     companion object {
 
-        const val INTERNAL_ERROR = 666
+        const val INTERNAL_ERROR = 6_6_6
         val TIMEOUT_CONNECT = TimeUnit.SECONDS.toMillis(15).toInt()
         val TIMEOUT_READ = TimeUnit.MINUTES.toMillis(1).toInt()
 

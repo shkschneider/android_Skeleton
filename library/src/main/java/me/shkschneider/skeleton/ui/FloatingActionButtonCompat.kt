@@ -19,7 +19,7 @@ object FloatingActionButtonCompat {
 
     fun show(floatingActionButton: FloatingActionButton, animate: Boolean) {
         if (floatingActionButton.visibility == View.VISIBLE) return
-        floatingActionButton.visibility = View.VISIBLE
+        (floatingActionButton as View).visibility = View.VISIBLE
         if (! animate) return
         floatingActionButton.startAnimation(AnimationUtils.loadAnimation(ContextHelper.applicationContext(), me.shkschneider.skeleton.R.anim.sk_scale_up))
     }
@@ -27,7 +27,7 @@ object FloatingActionButtonCompat {
     fun hide(floatingActionButton: FloatingActionButton, animate: Boolean) {
         if (floatingActionButton.visibility == View.GONE) return
         if (! animate) {
-            floatingActionButton.visibility = View.GONE
+            (floatingActionButton as View).visibility = View.GONE
             return
         }
         val animation = AnimationUtils.loadAnimation(ContextHelper.applicationContext(), R.anim.sk_scale_down)
@@ -36,7 +36,7 @@ object FloatingActionButtonCompat {
                 // Ignore
             }
             override fun onAnimationEnd(animation: Animation) {
-                floatingActionButton.visibility = View.GONE
+                (floatingActionButton as View).visibility = View.GONE
             }
             override fun onAnimationRepeat(animation: Animation) {
                 // Ignore

@@ -19,7 +19,6 @@ import android.hardware.ConsumerIrManager
 import android.hardware.SensorManager
 import android.hardware.camera2.CameraManager
 import android.hardware.display.DisplayManager
-import android.hardware.fingerprint.FingerprintManager
 import android.hardware.input.InputManager
 import android.hardware.usb.UsbManager
 import android.location.LocationManager
@@ -41,6 +40,7 @@ import android.os.storage.StorageManager
 import android.print.PrintManager
 import android.service.wallpaper.WallpaperService
 import android.support.annotation.RequiresApi
+import android.support.v4.hardware.fingerprint.FingerprintManagerCompat
 import android.telecom.TelecomManager
 import android.telephony.CarrierConfigManager
 import android.telephony.SubscriptionManager
@@ -63,7 +63,7 @@ object SystemServices {
     }
 
     @RequiresApi(AndroidHelper.API_23)
-    private fun <T:Any> get(klass: KClass<T>): T? {
+    private fun <T : Any> get(klass: KClass<T>): T? {
         return ContextHelper.applicationContext().getSystemService(klass)
     }
 
@@ -157,9 +157,8 @@ object SystemServices {
         return get(Context.DROPBOX_SERVICE) as DropBoxManager?
     }
 
-    @RequiresApi(AndroidHelper.API_23)
-    fun fingerprintManager(): FingerprintManager? {
-        return get(Context.FINGERPRINT_SERVICE) as FingerprintManager?
+    fun fingerprintManager(context: Context): FingerprintManagerCompat {
+        return FingerprintManagerCompat.from(context)
     }
 
     @RequiresApi(AndroidHelper.API_24)

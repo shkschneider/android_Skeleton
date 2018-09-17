@@ -16,6 +16,7 @@ import me.shkschneider.skeleton.helper.SystemServices
 /**
  * <service android:name=".MyJobService" android:permission="android.permission.BIND_JOB_SERVICE"></service>
  */
+@Deprecated("Use WorkManager.")
 @RequiresApi(AndroidHelper.API_21)
 class JobManager(
         private var id: Int,

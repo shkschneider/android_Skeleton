@@ -23,43 +23,71 @@ class SpannableStringHelper {
 
     fun strikethrough(@IntRange(from = 0) start: Int, @IntRange(from = 0) length: Int): SpannableStringHelper {
         val span = StrikethroughSpan()
-        spannableString.setSpan(span, start, start + length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        try {
+            spannableString.setSpan(span, start, start + length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        } catch (e: IndexOutOfBoundsException) {
+            Logger.wtf(e)
+        }
         return this
     }
 
     fun underline(@IntRange(from = 0) start: Int, @IntRange(from = 0) length: Int): SpannableStringHelper {
         val span = UnderlineSpan()
-        spannableString.setSpan(span, start, start + length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        try {
+            spannableString.setSpan(span, start, start + length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        } catch (e: IndexOutOfBoundsException) {
+            Logger.wtf(e)
+        }
         return this
     }
 
     fun boldify(@IntRange(from = 0) start: Int, @IntRange(from = 0) length: Int): SpannableStringHelper {
         val span = StyleSpan(android.graphics.Typeface.BOLD)
-        spannableString.setSpan(span, start, start + length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        try {
+            spannableString.setSpan(span, start, start + length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        } catch (e: IndexOutOfBoundsException) {
+            Logger.wtf(e)
+        }
         return this
     }
 
     fun italize(@IntRange(from = 0) start: Int, @IntRange(from = 0) length: Int): SpannableStringHelper {
         val span = StyleSpan(Typeface.ITALIC)
-        spannableString.setSpan(span, start, start + length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        try {
+            spannableString.setSpan(span, start, start + length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        } catch (e: IndexOutOfBoundsException) {
+            Logger.wtf(e)
+        }
         return this
     }
 
     fun colorize(@IntRange(from = 0) start: Int, @IntRange(from = 0) length: Int, @ColorInt color: Int): SpannableStringHelper {
         val span = ForegroundColorSpan(color)
-        spannableString.setSpan(span, start, start + length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        try {
+            spannableString.setSpan(span, start, start + length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        } catch (e: IndexOutOfBoundsException) {
+            Logger.wtf(e)
+        }
         return this
     }
 
     fun mark(@IntRange(from = 0) start: Int, @IntRange(from = 0) length: Int, @ColorInt color: Int): SpannableStringHelper {
         val span = BackgroundColorSpan(color)
-        spannableString.setSpan(span, start, start + length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        try {
+            spannableString.setSpan(span, start, start + length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        } catch (e: IndexOutOfBoundsException) {
+            Logger.wtf(e)
+        }
         return this
     }
 
     fun proportionate(@IntRange(from = 0) start: Int, @IntRange(from = 0) length: Int, proportion: Float): SpannableStringHelper {
         val span = RelativeSizeSpan(proportion)
-        spannableString.setSpan(span, start, start + length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        try {
+            spannableString.setSpan(span, start, start + length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        } catch (e: IndexOutOfBoundsException) {
+            Logger.wtf(e)
+        }
         return this
     }
 

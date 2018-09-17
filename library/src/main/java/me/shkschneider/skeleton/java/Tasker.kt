@@ -6,6 +6,7 @@ import java.util.concurrent.Executors
 import java.util.concurrent.Future
 
 // <http://stackoverflow.com/a/9458785>
+@Deprecated("Use WorkManager.")
 class Tasker {
 
     private val executorService: ExecutorService = Executors.newSingleThreadExecutor()

@@ -28,6 +28,8 @@ object FeaturesHelper {
     const val FEATURE_CAMERA = PackageManager.FEATURE_CAMERA
     @SuppressLint("InlinedApi") // API-17+
     const val FEATURE_CAMERA_ANY = PackageManager.FEATURE_CAMERA_ANY
+    @SuppressLint("InlinedApi") // API-28+
+    const val FEATURE_CAMERA_AR = PackageManager.FEATURE_CAMERA_AR
     const val FEATURE_CAMERA_AUTOFOCUS = PackageManager.FEATURE_CAMERA_AUTOFOCUS
     @SuppressLint("InlinedApi") // API-21+
     const val FEATURE_CAMERA_CAPABILITY_MANUAL_POST_PROCESSING = PackageManager.FEATURE_CAMERA_CAPABILITY_MANUAL_POST_PROCESSING
@@ -124,10 +126,17 @@ object FeaturesHelper {
     const val FEATURE_SENSOR_STEP_DETECTOR = PackageManager.FEATURE_SENSOR_STEP_DETECTOR
     const val FEATURE_SIP = PackageManager.FEATURE_SIP
     const val FEATURE_SIP_VOIP = PackageManager.FEATURE_SIP_VOIP
+    @SuppressLint("InlinedApi") // API-28+
+    const val FEATURE_STRONGBOX_KEYSTORE = PackageManager.FEATURE_STRONGBOX_KEYSTORE
     const val FEATURE_TELEPHONY = PackageManager.FEATURE_TELEPHONY
     const val FEATURE_TELEPHONY_CDMA = PackageManager.FEATURE_TELEPHONY_CDMA
+    @SuppressLint("InlinedApi") // API-28+
+    const val FEATURE_TELEPHONY_EUICC = PackageManager.FEATURE_TELEPHONY_EUICC
     const val FEATURE_TELEPHONY_GSM = PackageManager.FEATURE_TELEPHONY_GSM
-    // FEATURE_TELEVISION
+    @SuppressLint("InlinedApi") // API-28+
+    const val FEATURE_TELEPHONY_MBMS = PackageManager.FEATURE_TELEPHONY_MBMS
+    @Deprecated("Use FEATURE_LEANBACK instead.")
+    const val FEATURE_TELEVISION = PackageManager.FEATURE_TELEVISION
     const val FEATURE_TOUCHSCREEN = PackageManager.FEATURE_TOUCHSCREEN
     const val FEATURE_TOUCHSCREEN_MULTITOUCH = PackageManager.FEATURE_TOUCHSCREEN_MULTITOUCH
     const val FEATURE_TOUCHSCREEN_MULTITOUCH_DISTINCT = PackageManager.FEATURE_TOUCHSCREEN_MULTITOUCH_DISTINCT
@@ -138,6 +147,7 @@ object FeaturesHelper {
     const val FEATURE_VERIFIED_BOOT = PackageManager.FEATURE_VERIFIED_BOOT
     @SuppressLint("InlinedApi") // API-26+
     const val FEATURE_VR_HEADTRACKING = PackageManager.FEATURE_VR_HEADTRACKING
+    @Deprecated("Use FEATURE_VR_MODE_HIGH_PERFORMANCE instead.")
     @SuppressLint("InlinedApi") // API-24+
     const val FEATURE_VR_MODE = PackageManager.FEATURE_VR_MODE
     @SuppressLint("InlinedApi") // API-24+
@@ -158,6 +168,8 @@ object FeaturesHelper {
     const val FEATURE_WIFI_DIRECT = PackageManager.FEATURE_WIFI_DIRECT
     @SuppressLint("InlinedApi") // API-27+
     const val FEATURE_WIFI_PASSPOINT = PackageManager.FEATURE_WIFI_PASSPOINT
+    @SuppressLint("InlinedApi") // API-28+
+    const val FEATURE_WIFI_RTT = PackageManager.FEATURE_WIFI_RTT
 
     fun has(feature: String): Boolean {
         return ApplicationHelper.packageManager().hasSystemFeature(feature)

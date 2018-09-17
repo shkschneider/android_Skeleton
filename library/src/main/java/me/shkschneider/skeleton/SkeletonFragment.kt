@@ -70,7 +70,7 @@ abstract class SkeletonFragment : Fragment() {
     }
 
     fun alive(): Boolean {
-        return isAdded && isVisible
+        return isAdded && isResumed
     }
 
     // Lifecycle

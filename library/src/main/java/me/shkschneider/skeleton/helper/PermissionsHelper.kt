@@ -83,6 +83,9 @@ object PermissionsHelper {
     const val TRANSMIT_IR = Manifest.permission.TRANSMIT_IR
     @SuppressLint("InlinedApi") // API-19+
     const val UNINSTALL_SHORTCUT = Manifest.permission.UNINSTALL_SHORTCUT
+    @SuppressLint("InlinedApi") // API-28+
+    const val USE_BIOMETRIC = Manifest.permission.USE_BIOMETRIC
+    @Deprecated("Use USE_BIOMETRIC instead.")
     @SuppressLint("InlinedApi") // API-23+
     const val USE_FINGERPRINT = Manifest.permission.USE_FINGERPRINT
     const val USE_SIP = Manifest.permission.USE_SIP // DANGEROUS

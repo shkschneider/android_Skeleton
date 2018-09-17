@@ -5,9 +5,8 @@ import android.support.v4.util.LruCache
 import com.android.volley.Cache
 import com.android.volley.Request
 import com.android.volley.RequestQueue
-import com.android.volley.toolbox.*
-import me.shkschneider.skeleton.data.MemoryBitmapCache
-
+import com.android.volley.toolbox.ImageLoader
+import com.android.volley.toolbox.Volley
 import me.shkschneider.skeleton.helper.ContextHelper
 
 // <https://developer.android.com/training/volley/requestqueue.html>
@@ -33,6 +32,7 @@ object Proxy {
             private val cache = LruCache<String, Bitmap>(42)
 
             override fun getBitmap(url: String?): Bitmap? {
+                url ?: return null
                 return cache.get(url)
             }
 
