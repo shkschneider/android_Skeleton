@@ -72,20 +72,20 @@ class ShkFragment : SkeletonFragment() {
         // Personal
         fill(view.findViewById(R.id.personal_music), "Music", SpannableString("Ambient, Progressive, Chill-Out, Elektro-Dark, Trance, Drum'n'Bass..."))
         fill(view.findViewById(R.id.personal_movies), "Movies", SpannableString("Old French movies, The Matrix, The Fifth Element, Old Boy, V For Vendetta, Fight Club, The Fountain, Sucker Punch, Ex Machina..."))
-        fill(view.findViewById(R.id.personal_games), "Games", SpannableString("Half-Life, StarCraft, Minecraft, Portal, The Witness, World of Warships..."))
+        fill(view.findViewById(R.id.personal_games), "Games", SpannableString("Half-Life, StarCraft, Minecraft, Oxygen Not Included, Portal, The Witness, World of Warships..."))
         fill(view.findViewById(R.id.personal_books), "Books", SpannableString("Peter F. Hamilton, Arthur C. Clarke, Alexandre Dumas (Le Comte de Monte-Cristo...)"))
         fill(view.findViewById(R.id.personal_other), "Other", SpannableString("Economics, Biology, Cosmology, Hiking & camping, Bicycle & Roller..."))
         // Professional
         fill(view.findViewById(R.id.skills_systems), "Systems", SpannableStringHelper("GNU/Linux: Debian, Arch, Fedora\n" +
                 "Windows: XP, Seven\n" +
                 "MacOS: MacOS X")
-                .boldify(0, 9).boldify(49, 8).boldify(69, 5).apply())
+                .boldify(0, 9).boldify(32, 8).boldify(51, 5).apply())
         fill(view.findViewById(R.id.skills_coding), "Coding", SpannableStringHelper("Object-oriented: Kotlin, Java, Python\n" +
                 "Compiled: C (with Makefiles)\n" +
                 "Shell: Bash (commands & shell scripting)\n" +
                 "Web-oriented: JavaScript (NodeJS)\n" +
                 "Databases: SQLite, MySQL, MongoDB")
-                .boldify(0, 15).boldify(48, 8).boldify(77, 5).boldify(118, 12).boldify(152, 9).apply())
+                .boldify(0, 15).boldify(38, 8).boldify(67, 5).boldify(108, 12).boldify(142, 9).apply())
         fill(view.findViewById(R.id.skills_softwares), "Softwares", SpannableStringHelper("Daemons: NginX, SSHd, uWSGI, Apache2\n" +
                 "Versioning: Git, Mercurial, Subversion\n" +
                 "IDEs: IntellijIDEA (Android Studio), Emacs, Atom")
@@ -93,7 +93,7 @@ class ShkFragment : SkeletonFragment() {
         fill(view.findViewById(R.id.skills_languages), "Languages", SpannableString("French (native)\n" + "English (TOIEC 850+, CEFR B2)"))
         // Footer
         val github = view.findViewById<Button>(R.id.github)
-        github.text = GITHUB.replaceFirst("https://github.com/".toRegex(), "")
+        github.text = GITHUB.replaceFirst("^https?://github.com/".toRegex(), "")
         github.setOnClickListener { startActivity(IntentHelper.web(GITHUB)) }
     }
 
