@@ -20,7 +20,7 @@ abstract class SkeletonApplication : Application() {
         super.onCreate()
         ContextHelper.applicationContext(applicationContext)
         DEBUGGABLE = applicationInfo.flags.has(ApplicationInfo.FLAG_DEBUGGABLE)
-        TAG = applicationInfo.packageName
+        TAG = packageName
 //        if (ApplicationHelper.debuggable()) {
 //            ExceptionHelper.uncaughtException(object: ExceptionHelper.Callback {
 //                override fun uncaughtException(throwable: Throwable) {

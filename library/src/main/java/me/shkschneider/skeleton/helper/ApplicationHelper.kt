@@ -1,16 +1,19 @@
 package me.shkschneider.skeleton.helper
 
 import android.annotation.SuppressLint
+import android.annotation.TargetApi
+import android.content.pm.ApplicationInfo
+import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.Bitmap
-import android.support.annotation.Size
+import android.os.Build
 import me.shkschneider.skeleton.SkeletonApplication
-import me.shkschneider.skeleton.java.SkHide
 import me.shkschneider.skeleton.ui.BitmapHelper
 
 object ApplicationHelper {
 
+    // ApplicationInfo.loadDefaultIcon(packageManager)
     const val DEFAULT_ICON = android.R.drawable.sym_def_app_icon
     const val INSTALLER = "com.android.vending"
 
@@ -32,61 +35,87 @@ object ApplicationHelper {
         return ContextHelper.applicationContext().packageManager
     }
 
-    fun name(): String? {
+    fun applicationInfo(packageName: String = ApplicationHelper.packageName()): ApplicationInfo? {
         try {
             val packageManager = packageManager()
-            val applicationInfo = packageManager.getApplicationInfo(packageName(), 0)
-            val label = applicationInfo.loadLabel(packageManager) ?: run {
-                Logger.warning("Label was NULL")
+            return packageManager.getApplicationInfo(packageName, 0)
+        } catch (e: PackageManager.NameNotFoundException) {
+            Logger.wtf(e)
+            return null
+        }
+    }
+
+    fun name(packageName: String = ApplicationHelper.packageName()): String? {
+        val label = applicationInfo(packageName)?.loadLabel(packageManager()) ?: run {
+            Logger.warning("Label was NULL")
+            return null
+        }
+        return label.toString()
+    }
+
+    fun exists(packageName: String = ApplicationHelper.packageName()): Boolean {
+        try {
+            return (packageManager().getApplicationInfo(packageName, 0) != null)
+        } catch (e: PackageManager.NameNotFoundException) {
+            Logger.wtf(e)
+            return false
+        }
+    }
+
+    fun packageInfo(packageName: String = ApplicationHelper.packageName(), flags: Int = 0): PackageInfo? {
+        try {
+            val packageManager = packageManager()
+            return packageManager.getPackageInfo(packageName, flags)
+        } catch (e: PackageManager.NameNotFoundException) {
+            Logger.wtf(e)
+            return null
+        }
+    }
+
+    fun versionName(packageName: String = ApplicationHelper.packageName()): String? {
+        return packageInfo(packageName, PackageManager.GET_META_DATA)?.versionName ?: run {
+            Logger.warning("VersionName was NULL")
+            return null
+        }
+    }
+
+    @SuppressLint("NewApi")
+    fun versionCode(packageName: String = ApplicationHelper.packageName()): Long? {
+        val packageInfo = packageInfo(packageName, PackageManager.GET_META_DATA)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            return packageInfo?.longVersionCode ?: run {
+                Logger.warning("LongVersionCode was NULL")
                 return null
             }
-            return label.toString()
-        } catch (e: PackageManager.NameNotFoundException) {
-            Logger.wtf(e)
+        } else {
+            @Suppress("DEPRECATION")
+            return packageInfo?.versionCode?.toLong() ?: run {
+                Logger.warning("VersionCode was NULL")
+                return null
+            }
+        }
+    }
+
+    fun buildTime(packageName: String = ApplicationHelper.packageName()): Long? {
+        return packageInfo(packageName, PackageManager.GET_META_DATA)?.lastUpdateTime ?: run {
+            Logger.warning("LastUpdateTime was NULL")
             return null
         }
     }
 
-    // <http://semver.org>
-    @Size(3)
-    fun semanticVersions(): Array<Int>? {
-        val versionName = versionName() ?: return null
-        if (! versionName.matches("^\\d+\\.\\d+\\.\\d+$".toRegex())) {
-            Logger.warning("Not semantic versioning")
-            return null
-        }
-        val versionNames = versionName.split("\\.".toRegex())
-        return arrayOf(versionNames[0].toInt(), versionNames[1].toInt(), versionNames[2].toInt())
+    fun permissions(packageName: String = ApplicationHelper.packageName()): List<String>? {
+        return packageInfo(packageName, PackageManager.GET_PERMISSIONS)?.requestedPermissions?.toList()
+                ?: run {
+                    Logger.warning("RequestedPermissions was NULL")
+                    return null
+                }
     }
 
-    fun versionName(): String? {
+    @Deprecated("You should use @DrawableRes when possible.")
+    fun icon(packageName: String = ApplicationHelper.packageName()): Bitmap? {
         try {
             val packageManager = packageManager()
-            return packageManager.getPackageInfo(packageName(), PackageManager.GET_META_DATA).versionName
-        } catch (e: PackageManager.NameNotFoundException) {
-            Logger.wtf(e)
-            return null
-        }
-    }
-
-    fun versionCode(): Int {
-        try {
-            val packageManager = packageManager()
-            return packageManager.getPackageInfo(packageName(), PackageManager.GET_META_DATA).versionCode
-        } catch (e: PackageManager.NameNotFoundException) {
-            Logger.wtf(e)
-            return -1
-        }
-    }
-
-    fun flavor(): String? {
-        TODO()
-    }
-
-    fun icon(): Bitmap? {
-        try {
-            val packageManager = packageManager()
-            val applicationInfo = packageManager.getApplicationInfo(packageName(), 0)
+            val applicationInfo = packageManager.getApplicationInfo(packageName, 0)
             val drawable = applicationInfo.loadIcon(packageManager)
             return BitmapHelper.fromDrawable(drawable)
         } catch (e: PackageManager.NameNotFoundException) {
@@ -95,42 +124,10 @@ object ApplicationHelper {
         }
     }
 
-    fun permissions(): List<String>? {
-        try {
-            val packageManager = packageManager()
-            val packageInfo = packageManager.getPackageInfo(packageName(), PackageManager.GET_PERMISSIONS)
-            return packageInfo.requestedPermissions.toList()
-        } catch (e: PackageManager.NameNotFoundException) {
-            Logger.wtf(e)
-            return null
-        }
-    }
-
-    @SuppressLint("PackageManagerGetSignatures")
-    fun signature(): String? {
-        val packageManager = packageManager()
-        try {
-            val packageInfo = packageManager.getPackageInfo(packageName(), PackageManager.GET_SIGNATURES)
-            val signatures = packageInfo.signatures
-            return signatures[0].toString()
-        } catch (e: PackageManager.NameNotFoundException) {
-            Logger.wtf(e)
-            return null
-        }
-
-    }
-
-    fun installer(): String {
-        return installer(packageName())
-    }
-
-    @SkHide
-    fun installer(packageName: String): String {
-        return packageManager().getInstallerPackageName(packageName)
-    }
-
-    fun installedFromGooglePlay(): Boolean {
-        return installer().equals(INSTALLER, true)
+    @TargetApi(AndroidHelper.API_19)
+    fun clear() {
+        Logger.info("clearApplicationUserData()")
+        SystemServices.activityManager()?.clearApplicationUserData()
     }
 
 }

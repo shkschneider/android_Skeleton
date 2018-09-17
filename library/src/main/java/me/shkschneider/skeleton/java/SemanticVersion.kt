@@ -12,8 +12,8 @@ class SemanticVersion : Comparable<SemanticVersion> {
         if (parts.size != semanticVersioning.size) {
             throw IllegalArgumentException("Not MAJOR.MINOR.PATCH.")
         }
-        parts.forEach {
-            it.toIntOrNull()?.let {
+        parts.forEach { part ->
+            part.toIntOrNull()?.let {
                 semVer.add(it)
             } ?: throw IllegalArgumentException("Not an Int.")
             // SemVer v2 allows appendix after last element
@@ -33,6 +33,18 @@ class SemanticVersion : Comparable<SemanticVersion> {
 
     private fun toList(): List<Int> {
         return semVer
+    }
+
+    fun major(): Int {
+        return semVer[MAJOR]
+    }
+
+    fun minor(): Int {
+        return semVer[MINOR]
+    }
+
+    fun patch(): Int {
+        return semVer[PATCH]
     }
 
     override fun toString(): String {
