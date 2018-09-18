@@ -18,7 +18,7 @@ android {
         targetSdkVersion 28
         versionCode androidDefaultConfigVersionCode
         versionName "${versions.skeleton}"
-        // setProperty('archivesBaseName', "skeleton-$versionName")
+        setProperty('archivesBaseName', "me.shkschneider.skeleton_v" + defaultConfig.versionName + "r" + defaultConfig.versionCode + ".aar")
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true
     }
@@ -41,7 +41,7 @@ dependencies {
     implementation "com.android.support:preference-v14:${versions.support}"
     implementation 'com.android.volley:volley:1.1.1'
 
-    implementation 'android.arch.work:work-runtime:1.0.0-alpha06'
+    implementation 'android.arch.work:work-runtime:1.0.0-alpha08'
 
     implementation 'com.google.code.gson:gson:2.8.5'
 

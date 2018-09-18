@@ -8,7 +8,7 @@ MIN_SDK		= $(shell grep 'minSdkVersion' $(APP)/build.gradle | head -1 | rev | cu
 TARGET_SDK	= $(shell grep 'targetSdkVersion' $(APP)/build.gradle | head -1 | rev | cut -d' ' -f1 | rev)
 VERSION_NAME	= $(shell grep 'skeleton' build.gradle | head -1 | rev | cut -d' ' -f1 | rev | tr -d \' | tr -d \" | tr -d \,)
 VERSION_CODE	= $(shell cat $(APP)/version.properties | sed -n '2p' | cut -d'=' -f2)
-VERSION		= "v$(VERSION_NAME)r$(VERSION_CODE)"
+VERSION		= v$(VERSION_NAME)r$(VERSION_CODE)
 GRADLE		= bash gradlew
 
 all:
@@ -18,20 +18,24 @@ all:
 debug:
 	@echo "[ $(APP_ID) $(VERSION) ]"
 	@$(GRADLE) assembleDebug #installDebug
-	@echo "$(SKELETON_ID)-*_$(VERSION)-debug.aar"
-	@echo "$(APP_ID)-*_$(VERSION)-debug.apk"
+	@find $(SKELETON)/build -type f -name '*$(VERSION)*.aar'
+	@find $(APP)/build -type f -name '*$(VERSION)*.apk'
 
 release:
 	@echo "[ $(APP_ID) $(VERSION) ]"
 	@$(GRADLE) assembleRelease #installRelease
-	@echo "$(SKELETON_ID)-*_$(VERSION)-release.aar"
-	@echo "$(APP_ID)-*_$(VERSION)-release.apk"
+	@find $(SKELETON)/build -type f -name '*$(VERSION)*.aar'
+	@find $(APP)/build -type f -name '*$(VERSION)*.apk'
+
+doc:
+	@echo "[ $(APP_ID) $(VERSION) ]"
+	@$(GRADLE) :$(SKELETON):doc
+	@find $(SKELETON)/build -maxdepth 3 -type f -name 'index.html'
 
 lint:
 	@echo "[ $(APP_ID) $(VERSION) ]"
-	@$(GRADLE) :demo:lint
-	@echo "demo/build/outputs/lint-results-debug.html"
-	@echo "demo/build/outputs/lint-results-debug.xml"
+	@$(GRADLE) :$(APP):lint
+	@find $(APP)/build -type f -name 'lint-results*'
 
 clean:
 	@echo "[ $(APP_ID) $(VERSION) ]"
