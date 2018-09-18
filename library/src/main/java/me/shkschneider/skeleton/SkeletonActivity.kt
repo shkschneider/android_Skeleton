@@ -160,8 +160,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
     override fun setSupportActionBar(toolbar: Toolbar?) {
         try {
             super.setSupportActionBar(toolbar)
-        }
-        catch (e: IllegalStateException) {
+        } catch (e: IllegalStateException) {
             /**
              * java.lang.RuntimeException: Unable to start activity
              * java.lang.IllegalStateException: This Activity already has an action bar supplied by the window decor.
@@ -359,12 +358,13 @@ abstract class SkeletonActivity : AppCompatActivity() {
             skeletonReceiver.post(RESULT_SEARCH_CHANGE, "")
             return@setOnCloseListener false
         }
-        searchView.setOnQueryTextListener (object: SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(q: String): Boolean {
                 stopSearch()
                 skeletonReceiver.post(RESULT_SEARCH_SUBMIT, q)
                 return true
             }
+
             override fun onQueryTextChange(q: String): Boolean {
                 skeletonReceiver.post(RESULT_SEARCH_CHANGE, q)
                 return true

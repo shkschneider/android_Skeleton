@@ -18,7 +18,7 @@ fun <T:Any> KClass<T>.qualifiedName(): String {
 }
 
 fun <T:Any> KClass<T>.packageName(): String {
-    return this.java.name?.substringBeforeLast(".").orEmpty()
+    return this.java.name.substringBeforeLast(".")
 }
 
 // Avoids nulls to be translated to "null" (ex: CharSequence)

@@ -8,7 +8,7 @@ import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.*
 
-// <https://gist.github.com/Trikke/90efd1.toFloat()c09aaadf3e>
+// <https://gist.github.com/Trikke/90efd4432fc09aaadf3e>
 class SpannableStringHelper {
 
     private var spannableString: SpannableString
