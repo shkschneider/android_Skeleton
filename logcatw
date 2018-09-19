@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# date time pid gid level log...
+adb logcat '*:W' \
+   | cut -c7-14,31- \
+   | grep --color -E "([A-Za-z]+Exception|Caused by): .+|\$"
+
+# EOF
