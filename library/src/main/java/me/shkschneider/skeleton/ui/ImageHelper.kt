@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.ui
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
+import android.os.Build
 import android.support.annotation.DrawableRes
 import android.support.v4.content.ContextCompat
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
@@ -36,7 +37,14 @@ object ImageHelper {
             view.layoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
             view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels)
             view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels)
-            view.buildDrawingCache()
+            if (Build.VERSION.SDK_INT < 28) {
+                /**
+                 * This method was deprecated in API level 28. The view drawing cache was largely
+                 * made obsolete with the introduction of hardware-accelerated rendering in API 11.
+                 */
+                @Suppress("DEPRECATION")
+                view.buildDrawingCache()
+            }
             val bitmap = android.graphics.Bitmap.createBitmap(view.measuredWidth, view.measuredHeight, android.graphics.Bitmap.Config.ARGB_8888)
             val canvas = Canvas(bitmap)
             view.draw(canvas)

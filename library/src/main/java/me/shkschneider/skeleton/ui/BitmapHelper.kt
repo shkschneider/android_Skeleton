@@ -4,6 +4,7 @@ import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
 import android.renderscript.Allocation
 import android.renderscript.Element
 import android.renderscript.RenderScript
@@ -96,7 +97,14 @@ object BitmapHelper {
         view.layoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
         view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels)
         view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels)
-        view.buildDrawingCache()
+        if (Build.VERSION.SDK_INT < 28) {
+            /**
+             * This method was deprecated in API level 28. The view drawing cache was largely
+             * made obsolete with the introduction of hardware-accelerated rendering in API 11.
+             */
+            @Suppress("DEPRECATION")
+            view.buildDrawingCache()
+        }
         val bitmap = Bitmap.createBitmap(view.measuredWidth, view.measuredHeight, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
         view.draw(canvas)

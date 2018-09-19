@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.ui
 
 import android.graphics.Paint
+import android.os.Build
 import android.support.v4.widget.TextViewCompat
 import android.text.Html
 import android.text.SpannableString
@@ -9,7 +10,6 @@ import android.text.method.LinkMovementMethod
 import android.text.util.Linkify
 import android.widget.TextView
 import me.shkschneider.skeleton.extensions.then
-
 import me.shkschneider.skeleton.network.MyImageGetter
 
 object TextViewHelper {
@@ -25,14 +25,22 @@ object TextViewHelper {
         textView.paintFlags = flags
     }
 
-    @Suppress("DEPRECATION")
-    fun html(html: String): Spanned {
-        return Html.fromHtml(html, null, null)
-    }
-
-    @Suppress("DEPRECATION")
-    fun htmlWithImages(textView: TextView, html: String): Spanned {
-        return Html.fromHtml(html, MyImageGetter(textView), null)
+    fun htmlWithImages(textView: TextView? = null, html: String): Spanned {
+        textView?.let {
+            if (Build.VERSION.SDK_INT >= 24) {
+                return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY, MyImageGetter(textView), null)
+            } else {
+                @Suppress("DEPRECATION")
+                return Html.fromHtml(html, MyImageGetter(textView), null)
+            }
+        } ?: run {
+            if (Build.VERSION.SDK_INT >= 24) {
+                return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY)
+            } else {
+                @Suppress("DEPRECATION")
+                return Html.fromHtml(html)
+            }
+        }
     }
 
     fun linkify(textView: TextView, urls: Boolean, emails: Boolean, phones: Boolean, addresses: Boolean) {
@@ -40,7 +48,14 @@ object TextViewHelper {
         if (urls) links = links or Linkify.WEB_URLS
         if (emails) links = links or Linkify.EMAIL_ADDRESSES
         if (phones) links = links or Linkify.PHONE_NUMBERS
-        if (addresses) links = links or Linkify.MAP_ADDRESSES
+        if (addresses) {
+            if (Build.VERSION.SDK_INT >= 28) {
+                // TODO I just don't get how to use TextClassifier
+            } else {
+                @Suppress("DEPRECATION")
+                links = links or Linkify.MAP_ADDRESSES
+            }
+        }
         val spannableString = SpannableString(textView.text)
         Linkify.addLinks(spannableString, links)
         textView.text = spannableString
