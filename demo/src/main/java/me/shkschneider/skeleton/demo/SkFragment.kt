@@ -21,6 +21,7 @@ class SkFragment : SkeletonFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         fill(view.findViewById<View>(R.id.data) as LinearLayout, arrayOf(
                 me.shkschneider.skeleton.data.CharsetHelper::class.java,
                 me.shkschneider.skeleton.data.DatabaseHelper::class.java,

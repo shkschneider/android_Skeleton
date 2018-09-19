@@ -46,6 +46,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk${versions.java}:${versions.kotlin}"
+    compile "org.jetbrains.kotlin:kotlin-reflect:1.2.70"
 }
 
 // ./build/dokka/skeleton/index.html

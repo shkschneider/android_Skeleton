@@ -308,13 +308,20 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     fun loading(b: Boolean) {
+        if (!ThreadHelper.mainThread()) {
+            Logger.debug("Not on Main UI Thread!")
+        }
         if (b) {
-            overlayLoader ?: run {
-                overlayLoader = OverlayLoader.show(this)
+            runOnUiThread {
+                overlayLoader ?: run {
+                    overlayLoader = OverlayLoader.show(this)
+                }
             }
         } else {
-            overlayLoader?.hide(this)?.also { loading = 0 }
-            overlayLoader = null
+            runOnUiThread {
+                overlayLoader?.hide(this)?.also { loading = 0 }
+                overlayLoader = null
+            }
         }
     }
 

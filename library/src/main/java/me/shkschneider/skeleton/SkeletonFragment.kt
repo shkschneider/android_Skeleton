@@ -59,6 +59,25 @@ abstract class SkeletonFragment : Fragment() {
         return view
     }
 
+    // Loading
+
+    fun loading(): Int? {
+        if (!alive()) return null
+        return (activity as? SkeletonActivity)?.loading()
+    }
+
+    fun loading(i: Int) {
+        if (!alive()) return
+        (activity as? SkeletonActivity)?.loading(i)
+    }
+
+    fun loading(b: Boolean) {
+        if (!alive()) return
+        (activity as? SkeletonActivity)?.loading(b)
+    }
+
+    // Lifecycle
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return onCreateView(inflater, R.layout.sk_fragment, container)
     }
@@ -74,8 +93,6 @@ abstract class SkeletonFragment : Fragment() {
     fun alive(): Boolean {
         return isAdded && isResumed
     }
-
-    // Lifecycle
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
