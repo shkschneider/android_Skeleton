@@ -24,7 +24,7 @@
 
     <!-- Fix for preference-v17 -->
     <color name="preference_accent">@color/accentColor</color>
-    <color name="preference_fallback_accent_color">@color/accentColor</color>
+    <color name="preference_fallback_accent_color" tools:ignore="PrivateResource">@color/accentColor</color>
 
     <!-- Material colors <https://material.google.com/style/color.html#color-color-palette> -->
 
