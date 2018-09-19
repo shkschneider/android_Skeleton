@@ -135,6 +135,7 @@ object FeaturesHelper {
     const val FEATURE_TELEPHONY_GSM = PackageManager.FEATURE_TELEPHONY_GSM
     @SuppressLint("InlinedApi") // API-28+
     const val FEATURE_TELEPHONY_MBMS = PackageManager.FEATURE_TELEPHONY_MBMS
+    @Suppress("DEPRECATION")
     @Deprecated("Use FEATURE_LEANBACK instead.")
     const val FEATURE_TELEVISION = PackageManager.FEATURE_TELEVISION
     const val FEATURE_TOUCHSCREEN = PackageManager.FEATURE_TOUCHSCREEN
@@ -147,6 +148,7 @@ object FeaturesHelper {
     const val FEATURE_VERIFIED_BOOT = PackageManager.FEATURE_VERIFIED_BOOT
     @SuppressLint("InlinedApi") // API-26+
     const val FEATURE_VR_HEADTRACKING = PackageManager.FEATURE_VR_HEADTRACKING
+    @Suppress("DEPRECATION")
     @Deprecated("Use FEATURE_VR_MODE_HIGH_PERFORMANCE instead.")
     @SuppressLint("InlinedApi") // API-24+
     const val FEATURE_VR_MODE = PackageManager.FEATURE_VR_MODE

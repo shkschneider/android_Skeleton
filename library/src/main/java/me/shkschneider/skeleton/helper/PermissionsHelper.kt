@@ -85,6 +85,7 @@ object PermissionsHelper {
     const val UNINSTALL_SHORTCUT = Manifest.permission.UNINSTALL_SHORTCUT
     @SuppressLint("InlinedApi") // API-28+
     const val USE_BIOMETRIC = Manifest.permission.USE_BIOMETRIC
+    @Suppress("DEPRECATION")
     @Deprecated("Use USE_BIOMETRIC instead.")
     @SuppressLint("InlinedApi") // API-23+
     const val USE_FINGERPRINT = Manifest.permission.USE_FINGERPRINT

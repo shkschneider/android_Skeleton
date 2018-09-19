@@ -39,10 +39,9 @@ object ShortcutHelper {
 
     fun addDynamicShortcut(shortcut: Shortcut): Boolean {
         SystemServices.shortcutManager()?.let { shortcutManager ->
-            shortcutManager.dynamicShortcuts?.let { shortcutsInfo ->
-                if (shortcutsInfo.size + 1 >= maxRecommendedShortcuts) {
-                    Logger.warning("Lots of shortcuts")
-                }
+            val shortcutsInfo = shortcutManager.dynamicShortcuts
+            if (shortcutsInfo.size + 1 >= maxRecommendedShortcuts) {
+                Logger.warning("Lots of shortcuts")
             }
             return shortcutManager.isRateLimitingActive && shortcutManager.addDynamicShortcuts(listOf(shortcut.shortcutInfo()))
         }

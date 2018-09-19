@@ -15,10 +15,9 @@ class MySecretCodeReceiver : BroadcastReceiver() {
         var secretCode = intent.dataString
         if (secretCode.isNullOrEmpty()) return
         intent.data ?: return
-        val scheme = intent.data.scheme
-        if (! scheme.isNullOrBlank()) {
+        intent.data?.scheme?.let { scheme ->
             // android_secret_code://
-            with (secretCode) {
+            with (secretCode!!) {
                 secretCode = substring(scheme.length)
                 if (startsWith("://")) {
                     secretCode = substring("://".length, length)

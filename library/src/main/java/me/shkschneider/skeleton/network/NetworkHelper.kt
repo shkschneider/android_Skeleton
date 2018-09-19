@@ -35,6 +35,7 @@ object NetworkHelper {
         }
     }
 
+    @Deprecated("Apps should instead use the ConnectivityManager.NetworkCallback API to learn about connectivity changes.")
     @RequiresPermission(Manifest.permission.ACCESS_NETWORK_STATE)
     fun connectedOrConnecting(): Boolean {
         val connectivityManager = SystemServices.connectivityManager()

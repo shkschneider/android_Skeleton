@@ -47,21 +47,19 @@ object IntentHelper {
     private const val REQUEST_CODE_PERMISSIONS = AndroidHelper.API_23
 
     fun main(): Intent? {
-        val intent = ApplicationHelper.packageManager().getLaunchIntentForPackage(ApplicationHelper.packageName())
-        intent ?: run {
-            Logger.warning("Intent was NULL")
-            return null
+        ApplicationHelper.packageManager().getLaunchIntentForPackage(ApplicationHelper.packageName())?.let { intent ->
+            return Intent.makeMainActivity(intent.component).addFlags(FLAGS_HOME)
         }
-        return Intent.makeMainActivity(intent.component).addFlags(FLAGS_HOME)
+        Logger.warning("Intent was NULL")
+        return null
     }
 
     fun restart(): Intent? {
-        val intent = ApplicationHelper.packageManager().getLaunchIntentForPackage(ApplicationHelper.packageName())
-        intent ?: run {
-            Logger.warning("Intent was NULL")
-            return null
+        ApplicationHelper.packageManager().getLaunchIntentForPackage(ApplicationHelper.packageName())?.let { intent ->
+            return Intent.makeRestartActivityTask(intent.component).addFlags(FLAGS_CLEAR)
         }
-        return Intent.makeRestartActivityTask(intent.component).addFlags(FLAGS_CLEAR)
+        Logger.warning("Intent was NULL")
+        return null
     }
 
     fun view(uri: Uri): Intent {
@@ -190,36 +188,25 @@ object IntentHelper {
         }
         when (requestCode) {
             REQUEST_CODE_CAMERA -> {
-                intent ?: run {
-                    Logger.warning("Intent was NULL")
-                    return null
+                intent?.extras?.get("data")?.let { data ->
+                    return data
                 }
-                intent.extras ?: run {
-                    Logger.warning("Bundle was NULL")
-                    return null
-                }
-                return intent.extras?.get("data")
+                Logger.warning("Intent's data was NULL")
+                return null
             }
             REQUEST_CODE_GALLERY -> {
-                intent ?: run {
-                    Logger.warning("Intent was NULL")
-                    return null
+                intent?.data?.let { uri ->
+                    return BitmapHelper.decodeUri(uri)
                 }
-                intent.data ?: run {
-                    Logger.warning("Uri was NULL")
-                    return null
-                }
-                return BitmapHelper.decodeUri(intent.data)
+                Logger.warning("Intent's data was NULL")
+                return null
             }
             REQUEST_CODE_RINGTONE -> {
-                intent ?: run {
-                    Logger.warning("Intent was NULL")
-                    return null
+                intent?.getParcelableExtra<Uri>(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)?.let { uri ->
+                    return RingtoneManager.getRingtone(ContextHelper.applicationContext(), uri)
                 }
-                val uri = intent.getParcelableExtra<Uri>(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
-                return uri?.let {
-                    RingtoneManager.getRingtone(ContextHelper.applicationContext(), uri)
-                }
+                Logger.warning("Intent's extra was NULL")
+                return null
             }
             else -> return null
         }

@@ -17,11 +17,11 @@ object BundleHelper {
     }
 
     fun unpack(bundle: Bundle, key: String): Serializable? {
-        if (! bundle.containsKey(key)) {
-            Logger.warning("Bundle has no such key")
-            return null
+        bundle.getSerializable(key)?.let {
+            return true
         }
-        return bundle.getSerializable(key)
+        Logger.warning("Bundle has no such key")
+        return null
     }
 
 }

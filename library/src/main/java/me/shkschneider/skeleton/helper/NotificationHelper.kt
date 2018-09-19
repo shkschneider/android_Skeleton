@@ -98,21 +98,13 @@ object NotificationHelper {
 
     }
 
-    class Channel {
-
-        val id: String
-        val name: String
-        val badge: Boolean
-        val lights: Boolean
-        val vibration: Boolean
-
-        constructor(id: String, name: String, badge: Boolean = true, lights: Boolean = true, vibration: Boolean = true) {
-            this.id = id
-            this.name = name
-            this.badge = badge
-            this.lights = lights
-            this.vibration = vibration
-        }
+    class Channel(
+            val id: String,
+            val name: String,
+            val badge: Boolean = true,
+            val lights: Boolean = true,
+            val vibration: Boolean = true
+    ) {
 
         @RequiresApi(AndroidHelper.API_26)
         fun get(): NotificationChannel {

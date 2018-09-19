@@ -46,11 +46,11 @@ object ApplicationHelper {
     }
 
     fun name(packageName: String = ApplicationHelper.packageName()): String? {
-        val label = applicationInfo(packageName)?.loadLabel(packageManager()) ?: run {
-            Logger.warning("Label was NULL")
-            return null
+        applicationInfo(packageName)?.loadLabel(packageManager())?.let { label ->
+            return label.toString()
         }
-        return label.toString()
+        Logger.warning("Label was NULL")
+        return null
     }
 
     fun exists(packageName: String = ApplicationHelper.packageName()): Boolean {

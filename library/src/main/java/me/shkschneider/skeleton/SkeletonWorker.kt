@@ -144,6 +144,7 @@ object SkeletonWorker {
 
         override fun doWork(): Result {
             Logger.info("#$id doWork()")
+            @Suppress("UNUSED_VARIABLE")
             val context = applicationContext
             inputData.getString("TAG")
             return Result.FAILURE
