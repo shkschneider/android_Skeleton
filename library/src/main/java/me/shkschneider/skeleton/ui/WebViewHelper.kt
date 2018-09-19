@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.ui
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.view.View
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
@@ -25,7 +26,7 @@ object WebViewHelper {
 
     fun get(): WebView {
         val webView = WebView(ContextHelper.applicationContext())
-        if (AndroidHelper.api() >= AndroidHelper.API_21) {
+        if (Build.VERSION.SDK_INT >= 21) {
             webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
         }
         return webView

@@ -31,7 +31,7 @@ object IdHelper {
 
     @RequiresPermission(Manifest.permission.READ_PHONE_STATE)
     fun serial(): String {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= 26) {
             return Build.getSerial()
         } else {
             @Suppress("DEPRECATION")

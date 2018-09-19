@@ -22,6 +22,14 @@ object UrlHelper {
         return URLUtil.isValidUrl(url)
     }
 
+    fun http(url: String): Boolean {
+        return URLUtil.isHttpUrl(url)
+    }
+
+    fun https(url: String): Boolean {
+        return URLUtil.isHttpsUrl(url)
+    }
+
     fun encode(string: String): String? {
          try {
              return URLEncoder.encode(string, CharsetHelper.UTF8)

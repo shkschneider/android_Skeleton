@@ -215,7 +215,7 @@ object IntentHelper {
     // <http://developer.android.com/training/implementing-navigation/descendant.html#external-activities>
     @Suppress("DEPRECATION")
     private fun external(intent: Intent): Intent {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= 21) {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
         } else {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET)

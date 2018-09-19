@@ -16,13 +16,13 @@ object LocaleHelper {
             context ?: return ContextWrapper(null)
             with(context.resources) {
                 val configuration = Configuration()
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                if (Build.VERSION.SDK_INT >= 17) {
                     configuration.setLocale(locale)
                 } else {
                     @Suppress("DEPRECATION")
                     configuration.locale = locale
                 }
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                if (Build.VERSION.SDK_INT >= 17) {
                     return ContextWrapper(context.createConfigurationContext(configuration))
                 } else {
                     @Suppress("DEPRECATION")
@@ -33,7 +33,7 @@ object LocaleHelper {
         }
 
         fun locale(context: Context): Locale {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            if (Build.VERSION.SDK_INT >= 24) {
                 return context.resources.configuration.locales[0]
             } else {
                 @Suppress("DEPRECATION")

@@ -19,7 +19,7 @@ import java.util.*
 object NetworkHelper {
 
     fun userAgent(): String? {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        if (Build.VERSION.SDK_INT >= 17) {
             return WebSettings.getDefaultUserAgent(ContextHelper.applicationContext())
         } else {
             return SystemProperties.get("http.agent")
@@ -28,7 +28,7 @@ object NetworkHelper {
 
     // Affects platform's components like DownloadManager or MediaPlayer...
     fun isCleartextTrafficPermitted(): Boolean {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= 23) {
             return NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted
         } else {
             return true

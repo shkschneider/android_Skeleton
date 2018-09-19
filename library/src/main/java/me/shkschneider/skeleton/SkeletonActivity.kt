@@ -21,6 +21,7 @@ import android.view.inputmethod.EditorInfo
 import me.shkschneider.skeleton.extensions.then
 import me.shkschneider.skeleton.extensions.toStringOrEmpty
 import me.shkschneider.skeleton.helper.*
+import me.shkschneider.skeleton.ui.BitmapHelper
 import me.shkschneider.skeleton.ui.OverlayLoader
 
 /**
@@ -80,21 +81,16 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         if (enterAnim != null && exitAnim != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                window.requestFeature(Window.FEATURE_CONTENT_TRANSITIONS)
+            if (Build.VERSION.SDK_INT >= 21) {
+                // <https://stackoverflow.com/a/28989946/603270>
+                window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
             }
         }
         super.onCreate(savedInstanceState)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         setContentView(R.layout.sk_activity)
-        if (AndroidHelper.api() >= AndroidHelper.API_21) {
+        if (Build.VERSION.SDK_INT >= 21) {
             statusBarColor(window, ContextCompat.getColor(applicationContext, R.color.statusBarColor))
-            val name = ApplicationHelper.name()
-            val icon = ApplicationHelper.icon()
-            val color = ContextCompat.getColor(applicationContext, R.color.primaryColor)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                setTaskDescription(ActivityManager.TaskDescription(name, icon, color))
-            }
         }
     }
 
@@ -113,6 +109,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
         setIntent(intent)
     }
 
+    // <https://stackoverflow.com/a/27635961/603270>
     override fun onResumeFragments() {
         super.onResumeFragments()
     }
@@ -133,7 +130,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     fun statusBarColor(window: Window): Int {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= 21) {
             return window.statusBarColor
         } else {
             return Color.TRANSPARENT // Color.BLACK
@@ -141,7 +138,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     fun statusBarColor(window: Window, @ColorInt color: Int): Boolean {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= 21) {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             window.statusBarColor = color
             return true

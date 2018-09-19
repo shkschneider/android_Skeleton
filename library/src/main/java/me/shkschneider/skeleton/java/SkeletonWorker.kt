@@ -27,7 +27,7 @@ object SkeletonWorker {
 
     // Single-Shot
 
-    fun enqueue(tag: String, worker: Class<Work>, constraints: Constraints? = null, data: Data? = null) : UUID {
+    fun enqueue(tag: String, worker: Class<Work>, constraints: Constraints? = null, data: Data? = null): UUID {
         val workBuilder = OneTimeWorkRequest.Builder(worker).addTag(tag)
         constraints?.let {
             workBuilder.setConstraints(it)
@@ -40,7 +40,7 @@ object SkeletonWorker {
         return work.id
     }
 
-    fun uniqueWork(tag: String, worker: Class<Work>, constraints: Constraints? = null, data: Data? = null) : UUID {
+    fun uniqueWork(tag: String, worker: Class<Work>, constraints: Constraints? = null, data: Data? = null): UUID {
         val workBuilder = OneTimeWorkRequest.Builder(worker).addTag(tag)
         constraints?.let {
             workBuilder.setConstraints(it)
@@ -60,7 +60,7 @@ object SkeletonWorker {
      * other conditions are satisfied at the time.
      */
     fun <T:Worker> uniquePeriodicWork(tag: String, worker: Class<T>, repeatInterval: Long, timeUnit: TimeUnit,
-                                             constraints: Constraints? = null, data: Data? = null) : UUID? {
+                                             constraints: Constraints? = null, data: Data? = null): UUID? {
         if (timeUnit.toMillis(repeatInterval) < PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS) {
             Logger.warning("The intervalMillis must be greater than or equal to: ${PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS}")
             return null
@@ -84,7 +84,7 @@ object SkeletonWorker {
      */
     fun <T:Worker> enqueueUniquePeriodicWork(tag: String, worker: Class<T>, repeatInterval: Long, timeUnit: TimeUnit,
                                              flexInterval: Long, flexIntervalTimeUnit: TimeUnit,
-                                             constraints: Constraints? = null, data: Data? = null) : UUID? {
+                                             constraints: Constraints? = null, data: Data? = null): UUID? {
         if (timeUnit.toMillis(repeatInterval) < PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS) {
             Logger.warning("intervalMillis must be greater than or equal to: ${PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS}")
             return null
@@ -114,7 +114,7 @@ object SkeletonWorker {
      * CANCELLED
      */
 
-    fun getStatusById(id: UUID) : LiveData<WorkStatus> {
+    fun getStatusById(id: UUID): LiveData<WorkStatus> {
         return manager().getStatusById(id)
     }
 

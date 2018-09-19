@@ -6,10 +6,9 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.res.Resources
-import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.os.Build
 import me.shkschneider.skeleton.SkeletonApplication
-import me.shkschneider.skeleton.ui.BitmapHelper
 
 object ApplicationHelper {
 
@@ -37,8 +36,7 @@ object ApplicationHelper {
 
     fun applicationInfo(packageName: String = ApplicationHelper.packageName()): ApplicationInfo? {
         try {
-            val packageManager = packageManager()
-            return packageManager.getApplicationInfo(packageName, 0)
+            return packageManager().getApplicationInfo(packageName, 0)
         } catch (e: PackageManager.NameNotFoundException) {
             Logger.wtf(e)
             return null
@@ -82,7 +80,7 @@ object ApplicationHelper {
     @SuppressLint("NewApi")
     fun versionCode(packageName: String = ApplicationHelper.packageName()): Long? {
         val packageInfo = packageInfo(packageName, PackageManager.GET_META_DATA)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        if (Build.VERSION.SDK_INT >= 28) {
             return packageInfo?.longVersionCode ?: run {
                 Logger.warning("LongVersionCode was NULL")
                 return null
@@ -111,13 +109,22 @@ object ApplicationHelper {
                 }
     }
 
-    @Deprecated("You should use @DrawableRes when possible.")
-    fun icon(packageName: String = ApplicationHelper.packageName()): Bitmap? {
+    fun icon(packageName: String = ApplicationHelper.packageName()): Int? {
         try {
             val packageManager = packageManager()
             val applicationInfo = packageManager.getApplicationInfo(packageName, 0)
-            val drawable = applicationInfo.loadIcon(packageManager)
-            return BitmapHelper.fromDrawable(drawable)
+            return applicationInfo.icon
+        } catch (e: PackageManager.NameNotFoundException) {
+            Logger.wtf(e)
+            return null
+        }
+    }
+
+    fun drawable(packageName: String = ApplicationHelper.packageName()) : Drawable? {
+        try {
+            val packageManager = packageManager()
+            val applicationInfo = packageManager.getApplicationInfo(packageName, 0)
+            return applicationInfo.loadIcon(packageManager)
         } catch (e: PackageManager.NameNotFoundException) {
             Logger.wtf(e)
             return null

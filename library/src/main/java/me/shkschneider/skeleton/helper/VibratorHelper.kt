@@ -18,7 +18,7 @@ object VibratorHelper {
 
     @RequiresPermission(Manifest.permission.VIBRATE)
     fun vibrate(durations: LongArray = DEFAULT_DURATION, repeat: Boolean = false) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= 26) {
             SystemServices.vibrator()?.vibrate(VibrationEffect.createWaveform(durations, (repeat) then DO_REPEAT ?: DO_NOT_REPEAT))
         } else {
             @Suppress("DEPRECATION")

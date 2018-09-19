@@ -152,7 +152,7 @@ object BitmapHelper {
         val options = BitmapFactory.Options()
         options.inPreferredConfig = Bitmap.Config.ARGB_8888
         options.inSampleSize = factor
-        if (AndroidHelper.api() < AndroidHelper.API_24) {
+        if (Build.VERSION.SDK_INT < AndroidHelper.API_24) {
             @Suppress("DEPRECATION")
             options.inPreferQualityOverSpeed = true
         }

@@ -44,7 +44,7 @@ object NotificationHelper {
     class Builder : NotificationCompat.Builder {
 
         constructor(channel: Channel) : super(ContextHelper.applicationContext(), channel.id) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (Build.VERSION.SDK_INT >= 26) {
                 Channel.get(channel.id) ?: return
                 with(NotificationChannel(channel.id, channel.name, NotificationManager.IMPORTANCE_DEFAULT)) {
                     lockscreenVisibility = NotificationCompat.VISIBILITY_PUBLIC
@@ -55,7 +55,7 @@ object NotificationHelper {
                 }
             }
             // For apps targeting N and above, this time is not shown anymore by default.
-            if (AndroidHelper.api() < AndroidHelper.API_24) {
+            if (Build.VERSION.SDK_INT < 24) {
                 setShowWhen(false)
             }
             // OnClick

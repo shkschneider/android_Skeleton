@@ -43,7 +43,7 @@ object ScreenHelper {
 
     fun on(): Boolean? {
         val powerManager = SystemServices.powerManager()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT_WATCH) {
+        if (Build.VERSION.SDK_INT >= 20) {
             return powerManager?.isInteractive
         } else {
             @Suppress("DEPRECATION")
@@ -68,7 +68,7 @@ object ScreenHelper {
         val display = windowManager?.defaultDisplay
         display?.getMetrics(displayMetrics)
         val point = Point(1, 1)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+        if (Build.VERSION.SDK_INT >= 17) {
             display?.getRealSize(point)
         } else {
             display?.getSize(point)

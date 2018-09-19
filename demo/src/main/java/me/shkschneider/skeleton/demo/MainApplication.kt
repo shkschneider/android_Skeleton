@@ -16,7 +16,7 @@ class MainApplication : SkeletonApplication() {
     }
 
     private fun shortcut(shortcut: String) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+        if (Build.VERSION.SDK_INT >= 25) {
             ShortcutHelper.setDynamicShortcuts(ShortcutHelper.Shortcut(shortcut.toLowerCase(),
                     R.mipmap.ic_launcher,
                     shortcut.capitalize(),

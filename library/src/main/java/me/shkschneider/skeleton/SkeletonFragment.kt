@@ -54,6 +54,8 @@ abstract class SkeletonFragment : Fragment() {
         val view = inflater.inflate(resId, container, false)
         // HACK: <http://stackoverflow.com/a/18274767>
         view.setBackgroundResource(R.color.sk_android_background)
+        view.isClickable = true
+        view.isFocusable = true
         return view
     }
 

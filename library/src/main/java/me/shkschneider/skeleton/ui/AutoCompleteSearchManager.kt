@@ -17,7 +17,7 @@ import android.widget.*
         android:singleLine="true"
         android:hint="@android:string/search_go" />
 */
-
+// TODO test
 open class AutoCompleteSearchManager<T:Any>(
     context: Context,
     private val filter: Filter,
