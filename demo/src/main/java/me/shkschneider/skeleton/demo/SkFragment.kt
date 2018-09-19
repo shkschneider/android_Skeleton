@@ -34,15 +34,19 @@ class SkFragment : SkeletonFragment() {
                 me.shkschneider.skeleton.data.StreamHelper::class.java
         ))
         fill(view.findViewById<View>(R.id.helper) as LinearLayout, arrayOf(
-                me.shkschneider.skeleton.helper.ActivityHelper::class.java,
+                me.shkschneider.skeleton.helper.AccountHelper::class.java,
                 me.shkschneider.skeleton.helper.ActivityTransitionHelper::class.java,
                 me.shkschneider.skeleton.helper.AndroidHelper::class.java,
                 me.shkschneider.skeleton.helper.ApplicationHelper::class.java,
                 me.shkschneider.skeleton.helper.AssetsHelper::class.java,
+                me.shkschneider.skeleton.helper.BroadcastHelper::class.java,
                 me.shkschneider.skeleton.helper.BundleHelper::class.java,
-                me.shkschneider.skeleton.helper.FinalCountdown::class.java,
+                me.shkschneider.skeleton.helper.ClipboardHelper::class.java,
+                me.shkschneider.skeleton.helper.ContextHelper::class.java,
                 me.shkschneider.skeleton.helper.DateTimeHelper::class.java,
                 me.shkschneider.skeleton.helper.DeviceHelper::class.java,
+                me.shkschneider.skeleton.helper.FinalCountdown::class.java,
+                me.shkschneider.skeleton.helper.HandlerHelper::class.java,
                 me.shkschneider.skeleton.helper.IdHelper::class.java,
                 me.shkschneider.skeleton.helper.IntentHelper::class.java,
                 me.shkschneider.skeleton.helper.KeyboardHelper::class.java,
@@ -51,6 +55,7 @@ class SkFragment : SkeletonFragment() {
                 me.shkschneider.skeleton.helper.NotificationHelper::class.java,
                 me.shkschneider.skeleton.helper.RunnableHelper::class.java,
                 me.shkschneider.skeleton.helper.ScreenHelper::class.java,
+                me.shkschneider.skeleton.helper.ShortcutHelper::class.java,
                 me.shkschneider.skeleton.helper.SoundHelper::class.java,
                 me.shkschneider.skeleton.helper.SpannableStringHelper::class.java,
                 me.shkschneider.skeleton.helper.SystemHelper::class.java,
@@ -58,15 +63,14 @@ class SkFragment : SkeletonFragment() {
                 me.shkschneider.skeleton.helper.VibratorHelper::class.java
         ))
         fill(view.findViewById<View>(R.id.java) as LinearLayout, arrayOf(
-                me.shkschneider.skeleton.java.JobManager::class.java,
                 me.shkschneider.skeleton.java.RandomHelper::class.java,
+                me.shkschneider.skeleton.java.SemanticVersion::class.java,
+                me.shkschneider.skeleton.java.SkeletonWorker::class.java,
                 me.shkschneider.skeleton.java.StringHelper::class.java,
                 me.shkschneider.skeleton.java.Tasker::class.java
         ))
         fill(view.findViewById<View>(R.id.network) as LinearLayout, arrayOf(
                 me.shkschneider.skeleton.network.requests.ApiRequest::class.java,
-                me.shkschneider.skeleton.network.requests.GsonArrayRequest::class.java,
-                me.shkschneider.skeleton.network.requests.GsonObjectRequest::class.java,
                 me.shkschneider.skeleton.network.MyRequest::class.java,
                 me.shkschneider.skeleton.network.MyResponse::class.java,
                 me.shkschneider.skeleton.network.NetworkHelper::class.java,
@@ -116,15 +120,15 @@ class SkFragment : SkeletonFragment() {
                 val modifiers = field.modifiers
                 try {
                     if (Modifier.isPrivate(modifiers)
-                            || field.getAnnotation<Deprecated>(Deprecated::class.java) != null
-                            || field.getAnnotation<SkHide>(SkHide::class.java) != null) {
+                            || field.isAnnotationPresent(Deprecated::class.java)
+                            || field.isAnnotationPresent(SkHide::class.java)) {
                         continue
                     }
                 } catch (e: NoClassDefFoundError) {
                     continue
                 }
                 val name = field.name
-                if (! name.equals("serialVersionUID", true) && !name.contains("$")) {
+                if (field.type.simpleName != "Companion" && name != "INSTANCE" && !name.contains("$")) {
                     fields.add(field.type.simpleName + " " + name)
                 }
             }
@@ -139,21 +143,18 @@ class SkFragment : SkeletonFragment() {
                 val modifiers = method.modifiers
                 try {
                     if (Modifier.isPrivate(modifiers)
-                            || method.getAnnotation<Deprecated>(Deprecated::class.java) != null
-                            || method.getAnnotation<SkHide>(SkHide::class.java) != null) {
+                            || method.isAnnotationPresent(Deprecated::class.java)
+                            || method.isAnnotationPresent(SkHide::class.java)) {
                         continue
                     }
                 } catch (e: NoClassDefFoundError) {
                     continue
                 }
-                val name = method.name
-                if (! name.contains("$")) {
-                    val signature = method.returnType.simpleName + " " + name + "()"
-                    if (methods.contains(signature)) {
-                        continue
-                    }
-                    methods.add(signature)
+                val signature = method.returnType.simpleName + " " + method.name + "()"
+                if (methods.contains(signature) || signature.contains("$")) {
+                    continue
                 }
+                methods.add(signature)
             }
             methods.sortWith(AlphanumComparator())
             methods.forEach {

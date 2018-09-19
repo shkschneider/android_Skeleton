@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton
+package me.shkschneider.skeleton.java
 
 import android.arch.lifecycle.LiveData
 import androidx.work.*

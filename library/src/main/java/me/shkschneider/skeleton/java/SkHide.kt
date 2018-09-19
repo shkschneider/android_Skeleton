@@ -2,13 +2,18 @@ package me.shkschneider.skeleton.java
 
 @Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.CLASS,
-        AnnotationTarget.FILE,
+        AnnotationTarget.ANNOTATION_CLASS,
+        AnnotationTarget.TYPE_PARAMETER,
+        AnnotationTarget.PROPERTY,
         AnnotationTarget.FIELD,
+        AnnotationTarget.LOCAL_VARIABLE,
+        AnnotationTarget.VALUE_PARAMETER,
+        AnnotationTarget.CONSTRUCTOR,
         AnnotationTarget.FUNCTION,
         AnnotationTarget.PROPERTY_GETTER,
         AnnotationTarget.PROPERTY_SETTER,
-        AnnotationTarget.VALUE_PARAMETER,
-        AnnotationTarget.CONSTRUCTOR,
-        AnnotationTarget.LOCAL_VARIABLE,
-        AnnotationTarget.ANNOTATION_CLASS)
+        AnnotationTarget.TYPE,
+        // AnnotationTarget.EXPRESSION,
+        AnnotationTarget.FILE,
+        AnnotationTarget.TYPEALIAS)
 annotation class SkHide(val enabled: Boolean = true)

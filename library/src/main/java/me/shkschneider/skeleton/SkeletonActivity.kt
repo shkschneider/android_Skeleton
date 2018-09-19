@@ -218,7 +218,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     @Deprecated("Never existed.", ReplaceWith("recreate()"))
-    fun SkeletonActivity.restart() {
+    fun restart() {
         recreate()
     }
 
