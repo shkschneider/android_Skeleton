@@ -109,29 +109,10 @@ class MainActivity : SkeletonActivity() {
         BroadcastHelper.register(mBroadcastReceiver, IntentFilter(BROADCAST_SECRET))
     }
 
-//    private var cancellationSignal: CancellationSignal? = null
-
     override fun onResume() {
         super.onResume()
 
-//        if (Build.VERSION.SDK_INT >= 23 && FingerprintHelper.available(applicationContext)) {
-//            cancellationSignal = FingerprintHelper.background(applicationContext, object: FingerprintManagerCompat.AuthenticationCallback() {
-//                override fun onAuthenticationSucceeded(result: FingerprintManagerCompat.AuthenticationResult?) {
-//                    super.onAuthenticationSucceeded(result)
-//                    Toaster.show("Fingerprint recognized!")
-//                }
-//                override fun onAuthenticationHelp(helpCode: Int, helpString: CharSequence?) {
-//                    super.onAuthenticationHelp(helpCode, helpString)
-//                    Toaster.show(helpString?.toString().orEmpty())
-//                }
-//                override fun onAuthenticationError(errorCode: Int, errString: CharSequence?) {
-//                    super.onAuthenticationError(errorCode, errString)
-//                    if (! FingerprintHelper.simplyCancelled(errorCode)) {
-//                        Toaster.show(errString?.toString().orEmpty())
-//                    }
-//                }
-//            })
-//        }
+        // TODO FingerPrint
     }
 
     override fun onStop() {
