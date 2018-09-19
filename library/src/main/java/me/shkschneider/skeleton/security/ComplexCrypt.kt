@@ -11,6 +11,11 @@ import javax.crypto.IllegalBlockSizeException
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
+/**
+ * "Tr0ub4dor&3" ~28 bits of entropy
+ * "correct horse battery staple" ~44 bits of entropy
+ * <https://xkcd.com/936/>
+ */
 class ComplexCrypt(key: String) : ICrypt<String>(key) {
 
     private var ivParameterSpec = IvParameterSpec(key.toByteArray())

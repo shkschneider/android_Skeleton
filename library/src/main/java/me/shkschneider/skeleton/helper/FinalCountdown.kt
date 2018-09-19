@@ -3,6 +3,10 @@ package me.shkschneider.skeleton.helper
 import android.os.CountDownTimer
 import java.util.concurrent.TimeUnit
 
+/**
+ * It's the final countdown
+ * The final countdown
+ */
 class FinalCountdown(
         private val timer: Long = TimeUnit.SECONDS.toMillis(60),
         private val ticker: Long = TimeUnit.SECONDS.toMillis(1)

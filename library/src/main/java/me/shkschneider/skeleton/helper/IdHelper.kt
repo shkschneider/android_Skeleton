@@ -8,6 +8,13 @@ import android.provider.Settings
 import android.support.annotation.RequiresPermission
 import java.util.UUID
 
+/**
+ * > Hey, I lost the server password. What is it, again?
+ * > It's... wait. How do I know it's really you?
+ * > Ooh, good question! I bet we can construct a cool proof-of-identity protocol. I'll start by picking two random...
+ * > Oh good; it's you. Here's the password...
+ * <https://xkcd.com/1121/>
+ */
 // <https://developers.google.com/instance-id/>
 object IdHelper {
 

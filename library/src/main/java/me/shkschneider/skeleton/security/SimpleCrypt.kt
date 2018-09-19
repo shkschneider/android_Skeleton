@@ -1,5 +1,12 @@
 package me.shkschneider.skeleton.security
 
+/**
+ * > Welcome to the missile launch web interface!
+ * > Enter the target's coordinates.
+ * > Enter your email address for our records.
+ * > Enter you email again, to ensure you typed it correctly.
+ * <https://xkcd.com/970/>
+ */
 class SimpleCrypt(key: String) : ICrypt<String>(key) {
 
     private val key: CharArray = key.toCharArray()

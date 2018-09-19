@@ -4,10 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.hardware.fingerprint.FingerprintManager
-import android.os.Build
 import android.os.Bundle
-import android.os.CancellationSignal
 import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -15,21 +12,24 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.LocalBroadcastManager
+import android.support.v4.os.CancellationSignal
 import android.support.v4.view.ViewPager
 import android.view.Menu
 import android.view.MenuItem
 import com.android.volley.DefaultRetryPolicy
 import com.android.volley.Request
 import com.android.volley.Response
-
 import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.demo.data.ShkMod
-import me.shkschneider.skeleton.extensions.*
+import me.shkschneider.skeleton.extensions.Intent
+import me.shkschneider.skeleton.extensions.simpleName
+import me.shkschneider.skeleton.extensions.toStringOrEmpty
 import me.shkschneider.skeleton.helper.*
 import me.shkschneider.skeleton.network.Proxy
 import me.shkschneider.skeleton.network.requests.ApiRequest
-import me.shkschneider.skeleton.security.FingerprintHelper
-import me.shkschneider.skeleton.ui.*
+import me.shkschneider.skeleton.ui.AnimationHelper
+import me.shkschneider.skeleton.ui.BottomSheet
+import me.shkschneider.skeleton.ui.Toaster
 
 /**
  * SkeletonActivity
@@ -56,6 +56,7 @@ class MainActivity : SkeletonActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // overridePendingTransitions(0, 0)
         setContentView(R.layout.activity_main)
         toolbar(home = false, title = getString(R.string.title), subtitle = getString(R.string.subtitle))
 
@@ -109,35 +110,34 @@ class MainActivity : SkeletonActivity() {
         BroadcastHelper.register(mBroadcastReceiver, IntentFilter(BROADCAST_SECRET))
     }
 
-    private var cancellationSignal: CancellationSignal? = null
+//    private var cancellationSignal: CancellationSignal? = null
 
     override fun onResume() {
         super.onResume()
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && FingerprintHelper.available()) {
-            cancellationSignal = FingerprintHelper.background(object: FingerprintManager.AuthenticationCallback() {
-                override fun onAuthenticationSucceeded(result: FingerprintManager.AuthenticationResult?) {
-                    super.onAuthenticationSucceeded(result)
-                    Toaster.show("Fingerprint recognized!")
-                }
-                override fun onAuthenticationHelp(helpCode: Int, helpString: CharSequence?) {
-                    super.onAuthenticationHelp(helpCode, helpString)
-                    Toaster.show(helpString?.toString().orEmpty())
-                }
-                override fun onAuthenticationError(errorCode: Int, errString: CharSequence?) {
-                    super.onAuthenticationError(errorCode, errString)
-                    if (! FingerprintHelper.simplyCancelled(errorCode)) {
-                        Toaster.show(errString?.toString().orEmpty())
-                    }
-                }
-            })
-        }
+//        if (Build.VERSION.SDK_INT >= 23 && FingerprintHelper.available(applicationContext)) {
+//            cancellationSignal = FingerprintHelper.background(applicationContext, object: FingerprintManagerCompat.AuthenticationCallback() {
+//                override fun onAuthenticationSucceeded(result: FingerprintManagerCompat.AuthenticationResult?) {
+//                    super.onAuthenticationSucceeded(result)
+//                    Toaster.show("Fingerprint recognized!")
+//                }
+//                override fun onAuthenticationHelp(helpCode: Int, helpString: CharSequence?) {
+//                    super.onAuthenticationHelp(helpCode, helpString)
+//                    Toaster.show(helpString?.toString().orEmpty())
+//                }
+//                override fun onAuthenticationError(errorCode: Int, errString: CharSequence?) {
+//                    super.onAuthenticationError(errorCode, errString)
+//                    if (! FingerprintHelper.simplyCancelled(errorCode)) {
+//                        Toaster.show(errString?.toString().orEmpty())
+//                    }
+//                }
+//            })
+//        }
     }
 
     override fun onStop() {
         super.onStop()
         BroadcastHelper.unregister(mBroadcastReceiver)
-        FingerprintHelper.cancel(cancellationSignal)
     }
 
     private fun network() {

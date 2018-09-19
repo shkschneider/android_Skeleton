@@ -34,6 +34,7 @@ object AndroidHelper {
     const val API_26 = Build.VERSION_CODES.O // 8.0 "Oreo"
     const val API_27 = Build.VERSION_CODES.O_MR1 // 8.1
     const val API_28 = Build.VERSION_CODES.P // 9.0 "Pie"
+    // "If my calculations are correct, when this baby hits 88... you're gonna see some serious shit."
 
     const val PLATFORM = "Android"
 

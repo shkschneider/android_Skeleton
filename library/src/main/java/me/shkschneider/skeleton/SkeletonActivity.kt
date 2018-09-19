@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton
 
-import android.app.ActivityManager
 import android.arch.lifecycle.Lifecycle
 import android.content.Context
 import android.content.Intent
@@ -21,7 +20,6 @@ import android.view.inputmethod.EditorInfo
 import me.shkschneider.skeleton.extensions.then
 import me.shkschneider.skeleton.extensions.toStringOrEmpty
 import me.shkschneider.skeleton.helper.*
-import me.shkschneider.skeleton.ui.BitmapHelper
 import me.shkschneider.skeleton.ui.OverlayLoader
 
 /**
