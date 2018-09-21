@@ -20,8 +20,8 @@ import java.net.URL
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-// You should have a look at Retrofit ;)
-class WebService(
+// You should have a look at Retrofit or FastAndroidNetworking ;)
+open class WebService(
         private val method: WebService.Method,
         private val url: String
 ) {

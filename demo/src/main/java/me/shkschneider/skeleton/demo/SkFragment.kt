@@ -71,11 +71,7 @@ class SkFragment : SkeletonFragment() {
                 me.shkschneider.skeleton.java.Tasker::class.java
         ))
         fill(view.findViewById<View>(R.id.network) as LinearLayout, arrayOf(
-                me.shkschneider.skeleton.network.requests.ApiRequest::class.java,
-                me.shkschneider.skeleton.network.MyRequest::class.java,
-                me.shkschneider.skeleton.network.MyResponse::class.java,
                 me.shkschneider.skeleton.network.NetworkHelper::class.java,
-                me.shkschneider.skeleton.network.Proxy::class.java,
                 me.shkschneider.skeleton.network.UrlHelper::class.java,
                 me.shkschneider.skeleton.network.WebService::class.java
         ))

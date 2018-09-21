@@ -15,17 +15,13 @@ import android.support.v4.content.LocalBroadcastManager
 import android.support.v4.view.ViewPager
 import android.view.Menu
 import android.view.MenuItem
-import com.android.volley.DefaultRetryPolicy
-import com.android.volley.Request
-import com.android.volley.Response
 import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.demo.data.ShkMod
 import me.shkschneider.skeleton.extensions.Intent
 import me.shkschneider.skeleton.extensions.simpleName
 import me.shkschneider.skeleton.extensions.toStringOrEmpty
 import me.shkschneider.skeleton.helper.*
-import me.shkschneider.skeleton.network.Proxy
-import me.shkschneider.skeleton.network.requests.ApiRequest
+import me.shkschneider.skeleton.network.WebService
 import me.shkschneider.skeleton.ui.AnimationHelper
 import me.shkschneider.skeleton.ui.BottomSheet
 import me.shkschneider.skeleton.ui.Toaster
@@ -115,18 +111,21 @@ class MainActivity : SkeletonActivity() {
     }
 
     private fun network() {
-        Proxy.request(ApiRequest(Request.Method.GET, URL, ShkMod::class,
-                listener = Response.Listener { response ->
-                    response?.let {
-                        notification(DateTimeHelper.timestamp(), ShkMod::class.simpleName(), it.toString())
-                    } ?: run {
-                        Toaster.show(response.toStringOrEmpty())
+        WebService(WebService.Method.GET, URL)
+                .callback(object: WebService.Callback {
+                    override fun success(result: WebService.Response?) {
+                        result?.let {
+                            notification(DateTimeHelper.timestamp(), ShkMod::class.simpleName(),
+                                    it.message.toStringOrEmpty())
+                        } ?: run {
+                            Toaster.show(result.toStringOrEmpty())
+                        }
                     }
-                },
-                errorListener = Response.ErrorListener { error ->
-                    Toaster.show(error.toStringOrEmpty())
-                },
-                retryPolicy = DefaultRetryPolicy()))
+                    override fun failure(e: WebService.Error) {
+                        Toaster.show(e.toStringOrEmpty())
+                    }
+                })
+                .run()
     }
 
     private fun notification(id: Int, title: String, message: String) {

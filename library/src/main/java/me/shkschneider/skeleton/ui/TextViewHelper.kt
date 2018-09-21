@@ -10,7 +10,6 @@ import android.text.method.LinkMovementMethod
 import android.text.util.Linkify
 import android.widget.TextView
 import me.shkschneider.skeleton.extensions.then
-import me.shkschneider.skeleton.network.MyImageGetter
 
 object TextViewHelper {
 
@@ -25,21 +24,12 @@ object TextViewHelper {
         textView.paintFlags = flags
     }
 
-    fun htmlWithImages(textView: TextView? = null, html: String): Spanned {
-        textView?.let {
-            if (Build.VERSION.SDK_INT >= 24) {
-                return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY, MyImageGetter(textView), null)
-            } else {
-                @Suppress("DEPRECATION")
-                return Html.fromHtml(html, MyImageGetter(textView), null)
-            }
-        } ?: run {
-            if (Build.VERSION.SDK_INT >= 24) {
-                return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY)
-            } else {
-                @Suppress("DEPRECATION")
-                return Html.fromHtml(html)
-            }
+    fun html(textView: TextView, html: String): Spanned {
+        if (Build.VERSION.SDK_INT >= 24) {
+            return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY)
+        } else {
+            @Suppress("DEPRECATION")
+            return Html.fromHtml(html)
         }
     }
 

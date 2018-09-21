@@ -2,6 +2,7 @@ package me.shkschneider.skeleton.demo.data
 
 import com.google.gson.annotations.SerializedName
 
+@Deprecated("Unused.")
 data class ShkMod(
         @SerializedName("api")
         val api: Int? = null,

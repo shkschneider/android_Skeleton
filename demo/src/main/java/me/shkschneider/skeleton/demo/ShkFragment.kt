@@ -7,21 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
-import android.widget.ViewSwitcher
-
-import com.android.volley.VolleyError
-import com.android.volley.toolbox.ImageLoader
-
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.content_shk_code.*
+import kotlinx.android.synthetic.main.content_shk_id.*
+import kotlinx.android.synthetic.main.content_shk_personal.*
+import kotlinx.android.synthetic.main.content_shk_skills.*
 import me.shkschneider.skeleton.SkeletonFragment
 import me.shkschneider.skeleton.helper.IntentHelper
 import me.shkschneider.skeleton.helper.SpannableStringHelper
-import me.shkschneider.skeleton.java.StringHelper
-import me.shkschneider.skeleton.network.Proxy
-import me.shkschneider.skeleton.ui.BitmapHelper
-import me.shkschneider.skeleton.ui.ImageHelper
-import me.shkschneider.skeleton.ui.Toaster
 
 class ShkFragment : SkeletonFragment() {
 
@@ -32,31 +26,20 @@ class ShkFragment : SkeletonFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Personal
-        Proxy.imageLoader.get(AVATAR, object: ImageLoader.ImageListener {
-            override fun onResponse(response: ImageLoader.ImageContainer, isImmediate: Boolean) {
-                response.bitmap?.let { bitmap ->
-                    val avatar = ImageHelper.circular(bitmap)
-                    (view.findViewById<View>(R.id.id_avatar) as ImageView).setImageDrawable(avatar)
-                    (view.findViewById<View>(R.id.viewSwitcher) as ViewSwitcher).showNext()
-                }
-            }
-            override fun onErrorResponse(error: VolleyError) {
-                Toaster.show(error.message.orEmpty())
-            }
-        })
-        fill(view.findViewById(R.id.id_id), "#", SpannableString("42"))
-        fill(view.findViewById(R.id.id_name), "Name", SpannableString("Alan SCHNEIDER\n" + "a.k.a. ShkSchneider"))
-        fill(view.findViewById(R.id.id_age), "Age", SpannableString("Born in 1989"))
-        fill(view.findViewById(R.id.id_nationality), "Nationality", SpannableString("French"))
-        fill(view.findViewById(R.id.id_city), "City", SpannableString("Paris, FRANCE"))
-        fill(view.findViewById(R.id.id_education), "Education", SpannableStringHelper("Master (BAC+5)\n" +
+        Picasso.get().load(AVATAR).into(id_avatar)
+        fill(id_id, "#", SpannableString("42"))
+        fill(id_name, "Name", SpannableString("Alan SCHNEIDER\n" + "a.k.a. ShkSchneider"))
+        fill(id_age, "Age", SpannableString("Born in 1989"))
+        fill(id_nationality, "Nationality", SpannableString("French"))
+        fill(id_city, "City", SpannableString("Paris, FRANCE"))
+        fill(id_education, "Education", SpannableStringHelper("Master (BAC+5)\n" +
                 "Software Architect\n" +
                 "[Epitech, ETNA]")
                 .italize(16, 17).apply())
-        fill(view.findViewById(R.id.id_position), "Position", SpannableString("Android developer\n" + "Open-Source believer"))
-        fill(view.findViewById(R.id.id_personal), "Personal", SpannableString("Blockchains, RaspberryPi, Android, Writing, Reading, Economics, History..."))
+        fill(id_position, "Position", SpannableString("Android developer\n" + "Open-Source believer"))
+        fill(id_personal, "Personal", SpannableString("Blockchains, RaspberryPi, Android, Writing, Reading, Economics, History..."))
         // Professional
-        fill(view.findViewById(R.id.code_projects), "Projects", SpannableString("BitNode\n" +
+        fill(code_projects, "Projects", SpannableString("BitNode\n" +
                 "Android 'ShkMod' ROM\n" +
                 "RuntimePermissionsCompat\n" +
                 "PreferenceFragmentCompat\n" +
@@ -65,35 +48,35 @@ class ShkFragment : SkeletonFragment() {
                 "Git scripts\n" +
                 "Linux scripts\n" +
                 "C/UNIX"))
-        fill(view.findViewById(R.id.code_languages), "Languages", SpannableString("Kotlin, Java, C, Python, Bash, JavaScript, SQL, RegExp..."))
-        fill(view.findViewById(R.id.code_technologies), "Technologies", SpannableString("UNIX, Android, Blockchains, NodeJS, MongoDB, Firebase..."))
-        fill(view.findViewById(R.id.code_likes), "Likes", SpannableString("Android, Linux, Gnome-Shell, Emacs, NginX, uWSGI, Terminator, Makefiles, Bash scripts, HTML5..."))
-        fill(view.findViewById(R.id.code_dislikes), "Dislikes", SpannableString("Apple, Microsoft, Oracle, Facebook (also Google in a way)..."))
+        fill(code_languages, "Languages", SpannableString("Kotlin, Java, C, Python, Bash, JavaScript, SQL, RegExp..."))
+        fill(code_technologies, "Technologies", SpannableString("UNIX, Android, Blockchains, NodeJS, MongoDB, Firebase..."))
+        fill(code_likes, "Likes", SpannableString("Android, Linux, Gnome-Shell, Emacs, NginX, uWSGI, Terminator, Makefiles, Bash scripts, HTML5..."))
+        fill(code_dislikes, "Dislikes", SpannableString("Apple, Microsoft, Oracle, Facebook (also Google in a way)..."))
         // Personal
-        fill(view.findViewById(R.id.personal_music), "Music", SpannableString("Ambient, Progressive, Chill-Out, Elektro-Dark, Trance, Drum'n'Bass..."))
-        fill(view.findViewById(R.id.personal_movies), "Movies", SpannableString("Old French movies, The Matrix, The Fifth Element, Old Boy, V For Vendetta, Fight Club, The Fountain, Sucker Punch, Ex Machina..."))
-        fill(view.findViewById(R.id.personal_games), "Games", SpannableString("Half-Life, StarCraft, Minecraft, Oxygen Not Included, Portal, The Witness, World of Warships..."))
-        fill(view.findViewById(R.id.personal_books), "Books", SpannableString("Peter F. Hamilton, Arthur C. Clarke, Alexandre Dumas (Le Comte de Monte-Cristo...)"))
-        fill(view.findViewById(R.id.personal_other), "Other", SpannableString("Economics, Biology, Cosmology, Hiking & camping, Bicycle & Roller..."))
+        fill(personal_movies, "Music", SpannableString("Ambient, Progressive, Chill-Out, Elektro-Dark, Trance, Drum'n'Bass..."))
+        fill(personal_movies, "Movies", SpannableString("Old French movies, The Matrix, The Fifth Element, Old Boy, V For Vendetta, Fight Club, The Fountain, Sucker Punch, Ex Machina..."))
+        fill(personal_games, "Games", SpannableString("Half-Life, StarCraft, Minecraft, Oxygen Not Included, Portal, The Witness, World of Warships..."))
+        fill(personal_books, "Books", SpannableString("Peter F. Hamilton, Arthur C. Clarke, Alexandre Dumas (Le Comte de Monte-Cristo...)"))
+        fill(personal_other, "Other", SpannableString("Economics, Biology, Cosmology, Hiking & camping, Bicycle & Roller..."))
         // Professional
-        fill(view.findViewById(R.id.skills_systems), "Systems", SpannableStringHelper("GNU/Linux: Debian, Arch, Fedora\n" +
+        fill(skills_systems, "Systems", SpannableStringHelper("GNU/Linux: Debian, Arch, Fedora\n" +
                 "Windows: XP, Seven\n" +
                 "MacOS: MacOS X")
                 .boldify(0, 9).boldify(32, 8).boldify(51, 5).apply())
-        fill(view.findViewById(R.id.skills_coding), "Coding", SpannableStringHelper("Object-oriented: Kotlin, Java, Python\n" +
+        fill(skills_coding, "Coding", SpannableStringHelper("Object-oriented: Kotlin, Java, Python\n" +
                 "Compiled: C (with Makefiles)\n" +
                 "Shell: Bash (commands & shell scripting)\n" +
                 "Web-oriented: JavaScript (NodeJS)\n" +
                 "Databases: SQLite, MySQL, MongoDB")
                 .boldify(0, 15).boldify(38, 8).boldify(67, 5).boldify(108, 12).boldify(142, 9).apply())
-        fill(view.findViewById(R.id.skills_softwares), "Softwares", SpannableStringHelper("Daemons: NginX, SSHd, uWSGI, Apache2\n" +
+        fill(skills_softwares, "Softwares", SpannableStringHelper("Daemons: NginX, SSHd, uWSGI, Apache2\n" +
                 "Versioning: Git, Mercurial, Subversion\n" +
                 "IDEs: IntellijIDEA (Android Studio), Emacs, Atom")
                 .boldify(0, 7).boldify(37, 10).boldify(76, 4).apply())
-        fill(view.findViewById(R.id.skills_languages), "Languages", SpannableString("French (native)\n" + "English (TOIEC 850+, CEFR B2)"))
+        fill(skills_languages, "Languages", SpannableString("French (native)\n" + "English (TOIEC 850+, CEFR B2)"))
         // Footer
         val github = view.findViewById<Button>(R.id.github)
-        github.text = GITHUB.replaceFirst("^https?://github.com/".toRegex(), "")
+        github.text = GITHUB.replaceFirst("^https?://github.com/", "")
         github.setOnClickListener { startActivity(IntentHelper.web(GITHUB)) }
     }
 
