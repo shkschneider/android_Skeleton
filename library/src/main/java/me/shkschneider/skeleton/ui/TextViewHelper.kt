@@ -24,12 +24,12 @@ object TextViewHelper {
         textView.paintFlags = flags
     }
 
-    fun html(textView: TextView, html: String): Spanned {
+    fun html(textView: TextView, html: String) {
         if (Build.VERSION.SDK_INT >= 24) {
-            return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY)
+            textView.text = Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY)
         } else {
             @Suppress("DEPRECATION")
-            return Html.fromHtml(html)
+            textView.text = Html.fromHtml(html)
         }
     }
 

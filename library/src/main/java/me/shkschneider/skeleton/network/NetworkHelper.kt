@@ -40,6 +40,7 @@ object NetworkHelper {
     fun connectedOrConnecting(): Boolean {
         val connectivityManager = SystemServices.connectivityManager()
         val networkInfo = connectivityManager?.activeNetworkInfo
+        @Suppress("DEPRECATION")
         return networkInfo?.isConnectedOrConnecting ?: run {
             Logger.warning("NetworkInfo was NULL")
             return false

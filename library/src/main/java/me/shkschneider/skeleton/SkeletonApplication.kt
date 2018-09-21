@@ -2,13 +2,10 @@ package me.shkschneider.skeleton
 
 import android.app.Application
 import android.content.pm.ApplicationInfo
-import com.androidnetworking.AndroidNetworking
-import com.androidnetworking.gsonparserfactory.GsonParserFactory
 import me.shkschneider.skeleton.extensions.has
 import me.shkschneider.skeleton.helper.ContextHelper
 import me.shkschneider.skeleton.helper.DeviceHelper
 import me.shkschneider.skeleton.helper.Logger
-import okhttp3.OkHttpClient
 
 /**
  * https://developer.android.com/reference/android/app/Application.html
@@ -32,9 +29,6 @@ abstract class SkeletonApplication : Application() {
 //            })
 //        }
         Logger.verbose("Hello, ${DeviceHelper.codename()}!")
-
-        AndroidNetworking.initialize(applicationContext, OkHttpClient())
-        AndroidNetworking.setParserFactory(GsonParserFactory())
     }
 
     companion object {

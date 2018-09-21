@@ -16,9 +16,7 @@ import android.support.v4.view.ViewPager
 import android.view.Menu
 import android.view.MenuItem
 import me.shkschneider.skeleton.SkeletonActivity
-import me.shkschneider.skeleton.demo.data.ShkMod
 import me.shkschneider.skeleton.extensions.Intent
-import me.shkschneider.skeleton.extensions.simpleName
 import me.shkschneider.skeleton.extensions.toStringOrEmpty
 import me.shkschneider.skeleton.helper.*
 import me.shkschneider.skeleton.network.WebService
@@ -115,8 +113,8 @@ class MainActivity : SkeletonActivity() {
                 .callback(object: WebService.Callback {
                     override fun success(result: WebService.Response?) {
                         result?.let {
-                            notification(DateTimeHelper.timestamp(), ShkMod::class.simpleName(),
-                                    it.message.toStringOrEmpty())
+                            notification(DateTimeHelper.timestamp(), ApplicationHelper.name().orEmpty(),
+                                    it.message.orEmpty())
                         } ?: run {
                             Toaster.show(result.toStringOrEmpty())
                         }
