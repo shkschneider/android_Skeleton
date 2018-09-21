@@ -2,16 +2,14 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'org.jetbrains.dokka-android'
 
-Properties versionProperties = new Properties()
-def versionPropertiesFile = file('version.properties')
-if (versionPropertiesFile.exists()) versionProperties.load(new FileInputStream(versionPropertiesFile))
-def androidDefaultConfigVersionCode = (versionProperties['versionCode'] ?: "0").toInteger() + 1
-versionProperties['versionCode'] = androidDefaultConfigVersionCode.toString()
-versionProperties.store(versionPropertiesFile.newWriter(), null)
-
 android {
     compileSdkVersion 28
     buildToolsVersion '28.0.2'
+
+    Properties versionProperties = new Properties()
+    def versionPropertiesFile = file('version.properties')
+    if (versionPropertiesFile.exists()) versionProperties.load(new FileInputStream(versionPropertiesFile))
+    def androidDefaultConfigVersionCode = (versionProperties['versionCode'] ?: "0").toInteger()
 
     defaultConfig {
         minSdkVersion 16 // Jelly Bean 4.1.x
@@ -32,6 +30,11 @@ android {
         // main.kotlin.srcDirs += 'src/main/kotlin'
         // main.java.srcDirs += 'src/main/kotlin'
     }
+    task bump() {
+        print '> Bump...' + '\n'
+        versionProperties['versionCode'] = (androidDefaultConfigVersionCode + 1).toString()
+        versionProperties.store(versionPropertiesFile.newWriter(), null)
+    }
     task travis() {
         print '> Updating Travis...' + '\n'
         String content = new File('.travis.yml').getText('UTF-8')
@@ -40,6 +43,9 @@ android {
         new File('.travis.yml').write(content, 'UTF-8')
     }
     tasks.whenTaskAdded { task ->
+        if (task.name == 'preReleaseBuild') {
+            task.dependsOn bump
+        }
         if (task.name == 'preDebugBuild' || task.name == 'preReleaseBuild') {
             task.dependsOn travis
         }
@@ -53,7 +59,6 @@ dependencies {
     implementation "com.android.support:preference-v14:${versions.support}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk${versions.java}:${versions.kotlin}"
 
-    implementation 'com.amitshekhar.android:android-networking:1.0.2'
     implementation 'com.google.code.gson:gson:2.8.5'
 
     implementation 'android.arch.work:work-runtime:1.0.0-alpha08'

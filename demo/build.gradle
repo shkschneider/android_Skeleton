@@ -2,16 +2,14 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-Properties versionProperties = new Properties()
-def versionPropertiesFile = file('version.properties')
-if (versionPropertiesFile.exists()) versionProperties.load(new FileInputStream(versionPropertiesFile))
-def androidDefaultConfigVersionCode = (versionProperties['versionCode'] ?: "0").toInteger() + 1
-versionProperties['versionCode'] = androidDefaultConfigVersionCode.toString()
-versionProperties.store(versionPropertiesFile.newWriter(), null)
-
 android {
     compileSdkVersion 28
     buildToolsVersion '28.0.2'
+
+    Properties versionProperties = new Properties()
+    def versionPropertiesFile = file('version.properties')
+    if (versionPropertiesFile.exists()) versionProperties.load(new FileInputStream(versionPropertiesFile))
+    def androidDefaultConfigVersionCode = (versionProperties['versionCode'] ?: "0").toInteger()
 
     defaultConfig {
         applicationId 'me.shkschneider.skeleton.demo'
@@ -102,17 +100,24 @@ android {
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/notice.txt'
     }
+    task bump() {
+        print '> Bump...' + '\n'
+        versionProperties['versionCode'] = (androidDefaultConfigVersionCode + 1).toString()
+        versionProperties.store(versionPropertiesFile.newWriter(), null)
+    }
+    tasks.whenTaskAdded { task ->
+        if (task.name == 'preReleaseBuild') {
+            task.dependsOn bump
+        }
+    }
 }
 
 dependencies {
     implementation "com.android.support:appcompat-v7:${versions.support}"
     implementation "com.android.support:cardview-v7:${versions.support}"
     implementation "com.android.support:design:${versions.support}"
-    implementation 'com.android.support:multidex:1.0.3'
     implementation "com.android.support:preference-v7:${versions.support}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk${versions.java}:${versions.kotlin}"
-
-    implementation 'com.google.code.gson:gson:2.8.5'
 
     implementation ('com.squareup.picasso:picasso:2.71828') {
         exclude group: 'com.android.support', module: '*'
