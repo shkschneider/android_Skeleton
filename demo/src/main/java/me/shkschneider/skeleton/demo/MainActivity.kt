@@ -109,12 +109,6 @@ class MainActivity : SkeletonActivity() {
         BroadcastHelper.register(mBroadcastReceiver, IntentFilter(BROADCAST_SECRET))
     }
 
-    override fun onResume() {
-        super.onResume()
-
-        // TODO FingerPrint
-    }
-
     override fun onStop() {
         super.onStop()
         BroadcastHelper.unregister(mBroadcastReceiver)
@@ -124,7 +118,7 @@ class MainActivity : SkeletonActivity() {
         Proxy.request(ApiRequest(Request.Method.GET, URL, ShkMod::class,
                 listener = Response.Listener { response ->
                     response?.let {
-                        notification(DateTimeHelper.timestamp(), ShkMod::class.simpleName(), response.toString())
+                        notification(DateTimeHelper.timestamp(), ShkMod::class.simpleName(), it.toString())
                     } ?: run {
                         Toaster.show(response.toStringOrEmpty())
                     }

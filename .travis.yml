@@ -21,4 +21,4 @@ android:
     - extra-google-m2repository
 
 script:
-  - bash gradlew assembleDebug -PdisablePreDex
+  - bash gradlew clean assembleDebug -PdisablePreDex
