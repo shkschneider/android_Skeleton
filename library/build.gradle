@@ -51,10 +51,10 @@ android {
 }
 
 dependencies {
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.palette:palette:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
-    implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
+    implementation "androidx.palette:palette:${versions.androidx}"
+    implementation "androidx.recyclerview:recyclerview:${versions.androidx}"
+    implementation "androidx.legacy:legacy-preference-v14:${versions.androidx}"
+    implementation "com.google.android.material:material:${versions.androidx}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk${versions.java}:${versions.kotlin}"
 
     implementation 'com.google.code.gson:gson:2.8.5'
