@@ -4,10 +4,10 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.DialogInterface
 import android.graphics.drawable.Drawable
-import android.support.annotation.UiThread
 import android.view.Gravity
 import android.view.View
 import android.widget.*
+import androidx.annotation.UiThread
 import me.shkschneider.skeleton.R
 import me.shkschneider.skeleton.helper.Metrics
 

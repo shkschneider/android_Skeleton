@@ -51,22 +51,22 @@ android {
 }
 
 dependencies {
-    implementation "com.android.support:design:${versions.support}"
-    implementation "com.android.support:palette-v7:${versions.support}"
-    implementation "com.android.support:recyclerview-v7:${versions.support}"
-    implementation "com.android.support:preference-v14:${versions.support}"
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.palette:palette:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.legacy:legacy-preference-v14:1.0.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk${versions.java}:${versions.kotlin}"
 
     implementation 'com.google.code.gson:gson:2.8.5'
 
-    implementation 'android.arch.work:work-runtime:1.0.0-alpha08'
+    implementation 'android.arch.work:work-runtime:1.0.0-alpha09'
 }
 
 // ./build/dokka/skeleton/index.html
 task doc(type: org.jetbrains.dokka.gradle.DokkaAndroidTask) {
     moduleName = 'skeleton'
     outputFormat = 'html'
-    outputDirectory = "$buildDir/dokka"
+    outputDirectory = "$buildDir/dokka" // FIXME
     jdkVersion = versions.java
     skipEmptyPackages = true
     includeNonPublic = false

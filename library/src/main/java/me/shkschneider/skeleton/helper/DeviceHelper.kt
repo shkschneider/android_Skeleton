@@ -4,8 +4,8 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Build
-import android.support.annotation.RequiresPermission
-import android.support.v4.content.ContextCompat
+import androidx.annotation.RequiresPermission
+import androidx.core.content.ContextCompat
 
 // <http://developer.android.com/reference/android/os/Build.html>
 object DeviceHelper {

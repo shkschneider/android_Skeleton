@@ -1,11 +1,11 @@
 package me.shkschneider.skeleton.ui.transforms
 
-import android.support.v4.view.ViewPager.PageTransformer
 import android.view.View
+import androidx.viewpager.widget.ViewPager
 import me.shkschneider.skeleton.extensions.then
 
 // <https://github.com/ToxicBakery/ViewPagerTransforms>
-abstract class ABaseTransformer : PageTransformer {
+abstract class ABaseTransformer : ViewPager.PageTransformer {
 
     protected abstract fun onTransform(page: View, position: Float)
 

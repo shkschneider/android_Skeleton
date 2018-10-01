@@ -2,8 +2,8 @@ package me.shkschneider.skeleton.ui
 
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.support.annotation.ColorInt
-import android.support.v7.graphics.Palette
+import androidx.annotation.ColorInt
+import androidx.palette.graphics.Palette
 
 object PaletteHelper {
 

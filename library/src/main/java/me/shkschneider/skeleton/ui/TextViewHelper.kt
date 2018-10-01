@@ -2,10 +2,9 @@ package me.shkschneider.skeleton.ui
 
 import android.graphics.Paint
 import android.os.Build
-import android.support.v4.widget.TextViewCompat
+import androidx.core.widget.TextViewCompat
 import android.text.Html
 import android.text.SpannableString
-import android.text.Spanned
 import android.text.method.LinkMovementMethod
 import android.text.util.Linkify
 import android.widget.TextView

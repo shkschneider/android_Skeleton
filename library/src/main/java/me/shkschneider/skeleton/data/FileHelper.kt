@@ -2,7 +2,7 @@ package me.shkschneider.skeleton.data
 
 import android.content.res.Resources
 import android.graphics.Bitmap
-import android.support.annotation.RawRes
+import androidx.annotation.RawRes
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.AssetsHelper
 import me.shkschneider.skeleton.helper.Logger

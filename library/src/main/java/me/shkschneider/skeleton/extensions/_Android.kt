@@ -2,7 +2,7 @@ package me.shkschneider.skeleton.extensions
 
 import android.content.Context
 import android.net.Uri
-import android.support.annotation.RequiresApi
+import androidx.annotation.RequiresApi
 import me.shkschneider.skeleton.helper.AndroidHelper
 import kotlin.reflect.KClass
 

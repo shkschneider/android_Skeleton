@@ -1,8 +1,8 @@
 package me.shkschneider.skeleton.ui
 
-import android.support.annotation.UiThread
 import android.view.Gravity
 import android.widget.Toast
+import androidx.annotation.UiThread
 
 import me.shkschneider.skeleton.helper.ContextHelper
 import me.shkschneider.skeleton.helper.Logger

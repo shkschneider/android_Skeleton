@@ -2,13 +2,12 @@ package me.shkschneider.skeleton.helper
 
 import android.content.Context
 import android.graphics.Point
-import android.graphics.Rect
 import android.os.Build
-import android.support.annotation.FloatRange
 import android.util.DisplayMetrics
 import android.view.Surface
 import android.view.Window
 import android.view.WindowManager
+import androidx.annotation.FloatRange
 import me.shkschneider.skeleton.R
 import me.shkschneider.skeleton.extensions.then
 

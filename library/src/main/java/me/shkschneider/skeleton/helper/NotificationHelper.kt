@@ -3,9 +3,9 @@ package me.shkschneider.skeleton.helper
 import android.app.*
 import android.content.Intent
 import android.os.Build
-import android.support.annotation.IntRange
-import android.support.annotation.RequiresApi
-import android.support.v4.app.NotificationCompat
+import androidx.annotation.IntRange
+import androidx.annotation.RequiresApi
+import androidx.core.app.NotificationCompat
 import me.shkschneider.skeleton.extensions.Intent
 import java.util.concurrent.TimeUnit
 

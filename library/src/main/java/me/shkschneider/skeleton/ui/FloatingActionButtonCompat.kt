@@ -1,14 +1,14 @@
 package me.shkschneider.skeleton.ui
 
 import android.content.res.ColorStateList
-import android.support.annotation.ColorInt
-import android.support.design.widget.FloatingActionButton
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.AbsListView
 import android.widget.ListView
+import androidx.annotation.ColorInt
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import me.shkschneider.skeleton.R
 import me.shkschneider.skeleton.helper.ContextHelper
 

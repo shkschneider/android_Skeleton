@@ -4,11 +4,11 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.os.Build
-import android.support.annotation.DrawableRes
-import android.support.v4.content.ContextCompat
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import android.view.View
 import android.widget.RelativeLayout
+import androidx.annotation.DrawableRes
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.ContextHelper
 import me.shkschneider.skeleton.helper.Metrics

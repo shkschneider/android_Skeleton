@@ -3,9 +3,9 @@ package me.shkschneider.skeleton.data
 import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
-import android.support.annotation.MainThread
-import android.support.annotation.UiThread
-import android.support.v4.app.LoaderManager
+import androidx.annotation.MainThread
+import androidx.annotation.UiThread
+import androidx.loader.app.LoaderManager
 
 // <http://satyan.github.io/sugar/>
 @UiThread

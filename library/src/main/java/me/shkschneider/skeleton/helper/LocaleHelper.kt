@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.ContextWrapper
 import android.content.res.Configuration
 import android.os.Build
-import android.support.v4.os.LocaleListCompat
+import androidx.core.os.LocaleListCompat
 import java.util.*
 
 object LocaleHelper {

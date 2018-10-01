@@ -19,12 +19,12 @@ package me.shkschneider.skeleton.ui
 import android.content.Context
 import android.graphics.PointF
 import android.graphics.Rect
-import android.support.v7.widget.LinearSmoothScroller
-import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearSmoothScroller
+import androidx.recyclerview.widget.RecyclerView
 import me.shkschneider.skeleton.extensions.then
 import me.shkschneider.skeleton.helper.ContextHelper
 import java.util.*

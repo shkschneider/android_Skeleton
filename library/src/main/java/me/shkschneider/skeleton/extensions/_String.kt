@@ -1,6 +1,6 @@
 package me.shkschneider.skeleton.extensions
 
-import android.support.annotation.IntRange
+import androidx.annotation.IntRange
 
 // Cases
 

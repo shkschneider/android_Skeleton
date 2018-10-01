@@ -2,8 +2,8 @@ package me.shkschneider.skeleton.network
 
 import android.annotation.SuppressLint
 import android.os.AsyncTask
-import android.support.annotation.IntRange
-import android.support.annotation.Size
+import androidx.annotation.IntRange
+import androidx.annotation.Size
 import com.google.gson.JsonSyntaxException
 import me.shkschneider.skeleton.data.CharsetHelper
 import me.shkschneider.skeleton.data.MimeTypeHelper

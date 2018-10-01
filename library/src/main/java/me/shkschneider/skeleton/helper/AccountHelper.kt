@@ -2,7 +2,7 @@ package me.shkschneider.skeleton.helper
 
 import android.Manifest
 import android.accounts.Account
-import android.support.annotation.RequiresPermission
+import androidx.annotation.RequiresPermission
 import java.util.*
 
 object AccountHelper {

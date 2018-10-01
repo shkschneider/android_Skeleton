@@ -3,7 +3,7 @@ package me.shkschneider.skeleton.helper
 import android.Manifest
 import android.os.Build
 import android.os.VibrationEffect
-import android.support.annotation.RequiresPermission
+import androidx.annotation.RequiresPermission
 import me.shkschneider.skeleton.extensions.then
 
 object VibratorHelper {

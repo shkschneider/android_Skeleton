@@ -1,12 +1,12 @@
 package me.shkschneider.skeleton.helper
 
 import android.graphics.Typeface
-import android.support.annotation.ColorInt
-import android.support.annotation.IntRange
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.*
+import androidx.annotation.ColorInt
+import androidx.annotation.IntRange
 
 // <https://gist.github.com/Trikke/90efd4432fc09aaadf3e>
 class SpannableStringHelper {

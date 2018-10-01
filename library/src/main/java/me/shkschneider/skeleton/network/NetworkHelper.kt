@@ -4,9 +4,9 @@ import android.Manifest
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.security.NetworkSecurityPolicy
-import android.support.annotation.RequiresPermission
 import android.util.Patterns
 import android.webkit.WebSettings
+import androidx.annotation.RequiresPermission
 import me.shkschneider.skeleton.helper.ContextHelper
 import me.shkschneider.skeleton.helper.Logger
 import me.shkschneider.skeleton.helper.SystemProperties

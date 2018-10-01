@@ -1,9 +1,9 @@
 package me.shkschneider.skeleton.ui
 
 import android.content.Context
-import android.support.v7.widget.AppCompatImageView
 import android.util.AttributeSet
 import android.view.View
+import androidx.appcompat.widget.AppCompatImageView
 
 // <http://stackoverflow.com/a/12283909>
 class AutoImageViewHeight : AppCompatImageView {

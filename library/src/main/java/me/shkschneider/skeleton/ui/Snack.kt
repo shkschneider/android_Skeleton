@@ -1,8 +1,8 @@
 package me.shkschneider.skeleton.ui
 
-import android.support.annotation.UiThread
-import android.support.design.widget.Snackbar
 import android.view.View
+import androidx.annotation.UiThread
+import com.google.android.material.snackbar.Snackbar
 import me.shkschneider.skeleton.extensions.then
 
 import me.shkschneider.skeleton.helper.Logger

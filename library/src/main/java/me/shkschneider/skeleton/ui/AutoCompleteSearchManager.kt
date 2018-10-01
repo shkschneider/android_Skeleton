@@ -1,12 +1,12 @@
 package me.shkschneider.skeleton.ui
 
 import android.content.Context
-import android.support.annotation.LayoutRes
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.annotation.LayoutRes
+import androidx.recyclerview.widget.RecyclerView
 
 /**
     <AutoCompleteTextView
@@ -19,10 +19,10 @@ import android.widget.*
 */
 // TODO test
 open class AutoCompleteSearchManager<T:Any>(
-    context: Context,
-    private val filter: Filter,
-    @LayoutRes private val layoutId: Int = android.R.layout.simple_dropdown_item_1line,
-    private val viewHolderMapper: IViewHolderMapper<T>
+        context: Context,
+        private val filter: Filter,
+        @LayoutRes private val layoutId: Int = android.R.layout.simple_dropdown_item_1line,
+        private val viewHolderMapper: IViewHolderMapper<T>
 ) : ArrayAdapter<T>(context, layoutId) {
 
     private var items: List<T>? = null // FIXME set

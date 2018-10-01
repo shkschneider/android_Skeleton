@@ -1,6 +1,6 @@
 package me.shkschneider.skeleton.java
 
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 import androidx.work.*
 import me.shkschneider.skeleton.helper.Logger
 import java.util.*
@@ -140,7 +140,7 @@ object SkeletonWorker {
         manager().cancelUniqueWork(tag)
     }
 
-    abstract class Work : Worker() {
+    abstract class Work : Worker() { // FIXME
 
         override fun doWork(): Result {
             Logger.info("#$id doWork()")

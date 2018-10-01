@@ -1,8 +1,8 @@
 package me.shkschneider.skeleton.demo
 
 import android.os.Bundle
-import android.support.v7.preference.PreferenceFragmentCompat
 import android.view.View
+import androidx.preference.PreferenceFragmentCompat
 
 import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.extensions.then

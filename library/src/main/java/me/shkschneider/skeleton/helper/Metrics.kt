@@ -1,8 +1,8 @@
 package me.shkschneider.skeleton.helper
 
-import android.support.annotation.FloatRange
 import android.util.DisplayMetrics
 import android.util.TypedValue
+import androidx.annotation.FloatRange
 
 object Metrics {
 

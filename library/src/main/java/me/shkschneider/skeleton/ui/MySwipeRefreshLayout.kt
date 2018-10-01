@@ -2,14 +2,14 @@ package me.shkschneider.skeleton.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.ViewConfiguration
 import android.widget.AbsListView
 import android.widget.ScrollView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 import me.shkschneider.skeleton.R
 import me.shkschneider.skeleton.extensions.then

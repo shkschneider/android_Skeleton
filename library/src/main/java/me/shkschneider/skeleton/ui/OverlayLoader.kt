@@ -2,11 +2,11 @@ package me.shkschneider.skeleton.ui
 
 import android.app.Dialog
 import android.os.Bundle
-import android.support.annotation.UiThread
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import androidx.annotation.UiThread
 import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.SkeletonDialog
 import me.shkschneider.skeleton.extensions.TAG

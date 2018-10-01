@@ -4,11 +4,11 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.res.Resources
 import android.os.Build
-import android.support.annotation.AnimRes
 import android.view.View
 import android.view.ViewAnimationUtils
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.annotation.AnimRes
 import me.shkschneider.skeleton.R
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.ContextHelper

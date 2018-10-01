@@ -1,7 +1,7 @@
 package me.shkschneider.skeleton.data
 
 import android.graphics.Bitmap
-import android.support.v4.util.LruCache
+import androidx.collection.LruCache
 
 // <http://developer.android.com/training/displaying-bitmaps/cache-bitmap.html#memory-cache>
 class MemoryBitmapCache(

@@ -2,9 +2,9 @@ package me.shkschneider.skeleton
 
 import android.app.Dialog
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
 import android.view.Window
 import android.view.WindowManager
+import androidx.fragment.app.DialogFragment
 
 abstract class SkeletonDialog : DialogFragment() {
 

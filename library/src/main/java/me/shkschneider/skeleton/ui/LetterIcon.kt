@@ -2,11 +2,11 @@ package me.shkschneider.skeleton.ui
 
 import android.content.Context
 import android.graphics.*
-import android.support.annotation.ColorInt
-import android.support.annotation.IntRange
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.ColorInt
+import androidx.annotation.IntRange
 import me.shkschneider.skeleton.extensions.then
 import me.shkschneider.skeleton.helper.Logger
 import me.shkschneider.skeleton.helper.Metrics

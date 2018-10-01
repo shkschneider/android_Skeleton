@@ -1,7 +1,7 @@
 package me.shkschneider.skeleton.helper
 
-import android.support.annotation.IntRange
 import android.util.Log
+import androidx.annotation.IntRange
 import me.shkschneider.skeleton.SkeletonApplication
 import me.shkschneider.skeleton.extensions.ellipsize
 

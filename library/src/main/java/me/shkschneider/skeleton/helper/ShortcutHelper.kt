@@ -3,8 +3,8 @@ package me.shkschneider.skeleton.helper
 import android.content.Intent
 import android.content.pm.ShortcutInfo
 import android.graphics.drawable.Icon
-import android.support.annotation.DrawableRes
-import android.support.annotation.RequiresApi
+import androidx.annotation.DrawableRes
+import androidx.annotation.RequiresApi
 
 // <https://developer.android.com/reference/android/content/pm/ShortcutManager.html>
 @RequiresApi(AndroidHelper.API_25)

@@ -2,10 +2,10 @@ package me.shkschneider.skeleton.ui
 
 import android.content.Context
 import android.content.res.ColorStateList
-import android.support.annotation.ColorInt
-import android.support.v4.graphics.drawable.DrawableCompat
-import android.support.v4.widget.ContentLoadingProgressBar
+import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.widget.ContentLoadingProgressBar
 import android.util.AttributeSet
+import androidx.annotation.ColorInt
 
 // android:progressTint=""
 // style="?android:attr/progressBarStyleLarge"

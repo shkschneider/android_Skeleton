@@ -134,10 +134,10 @@ tasks.whenTaskAdded { task ->
 }
 
 dependencies {
-    implementation "com.android.support:appcompat-v7:${versions.support}"
-    implementation "com.android.support:cardview-v7:${versions.support}"
-    implementation "com.android.support:design:${versions.support}"
-    implementation "com.android.support:preference-v7:${versions.support}"
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'androidx.preference:preference:1.0.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk${versions.java}:${versions.kotlin}"
 
     implementation ('com.squareup.picasso:picasso:2.71828') {

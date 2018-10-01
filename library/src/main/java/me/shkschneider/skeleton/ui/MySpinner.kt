@@ -2,8 +2,8 @@ package me.shkschneider.skeleton.ui
 
 import android.content.Context
 import android.content.res.Resources
-import android.support.v7.widget.AppCompatSpinner
 import android.util.AttributeSet
+import androidx.appcompat.widget.AppCompatSpinner
 
 // <http://stackoverflow.com/a/11227847>
 class MySpinner : AppCompatSpinner {

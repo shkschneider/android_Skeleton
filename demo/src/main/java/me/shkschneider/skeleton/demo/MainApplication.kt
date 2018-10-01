@@ -2,7 +2,7 @@ package me.shkschneider.skeleton.demo
 
 import android.content.Context
 import android.os.Build
-import android.support.multidex.MultiDex
+import androidx.multidex.MultiDex
 import me.shkschneider.skeleton.SkeletonApplication
 import me.shkschneider.skeleton.extensions.Intent
 import me.shkschneider.skeleton.helper.*

@@ -1,7 +1,7 @@
 package me.shkschneider.skeleton.helper
 
 import android.os.Build
-import android.support.annotation.IntRange
+import androidx.annotation.IntRange
 
 // <https://source.android.com/source/build-numbers#platform-code-names-versions-api-levels-and-ndk-releases>
 object AndroidHelper {

@@ -1,7 +1,7 @@
 package me.shkschneider.skeleton.java
 
-import android.support.annotation.IntRange
 import android.util.Patterns
+import androidx.annotation.IntRange
 import me.shkschneider.skeleton.extensions.then
 import me.shkschneider.skeleton.helper.LocaleHelper
 import java.text.Normalizer

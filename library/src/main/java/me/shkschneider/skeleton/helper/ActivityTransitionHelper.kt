@@ -2,10 +2,10 @@ package me.shkschneider.skeleton.helper
 
 import android.app.Activity
 import android.content.Intent
-import android.support.v4.app.ActivityCompat
-import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.util.Pair
-import android.support.v4.view.ViewCompat
+import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
+import androidx.core.view.ViewCompat
 import android.view.View
 
 object ActivityTransitionHelper {

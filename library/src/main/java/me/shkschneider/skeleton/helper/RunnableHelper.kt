@@ -2,7 +2,7 @@ package me.shkschneider.skeleton.helper
 
 import android.os.AsyncTask
 import android.os.Handler
-import android.support.annotation.IntRange
+import androidx.annotation.IntRange
 
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit

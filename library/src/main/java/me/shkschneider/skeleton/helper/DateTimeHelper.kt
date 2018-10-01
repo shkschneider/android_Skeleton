@@ -3,9 +3,9 @@ package me.shkschneider.skeleton.helper
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.support.annotation.IntRange
 import android.text.format.DateFormat
 import android.text.format.DateUtils
+import androidx.annotation.IntRange
 import me.shkschneider.skeleton.extensions.then
 import java.text.SimpleDateFormat
 import java.util.*

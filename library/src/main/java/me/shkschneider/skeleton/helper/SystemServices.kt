@@ -39,8 +39,7 @@ import android.os.health.SystemHealthManager
 import android.os.storage.StorageManager
 import android.print.PrintManager
 import android.service.wallpaper.WallpaperService
-import android.support.annotation.RequiresApi
-import android.support.v4.hardware.fingerprint.FingerprintManagerCompat
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import android.telecom.TelecomManager
 import android.telephony.CarrierConfigManager
 import android.telephony.SubscriptionManager
@@ -52,6 +51,7 @@ import android.view.accessibility.CaptioningManager
 import android.view.inputmethod.InputMethodManager
 import android.view.textclassifier.TextClassificationManager
 import android.view.textservice.TextServicesManager
+import androidx.annotation.RequiresApi
 import me.shkschneider.skeleton.extensions.getSystemService
 import kotlin.reflect.KClass
 

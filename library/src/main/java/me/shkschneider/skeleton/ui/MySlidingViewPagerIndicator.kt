@@ -5,8 +5,6 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Typeface
-import android.support.annotation.ColorInt
-import android.support.v4.view.ViewPager
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
@@ -16,6 +14,8 @@ import android.widget.FrameLayout
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.ColorInt
+import androidx.viewpager.widget.ViewPager
 import me.shkschneider.skeleton.helper.Metrics
 
 // <https://github.com/google/iosched>

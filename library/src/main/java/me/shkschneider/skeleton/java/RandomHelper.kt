@@ -1,6 +1,6 @@
 package me.shkschneider.skeleton.java
 
-import android.support.annotation.IntRange
+import androidx.annotation.IntRange
 import me.shkschneider.skeleton.helper.Logger
 import java.util.*
 

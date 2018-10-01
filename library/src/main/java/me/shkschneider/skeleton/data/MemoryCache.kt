@@ -1,7 +1,7 @@
 package me.shkschneider.skeleton.data
 
-import android.support.annotation.IntRange
-import android.support.v4.util.LruCache
+import androidx.annotation.IntRange
+import androidx.collection.LruCache
 
 class MemoryCache<K, V>(
         @IntRange(from = 0) maxSize: Int = 42
