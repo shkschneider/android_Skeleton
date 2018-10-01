@@ -4,11 +4,14 @@ apply plugin: 'org.jetbrains.dokka-android'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion '28.0.2'
+    buildToolsVersion '28.0.3'
 
     Properties versionProperties = new Properties()
     def versionPropertiesFile = file('version.properties')
-    if (versionPropertiesFile.exists()) versionProperties.load(new FileInputStream(versionPropertiesFile))
+    if (!versionPropertiesFile.exists()) {
+        throw new GradleException("Could not read version.properties")
+    }
+    versionProperties.load(new FileInputStream(versionPropertiesFile))
     def androidDefaultConfigVersionCode = (versionProperties['versionCode'] ?: "0").toInteger()
 
     defaultConfig {
@@ -30,26 +33,21 @@ android {
         // main.kotlin.srcDirs += 'src/main/kotlin'
         // main.java.srcDirs += 'src/main/kotlin'
     }
-    task bump() {
-        print '> Bump...' + '\n'
-        versionProperties['versionCode'] = (androidDefaultConfigVersionCode + 1).toString()
-        versionProperties.store(versionPropertiesFile.newWriter(), null)
-    }
-    task travis() {
-        print '> Updating Travis...' + '\n'
-        String content = new File('.travis.yml').getText('UTF-8')
-        content = content.replaceFirst('build-tools-[0-9.]+', "build-tools-${android.buildToolsVersion}")
-        content = content.replaceFirst('android-[0-9]+', "${android.compileSdkVersion}")
-        new File('.travis.yml').write(content, 'UTF-8')
-    }
-    tasks.whenTaskAdded { task ->
-        if (task.name == 'preReleaseBuild') {
-            task.dependsOn bump
-        }
-        if (task.name == 'preDebugBuild' || task.name == 'preReleaseBuild') {
-            task.dependsOn travis
-        }
-    }
+//    tasks.whenTaskAdded { task ->
+//        if (task.name == 'assembleDebug' || task.name == 'assembleRelease') {
+//            print '===' + task.name + '\n'
+//        }
+//        if (task.name == 'generateReleaseBuildConfig') {
+//            print '> Bump...'
+//            if (!versionPropertiesFile.exists()) {
+//                throw new GradleException("Could not read version.properties")
+//            }
+//            versionProperties.load(new FileInputStream(versionPropertiesFile))
+//            versionProperties['versionCode'] = (androidDefaultConfigVersionCode + 1).toString()
+//            versionProperties.store(versionPropertiesFile.newWriter(), null)
+//            print versionProperties['versionCode'] + '\n'
+//        }
+//    }
 }
 
 dependencies {
