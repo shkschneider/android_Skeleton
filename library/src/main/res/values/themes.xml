@@ -2,7 +2,7 @@
 
     <style name="SkeletonTheme" parent="@style/_SkeletonTheme" />
 
-    <style name="_SkeletonTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+    <style name="_SkeletonTheme" parent="@style/Theme.MaterialComponents.Light.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/primaryColor</item>
@@ -15,13 +15,27 @@
         <item name="android:imageButtonStyle">@style/SkeletonTheme.ImageButtonStyle</item>
         <item name="buttonStyle">@style/SkeletonTheme.ButtonStyle</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+
+        <item name="textAppearanceHeadline1">@style/TextAppearance.MaterialComponents.Headline1</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.MaterialComponents.Headline2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.MaterialComponents.Headline3</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.MaterialComponents.Headline4</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.MaterialComponents.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.MaterialComponents.Headline6</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.MaterialComponents.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.MaterialComponents.Subtitle2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.MaterialComponents.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.MaterialComponents.Body2</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.MaterialComponents.Caption</item>
+        <item name="textAppearanceButton">@style/TextAppearance.MaterialComponents.Button</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.MaterialComponents.Overline</item>
     </style>
 
-    <style name="SkeletonTheme.Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="SkeletonTheme.Toolbar" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
     <style name="SkeletonTheme.Toolbar.Overlay" parent="@style/SkeletonTheme.Toolbar">
         <item name="android:windowActionBarOverlay">true</item>
         <item name="windowActionBarOverlay">true</item>
     </style>
-    <style name="SkeletonTheme.Toolbar.Popup" parent="@style/ThemeOverlay.AppCompat.Light" />
+    <style name="SkeletonTheme.Toolbar.Popup" parent="@style/ThemeOverlay.MaterialComponents.Light" />
 
 </resources>
