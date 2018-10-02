@@ -23,31 +23,17 @@ android {
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true
     }
+    // https://issuetracker.google.com/issues/36967265
     defaultPublishConfig 'release'
     lintOptions {
+        disable 'MissingTranslation'
         checkReleaseBuilds true
         abortOnError false
     }
-    // publishNonDefault true
     sourceSets {
         // main.kotlin.srcDirs += 'src/main/kotlin'
         // main.java.srcDirs += 'src/main/kotlin'
     }
-//    tasks.whenTaskAdded { task ->
-//        if (task.name == 'assembleDebug' || task.name == 'assembleRelease') {
-//            print '===' + task.name + '\n'
-//        }
-//        if (task.name == 'generateReleaseBuildConfig') {
-//            print '> Bump...'
-//            if (!versionPropertiesFile.exists()) {
-//                throw new GradleException("Could not read version.properties")
-//            }
-//            versionProperties.load(new FileInputStream(versionPropertiesFile))
-//            versionProperties['versionCode'] = (androidDefaultConfigVersionCode + 1).toString()
-//            versionProperties.store(versionPropertiesFile.newWriter(), null)
-//            print versionProperties['versionCode'] + '\n'
-//        }
-//    }
 }
 
 dependencies {
@@ -62,8 +48,39 @@ dependencies {
     implementation 'android.arch.work:work-runtime:1.0.0-alpha09'
 }
 
-// ./build/dokka/skeleton/index.html
-task doc(type: org.jetbrains.dokka.gradle.DokkaAndroidTask) {
+task bump() << {
+    print '> Bump...'
+    Properties versionProperties = new Properties()
+    def versionPropertiesFile = file('version.properties')
+    if (!versionPropertiesFile.exists()) {
+        throw new GradleException("Could not read version.properties")
+    }
+    versionProperties.load(new FileInputStream(versionPropertiesFile))
+    versionProperties['versionCode'] = ((versionProperties['versionCode'] ?: "0").toInteger() + 1).toString()
+    versionProperties.store(versionPropertiesFile.newWriter(), null)
+    print " v${versions.skeleton}r" + versionProperties['versionCode'] + "\n"
+}
+task travis() << {
+    print '> Travis...'
+    def travisFile = file('../.travis.yml')
+    if (!travisFile.exists()) {
+        throw new GradleException(".travis.yml")
+    }
+    String content = travisFile.getText('UTF-8')
+    content = content.replaceFirst('build-tools-[0-9.]+', "build-tools-${android.buildToolsVersion}")
+    content = content.replaceFirst('android-[0-9]+', "${android.compileSdkVersion}")
+    new File('.travis.yml').write(content, 'UTF-8')
+    print " build-tools-${android.buildToolsVersion} ${android.compileSdkVersion}\n"
+}
+tasks.whenTaskAdded { task ->
+    if (task.name == 'assembleRelease') {
+        task.dependsOn bump
+        task.dependsOn travis
+    }
+}
+
+task doc(type: org.jetbrains.dokka.gradle.DokkaAndroidTask) << {
+    print '> Documentation...' + '\n'
     moduleName = 'skeleton'
     outputFormat = 'html'
     outputDirectory = "${rootProject.buildDir}/dokka"
@@ -80,5 +97,5 @@ task doc(type: org.jetbrains.dokka.gradle.DokkaAndroidTask) {
         url = new URL('https://developer.android.com/reference/')
         packageListUrl = new URL('https://developer.android.com/reference/android/support/package-list')
     }
-    print "$outputDirectory\n"
+    print "$outputDirectory" + '\n'
 }

@@ -37,6 +37,7 @@ android {
             keyPassword 'android'
         }
         release {
+            // keytool -genkey -v -keystore release.jks -keyalg RSA -keysize 2048 -validity 10000 -alias androidkey
             storeFile file('../release.keystore')
             storePassword 'android'
             keyAlias 'androidkey'
@@ -49,17 +50,15 @@ android {
     }
     buildTypes {
         debug {
-            // applicationIdSuffix '.dev'
-            // versionNameSuffix '-DEV'
+            // applicationIdSuffix '.debug'
+            // versionNameSuffix '-DEBUG'
             debuggable true
             jniDebuggable true
             zipAlignEnabled true
             multiDexEnabled true
             signingConfig signingConfigs.debug
-            minifyEnabled false
             shrinkResources false
-            buildConfigField "boolean", "MOCK", "true"
-            resValue "string", "url", "http://android.com"
+            buildConfigField "boolean", "RELEASE", "false"
         }
         release {
             debuggable false
@@ -67,10 +66,7 @@ android {
             zipAlignEnabled true
             multiDexEnabled true
             signingConfig signingConfigs.release
-            minifyEnabled true
-            shrinkResources false
-            buildConfigField "boolean", "MOCK", "false"
-            resValue "string", "url", "https://android.com"
+            buildConfigField "boolean", "RELEASE", "true"
         }
     }
     defaultPublishConfig 'debug'
@@ -79,14 +75,27 @@ android {
         alpha {
             dimension 'default'
             // versionNameSuffix '-ALPHA'
+            resValue "string", "url", "http://android.com?alpha"
         }
         beta {
             dimension 'default'
             // versionNameSuffix '-BETA'
+            resValue "string", "url", "http://android.com?beta"
         }
         prod {
             dimension 'default'
+            resValue "string", "url", "http://android.com"
         }
+    }
+    bundle {
+        /**
+         * If the user changes their device configuration at any time (such as adding another choice of language),
+         * then the play store will recognize this and attempt to download the new configuration splits
+         * for all applications that use split APKs on their device.
+         */
+        language.enableSplit = true
+        density.enableSplit = true
+        abi.enableSplit = true
     }
     packagingOptions {
         exclude 'META-INF/DEPENDENCIES.txt'
@@ -102,32 +111,18 @@ android {
 }
 
 task bump() << {
-    print '> Bump...' + '\n'
-//    Properties versionProperties = new Properties()
-//    def versionPropertiesFile = file('version.properties')
-//    if (!versionPropertiesFile.exists()) {
-//        throw new GradleException("Could not read version.properties")
-//    }
-//    versionProperties.load(new FileInputStream(versionPropertiesFile))
-//    versionProperties['versionCode'] = ((versionProperties['versionCode'] ?: "0").toInteger() + 1).toString()
-//    versionProperties.store(versionPropertiesFile.newWriter(), null)
-//    print versionProperties['versionCode'] + '\n'
-}
-task travis() << {
-    print '> Updating Travis...' + '\n'
-//    def travisFile = file('../.travis.yml')
-//    if (!travisFile.exists()) {
-//        throw new GradleException(".travis.yml")
-//    }
-//    String content = travisFile.getText('UTF-8')
-//    content = content.replaceFirst('build-tools-[0-9.]+', "build-tools-${android.buildToolsVersion}")
-//    content = content.replaceFirst('android-[0-9]+', "${android.compileSdkVersion}")
-//    new File('.travis.yml').write(content, 'UTF-8')
+    print '> Bump...'
+    Properties versionProperties = new Properties()
+    def versionPropertiesFile = file('version.properties')
+    if (!versionPropertiesFile.exists()) {
+        throw new GradleException("Could not read version.properties")
+    }
+    versionProperties.load(new FileInputStream(versionPropertiesFile))
+    versionProperties['versionCode'] = ((versionProperties['versionCode'] ?: "0").toInteger() + 1).toString()
+    versionProperties.store(versionPropertiesFile.newWriter(), null)
+    print " v${versions.skeleton}r" + versionProperties['versionCode'] + "\n"
 }
 tasks.whenTaskAdded { task ->
-    if (task.name == 'assembleDebug') {
-        task.dependsOn travis
-    }
     if (task.name == 'assembleRelease') {
         task.dependsOn bump
     }
