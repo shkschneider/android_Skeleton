@@ -41,4 +41,16 @@ object ExternalDataHelper {
         return errors == 0
     }
 
+    fun isReadable(): Boolean {
+        return Environment.getExternalStorageState() in setOf(Environment.MEDIA_MOUNTED, Environment.MEDIA_MOUNTED_READ_ONLY)
+    }
+
+    fun isWritable(): Boolean {
+        return Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
+    }
+
+    fun isRemovable(): Boolean {
+        return Environment.isExternalStorageRemovable()
+    }
+
 }

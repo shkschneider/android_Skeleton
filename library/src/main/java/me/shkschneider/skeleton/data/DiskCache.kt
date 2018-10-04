@@ -7,12 +7,16 @@ import java.io.Serializable
 object DiskCache {
 
     // <http://developer.android.com/guide/topics/data/data-storage.html#filesInternal>
-    class Internal(dir: File) : Cache(dir)
+    class Internal : Cache(InternalDataHelper.cache())
 
     // <http://developer.android.com/guide/topics/data/data-storage.html#filesExternal>
-    class External(dir: File) : Cache(dir)
+    class External : Cache(ExternalDataHelper.cache() ?: InternalDataHelper.cache())
 
     abstract class Cache(private val dir: File) {
+
+        fun path(): String {
+            return dir.absolutePath
+        }
 
         @Synchronized
         fun put(key: String, value: Serializable): Boolean {
