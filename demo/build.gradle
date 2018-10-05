@@ -123,17 +123,16 @@ task bump() << {
     print " v${versions.skeleton}r" + versionProperties['versionCode'] + "\n"
 }
 tasks.whenTaskAdded { task ->
-    if (task.name == 'assembleRelease') {
+    if (task.name == 'preReleaseBuild') {
         task.dependsOn bump
     }
 }
 
 dependencies {
-    implementation "androidx.appcompat:appcompat:${versions.androidx}"
-    implementation "androidx.cardview:cardview:${versions.androidx}"
-    implementation "androidx.preference:preference:${versions.androidx}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk${versions.java}:${versions.kotlin}"
-    implementation "com.google.android.material:material:${versions.androidx}"
+
+    implementation "androidx.preference:preference:${versions.androidx}"
+    implementation "com.google.android.material:material:${versions.material}"
 
     implementation ('com.squareup.picasso:picasso:2.71828') {
         exclude group: 'com.android.support', module: '*'

@@ -6,6 +6,7 @@ buildscript {
         java: '8',
         kotlin: '1.2.71',
         dokka: '0.9.17',
+        material: '1.0.0',
         androidx: '1.0.0'
     ]
     repositories {

@@ -1,13 +1,15 @@
 package me.shkschneider.skeleton.demo
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.preference.PreferenceFragmentCompat
-
 import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.extensions.then
 import me.shkschneider.skeleton.helper.AndroidHelper
 import me.shkschneider.skeleton.helper.ApplicationHelper
+import me.shkschneider.skeleton.helper.Metrics
 
 class AboutActivity : SkeletonActivity() {
 
@@ -28,6 +30,14 @@ class AboutActivity : SkeletonActivity() {
             setPreferencesFromResource(R.xml.about, rootKey)
         }
 
+        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+            val view = super.onCreateView(inflater, container, savedInstanceState)
+            // If preferences have no icons, this is needed to get rid of left's empty space
+            // In Material (preference_material.xml) PreferenceCompat (android.R.id.icon): minWidth=60dp
+            listView?.setPadding(-1 * Metrics.pixelsFromDp(60.toFloat()), 0, 0, 0)
+            return view
+        }
+
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
             // Application
@@ -45,11 +55,11 @@ class AboutActivity : SkeletonActivity() {
             }
             with(findPreference("app_variant")) {
                 title = "Variant"
-                summary = ApplicationHelper.debuggable() then "debug" ?: "release"
+                summary = (ApplicationHelper.debuggable() then "debug" ?: "release").toUpperCase()
             }
             with(findPreference("app_flavor")) {
                 title = "Flavor"
-                summary = BuildConfig.FLAVOR
+                summary = BuildConfig.FLAVOR.toUpperCase()
             }
             // OS
             with(findPreference("os_version")) {

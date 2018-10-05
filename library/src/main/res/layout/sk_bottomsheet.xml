@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Theme.MaterialComponents.BottomSheetDialog"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -82,17 +84,15 @@
             android:orientation="horizontal">
 
             <Button
-                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                style="@style/SkeletonTheme.ButtonStyle.Inverted.Borderless"
                 android:id="@+id/sk_bottomsheet_cancel"
-                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@android:string/cancel" />
 
             <Button
-                style="@style/Widget.AppCompat.Button.Colored"
+                style="@style/SkeletonTheme.ButtonStyle.Borderless"
                 android:id="@+id/sk_bottomsheet_ok"
-                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@android:string/ok" />

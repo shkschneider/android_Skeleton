@@ -1,25 +1,18 @@
 package me.shkschneider.skeleton.demo
 
-import android.content.*
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.viewpager.widget.ViewPager
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayout
 import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.extensions.Intent
-import me.shkschneider.skeleton.extensions.toStringOrEmpty
-import me.shkschneider.skeleton.helper.*
-import me.shkschneider.skeleton.network.WebService
-import me.shkschneider.skeleton.ui.AnimationHelper
+import me.shkschneider.skeleton.helper.Logger
 import me.shkschneider.skeleton.ui.BottomSheet
-import me.shkschneider.skeleton.ui.Toaster
 
 /**
  * SkeletonActivity
@@ -32,13 +25,6 @@ import me.shkschneider.skeleton.ui.Toaster
  * -> onNewIntent() (Toaster.show())
  */
 class MainActivity : SkeletonActivity() {
-
-    private val mBroadcastReceiver = object: BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            // val code = intent.getIntExtra(BROADCAST_SECRET_CODE, 0)
-            network()
-        }
-    }
 
 //    override fun attachBaseContext(newBase: Context?) {
 //        super.attachBaseContext(LocaleHelper.Application.switch(newBase, LocaleHelper.Device.locale()))
@@ -70,14 +56,6 @@ class MainActivity : SkeletonActivity() {
                 // Ignore
             }
         })
-
-        val floatingActionButton = findViewById<FloatingActionButton>(R.id.floatingActionButton)
-        floatingActionButton.setImageResource(android.R.drawable.ic_dialog_info)
-        floatingActionButton.setOnClickListener {
-            val intent = Intent(BROADCAST_SECRET).putExtra(BROADCAST_SECRET_CODE, 42)
-            LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
-        }
-        AnimationHelper.revealOn(floatingActionButton)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -95,59 +73,21 @@ class MainActivity : SkeletonActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onStart() {
-        super.onStart()
-        BroadcastHelper.register(mBroadcastReceiver, IntentFilter(BROADCAST_SECRET))
-    }
-
-    override fun onStop() {
-        super.onStop()
-        BroadcastHelper.unregister(mBroadcastReceiver)
-    }
-
-    private fun network() {
-        WebService(WebService.Method.GET, URL)
-                .callback(object: WebService.Callback {
-                    override fun success(result: WebService.Response?) {
-                        result?.let {
-                            notification(DateTimeHelper.timestamp(), ApplicationHelper.name().orEmpty(),
-                                    it.message.orEmpty())
-                        } ?: run {
-                            Toaster.show(result.toStringOrEmpty())
-                        }
-                    }
-                    override fun failure(e: WebService.Error) {
-                        Toaster.show(e.toStringOrEmpty())
-                    }
-                })
-                .run()
-    }
-
-    private fun notification(id: Int, title: String, message: String) {
-        val intent = Intent(applicationContext, MainActivity::class)
-                .putExtra("title", title)
-                .putExtra("message", message)
-        val channel = NotificationHelper.Channel(id.toString(), id.toString(), true, true, true)
-        // final NotificationChannel notificationChannel = channel.get();
-        val notificationBuilder = NotificationHelper.Builder(channel)
-                .setShowWhen(false)
-                .setContentTitle("Skeleton")
-                .setContentText("for Android")
-                .setContentIntent(NotificationHelper.pendingIntent(this, intent))
-                .setTicker("Sk!")
-                .setColor(ContextCompat.getColor(applicationContext, R.color.accentColor))
-                .setSmallIcon(ApplicationHelper.DEFAULT_ICON)
-                .setNumber(42)
-        NotificationHelper.notify(0, notificationBuilder.build())
-    }
-
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        val title = intent.getStringExtra("title")
-        val message = intent.getStringExtra("message")
+        when (intent.action) {
+            ShkMod.BROADCAST_SECRET -> {
+                val title = intent.getStringExtra("title")
+                val message = intent.getStringExtra("message")
+                bottomSheet(title, message)
+            }
+        }
+    }
+
+    private fun bottomSheet(title: String, content: String) {
         BottomSheet.Builder(this)
                 .setTitle(title)
-                .setContent(message)
+                .setContent(content)
                 .setPositive(resources.getString(android.R.string.ok), null)
                 .setNegative(resources.getString(android.R.string.cancel), null)
                 .build()
@@ -175,14 +115,6 @@ class MainActivity : SkeletonActivity() {
         override fun getCount(): Int {
             return 2
         }
-
-    }
-
-    companion object {
-
-        const val BROADCAST_SECRET = "BROADCAST_SECRET"
-        const val BROADCAST_SECRET_CODE = "BROADCAST_SECRET_CODE"
-        const val URL = "https://raw.githubusercontent.com/shkschneider/android_manifest/master/VERSION.json"
 
     }
 

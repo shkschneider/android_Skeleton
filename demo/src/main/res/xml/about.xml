@@ -3,52 +3,63 @@
     android:layout_width="match_parent">
 
     <PreferenceCategory
-        android:title="@string/application">
+        android:icon="@null"
+        android:title="@string/application"
+        android:summary="@null">
 
         <Preference
             android:key="app_package"
             android:selectable="false"
+            android:icon="@null"
             android:title="@null"
             android:summary="@null" />
 
         <Preference
             android:key="app_versionName"
             android:selectable="false"
+            android:icon="@null"
             android:title="@null"
             android:summary="@null" />
 
         <Preference
             android:key="app_versionCode"
             android:selectable="false"
+            android:icon="@null"
             android:title="@null"
             android:summary="@null" />
 
         <Preference
             android:key="app_variant"
             android:selectable="false"
+            android:icon="@null"
             android:title="@null"
             android:summary="@null" />
 
         <Preference
             android:key="app_flavor"
             android:selectable="false"
+            android:icon="@null"
             android:title="@null"
             android:summary="@null" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/os">
+        android:icon="@null"
+        android:title="@string/os"
+        android:summary="@null">
 
         <Preference
             android:key="os_version"
             android:selectable="false"
+            android:icon="@null"
             android:title="@null"
             android:summary="@null" />
 
         <Preference
             android:key="os_api"
             android:selectable="false"
+            android:icon="@null"
             android:title="@null"
             android:summary="@null" />
 

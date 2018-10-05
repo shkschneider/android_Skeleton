@@ -76,7 +76,7 @@ class ShkFragment : SkeletonFragment() {
         fill(skills_languages, "Languages", SpannableString("French (native)\n" + "English (TOIEC 850+, CEFR B2)"))
         // Footer
         val github = view.findViewById<Button>(R.id.github)
-        github.text = GITHUB.replaceFirst("^https?://github.com/", "")
+        github.text = GITHUB.replaceFirst(Regex("^https?://github.com/"), "")
         github.setOnClickListener { startActivity(IntentHelper.web(GITHUB)) }
     }
 

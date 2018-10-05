@@ -14,6 +14,8 @@
     <dimen name="snackBar2">80dp</dimen>
     <dimen name="navigationBar">48dp</dimen>
 
+    <dimen name="finger">48dp</dimen> <!-- clickable area -->
+
     <dimen name="spaceNull">0dp</dimen>
     <dimen name="spacePico">2dp</dimen>
     <dimen name="spaceMicro">4dp</dimen>

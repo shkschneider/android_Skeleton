@@ -37,15 +37,17 @@ android {
 }
 
 dependencies {
-    implementation "androidx.palette:palette:${versions.androidx}"
-    implementation "androidx.recyclerview:recyclerview:${versions.androidx}"
-    implementation "androidx.legacy:legacy-preference-v14:${versions.androidx}"
-    implementation "com.google.android.material:material:${versions.androidx}"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk${versions.java}:${versions.kotlin}"
 
-    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation "androidx.appcompat:appcompat:${versions.androidx}"
+    implementation "androidx.recyclerview:recyclerview:${versions.androidx}"
+    implementation "androidx.palette:palette:${versions.androidx}"
+    implementation "androidx.preference:preference:${versions.androidx}"
+    implementation "com.google.android.material:material:${versions.material}"
 
-    implementation 'android.arch.work:work-runtime:1.0.0-alpha09'
+    implementation 'android.arch.work:work-runtime-ktx:1.0.0-alpha09'
+
+    implementation 'com.google.code.gson:gson:2.8.5'
 }
 
 task bump() << {
@@ -73,7 +75,7 @@ task travis() << {
     print " build-tools-${android.buildToolsVersion} ${android.compileSdkVersion}\n"
 }
 tasks.whenTaskAdded { task ->
-    if (task.name == 'assembleRelease') {
+    if (task.name == 'preReleaseBuild') {
         task.dependsOn bump
         task.dependsOn travis
     }
