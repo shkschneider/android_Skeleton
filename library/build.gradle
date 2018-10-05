@@ -43,7 +43,6 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:${versions.androidx}"
     implementation "androidx.palette:palette:${versions.androidx}"
     implementation "androidx.preference:preference:${versions.androidx}"
-    implementation "com.google.android.material:material:${versions.material}"
 
     implementation 'android.arch.work:work-runtime-ktx:1.0.0-alpha09'
 
