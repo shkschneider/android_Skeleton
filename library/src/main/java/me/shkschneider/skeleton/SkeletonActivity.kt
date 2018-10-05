@@ -49,9 +49,6 @@ import me.shkschneider.skeleton.ui.OverlayLoader
  */
 abstract class SkeletonActivity : AppCompatActivity() {
 
-    // Search
-    // <http://stackoverflow.com/q/18438890>
-
     protected var toolbar: Toolbar? = null
 
     private var alive = false
@@ -62,6 +59,9 @@ abstract class SkeletonActivity : AppCompatActivity() {
     // <https://gist.github.com/antoniolg/9837398>
 
     private var loading = 0
+
+    // Search
+    // <http://stackoverflow.com/q/18438890>
 
     private var searchHint: String? = null
     private var skeletonReceiver: SkeletonReceiver? = null
@@ -87,9 +87,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         setContentView(R.layout.sk_activity)
-        if (Build.VERSION.SDK_INT >= 21) {
-            statusBarColor(window, ContextCompat.getColor(applicationContext, R.color.statusBarColor))
-        }
+        statusBarColor(window, ContextCompat.getColor(applicationContext, R.color.statusBarColor))
     }
 
     fun overridePendingTransitions(@AnimRes enterAnim: Int, @AnimRes exitAnim: Int) {
