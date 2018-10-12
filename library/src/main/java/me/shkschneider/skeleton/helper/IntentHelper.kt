@@ -44,7 +44,7 @@ object IntentHelper {
     private const val REQUEST_CODE_CAMERA = 111
     private const val REQUEST_CODE_GALLERY = 222
     private const val REQUEST_CODE_RINGTONE = 333
-    private const val REQUEST_CODE_PERMISSIONS = AndroidHelper.API_23
+    private const val REQUEST_CODE_PERMISSIONS = AndroidHelper.ANDROID_6
 
     fun main(): Intent? {
         ApplicationHelper.packageManager().getLaunchIntentForPackage(ApplicationHelper.packageName())?.let { intent ->

@@ -26,26 +26,20 @@ import me.shkschneider.skeleton.ui.OverlayLoader
  * https://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle
  * https://developer.android.com/reference/android/support/v7/app/AppCompatActivity.html
  *
- * onCreate()
- * onAttachFragments()
- * onContentChanged()
- * onStart()
- * onRestoreInstanceState()
- * onPostCreate()
- * onViewCreate()
- * onResume()
- * onPostResume()
- * onAttachedToWindow()
- * onCreateOptionsMenu()
- * onPrepareOptionsMenu()
- * onPause()
- * onSaveInstanceState()
- * onStop()
- * onDestroy()
- *
- * Toolbar
- * Search
- * OverlayLoader
+ * +-------+---------+------------+
+ * | Alive | Visible | Foreground |
+ * +-------+---------+------------+
+ * |     x |         |            | onCreate()
+ * |     x |       x |            | onStart()
+ * |     x |       x |            | onPostCreate()
+ * |     x |       x |          x | onResume()
+ * |     x |       x |          x | onPostResume()
+ * |     x |       x |          x | onResumeFragments()
+ * |     x |       x |          x | onAttachedToWindow()
+ * |     x |       x |          x | onPause()
+ * |     x |       x |            | onStop()
+ * |     x |         |            | onDestroy()
+ * +-------+---------+------------+
  */
 abstract class SkeletonActivity : AppCompatActivity() {
 
@@ -110,13 +104,13 @@ abstract class SkeletonActivity : AppCompatActivity() {
         super.onResumeFragments()
     }
 
-    override fun setContentView(@LayoutRes id: Int) {
-        super.setContentView(id)
+    override fun setContentView(view: View) {
+        super.setContentView(view)
         onViewCreated()
     }
 
-    override fun setContentView(view: View) {
-        super.setContentView(view)
+    override fun setContentView(@LayoutRes id: Int) {
+        super.setContentView(id)
         onViewCreated()
     }
 

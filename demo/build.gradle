@@ -132,6 +132,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk${versions.java}:${versions.kotlin}"
 
     implementation "androidx.preference:preference:${versions.androidx}"
+    implementation "androidx.core:core-ktx:${versions.androidx}"
     implementation "com.google.android.material:material:${versions.material}"
 
     implementation ('com.squareup.picasso:picasso:2.71828') {
