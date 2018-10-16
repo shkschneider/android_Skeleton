@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 
@@ -100,6 +101,19 @@ abstract class SkeletonFragment : Fragment() {
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
+    }
+
+    // <https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/to.html>
+    companion object {
+
+        inline fun <reified T : SkeletonFragment> newInstance(target: Class<T>) =
+                target.newInstance()
+
+        inline fun <reified T : SkeletonFragment> newInstance(target: Class<T>, vararg arguments: Pair<String, Any>) =
+                target.newInstance().apply {
+                    setArguments(bundleOf(*arguments))
+                }
+
     }
 
 }

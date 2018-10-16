@@ -97,20 +97,23 @@ class MainActivity : SkeletonActivity() {
 
     private class MyPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
 
+        private val shkFragment by lazy {
+            SkeletonFragment.newInstance(ShkFragment::class.java, "test" to "42")
+        }
+        private val skFragment by lazy {
+            SkeletonFragment.newInstance(SkFragment::class.java)
+        }
+
         override fun getItem(position: Int): Fragment? {
             return when (position) {
-                0 -> ShkFragment()
-                1 -> SkFragment()
+                0 -> shkFragment
+                1 -> skFragment
                 else -> null
             }
         }
 
         override fun getPageTitle(position: Int): CharSequence? {
-            return when (position) {
-                0 -> "ShkSchneider"
-                1 -> "Skeleton"
-                else -> null
-            }
+            return getItem(position)?.javaClass?.simpleName
         }
 
         override fun getCount(): Int {
