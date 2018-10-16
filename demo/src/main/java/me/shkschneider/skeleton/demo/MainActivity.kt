@@ -8,8 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
-import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.activity_main.*
 import me.shkschneider.skeleton.SkeletonActivity
+import me.shkschneider.skeleton.SkeletonFragment
 import me.shkschneider.skeleton.extensions.Intent
 import me.shkschneider.skeleton.helper.Logger
 import me.shkschneider.skeleton.ui.BottomSheet
@@ -36,26 +37,26 @@ class MainActivity : SkeletonActivity() {
         setContentView(R.layout.activity_main)
         toolbar(home = false, title = getString(R.string.title), subtitle = getString(R.string.subtitle))
 
-        val viewPager = findViewById<ViewPager>(R.id.viewPager)
         val pagerAdapter = MyPagerAdapter(supportFragmentManager)
-        viewPager.adapter = pagerAdapter
-        viewPager.offscreenPageLimit = pagerAdapter.count
-        val tabLayout = findViewById<TabLayout>(R.id.tabLayout)
         for (i in 0 until pagerAdapter.count) {
             tabLayout.addTab(tabLayout.newTab().setText(pagerAdapter.getPageTitle(i)))
         }
         tabLayout.setupWithViewPager(viewPager)
-        viewPager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                // Ignore
-            }
-            override fun onPageSelected(position: Int) {
-                Logger.verbose("Page: $position")
-            }
-            override fun onPageScrollStateChanged(state: Int) {
-                // Ignore
-            }
-        })
+        with (viewPager) {
+            adapter = pagerAdapter
+            offscreenPageLimit = pagerAdapter.count
+            addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
+                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                    // Ignore
+                }
+                override fun onPageSelected(position: Int) {
+                    Logger.verbose("Page: $position")
+                }
+                override fun onPageScrollStateChanged(state: Int) {
+                    // Ignore
+                }
+            })
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
