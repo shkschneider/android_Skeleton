@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.demo
 import android.content.Context
 import android.os.Build
 import androidx.multidex.MultiDex
+import com.bumptech.glide.Glide
 import me.shkschneider.skeleton.SkeletonApplication
 import me.shkschneider.skeleton.extensions.Intent
 import me.shkschneider.skeleton.helper.*
@@ -13,6 +14,9 @@ class MainApplication : SkeletonApplication() {
         super.onCreate()
         Logger.verbose("DEBUGGABLE=" + ApplicationHelper.debuggable())
         shortcut("About")
+        ThreadHelper.backgroundThread(Runnable {
+            Glide.get(applicationContext).clearDiskCache()
+        })
     }
 
     private fun shortcut(shortcut: String) {

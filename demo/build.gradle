@@ -135,9 +135,8 @@ dependencies {
     implementation "androidx.core:core-ktx:${versions.androidx}"
     implementation "com.google.android.material:material:${versions.material}"
 
-    implementation ('com.squareup.picasso:picasso:2.71828') {
-        exclude group: 'com.android.support', module: '*'
-    }
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 
     implementation project(':library')
     // implementation 'com.github.shkschneider:android_Skeleton:${versions.skeleton}'

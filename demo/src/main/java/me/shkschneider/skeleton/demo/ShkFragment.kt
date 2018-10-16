@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.content_shk_code.*
 import kotlinx.android.synthetic.main.content_shk_id.*
 import kotlinx.android.synthetic.main.content_shk_personal.*
@@ -26,7 +26,7 @@ class ShkFragment : SkeletonFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Personal
-        Picasso.get().load(AVATAR).into(id_avatar)
+        Glide.with(view).load(AVATAR).into(id_avatar)
         fill(id_id, "#", SpannableString("42"))
         fill(id_name, "Name", SpannableString("Alan SCHNEIDER\n" + "a.k.a. ShkSchneider"))
         fill(id_age, "Age", SpannableString("Born in 1989"))
