@@ -6,16 +6,13 @@ import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import me.shkschneider.skeleton.SkeletonReceiver
-import me.shkschneider.skeleton.java.SkHide
 import java.util.*
 
 object ViewHelper {
 
     val ANDROIDXML = "http://schemas.android.com/apk/res/android"
     val RESAUTOXML = "http://schemas.android.com/apk/res-auto"
-    @SkHide
     val CONTENT = Window.ID_ANDROID_CONTENT
-    @SkHide
     val NO_ID = View.NO_ID
     val RESULT_VISIBILITY = "VISIBILITY"
 

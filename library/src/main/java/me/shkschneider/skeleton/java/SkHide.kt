@@ -1,7 +1,9 @@
 package me.shkschneider.skeleton.java
 
-@Retention(AnnotationRetention.RUNTIME)
-@Target(AnnotationTarget.CLASS,
+@Deprecated("Broken") // FIXME
+@Retention(AnnotationRetention.SOURCE)
+@Target(
+        AnnotationTarget.CLASS,
         AnnotationTarget.ANNOTATION_CLASS,
         AnnotationTarget.TYPE_PARAMETER,
         AnnotationTarget.PROPERTY,
@@ -13,7 +15,8 @@ package me.shkschneider.skeleton.java
         AnnotationTarget.PROPERTY_GETTER,
         AnnotationTarget.PROPERTY_SETTER,
         AnnotationTarget.TYPE,
-        // AnnotationTarget.EXPRESSION,
+        AnnotationTarget.EXPRESSION,
         AnnotationTarget.FILE,
-        AnnotationTarget.TYPEALIAS)
-annotation class SkHide(val enabled: Boolean = true)
+        AnnotationTarget.TYPEALIAS
+)
+annotation class SkHide

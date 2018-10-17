@@ -23,7 +23,6 @@ class SemanticVersion : Comparable<SemanticVersion> {
     @Throws(IllegalArgumentException::class)
     constructor(version: Version) : this(version.toString())
 
-    @SkHide
     override fun compareTo(other: SemanticVersion): Int {
         semanticVersioning.forEach { i ->
             if (semVer[i] < other.toList()[i]) return -1
@@ -32,7 +31,6 @@ class SemanticVersion : Comparable<SemanticVersion> {
         return 0
     }
 
-    @SkHide
     private fun toList(): List<Int> {
         return semVer
     }

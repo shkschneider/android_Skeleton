@@ -27,84 +27,71 @@ class JobManager(
     @SuppressLint("JobSchedulerService")
     private val builder: JobInfo.Builder = JobInfo.Builder(this.id, ComponentName(ContextHelper.applicationContext(), cls::class))
 
-    @SkHide
     fun setExtras(extras: PersistableBundle): JobManager {
         builder.setExtras(extras)
         return this
     }
 
-    @SkHide
     fun setRequiredNetworkType(networkType: Int): JobManager {
         builder.setRequiredNetworkType(networkType)
         return this
     }
 
-    @SkHide
     fun setRequiresCharging(requiresCharging: Boolean): JobManager {
         builder.setRequiresCharging(requiresCharging)
         return this
     }
 
-    @SkHide
     fun setRequiresDeviceIdle(requiresDeviceIdle: Boolean): JobManager {
         builder.setRequiresDeviceIdle(requiresDeviceIdle)
         return this
     }
 
     @RequiresApi(AndroidHelper.API_24)
-    @SkHide
     fun addTriggerContentUri(uri: JobInfo.TriggerContentUri): JobManager {
         builder.addTriggerContentUri(uri)
         return this
     }
 
     @RequiresApi(AndroidHelper.API_24)
-    @SkHide
     fun setTriggerContentUpdateDelay(durationMs: Long): JobManager {
         builder.setTriggerContentUpdateDelay(durationMs)
         return this
     }
 
     @RequiresApi(AndroidHelper.API_24)
-    @SkHide
     fun setTriggerContentMaxDelay(durationMs: Long): JobManager {
         builder.setTriggerContentMaxDelay(durationMs)
         return this
     }
 
-    @SkHide
     fun setPeriodic(intervalMillis: Long): JobManager {
         builder.setPeriodic(intervalMillis)
         return this
     }
 
     @RequiresApi(AndroidHelper.API_24)
-    @SkHide
     fun setPeriodic(intervalMillis: Long, flexMillis: Long): JobManager {
         builder.setPeriodic(intervalMillis, flexMillis)
         return this
     }
 
-    @SkHide
     fun setMinimumLatency(minLatencyMillis: Long): JobManager {
         builder.setMinimumLatency(minLatencyMillis)
         return this
     }
 
-    @SkHide
     fun setOverrideDeadline(maxExecutionDelayMillis: Long): JobManager {
         builder.setOverrideDeadline(maxExecutionDelayMillis)
         return this
     }
 
-    @SkHide
     fun setBackoffCriteria(initialBackoffMillis: Long, backoffPolicy: Int): JobManager {
         builder.setBackoffCriteria(initialBackoffMillis, backoffPolicy)
         return this
     }
 
     @RequiresPermission(Manifest.permission.RECEIVE_BOOT_COMPLETED)
-    @SkHide
     fun setPersisted(isPersisted: Boolean): JobManager {
         builder.setPersisted(isPersisted)
         return this

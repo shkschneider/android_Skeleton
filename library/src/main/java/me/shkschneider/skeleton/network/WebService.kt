@@ -9,7 +9,6 @@ import me.shkschneider.skeleton.data.CharsetHelper
 import me.shkschneider.skeleton.data.MimeTypeHelper
 import me.shkschneider.skeleton.data.StreamHelper
 import me.shkschneider.skeleton.helper.Logger
-import me.shkschneider.skeleton.java.SkHide
 import java.io.BufferedWriter
 import java.io.DataOutputStream
 import java.io.IOException
@@ -30,7 +29,6 @@ open class WebService(
     private var body: Map<String, String>? = null
     private var callback: Callback? = null
 
-    @SkHide
     fun url(): String? {
         return url
     }
@@ -40,7 +38,6 @@ open class WebService(
         return this
     }
 
-    @SkHide
     fun headers(): Map<String, String>? {
         return headers
     }
@@ -50,7 +47,6 @@ open class WebService(
         return this
     }
 
-    @SkHide
     fun body(): Map<String, String>? {
         return body
     }
@@ -60,7 +56,6 @@ open class WebService(
         return this
     }
 
-    @SkHide
     fun callback(): WebService.Callback? {
         return callback
     }
@@ -158,15 +153,11 @@ open class WebService(
 
     }
 
-    class Response {
-
-        val code: Int
-        val message: String?
-
-        constructor(@IntRange(from = 0, to = INTERNAL_ERROR.toLong()) code: Int, message: String? = null) {
-            this.code = code
-            this.message = message
-        }
+    class Response(
+            @IntRange(from = 0, to = INTERNAL_ERROR.toLong())
+            val code: Int,
+            val message: String? = null
+    ) {
 
         override fun toString(): String {
             return String.format(Locale.getDefault(), "%d %s", code, message)
@@ -174,13 +165,11 @@ open class WebService(
 
     }
 
-    class Error : Exception {
-
-        val code: Int
-
-        constructor(@IntRange(from = 0, to = INTERNAL_ERROR.toLong()) code: Int, message: String? = null) : super(message, null) {
-            this.code = code
-        }
+    class Error(
+            @IntRange(from = 0, to = INTERNAL_ERROR.toLong())
+            val code: Int,
+            message: String? = null
+    ) : Exception(message, null) {
 
         override fun toString(): String {
             return String.format(Locale.getDefault(), "%d %s", code, message)

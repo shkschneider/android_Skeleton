@@ -21,11 +21,6 @@ import me.shkschneider.skeleton.helper.Metrics
 // <https://github.com/google/iosched>
 class MySlidingViewPagerIndicator : HorizontalScrollView {
 
-    private val DEFAULT_TEXTCOLOR = Color.BLACK
-    private val TITLE_OFFSET_DIPS = 24
-    private val TAB_VIEW_PADDING_DIPS = 16
-    private val TAB_VIEW_TEXT_SIZE_SP = 12
-
     private val slidingTabStrib: SlidingTabStrip
     private val titleOffset: Int
     private var colorizer: Colorizer? = null
@@ -78,7 +73,7 @@ class MySlidingViewPagerIndicator : HorizontalScrollView {
         this.viewPager = viewPager
     }
 
-    protected fun tabView(context: Context): TextView {
+    private fun tabView(context: Context): TextView {
         val textView = TextView(context)
         textView.gravity = Gravity.CENTER
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, TAB_VIEW_TEXT_SIZE_SP.toFloat())
@@ -174,12 +169,6 @@ class MySlidingViewPagerIndicator : HorizontalScrollView {
 
     private class SlidingTabStrip constructor(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs) {
 
-        private val DEFAULT_BOTTOM_BORDER_THICKNESS_DIPS = 0
-        private val DEFAULT_BOTTOM_BORDER_COLOR_ALPHA = 0x26.toByte()
-        private val SELECTED_INDICATOR_THICKNESS_DIPS = 4
-        private val DEFAULT_DIVIDER_THICKNESS_DIPS = 1
-        private val DEFAULT_DIVIDER_HEIGHT = 0.1.toFloat()
-
         private val bottomBorderThickness: Int
         private val bottomBorderPaint: Paint
         private val selectedIndicatorThickness: Int
@@ -248,6 +237,12 @@ class MySlidingViewPagerIndicator : HorizontalScrollView {
 
         companion object {
 
+            const val DEFAULT_BOTTOM_BORDER_THICKNESS_DIPS = 0
+            const val DEFAULT_BOTTOM_BORDER_COLOR_ALPHA = 0x26.toByte()
+            const val SELECTED_INDICATOR_THICKNESS_DIPS = 4
+            const val DEFAULT_DIVIDER_THICKNESS_DIPS = 1
+            const val DEFAULT_DIVIDER_HEIGHT = 0.1.toFloat()
+
             private fun setColorAlpha(color: Int, alpha: Byte): Int {
                 return Color.argb(alpha.toInt(), Color.red(color), Color.green(color), Color.blue(color))
             }
@@ -261,6 +256,15 @@ class MySlidingViewPagerIndicator : HorizontalScrollView {
             }
 
         }
+
+    }
+
+    companion object {
+
+        const val DEFAULT_TEXTCOLOR = Color.BLACK
+        const val TITLE_OFFSET_DIPS = 24
+        const val TAB_VIEW_PADDING_DIPS = 16
+        const val TAB_VIEW_TEXT_SIZE_SP = 12
 
     }
 

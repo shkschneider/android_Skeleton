@@ -26,6 +26,7 @@ import me.shkschneider.skeleton.java.SkHide
 import me.shkschneider.skeleton.network.WebService
 import me.shkschneider.skeleton.ui.AnimationHelper
 import me.shkschneider.skeleton.ui.Toaster
+import me.shkschneider.skeleton.ui.WebViewHelper
 import java.lang.reflect.Modifier
 import java.util.*
 
@@ -143,19 +144,13 @@ class SkFragment : SkeletonFragment() {
             // fields
             val fields = ArrayList<String>()
             for (field in c.declaredFields) {
-                val modifiers = field.modifiers
-                try {
-                    if (Modifier.isPrivate(modifiers)
-                            || field.isAnnotationPresent(Deprecated::class.java)
-                            || field.isAnnotationPresent(SkHide::class.java)) {
-                        continue
-                    }
-                } catch (e: NoClassDefFoundError) {
+                if (Modifier.isPrivate(field.modifiers)
+                        || field.isAnnotationPresent(Deprecated::class.java)
+                        || field.isAnnotationPresent(SkHide::class.java)) {
                     continue
                 }
-                val name = field.name
-                if (field.type.simpleName != "Companion" && name != "INSTANCE" && !name.contains("$")) {
-                    fields.add(field.type.simpleName + " " + name)
+                if (field.type.simpleName != "Companion" && field.name != "INSTANCE" && ! field.name.contains("$")) {
+                    fields.add(field.type.simpleName + " " + field.name)
                 }
             }
             fields.sortWith(AlphanumComparator())
@@ -166,14 +161,9 @@ class SkFragment : SkeletonFragment() {
             // methods
             val methods = ArrayList<String>()
             for (method in c.declaredMethods) {
-                val modifiers = method.modifiers
-                try {
-                    if (Modifier.isPrivate(modifiers)
-                            || method.isAnnotationPresent(Deprecated::class.java)
-                            || method.isAnnotationPresent(SkHide::class.java)) {
-                        continue
-                    }
-                } catch (e: NoClassDefFoundError) {
+                if (Modifier.isPrivate(method.modifiers)
+                        || method.isAnnotationPresent(Deprecated::class.java)
+                        || method.isAnnotationPresent(SkHide::class.java)) {
                     continue
                 }
                 val signature = method.returnType.simpleName + " " + method.name + "()"

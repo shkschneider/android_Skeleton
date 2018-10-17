@@ -10,7 +10,6 @@ import android.provider.ContactsContract
 import android.provider.MediaStore
 import android.provider.Settings
 import me.shkschneider.skeleton.data.MimeTypeHelper
-import me.shkschneider.skeleton.java.SkHide
 import me.shkschneider.skeleton.network.UrlHelper
 import me.shkschneider.skeleton.ui.BitmapHelper
 import java.io.File
@@ -173,14 +172,12 @@ object IntentHelper {
                 .setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE))
     }
 
-    @SkHide
     fun canHandle(intent: Intent): Boolean {
         // return (intent.resolveActivity(ApplicationHelper.packageManager()) != null)
         val resolveInfos = ApplicationHelper.packageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
         return resolveInfos.size > 0
     }
 
-    @SkHide
     fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent? = null): Any? {
         if (resultCode != Activity.RESULT_OK) {
             Logger.debug("ResultCode was not OK")

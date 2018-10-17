@@ -12,17 +12,13 @@ import me.shkschneider.skeleton.extensions.simpleName
 import me.shkschneider.skeleton.helper.AndroidHelper
 import me.shkschneider.skeleton.helper.ContextHelper
 import me.shkschneider.skeleton.helper.Logger
-import me.shkschneider.skeleton.java.SkHide
 
-@Suppress("MemberVisibilityCanPrivate")
 object WebViewHelper {
 
     const val META_VIEWPORT = "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=yes\">"
     const val META_THEME = "<meta name=\"theme-color\" content=\"#a4c639\">"
-    @SkHide
-    val CHARSET = CharsetHelper.UTF8
-    @SkHide
-    val MIME_TYPE = MimeTypeHelper.TEXT_HTML
+    const val CHARSET = CharsetHelper.UTF8
+    const val MIME_TYPE = MimeTypeHelper.TEXT_HTML
 
     fun get(): WebView {
         val webView = WebView(ContextHelper.applicationContext())
