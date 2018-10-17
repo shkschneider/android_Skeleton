@@ -15,7 +15,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import me.shkschneider.skeleton.SkeletonFragment
 import me.shkschneider.skeleton.extensions.Intent
-import me.shkschneider.skeleton.extensions.then
 import me.shkschneider.skeleton.extensions.toStringOrEmpty
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.BroadcastHelper
@@ -26,7 +25,6 @@ import me.shkschneider.skeleton.java.SkHide
 import me.shkschneider.skeleton.network.WebService
 import me.shkschneider.skeleton.ui.AnimationHelper
 import me.shkschneider.skeleton.ui.Toaster
-import me.shkschneider.skeleton.ui.WebViewHelper
 import java.lang.reflect.Modifier
 import java.util.*
 
@@ -155,7 +153,7 @@ class SkFragment : SkeletonFragment() {
             }
             fields.sortWith(AlphanumComparator())
             for (field in fields) {
-                textView2.append((! textView2.text.isNullOrEmpty()) then "\n" ?: "")
+                textView2.append(if (! textView2.text.isNullOrEmpty()) "\n" else "")
                 textView2.append(field)
             }
             // methods
@@ -174,7 +172,7 @@ class SkFragment : SkeletonFragment() {
             }
             methods.sortWith(AlphanumComparator())
             methods.forEach {
-                textView2.append((! textView2.text.isNullOrEmpty()) then "\n" ?: "")
+                textView2.append(if (! textView2.text.isNullOrEmpty()) "\n" else "")
                 textView2.append(it)
             }
             linearLayout?.addView(ui)

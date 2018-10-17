@@ -17,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Lifecycle
-import me.shkschneider.skeleton.extensions.then
 import me.shkschneider.skeleton.extensions.toStringOrEmpty
 import me.shkschneider.skeleton.helper.*
 import me.shkschneider.skeleton.ui.OverlayLoader
@@ -92,7 +91,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         Logger.verbose("onNewIntent ${intent.action.orEmpty().toUpperCase()}"
-                + ((intent.extras != null) then " (has extras)" ?: ""))
+                + if (intent.extras != null) " (has extras)" else "")
         // This part is necessary to ensure that getIntent returns the latest intent when
         // this activity is started. By default, getIntent() returns the initial intent
         // that was set from another activity that started this activity.
@@ -224,7 +223,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     fun toolbar(b: Boolean) {
-        toolbar?.visibility = (b) then View.VISIBLE ?: View.GONE
+        toolbar?.visibility = if (b) View.VISIBLE else View.GONE
     }
 
     fun home(b: Boolean) {

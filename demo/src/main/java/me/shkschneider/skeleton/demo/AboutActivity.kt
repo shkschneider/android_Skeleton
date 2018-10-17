@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.preference.PreferenceFragmentCompat
 import me.shkschneider.skeleton.SkeletonActivity
-import me.shkschneider.skeleton.extensions.then
 import me.shkschneider.skeleton.helper.AndroidHelper
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.Metrics
@@ -55,7 +54,7 @@ class AboutActivity : SkeletonActivity() {
             }
             with(findPreference("app_variant")) {
                 title = "Variant"
-                summary = (ApplicationHelper.debuggable() then "debug" ?: "release").toUpperCase()
+                summary = (if (ApplicationHelper.debuggable()) "debug" else "release").toUpperCase()
             }
             with(findPreference("app_flavor")) {
                 title = "Flavor"

@@ -2,7 +2,6 @@ package me.shkschneider.skeleton.java
 
 import android.util.Patterns
 import androidx.annotation.IntRange
-import me.shkschneider.skeleton.extensions.then
 import me.shkschneider.skeleton.helper.LocaleHelper
 import java.text.Normalizer
 import java.text.NumberFormat
@@ -39,14 +38,15 @@ object StringHelper {
 
     // <http://stackoverflow.com/a/3758880>
     fun humanReadableSize(@IntRange(from = 0) bytes: Long, binary: Boolean = true): String {
-        val unit = (binary) then 1024 ?: 1000
+        val unit = if (binary) 1024 else 1000
         if (bytes < unit) {
             return bytes.toString() + " B"
         }
         val exp = (Math.log(bytes.toDouble()) / Math.log(unit.toDouble())).toInt()
         return String.format(LocaleHelper.Device.locale(),
                 "%.1.toFloat() %sB",
-                bytes / Math.pow(unit.toDouble(), exp.toDouble()), ((binary) then "KMGTPE" ?: "kMGTPE")[exp - 1] + ((binary) then "i" ?: ""))
+                bytes / Math.pow(unit.toDouble(), exp.toDouble()),
+                (if (binary) "KMGTPE" else "kMGTPE")[exp - 1] + (if (binary) "i" else ""))
     }
 
     // <https://stackoverflow.com/a/3322174/603270>

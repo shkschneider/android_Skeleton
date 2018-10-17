@@ -8,18 +8,17 @@ import android.text.SpannableString
 import android.text.method.LinkMovementMethod
 import android.text.util.Linkify
 import android.widget.TextView
-import me.shkschneider.skeleton.extensions.then
 
 object TextViewHelper {
 
     // <https://stackoverflow.com/a/10947374>
     fun underline(textView: TextView, underline: Boolean) {
-        val flags = (underline) then (textView.paintFlags or Paint.DEV_KERN_TEXT_FLAG) ?: (textView.paintFlags and Paint.DEV_KERN_TEXT_FLAG.inv())
+        val flags = if (underline) (textView.paintFlags or Paint.DEV_KERN_TEXT_FLAG) else (textView.paintFlags and Paint.DEV_KERN_TEXT_FLAG.inv())
         textView.paintFlags = flags
     }
 
     fun strikeThrough(textView: TextView, strikeThrough: Boolean) {
-        val flags = (strikeThrough) then (textView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG) ?: (textView.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv())
+        val flags = if (strikeThrough) (textView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG) else (textView.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv())
         textView.paintFlags = flags
     }
 
@@ -59,7 +58,7 @@ object TextViewHelper {
     }
 
     fun autoSize(textView: TextView, autoSize: Boolean) {
-        val autoSizeTextType = (autoSize) then TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM ?: TextViewCompat.AUTO_SIZE_TEXT_TYPE_NONE
+        val autoSizeTextType = if (autoSize) TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM else TextViewCompat.AUTO_SIZE_TEXT_TYPE_NONE
         TextViewCompat.setAutoSizeTextTypeWithDefaults(textView, autoSizeTextType)
     }
 

@@ -6,7 +6,6 @@ import android.app.TimePickerDialog
 import android.text.format.DateFormat
 import android.text.format.DateUtils
 import androidx.annotation.IntRange
-import me.shkschneider.skeleton.extensions.then
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -48,7 +47,7 @@ object DateTimeHelper {
 
     // <http://howtodoinjava.com/2012/12/16/always-use-setlenient-false-when-using-simpledateformat-for-date-validation-in-java/>
     fun format(calendar: Calendar, f: String?): String {
-        val format = (f?.isNotBlank() == true) then  f ?: ISO_8601
+        val format = if (f?.isNotBlank() == true) f else ISO_8601
         calendar.isLenient = false
         return SimpleDateFormat(format, LocaleHelper.Device.locale()).format(calendar.time)
     }

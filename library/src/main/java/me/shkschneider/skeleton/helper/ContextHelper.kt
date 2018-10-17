@@ -20,7 +20,7 @@ object ContextHelper {
     }
 
     fun applicationContext(): Context {
-        return context ?: throw NullPointerException("Context was not set!")
+        return context ?: throw KotlinNullPointerException("Context was not set!")
     }
 
 }

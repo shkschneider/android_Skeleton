@@ -8,7 +8,6 @@ import android.widget.FrameLayout
 import androidx.annotation.RequiresApi
 import androidx.core.view.GravityCompat
 import me.shkschneider.skeleton.extensions.has
-import me.shkschneider.skeleton.extensions.then
 import me.shkschneider.skeleton.helper.AndroidHelper
 import java.util.*
 
@@ -266,15 +265,15 @@ class AutoGridLayout : FrameLayout {
 
     private fun updateLeftPositionByGravity(viewPosition: ViewPosition, size: Int, gravity: Int) {
         when (gravity and Gravity.HORIZONTAL_GRAVITY_MASK) {
-            Gravity.END -> viewPosition.left += (size > 0) then size ?: 0
-            Gravity.CENTER_HORIZONTAL -> viewPosition.left += ((size > 0) then size ?: 0) / 2
+            Gravity.END -> viewPosition.left += if (size > 0) size else 0
+            Gravity.CENTER_HORIZONTAL -> viewPosition.left += (if (size > 0) size else 0) / 2
         }
     }
 
     private fun updateTopPositionByGravity(viewPosition: ViewPosition, size: Int, gravity: Int) {
         when (gravity and Gravity.VERTICAL_GRAVITY_MASK) {
-            Gravity.BOTTOM -> viewPosition.top += (size > 0) then size ?: 0
-            Gravity.CENTER_VERTICAL -> viewPosition.top += ((size > 0) then size ?: 0) / 2
+            Gravity.BOTTOM -> viewPosition.top += if (size > 0) size else 0
+            Gravity.CENTER_VERTICAL -> viewPosition.top += (if (size > 0) size else 0) / 2
         }
     }
 

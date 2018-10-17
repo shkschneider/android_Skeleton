@@ -27,22 +27,3 @@ fun <T:Any> KClass<T>.packageName(): String {
 fun Any?.toStringOrEmpty(): String {
     return this?.toString().orEmpty()
 }
-
-// Ternary
-// <https://github.com/vpaliyX/android-extensions>
-
-@Deprecated("Respect the language choices.")
-infix fun <T> Boolean.then(value: T?)
-        = if (this) value else null
-
-@Deprecated("Respect the language choices.")
-inline fun <T> Boolean.then(function: () -> T, default: () -> T)
-        = if (this) function() else default()
-
-@Deprecated("Respect the language choices.")
-inline infix fun <reified T> Boolean.then(function: () -> T)
-        = if (this) function() else null
-
-@Deprecated("Respect the language choices.")
-inline infix fun <reified T, reified Type> Type?.then(callback: (Type) -> T)
-        = if (this != null) callback(this) else null

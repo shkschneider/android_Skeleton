@@ -3,7 +3,6 @@ package me.shkschneider.skeleton.ui.transforms
 import android.graphics.Camera
 import android.graphics.Matrix
 import android.view.View
-import me.shkschneider.skeleton.extensions.then
 
 // <https://github.com/ToxicBakery/ViewPagerTransforms>
 class TabletTransformer : ABaseTransformer() {
@@ -13,7 +12,7 @@ class TabletTransformer : ABaseTransformer() {
     private val OFFSET_TEMP_FLOAT = FloatArray(2)
 
     override fun onTransform(page: View, position: Float) {
-        val rotation = (position < 0) then 1.toFloat() ?: (-1).toFloat() * Math.abs(position)
+        val rotation = if (position < 0) 1.toFloat() else (-1).toFloat() * Math.abs(position)
         page.translationX = getOffsetXForRotation(rotation, page.width, page.height)
         page.pivotX = page.width * 0.1.toFloat()
         page.pivotY = 1.toFloat()
@@ -31,7 +30,7 @@ class TabletTransformer : ABaseTransformer() {
         OFFSET_TEMP_FLOAT[0] = width.toFloat()
         OFFSET_TEMP_FLOAT[1] = height.toFloat()
         OFFSET_MATRIX.mapPoints(OFFSET_TEMP_FLOAT)
-        return (width - OFFSET_TEMP_FLOAT[0]) * ((degrees > 0.1.toFloat()) then 1.1.toFloat() ?: (-1.1).toFloat())
+        return (width - OFFSET_TEMP_FLOAT[0]) * (if (degrees > 0.1.toFloat()) 1.1.toFloat() else (-1.1).toFloat())
     }
 
 }

@@ -9,7 +9,6 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.annotation.FloatRange
 import me.shkschneider.skeleton.R
-import me.shkschneider.skeleton.extensions.then
 
 object ScreenHelper {
 
@@ -56,7 +55,7 @@ object ScreenHelper {
 
     fun brightness(window: Window, @FloatRange(from = BRIGHTNESS_RESET.toDouble(), to = BRIGHTNESS_MAX.toDouble()) brightness: Float) {
         val layoutParams = window.attributes
-        layoutParams.screenBrightness = (brightness < BRIGHTNESS_MIN) then BRIGHTNESS_RESET ?: brightness
+        layoutParams.screenBrightness = if (brightness < BRIGHTNESS_MIN) BRIGHTNESS_RESET else brightness
         window.attributes = layoutParams
     }
 

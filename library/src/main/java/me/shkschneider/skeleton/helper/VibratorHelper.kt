@@ -4,7 +4,6 @@ import android.Manifest
 import android.os.Build
 import android.os.VibrationEffect
 import androidx.annotation.RequiresPermission
-import me.shkschneider.skeleton.extensions.then
 
 object VibratorHelper {
 
@@ -19,10 +18,10 @@ object VibratorHelper {
     @RequiresPermission(Manifest.permission.VIBRATE)
     fun vibrate(durations: LongArray = DEFAULT_DURATION, repeat: Boolean = false) {
         if (Build.VERSION.SDK_INT >= 26) {
-            SystemServices.vibrator()?.vibrate(VibrationEffect.createWaveform(durations, (repeat) then DO_REPEAT ?: DO_NOT_REPEAT))
+            SystemServices.vibrator()?.vibrate(VibrationEffect.createWaveform(durations, if (repeat) DO_REPEAT else DO_NOT_REPEAT))
         } else {
             @Suppress("DEPRECATION")
-            SystemServices.vibrator()?.vibrate(durations, (repeat) then DO_REPEAT ?: DO_NOT_REPEAT)
+            SystemServices.vibrator()?.vibrate(durations, if (repeat) DO_REPEAT else DO_NOT_REPEAT)
         }
     }
 

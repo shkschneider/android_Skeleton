@@ -13,7 +13,7 @@ internal fun case(string: String): List<String> {
 fun String.camelCase(): String {
     var camelCase = ""
     case(this).forEach {
-        camelCase += (camelCase.isEmpty()) then it ?: it.capitalize()
+        camelCase += if (camelCase.isEmpty()) it else it.capitalize()
     }
     return camelCase
 }

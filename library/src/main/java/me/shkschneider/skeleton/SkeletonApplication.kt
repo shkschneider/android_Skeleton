@@ -34,7 +34,9 @@ abstract class SkeletonApplication : Application() {
     companion object {
 
         var DEBUGGABLE: Boolean = false
+            private set
         var TAG = BuildConfig.APPLICATION_ID
+            private set
 
     }
 

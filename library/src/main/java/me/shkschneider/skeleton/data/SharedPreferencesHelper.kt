@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import me.shkschneider.skeleton.extensions.then
 
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.ContextHelper
@@ -15,7 +14,7 @@ object SharedPreferencesHelper {
 
     private fun get(name: String?): SharedPreferences {
         return ContextHelper.applicationContext().getSharedPreferences(
-                (name.isNullOrBlank()) then ApplicationHelper.packageName() ?: name,
+                if (name.isNullOrBlank()) ApplicationHelper.packageName() else name,
                 Context.MODE_PRIVATE)
     }
 

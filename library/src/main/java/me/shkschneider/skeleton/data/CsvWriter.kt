@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.data
 
-import me.shkschneider.skeleton.extensions.then
 import java.io.PrintWriter
 import java.io.Writer
 
@@ -13,7 +12,7 @@ class CsvWriter(
         private val eol: String = "\n"
 ) {
 
-    private val writer: PrintWriter = (writer is PrintWriter) then writer as PrintWriter ?: PrintWriter(writer)
+    private val writer: PrintWriter = if (writer is PrintWriter) writer else PrintWriter(writer)
 
     fun writeNext(nextLine: String) {
         writeNext(nextLine.split(separator.toString().toRegex()).toTypedArray())
