@@ -2,7 +2,7 @@
 
 buildscript {
     ext.versions = [
-        skeleton: '9.0.0',
+        skeleton: '9.1.0',
         java: '8',
         kotlin: '1.2.71',
         dokka: '0.9.17',
