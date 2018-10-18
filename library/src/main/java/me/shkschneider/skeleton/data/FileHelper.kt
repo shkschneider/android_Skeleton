@@ -5,7 +5,7 @@ import android.graphics.Bitmap
 import androidx.annotation.RawRes
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.AssetsHelper
-import me.shkschneider.skeleton.helper.Logger
+import me.shkschneider.skeleton.helperx.Logger
 import me.shkschneider.skeleton.ui.BitmapHelper
 import java.io.*
 import java.util.*

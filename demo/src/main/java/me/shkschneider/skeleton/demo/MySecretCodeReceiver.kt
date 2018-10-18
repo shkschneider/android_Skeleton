@@ -6,7 +6,7 @@ import android.content.Intent
 import me.shkschneider.skeleton.extensions.Intent
 
 import me.shkschneider.skeleton.helper.IntentHelper
-import me.shkschneider.skeleton.helper.Logger
+import me.shkschneider.skeleton.helperx.Logger
 
 // <https://github.com/SimonMarquis/Android-SecretCodes>
 class MySecretCodeReceiver : BroadcastReceiver() {

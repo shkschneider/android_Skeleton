@@ -8,9 +8,9 @@ import android.util.Patterns
 import android.webkit.WebSettings
 import androidx.annotation.RequiresPermission
 import me.shkschneider.skeleton.helper.ContextHelper
-import me.shkschneider.skeleton.helper.Logger
-import me.shkschneider.skeleton.helper.SystemProperties
-import me.shkschneider.skeleton.helper.SystemServices
+import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.SystemProperties
+import me.shkschneider.skeleton.helperx.SystemServices
 import java.net.Inet4Address
 import java.net.NetworkInterface
 import java.net.SocketException

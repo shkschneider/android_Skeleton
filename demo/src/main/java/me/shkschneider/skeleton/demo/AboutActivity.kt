@@ -8,7 +8,7 @@ import androidx.preference.PreferenceFragmentCompat
 import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.helper.AndroidHelper
 import me.shkschneider.skeleton.helper.ApplicationHelper
-import me.shkschneider.skeleton.helper.Metrics
+import me.shkschneider.skeleton.helperx.Metrics
 
 class AboutActivity : SkeletonActivity() {
 

@@ -4,6 +4,7 @@ import android.Manifest
 import android.os.Build
 import android.os.VibrationEffect
 import androidx.annotation.RequiresPermission
+import me.shkschneider.skeleton.helperx.SystemServices
 
 object VibratorHelper {
 

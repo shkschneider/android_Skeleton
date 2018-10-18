@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.IntentFilter
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import me.shkschneider.skeleton.helperx.Logger
 
 object BroadcastHelper {
 

@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import androidx.annotation.RequiresPermission
+import me.shkschneider.skeleton.helperx.Logger
 import java.util.UUID
 
 /**

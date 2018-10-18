@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.annotation.RequiresPermission
 import androidx.core.content.ContextCompat
+import me.shkschneider.skeleton.helperx.SystemProperties
 
 // <http://developer.android.com/reference/android/os/Build.html>
 object DeviceHelper {

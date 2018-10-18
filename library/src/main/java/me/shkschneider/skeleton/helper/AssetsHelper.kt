@@ -2,6 +2,7 @@ package me.shkschneider.skeleton.helper
 
 import android.content.res.AssetManager
 import me.shkschneider.skeleton.data.DataHelper
+import me.shkschneider.skeleton.helperx.Logger
 import java.io.IOException
 import java.io.InputStream
 

@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide
 import me.shkschneider.skeleton.SkeletonApplication
 import me.shkschneider.skeleton.extensions.Intent
 import me.shkschneider.skeleton.helper.*
+import me.shkschneider.skeleton.helperx.Logger
 
 class MainApplication : SkeletonApplication() {
 

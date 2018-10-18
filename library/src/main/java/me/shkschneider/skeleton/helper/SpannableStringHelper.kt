@@ -7,6 +7,7 @@ import android.text.Spanned
 import android.text.style.*
 import androidx.annotation.ColorInt
 import androidx.annotation.IntRange
+import me.shkschneider.skeleton.helperx.Logger
 
 // <https://gist.github.com/Trikke/90efd4432fc09aaadf3e>
 open class SpannableStringHelper {

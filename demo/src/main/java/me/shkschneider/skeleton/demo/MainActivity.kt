@@ -12,9 +12,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.SkeletonFragment
 import me.shkschneider.skeleton.extensions.Intent
-import me.shkschneider.skeleton.helper.Logger
-import me.shkschneider.skeleton.ui.BottomSheet
-import me.shkschneider.skeleton.ui.Toaster
+import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.uix.BottomSheet
+import me.shkschneider.skeleton.uix.Toaster
 
 /**
  * SkeletonActivity

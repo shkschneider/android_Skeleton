@@ -12,7 +12,7 @@ import androidx.annotation.AnimRes
 import me.shkschneider.skeleton.R
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.ContextHelper
-import me.shkschneider.skeleton.helper.Logger
+import me.shkschneider.skeleton.helperx.Logger
 
 object AnimationHelper {
 

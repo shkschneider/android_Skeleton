@@ -5,7 +5,7 @@ import android.content.pm.ApplicationInfo
 import me.shkschneider.skeleton.extensions.has
 import me.shkschneider.skeleton.helper.ContextHelper
 import me.shkschneider.skeleton.helper.DeviceHelper
-import me.shkschneider.skeleton.helper.Logger
+import me.shkschneider.skeleton.helperx.Logger
 
 /**
  * https://developer.android.com/reference/android/app/Application.html

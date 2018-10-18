@@ -11,7 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import me.shkschneider.skeleton.ui.Inflater
+import me.shkschneider.skeleton.uix.Inflater
 
 /**
  * https://developer.android.com/guide/components/fragments.html#Lifecycle

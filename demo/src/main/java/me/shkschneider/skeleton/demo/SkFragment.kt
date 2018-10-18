@@ -14,18 +14,18 @@ import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import me.shkschneider.skeleton.SkeletonFragment
+import me.shkschneider.skeleton.annotations.SkHide
 import me.shkschneider.skeleton.extensions.Intent
 import me.shkschneider.skeleton.extensions.toStringOrEmpty
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.BroadcastHelper
 import me.shkschneider.skeleton.helper.DateTimeHelper
 import me.shkschneider.skeleton.helper.NotificationHelper
-import me.shkschneider.skeleton.java.AlphanumComparator
-import me.shkschneider.skeleton.java.SkHide
-import me.shkschneider.skeleton.network.WebService
+import me.shkschneider.skeleton.javax.AlphanumComparator
+import me.shkschneider.skeleton.networkx.WebService
 import me.shkschneider.skeleton.ui.AnimationHelper
-import me.shkschneider.skeleton.ui.Toaster
-import me.shkschneider.skeleton.ui.Inflater
+import me.shkschneider.skeleton.uix.Inflater
+import me.shkschneider.skeleton.uix.Toaster
 import java.lang.reflect.Modifier
 import java.util.*
 
@@ -46,17 +46,19 @@ class SkFragment : SkeletonFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         fill(view.findViewById<View>(R.id.data) as LinearLayout, arrayOf(
+                me.shkschneider.skeleton.datax.DiskCache.Cache::class.java,
+                me.shkschneider.skeleton.datax.GsonParser::class.java,
+                me.shkschneider.skeleton.datax.Serializer::class.java,
                 me.shkschneider.skeleton.data.CharsetHelper::class.java,
                 me.shkschneider.skeleton.data.DatabaseHelper::class.java,
                 me.shkschneider.skeleton.data.DataHelper::class.java,
-                me.shkschneider.skeleton.data.DiskCache.Cache::class.java,
                 me.shkschneider.skeleton.data.FileHelper::class.java,
-                me.shkschneider.skeleton.data.GsonParser::class.java,
-                me.shkschneider.skeleton.data.SerializeHelper::class.java,
                 me.shkschneider.skeleton.data.SharedPreferencesHelper::class.java,
                 me.shkschneider.skeleton.data.StreamHelper::class.java
         ))
         fill(view.findViewById<View>(R.id.helper) as LinearLayout, arrayOf(
+                me.shkschneider.skeleton.helperx.FinalCountdown::class.java,
+                me.shkschneider.skeleton.helperx.Logger::class.java,
                 me.shkschneider.skeleton.helper.AccountHelper::class.java,
                 me.shkschneider.skeleton.helper.ActivityTransitionHelper::class.java,
                 me.shkschneider.skeleton.helper.AndroidHelper::class.java,
@@ -68,13 +70,11 @@ class SkFragment : SkeletonFragment() {
                 me.shkschneider.skeleton.helper.ContextHelper::class.java,
                 me.shkschneider.skeleton.helper.DateTimeHelper::class.java,
                 me.shkschneider.skeleton.helper.DeviceHelper::class.java,
-                me.shkschneider.skeleton.helper.FinalCountdown::class.java,
                 me.shkschneider.skeleton.helper.HandlerHelper::class.java,
                 me.shkschneider.skeleton.helper.IdHelper::class.java,
                 me.shkschneider.skeleton.helper.IntentHelper::class.java,
                 me.shkschneider.skeleton.helper.KeyboardHelper::class.java,
                 me.shkschneider.skeleton.helper.LocaleHelper::class.java,
-                me.shkschneider.skeleton.helper.Logger::class.java,
                 me.shkschneider.skeleton.helper.NotificationHelper::class.java,
                 me.shkschneider.skeleton.helper.RunnableHelper::class.java,
                 me.shkschneider.skeleton.helper.ScreenHelper::class.java,
@@ -86,37 +86,38 @@ class SkFragment : SkeletonFragment() {
                 me.shkschneider.skeleton.helper.VibratorHelper::class.java
         ))
         fill(view.findViewById<View>(R.id.java) as LinearLayout, arrayOf(
-                me.shkschneider.skeleton.java.RandomHelper::class.java,
-                me.shkschneider.skeleton.java.SemanticVersion::class.java,
-                me.shkschneider.skeleton.java.SkeletonWorker::class.java,
-                me.shkschneider.skeleton.java.StringHelper::class.java,
-                me.shkschneider.skeleton.java.Tasker::class.java
+                me.shkschneider.skeleton.javax.Randomizer::class.java,
+                me.shkschneider.skeleton.javax.SemanticVersion::class.java,
+                me.shkschneider.skeleton.javax.SkeletonWorker::class.java,
+                me.shkschneider.skeleton.javax.Tasker::class.java,
+                me.shkschneider.skeleton.java.StringHelper::class.java
         ))
         fill(view.findViewById<View>(R.id.network) as LinearLayout, arrayOf(
+                me.shkschneider.skeleton.networkx.WebService::class.java,
                 me.shkschneider.skeleton.network.NetworkHelper::class.java,
-                me.shkschneider.skeleton.network.UrlHelper::class.java,
-                me.shkschneider.skeleton.network.WebService::class.java
+                me.shkschneider.skeleton.network.UrlHelper::class.java
         ))
         fill(view.findViewById<View>(R.id.security) as LinearLayout, arrayOf(
+                me.shkschneider.skeleton.securityx.ComplexCrypt::class.java,
+                me.shkschneider.skeleton.securityx.SimpleCrypt::class.java,
                 me.shkschneider.skeleton.security.Base64Helper::class.java,
-                me.shkschneider.skeleton.security.ComplexCrypt::class.java,
                 me.shkschneider.skeleton.security.HashHelper::class.java,
-                me.shkschneider.skeleton.security.HmacHelper::class.java,
-                me.shkschneider.skeleton.security.SimpleCrypt::class.java
+                me.shkschneider.skeleton.security.HmacHelper::class.java
         ))
         fill(view.findViewById<View>(R.id.ui) as LinearLayout, arrayOf(
+                me.shkschneider.skeleton.uix.BottomSheet::class.java,
+                me.shkschneider.skeleton.uix.Inflater::class.java,
+                me.shkschneider.skeleton.uix.OverlayLoader::class.java,
+                me.shkschneider.skeleton.uix.Toaster::class.java,
                 me.shkschneider.skeleton.ui.AnimationHelper::class.java,
                 me.shkschneider.skeleton.ui.BitmapHelper::class.java,
-                me.shkschneider.skeleton.ui.BottomSheet::class.java,
                 me.shkschneider.skeleton.ui.DrawableHelper::class.java,
                 me.shkschneider.skeleton.ui.EditTextHelper::class.java,
-                me.shkschneider.skeleton.ui.OverlayLoader::class.java,
+                me.shkschneider.skeleton.ui.ImageHelper::class.java,
                 me.shkschneider.skeleton.ui.PaletteHelper::class.java,
                 me.shkschneider.skeleton.ui.ScrollViewHelper::class.java,
                 me.shkschneider.skeleton.ui.TextViewHelper::class.java,
                 me.shkschneider.skeleton.ui.ThemeHelper::class.java,
-                me.shkschneider.skeleton.ui.Toaster::class.java,
-                me.shkschneider.skeleton.ui.Inflater::class.java,
                 me.shkschneider.skeleton.ui.ViewHelper::class.java,
                 me.shkschneider.skeleton.ui.WebViewHelper::class.java
         ))

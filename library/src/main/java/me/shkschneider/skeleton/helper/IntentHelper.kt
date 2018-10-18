@@ -10,6 +10,7 @@ import android.provider.ContactsContract
 import android.provider.MediaStore
 import android.provider.Settings
 import me.shkschneider.skeleton.data.MimeTypeHelper
+import me.shkschneider.skeleton.helperx.Logger
 import me.shkschneider.skeleton.network.UrlHelper
 import me.shkschneider.skeleton.ui.BitmapHelper
 import java.io.File

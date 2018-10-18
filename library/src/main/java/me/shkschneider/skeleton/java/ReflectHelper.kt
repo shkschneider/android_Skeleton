@@ -1,6 +1,6 @@
 package me.shkschneider.skeleton.java
 
-import me.shkschneider.skeleton.helper.Logger
+import me.shkschneider.skeleton.helperx.Logger
 
 @Deprecated("Reflection allows programmatic access to information about the methods of loaded classes.")
 object ReflectHelper {

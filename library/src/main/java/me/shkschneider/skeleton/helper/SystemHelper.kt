@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.helper
 
 import android.os.SystemClock
+import me.shkschneider.skeleton.helperx.SystemProperties
 
 // <http://developer.android.com/reference/android/content/Context.html>
 object SystemHelper {

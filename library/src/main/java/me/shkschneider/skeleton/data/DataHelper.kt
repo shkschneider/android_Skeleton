@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Environment
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.ContextHelper
-import me.shkschneider.skeleton.helper.Logger
+import me.shkschneider.skeleton.helperx.Logger
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException

@@ -17,6 +17,8 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.IntRange
 import androidx.annotation.RequiresApi
 import me.shkschneider.skeleton.helper.*
+import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.Metrics
 import java.io.*
 
 object BitmapHelper {
@@ -120,7 +122,7 @@ object BitmapHelper {
         val _options = options ?: BitmapFactory.Options()
         try {
             val inputStream = ContextHelper.applicationContext().contentResolver.openInputStream(uri) ?: return null
-            return BitmapHelper.fromInputStream(inputStream, _options)
+            return fromInputStream(inputStream, _options)
         } catch (e: FileNotFoundException) {
             Logger.wtf(e)
             return null
@@ -130,7 +132,7 @@ object BitmapHelper {
 
     fun fromFile(file: File): Bitmap? {
         try {
-            return BitmapHelper.fromInputStream(FileInputStream(file), object: BitmapFactory.Options() {
+            return fromInputStream(FileInputStream(file), object : BitmapFactory.Options() {
                 init {
                     inPreferredConfig = Bitmap.Config.ARGB_8888
                 }
@@ -190,7 +192,7 @@ object BitmapHelper {
             }
             options.inJustDecodeBounds = false
             options.inSampleSize = scale
-            return BitmapHelper.fromInputStream(inputStream, options)
+            return fromInputStream(inputStream, options)
         } catch (e: FileNotFoundException) {
             Logger.wtf(e)
             return null

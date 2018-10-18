@@ -1,15 +1,13 @@
 package me.shkschneider.skeleton.data
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
 
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.ContextHelper
-import me.shkschneider.skeleton.helper.Logger
+import me.shkschneider.skeleton.helperx.Logger
 
-@SuppressLint("CommitPrefEdits")
 object SharedPreferencesHelper {
 
     private fun get(name: String?): SharedPreferences {

@@ -1,6 +1,6 @@
 package me.shkschneider.skeleton.data
 
-import me.shkschneider.skeleton.helper.Logger
+import me.shkschneider.skeleton.helperx.Logger
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream

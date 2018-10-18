@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.helper
 
 import android.os.Bundle
+import me.shkschneider.skeleton.helperx.Logger
 
 import java.io.Serializable
 

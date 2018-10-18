@@ -11,7 +11,7 @@ import me.shkschneider.skeleton.data.MimeTypeHelper
 import me.shkschneider.skeleton.extensions.simpleName
 import me.shkschneider.skeleton.helper.AndroidHelper
 import me.shkschneider.skeleton.helper.ContextHelper
-import me.shkschneider.skeleton.helper.Logger
+import me.shkschneider.skeleton.helperx.Logger
 
 object WebViewHelper {
 

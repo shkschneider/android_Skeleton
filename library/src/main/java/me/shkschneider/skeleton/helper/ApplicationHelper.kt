@@ -9,6 +9,8 @@ import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Build
 import me.shkschneider.skeleton.SkeletonApplication
+import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.SystemServices
 
 object ApplicationHelper {
 

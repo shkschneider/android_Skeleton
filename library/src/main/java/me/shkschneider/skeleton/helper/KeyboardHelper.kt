@@ -12,6 +12,8 @@ import android.widget.EditText
 import android.widget.TextView
 
 import me.shkschneider.skeleton.SkeletonReceiver
+import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.Metrics
 import me.shkschneider.skeleton.ui.ViewHelper
 
 object KeyboardHelper {

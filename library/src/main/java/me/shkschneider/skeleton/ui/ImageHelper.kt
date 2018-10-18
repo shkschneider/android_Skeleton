@@ -11,7 +11,7 @@ import android.widget.RelativeLayout
 import androidx.annotation.DrawableRes
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.ContextHelper
-import me.shkschneider.skeleton.helper.Metrics
+import me.shkschneider.skeleton.helperx.Metrics
 
 object ImageHelper {
 

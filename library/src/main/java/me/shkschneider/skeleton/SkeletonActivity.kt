@@ -22,7 +22,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import me.shkschneider.skeleton.extensions.toStringOrEmpty
 import me.shkschneider.skeleton.helper.*
-import me.shkschneider.skeleton.ui.OverlayLoader
+import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.uix.OverlayLoader
 
 /**
  * https://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle
