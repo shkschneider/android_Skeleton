@@ -25,10 +25,6 @@ android {
             }
         }
     }
-    sourceSets {
-        // main.kotlin.srcDirs += 'src/main/kotlin'
-        // main.java.srcDirs += 'src/main/kotlin'
-    }
     signingConfigs {
         debug {
             storeFile file('../debug.keystore')
@@ -47,6 +43,9 @@ android {
     lintOptions {
         checkReleaseBuilds true
         abortOnError false
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
     }
     buildTypes {
         debug {
