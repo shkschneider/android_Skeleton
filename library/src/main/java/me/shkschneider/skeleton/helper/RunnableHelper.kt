@@ -14,8 +14,8 @@ object RunnableHelper {
     }
 
     // <http://stackoverflow.com/a/28581385>
-    fun post(runnable: Runnable) {
-        Handler().post(runnable)
+    fun post(handler: Handler? = null, runnable: Runnable) {
+        (handler ?: Handler()).post(runnable)
     }
 
     fun delay(runnable: Runnable, @IntRange(from = 0) amount: Int, timeUnit: TimeUnit) {

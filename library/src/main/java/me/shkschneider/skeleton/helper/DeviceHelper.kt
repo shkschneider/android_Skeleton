@@ -60,4 +60,9 @@ object DeviceHelper {
         return screenSize >= 7.0
     }
 
+    @SuppressLint("MissingPermission")
+    override fun toString(): String {
+        return "${brand()}/${manufacturer()}/${codename()}/${model()} ${serial()}"
+    }
+
 }

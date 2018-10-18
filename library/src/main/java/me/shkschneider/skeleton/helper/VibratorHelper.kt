@@ -8,11 +8,11 @@ import androidx.annotation.RequiresPermission
 object VibratorHelper {
 
     private val DEFAULT_DURATION = longArrayOf(1000, 1000, 1000, 1000, 1000)
-    private val DO_REPEAT = 0
-    private val DO_NOT_REPEAT = -1
+    private const val DO_REPEAT = 0
+    private const val DO_NOT_REPEAT = -1
 
     fun has(): Boolean {
-        return SystemServices.vibrator()?.let { return it.hasVibrator() } ?: false
+        return SystemServices.vibrator()?.hasVibrator() ?: false
     }
 
     @RequiresPermission(Manifest.permission.VIBRATE)

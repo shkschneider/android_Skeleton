@@ -93,8 +93,7 @@ open class WebService(
             var httpURLConnection: HttpURLConnection? = null
             try {
                 val url = URL(url)
-                httpURLConnection = url.openConnection() as HttpURLConnection
-                with (httpURLConnection) {
+                with(url.openConnection() as HttpURLConnection) {
                     connectTimeout = TIMEOUT_CONNECT
                     readTimeout = TIMEOUT_READ
                     useCaches = false

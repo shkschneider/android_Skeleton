@@ -3,7 +3,7 @@ package me.shkschneider.skeleton.ui.transforms
 import android.view.View
 
 // <https://github.com/ToxicBakery/ViewPagerTransforms>
-class FlipVerticalTransformer : ABaseTransformer() {
+class FlipVerticalTransformer : BaseTransformer() {
 
     override fun onTransform(page: View, position: Float) {
         val rotation = (-1).toFloat() * position

@@ -3,7 +3,7 @@ package me.shkschneider.skeleton.ui.transforms
 import android.view.View
 
 // <https://github.com/ToxicBakery/ViewPagerTransforms>
-class CubeOutTransformer : ABaseTransformer() {
+class CubeOutTransformer : BaseTransformer() {
 
     override fun isPagingEnabled(): Boolean {
         return true

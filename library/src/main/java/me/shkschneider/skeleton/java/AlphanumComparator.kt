@@ -1,7 +1,7 @@
 package me.shkschneider.skeleton.java
 
 // <https://gist.github.com/MichaelRocks/1b94bb44c7804e999dbf31dac86955ec>
-class AlphanumComparator : Comparator<String> {
+open class AlphanumComparator : Comparator<String> {
 
     override fun compare(s1: String, s2: String): Int {
         var thisMarker = 0

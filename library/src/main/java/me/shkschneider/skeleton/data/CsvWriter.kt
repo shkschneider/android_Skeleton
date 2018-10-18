@@ -4,7 +4,7 @@ import java.io.PrintWriter
 import java.io.Writer
 
 // <http://opencsv.sourceforge.net>
-class CsvWriter(
+open class CsvWriter(
         writer: Writer,
         private val separator: Char = ',',
         private val quote: Char = '"',

@@ -14,6 +14,7 @@ import me.shkschneider.skeleton.SkeletonFragment
 import me.shkschneider.skeleton.extensions.Intent
 import me.shkschneider.skeleton.helper.Logger
 import me.shkschneider.skeleton.ui.BottomSheet
+import me.shkschneider.skeleton.ui.Toaster
 
 /**
  * SkeletonActivity
@@ -42,7 +43,7 @@ class MainActivity : SkeletonActivity() {
             tabLayout.addTab(tabLayout.newTab().setText(pagerAdapter.getPageTitle(i)))
         }
         tabLayout.setupWithViewPager(viewPager)
-        with (viewPager) {
+        with(viewPager) {
             adapter = pagerAdapter
             offscreenPageLimit = pagerAdapter.count
             addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
@@ -83,6 +84,12 @@ class MainActivity : SkeletonActivity() {
                 bottomSheet(title, message)
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        var cs: CharSequence? = null
+        Toaster.show("TEST: '${cs.toString()}'")
     }
 
     private fun bottomSheet(title: String, content: String) {

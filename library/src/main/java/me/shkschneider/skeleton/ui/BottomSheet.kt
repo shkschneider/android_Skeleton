@@ -13,47 +13,50 @@ import me.shkschneider.skeleton.helper.Metrics
 
 // <https://github.com/javiersantos/BottomDialogs>
 // app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
-class BottomSheet(val builder: Builder) {
+open class BottomSheet(val builder: Builder) {
 
     private var dialog: Dialog
 
     init {
         dialog = Dialog(builder.activity, R.style.SkeletonTheme_BottomSheet)
-        val view = builder.activity.layoutInflater.inflate(R.layout.sk_bottomsheet, null)
-        val icon = view.findViewById<ImageView>(R.id.sk_bottomsheet_icon)
-        icon.visibility = View.VISIBLE
-        icon.setImageDrawable(builder.icon)
-        val title = view.findViewById<TextView>(R.id.sk_bottomsheet_title)
-        title.text = builder.title
-        val content = view.findViewById<TextView>(R.id.sk_bottomsheet_content)
-        content.text = builder.content
-        val customView = view.findViewById<FrameLayout>(R.id.sk_bottomsheet_customView)
-        builder.customView?.let {
-            customView.addView(it)
-            customView.setPadding(builder.paddingLeft, builder.paddingTop, builder.paddingRight, builder.paddingBottom)
-        }
-        val negative = view.findViewById<Button>(R.id.sk_bottomsheet_cancel)
-        builder.negative?.let { text ->
-            negative.visibility = View.VISIBLE
-            negative.text = text
-            negative.setOnClickListener {
-                builder.negativeCallback?.onClick(dialog, DialogInterface.BUTTON_NEGATIVE)
-                dialog.dismiss()
+        with(Inflater.inflate(R.layout.sk_bottomsheet)) {
+            val icon = findViewById<ImageView>(R.id.sk_bottomsheet_icon)
+            icon.visibility = View.VISIBLE
+            icon.setImageDrawable(builder.icon)
+            val title = findViewById<TextView>(R.id.sk_bottomsheet_title)
+            title.text = builder.title
+            val content = findViewById<TextView>(R.id.sk_bottomsheet_content)
+            content.text = builder.content
+            val customView = findViewById<FrameLayout>(R.id.sk_bottomsheet_customView)
+            builder.customView?.let {
+                customView.addView(it)
+                customView.setPadding(builder.paddingLeft, builder.paddingTop, builder.paddingRight, builder.paddingBottom)
+            }
+            val negative = findViewById<Button>(R.id.sk_bottomsheet_cancel)
+            builder.negative?.let { text ->
+                negative.visibility = View.VISIBLE
+                negative.text = text
+                negative.setOnClickListener {
+                    builder.negativeCallback?.onClick(dialog, DialogInterface.BUTTON_NEGATIVE)
+                    dialog.dismiss()
+                }
+            }
+            val positive = findViewById<Button>(R.id.sk_bottomsheet_ok)
+            builder.positive?.let { text ->
+                positive.visibility = View.VISIBLE
+                positive.text = text
+                positive.setOnClickListener {
+                    builder.positiveCallback?.onClick(dialog, DialogInterface.BUTTON_POSITIVE)
+                    dialog.dismiss()
+                }
+            }
+            dialog.setContentView(this@with)
+            dialog.setCancelable(builder.cancelable)
+            dialog.window?.let { window ->
+                window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                window.setGravity(Gravity.BOTTOM)
             }
         }
-        val positive = view.findViewById<Button>(R.id.sk_bottomsheet_ok)
-        builder.positive?.let { text ->
-            positive.visibility = View.VISIBLE
-            positive.text = text
-            positive.setOnClickListener {
-                builder.positiveCallback?.onClick(dialog, DialogInterface.BUTTON_POSITIVE)
-                dialog.dismiss()
-            }
-        }
-        dialog.setContentView(view)
-        dialog.setCancelable(builder.cancelable)
-        dialog.window?.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-        dialog.window?.setGravity(Gravity.BOTTOM)
     }
 
     @UiThread
@@ -66,7 +69,7 @@ class BottomSheet(val builder: Builder) {
         dialog.dismiss()
     }
 
-    class Builder(val activity: Activity) {
+    open class Builder(val activity: Activity) {
 
         var icon: Drawable? = null
         var title: String? = null

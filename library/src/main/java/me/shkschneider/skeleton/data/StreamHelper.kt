@@ -13,6 +13,7 @@ object StreamHelper {
             // TRICK: The stream gets tokenized, \A meaning the beginning, \\A means the second beginning... so its end.
             return Scanner(inputStream).useDelimiter("\\A").next()
         } catch (e: NoSuchElementException) {
+            Logger.wtf(e)
             return null
         }
     }

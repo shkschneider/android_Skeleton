@@ -1,7 +1,6 @@
 package me.shkschneider.skeleton.ui
 
 import android.content.Context
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
@@ -36,16 +35,12 @@ open class AutoCompleteSearchManager<T:Any>(
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        var view = convertView
-        if (view == null) {
-            view = LayoutInflater.from(parent.context).inflate(layoutId, parent, false)
-        }
-        with(view!!) {
-            getItem(position)?.let {
-                viewHolderMapper.getViewHolder(position, view, it)
+        with(convertView ?: Inflater.inflate(parent, layoutId)) {
+            getItem(position)?.let { item ->
+                viewHolderMapper.getViewHolder(position, this, item)
             }
+            return this
         }
-        return view
     }
 
     override fun getFilter(): Filter {

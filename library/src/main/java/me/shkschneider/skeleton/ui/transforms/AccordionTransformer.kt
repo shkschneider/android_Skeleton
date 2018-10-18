@@ -3,7 +3,7 @@ package me.shkschneider.skeleton.ui.transforms
 import android.view.View
 
 // <https://github.com/ToxicBakery/ViewPagerTransforms>
-class AccordionTransformer : ABaseTransformer() {
+class AccordionTransformer : BaseTransformer() {
 
     override fun onTransform(page: View, position: Float) {
         page.pivotX = (if (position < 0) 0 else page.width).toFloat()

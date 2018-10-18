@@ -10,13 +10,15 @@ import me.shkschneider.skeleton.helper.Logger
 // <http://cyrilmottier.com/2013/05/24/pushing-the-actionbar-to-the-next-level/>
 // <https://stackoverflow.com/a/26990539/603270>
 // MyScrollView.setOnScrollViewListener()
-class MyScrollView : ScrollView {
+class MyScrollView(
+        context: Context,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0
+) : ScrollView(context, attrs, defStyleAttr) {
 
     private var onScrollViewListener: OnScrollViewListener? = null
     private var view: View? = null
     private var parallax: Float? = null
-
-    constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr)
 
     fun setOnScrollViewListener(onScrollViewListener: OnScrollViewListener) {
         this.onScrollViewListener = onScrollViewListener

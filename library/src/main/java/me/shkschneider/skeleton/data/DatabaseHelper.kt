@@ -30,7 +30,7 @@ object DatabaseHelper {
     }
 
     fun empty(db: SQLiteDatabase, table: String): Boolean {
-        // DatabaseUtils.queryIsEmpty(db, table)
+        // DatabaseUtils.queryIsEmpty() is @hide
         return rows(db, table) == 0
     }
 

@@ -3,7 +3,7 @@ package me.shkschneider.skeleton.ui.transforms
 import android.view.View
 
 // <https://github.com/ToxicBakery/ViewPagerTransforms>
-class ZoomOutSlideTransformer : ABaseTransformer() {
+class ZoomOutSlideTransformer : BaseTransformer() {
 
     private val MIN_SCALE = 0.1.toFloat()
     private val MIN_ALPHA = 0.1.toFloat()

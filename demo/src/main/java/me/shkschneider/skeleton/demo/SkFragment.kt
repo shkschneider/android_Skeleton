@@ -25,6 +25,7 @@ import me.shkschneider.skeleton.java.SkHide
 import me.shkschneider.skeleton.network.WebService
 import me.shkschneider.skeleton.ui.AnimationHelper
 import me.shkschneider.skeleton.ui.Toaster
+import me.shkschneider.skeleton.ui.Inflater
 import java.lang.reflect.Modifier
 import java.util.*
 
@@ -47,11 +48,10 @@ class SkFragment : SkeletonFragment() {
         fill(view.findViewById<View>(R.id.data) as LinearLayout, arrayOf(
                 me.shkschneider.skeleton.data.CharsetHelper::class.java,
                 me.shkschneider.skeleton.data.DatabaseHelper::class.java,
+                me.shkschneider.skeleton.data.DataHelper::class.java,
                 me.shkschneider.skeleton.data.DiskCache.Cache::class.java,
-                me.shkschneider.skeleton.data.ExternalDataHelper::class.java,
                 me.shkschneider.skeleton.data.FileHelper::class.java,
                 me.shkschneider.skeleton.data.GsonParser::class.java,
-                me.shkschneider.skeleton.data.InternalDataHelper::class.java,
                 me.shkschneider.skeleton.data.SerializeHelper::class.java,
                 me.shkschneider.skeleton.data.SharedPreferencesHelper::class.java,
                 me.shkschneider.skeleton.data.StreamHelper::class.java
@@ -116,7 +116,7 @@ class SkFragment : SkeletonFragment() {
                 me.shkschneider.skeleton.ui.TextViewHelper::class.java,
                 me.shkschneider.skeleton.ui.ThemeHelper::class.java,
                 me.shkschneider.skeleton.ui.Toaster::class.java,
-                me.shkschneider.skeleton.ui.UiHelper::class.java,
+                me.shkschneider.skeleton.ui.Inflater::class.java,
                 me.shkschneider.skeleton.ui.ViewHelper::class.java,
                 me.shkschneider.skeleton.ui.WebViewHelper::class.java
         ))
@@ -131,51 +131,53 @@ class SkFragment : SkeletonFragment() {
     }
 
     private fun fill(linearLayout: LinearLayout?, cs: Array<Class<*>>) {
+        linearLayout ?: return
         for (c in cs.distinct()) {
-            val ui = LayoutInflater.from(context).inflate(R.layout.ui, linearLayout, false)
-            (ui.findViewById<View>(R.id.textView1) as TextView).text = c.name
-                    .replaceFirst("^.+\\.".toRegex(), "")
-                    .replaceFirst("\\$.+$".toRegex(), "")
-                    .replace("([a-z])([A-Z])".toRegex(), "$1\n$2")
-            val textView2 = ui.findViewById<TextView>(R.id.textView2)
-            textView2.text = ""
-            // fields
-            val fields = ArrayList<String>()
-            for (field in c.declaredFields) {
-                if (Modifier.isPrivate(field.modifiers)
-                        || field.isAnnotationPresent(Deprecated::class.java)
-                        || field.isAnnotationPresent(SkHide::class.java)) {
-                    continue
+            with(Inflater.inflate(linearLayout, R.layout.ui)) {
+                (findViewById<View>(R.id.textView1) as TextView).text = c.name
+                        .replaceFirst("^.+\\.".toRegex(), "")
+                        .replaceFirst("\\$.+$".toRegex(), "")
+                        .replace("([a-z])([A-Z])".toRegex(), "$1\n$2")
+                val textView2 = findViewById<TextView>(R.id.textView2)
+                textView2.text = ""
+                // fields
+                val fields = ArrayList<String>()
+                for (field in c.declaredFields) {
+                    if (Modifier.isPrivate(field.modifiers)
+                            || field.isAnnotationPresent(Deprecated::class.java)
+                            || field.isAnnotationPresent(SkHide::class.java)) {
+                        continue
+                    }
+                    if (field.type.simpleName != "Companion" && field.name != "INSTANCE" && ! field.name.contains("$")) {
+                        fields.add(field.type.simpleName + " " + field.name)
+                    }
                 }
-                if (field.type.simpleName != "Companion" && field.name != "INSTANCE" && ! field.name.contains("$")) {
-                    fields.add(field.type.simpleName + " " + field.name)
+                fields.sortWith(AlphanumComparator())
+                for (field in fields) {
+                    textView2.append(if (! textView2.text.isNullOrEmpty()) "\n" else "")
+                    textView2.append(field)
                 }
-            }
-            fields.sortWith(AlphanumComparator())
-            for (field in fields) {
-                textView2.append(if (! textView2.text.isNullOrEmpty()) "\n" else "")
-                textView2.append(field)
-            }
-            // methods
-            val methods = ArrayList<String>()
-            for (method in c.declaredMethods) {
-                if (Modifier.isPrivate(method.modifiers)
-                        || method.isAnnotationPresent(Deprecated::class.java)
-                        || method.isAnnotationPresent(SkHide::class.java)) {
-                    continue
+                // methods
+                val methods = ArrayList<String>()
+                for (method in c.declaredMethods) {
+                    if (Modifier.isPrivate(method.modifiers)
+                            || method.isAnnotationPresent(Deprecated::class.java)
+                            || method.isAnnotationPresent(SkHide::class.java)) {
+                        continue
+                    }
+                    val signature = method.returnType.simpleName + " " + method.name + "()"
+                    if (methods.contains(signature) || signature.contains("$")) {
+                        continue
+                    }
+                    methods.add(signature)
                 }
-                val signature = method.returnType.simpleName + " " + method.name + "()"
-                if (methods.contains(signature) || signature.contains("$")) {
-                    continue
+                methods.sortWith(AlphanumComparator())
+                methods.forEach {
+                    textView2.append(if (! textView2.text.isNullOrEmpty()) "\n" else "")
+                    textView2.append(it)
                 }
-                methods.add(signature)
+                linearLayout.addView(this)
             }
-            methods.sortWith(AlphanumComparator())
-            methods.forEach {
-                textView2.append(if (! textView2.text.isNullOrEmpty()) "\n" else "")
-                textView2.append(it)
-            }
-            linearLayout?.addView(ui)
         }
     }
 
@@ -219,7 +221,7 @@ class SkFragment : SkeletonFragment() {
                 .setShowWhen(false)
                 .setContentTitle("Skeleton")
                 .setContentText("for Android")
-                .setContentIntent(NotificationHelper.pendingIntent(activity, intent))
+                .setContentIntent(activity?.let { NotificationHelper.pendingIntent(it, intent) })
                 .setTicker("Sk!")
                 .setColor(ContextCompat.getColor(context, R.color.accentColor))
                 .setSmallIcon(ApplicationHelper.DEFAULT_ICON)

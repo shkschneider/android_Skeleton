@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.ui
 
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -82,10 +81,9 @@ abstract class MyRecyclerViewAdapter<T, VH : RecyclerView.ViewHolder> : Recycler
     private class MyViewHolder<T>(private val objects: List<T>) : RecyclerView.Adapter<MyViewHolder<T>.ViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(android.R.layout.simple_list_item_1, parent, false)
             // Inflated items should have: android:foreground="?android:attr/selectableItemBackground"
             // <http://stackoverflow.com/q/26961147>
-            return ViewHolder(view)
+            return ViewHolder(Inflater.inflate(parent, android.R.layout.simple_list_item_1))
         }
 
         override fun onBindViewHolder(holder: MyViewHolder<T>.ViewHolder, position: Int) {

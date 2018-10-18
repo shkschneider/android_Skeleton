@@ -30,11 +30,12 @@ import java.util.*
 
 // <https://github.com/nickbutcher/plaid/blob/6a3cb17ede0ffeffb4ca16e4fd3c2ab60900d6b8/app/src/main/java/io/plaidapp/ui/recyclerview/SpannedGridLayoutManager.java>
 @Deprecated("Use Gradle: com.arasthel:spannedgridlayoutmanager:+")
-class SpannedGridLayoutManager : RecyclerView.LayoutManager {
+class SpannedGridLayoutManager(
+        private var spanLookup: GridSpanLookup,
+        private var columns: Int,
+        private var cellAspectRatio: Float = 1F
+) : RecyclerView.LayoutManager() {
 
-    private var spanLookup: GridSpanLookup? = null
-    private var columns = 1
-    private var cellAspectRatio = 1F
     private var cellHeight = 0
     private var cellBorders: IntArray? = null
     private var firstVisibleItemPosition = 0
@@ -46,12 +47,6 @@ class SpannedGridLayoutManager : RecyclerView.LayoutManager {
     private var firstChildPositionForRow: MutableList<Int>? = null // key == row, val == first child position
     private var totalRows = 0
     private val itemDecorationInsets = Rect()
-
-    constructor(spanLookup: GridSpanLookup, columns: Int, cellAspectRatio: Float = 1F) {
-        this.spanLookup = spanLookup
-        this.columns = columns
-        this.cellAspectRatio = cellAspectRatio
-    }
 
     fun setSpanLookup(spanLookup: GridSpanLookup) {
         this.spanLookup = spanLookup
@@ -80,7 +75,10 @@ class SpannedGridLayoutManager : RecyclerView.LayoutManager {
         fun getSpanInfo(position: Int): SpanInfo
     }
 
-    class SpanInfo(var columnSpan: Int = 1, var rowSpan: Int = 1) {
+    class SpanInfo(
+            var columnSpan: Int = 1,
+            var rowSpan: Int = 1
+    ) {
 
         companion object {
 

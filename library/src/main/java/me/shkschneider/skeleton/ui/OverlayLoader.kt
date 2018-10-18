@@ -15,6 +15,7 @@ class OverlayLoader : SkeletonDialog() {
 
     companion object {
 
+        @UiThread
         fun show(activity: SkeletonActivity) : OverlayLoader? {
             if (activity.alive()) {
                 val overlayLoader = OverlayLoader()
@@ -35,14 +36,14 @@ class OverlayLoader : SkeletonDialog() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val progressBar = ProgressBar(context, null, android.R.attr.progressBarStyleLarge)
+        val progressBar = ProgressBar(container?.context ?: context, null, android.R.attr.progressBarStyleLarge)
         progressBar.isIndeterminate = true
         return progressBar
     }
 
     @UiThread
     fun hide(activity: SkeletonActivity): Boolean {
-        if (activity.alive()) {
+        if (activity.alive() && alive()) {
             dismiss()
             return true
         }

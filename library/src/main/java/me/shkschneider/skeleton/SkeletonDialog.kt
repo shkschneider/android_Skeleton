@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
+import androidx.annotation.UiThread
 import androidx.fragment.app.DialogFragment
 
 abstract class SkeletonDialog : DialogFragment() {
@@ -14,6 +15,7 @@ abstract class SkeletonDialog : DialogFragment() {
         return dialog
     }
 
+    @UiThread
     fun dimBehind(dim: Boolean) {
         dialog.window?.let { window ->
             if (dim) {
@@ -22,6 +24,10 @@ abstract class SkeletonDialog : DialogFragment() {
                 window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
             }
         }
+    }
+
+    fun alive(): Boolean {
+        return dialog.isShowing
     }
 
 }

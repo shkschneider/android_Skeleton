@@ -6,7 +6,9 @@ import java.util.concurrent.Executors
 import java.util.concurrent.Future
 
 // <http://stackoverflow.com/a/9458785>
-class Tasker(val executorService: ExecutorService = Executors.newSingleThreadExecutor()) {
+open class Tasker(
+        private val executorService: ExecutorService = Executors.newSingleThreadExecutor()
+) {
 
     private var future: Future<*>? = null
 

@@ -3,7 +3,7 @@ package me.shkschneider.skeleton.ui.transforms
 import android.view.View
 
 // <https://github.com/ToxicBakery/ViewPagerTransforms>
-class RotateUpTransformer : ABaseTransformer() {
+class RotateUpTransformer : BaseTransformer() {
 
     private val ROTATION = (-1).toFloat()
 

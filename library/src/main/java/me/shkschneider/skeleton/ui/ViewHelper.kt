@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
+import androidx.annotation.UiThread
 import me.shkschneider.skeleton.SkeletonReceiver
 import java.util.*
 
@@ -25,6 +26,7 @@ object ViewHelper {
         return (0 until viewGroup.childCount).mapTo(ArrayList<View>()) { viewGroup.getChildAt(it) }
     }
 
+    @UiThread
     fun show(view: View): Boolean {
         if (view.visibility != View.VISIBLE) {
             view.visibility = View.VISIBLE
@@ -33,6 +35,7 @@ object ViewHelper {
         return false
     }
 
+    @UiThread
     fun hide(view: View): Boolean {
         if (view.visibility != View.GONE) {
             view.visibility = View.GONE
@@ -41,10 +44,12 @@ object ViewHelper {
         return false
     }
 
+    @UiThread
     fun block(activity: Activity) {
         activity.window?.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     }
 
+    @UiThread
     fun unblock(activity: Activity) {
         activity.window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     }

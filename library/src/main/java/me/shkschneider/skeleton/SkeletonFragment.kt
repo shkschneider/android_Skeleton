@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import me.shkschneider.skeleton.ui.Inflater
 
 /**
  * https://developer.android.com/guide/components/fragments.html#Lifecycle
@@ -33,12 +36,18 @@ import androidx.lifecycle.Lifecycle
  */
 abstract class SkeletonFragment : Fragment() {
 
-    protected val activity: AppCompatActivity by lazy {
-        context as AppCompatActivity
-    }
+    private var alive = false
 
     override fun getLifecycle(): Lifecycle {
         return super.getLifecycle()
+    }
+
+    fun getViewModelProviders(): ViewModelProvider {
+        return activity?.let(ViewModelProviders::of) ?: ViewModelProviders.of(this)
+    }
+
+    inline fun <reified T : ViewModel> getViewModel(): T {
+        return getViewModelProviders().get(T::class.java)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,12 +61,13 @@ abstract class SkeletonFragment : Fragment() {
 //    }
 
     fun onCreateView(inflater: LayoutInflater, @LayoutRes resId: Int, container: ViewGroup?): View? {
-        val view = inflater.inflate(resId, container, false)
-        // HACK: <http://stackoverflow.com/a/18274767>
-        view.setBackgroundResource(R.color.sk_android_background)
-        view.isClickable = true
-        view.isFocusable = true
-        return view
+        with(Inflater.inflate(inflater, container, resId)) {
+            // HACK: <http://stackoverflow.com/a/18274767>
+            setBackgroundResource(R.color.sk_android_background)
+            isClickable = true
+            isFocusable = true
+            return this
+        }
     }
 
     // Loading
@@ -83,24 +93,18 @@ abstract class SkeletonFragment : Fragment() {
         return onCreateView(inflater, R.layout.sk_fragment, container)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onStart() {
+        super.onStart()
+        alive = true
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onStop() {
+        alive = false
+        super.onStop()
     }
 
     fun alive(): Boolean {
-        return isAdded && isResumed
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
+        return alive
     }
 
     // <https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/to.html>

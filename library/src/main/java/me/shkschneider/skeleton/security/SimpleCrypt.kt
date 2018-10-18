@@ -7,7 +7,7 @@ package me.shkschneider.skeleton.security
  * > Enter you email again, to ensure you typed it correctly.
  * <https://xkcd.com/970/>
  */
-class SimpleCrypt(key: String) : ICrypt<String>(key) {
+open class SimpleCrypt(key: String) : ICrypt<String>(key) {
 
     private val key: CharArray = key.toCharArray()
 

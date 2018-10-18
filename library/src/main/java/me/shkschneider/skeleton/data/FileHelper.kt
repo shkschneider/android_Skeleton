@@ -21,6 +21,7 @@ object FileHelper {
         try {
             return file.canonicalPath
         } catch (e: IOException) {
+            Logger.wtf(e)
             return file.path
         }
     }

@@ -19,7 +19,7 @@ import me.shkschneider.skeleton.helper.SystemServices
 @Suppress("DEPRECATION")
 @Deprecated("Use WorkManager.")
 @RequiresApi(AndroidHelper.API_21)
-class JobManager(
+open class JobManager(
         private var id: Int,
         cls: Class<out JobService>
 ) {

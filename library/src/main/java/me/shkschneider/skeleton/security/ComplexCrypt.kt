@@ -16,7 +16,7 @@ import javax.crypto.spec.SecretKeySpec
  * "correct horse battery staple" ~44 bits of entropy
  * <https://xkcd.com/936/>
  */
-class ComplexCrypt(key: String) : ICrypt<String>(key) {
+open class ComplexCrypt(key: String) : ICrypt<String>(key) {
 
     private var ivParameterSpec = IvParameterSpec(key.toByteArray())
     private var secretKeySpec = SecretKeySpec(pad(key.toByteArray()), ALGORITHM.split("/")[0])

@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 import androidx.collection.LruCache
 
 // <http://developer.android.com/training/displaying-bitmaps/cache-bitmap.html#memory-cache>
-class MemoryBitmapCache(
+open class MemoryBitmapCache(
         size: Int = (Runtime.getRuntime().maxMemory() / 1024).toInt() / 8
 ) : LruCache<String, Bitmap>(size) {
 

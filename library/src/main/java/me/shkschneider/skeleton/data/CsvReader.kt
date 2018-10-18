@@ -6,7 +6,7 @@ import java.io.IOException
 import java.util.*
 
 // <http://opencsv.sourceforge.net>
-class CsvReader(
+open class CsvReader(
         private val bufferedReader: BufferedReader,
         private val separator: Char = ',',
         private val quote: Char = '"',

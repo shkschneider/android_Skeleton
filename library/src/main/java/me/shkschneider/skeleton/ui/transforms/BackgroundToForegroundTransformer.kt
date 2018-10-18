@@ -3,7 +3,7 @@ package me.shkschneider.skeleton.ui.transforms
 import android.view.View
 
 // <https://github.com/ToxicBakery/ViewPagerTransforms>
-class BackgroundToForegroundTransformer : ABaseTransformer() {
+class BackgroundToForegroundTransformer : BaseTransformer() {
 
     override fun onTransform(page: View, position: Float) {
         val height = page.height.toFloat()

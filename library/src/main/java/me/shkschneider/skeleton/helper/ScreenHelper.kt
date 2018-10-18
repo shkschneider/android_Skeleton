@@ -74,7 +74,7 @@ object ScreenHelper {
         val w = point.x / displayMetrics.xdpi
         val h = point.y / displayMetrics.ydpi
         val inches = Math.sqrt(Math.pow(w.toDouble(), 2.0) + Math.pow(h.toDouble(), 2.0)).toFloat()
-        Logger.verbose("inches: $inches\"")
+        Logger.verbose("Inches: $inches\"")
         return inches
     }
 

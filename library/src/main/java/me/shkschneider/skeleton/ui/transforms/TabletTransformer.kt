@@ -5,7 +5,7 @@ import android.graphics.Matrix
 import android.view.View
 
 // <https://github.com/ToxicBakery/ViewPagerTransforms>
-class TabletTransformer : ABaseTransformer() {
+class TabletTransformer : BaseTransformer() {
 
     private val OFFSET_MATRIX = Matrix()
     private val OFFSET_CAMERA = Camera()

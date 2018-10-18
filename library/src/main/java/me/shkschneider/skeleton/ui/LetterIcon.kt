@@ -49,11 +49,11 @@ class LetterIcon : View {
         val width = measuredWidth / 2
         val height = measuredHeight / 2
         val radius = if (width > height) height else width
-        with (shapePaint) {
+        with(shapePaint) {
             color = shapeColor
             canvas.drawCircle(width.toFloat(), height.toFloat(), radius.toFloat(), this)
         }
-        with (letterPaint) {
+        with(letterPaint) {
             color = letterColor
             textSize = Metrics.pixelsFromSp(letterSize.toFloat()).toFloat()
             getTextBounds(letter, 0, letter.length, RECT)

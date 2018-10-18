@@ -1,7 +1,7 @@
 package me.shkschneider.skeleton.helper
 
 import android.content.res.AssetManager
-import me.shkschneider.skeleton.data.InternalDataHelper
+import me.shkschneider.skeleton.data.DataHelper
 import java.io.IOException
 import java.io.InputStream
 
@@ -36,7 +36,7 @@ object AssetsHelper {
         list()?.forEach { file ->
             try {
                 open(file)?.let { inputStream ->
-                    InternalDataHelper.openOutput(file)?.let { outputStream ->
+                    DataHelper.Internal.openOutput(file)?.let { outputStream ->
                         inputStream.copyTo(outputStream)
                         inputStream.close()
                         outputStream.flush()

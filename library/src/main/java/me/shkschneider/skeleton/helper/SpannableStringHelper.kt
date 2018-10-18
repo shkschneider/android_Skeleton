@@ -9,7 +9,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.IntRange
 
 // <https://gist.github.com/Trikke/90efd4432fc09aaadf3e>
-class SpannableStringHelper {
+open class SpannableStringHelper {
 
     private var spannableString: SpannableString
 

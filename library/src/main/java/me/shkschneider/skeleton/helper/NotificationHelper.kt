@@ -111,8 +111,7 @@ object NotificationHelper {
             get(id)?.let { notificationChannel ->
                 return notificationChannel
             }
-            val notificationChannel = NotificationChannel(id, name, NotificationManager.IMPORTANCE_DEFAULT)
-            with (notificationChannel) {
+            with(NotificationChannel(id, name, NotificationManager.IMPORTANCE_DEFAULT)) {
                 lockscreenVisibility = NotificationCompat.VISIBILITY_PUBLIC
                 setShowBadge(badge)
                 enableLights(lights)

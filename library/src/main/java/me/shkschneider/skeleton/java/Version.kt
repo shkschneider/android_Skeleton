@@ -1,6 +1,6 @@
 package me.shkschneider.skeleton.java
 
-class Version(version: String) : Comparable<Version> {
+open class Version(version: String) : Comparable<Version> {
 
     private var version: List<String> = version.split(".")
 

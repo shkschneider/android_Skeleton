@@ -7,10 +7,10 @@ import java.io.Serializable
 object DiskCache {
 
     // <http://developer.android.com/guide/topics/data/data-storage.html#filesInternal>
-    class Internal : Cache(InternalDataHelper.cache())
+    open class Internal : Cache(DataHelper.Internal.cache())
 
     // <http://developer.android.com/guide/topics/data/data-storage.html#filesExternal>
-    class External : Cache(ExternalDataHelper.cache() ?: InternalDataHelper.cache())
+    open class External : Cache(DataHelper.External.cache() ?: DataHelper.Internal.cache())
 
     abstract class Cache(private val dir: File) {
 
@@ -52,7 +52,7 @@ object DiskCache {
         }
 
         fun size(): Int {
-            val dir = ExternalDataHelper.cache()
+            val dir = DataHelper.External.cache()
             return dir?.exists()?.let { dir.list().size } ?: 0
         }
 

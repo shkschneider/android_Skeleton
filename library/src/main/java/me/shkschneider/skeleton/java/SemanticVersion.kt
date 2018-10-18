@@ -1,7 +1,7 @@
 package me.shkschneider.skeleton.java
 
 // <https://semver.org>
-class SemanticVersion : Comparable<SemanticVersion> {
+open class SemanticVersion : Comparable<SemanticVersion> {
 
     private var semVer = ArrayList<Int>()
     private val semanticVersioning = listOf(MAJOR, MINOR, PATCH)

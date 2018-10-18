@@ -4,7 +4,7 @@ import android.view.View
 import androidx.viewpager.widget.ViewPager
 
 // <https://github.com/ToxicBakery/ViewPagerTransforms>
-abstract class ABaseTransformer : ViewPager.PageTransformer {
+abstract class BaseTransformer : ViewPager.PageTransformer {
 
     protected abstract fun onTransform(page: View, position: Float)
 

@@ -3,7 +3,7 @@ package me.shkschneider.skeleton.ui.transforms
 import android.view.View
 
 // <https://github.com/ToxicBakery/ViewPagerTransforms>
-class ZoomOutTranformer : ABaseTransformer() {
+class ZoomOutTranformer : BaseTransformer() {
 
     override fun onTransform(page: View, position: Float) {
         val scale = 1.toFloat() + Math.abs(position)

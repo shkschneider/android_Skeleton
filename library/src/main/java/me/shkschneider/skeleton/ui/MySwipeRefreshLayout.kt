@@ -13,7 +13,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 import me.shkschneider.skeleton.R
 
-class MySwipeRefreshLayout : SwipeRefreshLayout {
+class MySwipeRefreshLayout(
+        context: Context,
+        attrs: AttributeSet? = null
+) : SwipeRefreshLayout(context, attrs) {
 
     // Bugfix <https://code.google.com/p/android/issues/detail?id=87789>
 
@@ -32,8 +35,6 @@ class MySwipeRefreshLayout : SwipeRefreshLayout {
         touchSlop = ViewConfiguration.get(context).scaledTouchSlop
     }
 
-    constructor(context: Context, attrs: AttributeSet? = null) : super(context, attrs)
-
     override fun setEnabled(enabled: Boolean) {
         super.setEnabled(enabled)
     }
@@ -49,7 +50,7 @@ class MySwipeRefreshLayout : SwipeRefreshLayout {
     // Bugfix <https://code.google.com/p/android/issues/detail?id=77712>
 
     override fun setRefreshing(refreshing: Boolean) {
-        post { super@MySwipeRefreshLayout.setRefreshing(refreshing) }
+        post { super.setRefreshing(refreshing) }
     }
 
     @SuppressLint("ClickableViewAccessibility")

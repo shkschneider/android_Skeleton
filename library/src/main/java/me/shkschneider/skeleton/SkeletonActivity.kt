@@ -17,6 +17,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import me.shkschneider.skeleton.extensions.toStringOrEmpty
 import me.shkschneider.skeleton.helper.*
 import me.shkschneider.skeleton.ui.OverlayLoader
@@ -63,6 +66,14 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     override fun getLifecycle(): Lifecycle {
         return super.getLifecycle()
+    }
+
+    fun getViewModelProviders(): ViewModelProvider {
+        return ViewModelProviders.of(this)
+    }
+
+    inline fun <reified T : ViewModel> getViewModel(): T {
+        return getViewModelProviders().get(T::class.java)
     }
 
     override fun attachBaseContext(newBase: Context?) {
@@ -172,26 +183,22 @@ abstract class SkeletonActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
         alive = true
         if (enterAnim != null && exitAnim != null) {
             overridePendingTransition(enterAnim!!, exitAnim!!)
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        skeletonReceiver = null
+    override fun onStop() {
         alive = false
+        super.onStop()
+        skeletonReceiver = null
+        loading(false)
         if (enterAnim != null && exitAnim != null) {
             overridePendingTransition(enterAnim!!, exitAnim!!)
         }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        loading(false)
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
@@ -227,8 +234,10 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     fun home(b: Boolean) {
-        supportActionBar?.setDisplayShowHomeEnabled(b)
-        supportActionBar?.setDisplayHomeAsUpEnabled(b)
+        supportActionBar?.let { actionBar ->
+            actionBar.setDisplayShowHomeEnabled(b)
+            actionBar.setDisplayHomeAsUpEnabled(b)
+        }
     }
 
     @Deprecated("NavigationIcon is probably NOT what you want.", ReplaceWith("logo(drawable)"))
@@ -287,7 +296,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     // Loading
 
-    protected var overlayLoader: OverlayLoader? = null
+    private var overlayLoader: OverlayLoader? = null
 
     fun loading(): Int {
         return loading
@@ -343,26 +352,28 @@ abstract class SkeletonActivity : AppCompatActivity() {
             Logger.warning("SearchView was NULL")
             return super.onCreateOptionsMenu(menu)
         }
-        searchView.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
-        searchView.imeOptions = EditorInfo.IME_ACTION_SEARCH
-        searchView.setIconifiedByDefault(true)
-        searchView.queryHint = searchHint
-        searchView.setOnCloseListener {
-            skeletonReceiver.post(RESULT_SEARCH_CHANGE, "")
-            return@setOnCloseListener false
-        }
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(q: String): Boolean {
-                stopSearch()
-                skeletonReceiver.post(RESULT_SEARCH_SUBMIT, q)
-                return true
+        with(searchView) {
+            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
+            imeOptions = EditorInfo.IME_ACTION_SEARCH
+            setIconifiedByDefault(true)
+            queryHint = searchHint
+            setOnCloseListener {
+                skeletonReceiver.post(RESULT_SEARCH_CHANGE, "")
+                return@setOnCloseListener false
             }
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(q: String): Boolean {
+                    stopSearch()
+                    skeletonReceiver.post(RESULT_SEARCH_SUBMIT, q)
+                    return true
+                }
 
-            override fun onQueryTextChange(q: String): Boolean {
-                skeletonReceiver.post(RESULT_SEARCH_CHANGE, q)
-                return true
-            }
-        })
+                override fun onQueryTextChange(q: String): Boolean {
+                    skeletonReceiver.post(RESULT_SEARCH_CHANGE, q)
+                    return true
+                }
+            })
+        }
         return true
     }
 
