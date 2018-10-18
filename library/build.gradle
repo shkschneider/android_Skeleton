@@ -43,6 +43,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:${versions.androidx}"
     implementation "androidx.palette:palette:${versions.androidx}"
     implementation "androidx.preference:preference:${versions.androidx}"
+    kapt "android.arch.lifecycle:compiler:${versions.androidx}"
 
     implementation 'android.arch.work:work-runtime-ktx:1.0.0-alpha09'
 
@@ -74,7 +75,7 @@ task travis() << {
     print " build-tools-${android.buildToolsVersion} ${android.compileSdkVersion}\n"
 }
 tasks.whenTaskAdded { task ->
-    if (task.name == 'preReleaseBuild') {
+    if (task.name == 'preDebugBuild' || task.name == 'preReleaseBuild') {
         task.dependsOn bump
         task.dependsOn travis
     }

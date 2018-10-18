@@ -14,7 +14,6 @@ import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import me.shkschneider.skeleton.SkeletonFragment
-import me.shkschneider.skeleton.annotations.SkHide
 import me.shkschneider.skeleton.extensions.Intent
 import me.shkschneider.skeleton.extensions.toStringOrEmpty
 import me.shkschneider.skeleton.helper.ApplicationHelper
@@ -145,8 +144,7 @@ class SkFragment : SkeletonFragment() {
                 val fields = ArrayList<String>()
                 for (field in c.declaredFields) {
                     if (Modifier.isPrivate(field.modifiers)
-                            || field.isAnnotationPresent(Deprecated::class.java)
-                            || field.isAnnotationPresent(SkHide::class.java)) {
+                            || field.isAnnotationPresent(Deprecated::class.java)) {
                         continue
                     }
                     if (field.type.simpleName != "Companion" && field.name != "INSTANCE" && ! field.name.contains("$")) {
@@ -162,8 +160,7 @@ class SkFragment : SkeletonFragment() {
                 val methods = ArrayList<String>()
                 for (method in c.declaredMethods) {
                     if (Modifier.isPrivate(method.modifiers)
-                            || method.isAnnotationPresent(Deprecated::class.java)
-                            || method.isAnnotationPresent(SkHide::class.java)) {
+                            || method.isAnnotationPresent(Deprecated::class.java)) {
                         continue
                     }
                     val signature = method.returnType.simpleName + " " + method.name + "()"
