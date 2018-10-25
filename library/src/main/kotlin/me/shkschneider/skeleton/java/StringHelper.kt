@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.java
 import android.util.Patterns
 import androidx.annotation.IntRange
 import me.shkschneider.skeleton.helper.LocaleHelper
+import me.shkschneider.skeleton.helperx.Logger
 import java.text.Normalizer
 import java.text.NumberFormat
 
@@ -58,8 +59,13 @@ object StringHelper {
         return string
     }
 
-    fun number(number: Int): String {
-        return NumberFormat.getNumberInstance(LocaleHelper.Device.locale()).format(number)
+    fun number(number: Int): String? {
+        try {
+            return NumberFormat.getNumberInstance(LocaleHelper.Device.locale()).format(number)
+        } catch (e: IllegalArgumentException) {
+            Logger.wtf(e)
+            return null
+        }
     }
 
     // <http://stackoverflow.com/a/9855338>
@@ -73,6 +79,14 @@ object StringHelper {
             result.append(HEX[secondIndex])
         }
         return result.toString()
+    }
+
+    fun cData(string: String): String {
+        return string.trim().takeIf {
+            it.startsWith("<![CDATA[")
+        }.apply {
+            return "<![CDATA[$this]]>"
+        } ?: string.trim()
     }
 
 }
