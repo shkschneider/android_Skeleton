@@ -63,7 +63,7 @@ object DeviceHelper {
 
     @SuppressLint("MissingPermission")
     override fun toString(): String {
-        return "${brand()}/${manufacturer()}/${codename()}/${model()} ${serial()}"
+        return "${brand()}/${manufacturer()}/${codename()}/${model()} '${serial()}'"
     }
 
 }
