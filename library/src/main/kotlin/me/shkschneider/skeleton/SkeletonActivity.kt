@@ -29,20 +29,21 @@ import me.shkschneider.skeleton.uix.OverlayLoader
  * https://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle
  * https://developer.android.com/reference/android/support/v7/app/AppCompatActivity.html
  *
- * +-------+---------+------------+
- * | Alive | Visible | Foreground |
- * +-------+---------+------------+
- * |     x |         |            | onCreate()
- * |     x |       x |            | onStart()
- * |     x |       x |            | onPostCreate()
- * |     x |       x |          x | onResume()
- * |     x |       x |          x | onPostResume()
- * |     x |       x |          x | onResumeFragments()
- * |     x |       x |          x | onAttachedToWindow()
- * |     x |       x |          x | onPause()
- * |     x |       x |            | onStop()
- * |     x |         |            | onDestroy()
- * +-------+---------+------------+
+ * +---------+----------+-------+------------+
+ * | Created | Inflated | Alive | Foreground |
+ * +---------+----------+-------+------------+
+ * |       x |          |       |            | onCreate()
+ * |       x |        x |     x |            | onStart()
+ * |       x |        x |     x |            | onPostCreate()
+ * |       x |        x |     x |          x | onResume()
+ * |       x |        x |     x |          x | onResumeFragments()
+ * |       x |        x |     x |          x | onPostResume()
+ * |       x |        x |     x |          x | onAttachedToWindow()
+ * +---------+----------+-------+------------+
+ * |       x |        x |     x |          x | onPause()
+ * |       x |        x |     x |            | onStop()
+ * |       x |        x |       |            | onDestroy()
+ * +---------+----------+-------+------------+
  */
 abstract class SkeletonActivity : AppCompatActivity() {
 

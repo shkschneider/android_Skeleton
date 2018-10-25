@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -17,22 +18,23 @@ import me.shkschneider.skeleton.uix.Inflater
  * https://developer.android.com/guide/components/fragments.html#Lifecycle
  * https://developer.android.com/reference/android/support/v4/app/Fragment.html
  *
- * onAttach()
- * onCreate()
- * onCreateView()
- * onViewCreated()
- * onActivityCreated()
- * onViewStateRestored()
- * onStart()
- * onResume()
- * onCreateOptionsMenu()
- * onPrepareOptionsMenu()
- * onPause()
- * onSaveInstanceState()
- * onStop()
- * onDestroyView()
- * onDestroy()
- * onDetach()
+ * +---------+----------+-------+------------+
+ * | Created | Inflated | Alive | Foreground |
+ * +---------+----------+-------+------------+
+ * |         |          |       |            | onAttach()
+ * |       x |          |       |            | onCreate()
+ * |       x |          |       |            | onCreateView()
+ * |       x |        x |       |            | onViewCreated()
+ * |       x |        x |       |            | onActivityCreated()
+ * |       x |        x |     x |            | onStart()
+ * |       x |        x |     x |          x | onResume()
+ * +---------+----------+-------+------------+
+ * |       x |        x |     x |          x | onPause()
+ * |       x |        x |     x |            | onStop()
+ * |       x |        x |       |            | onDestroyView()
+ * |       x |          |       |            | onDestroy()
+ * |         |          |       |            | onDetach()
+ * +---------+----------+-------+------------+
  */
 abstract class SkeletonFragment : Fragment() {
 
@@ -55,10 +57,10 @@ abstract class SkeletonFragment : Fragment() {
         // setHasOptionsMenu();
     }
 
-//    fun fragmentManager(): FragmentManager? {
-//        val childFragmentManager: FragmentManager? = childFragmentManager
-//        return childFragmentManager ?: fragmentManager
-//    }
+    // <https://stackoverflow.com/a/37727576/603270>
+    fun fragmentManager(): FragmentManager? {
+        return if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) fragmentManager else childFragmentManager
+    }
 
     fun onCreateView(inflater: LayoutInflater, @LayoutRes resId: Int, container: ViewGroup?): View? {
         with(Inflater.inflate(inflater, container, resId)) {
@@ -72,9 +74,9 @@ abstract class SkeletonFragment : Fragment() {
 
     // Loading
 
-    fun loading(): Int? {
-        if (!alive()) return null
-        return (activity as? SkeletonActivity)?.loading()
+    fun loading(): Int {
+        if (!alive()) return 0
+        return (activity as? SkeletonActivity)?.loading() ?: 0
     }
 
     fun loading(i: Int) {
@@ -107,12 +109,12 @@ abstract class SkeletonFragment : Fragment() {
         return alive
     }
 
-    // <https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/to.html>
     companion object {
 
         inline fun <reified T : SkeletonFragment> newInstance(target: Class<T>) =
                 target.newInstance()
 
+        // <https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/to.html>
         inline fun <reified T : SkeletonFragment> newInstance(target: Class<T>, vararg arguments: Pair<String, Any>) =
                 target.newInstance().apply {
                     setArguments(bundleOf(*arguments))

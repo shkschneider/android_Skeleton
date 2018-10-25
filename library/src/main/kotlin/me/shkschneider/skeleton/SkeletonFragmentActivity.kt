@@ -3,6 +3,9 @@ package me.shkschneider.skeleton
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 
+/**
+ * @see SkeletonActivity
+ */
 abstract class SkeletonFragmentActivity : SkeletonActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
