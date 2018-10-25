@@ -1,9 +1,9 @@
 package me.shkschneider.skeleton.javax
 
-import androidx.lifecycle.LiveData
 import androidx.work.*
 import me.shkschneider.skeleton.helperx.Logger
 import java.util.*
+import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit
 
 /**
@@ -21,13 +21,13 @@ import java.util.concurrent.TimeUnit
  */
 object SkeletonWorker {
 
-    private fun manager(): WorkManager {
+    fun manager(): WorkManager {
         return WorkManager.getInstance()
     }
 
     // Single-Shot
 
-    fun enqueue(tag: String, worker: Class<Work>, constraints: Constraints? = null, data: Data? = null): UUID {
+    fun <T:Worker> enqueue(tag: String, worker: Class<T>, constraints: Constraints? = null, data: Data? = null): UUID {
         val workBuilder = OneTimeWorkRequest.Builder(worker).addTag(tag)
         constraints?.let {
             workBuilder.setConstraints(it)
@@ -40,7 +40,7 @@ object SkeletonWorker {
         return work.id
     }
 
-    fun uniqueWork(tag: String, worker: Class<Work>, constraints: Constraints? = null, data: Data? = null): UUID {
+    fun <T:Worker> uniqueWork(tag: String, worker: Class<T>, constraints: Constraints? = null, data: Data? = null): UUID {
         val workBuilder = OneTimeWorkRequest.Builder(worker).addTag(tag)
         constraints?.let {
             workBuilder.setConstraints(it)
@@ -115,42 +115,42 @@ object SkeletonWorker {
      */
 
     // LiveData
-    fun getStatusById(id: UUID): LiveData<WorkStatus> {
-        return manager().getStatusById(id)
+    fun getStatusById(id: UUID, listener: Runnable, executor: Executor) {
+        return manager().getStatusById(id).addListener(listener, executor)
     }
 
     // LiveData
-    fun getStatusesByTag(tag: String): LiveData<List<WorkStatus>> {
-        return manager().getStatusesByTag(tag)
+    fun getStatusesByTag(tag: String, listener: Runnable, executor: Executor) {
+        return manager().getStatusesByTag(tag).addListener(listener, executor)
     }
 
     // LiveData
-    fun getStatusesForUniqueWork(tag: String): LiveData<List<WorkStatus>> {
-        return manager().getStatusesForUniqueWork(tag)
+    fun getStatusesForUniqueWork(tag: String, listener: Runnable, executor: Executor) {
+        return manager().getStatusesForUniqueWork(tag).addListener(listener, executor)
     }
 
-    fun cancelAllWork() {
-        manager().cancelAllWork()
-    }
-
-    fun cancelAllWorkByTag(tag: String) {
-        manager().cancelAllWorkByTag(tag)
-    }
-
-    fun cancelUniqueWork(tag: String) {
-        manager().cancelUniqueWork(tag)
-    }
-
-    abstract class Work : Worker() { // FIXME
-
-        override fun doWork(): Result {
-            Logger.info("#$id doWork()")
-            @Suppress("UNUSED_VARIABLE")
-            val context = applicationContext
-            inputData.getString("TAG")
-            return Result.FAILURE
+    fun cancelAllWork(listener: Runnable? = null, executor: Executor? = null) {
+        manager().cancelAllWork().apply {
+            if (listener != null && executor != null) {
+                addListener(listener, executor)
+            }
         }
+    }
 
+    fun cancelAllWorkByTag(tag: String, listener: Runnable? = null, executor: Executor? = null) {
+        manager().cancelAllWorkByTag(tag).apply {
+            if (listener != null && executor != null) {
+                addListener(listener, executor)
+            }
+        }
+    }
+
+    fun cancelUniqueWork(tag: String, listener: Runnable? = null, executor: Executor? = null) {
+        manager().cancelUniqueWork(tag).apply {
+            if (listener != null && executor != null) {
+                addListener(listener, executor)
+            }
+        }
     }
 
 }

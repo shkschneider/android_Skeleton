@@ -45,7 +45,7 @@ dependencies {
     implementation "androidx.preference:preference:${versions.androidx}"
     kapt "android.arch.lifecycle:compiler:${versions.androidx}"
 
-    implementation 'android.arch.work:work-runtime-ktx:1.0.0-alpha09'
+    implementation 'android.arch.work:work-runtime-ktx:1.0.0-alpha10'
 
     implementation 'com.google.code.gson:gson:2.8.5'
 }
