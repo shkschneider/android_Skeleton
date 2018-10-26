@@ -13,6 +13,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.annotation.AnimRes
 import androidx.annotation.ColorInt
 import androidx.annotation.LayoutRes
+import androidx.annotation.UiThread
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
@@ -47,36 +48,8 @@ import me.shkschneider.skeleton.uix.OverlayLoader
  */
 abstract class SkeletonActivity : AppCompatActivity() {
 
-    protected var toolbar: Toolbar? = null
-
-    private var alive = false
     private var enterAnim: Int? = null
     private var exitAnim: Int? = null
-
-    // Refresh
-    // <https://gist.github.com/antoniolg/9837398>
-
-    private var loading = 0
-
-    // Search
-    // <http://stackoverflow.com/q/18438890>
-
-    private var searchHint: String? = null
-    private var skeletonReceiver: SkeletonReceiver? = null
-    private var searchMenuItem: MenuItem? = null
-    private var searchView: SearchView? = null
-
-    override fun getLifecycle(): Lifecycle {
-        return super.getLifecycle()
-    }
-
-    fun getViewModelProviders(): ViewModelProvider {
-        return ViewModelProviders.of(this)
-    }
-
-    inline fun <reified T : ViewModel> getViewModel(): T {
-        return getViewModelProviders().get(T::class.java)
-    }
 
     override fun attachBaseContext(newBase: Context?) {
         // LocaleHelper.Application.switch()
@@ -131,46 +104,21 @@ abstract class SkeletonActivity : AppCompatActivity() {
         onViewCreated()
     }
 
-    fun statusBarColor(window: Window): Int {
-        if (Build.VERSION.SDK_INT >= 21) {
-            return window.statusBarColor
-        } else {
-            return Color.TRANSPARENT // Color.BLACK
-        }
-    }
-
-    fun statusBarColor(window: Window, @ColorInt color: Int): Boolean {
-        if (Build.VERSION.SDK_INT >= 21) {
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = color
-            return true
-        }
-        return false
-    }
-
-    fun toolbarColor(@ColorInt color: Int): Boolean? {
-        toolbar?.setBackgroundColor(color) ?: run {
-            Logger.warning("Toolbar was NULL")
-            return false
-        }
-        return true
-    }
-
-    override fun setSupportActionBar(toolbar: Toolbar?) {
-        try {
-            super.setSupportActionBar(toolbar)
-        } catch (e: IllegalStateException) {
-            /**
-             * java.lang.RuntimeException: Unable to start activity
-             * java.lang.IllegalStateException: This Activity already has an action bar supplied by the window decor.
-             * Do not request Window.FEATURE_SUPPORT_ACTION_BAR and set windowActionBar to false in your theme to use a Toolbar instead.
-             */
-            e.printStackTrace()
-        }
-        this.toolbar = toolbar
-    }
-
     // Lifecycle
+
+    private var alive = false
+
+    override fun getLifecycle(): Lifecycle {
+        return super.getLifecycle()
+    }
+
+    fun getViewModelProviders(): ViewModelProvider {
+        return ViewModelProviders.of(this)
+    }
+
+    inline fun <reified T : ViewModel> getViewModel(): T {
+        return getViewModelProviders().get(T::class.java)
+    }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
@@ -217,7 +165,50 @@ abstract class SkeletonActivity : AppCompatActivity() {
         recreate()
     }
 
-    // ToolBar
+    // StatusBar
+
+    fun statusBarColor(window: Window): Int {
+        if (Build.VERSION.SDK_INT >= 21) {
+            return window.statusBarColor
+        } else {
+            return Color.TRANSPARENT // Color.BLACK
+        }
+    }
+
+    fun statusBarColor(window: Window, @ColorInt color: Int): Boolean {
+        if (Build.VERSION.SDK_INT >= 21) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            window.statusBarColor = color
+            return true
+        }
+        return false
+    }
+
+    // Toolbar
+
+    protected var toolbar: Toolbar? = null
+
+    fun toolbarColor(@ColorInt color: Int): Boolean? {
+        toolbar?.setBackgroundColor(color) ?: run {
+            Logger.warning("Toolbar was NULL")
+            return false
+        }
+        return true
+    }
+
+    override fun setSupportActionBar(toolbar: Toolbar?) {
+        try {
+            super.setSupportActionBar(toolbar)
+        } catch (e: IllegalStateException) {
+            /**
+             * java.lang.RuntimeException: Unable to start activity
+             * java.lang.IllegalStateException: This Activity already has an action bar supplied by the window decor.
+             * Do not request Window.FEATURE_SUPPORT_ACTION_BAR and set windowActionBar to false in your theme to use a Toolbar instead.
+             */
+            e.printStackTrace()
+        }
+        this.toolbar = toolbar
+    }
 
     fun toolbar(): Toolbar? {
         return toolbar
@@ -296,18 +287,23 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     // Loading
+    // <https://gist.github.com/antoniolg/9837398>
 
+    private var loading = 0
     private var overlayLoader: OverlayLoader? = null
 
+    @UiThread
     fun loading(): Int {
         return loading
     }
 
+    @UiThread
     fun loading(i: Int) {
         loading += i
         loading(loading > 0)
     }
 
+    @UiThread
     fun loading(b: Boolean) {
         if (!ThreadHelper.mainThread()) {
             Logger.debug("Not on Main UI Thread!")
@@ -327,6 +323,12 @@ abstract class SkeletonActivity : AppCompatActivity() {
     }
 
     // Search
+    // <http://stackoverflow.com/q/18438890>
+
+    private var searchHint: String? = null
+    private var skeletonReceiver: SkeletonReceiver? = null
+    private var searchMenuItem: MenuItem? = null
+    private var searchView: SearchView? = null
 
     fun searchable(): Boolean {
         return skeletonReceiver != null
@@ -380,6 +382,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    @UiThread
     private fun stopSearch() {
         searchMenuItem?.collapseActionView()
         KeyboardHelper.hide(window)

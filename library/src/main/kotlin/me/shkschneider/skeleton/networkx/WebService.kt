@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.networkx
 
-import android.annotation.SuppressLint
 import android.os.AsyncTask
 import androidx.annotation.IntRange
 import androidx.annotation.Size
@@ -87,14 +86,13 @@ open class WebService(
 
     }
 
-    @SuppressLint("StaticFieldLeak")
     private inner class Task : AsyncTask<Void, Void, Any?>() {
 
         override fun doInBackground(@Size(0) vararg voids: Void): Any? {
             var httpURLConnection: HttpURLConnection? = null
             try {
-                val url = URL(url)
-                with(url.openConnection() as HttpURLConnection) {
+                httpURLConnection = (URL(url).openConnection() as HttpURLConnection)
+                with(httpURLConnection) {
                     connectTimeout = TIMEOUT_CONNECT
                     readTimeout = TIMEOUT_READ
                     useCaches = false
