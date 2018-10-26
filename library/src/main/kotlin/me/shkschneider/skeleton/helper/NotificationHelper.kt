@@ -47,7 +47,7 @@ object NotificationHelper {
         constructor(channel: Channel) : super(ContextHelper.applicationContext(), channel.id) {
             if (Build.VERSION.SDK_INT >= 26) {
                 Channel.get(channel.id) ?: return
-                with(NotificationChannel(channel.id, channel.name, NotificationManager.IMPORTANCE_DEFAULT)) {
+                NotificationChannel(channel.id, channel.name, NotificationManager.IMPORTANCE_DEFAULT).run {
                     lockscreenVisibility = NotificationCompat.VISIBILITY_PUBLIC
                     setShowBadge(channel.badge)
                     enableLights(channel.lights)

@@ -63,7 +63,7 @@ abstract class SkeletonFragment : Fragment() {
     }
 
     fun onCreateView(inflater: LayoutInflater, @LayoutRes resId: Int, container: ViewGroup?): View? {
-        with(Inflater.inflate(inflater, container, resId)) {
+        Inflater.inflate(inflater, container, resId).run {
             // HACK: <http://stackoverflow.com/a/18274767>
             setBackgroundResource(R.color.sk_android_background)
             isClickable = true

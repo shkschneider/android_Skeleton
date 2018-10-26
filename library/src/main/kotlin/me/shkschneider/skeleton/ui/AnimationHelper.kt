@@ -27,7 +27,7 @@ object AnimationHelper {
                     val height = view.measuredHeight / 2
                     val radius = Math.max(view.width, view.height) / 2
                     if (Build.VERSION.SDK_INT >= 21) {
-                        with(ViewAnimationUtils.createCircularReveal(view, width, height, 1.toFloat(), radius.toFloat())) {
+                        ViewAnimationUtils.createCircularReveal(view, width, height, 1.toFloat(), radius.toFloat()).run {
                             // setInterpolator(new AccelerateDecelerateInterpolator());
                             duration = ApplicationHelper.resources().getInteger(R.integer.sk_animation_medium).toLong()
                             view.visibility = View.VISIBLE
@@ -46,7 +46,7 @@ object AnimationHelper {
             val width = view.measuredWidth / 2
             val height = view.measuredHeight / 2
             val radius = view.width / 2
-            with(ViewAnimationUtils.createCircularReveal(view, width, height, radius.toFloat(), 1.toFloat())) {
+            ViewAnimationUtils.createCircularReveal(view, width, height, radius.toFloat(), 1.toFloat()).run {
                 // setInterpolator(new AccelerateDecelerateInterpolator());
                 duration = ApplicationHelper.resources().getInteger(R.integer.sk_animation_medium).toLong()
                 addListener(object: AnimatorListenerAdapter() {

@@ -42,7 +42,7 @@ class MainActivity : SkeletonActivity() {
             tabLayout.addTab(tabLayout.newTab().setText(pagerAdapter.getPageTitle(i)))
         }
         tabLayout.setupWithViewPager(viewPager)
-        with(viewPager) {
+        viewPager.run {
             adapter = pagerAdapter
             offscreenPageLimit = pagerAdapter.count
             addOnPageChangeListener(object: ViewPager.OnPageChangeListener {

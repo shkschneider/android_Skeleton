@@ -35,7 +35,7 @@ open class AutoCompleteSearchManager<T:Any>(
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        with(convertView ?: Inflater.inflate(parent, layoutId)) {
+        (convertView ?: Inflater.inflate(parent, layoutId)).run {
             getItem(position)?.let { item ->
                 viewHolderMapper.getViewHolder(position, this, item)
             }

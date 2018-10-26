@@ -40,32 +40,32 @@ class AboutActivity : SkeletonActivity() {
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
             // Application
-            with(findPreference("app_package")) {
+            findPreference("app_package").run {
                 title = "PackageName"
                 summary = ApplicationHelper.packageName()
             }
-            with(findPreference("app_versionName")) {
+            findPreference("app_versionName").run {
                 title = "VersionName"
                 summary = ApplicationHelper.versionName()
             }
-            with(findPreference("app_versionCode")) {
+            findPreference("app_versionCode").run {
                 title = "VersionCode"
                 summary = ApplicationHelper.versionCode().toString()
             }
-            with(findPreference("app_variant")) {
+            findPreference("app_variant").run {
                 title = "Variant"
                 summary = (if (ApplicationHelper.debuggable()) "debug" else "release").toUpperCase()
             }
-            with(findPreference("app_flavor")) {
+            findPreference("app_flavor").run {
                 title = "Flavor"
                 summary = BuildConfig.FLAVOR.toUpperCase()
             }
             // OS
-            with(findPreference("os_version")) {
+            findPreference("os_version").run {
                 title = "Version"
                 summary = AndroidHelper.codename()
             }
-            with(findPreference("os_api")) {
+            findPreference("os_api").run {
                 title = "API"
                 summary = AndroidHelper.api().toString()
             }

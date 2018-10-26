@@ -258,7 +258,6 @@ abstract class SkeletonActivity : AppCompatActivity() {
     fun title(title: String?) {
         toolbar?.let { toolbar ->
             toolbar.title = title
-            return
         }
         supportActionBar?.let { actionBar ->
             actionBar.setDisplayShowTitleEnabled(! title.isNullOrEmpty())
@@ -345,16 +344,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
         }
         menuInflater.inflate(R.menu.sk_search, menu)
         searchMenuItem = menu.findItem(R.id.menu_search)
-        val searchMenuItem = this.searchMenuItem ?: run {
-            Logger.warning("SearchMenuItem was NULL")
-            return super.onCreateOptionsMenu(menu)
-        }
-        searchView = searchMenuItem.actionView as SearchView
-        val searchView = this.searchView ?: run {
-            Logger.warning("SearchView was NULL")
-            return super.onCreateOptionsMenu(menu)
-        }
-        with(searchView) {
+        searchView = (searchMenuItem?.actionView as SearchView?)?.apply {
             inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
             imeOptions = EditorInfo.IME_ACTION_SEARCH
             setIconifiedByDefault(true)
@@ -381,20 +371,19 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         skeletonReceiver ?: return super.onOptionsItemSelected(item)
-        val searchView = item.actionView as SearchView
-        if (item.itemId == R.id.menu_search) {
-            searchView.isIconified = false
-            return true
+        (item.actionView as SearchView?)?.run {
+            if (item.itemId == R.id.menu_search) {
+                isIconified = false
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }
 
     private fun stopSearch() {
-        val searchMenuItem = this.searchMenuItem ?: return
-        searchMenuItem.collapseActionView()
+        searchMenuItem?.collapseActionView()
         KeyboardHelper.hide(window)
-        val searchView = this.searchView ?: return
-        searchView.clearFocus()
+        searchView?.clearFocus()
     }
 
     // Navigation

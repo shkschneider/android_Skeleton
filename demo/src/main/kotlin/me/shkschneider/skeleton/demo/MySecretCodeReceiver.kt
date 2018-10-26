@@ -12,23 +12,20 @@ import me.shkschneider.skeleton.helperx.Logger
 class MySecretCodeReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
-        var secretCode = intent.dataString
-        if (secretCode.isNullOrEmpty()) return
-        intent.data ?: return
-        intent.data?.scheme?.let { scheme ->
-            // android_secret_code://
-            with(secretCode!!) {
-                secretCode = substring(scheme.length)
-                if (startsWith("://")) {
-                    secretCode = substring("://".length, length)
+        intent.dataString?.let { dataString ->
+            var secretCode = dataString
+            intent.data?.scheme?.let { scheme ->
+                secretCode = dataString.substring(scheme.length)
+                if (secretCode.startsWith("://")) {
+                    secretCode = secretCode.substring("://".length, secretCode.length)
                 }
             }
-        }
-        Logger.debug("SecretCode: $secretCode")
-        if (intent.action == ACTION) {
-            context.startActivity(Intent(context, MainActivity::class)
-                    .setFlags(IntentHelper.FLAGS_HOME)
-                    .putExtra(SECRET_CODE, secretCode))
+            Logger.debug("SecretCode: $secretCode")
+            if (intent.action == ACTION) {
+                context.startActivity(Intent(context, MainActivity::class)
+                        .setFlags(IntentHelper.FLAGS_HOME)
+                        .putExtra(SECRET_CODE, secretCode))
+            }
         }
     }
 
