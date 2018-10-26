@@ -1,6 +1,10 @@
 package me.shkschneider.skeleton.extensions
 
+import android.app.Activity
+import android.content.ComponentName
 import android.content.Context
+import android.content.ContextWrapper
+import android.content.Intent
 import android.net.Uri
 import androidx.annotation.RequiresApi
 import me.shkschneider.skeleton.helper.AndroidHelper
@@ -9,15 +13,27 @@ import kotlin.reflect.KClass
 // Intent
 
 fun <T:Any> Intent(context: Context, klass: KClass<T>):
-        android.content.Intent = android.content.Intent(context, klass.java)
+        Intent = Intent(context, klass.java)
 
 fun <T:Any> Intent(action: String, uri: Uri, context: Context, klass: KClass<T>):
-        android.content.Intent = android.content.Intent(action, uri, context, klass.java)
+        Intent = Intent(action, uri, context, klass.java)
+
+inline fun <reified T:Activity> ContextWrapper.startActivity(block: Intent.() -> Unit = {}) {
+    startActivity(Intent(this, T::class).apply {
+        block(this)
+    })
+}
+
+inline fun <reified T:Activity> Activity.startActivityForResult(requestCode: Int, block: Intent.() -> Unit = {}) {
+    startActivityForResult(Intent(this, T::class).apply {
+        block(this)
+    }, requestCode)
+}
 
 // ComponentName
 
 fun <T:Any> ComponentName(pkg: Context, klass: KClass<T>):
-        android.content.ComponentName = android.content.ComponentName(pkg, klass.java)
+        ComponentName = ComponentName(pkg, klass.java)
 
 // Context
 

@@ -10,28 +10,28 @@ import me.shkschneider.skeleton.helperx.Logger
 
 object SharedPreferencesHelper {
 
-    private fun get(name: String?): SharedPreferences {
+    private fun editor(name: String?): SharedPreferences {
         return ContextHelper.applicationContext().getSharedPreferences(
                 if (name.isNullOrBlank()) ApplicationHelper.packageName() else name,
                 Context.MODE_PRIVATE)
     }
 
     fun contains(key: String): Boolean {
-        return get(null).contains(key)
+        return editor(null).contains(key)
     }
 
     fun contains(key: String, name: String? = null): Boolean {
-        return get(name).contains(key)
+        return editor(name).contains(key)
     }
 
     fun remove(key: String, name: String? = null) {
-        get(name).edit {
+        editor(name).edit {
             remove(key)
         }
     }
 
     fun clear(name: String? = null) {
-        get(name).edit {
+        editor(name).edit {
             clear()
         }
     }
@@ -40,78 +40,78 @@ object SharedPreferencesHelper {
 
     fun putString(key: String, value: String, name: String? = null) {
         Logger.verbose("$name: $key = $value")
-        get(name).edit {
+        editor(name).edit {
             putString(key, value)
         }
     }
 
     fun getString(key: String, defaultValue: String, name: String? = null): String? {
-        return get(name).getString(key, defaultValue)
+        return editor(name).getString(key, defaultValue)
     }
 
     // Set<String>
 
     fun putStringSet(key: String, value: Set<String>, name: String? = null) {
         Logger.verbose("$name: $key = $value")
-        get(name).edit {
+        editor(name).edit {
             putStringSet(key, value)
         }
     }
 
     fun getStringSet(key: String, defaultValue: Set<String>, name: String? = null): Set<String>? {
-        return get(name).getStringSet(key, defaultValue)
+        return editor(name).getStringSet(key, defaultValue)
     }
 
     // Integer
 
     fun putInteger(key: String, value: Int, name: String? = null) {
         Logger.verbose("$name: $key = $value")
-        get(name).edit {
+        editor(name).edit {
             putInt(key, value)
         }
     }
 
     fun getInteger(key: String, defaultValue: Int, name: String? = null): Int? {
-        return get(name).getInt(key, defaultValue)
+        return editor(name).getInt(key, defaultValue)
     }
 
     // Long
 
     fun putLong(key: String, value: Long, name: String? = null) {
         Logger.verbose("$name: $key = $value")
-        get(name).edit {
+        editor(name).edit {
             putLong(key, value)
         }
     }
 
     fun getLong(key: String, defaultValue: Long, name: String? = null): Long? {
-        return get(name).getLong(key, defaultValue)
+        return editor(name).getLong(key, defaultValue)
     }
 
     // Float
 
     fun putFloat(key: String, value: Float, name: String? = null) {
         Logger.verbose("$name: $key = $value")
-        get(name).edit {
+        editor(name).edit {
             putFloat(key, value)
         }
     }
 
     fun getFloat(key: String, defaultValue: Float, name: String? = null): Float? {
-        return get(name).getFloat(key, defaultValue)
+        return editor(name).getFloat(key, defaultValue)
     }
 
     // Boolean
 
     fun putBoolean(key: String, value: Boolean, name: String? = null) {
         Logger.verbose("$name: $key = $value")
-        get(name).edit {
+        editor(name).edit {
             putBoolean(key, value)
         }
     }
 
     fun getBoolean(key: String, defaultValue: Boolean, name: String? = null): Boolean? {
-        return get(name).getBoolean(key, defaultValue)
+        return editor(name).getBoolean(key, defaultValue)
     }
 
 }

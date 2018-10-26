@@ -2,8 +2,10 @@ package me.shkschneider.skeleton.securityx
 
 import android.annotation.SuppressLint
 import android.util.Base64
+import me.shkschneider.skeleton.data.CharsetHelper
 import me.shkschneider.skeleton.helperx.Logger
 import me.shkschneider.skeleton.security.Base64Helper
+import java.nio.charset.Charset
 import java.security.InvalidAlgorithmParameterException
 import java.security.InvalidKeyException
 import javax.crypto.BadPaddingException
@@ -35,7 +37,11 @@ open class ComplexCrypt(key: String) : ICrypt<String>(key) {
     override fun encrypt(src: String): String? {
         try {
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec)
-            return Base64Helper.encode(cipher.doFinal(Base64Helper.decode(src)))
+            val bytes = cipher.doFinal(src.toByteArray(Charset.defaultCharset()))
+            return Base64Helper.encode(bytes)
+        } catch (e: IllegalStateException) {
+            Logger.wtf(e)
+            return null
         } catch (e: InvalidKeyException) {
             Logger.wtf(e)
             return null
@@ -54,7 +60,8 @@ open class ComplexCrypt(key: String) : ICrypt<String>(key) {
     override fun decrypt(src: String): String? {
         try {
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec)
-            return Base64Helper.encode(cipher.doFinal(Base64Helper.decode(src)))
+            val bytes = cipher.doFinal(Base64Helper.decode(src))
+            return String(bytes, Charset.forName(CharsetHelper.UTF8))
         } catch (e: InvalidKeyException) {
             Logger.wtf(e)
             return null
@@ -81,7 +88,7 @@ open class ComplexCrypt(key: String) : ICrypt<String>(key) {
          * Stronger encryption requires higher API levels.
          * See https://developer.android.com/reference/javax/crypto/Cipher
          */
-        private const val ALGORITHM = "AES" // KeyProperties.KEY_ALGORITHM_AES
+        private const val ALGORITHM = "AES/GCM/NoPadding" // KeyProperties.KEY_ALGORITHM_AES
         private const val ALGORITHM_KEY_PAD = 16
 
     }

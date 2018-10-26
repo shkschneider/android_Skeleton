@@ -15,7 +15,7 @@ object Logger {
     private const val ERROR = Log.ERROR
     private const val WTF = Log.ASSERT
 
-    private fun log(@IntRange(from = VERBOSE.toLong(), to = WTF.toLong()) level: Int, msg: String?, throwable: Throwable?) {
+    private fun log(@IntRange(from = VERBOSE.toLong(), to = WTF.toLong()) level: Int, msg: String, throwable: Throwable?) {
         // <https://developer.android.com/reference/android/util/Log.html>
         // <https://developer.android.com/studio/debug/am-logcat>
         val tag = SkeletonApplication.TAG.ellipsize(23, reverse = true)
@@ -27,7 +27,7 @@ object Logger {
                 }
             }
         }
-        msg?.split("\n")?.forEach { line ->
+        msg.split("\n").forEach { line ->
             when (level) {
                 VERBOSE -> Log.v(tag, prefix + line, throwable)
                 DEBUG -> Log.d(tag, prefix + line, throwable)
@@ -68,7 +68,7 @@ object Logger {
 
     // Useful to log exceptions (avoids Exception.printStackTrace())
     fun wtf(throwable: Throwable): Logger { // "What a Terrible Failure"
-        log(WTF, throwable.message, throwable)
+        log(WTF, throwable::class.java.simpleName, throwable)
         return this
     }
 
