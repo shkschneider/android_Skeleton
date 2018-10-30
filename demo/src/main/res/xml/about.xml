@@ -29,6 +29,13 @@
             android:summary="@null" />
 
         <Preference
+            android:key="app_revision"
+            android:selectable="false"
+            android:icon="@null"
+            android:title="@null"
+            android:summary="@null" />
+
+        <Preference
             android:key="app_variant"
             android:selectable="false"
             android:icon="@null"

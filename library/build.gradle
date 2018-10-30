@@ -4,6 +4,16 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'org.jetbrains.dokka-android'
 
+// <https://stackoverflow.com/a/35041457>
+def gitRevision = { ->
+    def stdout = new ByteArrayOutputStream()
+    exec {
+        commandLine 'git', 'describe', '--tags'
+        standardOutput = stdout
+    }
+    return stdout.toString().trim()
+}
+
 android {
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
@@ -24,8 +34,9 @@ android {
         setProperty('archivesBaseName', "me.shkschneider.skeleton_v" + defaultConfig.versionName + "r" + defaultConfig.versionCode + ".aar")
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true
+        buildConfigField "String", "REVISION", "\"${gitRevision()}\""
     }
-    // https://issuetracker.google.com/issues/36967265
+    // <https://issuetracker.google.com/issues/36967265>
     defaultPublishConfig 'release'
     lintOptions {
         disable 'MissingTranslation'

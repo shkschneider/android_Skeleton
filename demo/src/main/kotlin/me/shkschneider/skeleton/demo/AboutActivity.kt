@@ -52,6 +52,10 @@ class AboutActivity : SkeletonActivity() {
                 title = "VersionCode"
                 summary = ApplicationHelper.versionCode().toString()
             }
+            findPreference("app_revision").run {
+                title = "Revision"
+                summary = me.shkschneider.skeleton.BuildConfig.REVISION
+            }
             findPreference("app_variant").run {
                 title = "Variant"
                 summary = (if (ApplicationHelper.debuggable()) "debug" else "release").toUpperCase()
