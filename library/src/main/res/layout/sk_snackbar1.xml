@@ -16,7 +16,7 @@
         android:textColor="@color/snackBarForegroundColor"
         android:ellipsize="marquee"
         android:gravity="start|center_vertical"
-        android:text="@string/dots"
+        android:text="@string/sk_dots"
         android:singleLine="true" />
 
     <Space
@@ -38,7 +38,7 @@
         android:textColor="@color/accentColor"
         android:ellipsize="marquee"
         android:gravity="center"
-        android:text="@string/dots"
+        android:text="@string/sk_dots"
         android:singleLine="true" />
 
 </LinearLayout>

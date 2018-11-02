@@ -1,18 +1,9 @@
-<resources>
-
-    <!--
-        @android:string/ok
-        @android:string/cancel
-        @android:string/yes
-        @android:string/no
-        @android:str_loadingding
-        @string/dots
-    -->
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <string name="title">"Skeleton"</string>
     <string name="subtitle">"for Android"</string>
 
-    <string name="skeleton">"Skeleton"</string>
+    <string name="skeleton" tools:ignore="MissingTranslation">"Skeleton"</string>
     <string name="application">"Application"</string>
     <string name="os">"OS"</string>
 

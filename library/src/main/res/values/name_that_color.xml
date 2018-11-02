@@ -1,5 +1,7 @@
-<resources xmlns:tools="http://schemas.android.com/tools"
-           tools:ignore="UnusedResources" tools:override="true">
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ResourceName,UnusedResources"
+    tools:override="true">
 
     <!-- http://chir.ag/projects/name-that-color/ -->
 

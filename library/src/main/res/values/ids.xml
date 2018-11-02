@@ -1,7 +1,7 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <item type="id" name="toolbar" />
-    <item type="id" name="mySwipeRefreshLayout" />
-    <item type="id" name="collapsingToolbarLayout" />
+    <item tools:ignore="ResourceName" type="id" name="toolbar" />
+    <item tools:ignore="ResourceName" type="id" name="mySwipeRefreshLayout" />
+    <item tools:ignore="ResourceName" type="id" name="collapsingToolbarLayout" />
 
 </resources>

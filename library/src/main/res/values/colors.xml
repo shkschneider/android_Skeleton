@@ -1,30 +1,31 @@
-<resources xmlns:tools="http://schemas.android.com/tools"
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="UnusedResources">
 
     <!-- Theme colors (Material Design) -->
 
-    <color name="accentColor">@color/sk_material_amber</color>
-    <color name="primaryColor">@color/sk_material_orange500</color>
-    <color name="primaryColorDark">@color/sk_material_orange700</color>
+    <color tools:ignore="ResourceName" name="accentColor">@color/sk_material_amber</color>
+    <color tools:ignore="ResourceName" name="primaryColor">@color/sk_material_orange500</color>
+    <color tools:ignore="ResourceName" name="primaryColorDark">@color/sk_material_orange700</color>
     <!-- Your theme is pretty much set now: the rest is optional tweaking -->
-    <color name="actionBarColor">@color/primaryColor</color>
-    <color name="actionBarForegroundColor">@color/sk_android_white</color>
-    <color name="contentBackgroundColor">@color/sk_android_background</color>
-    <color name="cellBackgroundColor">@color/sk_android_white</color>
-    <color name="navigationDrawerBackgroundColor">@color/sk_android_white</color>
-    <color name="navigationDrawerForegroundColor">@color/sk_navigation_drawer</color>
-    <color name="textPrimaryColor">@color/sk_android_black</color>
-    <color name="textSecondaryColor">@color/sk_android_grey</color>
-    <color name="snackBarBackgroundColor">#ff323232</color>
-    <color name="snackBarForegroundColor">@color/sk_android_white</color>
-    <color name="controlOff">#727272</color>
-    <color name="controlOn">@color/accentColor</color>
-    <color name="_divider">#1f000000</color>
-    <color name="highlight">#fffbcc</color>
+    <color tools:ignore="ResourceName" name="actionBarColor">@color/primaryColor</color>
+    <color tools:ignore="ResourceName" name="actionBarForegroundColor">@color/sk_android_white</color>
+    <color tools:ignore="ResourceName" name="contentBackgroundColor">@color/sk_android_background</color>
+    <color tools:ignore="ResourceName" name="cellBackgroundColor">@color/sk_android_white</color>
+    <color tools:ignore="ResourceName" name="navigationDrawerBackgroundColor">@color/sk_android_white</color>
+    <color tools:ignore="ResourceName" name="navigationDrawerForegroundColor">@color/sk_navigation_drawer</color>
+    <color tools:ignore="ResourceName" name="textPrimaryColor">@color/sk_android_black</color>
+    <color tools:ignore="ResourceName" name="textSecondaryColor">@color/sk_android_grey</color>
+    <color tools:ignore="ResourceName" name="snackBarBackgroundColor">#ff323232</color>
+    <color tools:ignore="ResourceName" name="snackBarForegroundColor">@color/sk_android_white</color>
+    <color tools:ignore="ResourceName" name="controlOff">#727272</color>
+    <color tools:ignore="ResourceName" name="controlOn">@color/accentColor</color>
+    <color tools:ignore="ResourceName" name="_divider">#1f000000</color>
+    <color tools:ignore="ResourceName" name="highlight">#fffbcc</color>
 
     <!-- Fix for preference-v17 -->
-    <color name="preference_accent">@color/accentColor</color>
-    <color name="preference_fallback_accent_color" tools:ignore="PrivateResource">@color/accentColor</color>
+    <color tools:ignore="ResourceName" name="preference_accent">@color/accentColor</color>
+    <color tools:ignore="ResourceName,PrivateResource" name="preference_fallback_accent_color">@color/accentColor</color>
 
     <!-- Material colors <https://material.google.com/style/color.html#color-color-palette> -->
 

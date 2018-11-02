@@ -6,7 +6,7 @@
             android:id="@+id/menu_main"
             android:checked="true"
             android:icon="@android:drawable/ic_dialog_dialer"
-            android:title="@string/lorem_ipsum" />
+            android:title="@string/sk_lorem_ipsum" />
 
     </group>
 

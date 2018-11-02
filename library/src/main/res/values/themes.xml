@@ -1,8 +1,10 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <style name="SkeletonTheme" parent="@style/_SkeletonTheme" />
 
-    <style name="_SkeletonTheme" parent="@style/Theme.MaterialComponents.Light.NoActionBar">
+    <style name="_SkeletonTheme" parent="@style/Theme.MaterialComponents.Light.NoActionBar" tools:ignore="ResourceName">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="colorPrimary">@color/primaryColor</item>

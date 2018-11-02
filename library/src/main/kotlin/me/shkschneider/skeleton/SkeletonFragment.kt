@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import me.shkschneider.skeleton.uix.Inflater
+import kotlin.reflect.KClass
 
 /**
  * https://developer.android.com/guide/components/fragments.html#Lifecycle
@@ -111,10 +112,31 @@ abstract class SkeletonFragment : Fragment() {
 
     companion object {
 
+        inline fun <reified T : SkeletonFragment> newInstance(target: KClass<T>) =
+                target.java.newInstance()
+
+        inline fun <reified T : SkeletonFragment> newInstance(target: KClass<T>, arguments: Bundle) =
+                target.java.newInstance().apply {
+                    setArguments(arguments)
+                }
+
+        // <https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/to.html>
+        inline fun <reified T : SkeletonFragment> newInstance(target: KClass<T>, vararg arguments: Pair<String, Any>) =
+                target.java.newInstance().apply {
+                    setArguments(bundleOf(*arguments))
+                }
+
+        @Deprecated("Use KClass")
         inline fun <reified T : SkeletonFragment> newInstance(target: Class<T>) =
                 target.newInstance()
 
-        // <https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/to.html>
+        @Deprecated("Use KClass")
+        inline fun <reified T : SkeletonFragment> newInstance(target: Class<T>, arguments: Bundle) =
+                target.newInstance().apply {
+                    setArguments(arguments)
+                }
+
+        @Deprecated("Use KClass")
         inline fun <reified T : SkeletonFragment> newInstance(target: Class<T>, vararg arguments: Pair<String, Any>) =
                 target.newInstance().apply {
                     setArguments(bundleOf(*arguments))

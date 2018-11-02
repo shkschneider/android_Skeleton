@@ -25,7 +25,7 @@ object SystemHelper {
     }
 
 
-    @Deprecated("Does not return until at least the specified number of milliseconds has elapsed.", ReplaceWith("")) // Avoid
+    @Deprecated("Does not return until at least the specified number of milliseconds has elapsed.") // Avoid
     fun sleep(milliseconds: Long) {
         SystemClock.sleep(milliseconds)
     }

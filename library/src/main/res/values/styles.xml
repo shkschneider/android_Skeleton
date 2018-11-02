@@ -6,12 +6,12 @@
         <item name="android:background">@color/sk_android_transparent</item>
     </style>
 
-    <style name="SkeletonTheme.ButtonStyle" parent="Widget.MaterialComponents.Button">
+    <style name="SkeletonTheme.ButtonStyle" parent="@style/Widget.MaterialComponents.Button">
         <item name="android:enabled">true</item>
         <item name="android:clickable">true</item>
         <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
-    <style name="SkeletonTheme.ButtonStyle.Borderless" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+    <style name="SkeletonTheme.ButtonStyle.Borderless" parent="@style/Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="android:enabled">true</item>
         <item name="android:clickable">true</item>
         <item name="android:background">?android:attr/selectableItemBackground</item>
