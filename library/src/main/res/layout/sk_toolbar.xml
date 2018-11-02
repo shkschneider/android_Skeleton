@@ -8,8 +8,8 @@
         android:id="@+id/toolbar"
         android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/toolbar"
-        android:minHeight="@dimen/toolbar"
+        android:layout_height="@dimen/sk_toolbar"
+        android:minHeight="@dimen/sk_toolbar"
         android:background="@color/actionBarColor"
         android:theme="@style/SkeletonTheme.Toolbar"
         app:popupTheme="@style/SkeletonTheme.Toolbar.Popup" />

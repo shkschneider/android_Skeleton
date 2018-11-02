@@ -4,7 +4,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/spaceTiny">
+    android:padding="@dimen/sk_spaceTiny">
 
     <TextView
         android:id="@+id/textView1"

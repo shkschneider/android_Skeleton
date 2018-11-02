@@ -3,11 +3,11 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="@dimen/spaceMedium"
-    android:paddingLeft="@dimen/spaceSmaller"
-    android:paddingRight="@dimen/spaceSmaller"
-    android:paddingTop="@dimen/spaceTiny"
-    android:paddingBottom="@dimen/spaceTiny">
+    android:minHeight="@dimen/sk_spaceMedium"
+    android:paddingLeft="@dimen/sk_spaceSmaller"
+    android:paddingRight="@dimen/sk_spaceSmaller"
+    android:paddingTop="@dimen/sk_spaceTiny"
+    android:paddingBottom="@dimen/sk_spaceTiny">
 
     <TextView
         android:id="@android:id/text1"

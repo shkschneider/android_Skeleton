@@ -98,10 +98,12 @@ class MainActivity : SkeletonActivity() {
     private class MyPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
 
         private val shkFragment by lazy {
-            SkeletonFragment.newInstance(ShkFragment::class.java, "test" to "42")
+            SkeletonFragment.newInstance(ShkFragment::class, Bundle().apply {
+                putInt("test", 42)
+            })
         }
         private val skFragment by lazy {
-            SkeletonFragment.newInstance(SkFragment::class.java)
+            SkeletonFragment.newInstance(SkFragment::class)
         }
 
         override fun getItem(position: Int): Fragment? {

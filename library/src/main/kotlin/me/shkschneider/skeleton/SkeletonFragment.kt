@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
@@ -120,12 +119,6 @@ abstract class SkeletonFragment : Fragment() {
                     setArguments(arguments)
                 }
 
-        // <https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/to.html>
-        inline fun <reified T : SkeletonFragment> newInstance(target: KClass<T>, vararg arguments: Pair<String, Any>) =
-                target.java.newInstance().apply {
-                    setArguments(bundleOf(*arguments))
-                }
-
         @Deprecated("Use KClass")
         inline fun <reified T : SkeletonFragment> newInstance(target: Class<T>) =
                 target.newInstance()
@@ -134,12 +127,6 @@ abstract class SkeletonFragment : Fragment() {
         inline fun <reified T : SkeletonFragment> newInstance(target: Class<T>, arguments: Bundle) =
                 target.newInstance().apply {
                     setArguments(arguments)
-                }
-
-        @Deprecated("Use KClass")
-        inline fun <reified T : SkeletonFragment> newInstance(target: Class<T>, vararg arguments: Pair<String, Any>) =
-                target.newInstance().apply {
-                    setArguments(bundleOf(*arguments))
                 }
 
     }

@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/snackBar2"
     android:background="@color/snackBarBackgroundColor"
-    android:paddingRight="@dimen/spaceSmallish"
-    android:paddingLeft="@dimen/spaceSmallish"
+    android:paddingRight="@dimen/sk_spaceSmallish"
+    android:paddingLeft="@dimen/sk_spaceSmallish"
     android:gravity="center_vertical">
 
     <TextView
@@ -12,7 +12,7 @@
         android:layout_width="0dp"
         android:layout_weight="1.0"
         android:layout_height="match_parent"
-        android:textSize="@dimen/textSizeSmall"
+        android:textSize="@dimen/sk_textSizeSmall"
         android:textColor="@color/snackBarForegroundColor"
         android:maxLines="2"
         android:ellipsize="marquee"
@@ -20,20 +20,20 @@
         android:text="@string/sk_dots" />
 
     <Space
-        android:layout_width="@dimen/spaceTinish"
+        android:layout_width="@dimen/sk_spaceTinish"
         android:layout_height="match_parent" />
 
     <TextView
         android:id="@+id/snackBar_action"
         android:layout_width="wrap_content"
-        android:minWidth="@dimen/spaceSmallish"
+        android:minWidth="@dimen/sk_spaceSmallish"
         android:layout_height="wrap_content"
-        android:minHeight="@dimen/spaceSmallish"
-        android:paddingTop="@dimen/spaceMicro"
-        android:paddingRight="@dimen/spaceTinish"
-        android:paddingBottom="@dimen/spaceMicro"
-        android:paddingLeft="@dimen/spaceTinish"
-        android:textSize="@dimen/textSizeSmall"
+        android:minHeight="@dimen/sk_spaceSmallish"
+        android:paddingTop="@dimen/sk_spaceMicro"
+        android:paddingRight="@dimen/sk_spaceTinish"
+        android:paddingBottom="@dimen/sk_spaceMicro"
+        android:paddingLeft="@dimen/sk_spaceTinish"
+        android:textSize="@dimen/sk_textSizeSmall"
         android:textAllCaps="true"
         android:textColor="@color/accentColor"
         android:ellipsize="marquee"

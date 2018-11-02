@@ -5,6 +5,6 @@
     <dimen name="actionBar2">112dp</dimen>
 
     <!-- android.support.v4.PreferenceFragment -->
-    <dimen name="preference_fragment_padding_side">@dimen/spaceTiny</dimen>
+    <dimen name="preference_fragment_padding_side">@dimen/sk_spaceTiny</dimen>
 
 </resources>

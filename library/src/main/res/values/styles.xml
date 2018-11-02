@@ -39,12 +39,12 @@
     <style name="SkeletonTheme.ListSeparatorTextViewStyle">
         <item name="android:background">@color/sk_android_transparent</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/spaceSmall</item>
+        <item name="android:layout_height">@dimen/sk_spaceSmall</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/accentColor</item>
-        <item name="android:textSize">@dimen/textSizeSmall</item>
+        <item name="android:textSize">@dimen/sk_textSizeSmall</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:padding">@dimen/spaceTiny</item>
+        <item name="android:padding">@dimen/sk_spaceTiny</item>
         <item name="android:shouldDisableView">false</item>
         <item name="android:selectable">false</item>
     </style>
@@ -56,9 +56,9 @@
     </style>
 
     <style name="SkeletonTheme.PagerTabStrip">
-        <item name="android:paddingTop">@dimen/spaceSmaller</item>
-        <item name="android:paddingBottom">@dimen/spaceSmaller</item>
-        <item name="android:textSize">@dimen/textSizeSmall</item>
+        <item name="android:paddingTop">@dimen/sk_spaceSmaller</item>
+        <item name="android:paddingBottom">@dimen/sk_spaceSmaller</item>
+        <item name="android:textSize">@dimen/sk_textSizeSmall</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:background">@color/primaryColor</item>

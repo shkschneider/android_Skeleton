@@ -7,6 +7,6 @@
     <dimen name="snackBar2">96dp</dimen>
 
     <!-- android.support.v4.PreferenceFragment -->
-    <dimen name="preference_fragment_padding_side">@dimen/spaceSmall</dimen>
+    <dimen name="preference_fragment_padding_side">@dimen/sk_spaceSmall</dimen>
 
 </resources>

@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             app:tabBackground="@color/primaryColor"
             app:tabIndicatorColor="@color/accentColor"
-            app:tabIndicatorHeight="@dimen/spaceMicro"
+            app:tabIndicatorHeight="@dimen/sk_spaceMicro"
             app:tabTextColor="@color/white"/>
 
     </com.google.android.material.appbar.AppBarLayout>

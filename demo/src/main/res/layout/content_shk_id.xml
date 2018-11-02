@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:foreground="?android:attr/selectableItemBackground"
-    android:layout_margin="@dimen/spaceTiny"
+    android:layout_margin="@dimen/sk_spaceTiny"
     app:cardPreventCornerOverlap="false"
     app:cardCornerRadius="4dp"
-    app:elevation="@dimen/elevation3">
+    app:elevation="@dimen/sk_elevation3">
 
     <LinearLayout
         android:orientation="vertical"
@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/primaryColor"
-            android:padding="@dimen/spaceTiny">
+            android:padding="@dimen/sk_spaceTiny">
 
             <TextView
                 android:layout_width="match_parent"
@@ -31,7 +31,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="@dimen/spaceTiny" />
+            android:layout_height="@dimen/sk_spaceTiny" />
 
         <androidx.cardview.widget.CardView
             android:layout_width="144dp"
@@ -51,7 +51,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="@dimen/spaceTiny" />
+            android:layout_height="@dimen/sk_spaceTiny" />
 
         <include layout="@layout/ui" android:id="@+id/id_id" />
 
@@ -71,7 +71,7 @@
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="@dimen/spaceTiny" />
+            android:layout_height="@dimen/sk_spaceTiny" />
 
     </LinearLayout>
 

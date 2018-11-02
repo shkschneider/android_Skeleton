@@ -3,6 +3,6 @@
 
     <solid android:color="@color/accentColor" />
 
-    <size android:width="@dimen/spaceMicro" />
+    <size android:width="@dimen/sk_spaceMicro" />
 
 </shape>

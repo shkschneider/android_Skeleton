@@ -82,11 +82,11 @@ object StringHelper {
     }
 
     fun cData(string: String): String {
-        return string.trim().takeIf {
-            it.startsWith("<![CDATA[")
-        }.apply {
+        return string.takeIf {
+            ! it.startsWith("<![CDATA[")
+        }?.apply {
             return "<![CDATA[$this]]>"
-        } ?: string.trim()
+        } ?: string
     }
 
 }

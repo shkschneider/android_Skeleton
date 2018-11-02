@@ -22,18 +22,18 @@
         <View
             style="@style/SkeletonTheme.DividerHorizontal"
             android:layout_width="match_parent"
-            android:layout_margin="@dimen/spaceTiny"
+            android:layout_margin="@dimen/sk_spaceMicro"
             android:layout_height="1dp" />
 
         <com.google.android.material.button.MaterialButton
-            style="@style/SkeletonTheme.ButtonStyle.Borderless"
+            style="@style/SkeletonTheme.ButtonStyle"
             android:drawableLeft="@drawable/ic_github"
             android:id="@+id/github"
-            android:layout_marginLeft="@dimen/spaceTiny"
-            android:layout_marginRight="@dimen/spaceTiny"
+            android:layout_marginLeft="@dimen/sk_spaceTiny"
+            android:layout_marginRight="@dimen/sk_spaceTiny"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="@dimen/spaceMedium"
+            android:minHeight="@dimen/sk_spaceMedium"
             android:text="@null"
             android:maxLines="2"
             tools:ignore="RtlHardcoded" />

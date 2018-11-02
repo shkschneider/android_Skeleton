@@ -131,12 +131,12 @@ tasks.whenTaskAdded { task ->
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk${versions.java}:${versions.kotlin}"
 
-    implementation "androidx.preference:preference:${versions.androidx}"
-    implementation "androidx.core:core-ktx:${versions.androidx}"
-    implementation "com.google.android.material:material:${versions.material}"
+    implementation 'androidx.preference:preference:1.0.0'
+    implementation 'androidx.core:core-ktx:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
 
-    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
-    implementation 'com.itkacher.okhttpprofiler:okhttpprofiler:1.0.2'
+    // implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    // implementation 'com.itkacher.okhttpprofiler:okhttpprofiler:1.0.2'
 
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     kapt 'com.github.bumptech.glide:compiler:4.8.0'
