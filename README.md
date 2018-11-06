@@ -3,35 +3,41 @@ Skeleton [![Travis-CI](https://travis-ci.org/shkschneider/android_Skeleton.svg?b
 
 > Android library with useful classes to be used as a "Skeleton" for an application.
 
+[![Koltin](https://github.com/JetBrains/kotlin-workshop/raw/master/kotlinlogo.png)](https://kotlinlang.org)
+
 Setup
 -----
 
-[![JitPack](https://jitpack.io/v/com.github.shkschneider/android_Skeleton.svg)](https://jitpack.io/#shkschneider/android_Skeleton/8.0.0)
+[![JitPack](https://jitpack.io/v/com.github.shkschneider/android_Skeleton.svg)](https://jitpack.io/#shkschneider/android_Skeleton/9.1.0)
 
 Specifications
 --------------
 
-[![API-16+](https://img.shields.io/badge/API-16+-blue.svg?style=flat)](https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#JELLY_BEAN) [![API-27](https://img.shields.io/badge/API-27-green.svg?style=flat)](https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#O_MR1)
+[![API-16+](https://img.shields.io/badge/API-16+-blue.svg?style=flat)](https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#JELLY_BEAN)
+[![API-28](https://img.shields.io/badge/API-28-green.svg?style=flat)](https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#P)
 
 [![Apache 2](https://img.shields.io/badge/license-Apache%202-blue.svg?style=flat)](https://raw.githubusercontent.com/shkschneider/android_Skeleton/master/LICENSE)
 
 **Libraries**
 
+- [androidx (core, appcompat, recyclerview, palette, preference)](https://developer.android.com/jetpack/androidx/)
+- [android.arch.lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle)
+- [android.arch.work](https://developer.android.com/topic/libraries/architecture/workmanager/)
 - [com.google.code.gson:gson](https://github.com/google/gson)
-- [com.android.support:design](https://developer.android.com/topic/libraries/support-library/features.html#design)
-- [com.android.support:palette-v7](https://developer.android.com/topic/libraries/support-library/features.html#v7-palette)
-- [com.android.support:recyclerview-v7](https://developer.android.com/topic/libraries/support-library/features.html#v7-recyclerview)
-- [com.android.support:preference-v14](https://developer.android.com/topic/libraries/support-library/features.html#v14-preference)
+
+**Recommended**
+
+- https://developer.android.com/topic/libraries/architecture/viewmodel
+- https://developer.android.com/topic/libraries/architecture/livedata
 
 **Uses**
 
-- [Gradle 3+](https://developer.android.com/studio/build/index.html) (wrapper 3.3)
+- [Gradle 3+](https://developer.android.com/studio/build/index.html) (wrapper 4.10)
 - [Android Studio 3+](https://developer.android.com/studio/index.html)
-- [android.support.v7.app.AppCompatActivity](https://developer.android.com/reference/android/support/v7/app/AppCompatActivity.html)
-- [android.support.v7.widget.Toolbar](https://developer.android.com/reference/android/support/v7/widget/Toolbar.html)
-- [android.support.v4.app.Fragment](https://developer.android.com/reference/android/support/v4/app/Fragment.html)
+- [Android Jetpack](https://developer.android.com/jetpack/)
 - [Material Design](http://www.google.com/design/spec/material-design/introduction.html)
 - [OpenJDK 8](http://openjdk.java.net/projects/jdk8/)
+- [Kotlin](https://kotlinlang.org/)
 
 Author
 ------
