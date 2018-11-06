@@ -44,7 +44,7 @@ class MainActivity : SkeletonActivity() {
         tabLayout.setupWithViewPager(viewPager)
         viewPager.run {
             adapter = pagerAdapter
-            offscreenPageLimit = pagerAdapter.count
+            offscreenPageLimit = pagerAdapter.count / 2
             addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
                 override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                     // Ignore
