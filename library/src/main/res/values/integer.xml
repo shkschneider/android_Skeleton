@@ -8,4 +8,26 @@
     <integer name="sk_animation_medium">@android:integer/config_mediumAnimTime</integer>
     <integer name="sk_animation_short">@android:integer/config_shortAnimTime</integer>
 
+    <integer name="sk_alpha_100">0xFF</integer>
+    <integer name="sk_alpha_95">0xF2</integer>
+    <integer name="sk_alpha_90">0xE6</integer>
+    <integer name="sk_alpha_85">0xD9</integer>
+    <integer name="sk_alpha_80">0xCC</integer>
+    <integer name="sk_alpha_75">0xBF</integer>
+    <integer name="sk_alpha_70">0xB3</integer>
+    <integer name="sk_alpha_65">0xA6</integer>
+    <integer name="sk_alpha_60">0x99</integer>
+    <integer name="sk_alpha_55">0x8C</integer>
+    <integer name="sk_alpha_50">0x80</integer>
+    <integer name="sk_alpha_45">0x73</integer>
+    <integer name="sk_alpha_40">0x66</integer>
+    <integer name="sk_alpha_35">0x59</integer>
+    <integer name="sk_alpha_30">0x4D</integer>
+    <integer name="sk_alpha_25">0x40</integer>
+    <integer name="sk_alpha_20">0x33</integer>
+    <integer name="sk_alpha_15">0x26</integer>
+    <integer name="sk_alpha_10">0x1A</integer>
+    <integer name="sk_alpha_5">0x0D</integer>
+    <integer name="sk_alpha_0">0x00</integer>
+
 </resources>
