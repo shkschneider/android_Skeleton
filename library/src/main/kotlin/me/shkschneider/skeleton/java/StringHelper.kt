@@ -55,7 +55,8 @@ object StringHelper {
         var string = s
         string = Normalizer.normalize(string, Normalizer.Form.NFD)
         // string = string.replaceAll("[^\\p{ASCII}]", ""); // ascii
-        string = string.replace("\\p{M}".toRegex(), "") // unicode
+        // string = string.replace("\\p{M}".toRegex(), "") // unicode
+        string = string.replace("\\p{InCombiningDiacriticalMarks}+".toRegex(), "")
         return string
     }
 
