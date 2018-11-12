@@ -11,7 +11,7 @@
         android:id="@+id/shadow"
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:background="@drawable/sk_shadown" />
+        android:background="@drawable/sk_shadow" />
 
     <LinearLayout
         android:layout_width="match_parent"
