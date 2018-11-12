@@ -7,8 +7,12 @@ import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.AssetsHelper
 import me.shkschneider.skeleton.helperx.Logger
 import me.shkschneider.skeleton.ui.BitmapHelper
-import java.io.*
-import java.util.*
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
 
 object FileHelper {
 

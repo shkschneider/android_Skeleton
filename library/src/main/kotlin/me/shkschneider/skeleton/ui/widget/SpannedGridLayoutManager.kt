@@ -26,7 +26,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
 import me.shkschneider.skeleton.helper.ContextHelper
-import java.util.*
 
 // <https://github.com/nickbutcher/plaid/blob/6a3cb17ede0ffeffb4ca16e4fd3c2ab60900d6b8/app/src/main/java/io/plaidapp/ui/recyclerview/SpannedGridLayoutManager.java>
 @Deprecated("Use Gradle: com.arasthel:spannedgridlayoutmanager:+")

@@ -4,7 +4,12 @@ import android.graphics.Typeface
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.Spanned
-import android.text.style.*
+import android.text.style.BackgroundColorSpan
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
+import android.text.style.StrikethroughSpan
+import android.text.style.StyleSpan
+import android.text.style.UnderlineSpan
 import androidx.annotation.ColorInt
 import androidx.annotation.IntRange
 import me.shkschneider.skeleton.helperx.Logger
@@ -43,7 +48,7 @@ open class SpannableStringHelper {
     }
 
     fun boldify(@IntRange(from = 0) start: Int, @IntRange(from = 0) length: Int): SpannableStringHelper {
-        val span = StyleSpan(android.graphics.Typeface.BOLD)
+        val span = StyleSpan(Typeface.BOLD)
         try {
             spannableString.setSpan(span, start, start + length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         } catch (e: IndexOutOfBoundsException) {

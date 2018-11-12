@@ -10,7 +10,6 @@ import androidx.core.view.GravityCompat
 import me.shkschneider.skeleton.extensions.has
 import me.shkschneider.skeleton.helper.AndroidHelper
 import me.shkschneider.skeleton.ui.ViewHelper
-import java.util.*
 
 // <https://github.com/AlbertGrobas/AutoLinearLayout>
 class AutoGridLayout : FrameLayout {

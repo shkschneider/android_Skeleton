@@ -14,7 +14,6 @@ import me.shkschneider.skeleton.helperx.SystemServices
 import java.net.Inet4Address
 import java.net.NetworkInterface
 import java.net.SocketException
-import java.util.*
 
 object NetworkHelper {
 

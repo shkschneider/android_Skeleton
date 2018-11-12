@@ -27,11 +27,11 @@ class Keystore(
         return editor().contains(key)
     }
 
-    fun <T:Any> get(key: String, klass: KClass<T>, default: T): T {
+    fun <T: Any> get(key: String, klass: KClass<T>, default: T): T {
         return get(key, klass) ?: default
     }
 
-    fun <T:Any> get(key: String, klass: KClass<T>): T? {
+    fun <T: Any> get(key: String, klass: KClass<T>): T? {
         return editor().getString(key, null)?.run {
             return crypt?.let { crypt ->
                 try {
@@ -46,7 +46,7 @@ class Keystore(
         }
     }
 
-    fun <T:Any> put(key: String, data: T) {
+    fun <T: Any> put(key: String, data: T) {
         return editor().edit {
             val json = gson.toJson(data)
             crypt?.let { crypt ->

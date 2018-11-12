@@ -5,7 +5,7 @@ import android.content.ContextWrapper
 import android.content.res.Configuration
 import android.os.Build
 import androidx.core.os.LocaleListCompat
-import java.util.*
+import java.util.Locale
 
 object LocaleHelper {
 

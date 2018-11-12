@@ -1,8 +1,15 @@
 package me.shkschneider.skeleton.javax
 
-import androidx.work.*
+import androidx.work.Constraints
+import androidx.work.Data
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.ExistingWorkPolicy
+import androidx.work.OneTimeWorkRequest
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
+import androidx.work.Worker
 import me.shkschneider.skeleton.helperx.Logger
-import java.util.*
+import java.util.UUID
 import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit
 
@@ -27,7 +34,7 @@ object SkeletonWorker {
 
     // Single-Shot
 
-    fun <T:Worker> enqueue(tag: String, worker: Class<T>, constraints: Constraints? = null, data: Data? = null): UUID {
+    fun <T: Worker> enqueue(tag: String, worker: Class<T>, constraints: Constraints? = null, data: Data? = null): UUID {
         val workBuilder = OneTimeWorkRequest.Builder(worker).addTag(tag)
         constraints?.let {
             workBuilder.setConstraints(it)
@@ -40,7 +47,7 @@ object SkeletonWorker {
         return work.id
     }
 
-    fun <T:Worker> uniqueWork(tag: String, worker: Class<T>, constraints: Constraints? = null, data: Data? = null): UUID {
+    fun <T: Worker> uniqueWork(tag: String, worker: Class<T>, constraints: Constraints? = null, data: Data? = null): UUID {
         val workBuilder = OneTimeWorkRequest.Builder(worker).addTag(tag)
         constraints?.let {
             workBuilder.setConstraints(it)
@@ -59,7 +66,7 @@ object SkeletonWorker {
      * It may run immediately, at the end of the period, or any time in between so long as the
      * other conditions are satisfied at the time.
      */
-    fun <T:Worker> uniquePeriodicWork(tag: String, worker: Class<T>, repeatInterval: Long, timeUnit: TimeUnit,
+    fun <T: Worker> uniquePeriodicWork(tag: String, worker: Class<T>, repeatInterval: Long, timeUnit: TimeUnit,
                                              constraints: Constraints? = null, data: Data? = null): UUID? {
         if (timeUnit.toMillis(repeatInterval) < PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS) {
             Logger.warning("The intervalMillis must be greater than or equal to: ${PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS}")
@@ -82,7 +89,7 @@ object SkeletonWorker {
      * interval period. The flex period begins at (intervalMillis - flexMillis) to the end of
      * the interval.
      */
-    fun <T:Worker> enqueueUniquePeriodicWork(tag: String, worker: Class<T>, repeatInterval: Long, timeUnit: TimeUnit,
+    fun <T: Worker> enqueueUniquePeriodicWork(tag: String, worker: Class<T>, repeatInterval: Long, timeUnit: TimeUnit,
                                              flexInterval: Long, flexIntervalTimeUnit: TimeUnit,
                                              constraints: Constraints? = null, data: Data? = null): UUID? {
         if (timeUnit.toMillis(repeatInterval) < PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS) {

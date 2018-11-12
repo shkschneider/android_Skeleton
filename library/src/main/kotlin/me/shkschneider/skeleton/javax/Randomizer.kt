@@ -3,7 +3,7 @@ package me.shkschneider.skeleton.javax
 import androidx.annotation.IntRange
 import me.shkschneider.skeleton.helperx.Logger
 import me.shkschneider.skeleton.java.StringHelper
-import java.util.*
+import java.util.Random
 
 object Randomizer {
 

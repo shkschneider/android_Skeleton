@@ -8,7 +8,12 @@ import android.os.Build
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import android.text.InputType
-import android.view.*
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import android.view.Window
+import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import androidx.annotation.AnimRes
 import androidx.annotation.ColorInt
@@ -22,7 +27,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import me.shkschneider.skeleton.extensions.toStringOrEmpty
-import me.shkschneider.skeleton.helper.*
+import me.shkschneider.skeleton.helper.ApplicationHelper
+import me.shkschneider.skeleton.helper.IntentHelper
+import me.shkschneider.skeleton.helper.KeyboardHelper
+import me.shkschneider.skeleton.helper.ThreadHelper
 import me.shkschneider.skeleton.helperx.Logger
 import me.shkschneider.skeleton.uix.OverlayLoader
 
@@ -305,7 +313,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     @UiThread
     fun loading(b: Boolean) {
-        if (!ThreadHelper.mainThread()) {
+        if (! ThreadHelper.mainThread()) {
             Logger.debug("Not on Main UI Thread!")
         }
         if (b) {

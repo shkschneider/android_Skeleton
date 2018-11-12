@@ -1,8 +1,11 @@
 package me.shkschneider.skeleton.datax
 
-import com.google.gson.*
+import com.google.gson.Gson
+import com.google.gson.JsonArray
+import com.google.gson.JsonElement
+import com.google.gson.JsonObject
+import com.google.gson.JsonParseException
 import me.shkschneider.skeleton.helperx.Logger
-import java.util.*
 
 object GsonParser : IParser<JsonObject, JsonArray> {
 

@@ -1,6 +1,13 @@
 package me.shkschneider.skeleton.ui
 
-import android.graphics.*
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.BitmapShader
+import android.graphics.Canvas
+import android.graphics.LightingColorFilter
+import android.graphics.Matrix
+import android.graphics.Paint
+import android.graphics.Shader
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -16,10 +23,16 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.IntRange
 import androidx.annotation.RequiresApi
-import me.shkschneider.skeleton.helper.*
+import me.shkschneider.skeleton.helper.AndroidHelper
+import me.shkschneider.skeleton.helper.ApplicationHelper
+import me.shkschneider.skeleton.helper.ContextHelper
 import me.shkschneider.skeleton.helperx.Logger
 import me.shkschneider.skeleton.helperx.Metrics
-import java.io.*
+import java.io.ByteArrayOutputStream
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileNotFoundException
+import java.io.InputStream
 
 object BitmapHelper {
 

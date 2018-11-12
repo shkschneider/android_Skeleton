@@ -26,7 +26,6 @@ import me.shkschneider.skeleton.ui.AnimationHelper
 import me.shkschneider.skeleton.uix.Inflater
 import me.shkschneider.skeleton.uix.Toaster
 import java.lang.reflect.Modifier
-import java.util.*
 
 class SkFragment : SkeletonFragment() {
 

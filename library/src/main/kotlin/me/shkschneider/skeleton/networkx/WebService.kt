@@ -16,7 +16,7 @@ import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.MalformedURLException
 import java.net.URL
-import java.util.*
+import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 // You should have a look at Retrofit or FastAndroidNetworking ;)

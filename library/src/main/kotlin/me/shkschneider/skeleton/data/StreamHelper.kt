@@ -4,7 +4,7 @@ import me.shkschneider.skeleton.helperx.Logger
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
-import java.util.*
+import java.util.Scanner
 
 object StreamHelper {
 

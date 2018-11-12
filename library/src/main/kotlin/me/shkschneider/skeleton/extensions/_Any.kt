@@ -9,17 +9,17 @@ inline val Any.TAG
 
 // Klass (uses no reflection)
 
-fun <T:Any> KClass<T>.simpleName(): String {
+fun <T: Any> KClass<T>.simpleName(): String {
     // this.simpleName uses reflection
     return this.java.simpleName.orEmpty()
 }
 
-fun <T:Any> KClass<T>.qualifiedName(): String {
+fun <T: Any> KClass<T>.qualifiedName(): String {
     // this.qualifiedName uses reflection
     return this.java.name.orEmpty()
 }
 
-fun <T:Any> KClass<T>.packageName(): String {
+fun <T: Any> KClass<T>.packageName(): String {
     return this.java.name.substringBeforeLast(".")
 }
 

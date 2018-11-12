@@ -14,19 +14,19 @@ import kotlin.reflect.KClass
 
 // Intent
 
-fun <T:Any> Intent(context: Context, klass: KClass<T>):
+fun <T: Any> Intent(context: Context, klass: KClass<T>):
         Intent = Intent(context, klass.java)
 
-fun <T:Any> Intent(action: String, uri: Uri, context: Context, klass: KClass<T>):
+fun <T: Any> Intent(action: String, uri: Uri, context: Context, klass: KClass<T>):
         Intent = Intent(action, uri, context, klass.java)
 
-inline fun <reified T:Activity> ContextWrapper.startActivity(block: Intent.() -> Unit = {}) {
+inline fun <reified T: Activity> ContextWrapper.startActivity(block: Intent.() -> Unit = {}) {
     startActivity(Intent(this, T::class).apply {
         block(this)
     })
 }
 
-inline fun <reified T:Activity> Activity.startActivityForResult(requestCode: Int, block: Intent.() -> Unit = {}) {
+inline fun <reified T: Activity> Activity.startActivityForResult(requestCode: Int, block: Intent.() -> Unit = {}) {
     startActivityForResult(Intent(this, T::class).apply {
         block(this)
     }, requestCode)
@@ -34,18 +34,18 @@ inline fun <reified T:Activity> Activity.startActivityForResult(requestCode: Int
 
 // ComponentName
 
-fun <T:Any> ComponentName(pkg: Context, klass: KClass<T>):
+fun <T: Any> ComponentName(pkg: Context, klass: KClass<T>):
         ComponentName = ComponentName(pkg, klass.java)
 
 // Context
 
 @RequiresApi(AndroidHelper.API_23)
-fun <T:Any> Context.getSystemService(klass: KClass<T>): T? {
+fun <T: Any> Context.getSystemService(klass: KClass<T>): T? {
     return getSystemService(klass.java) ?: null
 }
 
 @RequiresApi(AndroidHelper.API_23)
-fun <T:Any> Context.getSystemServiceName(klass: KClass<T>): String? {
+fun <T: Any> Context.getSystemServiceName(klass: KClass<T>): String? {
     return getSystemServiceName(klass.java) ?: null
 }
 

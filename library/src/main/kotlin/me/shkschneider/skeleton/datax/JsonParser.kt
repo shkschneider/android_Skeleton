@@ -4,7 +4,6 @@ import me.shkschneider.skeleton.helperx.Logger
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
-import java.util.*
 
 @Deprecated("Use Gson library.")
 object JsonParser : IParser<JSONObject, JSONArray> {

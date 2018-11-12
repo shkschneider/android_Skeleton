@@ -7,7 +7,6 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.annotation.UiThread
 import me.shkschneider.skeleton.SkeletonReceiver
-import java.util.*
 
 object ViewHelper {
 

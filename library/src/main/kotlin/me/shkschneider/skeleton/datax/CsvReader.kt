@@ -3,7 +3,6 @@ package me.shkschneider.skeleton.datax
 import me.shkschneider.skeleton.helperx.Logger
 import java.io.BufferedReader
 import java.io.IOException
-import java.util.*
 
 // <http://opencsv.sourceforge.net>
 open class CsvReader(

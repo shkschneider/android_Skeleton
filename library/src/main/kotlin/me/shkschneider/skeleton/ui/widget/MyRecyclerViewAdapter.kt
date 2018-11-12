@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import me.shkschneider.skeleton.uix.Inflater
-import java.util.*
 
 // <https://gist.github.com/unosk/af99b1a97b1.toFloat()48521cee>
 abstract class MyRecyclerViewAdapter<T, VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH> {

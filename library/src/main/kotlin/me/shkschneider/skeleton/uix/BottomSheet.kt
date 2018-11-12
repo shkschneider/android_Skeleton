@@ -6,7 +6,11 @@ import android.content.DialogInterface
 import android.graphics.drawable.Drawable
 import android.view.Gravity
 import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.annotation.UiThread
 import me.shkschneider.skeleton.R
 import me.shkschneider.skeleton.helperx.Metrics
