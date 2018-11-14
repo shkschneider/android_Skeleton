@@ -1,16 +1,17 @@
 package me.shkschneider.skeleton.javax
 
+import androidx.lifecycle.LiveData
 import androidx.work.Constraints
 import androidx.work.Data
 import androidx.work.ExistingPeriodicWorkPolicy
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequest
 import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import androidx.work.Worker
 import me.shkschneider.skeleton.helperx.Logger
 import java.util.UUID
-import java.util.concurrent.Executor
 import java.util.concurrent.TimeUnit
 
 /**
@@ -121,43 +122,28 @@ object SkeletonWorker {
      * CANCELLED
      */
 
-    // LiveData
-    fun getStatusById(id: UUID, listener: Runnable, executor: Executor) {
-        return manager().getStatusById(id).addListener(listener, executor)
+    fun getWorkInfoById(id: UUID): LiveData<WorkInfo> {
+        return manager().getWorkInfoByIdLiveData(id)
     }
 
-    // LiveData
-    fun getStatusesByTag(tag: String, listener: Runnable, executor: Executor) {
-        return manager().getStatusesByTag(tag).addListener(listener, executor)
+    fun getWorkInfosByTag(tag: String): LiveData<List<WorkInfo>> {
+        return manager().getWorkInfosByTagLiveData(tag)
     }
 
-    // LiveData
-    fun getStatusesForUniqueWork(tag: String, listener: Runnable, executor: Executor) {
-        return manager().getStatusesForUniqueWork(tag).addListener(listener, executor)
+    fun getWorkInfosForUniqueWork(tag: String): LiveData<List<WorkInfo>> {
+        return manager().getWorkInfosForUniqueWorkLiveData(tag)
     }
 
-    fun cancelAllWork(listener: Runnable? = null, executor: Executor? = null) {
-        manager().cancelAllWork().apply {
-            if (listener != null && executor != null) {
-                addListener(listener, executor)
-            }
-        }
+    fun cancelAllWork() {
+        manager().cancelAllWork()
     }
 
-    fun cancelAllWorkByTag(tag: String, listener: Runnable? = null, executor: Executor? = null) {
-        manager().cancelAllWorkByTag(tag).apply {
-            if (listener != null && executor != null) {
-                addListener(listener, executor)
-            }
-        }
+    fun cancelAllWorkByTag(tag: String) {
+        manager().cancelAllWorkByTag(tag)
     }
 
-    fun cancelUniqueWork(tag: String, listener: Runnable? = null, executor: Executor? = null) {
-        manager().cancelUniqueWork(tag).apply {
-            if (listener != null && executor != null) {
-                addListener(listener, executor)
-            }
-        }
+    fun cancelUniqueWork(tag: String) {
+        manager().cancelUniqueWork(tag)
     }
 
 }
