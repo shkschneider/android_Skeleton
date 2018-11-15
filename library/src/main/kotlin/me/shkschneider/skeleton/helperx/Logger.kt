@@ -23,7 +23,9 @@ object Logger {
         if (ApplicationHelper.debuggable()) {
             Throwable().stackTrace.dropWhile { it.className == this.javaClass.name }.also { elements ->
                 elements[0]?.let { element ->
-                    prefix = "[${element.className.substringAfterLast(".")}.${element.methodName.substringBefore("$")}():${element.lineNumber}] "
+                    val parent = element.className.substringAfterLast(".").substringBefore("$")
+                    val child = element.methodName.substringBefore("$").takeIf { it != "invoke" } ?: "$"
+                    prefix = "[$parent.$child():${element.lineNumber}] "
                 }
             }
         }
