@@ -19,7 +19,7 @@ import java.net.URL
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
-// You should have a look at Retrofit or FastAndroidNetworking ;)
+// You should have a look at Retrofit, FastAndroidNetworking or Fuel ;)
 open class WebService(
         private val method: Method,
         private val url: String
