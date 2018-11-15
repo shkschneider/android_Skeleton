@@ -16,7 +16,7 @@ object ViewHelper {
     val NO_ID = View.NO_ID
     val RESULT_VISIBILITY = "VISIBILITY"
 
-    fun <T : View> content(activity: Activity): T {
+    fun <T: View> content(activity: Activity): T {
         return activity.findViewById(CONTENT)
     }
 

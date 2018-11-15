@@ -77,7 +77,7 @@ object SystemServices {
     }
 
     @RequiresApi(AndroidHelper.API_23)
-    private fun <T : Any> get(klass: KClass<T>): T? {
+    private fun <T: Any> get(klass: KClass<T>): T? {
         return ContextHelper.applicationContext().getSystemService(klass)
     }
 

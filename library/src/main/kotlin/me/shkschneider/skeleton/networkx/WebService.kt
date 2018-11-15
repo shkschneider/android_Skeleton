@@ -1,193 +1,78 @@
 package me.shkschneider.skeleton.networkx
 
-import android.os.AsyncTask
-import androidx.annotation.IntRange
-import androidx.annotation.Size
-import com.google.gson.JsonSyntaxException
-import me.shkschneider.skeleton.data.CharsetHelper
-import me.shkschneider.skeleton.data.MimeTypeHelper
-import me.shkschneider.skeleton.data.StreamHelper
+import com.github.kittinunf.fuel.Fuel
+import com.github.kittinunf.fuel.core.FuelManager
+import com.github.kittinunf.fuel.core.Request
+import com.github.kittinunf.fuel.core.Response
+import com.github.kittinunf.fuel.core.ResponseDeserializable
+import com.google.gson.Gson
+import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helperx.Logger
-import me.shkschneider.skeleton.network.UrlHelper
-import java.io.BufferedWriter
-import java.io.DataOutputStream
-import java.io.IOException
-import java.io.OutputStreamWriter
-import java.net.HttpURLConnection
-import java.net.MalformedURLException
-import java.net.URL
-import java.util.Locale
 import java.util.concurrent.TimeUnit
+import kotlin.reflect.KClass
 
-// You should have a look at Retrofit, FastAndroidNetworking or Fuel ;)
-open class WebService(
-        private val method: Method,
-        private val url: String
-) {
+open class WebService {
 
-    private var headers: Map<String, String>? = null
-    private var body: Map<String, String>? = null
-    private var callback: Callback? = null
-
-    fun url(): String? {
-        return url
-    }
-
-    fun headers(headers: Map<String, String>?): WebService {
-        this.headers = headers
-        return this
-    }
-
-    fun headers(): Map<String, String>? {
-        return headers
-    }
-
-    fun body(body: Map<String, String>?): WebService {
-        this.body = body
-        return this
-    }
-
-    fun body(): Map<String, String>? {
-        return body
-    }
-
-    fun callback(callback: Callback?): WebService {
-        this.callback = callback
-        return this
-    }
-
-    fun callback(): Callback? {
-        return callback
-    }
-
-    fun run() {
-        Task().execute()
-    }
-
-    // <https://www.ietf.org/rfc/rfc2616.txt>
-    enum class Method {
-
-        OPTIONS,
-        GET,
-        HEAD,
-        POST,
-        PUT,
-        DELETE,
-        TRACE,
-        CONNECT;
-
-        fun allowsBody(): Boolean {
-            return when (this) {
-                POST, PUT, DELETE // Although SHOULD be ignored
-                -> true
-                else -> false
-            }
-        }
-
-    }
-
-    private inner class Task : AsyncTask<Void, Void, Any?>() {
-
-        override fun doInBackground(@Size(0) vararg voids: Void): Any? {
-            var httpURLConnection: HttpURLConnection? = null
-            try {
-                httpURLConnection = (URL(url).openConnection() as HttpURLConnection)
-                with(httpURLConnection) {
-                    connectTimeout = TIMEOUT_CONNECT
-                    readTimeout = TIMEOUT_READ
-                    useCaches = false
-                    doInput = true
-                    headers?.forEach { entry ->
-                        setRequestProperty(entry.key, entry.value)
-                    }
-                    requestMethod = method.name
-                    doOutput = method.allowsBody().also {
-                        body?.let { body ->
-                            setRequestProperty("Content-Type", MimeTypeHelper.APPLICATION_FORMURLENCODED)
-                            val dataOutputStream = DataOutputStream(outputStream)
-                            var params = ""
-                            body.keys.forEach { key ->
-                                params += key + "=" + UrlHelper.encode(key)
-                            }
-                            val bufferedWriter = BufferedWriter(OutputStreamWriter(dataOutputStream, CharsetHelper.UTF8))
-                            bufferedWriter.write(params)
-                            bufferedWriter.flush()
-                            bufferedWriter.close()
-                            dataOutputStream.close()
-                        }
-                    }
-                    Logger.debug("=> " + method.name + " " + url + " " + (headers?.toString() ?: "{}") + " " + (body?.toString() ?: "{}"))
-                    Logger.debug("<= $responseCode $responseMessage $url")
-                    errorStream?.let { errorStream ->
-                        return Response(responseCode, StreamHelper.read(errorStream)
-                                ?: responseMessage)
-                    } ?: StreamHelper.read(inputStream)?.let { response ->
-                        Logger.verbose("<- $response")
-                        return Response(responseCode, response)
-                    }
-                    return Response(responseCode, responseMessage)
+    init {
+        if (ApplicationHelper.debuggable()) {
+            FuelManager.instance.addRequestInterceptor { next: (Request) -> Request ->
+                { request: Request ->
+                    Logger.info(request.toString())
+                    next(request)
                 }
-            } catch (e: JsonSyntaxException) {
-                Logger.wtf(e)
-                return Error(INTERNAL_ERROR, JsonSyntaxException::class.java.simpleName)
-            } catch (e: MalformedURLException) {
-                Logger.wtf(e)
-                return Error(INTERNAL_ERROR, MalformedURLException::class.java.simpleName)
-            } catch (e: IOException) {
-                Logger.wtf(e)
-                return Error(INTERNAL_ERROR, IOException::class.java.simpleName)
-            } finally {
-                httpURLConnection?.disconnect()
+            }
+            FuelManager.instance.addResponseInterceptor { next: (Request, Response) -> Response ->
+                { request: Request, response: Response ->
+                    Logger.info(response.toString())
+                    next(request, response)
+                }
             }
         }
-
-        override fun onPostExecute(result: Any?) {
-            super.onPostExecute(result)
-            when (result) {
-                is Response -> callback?.success(result)
-                is Error -> callback?.failure(result)
-                else -> throw UnsupportedOperationException("Result was not a Response nor an Exception!")
-            }
-        }
-
+        FuelManager.instance.timeoutInMillisecond = TimeUnit.SECONDS.toMillis(15).toInt()
+        FuelManager.instance.timeoutReadInMillisecond = TimeUnit.SECONDS.toMillis(15).toInt()
     }
 
-    class Response(
-            @IntRange(from = 0, to = INTERNAL_ERROR.toLong())
-            val code: Int,
-            val message: String? = null
-    ) {
+    inline fun <reified T: Any> get(url: String,
+                                   crossinline success: (Request, Response, T) -> Unit,
+                                   noinline failure: ((Request, Response, Exception) -> Unit)? = null
+    ): Request = Fuel.get(url).apply { unwrap(request, success, failure) }
 
-        override fun toString(): String {
-            return String.format(Locale.getDefault(), "%d %s", code, message)
-        }
+    inline fun <reified T: Any> head(url: String,
+                                    crossinline success: (Request, Response, T) -> Unit,
+                                    noinline failure: ((Request, Response, Exception) -> Unit)? = null
+    ): Request = Fuel.head(url).apply { unwrap(request, success, failure) }
 
+    inline fun <reified T: Any> post(url: String,
+                                    crossinline success: (Request, Response, T) -> Unit,
+                                    noinline failure: ((Request, Response, Exception) -> Unit)? = null
+    ): Request = Fuel.post(url).apply { unwrap(request, success, failure) }
+
+    inline fun <reified T: Any> put(url: String,
+                                   crossinline success: (Request, Response, T) -> Unit,
+                                   noinline failure: ((Request, Response, Exception) -> Unit)? = null
+    ): Request = Fuel.put(url).apply { unwrap(request, success, failure) }
+
+    inline fun <reified T: Any> delete(url: String,
+                                      crossinline success: (Request, Response, T) -> Unit,
+                                      noinline failure: ((Request, Response, Exception) -> Unit)? = null
+    ): Request = Fuel.delete(url).apply { unwrap(request, success, failure) }
+
+    inline fun <reified T: Any> unwrap(
+            x: Request,
+            crossinline success: (Request, Response, T) -> Unit,
+            noinline failure: ((Request, Response, Exception) -> Unit)? = null
+    ): Request = x.responseObject(Deserializer(T::class)) { request: Request, response: Response, result ->
+        result.fold({ data ->
+            success(request, response, data)
+        }, { fuelError ->
+            Logger.error("${fuelError.response.statusCode} ${fuelError.response.url}", fuelError.exception)
+            failure?.invoke(request, response, fuelError.exception)
+        })
     }
 
-    class Error(
-            @IntRange(from = 0, to = INTERNAL_ERROR.toLong())
-            val code: Int,
-            message: String? = null
-    ) : Exception(message, null) {
+    class Deserializer<T: Any>(private val klass: KClass<T>): ResponseDeserializable<T> {
 
-        override fun toString(): String {
-            return String.format(Locale.getDefault(), "%d %s", code, message)
-        }
-
-    }
-
-    companion object {
-
-        const val INTERNAL_ERROR = 6_6_6
-        val TIMEOUT_CONNECT = TimeUnit.SECONDS.toMillis(15).toInt()
-        val TIMEOUT_READ = TimeUnit.MINUTES.toMillis(1).toInt()
-
-    }
-
-    interface Callback {
-
-        fun success(result: Response?)
-        fun failure(e: Error)
+        override fun deserialize(content: String): T? = Gson().fromJson(content, klass.java)
 
     }
 

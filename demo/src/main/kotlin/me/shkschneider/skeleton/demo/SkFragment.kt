@@ -21,7 +21,7 @@ import me.shkschneider.skeleton.helper.BroadcastHelper
 import me.shkschneider.skeleton.helper.DateTimeHelper
 import me.shkschneider.skeleton.helper.NotificationHelper
 import me.shkschneider.skeleton.javax.AlphanumComparator
-import me.shkschneider.skeleton.networkx.WebService
+import me.shkschneider.skeleton.networkx.ClassicWebService
 import me.shkschneider.skeleton.ui.AnimationHelper
 import me.shkschneider.skeleton.uix.Inflater
 import me.shkschneider.skeleton.uix.Toaster
@@ -91,7 +91,7 @@ class SkFragment : SkeletonFragment() {
                 me.shkschneider.skeleton.java.StringHelper::class.java
         ))
         fill(view.findViewById<View>(R.id.network) as LinearLayout, arrayOf(
-                me.shkschneider.skeleton.networkx.WebService::class.java,
+                me.shkschneider.skeleton.networkx.ClassicWebService::class.java,
                 me.shkschneider.skeleton.network.NetworkHelper::class.java,
                 me.shkschneider.skeleton.network.UrlHelper::class.java
         ))
@@ -189,9 +189,9 @@ class SkFragment : SkeletonFragment() {
     }
 
     private fun network() {
-        WebService(WebService.Method.GET, ShkMod.URL)
-                .callback(object: WebService.Callback {
-                    override fun success(result: WebService.Response?) {
+        ClassicWebService(ClassicWebService.Method.GET, ShkMod.URL)
+                .callback(object: ClassicWebService.Callback {
+                    override fun success(result: ClassicWebService.Response?) {
                         result?.let {
                             notification(DateTimeHelper.timestamp(), ApplicationHelper.name().orEmpty(),
                                     it.message.orEmpty())
@@ -199,7 +199,7 @@ class SkFragment : SkeletonFragment() {
                             Toaster.show(result.toStringOrEmpty())
                         }
                     }
-                    override fun failure(e: WebService.Error) {
+                    override fun failure(e: ClassicWebService.Error) {
                         Toaster.show(e.toStringOrEmpty())
                     }
                 })

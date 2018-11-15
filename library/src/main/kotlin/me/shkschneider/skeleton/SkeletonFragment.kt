@@ -48,7 +48,7 @@ abstract class SkeletonFragment : Fragment() {
         return activity?.let(ViewModelProviders::of) ?: ViewModelProviders.of(this)
     }
 
-    inline fun <reified T : ViewModel> getViewModel(): T {
+    inline fun <reified T: ViewModel> getViewModel(): T {
         return getViewModelProviders().get(T::class.java)
     }
 
@@ -111,20 +111,20 @@ abstract class SkeletonFragment : Fragment() {
 
     companion object {
 
-        inline fun <reified T : SkeletonFragment> newInstance(target: KClass<T>): T =
+        inline fun <reified T: SkeletonFragment> newInstance(target: KClass<T>): T =
                 target.java.newInstance()
 
-        inline fun <reified T : SkeletonFragment> newInstance(target: KClass<T>, arguments: Bundle): T =
+        inline fun <reified T: SkeletonFragment> newInstance(target: KClass<T>, arguments: Bundle): T =
                 target.java.newInstance().apply {
                     setArguments(arguments)
                 }
 
         @Deprecated("Use KClass")
-        inline fun <reified T : SkeletonFragment> newInstance(target: Class<T>): T =
+        inline fun <reified T: SkeletonFragment> newInstance(target: Class<T>): T =
                 target.newInstance()
 
         @Deprecated("Use KClass")
-        inline fun <reified T : SkeletonFragment> newInstance(target: Class<T>, arguments: Bundle): T =
+        inline fun <reified T: SkeletonFragment> newInstance(target: Class<T>, arguments: Bundle): T =
                 target.newInstance().apply {
                     setArguments(arguments)
                 }

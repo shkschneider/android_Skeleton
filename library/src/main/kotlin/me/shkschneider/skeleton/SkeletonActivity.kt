@@ -124,7 +124,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
         return ViewModelProviders.of(this)
     }
 
-    inline fun <reified T : ViewModel> getViewModel(): T {
+    inline fun <reified T: ViewModel> getViewModel(): T {
         return getViewModelProviders().get(T::class.java)
     }
 
