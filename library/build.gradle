@@ -61,6 +61,10 @@ dependencies {
 
     implementation 'android.arch.work:work-runtime-ktx:1.0.0-alpha11'
 
+    implementation "com.github.kittinunf.fuel:fuel:${versions.fuel}"
+    implementation "com.github.kittinunf.fuel:fuel-android:${versions.fuel}"
+    implementation "com.github.kittinunf.fuel:fuel-gson:${versions.fuel}"
+
     implementation 'com.google.code.gson:gson:2.8.5'
 }
 

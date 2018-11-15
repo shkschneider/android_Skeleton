@@ -21,7 +21,7 @@ import me.shkschneider.skeleton.uix.BottomSheet
  * ViewPager
  * FloatingActionButton
  * -> LocalBroadcast
- * -> WebService request
+ * -> Proxy request
  * -> Notification (RunnableHelper.delay())
  * -> onNewIntent() (Toaster.show())
  */
@@ -98,9 +98,7 @@ class MainActivity : SkeletonActivity() {
     private class MyPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
 
         private val shkFragment by lazy {
-            SkeletonFragment.newInstance(ShkFragment::class, Bundle().apply {
-                putInt("test", 42)
-            })
+            SkeletonFragment.newInstance(ShkFragment::class)
         }
         private val skFragment by lazy {
             SkeletonFragment.newInstance(SkFragment::class)
