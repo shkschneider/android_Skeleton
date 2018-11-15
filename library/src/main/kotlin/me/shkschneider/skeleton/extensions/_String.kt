@@ -4,11 +4,10 @@ import androidx.annotation.IntRange
 
 // Cases
 
-internal fun case(string: String): List<String> {
-    return string.toLowerCase()
+internal fun case(string: String): List<String> =
+    string.toLowerCase()
             .split("[^a-zA-Z]".toRegex())
             .filter { it.isNotBlank() }
-}
 
 fun String.camelCase(): String {
     var camelCase = ""
@@ -18,17 +17,19 @@ fun String.camelCase(): String {
     return camelCase
 }
 
-fun String.pascalCase(): String {
-    return camelCase().capitalize()
-}
+fun String.pascalCase(): String =
+    camelCase().capitalize()
 
-fun String.snakeCase(): String {
-    return case(this).joinToString(separator = "_")
-}
+fun String.snakeCase(): String =
+    case(this).joinToString(separator = "_")
 
-fun String.kebabCase(): String {
-    return case(this).joinToString(separator = "-")
-}
+fun String.kebabCase(): String =
+    case(this).joinToString(separator = "-")
+
+// Trim
+
+fun String.oneline() =
+    replace(Regex("\\n"), "")
 
 // Ellipsize
 

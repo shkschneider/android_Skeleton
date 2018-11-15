@@ -13,7 +13,7 @@ open class UniqueArrayAdapter<T>(
     override fun add(item: T?) {
         item ?: return
         val items = arrayListOf<T>()
-        for (position in 0..count) {
+        for (position in 0 until count) {
             getItem(position)?.let {
                 items.add(it)
             }

@@ -11,13 +11,13 @@ object StringHelper {
 
     // val EMPTY = ""
     const val NULL = "null"
-    val ALPHA = ('a' .. 'z').toString()
-    val NUMERIC = ('0' .. '9').toString()
+    val ALPHA = ('a' until 'z').toString()
+    val NUMERIC = ('0' until '9').toString()
     val HEX = NUMERIC + ALPHA.substring(0, 6)
 
     fun hexadecimal(string: String): Boolean {
         return string.toLowerCase().all {
-            it in ('a' .. 'f') || it.isDigit()
+            it in ('a' until 'f') || it.isDigit()
         }
     }
 
