@@ -20,10 +20,6 @@ import me.shkschneider.skeleton.uix.BottomSheet
  * Collapsible Toolbar
  * ViewPager
  * FloatingActionButton
- * -> LocalBroadcast
- * -> Proxy request
- * -> Notification (RunnableHelper.delay())
- * -> onNewIntent() (Toaster.show())
  */
 class MainActivity : SkeletonActivity() {
 

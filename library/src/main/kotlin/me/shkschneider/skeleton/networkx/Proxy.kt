@@ -11,7 +11,6 @@ import me.shkschneider.skeleton.helperx.Logger
 import java.util.concurrent.TimeUnit
 import kotlin.reflect.KClass
 
-// TODO retry?
 open class Proxy {
 
     init {
@@ -33,29 +32,29 @@ open class Proxy {
         FuelManager.instance.timeoutReadInMillisecond = TimeUnit.SECONDS.toMillis(15).toInt()
     }
 
-    protected inline fun <reified T:Any> get(url: String,
-                                             crossinline success: (Request, Response, T) -> Unit,
-                                             noinline failure: ((Request, Response, Exception) -> Unit)? = null
+    inline fun <reified T:Any> get(url: String,
+                                   crossinline success: (Request, Response, T) -> Unit,
+                                   noinline failure: ((Request, Response, Exception) -> Unit)? = null
     ): Request = Fuel.get(url).apply { unwrap(request, success, failure) }
 
-    protected inline fun <reified T:Any> head(url: String,
-                                              crossinline success: (Request, Response, T) -> Unit,
-                                              noinline failure: ((Request, Response, Exception) -> Unit)? = null
+    inline fun <reified T:Any> head(url: String,
+                                    crossinline success: (Request, Response, T) -> Unit,
+                                    noinline failure: ((Request, Response, Exception) -> Unit)? = null
     ): Request = Fuel.head(url).apply { unwrap(request, success, failure) }
 
-    protected inline fun <reified T:Any> post(url: String,
-                                              crossinline success: (Request, Response, T) -> Unit,
-                                              noinline failure: ((Request, Response, Exception) -> Unit)? = null
+    inline fun <reified T:Any> post(url: String,
+                                    crossinline success: (Request, Response, T) -> Unit,
+                                    noinline failure: ((Request, Response, Exception) -> Unit)? = null
     ): Request = Fuel.post(url).apply { unwrap(request, success, failure) }
 
-    protected inline fun <reified T:Any> put(url: String,
-                                             crossinline success: (Request, Response, T) -> Unit,
-                                             noinline failure: ((Request, Response, Exception) -> Unit)? = null
+    inline fun <reified T:Any> put(url: String,
+                                   crossinline success: (Request, Response, T) -> Unit,
+                                   noinline failure: ((Request, Response, Exception) -> Unit)? = null
     ): Request = Fuel.put(url).apply { unwrap(request, success, failure) }
 
-    protected inline fun <reified T:Any> delete(url: String,
-                                                crossinline success: (Request, Response, T) -> Unit,
-                                                noinline failure: ((Request, Response, Exception) -> Unit)? = null
+    inline fun <reified T:Any> delete(url: String,
+                                      crossinline success: (Request, Response, T) -> Unit,
+                                      noinline failure: ((Request, Response, Exception) -> Unit)? = null
     ): Request = Fuel.delete(url).apply { unwrap(request, success, failure) }
 
     inline fun <reified T:Any> unwrap(
