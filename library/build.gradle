@@ -1,7 +1,13 @@
+// Android
 apply plugin: 'com.android.library'
+// Kotlin
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+// JitPack
+apply plugin: 'com.github.dcendents.android-maven'
+group='me.shkschneider'
+// Dokka
 apply plugin: 'org.jetbrains.dokka-android'
 
 // <https://stackoverflow.com/a/35041457>

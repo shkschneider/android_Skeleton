@@ -20,6 +20,7 @@ object StrictModeHelper {
         }
         StrictMode.setThreadPolicy(threadPolicyBuilder.build())
         val vmPolicyBuilder = StrictMode.VmPolicy.Builder()
+                // .detectNonSdkApiUsage()
                 .detectAll()
                 .penaltyLog()
         if (death) {

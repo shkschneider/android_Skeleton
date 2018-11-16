@@ -17,6 +17,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.2.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1' // JitPack
         classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:${versions.dokka}"
     }
 }
