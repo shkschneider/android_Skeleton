@@ -14,42 +14,41 @@ import kotlin.reflect.KClass
 
 // Intent
 
-fun <T: Any> Intent(context: Context, klass: KClass<T>):
-        Intent = Intent(context, klass.java)
+fun <T: Any> Intent(context: Context, klass: KClass<T>): Intent =
+        Intent(context, klass.java)
 
-fun <T: Any> Intent(action: String, uri: Uri, context: Context, klass: KClass<T>):
-        Intent = Intent(action, uri, context, klass.java)
+fun <T: Any> Intent(action: String, uri: Uri, context: Context, klass: KClass<T>): Intent =
+        Intent(action, uri, context, klass.java)
 
-inline fun <reified T: Activity> ContextWrapper.startActivity(block: Intent.() -> Unit = {}) {
-    startActivity(Intent(this, T::class).apply {
-        block(this)
-    })
-}
+inline fun <reified T: Activity> ContextWrapper.startActivity(block: Intent.() -> Unit = {}) =
+        startActivity(Intent(this, T::class).apply {
+            block(this)
+        })
 
-inline fun <reified T: Activity> Activity.startActivityForResult(requestCode: Int, block: Intent.() -> Unit = {}) {
-    startActivityForResult(Intent(this, T::class).apply {
-        block(this)
-    }, requestCode)
-}
+inline fun <reified T: Activity> Activity.startActivityForResult(requestCode: Int, block: Intent.() -> Unit = {}) =
+        startActivityForResult(Intent(this, T::class).apply {
+            block(this)
+        }, requestCode)
 
 // ComponentName
 
-fun <T: Any> ComponentName(pkg: Context, klass: KClass<T>):
-        ComponentName = ComponentName(pkg, klass.java)
+fun <T: Any> ComponentName(pkg: Context, klass: KClass<T>): ComponentName =
+        ComponentName(pkg, klass.java)
 
 // Context
 
 @RequiresApi(AndroidHelper.API_23)
-fun <T: Any> Context.getSystemService(klass: KClass<T>): T? {
-    return getSystemService(klass.java) ?: null
-}
+fun <T: Any> Context.getSystemService(klass: KClass<T>): T? =
+        getSystemService(klass.java) ?: null
 
 @RequiresApi(AndroidHelper.API_23)
-fun <T: Any> Context.getSystemServiceName(klass: KClass<T>): String? {
-    return getSystemServiceName(klass.java) ?: null
-}
+fun <T: Any> Context.getSystemServiceName(klass: KClass<T>): String? =
+        getSystemServiceName(klass.java) ?: null
 
 // View
+
+inline val ViewGroup.views
+    get() = (0 until childCount).map { getChildAt(it) }
 
 fun ViewGroup.addOrUpdateView(view: View) {
     // Avoids IllegalStateException for already added views
