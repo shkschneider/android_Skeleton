@@ -7,16 +7,11 @@ android {
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
 
-    Properties versionProperties = new Properties()
-    def versionPropertiesFile = file('version.properties')
-    if (versionPropertiesFile.exists()) versionProperties.load(new FileInputStream(versionPropertiesFile))
-    def androidDefaultConfigVersionCode = (versionProperties['versionCode'] ?: "0").toInteger()
-
     defaultConfig {
         applicationId 'me.shkschneider.skeleton.demo'
         minSdkVersion 16 // Jelly Bean 4.1.x
         targetSdkVersion 28
-        versionCode androidDefaultConfigVersionCode
+        versionCode versionCode()
         versionName "${versions.skeleton}"
         applicationVariants.all { variant ->
             variant.outputs.all { output ->
@@ -107,24 +102,6 @@ android {
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/NOTICE'
         exclude 'META-INF/notice.txt'
-    }
-}
-
-task bump() << {
-    print '> Bump...'
-    Properties versionProperties = new Properties()
-    def versionPropertiesFile = file('version.properties')
-    if (!versionPropertiesFile.exists()) {
-        throw new GradleException("Could not read version.properties")
-    }
-    versionProperties.load(new FileInputStream(versionPropertiesFile))
-    versionProperties['versionCode'] = ((versionProperties['versionCode'] ?: "0").toInteger() + 1).toString()
-    versionProperties.store(versionPropertiesFile.newWriter(), null)
-    print " v${versions.skeleton}r" + versionProperties['versionCode'] + "\n"
-}
-tasks.whenTaskAdded { task ->
-    if (task.name == 'preReleaseBuild') {
-        task.dependsOn bump
     }
 }
 

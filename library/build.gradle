@@ -7,35 +7,15 @@ apply plugin: 'kotlin-kapt'
 // JitPack
 apply plugin: 'com.github.dcendents.android-maven'
 group='me.shkschneider'
-// Dokka
-apply plugin: 'org.jetbrains.dokka-android'
-
-// <https://stackoverflow.com/a/35041457>
-def gitRevision = { ->
-    def stdout = new ByteArrayOutputStream()
-    exec {
-        commandLine 'git', 'describe', '--tags'
-        standardOutput = stdout
-    }
-    return stdout.toString().trim()
-}
 
 android {
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
 
-    Properties versionProperties = new Properties()
-    def versionPropertiesFile = file('version.properties')
-    if (!versionPropertiesFile.exists()) {
-        throw new GradleException("Could not read version.properties")
-    }
-    versionProperties.load(new FileInputStream(versionPropertiesFile))
-    def androidDefaultConfigVersionCode = (versionProperties['versionCode'] ?: "0").toInteger()
-
     defaultConfig {
         minSdkVersion 16 // Jelly Bean 4.1.x
         targetSdkVersion 28
-        versionCode androidDefaultConfigVersionCode
+        versionCode versionCode()
         versionName "${versions.skeleton}"
         setProperty('archivesBaseName', "me.shkschneider.skeleton_v" + defaultConfig.versionName + "r" + defaultConfig.versionCode + ".aar")
         renderscriptTargetApi 19
@@ -76,52 +56,17 @@ dependencies {
 
 task bump() << {
     print '> Bump...'
-    Properties versionProperties = new Properties()
-    def versionPropertiesFile = file('version.properties')
-    if (!versionPropertiesFile.exists()) {
-        throw new GradleException("Could not read version.properties")
-    }
-    versionProperties.load(new FileInputStream(versionPropertiesFile))
-    versionProperties['versionCode'] = ((versionProperties['versionCode'] ?: "0").toInteger() + 1).toString()
-    versionProperties.store(versionPropertiesFile.newWriter(), null)
-    print " v${versions.skeleton}r" + versionProperties['versionCode'] + "\n"
+    def versionCode = versionCode(true)
+    print " v${versions.skeleton}r${versionCode}\n"
 }
-task travis() << {
+task ci() << {
     print '> Travis...'
-    def travisFile = file('../.travis.yml')
-    if (!travisFile.exists()) {
-        throw new GradleException(".travis.yml")
-    }
-    String content = travisFile.getText('UTF-8')
-    content = content.replaceFirst('build-tools-[0-9.]+', "build-tools-${android.buildToolsVersion}")
-    content = content.replaceFirst('android-[0-9]+', "${android.compileSdkVersion}")
-    new File('.travis.yml').write(content, 'UTF-8')
+    travis(android)
     print " build-tools-${android.buildToolsVersion} ${android.compileSdkVersion}\n"
 }
 tasks.whenTaskAdded { task ->
     if (task.name == 'preDebugBuild' || task.name == 'preReleaseBuild') {
         task.dependsOn bump
-        task.dependsOn travis
+        task.dependsOn ci
     }
-}
-
-task doc(type: org.jetbrains.dokka.gradle.DokkaAndroidTask) << {
-    print '> Documentation...' + '\n'
-    moduleName = 'skeleton'
-    outputFormat = 'html'
-    outputDirectory = "${rootProject.buildDir}/dokka"
-    jdkVersion = versions.java
-    skipEmptyPackages = true
-    includeNonPublic = false
-    reportUndocumented = false
-    noStdlibLink = false
-    externalDocumentationLink {
-        url = new URL('https://developer.android.com/reference/kotlin')
-        packageListUrl = new URL('https://developer.android.com/reference/package-list')
-    }
-    externalDocumentationLink {
-        url = new URL('https://developer.android.com/reference/')
-        packageListUrl = new URL('https://developer.android.com/reference/android/support/package-list')
-    }
-    print "$outputDirectory" + '\n'
 }
