@@ -9,32 +9,17 @@ apply plugin: 'com.github.dcendents.android-maven'
 group='me.shkschneider'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
-
-    defaultConfig {
-        minSdkVersion 16 // Jelly Bean 4.1.x
-        targetSdkVersion 28
-        versionCode versionCode()
-        versionName versions.skeleton
-        setProperty('archivesBaseName', "me.shkschneider.skeleton-${project.name}" +
-                "_v${defaultConfig.versionName}r${defaultConfig.versionCode}.aar")
-    }
-    // <https://issuetracker.google.com/issues/36967265>
-    defaultPublishConfig 'release'
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
-    resourcePrefix 'sk_'
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk${versions.java}:${versions.kotlin}"
+    def version
     implementation project(':library')
 
-    implementation "com.github.kittinunf.fuel:fuel:${versions.fuel}"
-    implementation "com.github.kittinunf.fuel:fuel-android:${versions.fuel}"
-    implementation "com.github.kittinunf.fuel:fuel-gson:${versions.fuel}"
+    version = '1.16.0'
+    implementation "com.github.kittinunf.fuel:fuel:${version}"
+    implementation "com.github.kittinunf.fuel:fuel-android:${version}"
+    implementation "com.github.kittinunf.fuel:fuel-gson:${version}"
 
-    implementation 'com.google.code.gson:gson:2.8.5'
+    version = '2.8.5'
+    implementation "com.google.code.gson:gson:${version}"
 }

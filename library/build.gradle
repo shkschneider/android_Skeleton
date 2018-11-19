@@ -9,46 +9,25 @@ apply plugin: 'com.github.dcendents.android-maven'
 group='me.shkschneider'
 
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
-
     defaultConfig {
-        minSdkVersion 16 // Jelly Bean 4.1.x
-        targetSdkVersion 28
-        versionCode versionCode()
-        versionName versions.skeleton
-        setProperty('archivesBaseName', "me.shkschneider.skeleton" +
-                "_v${defaultConfig.versionName}r${defaultConfig.versionCode}.aar")
-        renderscriptTargetApi 19
-        renderscriptSupportModeEnabled true
         buildConfigField 'String', 'REVISION', "\"${gitRevision()}\""
     }
-    // <https://issuetracker.google.com/issues/36967265>
-    defaultPublishConfig 'release'
-    lintOptions {
-        disable 'MissingTranslation'
-        checkReleaseBuilds true
-        abortOnError false
-    }
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
-    resourcePrefix 'sk_'
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk${versions.java}:${versions.kotlin}"
+    def version
 
-    implementation "androidx.core:core-ktx:${versions.androidx}"
-    implementation "androidx.appcompat:appcompat:${versions.androidx}"
-    implementation "androidx.recyclerview:recyclerview:${versions.androidx}"
-    implementation "androidx.palette:palette:${versions.androidx}"
-    implementation "androidx.preference:preference:${versions.androidx}"
-    kapt "android.arch.lifecycle:compiler:${versions.androidx}"
+    version = '1.0.0'
+    implementation "androidx.core:core-ktx:${version}"
+    implementation "androidx.appcompat:appcompat:${version}"
+    implementation "androidx.recyclerview:recyclerview:${version}"
+    implementation "androidx.palette:palette:${version}"
 
-    implementation 'android.arch.work:work-runtime-ktx:1.0.0-alpha11'
+    version = '2.0.0'
+    implementation "androidx.lifecycle:lifecycle-common-java${versions.java}:${version}"
 
-    implementation 'com.google.code.gson:gson:2.8.5'
+    version = '2.8.5'
+    implementation "com.google.code.gson:gson:${version}"
 }
 
 task bump() << {

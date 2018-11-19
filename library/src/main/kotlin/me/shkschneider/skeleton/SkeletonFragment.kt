@@ -6,11 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import me.shkschneider.skeleton.uix.Inflater
 import kotlin.reflect.KClass
 
@@ -40,26 +35,9 @@ abstract class SkeletonFragment : Fragment() {
 
     private var alive = false
 
-    override fun getLifecycle(): Lifecycle {
-        return super.getLifecycle()
-    }
-
-    fun getViewModelProviders(): ViewModelProvider {
-        return activity?.let(ViewModelProviders::of) ?: ViewModelProviders.of(this)
-    }
-
-    inline fun <reified T: ViewModel> getViewModel(): T {
-        return getViewModelProviders().get(T::class.java)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // setHasOptionsMenu();
-    }
-
-    // <https://stackoverflow.com/a/37727576/603270>
-    fun fragmentManager(): FragmentManager? {
-        return if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) fragmentManager else childFragmentManager
     }
 
     fun onCreateView(inflater: LayoutInflater, @LayoutRes resId: Int, container: ViewGroup?): View? {

@@ -22,10 +22,6 @@ import androidx.annotation.UiThread
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import me.shkschneider.skeleton.extensions.toStringOrEmpty
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.IntentHelper
@@ -115,18 +111,6 @@ abstract class SkeletonActivity : AppCompatActivity() {
     // Lifecycle
 
     private var alive = false
-
-    override fun getLifecycle(): Lifecycle {
-        return super.getLifecycle()
-    }
-
-    fun getViewModelProviders(): ViewModelProvider {
-        return ViewModelProviders.of(this)
-    }
-
-    inline fun <reified T: ViewModel> getViewModel(): T {
-        return getViewModelProviders().get(T::class.java)
-    }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)

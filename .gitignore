@@ -18,6 +18,7 @@ dist/
 # Gradle
 .gradle/
 build/
+*/build/
 
 # SDK
 local.properties

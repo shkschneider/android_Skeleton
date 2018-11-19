@@ -2,13 +2,10 @@
 
 buildscript {
     ext.versions = [
-        skeleton: '9.2.0',
-        java: '8',
+        android: 28,
+        java: 8,
         kotlin: '1.3.10',
-        dokka: '0.9.17',
-        material: '1.0.0',
-        androidx: '1.0.0',
-        fuel: '1.16.0'
+        skeleton: '9.2.0'
     ]
     repositories {
         google()
@@ -27,6 +24,74 @@ allprojects {
         jcenter()
         // maven { url 'https://jitpack.io' }
         flatDir { dirs 'libs' }
+    }
+}
+subprojects {
+    afterEvaluate { project ->
+        if (project.hasProperty('android')) {
+            def isAndroidApplication = project.plugins.findPlugin('com.android.application') != null
+            def isAndroidLibrary = project.plugins.findPlugin('com.android.library') != null
+            android {
+                def defaultConfigVersionCode = versionCode()
+                // Android
+                compileSdkVersion versions.android
+                buildToolsVersion "${versions.android}.0.3"
+                defaultConfig {
+                    minSdkVersion 16 // Jelly Bean 4.1.x
+                    targetSdkVersion versions.android
+                    versionCode defaultConfigVersionCode
+                    versionName versions.skeleton
+                    if (isAndroidApplication) {
+                        applicationVariants.all { variant ->
+                            variant.outputs.all { output ->
+                                outputFileName = "${applicationId}-${variant.productFlavors[0].name}" +
+                                        "_v${defaultConfig.versionName}r${defaultConfigVersionCode}" +
+                                        "-${variant.variantData.variantConfiguration.buildType.name}.apk"
+                            }
+                        }
+                    }
+                    if (isAndroidLibrary) {
+                        setProperty('archivesBaseName', "me.shkschneider.skeleton-${project.name}" +
+                                "_v${defaultConfig.versionName}r${defaultConfigVersionCode}")
+                    }
+                }
+                buildTypes {
+                    debug {
+                        debuggable true
+                        jniDebuggable true
+                        zipAlignEnabled true
+                        multiDexEnabled true
+                        shrinkResources false
+                    }
+                    release {
+                        debuggable false
+                        jniDebuggable false
+                        zipAlignEnabled true
+                        multiDexEnabled true
+                        shrinkResources false // TODO
+                    }
+                }
+                // Java 8
+                compileOptions {
+                    sourceCompatibility JavaVersion.VERSION_1_8
+                    targetCompatibility JavaVersion.VERSION_1_8
+                }
+                // Kotlin
+                sourceSets {
+                    main.java.srcDirs += 'src/main/kotlin'
+                }
+                // ...
+                if (isAndroidApplication) flavorDimensions 'default'
+                if (isAndroidLibrary) resourcePrefix 'sk_'
+                lintOptions {
+                    checkReleaseBuilds true
+                    abortOnError true
+                }
+            }
+            dependencies {
+                implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk${versions.java}:${versions.kotlin}"
+            }
+        }
     }
 }
 

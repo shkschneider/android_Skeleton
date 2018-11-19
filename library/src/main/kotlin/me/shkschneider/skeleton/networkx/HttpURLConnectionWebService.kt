@@ -32,6 +32,7 @@ open class HttpURLConnectionWebService(
         return url
     }
 
+    @Suppress("DEPRECATION")
     fun headers(headers: Map<String, String>?): HttpURLConnectionWebService {
         this.headers = headers
         return this
@@ -41,6 +42,7 @@ open class HttpURLConnectionWebService(
         return headers
     }
 
+    @Suppress("DEPRECATION")
     fun body(body: Map<String, String>?): HttpURLConnectionWebService {
         this.body = body
         return this
@@ -50,6 +52,7 @@ open class HttpURLConnectionWebService(
         return body
     }
 
+    @Suppress("DEPRECATION")
     fun callback(callback: Callback?): HttpURLConnectionWebService {
         this.callback = callback
         return this

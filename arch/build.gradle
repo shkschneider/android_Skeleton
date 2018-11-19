@@ -1,0 +1,27 @@
+// Android
+apply plugin: 'com.android.library'
+// Kotlin
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+// JitPack
+apply plugin: 'com.github.dcendents.android-maven'
+group='me.shkschneider'
+
+android {
+}
+
+dependencies {
+    def version
+    implementation project(':library')
+
+    version = '1.0.0'
+    implementation "androidx.appcompat:appcompat:${version}"
+
+    version = '2.0.0'
+    implementation "androidx.lifecycle:lifecycle-extensions:${version}"
+    implementation "androidx.lifecycle:lifecycle-common-java8:${version}"
+
+    version = '1.0.0-alpha11'
+    implementation "android.arch.work:work-runtime-ktx:${version}"
+}

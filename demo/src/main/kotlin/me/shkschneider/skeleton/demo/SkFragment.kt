@@ -88,7 +88,6 @@ class SkFragment : SkeletonFragment() {
         fill(view.findViewById<View>(R.id.java) as LinearLayout, arrayOf(
                 me.shkschneider.skeleton.javax.Randomizer::class.java,
                 me.shkschneider.skeleton.javax.SemanticVersion::class.java,
-                me.shkschneider.skeleton.javax.SkeletonWorker::class.java,
                 me.shkschneider.skeleton.javax.Tasker::class.java,
                 me.shkschneider.skeleton.java.StringHelper::class.java
         ))
