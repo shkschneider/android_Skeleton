@@ -62,7 +62,7 @@ class AboutActivity : SkeletonActivity() {
             }
             findPreference("app_flavor").run {
                 title = "Flavor"
-                summary = BuildConfig.FLAVOR.toUpperCase()
+                summary = me.shkschneider.skeleton.BuildConfig.FLAVOR.toUpperCase()
             }
             // OS
             findPreference("os_version").run {

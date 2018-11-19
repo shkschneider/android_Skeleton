@@ -11,7 +11,7 @@ import me.shkschneider.skeleton.helperx.Logger
 import java.util.concurrent.TimeUnit
 import kotlin.reflect.KClass
 
-open class WebService {
+open class FuelWebService {
 
     init {
         if (ApplicationHelper.debuggable()) {
@@ -33,28 +33,28 @@ open class WebService {
     }
 
     inline fun <reified T: Any> get(url: String,
-                                   crossinline success: (Request, Response, T) -> Unit,
-                                   noinline failure: ((Request, Response, Exception) -> Unit)? = null
+                                    crossinline success: (Request, Response, T) -> Unit,
+                                    noinline failure: ((Request, Response, Exception) -> Unit)? = null
     ): Request = Fuel.get(url).apply { unwrap(request, success, failure) }
 
     inline fun <reified T: Any> head(url: String,
-                                    crossinline success: (Request, Response, T) -> Unit,
-                                    noinline failure: ((Request, Response, Exception) -> Unit)? = null
+                                     crossinline success: (Request, Response, T) -> Unit,
+                                     noinline failure: ((Request, Response, Exception) -> Unit)? = null
     ): Request = Fuel.head(url).apply { unwrap(request, success, failure) }
 
     inline fun <reified T: Any> post(url: String,
-                                    crossinline success: (Request, Response, T) -> Unit,
-                                    noinline failure: ((Request, Response, Exception) -> Unit)? = null
+                                     crossinline success: (Request, Response, T) -> Unit,
+                                     noinline failure: ((Request, Response, Exception) -> Unit)? = null
     ): Request = Fuel.post(url).apply { unwrap(request, success, failure) }
 
     inline fun <reified T: Any> put(url: String,
-                                   crossinline success: (Request, Response, T) -> Unit,
-                                   noinline failure: ((Request, Response, Exception) -> Unit)? = null
+                                    crossinline success: (Request, Response, T) -> Unit,
+                                    noinline failure: ((Request, Response, Exception) -> Unit)? = null
     ): Request = Fuel.put(url).apply { unwrap(request, success, failure) }
 
     inline fun <reified T: Any> delete(url: String,
-                                      crossinline success: (Request, Response, T) -> Unit,
-                                      noinline failure: ((Request, Response, Exception) -> Unit)? = null
+                                       crossinline success: (Request, Response, T) -> Unit,
+                                       noinline failure: ((Request, Response, Exception) -> Unit)? = null
     ): Request = Fuel.delete(url).apply { unwrap(request, success, failure) }
 
     inline fun <reified T: Any> unwrap(

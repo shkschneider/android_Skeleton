@@ -3,7 +3,6 @@ package me.shkschneider.skeleton.networkx
 import android.os.AsyncTask
 import androidx.annotation.IntRange
 import androidx.annotation.Size
-import com.google.gson.JsonSyntaxException
 import me.shkschneider.skeleton.data.CharsetHelper
 import me.shkschneider.skeleton.data.MimeTypeHelper
 import me.shkschneider.skeleton.data.StreamHelper
@@ -20,7 +19,7 @@ import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 @Deprecated("You should have a look at Fuel, Retrofit or FastAndroidNetworking")
-open class ClassicWebService(
+open class HttpURLConnectionWebService(
         private val method: Method,
         private val url: String
 ) {
@@ -33,7 +32,7 @@ open class ClassicWebService(
         return url
     }
 
-    fun headers(headers: Map<String, String>?): ClassicWebService {
+    fun headers(headers: Map<String, String>?): HttpURLConnectionWebService {
         this.headers = headers
         return this
     }
@@ -42,7 +41,7 @@ open class ClassicWebService(
         return headers
     }
 
-    fun body(body: Map<String, String>?): ClassicWebService {
+    fun body(body: Map<String, String>?): HttpURLConnectionWebService {
         this.body = body
         return this
     }
@@ -51,7 +50,7 @@ open class ClassicWebService(
         return body
     }
 
-    fun callback(callback: Callback?): ClassicWebService {
+    fun callback(callback: Callback?): HttpURLConnectionWebService {
         this.callback = callback
         return this
     }
@@ -127,9 +126,6 @@ open class ClassicWebService(
                     }
                     return Response(responseCode, responseMessage)
                 }
-            } catch (e: JsonSyntaxException) {
-                Logger.wtf(e)
-                return Error(INTERNAL_ERROR, JsonSyntaxException::class.java.simpleName)
             } catch (e: MalformedURLException) {
                 Logger.wtf(e)
                 return Error(INTERNAL_ERROR, MalformedURLException::class.java.simpleName)

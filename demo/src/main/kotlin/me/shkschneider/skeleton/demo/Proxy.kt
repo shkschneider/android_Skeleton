@@ -7,14 +7,14 @@ import com.github.kittinunf.fuel.core.isSuccessful
 import com.google.gson.annotations.SerializedName
 import me.shkschneider.skeleton.datax.MemoryCache
 import me.shkschneider.skeleton.helperx.Logger
-import me.shkschneider.skeleton.networkx.WebService
+import me.shkschneider.skeleton.networkx.FuelWebService
 import java.io.Serializable
 import java.nio.charset.Charset
 
 object Proxy {
 
     private val proxy by lazy {
-        WebService()
+        FuelWebService()
     }
     // cache.clear()
     val cache by lazy {
@@ -57,7 +57,7 @@ object Proxy {
             }, {
                 cache.get(key)?.let { byteArray ->
                     val data = (byteArray as ByteArray).toString(Charset.defaultCharset())
-                    WebService.Deserializer(T::class).deserialize(data)?.let { t ->
+                    FuelWebService.Deserializer(T::class).deserialize(data)?.let { t ->
                         success(request, response, t)
                     }
                 }

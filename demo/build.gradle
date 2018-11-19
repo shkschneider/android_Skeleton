@@ -1,4 +1,6 @@
+// Android
 apply plugin: 'com.android.application'
+// Kotlin
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
@@ -12,12 +14,12 @@ android {
         minSdkVersion 16 // Jelly Bean 4.1.x
         targetSdkVersion 28
         versionCode versionCode()
-        versionName "${versions.skeleton}"
+        versionName versions.skeleton
         applicationVariants.all { variant ->
             variant.outputs.all { output ->
-                outputFileName = applicationId + "-" + variant.productFlavors[0].name +
-                        "_v" + defaultConfig.versionName + "r" + defaultConfig.versionCode +
-                        "-" + variant.variantData.variantConfiguration.buildType.name + ".apk"
+                outputFileName = "${applicationId}-${variant.productFlavors[0].name}" +
+                        "_v${defaultConfig.versionName}r${defaultConfig.versionCode}" +
+                        "-${variant.variantData.variantConfiguration.buildType.name}.apk"
             }
         }
     }
@@ -53,7 +55,7 @@ android {
             multiDexEnabled true
             signingConfig signingConfigs.debug
             shrinkResources false
-            buildConfigField "boolean", "RELEASE", "false"
+            buildConfigField 'boolean', 'RELEASE', 'false'
         }
         release {
             debuggable false
@@ -61,7 +63,7 @@ android {
             zipAlignEnabled true
             multiDexEnabled true
             signingConfig signingConfigs.release
-            buildConfigField "boolean", "RELEASE", "true"
+            buildConfigField 'boolean', 'RELEASE', 'true'
         }
     }
     defaultPublishConfig 'debug'
@@ -70,16 +72,16 @@ android {
         alpha {
             dimension 'default'
             // versionNameSuffix '-ALPHA'
-            resValue "string", "url", "http://android.com?alpha"
+            resValue 'string', 'url', 'http://android.com?alpha'
         }
         beta {
             dimension 'default'
             // versionNameSuffix '-BETA'
-            resValue "string", "url", "http://android.com?beta"
+            resValue 'string', 'url', 'http://android.com?beta'
         }
         prod {
             dimension 'default'
-            resValue "string", "url", "http://android.com"
+            resValue 'string', 'url', 'https://android.com'
         }
     }
     bundle {
@@ -107,6 +109,7 @@ android {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk${versions.java}:${versions.kotlin}"
+    implementation project(':fuel')
 
     implementation "androidx.preference:preference:${versions.androidx}"
     implementation "androidx.core:core-ktx:${versions.androidx}"

@@ -33,7 +33,7 @@ allprojects {
 def versionCode(increment) {
     Properties versionProperties = new Properties()
     def versionPropertiesFile = file("${rootProject.projectDir}/version.properties")
-    if (!versionPropertiesFile.exists()) throw new GradleException("Could not read version.properties")
+    if (!versionPropertiesFile.exists()) throw new GradleException(versionPropertiesFile.path)
     versionProperties.load(new FileInputStream(versionPropertiesFile))
     if (increment ?: false) {
         versionProperties['versionCode'] = ((versionProperties['versionCode'] ?: "0").toInteger() + 1).toString()
@@ -41,7 +41,6 @@ def versionCode(increment) {
     }
     return versionProperties['versionCode']
 }
-
 
 // <https://stackoverflow.com/a/35041457>
 def gitRevision() {
@@ -55,7 +54,7 @@ def gitRevision() {
 
 def travis(android) {
     def travisFile = file("${rootProject.projectDir}/.travis.yml")
-    if (!travisFile.exists()) throw new GradleException(".travis.yml")
+    if (!travisFile.exists()) throw new GradleException(travisFile.path)
     String content = travisFile.getText('UTF-8')
     content = content.replaceFirst('build-tools-[0-9.]+', "build-tools-${android.buildToolsVersion}")
     content = content.replaceFirst('android-[0-9]+', "${android.compileSdkVersion}")

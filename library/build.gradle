@@ -16,11 +16,12 @@ android {
         minSdkVersion 16 // Jelly Bean 4.1.x
         targetSdkVersion 28
         versionCode versionCode()
-        versionName "${versions.skeleton}"
-        setProperty('archivesBaseName', "me.shkschneider.skeleton_v" + defaultConfig.versionName + "r" + defaultConfig.versionCode + ".aar")
+        versionName versions.skeleton
+        setProperty('archivesBaseName', "me.shkschneider.skeleton" +
+                "_v${defaultConfig.versionName}r${defaultConfig.versionCode}.aar")
         renderscriptTargetApi 19
         renderscriptSupportModeEnabled true
-        buildConfigField "String", "REVISION", "\"${gitRevision()}\""
+        buildConfigField 'String', 'REVISION', "\"${gitRevision()}\""
     }
     // <https://issuetracker.google.com/issues/36967265>
     defaultPublishConfig 'release'
@@ -32,7 +33,7 @@ android {
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }
-    resourcePrefix "sk_"
+    resourcePrefix 'sk_'
 }
 
 dependencies {
@@ -46,10 +47,6 @@ dependencies {
     kapt "android.arch.lifecycle:compiler:${versions.androidx}"
 
     implementation 'android.arch.work:work-runtime-ktx:1.0.0-alpha11'
-
-    implementation "com.github.kittinunf.fuel:fuel:${versions.fuel}"
-    implementation "com.github.kittinunf.fuel:fuel-android:${versions.fuel}"
-    implementation "com.github.kittinunf.fuel:fuel-gson:${versions.fuel}"
 
     implementation 'com.google.code.gson:gson:2.8.5'
 }
