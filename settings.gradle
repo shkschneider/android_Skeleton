@@ -1,4 +1,4 @@
 include ':arch'
+include ':core'
 include ':demo'
 include ':fuel'
-include ':library'

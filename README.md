@@ -8,7 +8,17 @@ Skeleton [![Travis-CI](https://travis-ci.org/shkschneider/android_Skeleton.svg?b
 Setup
 -----
 
-[![JitPack](https://jitpack.io/v/com.github.shkschneider/android_Skeleton.svg)](https://jitpack.io/#shkschneider/android_Skeleton/9.1.0)
+[![JitPack](https://jitpack.io/v/com.github.shkschneider/android_Skeleton.svg)](https://jitpack.io/#shkschneider/android_Skeleton/9.2.0)
+
+```
+dependencies {
+    def skeleton = 'master-SNAPSHOT' // better specify a specific release
+    implementation "com.github.shkschneider.android_Skeleton:arch:${skeleton}"
+    implementation "com.github.shkschneider.android_Skeleton:core:${skeleton}"
+    implementation "com.github.shkschneider.android_Skeleton:fuel:${skeleton}"
+    // you probably also would like to: exclude group...
+}
+```
 
 Specifications
 --------------
@@ -21,7 +31,7 @@ Specifications
 **Libraries**
 
 - [androidx (core, appcompat, recyclerview, palette, preference)](https://developer.android.com/jetpack/androidx/)
-- [android.arch.lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle)
+- [androidx.lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle)
 - [android.arch.work](https://developer.android.com/topic/libraries/architecture/workmanager/)
 - [com.google.code.gson:gson](https://github.com/google/gson)
 
@@ -37,7 +47,7 @@ Specifications
 - [Android Jetpack](https://developer.android.com/jetpack/)
 - [Material Design](http://www.google.com/design/spec/material-design/introduction.html)
 - [OpenJDK 8](http://openjdk.java.net/projects/jdk8/)
-- [Kotlin](https://kotlinlang.org/)
+- [Kotlin 1.2+](https://kotlinlang.org/)
 
 Author
 ------

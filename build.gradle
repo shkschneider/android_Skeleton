@@ -17,13 +17,16 @@ buildscript {
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1' // JitPack
     }
 }
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
 
 allprojects {
     repositories {
         google()
         jcenter()
-        // maven { url 'https://jitpack.io' }
-        flatDir { dirs 'libs' }
+        maven { url 'https://jitpack.io' }
+        // flatDir { dirs 'libs' }
     }
 }
 subprojects {
@@ -31,6 +34,7 @@ subprojects {
         if (project.hasProperty('android')) {
             def isAndroidApplication = project.plugins.findPlugin('com.android.application') != null
             def isAndroidLibrary = project.plugins.findPlugin('com.android.library') != null
+            def hasKotlinAndroid = project.plugins.findPlugin('kotlin-android') != null
             android {
                 def defaultConfigVersionCode = versionCode()
                 // Android
@@ -41,19 +45,19 @@ subprojects {
                     targetSdkVersion versions.android
                     versionCode defaultConfigVersionCode
                     versionName versions.skeleton
-                    if (isAndroidApplication) {
-                        applicationVariants.all { variant ->
-                            variant.outputs.all { output ->
-                                outputFileName = "${applicationId}-${variant.productFlavors[0].name}" +
-                                        "_v${defaultConfig.versionName}r${defaultConfigVersionCode}" +
-                                        "-${variant.variantData.variantConfiguration.buildType.name}.apk"
-                            }
-                        }
-                    }
-                    if (isAndroidLibrary) {
-                        setProperty('archivesBaseName', "me.shkschneider.skeleton-${project.name}" +
-                                "_v${defaultConfig.versionName}r${defaultConfigVersionCode}")
-                    }
+//                    if (isAndroidApplication) {
+//                        applicationVariants.all { variant ->
+//                            variant.outputs.all { output ->
+//                                outputFileName = "${applicationId}-${variant.productFlavors[0].name}" +
+//                                        "_v${defaultConfig.versionName}r${defaultConfigVersionCode}" +
+//                                        "-${variant.variantData.variantConfiguration.buildType.name}.apk"
+//                            }
+//                        }
+//                    }
+//                    if (isAndroidLibrary) {
+//                        setProperty('archivesBaseName', "me.shkschneider.skeleton-${project.name}" +
+//                                "_v${defaultConfig.versionName}r${defaultConfigVersionCode}")
+//                    }
                 }
                 buildTypes {
                     debug {
@@ -77,8 +81,10 @@ subprojects {
                     targetCompatibility JavaVersion.VERSION_1_8
                 }
                 // Kotlin
-                sourceSets {
-                    main.java.srcDirs += 'src/main/kotlin'
+                if (hasKotlinAndroid) {
+                    sourceSets {
+                        main.java.srcDirs += 'src/main/kotlin'
+                    }
                 }
                 // ...
                 if (isAndroidApplication) flavorDimensions 'default'
@@ -88,8 +94,10 @@ subprojects {
                     abortOnError true
                 }
             }
-            dependencies {
-                implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk${versions.java}:${versions.kotlin}"
+            if (hasKotlinAndroid) {
+                dependencies {
+                    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk${versions.java}:${versions.kotlin}"
+                }
             }
         }
     }

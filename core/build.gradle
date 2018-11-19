@@ -6,7 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 // JitPack
 apply plugin: 'com.github.dcendents.android-maven'
-group='me.shkschneider'
+group='com.github.shkschneider'
 
 android {
     defaultConfig {

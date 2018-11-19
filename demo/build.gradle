@@ -77,10 +77,24 @@ android {
 
 dependencies {
     def version
-    // implementation 'com.github.shkschneider:android_Skeleton:${versions.skeleton}'
-    implementation project(':arch')
-    implementation project(':fuel')
-    implementation project(':library')
+    // implementation "com.github.shkschneider.android_Skeleton:core:${version}"
+    implementation (project(':arch')) {
+        exclude group: 'androidx.appcompat'
+        exclude group: 'androidx.lifecycle'
+        exclude group: 'android.arch.work'
+    }
+    implementation (project(':core')) {
+        exclude group: 'androidx.core'
+        exclude group: 'androidx.appcompat'
+        exclude group: 'androidx.recyclerview'
+        exclude group: 'androidx.palette'
+        exclude group: 'androidx.lifecycle'
+        exclude group: 'com.google.code.gson'
+    }
+    implementation (project(':fuel')) {
+        exclude group: 'com.github.kittinunf.fuel'
+        exclude group: 'com.google.code.gson'
+    }
 
     version = '1.0.0'
     implementation "androidx.preference:preference:${version}"
@@ -94,6 +108,6 @@ dependencies {
     implementation "com.github.kittinunf.fuel:fuel:${version}"
     version = '2.8.5'
     implementation "com.google.code.gson:gson:${version}"
-//    def fuseVersion = '0.2'
+//    version = '0.2'
 //    implementation ("com.github.kittinunf.fuse:fuse:${fuseVersion}") { transitive = true }
 }
