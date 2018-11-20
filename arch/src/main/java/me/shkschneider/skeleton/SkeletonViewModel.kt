@@ -5,18 +5,27 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import java.util.UUID
 
+@Deprecated("This is for reference only")
 class SkeletonViewModel : ViewModel() {
 
     /**
-     * Option 1: exposing LiveData from an initialized MutableLiveData
+     * Lazy-loading of a MutableLiveData with initialization.
+     */
+
+    val data by lazy {
+        MutableLiveData<Any>().apply { postValue(false) }
+    }
+
+    /**
+     * Exposing LiveData from an initialized MutableLiveData.
      */
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean> get() = _loading
 
     /**
-     * Option 2: exposing a method for a LiveData
-     *           that triggers when MutableLiveData initializes
+     * Exposing a method for a LiveData
+     * that triggers when MutableLiveData initializes.
      */
 
     private lateinit var users: MutableLiveData<List<UUID>>
