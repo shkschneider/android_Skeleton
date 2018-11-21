@@ -13,7 +13,9 @@ class SkeletonViewModel : ViewModel() {
      */
 
     val data by lazy {
-        MutableLiveData<Any>().apply { postValue(false) }
+        MutableLiveData<Any>().apply {
+            postValue(false)
+        }
     }
 
     /**
@@ -21,7 +23,7 @@ class SkeletonViewModel : ViewModel() {
      */
 
     private val _loading = MutableLiveData<Boolean>()
-    val loading: LiveData<Boolean> get() = _loading
+    fun loading(): LiveData<Boolean> = _loading
 
     /**
      * Exposing a method for a LiveData

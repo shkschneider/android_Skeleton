@@ -45,19 +45,6 @@ subprojects {
                     targetSdkVersion versions.android
                     versionCode defaultConfigVersionCode
                     versionName versions.skeleton
-//                    if (isAndroidApplication) {
-//                        applicationVariants.all { variant ->
-//                            variant.outputs.all { output ->
-//                                outputFileName = "${applicationId}-${variant.productFlavors[0].name}" +
-//                                        "_v${defaultConfig.versionName}r${defaultConfigVersionCode}" +
-//                                        "-${variant.variantData.variantConfiguration.buildType.name}.apk"
-//                            }
-//                        }
-//                    }
-//                    if (isAndroidLibrary) {
-//                        setProperty('archivesBaseName', "me.shkschneider.skeleton-${project.name}" +
-//                                "_v${defaultConfig.versionName}r${defaultConfigVersionCode}")
-//                    }
                 }
                 buildTypes {
                     debug {
@@ -86,9 +73,19 @@ subprojects {
                         main.java.srcDirs += 'src/main/kotlin'
                     }
                 }
-                // ...
-                if (isAndroidApplication) flavorDimensions 'default'
+                // Applications and Libraries
+                if (isAndroidApplication) {
+                    flavorDimensions 'default'
+                    applicationVariants.all { variant ->
+                        variant.outputs.all { output ->
+                            outputFileName = "${applicationId}-${variant.productFlavors[0].name}" +
+                                    "_v${defaultConfig.versionName}r${defaultConfigVersionCode}" +
+                                    "-${variant.variantData.variantConfiguration.buildType.name}.apk"
+                        }
+                    }
+                }
                 if (isAndroidLibrary) resourcePrefix 'sk_'
+                // Lint
                 lintOptions {
                     checkReleaseBuilds true
                     abortOnError true
@@ -130,6 +127,6 @@ def travis(android) {
     if (!travisFile.exists()) throw new GradleException(travisFile.path)
     String content = travisFile.getText('UTF-8')
     content = content.replaceFirst('build-tools-[0-9.]+', "build-tools-${android.buildToolsVersion}")
-    content = content.replaceFirst('android-[0-9]+', "${android.compileSdkVersion}")
+    content = content.replaceFirst('android-[0-9]+', "android-${versions.android}")
     new File('.travis.yml').write(content, 'UTF-8')
 }

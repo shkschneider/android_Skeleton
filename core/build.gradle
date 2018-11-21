@@ -4,6 +4,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+kapt.useBuildCache = true
 // JitPack
 apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.shkschneider'
@@ -27,15 +28,22 @@ dependencies {
     implementation "com.google.code.gson:gson:${version}"
 }
 
-task bump() << {
+task cleanCaches(type: Delete) {
+    print '> Caches... '
+    def caches = new File(getGradle().gradleUserHomeDir.path.toString(), 'caches')
+    print "$caches\n"
+    delete caches.listFiles()
+}
+
+task bump() {
     print '> Bump...'
     def versionCode = versionCode(true)
     print " v${versions.skeleton}r${versionCode}\n"
 }
-task ci() << {
+task ci() {
     print '> Travis...'
     travis(android)
-    print " build-tools-${android.buildToolsVersion} ${android.compileSdkVersion}\n"
+    print " build-tools-${android.buildToolsVersion} android-${versions.android}\n"
 }
 tasks.whenTaskAdded { task ->
     if (task.name == 'preDebugBuild' || task.name == 'preReleaseBuild') {
