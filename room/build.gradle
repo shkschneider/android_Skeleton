@@ -1,0 +1,22 @@
+// Android
+apply plugin: 'com.android.library'
+// Kotlin
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+kapt.useBuildCache = true
+// JitPack
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.shkschneider'
+
+android {
+}
+
+dependencies {
+    def version
+    implementation project(':core')
+
+    version = '2.0.0'
+    implementation "androidx.room:room-runtime:${version}"
+    kapt "androidx.room:room-compiler:${version}"
+}
