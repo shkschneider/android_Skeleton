@@ -16,8 +16,6 @@ android {
 }
 
 dependencies {
-    def version
-
     version = '1.0.0'
     implementation "androidx.core:core-ktx:${version}"
     implementation "androidx.appcompat:appcompat:${version}"
