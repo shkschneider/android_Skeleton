@@ -69,6 +69,6 @@ object Proxy {
     data class HttpBinUserAgent(
             @SerializedName("user-agent")
             val userAgent: String?
-    ) : Serializable
+    ) : Serializable // TODO @Parcelize once stable
 
 }

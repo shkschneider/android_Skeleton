@@ -22,7 +22,7 @@ object DiskCache {
         }
 
         @Synchronized
-        fun put(key: String, value: Serializable): Boolean {
+        fun put(key: String, value: Serializable): Boolean { // TODO @Parcelize once stable
             if (dir.exists()) {
                 val path = FileHelper.join(dir.absolutePath, key)
                 val file = FileHelper.get(path)
@@ -35,7 +35,7 @@ object DiskCache {
         }
 
         @Synchronized
-        fun get(key: String): Serializable? {
+        fun get(key: String): Serializable? { // TODO @Parcelize once stable
             if (dir.exists()) {
                 val path = FileHelper.join(dir.absolutePath, key)
                 val file = FileHelper.get(path)
