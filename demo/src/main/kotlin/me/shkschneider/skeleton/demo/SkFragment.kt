@@ -16,7 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import me.shkschneider.skeleton.SkeletonFragment
-import me.shkschneider.skeleton.extensions.Intent
+import me.shkschneider.skeleton.extensions.android.Intent
 import me.shkschneider.skeleton.extensions.toStringOrEmpty
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.BroadcastHelper

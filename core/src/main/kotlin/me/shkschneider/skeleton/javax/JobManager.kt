@@ -8,7 +8,7 @@ import android.app.job.JobService
 import android.os.PersistableBundle
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
-import me.shkschneider.skeleton.extensions.ComponentName
+import me.shkschneider.skeleton.extensions.android.ComponentName
 import me.shkschneider.skeleton.helper.AndroidHelper
 import me.shkschneider.skeleton.helper.ContextHelper
 import me.shkschneider.skeleton.helperx.SystemServices

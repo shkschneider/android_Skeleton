@@ -11,9 +11,10 @@ import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.activity_main.*
 import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.SkeletonFragment
-import me.shkschneider.skeleton.extensions.Intent
+import me.shkschneider.skeleton.extensions.android.Intent
 import me.shkschneider.skeleton.helperx.Logger
 import me.shkschneider.skeleton.uix.BottomSheet
+import java.io.Serializable
 
 /**
  * SkeletonActivity
@@ -59,6 +60,10 @@ class MainActivity : SkeletonActivity() {
         menuInflater.inflate(R.menu.main, menu)
         return super.onCreateOptionsMenu(menu)
     }
+
+    data class DummyData(
+            val name: String
+    ) : Serializable
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
