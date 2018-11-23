@@ -11,14 +11,13 @@ import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.SkeletonFragment
 import me.shkschneider.skeleton.datax.MyDatabase
 import me.shkschneider.skeleton.datax.MyModel
 import me.shkschneider.skeleton.extensions.android.Intent
-import me.shkschneider.skeleton.extensions.async
 import me.shkschneider.skeleton.extensions.coroutine
-import me.shkschneider.skeleton.extensions.ui
 import me.shkschneider.skeleton.helperx.Logger
 import me.shkschneider.skeleton.uix.BottomSheet
 
@@ -91,19 +90,20 @@ class MainActivity : SkeletonActivity() {
     override fun onResume() {
         super.onResume()
 
-        coroutine {
-            val models = getModels(MyDatabase.get()) // size=2
-            ui {
-                // ...
-            }
+        coroutine({
+            val db = MyDatabase.get()
+            db.clearAllTables()
+            db.myModelDao().insert(MyModel(userName = "user.name1"))
+            db.myModelDao().insert(MyModel(userName = "user.name2"))
+            return@coroutine db.myModelDao().getAll()
+        }) { models ->
+            val breakpoint: Nothing? = null
         }
     }
 
-    private suspend fun getModels(db: MyDatabase): List<MyModel> = async {
-        db.myModelDao().insert(MyModel(userName = "user.name1"))
-        db.myModelDao().insert(MyModel(userName = "user.name2"))
-        return@async db.myModelDao().getAll()
-    }
+    private suspend fun models() = GlobalScope.async {
+        return@async MyDatabase.get().myModelDao().getAll()
+    }.await()
 
     private fun bottomSheet(title: String, content: String) {
         BottomSheet.Builder(this)
