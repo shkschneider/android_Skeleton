@@ -109,6 +109,9 @@ dependencies {
     version = '2.0.0'
     implementation "androidx.room:room-runtime:${version}"
 
+    version = '1.0.1'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
+
     version = '4.8.0'
     implementation "com.github.bumptech.glide:glide:${version}"
     kapt "com.github.bumptech.glide:compiler:${version}"
