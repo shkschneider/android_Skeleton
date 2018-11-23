@@ -10,6 +10,7 @@ interface SkeletonDao<T> {
 
     // @Query("SELECT * FROM ?")
     fun getAll(): List<T> = throw NotImplementedError()
+    // Feel free to use LiveData<>
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
