@@ -29,7 +29,7 @@ fun String.kebabCase(): String =
 // Trim
 
 fun String.oneline() =
-    replace(Regex("\\n"), "")
+    replace(Regex("\\n"), " ")
 
 // Ellipsize
 
