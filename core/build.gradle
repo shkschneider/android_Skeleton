@@ -17,7 +17,8 @@ android {
 
 dependencies {
     version = '1.0.1'
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${version}"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${version}"
 
     version = '1.0.0'
     implementation "androidx.core:core-ktx:${version}"

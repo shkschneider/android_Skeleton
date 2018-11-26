@@ -78,7 +78,8 @@ android {
 
 dependencies {
     version = '1.0.1'
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${version}"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${version}"
 
     implementation (project(':arch')) {
         exclude group: 'androidx.appcompat'

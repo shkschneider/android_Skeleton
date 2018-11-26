@@ -9,25 +9,20 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.SkeletonFragment
 import me.shkschneider.skeleton.datax.MyDatabase
 import me.shkschneider.skeleton.datax.MyModel
 import me.shkschneider.skeleton.extensions.android.Intent
-import me.shkschneider.skeleton.extensions.coroutine
 import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.kotlinx.Coroutines
 import me.shkschneider.skeleton.uix.BottomSheet
 
-/**
- * SkeletonActivity
- * Collapsible Toolbar
- * ViewPager
- * FloatingActionButton
- */
 class MainActivity : SkeletonActivity() {
+
+    // region lifecycle
 
 //    override fun attachBaseContext(newBase: Context?) {
 //        super.attachBaseContext(LocaleHelper.Application.switch(newBase, LocaleHelper.Device.locale()))
@@ -87,23 +82,49 @@ class MainActivity : SkeletonActivity() {
         }
     }
 
+    // enregion
+
+    // region coroutines
+
+    lateinit var job: Job
+
     override fun onResume() {
         super.onResume()
 
-        coroutine({
+        // options 1: using blocks
+        job = Coroutines.launch(Dispatchers.IO, {
             val db = MyDatabase.get()
             db.clearAllTables()
             db.myModelDao().insert(MyModel(userName = "user.name1"))
             db.myModelDao().insert(MyModel(userName = "user.name2"))
-            return@coroutine db.myModelDao().getAll()
-        }) { models ->
-            val breakpoint: Nothing? = null
+            return@launch MyDatabase.get().myModelDao().getAll()
+        }) {
+            updateModels(it)
         }
+
+        // option 2: using methods
+        // job = Coroutines.launch(Dispatchers.IO, ::getModels, ::updateModels)
     }
 
-    private suspend fun models() = GlobalScope.async {
+    private suspend fun getModels() = Coroutines.async(Dispatchers.IO) {
+        val db = MyDatabase.get()
+        db.clearAllTables()
+        db.myModelDao().insert(MyModel(userName = "user.name1"))
+        db.myModelDao().insert(MyModel(userName = "user.name2"))
         return@async MyDatabase.get().myModelDao().getAll()
-    }.await()
+    }
+
+    private fun updateModels(models: List<MyModel>?) {
+        val breakpoint: Nothing? = null
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        job.cancel()
+    }
+
+    // endregion
 
     private fun bottomSheet(title: String, content: String) {
         BottomSheet.Builder(this)
@@ -114,6 +135,8 @@ class MainActivity : SkeletonActivity() {
                 .build()
                 .show()
     }
+
+    // region fragments
 
     private class MyPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
 
@@ -141,5 +164,7 @@ class MainActivity : SkeletonActivity() {
         }
 
     }
+
+    // endregion
 
 }
