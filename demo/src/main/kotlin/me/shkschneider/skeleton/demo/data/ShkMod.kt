@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.demo
+package me.shkschneider.skeleton.demo.data
 
 object ShkMod {
 

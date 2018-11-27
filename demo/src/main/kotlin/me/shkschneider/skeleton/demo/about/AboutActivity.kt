@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.demo
+package me.shkschneider.skeleton.demo.about
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.preference.PreferenceFragmentCompat
 import me.shkschneider.skeleton.SkeletonActivity
+import me.shkschneider.skeleton.demo.R
 import me.shkschneider.skeleton.helper.AndroidHelper
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helperx.Metrics

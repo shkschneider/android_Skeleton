@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.demo
+package me.shkschneider.skeleton.demo.net
 
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.core.Request
@@ -11,7 +11,7 @@ import me.shkschneider.skeleton.networkx.FuelWebService
 import java.io.Serializable
 import java.nio.charset.Charset
 
-object Proxy {
+object NetworkManager {
 
     private val proxy by lazy {
         FuelWebService()

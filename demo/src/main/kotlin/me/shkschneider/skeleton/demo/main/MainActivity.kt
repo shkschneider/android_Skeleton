@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.demo
+package me.shkschneider.skeleton.demo.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,17 +7,17 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.lifecycle.Observer
 import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.SkeletonFragment
-import me.shkschneider.skeleton.datax.MyDatabase
-import me.shkschneider.skeleton.datax.MyModel
+import me.shkschneider.skeleton.demo.about.AboutActivity
+import me.shkschneider.skeleton.demo.R
+import me.shkschneider.skeleton.demo.data.ShkMod
 import me.shkschneider.skeleton.extensions.android.Intent
+import me.shkschneider.skeleton.getViewModel
 import me.shkschneider.skeleton.helperx.Logger
-import me.shkschneider.skeleton.kotlinx.Coroutines
 import me.shkschneider.skeleton.uix.BottomSheet
 
 class MainActivity : SkeletonActivity() {
@@ -84,44 +84,15 @@ class MainActivity : SkeletonActivity() {
 
     // enregion
 
-    // region coroutines
-
-    lateinit var job: Job
+    // region viewmodel
 
     override fun onResume() {
         super.onResume()
 
-        // options 1: using blocks
-        job = Coroutines.launch(Dispatchers.IO, {
-            val db = MyDatabase.get()
-            db.clearAllTables()
-            db.myModelDao().insert(MyModel(userName = "user.name1"))
-            db.myModelDao().insert(MyModel(userName = "user.name2"))
-            return@launch MyDatabase.get().myModelDao().getAll()
-        }) {
-            updateModels(it)
-        }
-
-        // option 2: using methods
-        // job = Coroutines.launch(Dispatchers.IO, ::getModels, ::updateModels)
-    }
-
-    private suspend fun getModels() = Coroutines.async(Dispatchers.IO) {
-        val db = MyDatabase.get()
-        db.clearAllTables()
-        db.myModelDao().insert(MyModel(userName = "user.name1"))
-        db.myModelDao().insert(MyModel(userName = "user.name2"))
-        return@async MyDatabase.get().myModelDao().getAll()
-    }
-
-    private fun updateModels(models: List<MyModel>?) {
-        val breakpoint: Nothing? = null
-    }
-
-    override fun onPause() {
-        super.onPause()
-
-        job.cancel()
+        getViewModel<MainViewModel>().getModels().observe(this, Observer { models ->
+            // update UI
+            val breakpoint: Nothing? = null
+        })
     }
 
     // endregion

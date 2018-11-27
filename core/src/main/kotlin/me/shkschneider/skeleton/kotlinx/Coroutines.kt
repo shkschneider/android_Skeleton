@@ -21,30 +21,18 @@ import kotlin.coroutines.CoroutineContext
  */
 object Coroutines {
 
-    // runs job
-    fun <T: Any> launch(work: suspend (() -> T?)): Job {
-        return launch(Dispatchers.Default, work, null)
+    fun <T: Any> io(work: suspend (() -> T?)): Job {
+        return CoroutineScope(Dispatchers.IO).launch {
+            work()
+        }
     }
 
-    // runs job on dispatcher
-    fun <T: Any> launch(context: CoroutineContext, work: suspend (() -> T?)): Job {
-        return launch(context, work, null)
-    }
-
-    // runs job then executes callback with the result
-    fun <T: Any> launch(work: suspend (() -> T?), callback: ((T?) -> Unit)): Job {
-        return launch(Dispatchers.Default, work, callback)
-    }
-
-    // runs job on dispatcher then executes callback with the result
-    fun <T: Any> launch(context: CoroutineContext, work: suspend (() -> T?), callback: ((T?) -> Unit)? = null): Job {
-        return CoroutineScope(context).launch {
-            val data = CoroutineScope(context).async {
+    fun <T: Any> ioThenMain(work: suspend(() -> T?), callback: ((T?) -> Unit)) : Job {
+        return CoroutineScope(Dispatchers.Main).launch {
+            val data = CoroutineScope(Dispatchers.IO).async {
                 return@async work()
             }.await()
-            callback?.let {
-                it(data)
-            }
+            callback(data)
         }
     }
 

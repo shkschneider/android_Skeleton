@@ -1,6 +1,6 @@
 @file:Suppress("DEPRECATION")
 
-package me.shkschneider.skeleton.demo
+package me.shkschneider.skeleton.demo.main
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -16,6 +16,8 @@ import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import me.shkschneider.skeleton.SkeletonFragment
+import me.shkschneider.skeleton.demo.R
+import me.shkschneider.skeleton.demo.data.ShkMod
 import me.shkschneider.skeleton.extensions.android.Intent
 import me.shkschneider.skeleton.extensions.toStringOrEmpty
 import me.shkschneider.skeleton.helper.ApplicationHelper

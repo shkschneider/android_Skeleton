@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.demo
+package me.shkschneider.skeleton.demo.main
 
 import android.os.Bundle
 import android.text.Spannable
@@ -8,12 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import com.bumptech.glide.Glide
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.content_shk_code.*
 import kotlinx.android.synthetic.main.content_shk_id.*
 import kotlinx.android.synthetic.main.content_shk_personal.*
 import kotlinx.android.synthetic.main.content_shk_skills.*
 import me.shkschneider.skeleton.SkeletonFragment
+import me.shkschneider.skeleton.demo.R
 import me.shkschneider.skeleton.helper.IntentHelper
 import me.shkschneider.skeleton.helper.SpannableStringHelper
 
@@ -26,7 +27,7 @@ class ShkFragment : SkeletonFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Personal
-        Glide.with(view).load(AVATAR).into(id_avatar)
+        Picasso.get().load(AVATAR).into(id_avatar)
         fill(id_id, "#", SpannableString("42"))
         fill(id_name, "Name", SpannableString("Alan SCHNEIDER\n" + "a.k.a. ShkSchneider"))
         fill(id_age, "Age", SpannableString("Born in 1989"))

@@ -1,8 +1,10 @@
-package me.shkschneider.skeleton.datax
+package me.shkschneider.skeleton.demo.data
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import me.shkschneider.skeleton.datax.SkeletonDatabaseBuilders
+import me.shkschneider.skeleton.datax.SkeletonTypeConverters
 
 @Database(entities = [
     MyModel::class
@@ -10,7 +12,7 @@ import androidx.room.TypeConverters
 @TypeConverters(SkeletonTypeConverters::class)
 abstract class MyDatabase : RoomDatabase() {
 
-    abstract fun myModelDao(): MyModel.MyModelDao
+    abstract fun myModels(): MyModel.MyModelDao
 
     companion object {
 

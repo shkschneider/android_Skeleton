@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.demo
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import me.shkschneider.skeleton.demo.main.MainActivity
 import me.shkschneider.skeleton.extensions.android.Intent
 
 import me.shkschneider.skeleton.helper.IntentHelper

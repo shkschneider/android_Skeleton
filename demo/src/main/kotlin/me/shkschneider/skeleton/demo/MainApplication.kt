@@ -3,22 +3,18 @@ package me.shkschneider.skeleton.demo
 import android.content.Context
 import android.os.Build
 import androidx.multidex.MultiDex
-import com.bumptech.glide.Glide
 import me.shkschneider.skeleton.SkeletonApplication
+import me.shkschneider.skeleton.demo.about.AboutActivity
 import me.shkschneider.skeleton.extensions.android.Intent
 import me.shkschneider.skeleton.helper.ContextHelper
 import me.shkschneider.skeleton.helper.IntentHelper
 import me.shkschneider.skeleton.helper.ShortcutHelper
-import me.shkschneider.skeleton.helper.ThreadHelper
 
 class MainApplication : SkeletonApplication() {
 
     override fun onCreate() {
         super.onCreate()
         shortcut("About")
-        ThreadHelper.backgroundThread(Runnable {
-            Glide.get(applicationContext).clearDiskCache()
-        })
     }
 
     private fun shortcut(shortcut: String) {
