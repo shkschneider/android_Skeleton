@@ -113,6 +113,10 @@ dependencies {
     version = '2.0.0'
     implementation "androidx.room:room-runtime:${version}"
 
+    implementation project(':kodein')
+    version = '3.2.2'
+    implementation "com.staticbloc.kodein:kodein:${version}"
+
     version = '2.0.0'
     implementation "androidx.lifecycle:lifecycle-extensions:${version}"
     implementation "androidx.lifecycle:lifecycle-viewmodel:${version}"

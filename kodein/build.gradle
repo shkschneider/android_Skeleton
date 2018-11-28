@@ -1,0 +1,23 @@
+// Android
+apply plugin: 'com.android.library'
+// Kotlin
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+kapt.useBuildCache = true
+// JitPack
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.shkschneider'
+
+android {
+}
+
+dependencies {
+    implementation project(':core')
+    version = '1.0.0'
+    implementation "androidx.core:core-ktx:${version}"
+    implementation "androidx.appcompat:appcompat:${version}"
+
+    version = '3.2.2'
+    implementation "com.staticbloc.kodein:kodein:${version}"
+}
