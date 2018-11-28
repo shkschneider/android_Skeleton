@@ -21,7 +21,7 @@ import kotlin.coroutines.CoroutineContext
  */
 object Coroutines {
 
-    fun <T: Any> io(work: suspend (() -> T?)): Job {
+    fun io(work: suspend (() -> Unit)): Job {
         return CoroutineScope(Dispatchers.IO).launch {
             work()
         }
