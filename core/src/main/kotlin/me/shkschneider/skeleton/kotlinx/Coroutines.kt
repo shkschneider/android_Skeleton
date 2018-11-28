@@ -29,14 +29,13 @@ object Coroutines {
 
     fun <T: Any> ioThenMain(work: suspend(() -> T?), callback: ((T?) -> Unit)) : Job {
         return CoroutineScope(Dispatchers.Main).launch {
-            val data = CoroutineScope(Dispatchers.IO).async {
+            callback(CoroutineScope(Dispatchers.IO).async {
                 return@async work()
-            }.await()
-            callback(data)
+            }.await())
         }
     }
 
-    suspend fun <T: Any> async(context: CoroutineContext, work: (() -> T?)) =
-            CoroutineScope(context).async rt@ { return@rt work() }.await()
+    suspend fun <T: Any> async(context: CoroutineContext, work: (() -> T?)): T? =
+            CoroutineScope(context).async coroutine@ { return@coroutine work() }.await()
 
 }

@@ -4,11 +4,13 @@ import android.content.Context
 import android.os.Build
 import androidx.multidex.MultiDex
 import me.shkschneider.skeleton.demo.about.AboutActivity
+import me.shkschneider.skeleton.demo.data.DataManager
 import me.shkschneider.skeleton.di.SkeletonApplication
 import me.shkschneider.skeleton.extensions.android.Intent
 import me.shkschneider.skeleton.helper.ContextHelper
 import me.shkschneider.skeleton.helper.IntentHelper
 import me.shkschneider.skeleton.helper.ShortcutHelper
+import me.shkschneider.skeleton.kotlinx.Coroutines
 import org.kodein.di.Kodein
 import org.kodein.di.generic.bind
 import org.kodein.di.generic.factory
@@ -20,7 +22,7 @@ import java.util.UUID
 class MainApplication : SkeletonApplication() {
 
     override val kodein = Kodein {
-        bind<Controller>() with singleton {
+        bind<Controller>() with /*scoped(AndroidLifecycleScope<Activity>()).*/singleton {
             Controller(applicationContext)
         }
         bind<Data>() with factory { tag: UUID ->
@@ -34,6 +36,11 @@ class MainApplication : SkeletonApplication() {
     override fun onCreate() {
         super.onCreate()
         shortcut("About")
+
+        Coroutines.io {
+            DataManager.dummy()
+        }
+
         val uuid = UUID.randomUUID()
         val data1 = kodein.instance<Data>(uuid)
         val data2 = kodein.instance<Data>(uuid)
