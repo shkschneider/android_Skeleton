@@ -18,6 +18,7 @@ dependencies {
     implementation "androidx.core:core-ktx:${version}"
     implementation "androidx.appcompat:appcompat:${version}"
 
-    version = '3.2.2'
-    implementation "com.staticbloc.kodein:kodein:${version}"
+    version = '5.3.0'
+    implementation "org.kodein.di:kodein-di-generic-jvm:${version}"
+    implementation "org.kodein.di:kodein-di-framework-android-x:${version}"
 }

@@ -1,10 +1,12 @@
 package me.shkschneider.skeleton.di
 
-import com.github.salomonbrys.kodein.Kodein
-import com.github.salomonbrys.kodein.KodeinAware
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
 
 open class SkeletonApplication : me.shkschneider.skeleton.SkeletonApplication(), KodeinAware {
 
-    override val kodein = Kodein {}
+    override val kodein = Kodein {
+        // Dependencies goes here
+    }
 
 }

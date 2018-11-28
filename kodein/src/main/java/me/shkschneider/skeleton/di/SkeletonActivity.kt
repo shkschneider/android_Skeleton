@@ -1,7 +1,7 @@
 package me.shkschneider.skeleton.di
 
 import android.os.Bundle
-import com.github.salomonbrys.kodein.KodeinAware
+import org.kodein.di.KodeinAware
 
 open class SkeletonActivity : me.shkschneider.skeleton.SkeletonActivity(), KodeinAware {
 

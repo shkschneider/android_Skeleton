@@ -2,7 +2,7 @@ package me.shkschneider.skeleton.di
 
 import android.os.Bundle
 import android.view.View
-import com.github.salomonbrys.kodein.KodeinAware
+import org.kodein.di.KodeinAware
 
 open class SkeletonFragment : me.shkschneider.skeleton.SkeletonFragment(), KodeinAware {
 

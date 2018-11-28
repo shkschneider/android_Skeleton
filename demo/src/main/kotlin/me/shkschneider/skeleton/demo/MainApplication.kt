@@ -3,18 +3,17 @@ package me.shkschneider.skeleton.demo
 import android.content.Context
 import android.os.Build
 import androidx.multidex.MultiDex
-import com.github.salomonbrys.kodein.Kodein
-import com.github.salomonbrys.kodein.bind
-import com.github.salomonbrys.kodein.factory
-import com.github.salomonbrys.kodein.instance
-import com.github.salomonbrys.kodein.singleton
-import com.github.salomonbrys.kodein.with
 import me.shkschneider.skeleton.demo.about.AboutActivity
 import me.shkschneider.skeleton.di.SkeletonApplication
 import me.shkschneider.skeleton.extensions.android.Intent
 import me.shkschneider.skeleton.helper.ContextHelper
 import me.shkschneider.skeleton.helper.IntentHelper
 import me.shkschneider.skeleton.helper.ShortcutHelper
+import org.kodein.di.Kodein
+import org.kodein.di.generic.bind
+import org.kodein.di.generic.factory
+import org.kodein.di.generic.instance
+import org.kodein.di.generic.singleton
 import java.util.UUID
 
 @Suppress("unused")
@@ -36,8 +35,8 @@ class MainApplication : SkeletonApplication() {
         super.onCreate()
         shortcut("About")
         val uuid = UUID.randomUUID()
-        val data1 = kodein.with(uuid).instance<Data>()
-        val data2 = kodein.with(uuid).instance<Data>()
+        val data1 = kodein.instance<Data>(uuid)
+        val data2 = kodein.instance<Data>(uuid)
         // data1 != data2
         val breakpoint: Nothing? = null
     }
