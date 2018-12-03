@@ -10,5 +10,3 @@ fun <T: Any> Intent(context: Context, klass: KClass<T>): Intent =
 
 fun <T: Any> Intent(action: String, uri: Uri, context: Context, klass: KClass<T>): Intent =
         Intent(action, uri, context, klass.java)
-
-
