@@ -4,6 +4,7 @@ import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.core.Request
 import com.github.kittinunf.fuel.core.Response
 import com.github.kittinunf.fuel.core.isSuccessful
+import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
 import me.shkschneider.skeleton.datax.MemoryCache
 import me.shkschneider.skeleton.helperx.Logger
@@ -14,7 +15,7 @@ import java.nio.charset.Charset
 object NetworkManager {
 
     private val proxy by lazy {
-        FuelWebService()
+        FuelWebService(GsonBuilder().setFieldNamingStrategy { f -> f.name.toLowerCase() }.create())
     }
     // cache.clear()
     val cache by lazy {
@@ -32,7 +33,7 @@ object NetworkManager {
                 if (response.isSuccessful) {
                     cache.put(request.url.toString(), response.data)
                 } else {
-                    cache.get(request.url.toString())
+                    cache.get(request.url.toString()) // nullable
                 }
                 next(request, response)
             }
@@ -57,7 +58,7 @@ object NetworkManager {
             }, {
                 cache.get(key)?.let { byteArray ->
                     val data = (byteArray as ByteArray).toString(Charset.defaultCharset())
-                    FuelWebService.Deserializer(T::class).deserialize(data)?.let { t ->
+                    proxy.deserialize<T>(data)?.let { t ->
                         success(request, response, t)
                     }
                 }
