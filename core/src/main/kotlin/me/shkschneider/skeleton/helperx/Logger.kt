@@ -2,9 +2,9 @@ package me.shkschneider.skeleton.helperx
 
 import android.util.Log
 import androidx.annotation.IntRange
-import me.shkschneider.skeleton.SkeletonApplication
 import me.shkschneider.skeleton.extensions.ellipsize
 import me.shkschneider.skeleton.helper.ApplicationHelper
+import me.shkschneider.skeleton.helper.ContextHelper
 
 object Logger {
 
@@ -18,7 +18,7 @@ object Logger {
     private fun log(@IntRange(from = VERBOSE.toLong(), to = WTF.toLong()) level: Int, msg: String, throwable: Throwable?) {
         // <https://developer.android.com/reference/android/util/Log.html>
         // <https://developer.android.com/studio/debug/am-logcat>
-        val tag = SkeletonApplication.TAG.ellipsize(23, reverse = true)
+        val tag = ContextHelper.applicationContext().packageName.ellipsize(23, reverse = true)
         var prefix = ""
         if (ApplicationHelper.debuggable()) {
             Throwable().stackTrace.dropWhile { it.className == this.javaClass.name }.also { elements ->

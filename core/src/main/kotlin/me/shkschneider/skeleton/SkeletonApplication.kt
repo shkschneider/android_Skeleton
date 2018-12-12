@@ -11,7 +11,6 @@ import me.shkschneider.skeleton.helperx.Logger
  * https://developer.android.com/reference/android/app/Application.html
  *
  * DEBUGGABLE
- * TAG
  * onCreate()
  */
 abstract class SkeletonApplication : Application() {
@@ -20,7 +19,6 @@ abstract class SkeletonApplication : Application() {
         super.onCreate()
         ContextHelper.applicationContext(applicationContext)
         DEBUGGABLE = applicationInfo.flags.has(ApplicationInfo.FLAG_DEBUGGABLE)
-        TAG = packageName
 //        if (ApplicationHelper.debuggable()) {
 //            ExceptionHelper.uncaughtException(object: ExceptionHelper.Callback {
 //                override fun uncaughtException(throwable: Throwable) {
@@ -34,8 +32,6 @@ abstract class SkeletonApplication : Application() {
     companion object {
 
         var DEBUGGABLE: Boolean = false
-            private set
-        var TAG = BuildConfig.APPLICATION_ID
             private set
 
     }

@@ -3,6 +3,13 @@
 
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
-    <application android:supportsRtl="true" />
+    <application android:supportsRtl="true">
+        
+        <provider
+            android:authorities="me.shkschneider.skeleton"
+            android:name="me.shkschneider.skeleton.ContextProvider"
+            android:exported="false" />
+
+    </application>
 
 </manifest>

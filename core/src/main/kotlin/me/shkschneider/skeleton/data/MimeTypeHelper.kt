@@ -26,4 +26,8 @@ object MimeTypeHelper {
 
     const val VIDEO = "video/*"
 
+    // <https://stackoverflow.com/a/28652339/603270>
+    @Deprecated("Do not send MIME type for unknown data.")
+    const val UNKNOWN = "application/octet-stream"
+
 }
