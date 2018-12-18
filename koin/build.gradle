@@ -13,7 +13,9 @@ android {
 dependencies {
     implementation project(':core')
 
-    version = '6.0.1'
-    api "org.kodein.di:kodein-di-generic-jvm:${version}"
-    api "org.kodein.di:kodein-di-framework-android-x:${version}"
+    version = '1.0.2' // https://github.com/InsertKoinIO/koin
+    api "org.koin:koin-core:${version}"
+    api "org.koin:koin-android:${version}"
+    api "org.koin:koin-androidx-scope:${version}"
+    api "org.koin:koin-androidx-viewmodel:${version}"
 }

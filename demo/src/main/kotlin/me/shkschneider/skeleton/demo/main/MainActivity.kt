@@ -12,17 +12,19 @@ import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.activity_main.*
 import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.SkeletonFragment
-import me.shkschneider.skeleton.demo.about.AboutActivity
 import me.shkschneider.skeleton.demo.R
+import me.shkschneider.skeleton.demo.about.AboutActivity
 import me.shkschneider.skeleton.demo.data.ShkMod
 import me.shkschneider.skeleton.extensions.android.Intent
-import me.shkschneider.skeleton.getViewModel
 import me.shkschneider.skeleton.helperx.Logger
 import me.shkschneider.skeleton.uix.BottomSheet
-import me.shkschneider.skeleton.uix.Toaster
 import me.shkschneider.skeleton.viewModel
+import org.koin.android.ext.android.inject
+import java.util.UUID
 
 class MainActivity : SkeletonActivity() {
+
+    val uuid: UUID by inject()
 
     val secretKey by lazy { secretKey() }
 
@@ -33,10 +35,6 @@ class MainActivity : SkeletonActivity() {
     external fun secretKey(): String
 
     // region lifecycle
-
-//    override fun attachBaseContext(newBase: Context?) {
-//        super.attachBaseContext(LocaleHelper.Application.switch(newBase, LocaleHelper.Device.locale()))
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

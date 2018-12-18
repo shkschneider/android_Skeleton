@@ -13,7 +13,7 @@ android {
 dependencies {
     implementation project(':core')
 
-    version = '1.16.0'
+    version = '1.16.0' // https://github.com/kittinunf/Fuel
     api "com.github.kittinunf.fuel:fuel:${version}"
     api "com.github.kittinunf.fuel:fuel-android:${version}"
     api "com.github.kittinunf.fuel:fuel-gson:${version}"
