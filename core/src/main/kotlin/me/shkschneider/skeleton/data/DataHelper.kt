@@ -12,6 +12,8 @@ import java.io.FileOutputStream
 
 object DataHelper {
 
+    // Shared
+    // Unsecure
     object External {
 
         // <http://stackoverflow.com/a/18383302>
@@ -63,6 +65,8 @@ object DataHelper {
 
     }
 
+    // Sandboxed
+    // Secure
     object Internal {
 
         fun openInput(name: String): FileInputStream? {
