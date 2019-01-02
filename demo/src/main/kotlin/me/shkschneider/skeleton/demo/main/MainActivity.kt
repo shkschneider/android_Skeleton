@@ -19,8 +19,17 @@ import me.shkschneider.skeleton.extensions.android.Intent
 import me.shkschneider.skeleton.getViewModel
 import me.shkschneider.skeleton.helperx.Logger
 import me.shkschneider.skeleton.uix.BottomSheet
+import me.shkschneider.skeleton.uix.Toaster
 
 class MainActivity : SkeletonActivity() {
+
+    val secretKey by lazy { secretKey() }
+
+    init {
+        System.loadLibrary("secrets")
+    }
+
+    external fun secretKey(): String
 
     // region lifecycle
 

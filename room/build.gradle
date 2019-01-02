@@ -16,6 +16,6 @@ dependencies {
     implementation project(':core')
 
     version = '2.0.0'
-    implementation ("androidx.room:room-runtime:${version}") { transitive = true }
+    implementation "androidx.room:room-runtime:${version}"
     kapt "androidx.room:room-compiler:${version}"
 }
