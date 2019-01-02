@@ -8,15 +8,12 @@ Skeleton [![Travis-CI](https://travis-ci.org/shkschneider/android_Skeleton.svg?b
 Setup
 -----
 
-[![JitPack](https://jitpack.io/v/com.github.shkschneider/android_Skeleton.svg)](https://jitpack.io/#shkschneider/android_Skeleton/9.3.1)
+[![JitPack](https://jitpack.io/v/com.github.shkschneider/android_Skeleton.svg)](https://jitpack.io/#shkschneider/android_Skeleton/master-SNAPSHOT)
 
 ```
 dependencies {
-    def skeleton = 'master-SNAPSHOT' // better specify a specific release
-    implementation "com.github.shkschneider.android_Skeleton:arch:${skeleton}"
-    implementation "com.github.shkschneider.android_Skeleton:core:${skeleton}"
-    implementation "com.github.shkschneider.android_Skeleton:fuel:${skeleton}"
-    // you probably also would like to: exclude group...
+    implementation 'com.github.shkschneider.android_Skeleton:core:master-SNAPSHOT'
+    ...
 }
 ```
 
@@ -25,6 +22,8 @@ Specifications
 
 [![API-16+](https://img.shields.io/badge/API-16+-blue.svg?style=flat)](https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#JELLY_BEAN)
 [![API-28](https://img.shields.io/badge/API-28-green.svg?style=flat)](https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#P)
+
+[![Java 8](https://img.shields.io/badge/Java-8-red.svg?style=flat)](https://www.oracle.com/technetwork/java/javase/overview/java8-2100321.html)
 
 [![Apache 2](https://img.shields.io/badge/license-Apache%202-blue.svg?style=flat)](https://raw.githubusercontent.com/shkschneider/android_Skeleton/master/LICENSE)
 
@@ -42,12 +41,12 @@ Specifications
 
 **Uses**
 
-- [Gradle 3+](https://developer.android.com/studio/build/index.html) (wrapper 4.10)
+- [Gradle 3+](https://developer.android.com/studio/build/index.html) (wrapper 4+)
 - [Android Studio 3+](https://developer.android.com/studio/index.html)
 - [Android Jetpack](https://developer.android.com/jetpack/)
 - [Material Design](http://www.google.com/design/spec/material-design/introduction.html)
 - [OpenJDK 8](http://openjdk.java.net/projects/jdk8/)
-- [Kotlin 1.2+](https://kotlinlang.org/)
+- [Kotlin 1.3+](https://kotlinlang.org/)
 
 Author
 ------
