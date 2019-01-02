@@ -3,8 +3,6 @@ apply plugin: 'com.android.library'
 // Kotlin
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
-kapt.useBuildCache = true
 // JitPack
 apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.shkschneider'
@@ -15,20 +13,15 @@ android {
 dependencies {
     implementation project(':core')
 
-    version = '1.0.0'
-    implementation "androidx.appcompat:appcompat:${version}"
-    implementation "androidx.recyclerview:recyclerview:${version}"
-
-    version = '2.0.0'
-    implementation "androidx.lifecycle:lifecycle-extensions:${version}"
-    implementation "androidx.lifecycle:lifecycle-viewmodel:${version}"
-    implementation "androidx.lifecycle:lifecycle-livedata:${version}"
-    implementation "androidx.lifecycle:lifecycle-common-java${versions.java}:${version}"
-
-    version = '1.0.0-alpha11'
-    implementation "android.arch.work:work-runtime-ktx:${version}"
-
     version = "2.0.0"
     implementation "androidx.room:room-runtime:${version}"
-    kapt "androidx.room:room-compiler:${version}"
+
+    version = '2.0.0'
+    api "androidx.lifecycle:lifecycle-extensions:${version}"
+    api "androidx.lifecycle:lifecycle-viewmodel:${version}"
+    api "androidx.lifecycle:lifecycle-livedata:${version}"
+    api "androidx.lifecycle:lifecycle-common-java${versions.java}:${version}"
+
+    version = '1.0.0-alpha11'
+    api "android.arch.work:work-runtime-ktx:${version}"
 }
