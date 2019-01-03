@@ -13,7 +13,7 @@ android {
 dependencies {
     implementation project(':core')
 
-    version = '5.3.0'
+    version = '6.0.1'
     api "org.kodein.di:kodein-di-generic-jvm:${version}"
     api "org.kodein.di:kodein-di-framework-android-x:${version}"
 }

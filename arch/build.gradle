@@ -22,6 +22,6 @@ dependencies {
     api "androidx.lifecycle:lifecycle-livedata:${version}"
     api "androidx.lifecycle:lifecycle-common-java${versions.java}:${version}"
 
-    version = '1.0.0-alpha11'
+    version = '1.0.0-beta01'
     api "android.arch.work:work-runtime-ktx:${version}"
 }
