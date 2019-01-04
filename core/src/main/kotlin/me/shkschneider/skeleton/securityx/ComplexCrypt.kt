@@ -23,7 +23,6 @@ open class ComplexCrypt(key: String) : ICrypt<String>(key) {
 
     private var ivParameterSpec = IvParameterSpec(key.toByteArray())
     private var secretKeySpec = SecretKeySpec(pad(key.toByteArray()), ALGORITHM.split("/")[0])
-    @SuppressLint("GetInstance")
     private var cipher = Cipher.getInstance(ALGORITHM)
 
     override fun algorithm(): String {

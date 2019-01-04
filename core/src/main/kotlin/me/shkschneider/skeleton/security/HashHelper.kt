@@ -2,6 +2,7 @@ package me.shkschneider.skeleton.security
 
 import me.shkschneider.skeleton.helperx.Logger
 import me.shkschneider.skeleton.java.StringHelper
+import java.math.BigInteger
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import kotlin.experimental.and
@@ -10,20 +11,15 @@ object HashHelper {
 
     private const val MD5 = "MD5"
     private const val SHA1 = "SHA-1"
-    private const val SHA2 = "SHA-2"
+    private const val SHA256 = "SHA-256"
+    private const val SHA512 = "SHA-512"
 
     private fun hash(algorithm: String, string: String): String? {
         try {
-            val messageDigest = MessageDigest.getInstance(algorithm)
-            messageDigest.reset()
-            messageDigest.update(string.toByteArray())
-            val stringBuilder = StringBuilder()
-            stringBuilder.setLength(0)
-            val digest = messageDigest.digest()
-            for (b in digest) {
-                stringBuilder.append(Integer.toString((b and 0xFF.toByte()) + 0x100, StringHelper.HEX.length).substring(1))
+            with(MessageDigest.getInstance(algorithm).digest(string.toByteArray())) {
+                return BigInteger(1, this)
+                        .toString(16).padStart(32, '0')
             }
-            return stringBuilder.toString()
         } catch (e: NoSuchAlgorithmException) {
             Logger.wtf(e)
             return null
@@ -40,8 +36,12 @@ object HashHelper {
         return hash(SHA1, string)
     }
 
-    fun sha2(string: String): String? {
-        return hash(SHA2, string)
+    fun sha256(string: String): String? {
+        return hash(SHA256, string)
+    }
+
+    fun sha512(string: String): String? {
+        return hash(SHA512, string)
     }
 
 }
