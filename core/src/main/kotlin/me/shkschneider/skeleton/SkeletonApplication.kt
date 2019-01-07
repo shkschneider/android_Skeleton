@@ -20,11 +20,9 @@ abstract class SkeletonApplication : Application() {
         ContextHelper.applicationContext(applicationContext)
         DEBUGGABLE = applicationInfo.flags.has(ApplicationInfo.FLAG_DEBUGGABLE)
 //        if (ApplicationHelper.debuggable()) {
-//            ExceptionHelper.uncaughtException(object: ExceptionHelper.Callback {
-//                override fun uncaughtException(throwable: Throwable) {
-//                    throwable.printStackTrace()
-//                }
-//            })
+//            ExceptionHelper.uncaughtException {
+//                it.printStackTrace()
+//            }
 //        }
         Logger.verbose("Hello, ${DeviceHelper.codename()} ($DeviceHelper)!")
     }

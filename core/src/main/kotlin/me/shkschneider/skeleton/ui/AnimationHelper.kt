@@ -1,7 +1,5 @@
 package me.shkschneider.skeleton.ui
 
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
 import android.content.res.Resources
 import android.os.Build
 import android.view.View
@@ -9,6 +7,7 @@ import android.view.ViewAnimationUtils
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.annotation.AnimRes
+import androidx.core.animation.addListener
 import me.shkschneider.skeleton.R
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.ContextHelper
@@ -18,7 +17,7 @@ object AnimationHelper {
 
     fun revealOn(view: View) {
         if (Build.VERSION.SDK_INT >= 21) {
-            view.addOnLayoutChangeListener(object: View.OnLayoutChangeListener {
+            view.addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
                 override fun onLayoutChange(v: View,
                                             left: Int, top: Int, right: Int, bottom: Int,
                                             oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int) {
@@ -49,12 +48,9 @@ object AnimationHelper {
             ViewAnimationUtils.createCircularReveal(view, width, height, radius.toFloat(), 1.toFloat()).run {
                 // setInterpolator(new AccelerateDecelerateInterpolator());
                 duration = ApplicationHelper.resources().getInteger(R.integer.sk_animation_medium).toLong()
-                addListener(object: AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator) {
-                        super.onAnimationEnd(animation)
-                        view.visibility = View.INVISIBLE
-                    }
-                })
+                addListener {
+                    view.visibility = View.INVISIBLE
+                }
                 start()
             }
         } else {

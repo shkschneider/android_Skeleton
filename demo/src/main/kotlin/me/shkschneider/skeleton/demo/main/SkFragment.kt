@@ -33,7 +33,7 @@ import java.lang.reflect.Modifier
 
 class SkFragment : SkeletonFragment() {
 
-    private val mBroadcastReceiver = object: BroadcastReceiver() {
+    private val mBroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             // val code = intent.getIntExtra(BROADCAST_SECRET_CODE, 0)
             network()
@@ -149,13 +149,13 @@ class SkFragment : SkeletonFragment() {
                             || field.isAnnotationPresent(Deprecated::class.java)) {
                         continue
                     }
-                    if (field.type.simpleName != "Companion" && field.name != "INSTANCE" && ! field.name.contains("$")) {
+                    if (field.type.simpleName != "Companion" && field.name != "INSTANCE" && !field.name.contains("$")) {
                         fields.add(field.type.simpleName + " " + field.name)
                     }
                 }
                 fields.sortWith(AlphanumComparator())
                 for (field in fields) {
-                    textView2.append(if (! textView2.text.isNullOrEmpty()) "\n" else "")
+                    textView2.append(if (!textView2.text.isNullOrEmpty()) "\n" else "")
                     textView2.append(field)
                 }
                 // methods
@@ -173,7 +173,7 @@ class SkFragment : SkeletonFragment() {
                 }
                 methods.sortWith(AlphanumComparator())
                 methods.forEach {
-                    textView2.append(if (! textView2.text.isNullOrEmpty()) "\n" else "")
+                    textView2.append(if (!textView2.text.isNullOrEmpty()) "\n" else "")
                     textView2.append(it)
                 }
                 linearLayout.addView(this)
@@ -193,19 +193,17 @@ class SkFragment : SkeletonFragment() {
 
     private fun network() {
         HttpURLConnectionWebService(HttpURLConnectionWebService.Method.GET, ShkMod.URL)
-                .callback(object: HttpURLConnectionWebService.Callback {
-                    override fun success(result: HttpURLConnectionWebService.Response?) {
-                        result?.let {
-                            notification(DateTimeHelper.timestamp(), ApplicationHelper.name().orEmpty(),
-                                    it.message.orEmpty())
-                        } ?: run {
-                            Toaster.show(result.toString())
-                        }
+                .onSuccess {
+                    it?.let {
+                        notification(DateTimeHelper.timestamp(), ApplicationHelper.name().orEmpty(),
+                                it.message.orEmpty())
+                    } ?: run {
+                        Toaster.show(it.toString())
                     }
-                    override fun failure(e: HttpURLConnectionWebService.Error) {
-                        Toaster.show(e.toStringOrEmpty())
-                    }
-                })
+                }
+                .onError {
+                    Toaster.show(it.toStringOrEmpty())
+                }
                 .run()
     }
 

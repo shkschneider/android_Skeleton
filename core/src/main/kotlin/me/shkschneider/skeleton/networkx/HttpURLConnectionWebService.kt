@@ -26,7 +26,8 @@ open class HttpURLConnectionWebService(
 
     private var headers: Map<String, String>? = null
     private var body: Map<String, String>? = null
-    private var callback: Callback? = null
+    private var onSuccess: ((Response?) -> (Unit))? = null
+    private var onError: ((Error) -> (Unit))? = null
 
     fun url(): String? {
         return url
@@ -53,13 +54,15 @@ open class HttpURLConnectionWebService(
     }
 
     @Suppress("DEPRECATION")
-    fun callback(callback: Callback?): HttpURLConnectionWebService {
-        this.callback = callback
+    fun onSuccess(onSuccess: ((Response?) -> (Unit))?): HttpURLConnectionWebService {
+        this.onSuccess = onSuccess
         return this
     }
 
-    fun callback(): Callback? {
-        return callback
+    @Suppress("DEPRECATION")
+    fun onError(onError: ((Error) -> (Unit))?): HttpURLConnectionWebService {
+        this.onError = onError
+        return this
     }
 
     fun run() {
@@ -143,8 +146,8 @@ open class HttpURLConnectionWebService(
         override fun onPostExecute(result: Any?) {
             super.onPostExecute(result)
             when (result) {
-                is Response -> callback?.success(result)
-                is Error -> callback?.failure(result)
+                is Response -> onSuccess?.invoke(result)
+                is Error -> onError?.invoke(result)
                 else -> throw UnsupportedOperationException("Result was not a Response nor an Exception!")
             }
         }
@@ -180,13 +183,6 @@ open class HttpURLConnectionWebService(
         const val INTERNAL_ERROR = 6_6_6
         val TIMEOUT_CONNECT = TimeUnit.SECONDS.toMillis(15).toInt()
         val TIMEOUT_READ = TimeUnit.MINUTES.toMillis(1).toInt()
-
-    }
-
-    interface Callback {
-
-        fun success(result: Response?)
-        fun failure(e: Error)
 
     }
 

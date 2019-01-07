@@ -2,16 +2,10 @@ package me.shkschneider.skeleton.java
 
 object ExceptionHelper {
 
-    fun uncaughtException(callback: Callback) {
+    fun uncaughtException(callback: (Throwable) -> (Unit)) {
         Thread.setDefaultUncaughtExceptionHandler { _, throwable ->
-            callback.uncaughtException(throwable)
+            callback(throwable)
         }
-    }
-
-    interface Callback {
-
-        fun uncaughtException(throwable: Throwable)
-
     }
 
 }
