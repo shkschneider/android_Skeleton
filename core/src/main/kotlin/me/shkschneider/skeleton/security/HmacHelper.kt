@@ -11,6 +11,7 @@ object HmacHelper {
 
     private const val ALGORITHM = "HmacSHA1"
 
+    // Key-ed hash, this is not a salt
     fun hash(key: String, string: String): String? {
         try {
             val secretKeySpec = SecretKeySpec(key.toByteArray(), ALGORITHM)
