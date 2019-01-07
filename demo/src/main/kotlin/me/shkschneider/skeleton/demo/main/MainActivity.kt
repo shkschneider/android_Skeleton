@@ -20,6 +20,7 @@ import me.shkschneider.skeleton.getViewModel
 import me.shkschneider.skeleton.helperx.Logger
 import me.shkschneider.skeleton.uix.BottomSheet
 import me.shkschneider.skeleton.uix.Toaster
+import me.shkschneider.skeleton.viewModel
 
 class MainActivity : SkeletonActivity() {
 
@@ -95,10 +96,12 @@ class MainActivity : SkeletonActivity() {
 
     // region viewmodel
 
+    private val viewModel by viewModel<MainViewModel>()
+
     override fun onResume() {
         super.onResume()
 
-        getViewModel<MainViewModel>().getModels().observe(this, Observer { models ->
+        viewModel.getModels().observe(this, Observer {
             // update UI
             val breakpoint: Nothing? = null
         })

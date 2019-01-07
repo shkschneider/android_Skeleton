@@ -11,3 +11,7 @@ fun SkeletonActivity.getViewModelProviders(): ViewModelProvider {
 inline fun <reified T: ViewModel> SkeletonActivity.getViewModel(): T {
     return getViewModelProviders().get(T::class.java)
 }
+
+inline fun <reified T: ViewModel> SkeletonActivity.viewModel() = lazy {
+    getViewModelProviders().get(T::class.java)
+}

@@ -14,6 +14,10 @@ inline fun <reified T: ViewModel> SkeletonFragment.getViewModel(): T {
     return getViewModelProviders().get(T::class.java)
 }
 
+inline fun <reified T: ViewModel> SkeletonFragment.viewModel() = lazy {
+    getViewModelProviders().get(T::class.java)
+}
+
 // <https://stackoverflow.com/a/37727576/603270>
 fun SkeletonFragment.fragmentManager(): FragmentManager? {
     return if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) fragmentManager else childFragmentManager
