@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.demo
 import android.content.Context
 import android.os.Build
 import androidx.multidex.MultiDex
+import com.squareup.leakcanary.LeakCanary
 import me.shkschneider.skeleton.demo.about.AboutActivity
 import me.shkschneider.skeleton.demo.data.DataManager
 import me.shkschneider.skeleton.di.SkeletonApplication
@@ -35,6 +36,11 @@ class MainApplication : SkeletonApplication() {
 
     override fun onCreate() {
         super.onCreate()
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            return;
+        }
+        LeakCanary.install(this);
+
         shortcut("About")
 
         Coroutines.io {
