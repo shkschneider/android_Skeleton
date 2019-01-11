@@ -30,6 +30,7 @@ import me.shkschneider.skeleton.ui.AnimationHelper
 import me.shkschneider.skeleton.uix.Inflater
 import me.shkschneider.skeleton.uix.Toaster
 import java.lang.reflect.Modifier
+import kotlin.reflect.KClass
 
 class SkFragment : SkeletonFragment() {
 
@@ -47,7 +48,7 @@ class SkFragment : SkeletonFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fill(view.findViewById<View>(R.id.data) as LinearLayout, arrayOf(
+        fill(view.findViewById<View>(R.id.data) as LinearLayout, listOf(
                 me.shkschneider.skeleton.datax.DiskCache.Cache::class.java,
                 me.shkschneider.skeleton.datax.GsonParser::class.java,
                 me.shkschneider.skeleton.datax.Serializer::class.java,
@@ -58,7 +59,7 @@ class SkFragment : SkeletonFragment() {
                 me.shkschneider.skeleton.data.SharedPreferencesHelper::class.java,
                 me.shkschneider.skeleton.data.StreamHelper::class.java
         ))
-        fill(view.findViewById<View>(R.id.helper) as LinearLayout, arrayOf(
+        fill(view.findViewById<View>(R.id.helper) as LinearLayout, listOf(
                 me.shkschneider.skeleton.helperx.FinalCountdown::class.java,
                 me.shkschneider.skeleton.helperx.Logger::class.java,
                 me.shkschneider.skeleton.helper.AccountHelper::class.java,
@@ -87,28 +88,30 @@ class SkFragment : SkeletonFragment() {
                 me.shkschneider.skeleton.helper.ThreadHelper::class.java,
                 me.shkschneider.skeleton.helper.VibratorHelper::class.java
         ))
-        fill(view.findViewById<View>(R.id.java) as LinearLayout, arrayOf(
+        fill(view.findViewById<View>(R.id.java) as LinearLayout, listOf(
                 me.shkschneider.skeleton.javax.Randomizer::class.java,
                 me.shkschneider.skeleton.javax.SemanticVersion::class.java,
                 me.shkschneider.skeleton.javax.Tasker::class.java,
                 me.shkschneider.skeleton.java.StringHelper::class.java
         ))
-        fill(view.findViewById<View>(R.id.network) as LinearLayout, arrayOf(
+        fill(view.findViewById<View>(R.id.network) as LinearLayout, listOf(
                 me.shkschneider.skeleton.networkx.WebService::class.java,
                 me.shkschneider.skeleton.network.NetworkHelper::class.java,
                 me.shkschneider.skeleton.network.UrlHelper::class.java
         ))
-        fill(view.findViewById<View>(R.id.security) as LinearLayout, arrayOf(
+        fill(view.findViewById<View>(R.id.security) as LinearLayout, listOf(
                 me.shkschneider.skeleton.securityx.ComplexCrypt::class.java,
                 me.shkschneider.skeleton.securityx.SimpleCrypt::class.java,
                 me.shkschneider.skeleton.security.Base64Helper::class.java,
                 me.shkschneider.skeleton.security.HashHelper::class.java,
                 me.shkschneider.skeleton.security.HmacHelper::class.java
         ))
-        fill(view.findViewById<View>(R.id.ui) as LinearLayout, arrayOf(
+        fill(view.findViewById<View>(R.id.ui) as LinearLayout, listOf(
                 me.shkschneider.skeleton.uix.BottomSheet::class.java,
+                me.shkschneider.skeleton.uix.FloatingActionButtonCompat::class.java,
                 me.shkschneider.skeleton.uix.Inflater::class.java,
                 me.shkschneider.skeleton.uix.OverlayLoader::class.java,
+                me.shkschneider.skeleton.uix.Snack::class.java,
                 me.shkschneider.skeleton.uix.Toaster::class.java,
                 me.shkschneider.skeleton.ui.AnimationHelper::class.java,
                 me.shkschneider.skeleton.ui.BitmapHelper::class.java,
@@ -132,7 +135,7 @@ class SkFragment : SkeletonFragment() {
         AnimationHelper.revealOn(floatingActionButton)
     }
 
-    private fun fill(linearLayout: LinearLayout?, cs: Array<Class<*>>) {
+    private fun fill(linearLayout: LinearLayout?, cs: List<Class<out Any>>) {
         linearLayout ?: return
         for (c in cs.distinct()) {
             with(Inflater.inflate(linearLayout, R.layout.ui)) {

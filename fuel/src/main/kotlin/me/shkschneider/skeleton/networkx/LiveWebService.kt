@@ -10,7 +10,7 @@ import com.google.gson.Gson
 import me.shkschneider.skeleton.helperx.Logger
 import me.shkschneider.skeleton.kotlinx.Quad
 
-typealias LiveWebServiceResponse<T> = Quad<Request, Response, T?, Exception?>
+public typealias LiveWebServiceResponse<T> = Quad<Request, Response, T?, Exception?>
 
 open class LiveWebService(gson: Gson = Gson()) : BaseWebService(gson) {
 

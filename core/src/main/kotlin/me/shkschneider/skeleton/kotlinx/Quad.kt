@@ -2,7 +2,7 @@ package me.shkschneider.skeleton.kotlinx
 
 import java.io.Serializable
 
-data class Quad<out A, out B, out C, out D>(
+public data class Quad<out A, out B, out C, out D>(
         public val first: A,
         public val second: B,
         public val third: C,

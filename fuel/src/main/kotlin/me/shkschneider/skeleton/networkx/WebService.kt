@@ -8,8 +8,8 @@ import com.github.kittinunf.result.Result
 import com.google.gson.Gson
 import me.shkschneider.skeleton.helperx.Logger
 
-typealias WebServiceSuccess<T> = (Request, Response, T?) -> Unit
-typealias WebServiceFailure = (Request, Response, Exception) -> Unit
+public typealias WebServiceSuccess<T> = (Request, Response, T?) -> Unit
+public typealias WebServiceFailure = (Request, Response, Exception) -> Unit
 
 open class WebService(gson: Gson = Gson()) : BaseWebService(gson) {
 
