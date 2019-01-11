@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
-import androidx.core.content.ContextCompat
 import android.text.InputType
 import android.view.Menu
 import android.view.MenuItem
@@ -22,6 +21,7 @@ import androidx.annotation.UiThread
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import me.shkschneider.skeleton.extensions.toStringOrEmpty
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.IntentHelper
@@ -243,7 +243,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
             toolbar.title = title
         }
         supportActionBar?.let { actionBar ->
-            actionBar.setDisplayShowTitleEnabled(! title.isNullOrEmpty())
+            actionBar.setDisplayShowTitleEnabled(!title.isNullOrEmpty())
             actionBar.title = title
         }
     }
@@ -263,7 +263,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
             toolbar.subtitle = subtitle
         }
         supportActionBar?.let { actionBar ->
-            actionBar.setDisplayShowTitleEnabled(! (title.isNullOrEmpty() && subtitle.isNullOrEmpty()))
+            actionBar.setDisplayShowTitleEnabled(!(title.isNullOrEmpty() && subtitle.isNullOrEmpty()))
             actionBar.subtitle = subtitle
         }
     }
@@ -297,7 +297,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     @UiThread
     fun loading(b: Boolean) {
-        if (! ThreadHelper.mainThread()) {
+        if (!ThreadHelper.mainThread()) {
             Logger.debug("Not on Main UI Thread!")
         }
         if (b) {

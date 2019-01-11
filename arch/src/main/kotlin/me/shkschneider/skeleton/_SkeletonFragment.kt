@@ -10,11 +10,11 @@ fun SkeletonFragment.getViewModelProviders(): ViewModelProvider {
     return activity?.let(ViewModelProviders::of) ?: ViewModelProviders.of(this)
 }
 
-inline fun <reified T: ViewModel> SkeletonFragment.getViewModel(): T {
+inline fun <reified T : ViewModel> SkeletonFragment.getViewModel(): T {
     return getViewModelProviders().get(T::class.java)
 }
 
-inline fun <reified T: ViewModel> SkeletonFragment.viewModel() = lazy {
+inline fun <reified T : ViewModel> SkeletonFragment.viewModel() = lazy {
     getViewModelProviders().get(T::class.java)
 }
 

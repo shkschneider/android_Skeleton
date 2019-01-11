@@ -9,6 +9,8 @@ import com.google.gson.annotations.SerializedName
 import me.shkschneider.skeleton.datax.MemoryCache
 import me.shkschneider.skeleton.helperx.Logger
 import me.shkschneider.skeleton.networkx.WebService
+import me.shkschneider.skeleton.networkx.WebServiceFailure
+import me.shkschneider.skeleton.networkx.WebServiceSuccess
 import java.io.Serializable
 import java.nio.charset.Charset
 
@@ -40,16 +42,16 @@ object NetworkManager {
         }
     }
 
-    fun ip(success: (Request, Response, String) -> Unit, failure: ((Request, Response, Exception) -> Unit)? = null): Request =
+    fun ip(success: WebServiceSuccess<String>, failure: WebServiceFailure? = null): Request =
             proxy.get("https://ipecho.net/plain", success, failure)
 
-    fun userAgent(success: (Request, Response, HttpBinUserAgent) -> Unit, failure: ((Request, Response, Exception) -> Unit)? = null): Request =
+    fun userAgent(success: WebServiceSuccess<HttpBinUserAgent>, failure: WebServiceFailure? = null): Request =
             proxy.get("https://httpbin.org/user-agent", success, failure).cache(success)
                     .authenticate("john", "doe")
                     .body("42")
 
     // If coming from cache, response.isSuccessful will be false
-    private inline fun <reified T: Any> Request.cache(crossinline success: (Request, Response, T) -> Unit): Request {
+    private inline fun <reified T : Any> Request.cache(crossinline success: WebServiceSuccess<T>): Request {
         response { request, response, result ->
             val key = request.url.toString()
             result.fold({ data ->

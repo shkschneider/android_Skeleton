@@ -32,10 +32,10 @@ abstract class BaseWebService(val gson: Gson) {
         FuelManager.instance.timeoutReadInMillisecond = TimeUnit.SECONDS.toMillis(15).toInt()
     }
 
-    inline fun <reified T: Any> deserialize(content: String): T? =
+    inline fun <reified T : Any> deserialize(content: String): T? =
             Deserializer(gson, T::class).deserialize(content)
 
-    inner class Deserializer<T: Any>(private val gson: Gson, private val klass: KClass<T>): ResponseDeserializable<T> {
+    inner class Deserializer<T : Any>(private val gson: Gson, private val klass: KClass<T>) : ResponseDeserializable<T> {
 
         override fun deserialize(content: String): T? {
             try {

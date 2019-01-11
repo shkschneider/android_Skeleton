@@ -23,6 +23,7 @@ class SkeletonViewModel : ViewModel() {
      */
 
     private val _loading = MutableLiveData<Boolean>()
+
     fun loading(): LiveData<Boolean> = _loading
 
     /**
