@@ -19,14 +19,14 @@ class SkeletonViewModel : ViewModel() {
     }
 
     /**
-     * Exposing LiveData from an initialized MutableLiveData.
+     * Exposing LiveData from a private initialized MutableLiveData.
      */
 
     private val _loading = MutableLiveData<Boolean>()
     fun loading(): LiveData<Boolean> = _loading
 
     /**
-     * Exposing a method for a LiveData
+     * Exposing a method for a private LiveData
      * that triggers when MutableLiveData initializes.
      */
 
