@@ -13,6 +13,8 @@ import me.shkschneider.skeleton.helperx.Logger
  *
  * DEBUGGABLE
  * onCreate()
+ *
+ * If minSdkVersion is 21+ you do not need MultiDex (nor multiDexEnabled true).
  */
 abstract class SkeletonApplication : MultiDexApplication() {
 
