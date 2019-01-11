@@ -8,14 +8,14 @@ import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
 import me.shkschneider.skeleton.datax.MemoryCache
 import me.shkschneider.skeleton.helperx.Logger
-import me.shkschneider.skeleton.networkx.FuelWebService
+import me.shkschneider.skeleton.networkx.WebService
 import java.io.Serializable
 import java.nio.charset.Charset
 
 object NetworkManager {
 
     private val proxy by lazy {
-        FuelWebService(GsonBuilder().setFieldNamingStrategy { f -> f.name.toLowerCase() }.create())
+        WebService(GsonBuilder().setFieldNamingStrategy { f -> f.name.toLowerCase() }.create())
     }
     // cache.clear()
     val cache by lazy {

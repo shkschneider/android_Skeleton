@@ -94,7 +94,7 @@ class SkFragment : SkeletonFragment() {
                 me.shkschneider.skeleton.java.StringHelper::class.java
         ))
         fill(view.findViewById<View>(R.id.network) as LinearLayout, arrayOf(
-                me.shkschneider.skeleton.networkx.FuelWebService::class.java,
+                me.shkschneider.skeleton.networkx.WebService::class.java,
                 me.shkschneider.skeleton.network.NetworkHelper::class.java,
                 me.shkschneider.skeleton.network.UrlHelper::class.java
         ))

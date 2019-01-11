@@ -16,5 +16,6 @@ dependencies {
     version = '1.16.0' // https://github.com/kittinunf/Fuel
     api "com.github.kittinunf.fuel:fuel:${version}"
     api "com.github.kittinunf.fuel:fuel-android:${version}"
+    api "com.github.kittinunf.fuel:fuel-livedata:${version}"
     api "com.github.kittinunf.fuel:fuel-gson:${version}"
 }
