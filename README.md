@@ -41,7 +41,7 @@ Specifications
 
 **Uses**
 
-- [Gradle 3+](https://developer.android.com/studio/build/index.html) (wrapper 4+)
+- [Gradle 4.10+](https://developer.android.com/studio/build/index.html)
 - [Android Studio 3+](https://developer.android.com/studio/index.html)
 - [Android Jetpack](https://developer.android.com/jetpack/)
 - [Material Design](http://www.google.com/design/spec/material-design/introduction.html)
