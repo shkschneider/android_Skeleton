@@ -28,15 +28,15 @@ object IntentHelper {
         }
 
         fun publisher(pub: String): Intent {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse("market://search?pub:$pub")
-            return external(intent)
+            return external(Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse("market://search?pub:$pub")
+            })
         }
 
         fun search(q: String): Intent {
-            val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse("market://search?q=$q")
-            return external(intent)
+            return external(Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse("market://search?q=$q")
+            })
         }
 
     }
@@ -75,17 +75,17 @@ object IntentHelper {
     }
 
     fun share(subject: String?, text: String?): Intent {
-        val intent = Intent(Intent.ACTION_SEND)
-                .setType(MimeTypeHelper.TEXT_PLAIN)
-        // Email: intent.setData(Uri.parse("mailto:"));
-        //        intent.putExtra(Intent.EXTRA_EMAIL, new String[] { ... });
-        if (! subject.isNullOrBlank()) {
-            intent.putExtra(Intent.EXTRA_SUBJECT, subject)
-        }
-        if (! text.isNullOrBlank()) {
-            intent.putExtra(Intent.EXTRA_TEXT, text)
-        }
-        return Intent.createChooser(intent, null)
+        return Intent.createChooser(Intent(Intent.ACTION_SEND).apply {
+            type = MimeTypeHelper.TEXT_PLAIN
+            // Email: data = Uri.parse("mailto:"))
+            //        putExtra(Intent.EXTRA_EMAIL, new String[] { ... })
+            if (!subject.isNullOrBlank()) {
+                putExtra(Intent.EXTRA_SUBJECT, subject)
+            }
+            if (!text.isNullOrBlank()) {
+                putExtra(Intent.EXTRA_TEXT, text)
+            }
+        }, null)
     }
 
     fun directions(fromLatitude: Long, fromLongitude: Long,
@@ -98,15 +98,16 @@ object IntentHelper {
     }
 
     fun ringtone(existingUri: String?): Intent {
-        val intent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER)
-                .putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION)
-                .putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Uri.parse(existingUri.orEmpty()))
-        return intent
+        return Intent(RingtoneManager.ACTION_RINGTONE_PICKER).apply {
+            putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION)
+            putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Uri.parse(existingUri.orEmpty()))
+        }
     }
 
     fun applicationSettings(): Intent {
-        return external(Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                .setData(Uri.parse("package:" + ApplicationHelper.packageName())))
+        return external(Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+            data = Uri.parse("package:" + ApplicationHelper.packageName())
+        })
     }
 
     fun systemSettings(): Intent {
@@ -114,28 +115,33 @@ object IntentHelper {
     }
 
     fun text(uri: Uri): Intent {
-        return external(Intent(Intent.ACTION_VIEW)
-                .setDataAndType(uri, MimeTypeHelper.TEXT_PLAIN))
+        return external(Intent(Intent.ACTION_VIEW).apply {
+            setDataAndType(uri, MimeTypeHelper.TEXT_PLAIN)
+        })
     }
 
     fun audio(uri: Uri): Intent {
-        return external(Intent(Intent.ACTION_VIEW)
-                .setDataAndType(uri, MimeTypeHelper.AUDIO))
+        return external(Intent(Intent.ACTION_VIEW).apply {
+            setDataAndType(uri, MimeTypeHelper.AUDIO)
+        })
     }
 
     fun video(uri: Uri): Intent {
-        return external(Intent(Intent.ACTION_VIEW)
-                .setDataAndType(uri, MimeTypeHelper.VIDEO))
+        return external(Intent(Intent.ACTION_VIEW).apply {
+            setDataAndType(uri, MimeTypeHelper.VIDEO)
+        })
     }
 
     fun picture(uri: Uri): Intent {
-        return external(Intent(Intent.ACTION_VIEW)
-                .setDataAndType(uri, MimeTypeHelper.IMAGE))
+        return external(Intent(Intent.ACTION_VIEW).apply {
+            setDataAndType(uri, MimeTypeHelper.IMAGE)
+        })
     }
 
     fun gallery(): Intent {
-        return external(Intent(Intent.ACTION_PICK)
-                .setType(MimeTypeHelper.IMAGE))
+        return external(Intent(Intent.ACTION_PICK).apply {
+            type = MimeTypeHelper.IMAGE
+        })
     }
 
     fun camera(file: File): Intent? {
@@ -154,23 +160,34 @@ object IntentHelper {
     }
 
     fun file(): Intent {
-        return external(Intent(Intent.ACTION_GET_CONTENT)
-                .setType(MimeTypeHelper.FILE))
+        return external(Intent(Intent.ACTION_GET_CONTENT).apply {
+            type = MimeTypeHelper.FILE
+        })
     }
 
     fun dial(phone: String): Intent {
-        return external(Intent(Intent.ACTION_DIAL)
-                .setData(Uri.parse("tel:$phone")))
+        return external(Intent(Intent.ACTION_DIAL).apply {
+            data = Uri.parse("tel:$phone")
+        })
     }
 
     fun call(phone: String): Intent {
-        return external(Intent(Intent.ACTION_CALL)
-                .setData(Uri.parse("tel:$phone")))
+        return external(Intent(Intent.ACTION_CALL).apply {
+            data = Uri.parse("tel:$phone")
+        })
+    }
+
+    fun sms(phone: String, message: String): Intent {
+        return external(Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("smsto:$phone")
+            putExtra("sms_body", message)
+        })
     }
 
     fun contact(): Intent {
-        return external(Intent(Intent.ACTION_PICK, Uri.parse("content://com.android.contacts/contacts"))
-                .setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE))
+        return external(Intent(Intent.ACTION_PICK, Uri.parse("content://com.android.contacts/contacts")).apply {
+            type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE
+        })
     }
 
     fun canHandle(intent: Intent): Boolean {
@@ -213,12 +230,13 @@ object IntentHelper {
     // <http://developer.android.com/training/implementing-navigation/descendant.html#external-activities>
     @Suppress("DEPRECATION")
     private fun external(intent: Intent): Intent {
-        if (Build.VERSION.SDK_INT >= 21) {
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
-        } else {
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET)
+        return with(intent) {
+            if (Build.VERSION.SDK_INT >= 21) {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
+            } else {
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET)
+            }
         }
-        return intent
     }
 
 }
