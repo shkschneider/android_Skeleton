@@ -6,9 +6,9 @@ import me.shkschneider.skeleton.helper.AndroidHelper
 import kotlin.reflect.KClass
 
 @RequiresApi(AndroidHelper.API_23)
-fun <T: Any> Context.getSystemService(klass: KClass<T>): T? =
+fun <T : Any> Context.getSystemService(klass: KClass<T>): T? =
         getSystemService(klass.java) ?: null
 
 @RequiresApi(AndroidHelper.API_23)
-fun <T: Any> Context.getSystemServiceName(klass: KClass<T>): String? =
+fun <T : Any> Context.getSystemServiceName(klass: KClass<T>): String? =
         getSystemServiceName(klass.java) ?: null

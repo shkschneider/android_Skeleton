@@ -33,6 +33,11 @@ fun String.oneline() =
 
 // Ellipsize
 
+fun String.limit(max: Int): Pair<String, String> =
+    if (length > max) {
+        take(max) to takeLast(length - max)
+    } else this to ""
+
 fun String.ellipsize(@IntRange(from = 0) maxLength: Int, reverse: Boolean = false): String {
     if (length > maxLength) {
         if (reverse) {
