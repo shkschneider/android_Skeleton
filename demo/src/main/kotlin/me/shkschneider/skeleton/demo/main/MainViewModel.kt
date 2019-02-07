@@ -8,14 +8,21 @@ import me.shkschneider.skeleton.demo.data.DataManager
 import me.shkschneider.skeleton.demo.data.MyModel
 import me.shkschneider.skeleton.kotlinx.Coroutines
 
+/**
+ * This is, so far, my favorite way of doing it.
+ *
+ * @see me.shkschneider.skeleton.SkeletonViewModel
+ */
 class MainViewModel : ViewModel() {
 
-    private lateinit var models: MutableLiveData<List<MyModel>>
+    private val models by lazy {
+        MutableLiveData<List<MyModel>>().apply {
+        }
+    }
 
     @UiThread
-    fun getModels(): LiveData<List<MyModel>> {
-        if (!::models.isInitialized) {
-            models = MutableLiveData()
+    fun models(force: Boolean = false): LiveData<List<MyModel>> {
+        if (models.value == null || force) {
             Coroutines.ioThenMain({
                 DataManager.getModels()
             }) {

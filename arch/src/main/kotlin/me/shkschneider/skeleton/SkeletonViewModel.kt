@@ -10,6 +10,8 @@ class SkeletonViewModel : ViewModel() {
 
     /**
      * Lazy-loading of a MutableLiveData with initialization.
+     *
+     * I think a lazy would always be nice.
      */
 
     val data by lazy {
@@ -20,25 +22,70 @@ class SkeletonViewModel : ViewModel() {
 
     /**
      * Exposing LiveData from a private initialized MutableLiveData.
+     *
+     * Always try to expose a LiveData instead of a MutableLiveData.
      */
 
     private val _loading = MutableLiveData<Boolean>()
 
-    fun loading(): LiveData<Boolean> = _loading
+    fun loading(): LiveData<Boolean>  = _loading
+
+    /**
+     * Exposing LiveData from a private initialized MutableLiveData
+     * that triggers when MutableLiveData's value was null.
+     *
+     * This decides when to load.
+     */
+
+    private val users = MutableLiveData<List<UUID>>()
+
+    private fun loadUsers() {
+        // ...
+    }
+
+    fun getUsers(): LiveData<List<UUID>> {
+        if (users.value == null) {
+            loadUsers()
+        }
+        return users
+    }
+
+    /**
+     * Same this as previously,
+     * but the loading behavior can be overriden.
+     *
+     * This decides when to load, with manuel override available.
+     */
+
+    private val users2 = MutableLiveData<List<UUID>>()
+
+    private fun loadUsers2() {
+        // ...
+    }
+
+    fun getUsers2(force: Boolean = false): LiveData<List<UUID>> {
+        if (users2.value == null || force) {
+            loadUsers()
+        }
+        return users2
+    }
 
     /**
      * Exposing a method for a private LiveData
      * that triggers when MutableLiveData initializes.
+     *
+     * This was the Google's example way.
      */
 
-    private lateinit var users: MutableLiveData<List<UUID>>
+    private lateinit var projects: MutableLiveData<List<UUID>>
 
-    fun getUsers(): LiveData<List<UUID>> {
-        if (!::users.isInitialized) {
-            users = MutableLiveData()
+
+    fun getProjects(): LiveData<List<UUID>> {
+        if (!::projects.isInitialized) {
+            projects = MutableLiveData()
             // loadUsers()
         }
-        return users
+        return projects
     }
 
 }

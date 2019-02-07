@@ -99,7 +99,7 @@ class MainActivity : SkeletonActivity() {
     override fun onResume() {
         super.onResume()
 
-        viewModel.getModels().observe(this, Observer {
+        viewModel.models().observe(this, Observer {
             // update UI
             val breakpoint: Nothing? = null
         })
