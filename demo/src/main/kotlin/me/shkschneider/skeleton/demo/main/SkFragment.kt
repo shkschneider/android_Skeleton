@@ -19,6 +19,7 @@ import me.shkschneider.skeleton.SkeletonFragment
 import me.shkschneider.skeleton.demo.R
 import me.shkschneider.skeleton.demo.data.ShkMod
 import me.shkschneider.skeleton.extensions.android.Intent
+import me.shkschneider.skeleton.extensions.android.revealOn
 import me.shkschneider.skeleton.extensions.toStringOrEmpty
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.BroadcastHelper
@@ -26,11 +27,9 @@ import me.shkschneider.skeleton.helper.DateTimeHelper
 import me.shkschneider.skeleton.helper.NotificationHelper
 import me.shkschneider.skeleton.javax.AlphanumComparator
 import me.shkschneider.skeleton.networkx.HttpURLConnectionWebService
-import me.shkschneider.skeleton.ui.AnimationHelper
 import me.shkschneider.skeleton.uix.Inflater
-import me.shkschneider.skeleton.uix.Toaster
+import me.shkschneider.skeleton.uix.Notify
 import java.lang.reflect.Modifier
-import kotlin.reflect.KClass
 
 class SkFragment : SkeletonFragment() {
 
@@ -110,20 +109,9 @@ class SkFragment : SkeletonFragment() {
                 me.shkschneider.skeleton.uix.BottomSheet::class.java,
                 me.shkschneider.skeleton.uix.FloatingActionButtonCompat::class.java,
                 me.shkschneider.skeleton.uix.Inflater::class.java,
+                me.shkschneider.skeleton.uix.Notify::class.java,
                 me.shkschneider.skeleton.uix.OverlayLoader::class.java,
-                me.shkschneider.skeleton.uix.Snack::class.java,
-                me.shkschneider.skeleton.uix.Toaster::class.java,
-                me.shkschneider.skeleton.ui.AnimationHelper::class.java,
-                me.shkschneider.skeleton.ui.BitmapHelper::class.java,
-                me.shkschneider.skeleton.ui.DrawableHelper::class.java,
-                me.shkschneider.skeleton.ui.EditTextHelper::class.java,
-                me.shkschneider.skeleton.ui.ImageHelper::class.java,
-                me.shkschneider.skeleton.ui.PaletteHelper::class.java,
-                me.shkschneider.skeleton.ui.ScrollViewHelper::class.java,
-                me.shkschneider.skeleton.ui.TextViewHelper::class.java,
-                me.shkschneider.skeleton.ui.ThemeHelper::class.java,
-                me.shkschneider.skeleton.ui.ViewHelper::class.java,
-                me.shkschneider.skeleton.ui.WebViewHelper::class.java
+                me.shkschneider.skeleton.uix.Tooltips::class.java
         ))
 
         val floatingActionButton = view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
@@ -132,7 +120,7 @@ class SkFragment : SkeletonFragment() {
             val intent = Intent(ShkMod.BROADCAST_SECRET).putExtra(ShkMod.BROADCAST_SECRET_CODE, 42)
             LocalBroadcastManager.getInstance(floatingActionButton.context).sendBroadcast(intent)
         }
-        AnimationHelper.revealOn(floatingActionButton)
+        floatingActionButton.revealOn()
     }
 
     private fun fill(linearLayout: LinearLayout?, cs: List<Class<out Any>>) {
@@ -201,11 +189,11 @@ class SkFragment : SkeletonFragment() {
                         notification(DateTimeHelper.timestamp(), ApplicationHelper.name().orEmpty(),
                                 it.message.orEmpty())
                     } ?: run {
-                        Toaster.show(it.toString())
+                        Notify.toast(it.toString())
                     }
                 }
                 .onError {
-                    Toaster.show(it.toStringOrEmpty())
+                    Notify.toast(it.toStringOrEmpty())
                 }
                 .run()
     }
