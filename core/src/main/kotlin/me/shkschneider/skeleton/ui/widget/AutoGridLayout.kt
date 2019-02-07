@@ -7,9 +7,9 @@ import android.view.View
 import android.widget.FrameLayout
 import androidx.annotation.RequiresApi
 import androidx.core.view.GravityCompat
+import me.shkschneider.skeleton.extensions.android.ViewHelper
 import me.shkschneider.skeleton.extensions.has
 import me.shkschneider.skeleton.helper.AndroidHelper
-import me.shkschneider.skeleton.ui.ViewHelper
 
 // <https://github.com/AlbertGrobas/AutoLinearLayout>
 class AutoGridLayout : FrameLayout {
@@ -30,12 +30,15 @@ class AutoGridLayout : FrameLayout {
     constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr) {
         init(attrs)
     }
+
     @RequiresApi(AndroidHelper.API_21)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
         init(attrs)
     }
+
     private fun init(attrs: AttributeSet?) {
-        val orientation = attrs?.getAttributeResourceValue(ViewHelper.ANDROIDXML, "orientation", -1) ?: -1
+        val orientation = attrs?.getAttributeResourceValue(ViewHelper.ANDROIDXML, "orientation", -1)
+                ?: -1
         when (orientation) {
             HORIZONTAL -> setHorizontalGravity(Gravity.CENTER_HORIZONTAL)
             VERTICAL -> setVerticalGravity(Gravity.CENTER_VERTICAL)

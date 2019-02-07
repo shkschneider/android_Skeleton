@@ -16,6 +16,7 @@
 
     <dimen name="sk_clickable">24dp</dimen>
     <dimen name="sk_finger">48dp</dimen>
+    <dimen name="sk_radius">4dp</dimen>
 
     <dimen name="sk_spaceNull">0dp</dimen>
     <dimen name="sk_spacePico">2dp</dimen>

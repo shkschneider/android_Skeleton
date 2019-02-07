@@ -4,12 +4,18 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Build
+import android.telephony.TelephonyManager
 import androidx.annotation.RequiresPermission
 import androidx.core.content.ContextCompat
 import me.shkschneider.skeleton.helperx.SystemProperties
+import me.shkschneider.skeleton.helperx.SystemServices
 
 // <http://developer.android.com/reference/android/os/Build.html>
 object DeviceHelper {
+
+    fun isPhone(): Boolean { // TODO test
+        return SystemServices.telephonyManager()?.phoneType != TelephonyManager.PHONE_TYPE_NONE
+    }
 
     fun architecture(): String? {
         return SystemProperties.get(SystemProperties.OS_ARCH)

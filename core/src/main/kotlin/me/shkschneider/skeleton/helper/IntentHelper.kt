@@ -10,9 +10,9 @@ import android.provider.ContactsContract
 import android.provider.MediaStore
 import android.provider.Settings
 import me.shkschneider.skeleton.data.MimeTypeHelper
+import me.shkschneider.skeleton.extensions.android.BitmapHelper
 import me.shkschneider.skeleton.helperx.Logger
 import me.shkschneider.skeleton.network.UrlHelper
-import me.shkschneider.skeleton.ui.BitmapHelper
 import java.io.File
 
 // <http://developer.android.com/reference/android/content/Intent.html>
@@ -67,7 +67,7 @@ object IntentHelper {
     }
 
     fun web(url: String): Intent? {
-        if (! UrlHelper.valid(url)) {
+        if (!UrlHelper.valid(url)) {
             Logger.warning("Url was invalid")
             return null
         }
@@ -145,14 +145,14 @@ object IntentHelper {
     }
 
     fun camera(file: File): Intent? {
-        if (! FeaturesHelper.has(FeaturesHelper.FEATURE_CAMERA)) {
+        if (!FeaturesHelper.has(FeaturesHelper.FEATURE_CAMERA)) {
             Logger.warning("Camera was unavailable")
             return null
         }
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
                 .putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(file))
                 .putExtra(MediaStore.EXTRA_SHOW_ACTION_ICONS, true)
-        if (! canHandle(intent)) {
+        if (!canHandle(intent)) {
             Logger.warning("Cannot handle Intent")
             return null
         }

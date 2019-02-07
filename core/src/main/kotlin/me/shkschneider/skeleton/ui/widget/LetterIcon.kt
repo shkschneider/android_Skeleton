@@ -11,9 +11,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.annotation.IntRange
+import me.shkschneider.skeleton.extensions.android.accentColor
 import me.shkschneider.skeleton.helperx.Logger
 import me.shkschneider.skeleton.helperx.Metrics
-import me.shkschneider.skeleton.ui.ThemeHelper
 
 // <https://github.com/IvBaranov/MaterialLetterIcon>
 class LetterIcon : View {
@@ -33,7 +33,7 @@ class LetterIcon : View {
         shapePaint.isAntiAlias = true
         letterPaint = Paint()
         letterPaint.isAntiAlias = true
-        setShapeColor(ThemeHelper.accentColor())
+        setShapeColor(context.theme.accentColor())
     }
 
     override fun onAttachedToWindow() {

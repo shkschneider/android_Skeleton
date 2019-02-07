@@ -12,9 +12,11 @@ import android.widget.EditText
 import android.widget.TextView
 
 import me.shkschneider.skeleton.SkeletonReceiver
+import me.shkschneider.skeleton.extensions.android.ViewHelper
+import me.shkschneider.skeleton.extensions.android.children
+import me.shkschneider.skeleton.extensions.android.contentView
 import me.shkschneider.skeleton.helperx.Logger
 import me.shkschneider.skeleton.helperx.Metrics
-import me.shkschneider.skeleton.ui.ViewHelper
 
 object KeyboardHelper {
 
@@ -63,7 +65,7 @@ object KeyboardHelper {
 
     // <https://github.com/yshrsmz/KeyboardVisibilityEvent>
     fun keyboardListener(activity: Activity, listener: Listener) {
-        val root = ViewHelper.children(ViewHelper.content(activity))[0]
+        val root = activity.contentView().children()[0]
         root.viewTreeObserver.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener {
 
             private val rect = Rect()

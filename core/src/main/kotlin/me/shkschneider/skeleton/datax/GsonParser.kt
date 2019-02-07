@@ -9,6 +9,8 @@ import me.shkschneider.skeleton.helperx.Logger
 
 object GsonParser : IParser<JsonObject, JsonArray> {
 
+    val RFC_3339 = "yyyy-MM-dd'T'HH:mm:ssXXX"
+
     override fun parse(string: String): JsonObject? {
         return parse(string, Gson())
     }
