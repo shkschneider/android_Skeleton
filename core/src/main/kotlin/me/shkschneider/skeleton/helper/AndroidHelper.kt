@@ -70,8 +70,9 @@ object AndroidHelper {
     }
 
     fun preview(): Boolean {
-        val codename = codename()
-        return codename.startsWith("*") && codename.endsWith("*")
+        return codename().let {
+            return@let it.startsWith("*") && it.endsWith("*")
+        }
     }
 
     fun api(): Int {

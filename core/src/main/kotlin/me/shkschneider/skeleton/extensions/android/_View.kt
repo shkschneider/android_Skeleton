@@ -4,11 +4,11 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.os.Build
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewAnimationUtils
-import android.view.ViewGroup
 import android.view.Window
 import android.widget.RelativeLayout
-import androidx.annotation.UiThread
 import androidx.core.animation.addListener
 import me.shkschneider.skeleton.R
 import me.shkschneider.skeleton.SkeletonReceiver
@@ -25,18 +25,14 @@ object ViewHelper {
 
 }
 
-fun View.children(): List<View> {
-    val viewGroup = this as ViewGroup
-    return (0 until viewGroup.childCount).mapTo(ArrayList<View>()) { viewGroup.getChildAt(it) }
-}
-
-@UiThread
-fun View.show(): Boolean {
-    if (visibility != View.VISIBLE) {
-        visibility = View.VISIBLE
-        return true
+// <https://github.com/nowfalsalahudeen/KdroidExt>
+fun View.setSize(width: Int, height: Int) {
+    with(layoutParams.also {
+        it.width = width
+        it.height = height
+    }) {
+        layoutParams = this
     }
-    return false
 }
 
 fun View.revealOn() {
@@ -53,24 +49,15 @@ fun View.revealOn() {
                     ViewAnimationUtils.createCircularReveal(this@revealOn, width, height, 1.toFloat(), radius.toFloat()).run {
                         // setInterpolator(new AccelerateDecelerateInterpolator());
                         duration = ApplicationHelper.resources().getInteger(R.integer.sk_animation_medium).toLong()
-                        show()
+                        visibility = VISIBLE
                         start()
                     }
                 }
             }
         })
     } else {
-        show()
+        visibility = VISIBLE
     }
-}
-
-@UiThread
-fun View.hide(): Boolean {
-    if (visibility != View.GONE) {
-        visibility = View.GONE
-        return true
-    }
-    return false
 }
 
 fun View.revealOff() {
@@ -82,12 +69,12 @@ fun View.revealOff() {
             // setInterpolator(new AccelerateDecelerateInterpolator());
             duration = ApplicationHelper.resources().getInteger(R.integer.sk_animation_medium).toLong()
             addListener {
-                hide()
+                visibility = GONE
             }
             start()
         }
     } else {
-        hide()
+        visibility = GONE
     }
 }
 
