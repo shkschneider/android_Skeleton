@@ -35,12 +35,12 @@ object SkeletonWorker {
 
     // Single-Shot
 
-    fun <T : Worker> enqueue(tag: String, worker: Class<T>, constraints: Constraints? = null, data: Data? = null): UUID {
+    fun <T : Worker> enqueue(tag: String, worker: Class<T>, constraints: Constraints? = null, inputData: Data? = null): UUID {
         val workBuilder = OneTimeWorkRequest.Builder(worker).addTag(tag)
         constraints?.let {
             workBuilder.setConstraints(it)
         }
-        data?.let {
+        inputData?.let {
             workBuilder.setInputData(it)
         }
         val work = workBuilder.build()
@@ -48,14 +48,10 @@ object SkeletonWorker {
         return work.id
     }
 
-    fun <T : Worker> uniqueWork(tag: String, worker: Class<T>, constraints: Constraints? = null, data: Data? = null): UUID {
+    fun <T : Worker> uniqueWork(tag: String, worker: Class<T>, constraints: Constraints? = null, inputData: Data? = null): UUID {
         val workBuilder = OneTimeWorkRequest.Builder(worker).addTag(tag)
-        constraints?.let {
-            workBuilder.setConstraints(it)
-        }
-        data?.let {
-            workBuilder.setInputData(it)
-        }
+        constraints?.let { workBuilder.setConstraints(it) }
+        inputData?.let { workBuilder.setInputData(it) }
         val work = workBuilder.build()
         manager().beginUniqueWork(tag, ExistingWorkPolicy.REPLACE, work).enqueue()
         return work.id
@@ -67,19 +63,16 @@ object SkeletonWorker {
      * It may run immediately, at the end of the period, or any time in between so long as the
      * other conditions are satisfied at the time.
      */
-    fun <T : Worker> uniquePeriodicWork(tag: String, worker: Class<T>, repeatInterval: Long, timeUnit: TimeUnit,
-                                        constraints: Constraints? = null, data: Data? = null): UUID? {
+    fun <T : Worker> uniquePeriodicWork(tag: String, worker: Class<T>,
+                                        repeatInterval: Long, timeUnit: TimeUnit,
+                                        constraints: Constraints? = null, inputData: Data? = null): UUID? {
         if (timeUnit.toMillis(repeatInterval) < PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS) {
             Logger.warning("The intervalMillis must be greater than or equal to: ${PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS}")
             return null
         }
         val workBuilder = PeriodicWorkRequest.Builder(worker, repeatInterval, timeUnit).addTag(tag)
-        constraints?.let {
-            workBuilder.setConstraints(it)
-        }
-        data?.let {
-            workBuilder.setInputData(it)
-        }
+        constraints?.let { workBuilder.setConstraints(it) }
+        inputData?.let { workBuilder.setInputData(it) }
         val work = workBuilder.build()
         manager().enqueueUniquePeriodicWork(tag, ExistingPeriodicWorkPolicy.REPLACE, work)
         return work.id
@@ -90,9 +83,10 @@ object SkeletonWorker {
      * interval period. The flex period begins at (intervalMillis - flexMillis) to the end of
      * the interval.
      */
-    fun <T : Worker> enqueueUniquePeriodicWork(tag: String, worker: Class<T>, repeatInterval: Long, timeUnit: TimeUnit,
+    fun <T : Worker> enqueueUniquePeriodicWork(tag: String, worker: Class<T>,
+                                               repeatInterval: Long, timeUnit: TimeUnit,
                                                flexInterval: Long, flexIntervalTimeUnit: TimeUnit,
-                                               constraints: Constraints? = null, data: Data? = null): UUID? {
+                                               constraints: Constraints? = null, inputData: Data? = null): UUID? {
         if (timeUnit.toMillis(repeatInterval) < PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS) {
             Logger.warning("intervalMillis must be greater than or equal to: ${PeriodicWorkRequest.MIN_PERIODIC_INTERVAL_MILLIS}")
             return null
@@ -102,24 +96,20 @@ object SkeletonWorker {
             return null
         }
         val workBuilder = PeriodicWorkRequest.Builder(worker, repeatInterval, timeUnit, flexInterval, flexIntervalTimeUnit).addTag(tag)
-        constraints?.let {
-            workBuilder.setConstraints(it)
-        }
-        data?.let {
-            workBuilder.setInputData(it)
-        }
+        constraints?.let { workBuilder.setConstraints(it) }
+        inputData?.let { workBuilder.setInputData(it) }
         val work = workBuilder.build()
         manager().enqueueUniquePeriodicWork(tag, ExistingPeriodicWorkPolicy.REPLACE, work)
         return work.id
     }
 
     /**
-     * ENQUEUED
-     * RUNNING
-     * SUCCEEDED
-     * FAILED
-     * BLOCKED
-     * CANCELLED
+     * WorkInfo.State.ENQUEUED
+     * WorkInfo.State.RUNNING
+     * WorkInfo.State.SUCCEEDED
+     * WorkInfo.State.FAILED
+     * WorkInfo.State.BLOCKED
+     * WorkInfo.State.CANCELLED
      */
 
     fun getWorkInfoById(id: UUID): LiveData<WorkInfo> {

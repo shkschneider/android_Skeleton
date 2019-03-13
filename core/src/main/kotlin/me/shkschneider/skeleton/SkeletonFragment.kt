@@ -97,16 +97,6 @@ abstract class SkeletonFragment : Fragment() {
                     setArguments(arguments)
                 }
 
-        @Deprecated("Use KClass")
-        inline fun <reified T : SkeletonFragment> newInstance(target: Class<T>): T =
-                target.newInstance()
-
-        @Deprecated("Use KClass")
-        inline fun <reified T : SkeletonFragment> newInstance(target: Class<T>, arguments: Bundle): T =
-                target.newInstance().apply {
-                    setArguments(arguments)
-                }
-
     }
 
 }
