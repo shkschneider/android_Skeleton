@@ -10,7 +10,6 @@ class SkeletonViewModel : ViewModel() {
 
     /**
      * Lazy-loading of a MutableLiveData with initialization.
-     *
      * I think a lazy would always be nice.
      */
 
@@ -22,19 +21,15 @@ class SkeletonViewModel : ViewModel() {
 
     /**
      * Exposing LiveData from a private initialized MutableLiveData.
-     *
-     * Always try to expose a LiveData instead of a MutableLiveData.
+     * Exposes a member as LiveData instead of a MutableLiveData.
      */
 
     private val _loading = MutableLiveData<Boolean>()
-
-    fun loading(): LiveData<Boolean>  = _loading
+    val loading: LiveData<Boolean> get() = _loading
 
     /**
      * Exposing LiveData from a private initialized MutableLiveData
-     * that triggers when MutableLiveData's value was null.
-     *
-     * This decides when to load.
+     * that triggers when MutableLiveData's value was null or when specified.
      */
 
     private val users = MutableLiveData<List<UUID>>()
@@ -43,42 +38,20 @@ class SkeletonViewModel : ViewModel() {
         // ...
     }
 
-    fun getUsers(): LiveData<List<UUID>> {
-        if (users.value == null) {
+    fun getUsers(force: Boolean = false): LiveData<List<UUID>> {
+        if (users.value == null || force) {
             loadUsers()
         }
         return users
     }
 
     /**
-     * Same this as previously,
-     * but the loading behavior can be overriden.
-     *
-     * This decides when to load, with manuel override available.
-     */
-
-    private val users2 = MutableLiveData<List<UUID>>()
-
-    private fun loadUsers2() {
-        // ...
-    }
-
-    fun getUsers2(force: Boolean = false): LiveData<List<UUID>> {
-        if (users2.value == null || force) {
-            loadUsers()
-        }
-        return users2
-    }
-
-    /**
      * Exposing a method for a private LiveData
      * that triggers when MutableLiveData initializes.
-     *
-     * This was the Google's example way.
+     * (This was the Google's example way.)
      */
 
     private lateinit var projects: MutableLiveData<List<UUID>>
-
 
     fun getProjects(): LiveData<List<UUID>> {
         if (!::projects.isInitialized) {
