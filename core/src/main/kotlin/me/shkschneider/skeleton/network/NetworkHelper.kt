@@ -14,6 +14,7 @@ import me.shkschneider.skeleton.helper.ContextHelper
 import me.shkschneider.skeleton.helperx.Logger
 import me.shkschneider.skeleton.helperx.SystemProperties
 import me.shkschneider.skeleton.helperx.SystemServices
+import me.shkschneider.skeleton.networkx.HttpURLConnectionWebService
 import java.net.Inet4Address
 import java.net.NetworkInterface
 import java.net.SocketException
@@ -156,15 +157,20 @@ object NetworkHelper {
         } ?: NetworkHelper.NetworkType.NONE
     }
 
-    enum class NetworkType {
-        ETHERNET,
-        WIFI,
+    enum class NetworkType(val value: String) {
+        ETHERNET("ETHERNET"),
+        WIFI("WIFI"),
         // TODO G5,
-        G4,
-        G3,
-        G2,
-        UNKNOWN,
-        NONE
+        G4("4G"),
+        G3("3G"),
+        G2("2G"),
+        UNKNOWN("UNKNOWN"),
+        NONE("NONE");
+
+        // <https://stackoverflow.com/a/55020163/603270>
+        fun fromString(type: String): NetworkType? = NetworkType.values().find {
+            it.value.toLowerCase() == type.toLowerCase()
+        }
     }
 
 }

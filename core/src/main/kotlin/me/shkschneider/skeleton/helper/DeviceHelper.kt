@@ -63,6 +63,7 @@ object DeviceHelper {
     }
 
     fun tablet(): Boolean {
+    // TODO read R.bool.sk_tablet?
         val screenSize = ScreenHelper.inches().toDouble()
         return screenSize >= 7.0
     }

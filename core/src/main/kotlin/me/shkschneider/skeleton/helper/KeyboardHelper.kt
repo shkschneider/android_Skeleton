@@ -4,17 +4,19 @@ import android.app.Activity
 import android.content.res.Configuration
 import android.graphics.Rect
 import android.view.KeyEvent
+import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.Window
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
+import androidx.core.view.children
 
 import me.shkschneider.skeleton.SkeletonReceiver
 import me.shkschneider.skeleton.extensions.android.ViewHelper
-import me.shkschneider.skeleton.extensions.android.children
 import me.shkschneider.skeleton.extensions.android.contentView
+import me.shkschneider.skeleton.extensions.android.views
 import me.shkschneider.skeleton.helperx.Logger
 import me.shkschneider.skeleton.helperx.Metrics
 
@@ -65,25 +67,26 @@ object KeyboardHelper {
 
     // <https://github.com/yshrsmz/KeyboardVisibilityEvent>
     fun keyboardListener(activity: Activity, listener: Listener) {
-        val root = activity.contentView().children()[0]
-        root.viewTreeObserver.addOnGlobalLayoutListener(object: ViewTreeObserver.OnGlobalLayoutListener {
+        (activity.contentView() as? ViewGroup)?.views?.get(0)?.let { rootView ->
+            rootView.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
 
-            private val rect = Rect()
-            private val visibleThreshold = Math.round(Metrics.pixelsFromDp(1.toFloat()).toFloat())
-            private var wasOpened = false
+                private val rect = Rect()
+                private val visibleThreshold = Math.round(Metrics.pixelsFromDp(1.toFloat()).toFloat())
+                private var wasOpened = false
 
-            override fun onGlobalLayout() {
-                root.getWindowVisibleDisplayFrame(rect)
-                val heightDiff = root.rootView.height - rect.height()
-                val isOpen = heightDiff > visibleThreshold
-                if (isOpen == wasOpened) {
-                    return
+                override fun onGlobalLayout() {
+                    rootView.getWindowVisibleDisplayFrame(rect)
+                    val heightDiff = rootView.rootView.height - rect.height()
+                    val isOpen = heightDiff > visibleThreshold
+                    if (isOpen == wasOpened) {
+                        return
+                    }
+                    wasOpened = isOpen
+                    listener.onKeyboardVisibilityChanged(isOpen)
                 }
-                wasOpened = isOpen
-                listener.onKeyboardVisibilityChanged(isOpen)
-            }
 
-        })
+            })
+        }
     }
 
     interface Listener {
