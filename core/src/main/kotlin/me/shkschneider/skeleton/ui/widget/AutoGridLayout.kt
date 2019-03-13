@@ -5,11 +5,16 @@ import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.LinearLayout
 import androidx.annotation.RequiresApi
 import androidx.core.view.GravityCompat
+import androidx.recyclerview.widget.RecyclerView
 import me.shkschneider.skeleton.extensions.android.ViewHelper
 import me.shkschneider.skeleton.extensions.has
 import me.shkschneider.skeleton.helper.AndroidHelper
+
+private const val HORIZONTAL = LinearLayout.HORIZONTAL
+private const val VERTICAL = LinearLayout.VERTICAL
 
 // <https://github.com/AlbertGrobas/AutoLinearLayout>
 class AutoGridLayout : FrameLayout {
@@ -328,13 +333,6 @@ class AutoGridLayout : FrameLayout {
         override fun toString(): String {
             return "left:$left|top:$top|position:$position"
         }
-
-    }
-
-    companion object {
-
-        const val HORIZONTAL = 0
-        const val VERTICAL = 1
 
     }
 

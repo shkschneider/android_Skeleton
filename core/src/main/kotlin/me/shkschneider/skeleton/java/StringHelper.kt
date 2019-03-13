@@ -37,6 +37,10 @@ object StringHelper {
         return string.count { s.contains(it) }
     }
 
+    fun ipAddress(string: String): Boolean {
+        return string.matches(Patterns.IP_ADDRESS.toRegex())
+    }
+
     // <http://stackoverflow.com/a/3758880>
     fun humanReadableSize(@IntRange(from = 0) bytes: Long, binary: Boolean = true): String {
         val unit = if (binary) 1024 else 1000

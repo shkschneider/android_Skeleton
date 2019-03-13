@@ -15,6 +15,13 @@ import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
 /**
+ * Stronger encryption requires higher API levels.
+ * See https://developer.android.com/reference/javax/crypto/Cipher
+ */
+private const val ALGORITHM = "AES/GCM/NoPadding" // KeyProperties.KEY_ALGORITHM_AES
+private const val ALGORITHM_KEY_PAD = 16
+
+/**
  * "Tr0ub4dor&3" ~28 bits of entropy
  * "correct horse battery staple" ~44 bits of entropy
  * <https://xkcd.com/936/>
@@ -79,17 +86,6 @@ open class ComplexCrypt(key: String) : ICrypt<String>(key) {
     private fun pad(bytes: ByteArray): ByteArray {
         val padded = bytes.size + (ALGORITHM_KEY_PAD - bytes.size % ALGORITHM_KEY_PAD)
         return bytes.copyOf(padded)
-    }
-
-    companion object {
-
-        /**
-         * Stronger encryption requires higher API levels.
-         * See https://developer.android.com/reference/javax/crypto/Cipher
-         */
-        private const val ALGORITHM = "AES/GCM/NoPadding" // KeyProperties.KEY_ALGORITHM_AES
-        private const val ALGORITHM_KEY_PAD = 16
-
     }
 
 }

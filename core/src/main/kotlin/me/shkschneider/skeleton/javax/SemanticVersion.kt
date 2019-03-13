@@ -1,5 +1,9 @@
 package me.shkschneider.skeleton.javax
 
+private const val MAJOR = 0
+private const val MINOR = 1
+private const val PATCH = 2
+
 // <https://semver.org>
 open class SemanticVersion : Comparable<SemanticVersion> {
 
@@ -49,14 +53,6 @@ open class SemanticVersion : Comparable<SemanticVersion> {
 
     override fun toString(): String {
         return semVer.joinToString(".")
-    }
-
-    companion object {
-
-        const val MAJOR = 0
-        const val MINOR = 1
-        const val PATCH = 2
-
     }
 
     class Comparator : java.util.Comparator<SemanticVersion> {

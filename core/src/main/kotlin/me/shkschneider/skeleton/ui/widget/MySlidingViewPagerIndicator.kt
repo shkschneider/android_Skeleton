@@ -18,6 +18,11 @@ import androidx.annotation.ColorInt
 import androidx.viewpager.widget.ViewPager
 import me.shkschneider.skeleton.helperx.Metrics
 
+private const val DEFAULT_TEXTCOLOR = Color.BLACK
+private const val TITLE_OFFSET_DIPS = 24
+private const val TAB_VIEW_PADDING_DIPS = 16
+private const val TAB_VIEW_TEXT_SIZE_SP = 12
+
 // <https://github.com/google/iosched>
 class MySlidingViewPagerIndicator : HorizontalScrollView {
 
@@ -256,15 +261,6 @@ class MySlidingViewPagerIndicator : HorizontalScrollView {
             }
 
         }
-
-    }
-
-    companion object {
-
-        const val DEFAULT_TEXTCOLOR = Color.BLACK
-        const val TITLE_OFFSET_DIPS = 24
-        const val TAB_VIEW_PADDING_DIPS = 16
-        const val TAB_VIEW_TEXT_SIZE_SP = 12
 
     }
 

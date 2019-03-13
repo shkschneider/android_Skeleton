@@ -18,6 +18,10 @@ import java.net.URL
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
+const val INTERNAL_ERROR = 6_6_6
+private val TIMEOUT_CONNECT = TimeUnit.SECONDS.toMillis(15).toInt()
+private val TIMEOUT_READ = TimeUnit.MINUTES.toMillis(1).toInt()
+
 @Deprecated("You should have a look at Fuel, Retrofit or FastAndroidNetworking")
 open class HttpURLConnectionWebService(
         private val method: Method,
@@ -175,14 +179,6 @@ open class HttpURLConnectionWebService(
         override fun toString(): String {
             return String.format(Locale.getDefault(), "%d %s", code, message)
         }
-
-    }
-
-    companion object {
-
-        const val INTERNAL_ERROR = 6_6_6
-        val TIMEOUT_CONNECT = TimeUnit.SECONDS.toMillis(15).toInt()
-        val TIMEOUT_READ = TimeUnit.MINUTES.toMillis(1).toInt()
 
     }
 

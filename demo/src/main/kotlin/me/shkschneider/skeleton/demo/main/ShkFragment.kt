@@ -18,6 +18,9 @@ import me.shkschneider.skeleton.demo.R
 import me.shkschneider.skeleton.helper.IntentHelper
 import me.shkschneider.skeleton.helper.SpannableStringHelper
 
+private const val AVATAR = "https://raw.githubusercontent.com/shkschneider/shkschneider.github.io/master/shkschneider.png"
+private const val GITHUB = "https://github.com/shkschneider/android_Skeleton"
+
 class ShkFragment : SkeletonFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -84,13 +87,6 @@ class ShkFragment : SkeletonFragment() {
     private fun fill(view: View, string: String, spannable: Spannable) {
         view.findViewById<TextView>(R.id.textView1).text = string
         view.findViewById<TextView>(R.id.textView2).text = spannable
-    }
-
-    companion object {
-
-        private const val AVATAR = "https://raw.githubusercontent.com/shkschneider/shkschneider.github.io/master/shkschneider.png"
-        private const val GITHUB = "https://github.com/shkschneider/android_Skeleton"
-
     }
 
 }

@@ -2,6 +2,8 @@ package me.shkschneider.skeleton.securityx
 
 import me.shkschneider.skeleton.security.Base64Helper
 
+private const val ALGORITHM = "XOR"
+
 /**
  * > Welcome to the missile launch web interface!
  * > Enter the target's coordinates.
@@ -37,12 +39,6 @@ open class SimpleCrypt(key: String) : ICrypt<String>(key) {
             decrypted[i] = (encrypted[i].toInt() xor key[i % key.size].toInt()).toChar()
         }
         return String(decrypted)
-    }
-
-    companion object {
-
-        private const val ALGORITHM = "XOR"
-
     }
 
 }

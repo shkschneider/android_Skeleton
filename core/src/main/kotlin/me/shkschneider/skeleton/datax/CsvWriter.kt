@@ -3,6 +3,8 @@ package me.shkschneider.skeleton.datax
 import java.io.PrintWriter
 import java.io.Writer
 
+private const val NULL = '\u0000'
+
 // <http://opencsv.sourceforge.net>
 open class CsvWriter(
         writer: Writer,
@@ -46,11 +48,6 @@ open class CsvWriter(
         }
         stringBuilder.append(eol)
         writer.write(stringBuilder.toString())
-    }
-
-    companion object {
-
-        const val NULL = '\u0000'
     }
 
 }

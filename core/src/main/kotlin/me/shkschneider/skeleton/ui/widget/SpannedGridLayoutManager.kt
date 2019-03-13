@@ -81,7 +81,7 @@ class SpannedGridLayoutManager(
 
         companion object {
 
-            val SINGLE_CELL = SpanInfo(1, 1)
+            private val SINGLE_CELL = SpanInfo(1, 1)
 
         }
 

@@ -7,6 +7,8 @@ import android.widget.ScrollView
 
 import me.shkschneider.skeleton.helperx.Logger
 
+private const val PARALLAX = 0.1.toFloat()
+
 // <http://cyrilmottier.com/2013/05/24/pushing-the-actionbar-to-the-next-level/>
 // <https://stackoverflow.com/a/26990539/603270>
 // MyScrollView.setOnScrollViewListener()
@@ -52,8 +54,6 @@ class MyScrollView(
     }
 
     companion object {
-
-        const val PARALLAX = 0.1.toFloat()
 
         fun canScroll(scrollView: ScrollView): Boolean {
             val childHeight = scrollView.height

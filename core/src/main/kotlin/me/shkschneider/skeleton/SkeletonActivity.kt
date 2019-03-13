@@ -30,6 +30,9 @@ import me.shkschneider.skeleton.helper.ThreadHelper
 import me.shkschneider.skeleton.helperx.Logger
 import me.shkschneider.skeleton.uix.OverlayLoader
 
+const val RESULT_SEARCH_CHANGE = "onQueryTextChange"
+const val RESULT_SEARCH_SUBMIT = "onQueryTextSubmit"
+
 /**
  * https://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle
  * https://developer.android.com/reference/android/support/v7/app/AppCompatActivity.html
@@ -406,13 +409,6 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
-
-    companion object {
-
-        const val RESULT_SEARCH_CHANGE = "onQueryTextChange"
-        const val RESULT_SEARCH_SUBMIT = "onQueryTextSubmit"
-
     }
 
 }

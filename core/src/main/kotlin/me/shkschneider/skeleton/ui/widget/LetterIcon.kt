@@ -15,6 +15,10 @@ import me.shkschneider.skeleton.extensions.android.accentColor
 import me.shkschneider.skeleton.helperx.Logger
 import me.shkschneider.skeleton.helperx.Metrics
 
+private const val DEFAULT = "#"
+private const val DP = 40
+private val RECT = Rect()
+
 // <https://github.com/IvBaranov/MaterialLetterIcon>
 class LetterIcon : View {
 
@@ -90,14 +94,6 @@ class LetterIcon : View {
     fun setLetterTypeface(typeface: Typeface) {
         letterPaint.typeface = typeface
         invalidate()
-    }
-
-    companion object {
-
-        private val DEFAULT = "#"
-        private val DP = 40
-        private val RECT = Rect()
-
     }
 
 }

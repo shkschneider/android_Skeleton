@@ -9,6 +9,9 @@ import me.shkschneider.skeleton.extensions.android.Intent
 import me.shkschneider.skeleton.helper.IntentHelper
 import me.shkschneider.skeleton.helperx.Logger
 
+private const val SECRET_CODE = "SECRET_CODE"
+private const val ACTION = "android.provider.Telephony.SECRET_CODE"
+
 // <https://github.com/SimonMarquis/Android-SecretCodes>
 class MySecretCodeReceiver : BroadcastReceiver() {
 
@@ -28,13 +31,6 @@ class MySecretCodeReceiver : BroadcastReceiver() {
                         .putExtra(SECRET_CODE, secretCode))
             }
         }
-    }
-
-    companion object {
-
-        const val SECRET_CODE = "SECRET_CODE"
-        const val ACTION = "android.provider.Telephony.SECRET_CODE"
-
     }
 
 }
