@@ -1,18 +1,12 @@
 package me.shkschneider.skeleton.extensions
 
-// <https://github.com/tailwhiper/kotlin-enum-extensions>
+// enumValues<E>()
 
-inline fun <reified E : Enum<E>> valueOf(name: String, default: E) =
+inline fun <reified E : Enum<E>> enumFromName(name: String, default: E? = null) =
         enumValues<E>().find { it.name == name } ?: default
 
-inline fun <reified E : Enum<E>> valueOf(ordinal: Int, default: E) =
+inline fun <reified E : Enum<E>> enumFromOrdinal(ordinal: Int, default: E? = null) =
         enumValues<E>().find { it.ordinal == ordinal } ?: default
 
-inline fun <reified E : Enum<E>> valueOfWithCondition(condition: (E) -> Boolean) =
-        enumValues<E>().find(condition)
-
-inline fun <reified E : Enum<E>> valueOfWithCondition(condition: (E) -> Boolean, default: E) =
+inline fun <reified E : Enum<E>> enumWithCondition(condition: (E) -> Boolean, default: E? = null) =
         enumValues<E>().find(condition) ?: default
-
-inline fun <reified E : Enum<E>> valueOfIgnoreCase(name: String) =
-        enumValues<E>().find { it.name.toUpperCase() == name.toUpperCase() }
