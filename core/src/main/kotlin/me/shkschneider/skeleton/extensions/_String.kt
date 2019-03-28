@@ -1,42 +1,41 @@
 package me.shkschneider.skeleton.extensions
 
 import androidx.annotation.IntRange
+import java.lang.StringBuilder
 
-// Cases
+const val ELLIPSIS = "…"
 
-internal fun case(string: String): List<String> =
-    string.toLowerCase()
-            .split("[^a-zA-Z]".toRegex())
-            .filter { it.isNotBlank() }
+// "camelCase"
+fun String.camelCase() =
+        StringBuilder().also { stringBuilder ->
+            normalizedLowerCaseList(this).forEach {
+                stringBuilder.append(it.capitalize())
+            }
+        }.toString()
 
-fun String.camelCase(): String {
-    var camelCase = ""
-    case(this).forEach {
-        camelCase += if (camelCase.isEmpty()) it else it.capitalize()
-    }
-    return camelCase
-}
-
+// "PasalCase"
 fun String.pascalCase(): String =
-    camelCase().capitalize()
+        camelCase().capitalize()
 
+// "snake_case"
 fun String.snakeCase(): String =
-    case(this).joinToString(separator = "_")
+        normalizedLowerCaseList(this).joinToString(separator = "_")
 
+// "kebab-case"
 fun String.kebabCase(): String =
-    case(this).joinToString(separator = "-")
+        normalizedLowerCaseList(this).joinToString(separator = "-")
 
 // Trim
 
 fun String.oneline() =
-    replace(Regex("\\n"), " ")
+        replace(Regex("\\n"), " ")
 
 // Ellipsize
 
 fun String.limit(max: Int): Pair<String, String> =
-    if (length > max) {
-        take(max) to takeLast(length - max)
-    } else this to ""
+        if (length > max) {
+            take(max) to takeLast(length - max)
+        } else this to ""
 
 fun String.ellipsize(@IntRange(from = 0) maxLength: Int, reverse: Boolean = false): String {
     if (length > maxLength) {
@@ -48,3 +47,10 @@ fun String.ellipsize(@IntRange(from = 0) maxLength: Int, reverse: Boolean = fals
     }
     return this
 }
+
+// Cases
+
+internal fun normalizedLowerCaseList(string: String): List<String> =
+        string.toLowerCase()
+                .split("[^a-zA-Z]".toRegex())
+                .filter { it.isNotBlank() }
