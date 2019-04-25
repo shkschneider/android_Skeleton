@@ -9,6 +9,9 @@ import androidx.annotation.RequiresPermission
 import me.shkschneider.skeleton.helperx.Logger
 import java.util.UUID
 
+private const val GOOGLE_SERVICE_FRAMEWORK_URI = "content://com.google.android.gsf.gservices"
+private const val ANDROID_ID = "android_id"
+
 /**
  * > Hey, I lost the server password. What is it, again?
  * > It's... wait. How do I know it's really you?
@@ -21,15 +24,16 @@ object IdHelper {
 
     // <http://stackoverflow.com/q/22743087>
     @RequiresPermission("com.google.android.providers.gsf.permission.READ_GSERVICES")
+    @Deprecated("Use InstanceID", ReplaceWith("FirebaseInstanceId.getInstance().id"))
     fun googleServiceFrameworkId(): String? {
-        val cursor = ContextHelper.applicationContext().contentResolver.query(Uri.parse("content://com.google.android.gsf.gservices"), null, null, arrayOf("android_id"), null) ?: return null
+        val cursor = ContextHelper.applicationContext().contentResolver.query(Uri.parse(GOOGLE_SERVICE_FRAMEWORK_URI), null, null, arrayOf(ANDROID_ID), null) ?: return null
         var gsfId: String? = null
         try {
             if (! cursor.moveToFirst() || cursor.columnCount < 2) {
                 throw Exception()
             }
             gsfId = java.lang.Long.toHexString(java.lang.Long.parseLong(cursor.getString(1)))
-        } catch (e: NumberFormatException) {
+        } catch (e: Exception) {
             Logger.wtf(e)
         } finally {
             cursor.close()
