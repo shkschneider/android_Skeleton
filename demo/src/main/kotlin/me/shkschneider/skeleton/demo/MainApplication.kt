@@ -11,16 +11,18 @@ import me.shkschneider.skeleton.helper.ContextHelper
 import me.shkschneider.skeleton.helper.IntentHelper
 import me.shkschneider.skeleton.helper.ShortcutHelper
 import me.shkschneider.skeleton.kotlinx.Coroutines
-import org.koin.dsl.module.module
+import org.koin.dsl.module
 import java.util.UUID
 
 class MainApplication : SkeletonApplication() {
 
     override fun onCreate() {
         super.onCreate()
+
         koin(module {
             factory<UUID> { UUID.randomUUID() }
         })
+
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return;
         }
