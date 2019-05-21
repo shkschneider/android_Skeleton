@@ -4,6 +4,7 @@ import android.text.Editable
 import android.text.InputFilter
 import android.text.TextWatcher
 import android.view.MotionEvent
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 
 fun EditText.maxLength(maxLength: Int) {
@@ -66,4 +67,14 @@ fun EditText.onTextChanged(onTextChanged: (CharSequence?, Int, Int, Int) -> Unit
         }
 
     })
+}
+
+fun EditText.onSubmit(block: (String) -> Unit) {
+    setOnEditorActionListener { textView, actionId, _ ->
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            block(textView.text.toString())
+            return@setOnEditorActionListener true
+        }
+        return@setOnEditorActionListener false
+    }
 }
