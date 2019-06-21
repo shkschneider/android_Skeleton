@@ -1,11 +1,12 @@
 package me.shkschneider.skeleton.kotlinx
 
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
+import me.shkschneider.skeleton.helperx.Logger
 
 /**
  * +------------+----------+-------------+-------------+
@@ -27,15 +28,37 @@ object Coroutines {
         }
     }
 
-    fun <T: Any> ioThenMain(work: suspend(() -> T?), callback: ((T?) -> Unit)) : Job {
+    fun <T : Any> ioThenMain(work: suspend (() -> T?), callback: ((T?) -> Unit)): Job {
         return CoroutineScope(Dispatchers.Main).launch {
             callback(CoroutineScope(Dispatchers.IO).async {
-                return@async work()
+                return@async work() // TODO try/catch?
             }.await())
         }
     }
 
-    suspend fun <T: Any> async(context: CoroutineContext, work: (() -> T?)): T? =
-            CoroutineScope(context).async coroutine@ { return@coroutine work() }.await()
+}
 
+// fire-and-forget
+fun <T : Any> io(block: suspend (() -> T)) =
+        CoroutineScope(Dispatchers.IO).safeLaunch({
+            block()
+        })
+
+fun <T : Any> CoroutineScope.safeLaunch(block: suspend (() -> T), onError: ((Exception) -> Unit)? = null): Job = launch {
+    try {
+        block()
+    } catch (e: Exception) {
+        Logger.wtf(e)
+        onError?.invoke(e)
+    }
+}
+
+fun <T : Any> CoroutineScope.safeAsync(block: suspend (() -> T), onError: ((Exception) -> Unit)? = null): Deferred<T?> = async {
+    try {
+        return@async block()
+    } catch (e: Exception) {
+        Logger.wtf(e)
+        onError?.invoke(e)
+        return@async null
+    }
 }

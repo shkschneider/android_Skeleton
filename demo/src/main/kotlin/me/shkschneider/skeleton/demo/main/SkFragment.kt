@@ -101,7 +101,6 @@ class SkFragment : SkeletonFragment() {
         fill(view.findViewById<View>(R.id.security) as LinearLayout, listOf(
                 me.shkschneider.skeleton.securityx.ComplexCrypt::class.java,
                 me.shkschneider.skeleton.securityx.SimpleCrypt::class.java,
-                me.shkschneider.skeleton.security.Base64Helper::class.java,
                 me.shkschneider.skeleton.security.HashHelper::class.java,
                 me.shkschneider.skeleton.security.HmacHelper::class.java
         ))

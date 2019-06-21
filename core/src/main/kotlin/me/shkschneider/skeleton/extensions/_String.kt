@@ -5,6 +5,9 @@ import java.lang.StringBuilder
 
 const val ELLIPSIS = "…"
 
+operator fun String?.plus(s: String?): String? =
+        if (this == null) s else if (s == null) this else this + s
+
 // "camelCase"
 fun String.camelCase() =
         StringBuilder().also { stringBuilder ->

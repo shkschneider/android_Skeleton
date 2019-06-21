@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.DialogInterface
 import android.graphics.drawable.Drawable
+import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.widget.Button
@@ -12,17 +13,22 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.UiThread
+import androidx.appcompat.app.AppCompatDialog
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import me.shkschneider.skeleton.R
+import me.shkschneider.skeleton.extensions.android.bottomSheetBehavior
+import me.shkschneider.skeleton.extensions.android.expand
 import me.shkschneider.skeleton.helperx.Metrics
 
 // <https://github.com/javiersantos/BottomDialogs>
 // app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
 open class BottomSheet(val builder: Builder) {
 
-    private var dialog: Dialog
+    val dialog: BottomSheetDialog
 
     init {
-        dialog = Dialog(builder.activity, R.style.SkeletonTheme_BottomSheet)
+        dialog = BottomSheetDialog(builder.activity, R.style.SkeletonTheme_BottomSheet)
         with(Inflater.inflate(R.layout.sk_bottomsheet)) {
             val icon = findViewById<ImageView>(R.id.sk_bottomsheet_icon)
             icon.visibility = View.VISIBLE
@@ -61,11 +67,21 @@ open class BottomSheet(val builder: Builder) {
                 window.setGravity(Gravity.BOTTOM)
             }
         }
+        if (builder.expanded) {
+            dialog.setOnShowListener {
+                dialog.expand()
+            }
+        }
     }
 
     @UiThread
     fun show() {
         dialog.show()
+    }
+
+    @UiThread
+    fun expand() {
+        dialog.expand()
     }
 
     @UiThread
@@ -76,18 +92,33 @@ open class BottomSheet(val builder: Builder) {
     open class Builder(val activity: Activity) {
 
         var icon: Drawable? = null
+            private set
         var title: String? = null
+            private set
         var content: String? = null
+            private set
         var negative: String? = null
+            private set
         var positive: String? = null
+            private set
         var negativeCallback: DialogInterface.OnClickListener? = null
+            private set
         var positiveCallback: DialogInterface.OnClickListener? = null
+            private set
         var customView: View? = null
+            private set
         var paddingLeft = 0
+            private set
         var paddingTop = 0
+            private set
         var paddingRight = 0
+            private set
         var paddingBottom = 0
+            private set
         var cancelable = false
+            private set
+        var expanded = false
+            private set
 
         init {
             cancelable = true
@@ -122,6 +153,11 @@ open class BottomSheet(val builder: Builder) {
 
         fun setCancelable(cancelable: Boolean): Builder {
             this.cancelable = cancelable
+            return this
+        }
+
+        fun setExpanded(expanded: Boolean): Builder {
+            this.expanded = expanded
             return this
         }
 

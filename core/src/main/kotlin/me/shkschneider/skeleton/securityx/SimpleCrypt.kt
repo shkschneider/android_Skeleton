@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.securityx
 
-import me.shkschneider.skeleton.security.Base64Helper
+import me.shkschneider.skeleton.kotlinx.fromBase64
+import me.shkschneider.skeleton.kotlinx.toBase64
 
 private const val ALGORITHM = "XOR"
 
@@ -29,16 +30,17 @@ open class SimpleCrypt(key: String) : ICrypt<String>(key) {
         for (i in chars.indices) {
             encrypted[i] = (chars[i].toInt() xor key[i % key.size].toInt()).toChar()
         }
-        return Base64Helper.encode(String(encrypted).toByteArray())
+        return String(encrypted).toBase64()
     }
 
     override fun decrypt(src: String): String? {
-        val encrypted = Base64Helper.decode(src)
-        val decrypted = CharArray(encrypted.size)
-        for (i in encrypted.indices) {
-            decrypted[i] = (encrypted[i].toInt() xor key[i % key.size].toInt()).toChar()
+        return src.fromBase64()?.let { encrypted ->
+            val decrypted = CharArray(encrypted.length)
+            for (i in encrypted.indices) {
+                decrypted[i] = (encrypted[i].toInt() xor key[i % key.size].toInt()).toChar()
+            }
+            return String(decrypted)
         }
-        return String(decrypted)
     }
 
 }

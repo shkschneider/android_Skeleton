@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.extensions.android
 
+import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.os.Build
@@ -8,11 +9,14 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewAnimationUtils
 import android.view.Window
+import android.view.animation.AccelerateInterpolator
+import android.view.animation.AlphaAnimation
 import android.widget.RelativeLayout
 import androidx.core.animation.addListener
 import me.shkschneider.skeleton.R
 import me.shkschneider.skeleton.SkeletonReceiver
 import me.shkschneider.skeleton.helper.ApplicationHelper
+import me.shkschneider.skeleton.helperx.Logger
 import me.shkschneider.skeleton.helperx.Metrics
 
 object ViewHelper {
@@ -106,4 +110,27 @@ fun View.screenshot(): Bitmap? {
     return Bitmap.createBitmap(measuredWidth, measuredHeight, Bitmap.Config.ARGB_8888).also { bitmap ->
         draw(Canvas(bitmap))
     }
+}
+
+private val androidConfigMediumAnimTime = try {
+    Resources.getSystem().getInteger(android.R.integer.config_mediumAnimTime)
+} catch (e: Resources.NotFoundException) {
+    Logger.wtf(e)
+    400
+}.toLong()
+
+fun View.fadeIn(durationMillis: Long = androidConfigMediumAnimTime) {
+    clearAnimation()
+    startAnimation(AlphaAnimation(alpha, 1.0F).apply {
+        duration = durationMillis
+        interpolator = AccelerateInterpolator()
+    })
+}
+
+fun View.fadeOut(durationMillis: Long = androidConfigMediumAnimTime) {
+    clearAnimation()
+    startAnimation(AlphaAnimation(alpha, 0.0F).apply {
+        duration = durationMillis
+        interpolator = AccelerateInterpolator()
+    })
 }

@@ -1,10 +1,10 @@
 package me.shkschneider.skeleton.securityx
 
-import android.annotation.SuppressLint
 import android.util.Base64
 import me.shkschneider.skeleton.data.CharsetHelper
 import me.shkschneider.skeleton.helperx.Logger
-import me.shkschneider.skeleton.security.Base64Helper
+import me.shkschneider.skeleton.kotlinx.fromBase64
+import me.shkschneider.skeleton.kotlinx.toBase64
 import java.nio.charset.Charset
 import java.security.InvalidAlgorithmParameterException
 import java.security.InvalidKeyException
@@ -43,8 +43,8 @@ open class ComplexCrypt(key: String) : ICrypt<String>(key) {
     override fun encrypt(src: String): String? {
         try {
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec)
-            val bytes = cipher.doFinal(src.toByteArray(Charset.defaultCharset()))
-            return Base64Helper.encode(bytes)
+            val bytes = cipher.doFinal(src.toByteArray())
+            return String(bytes).toBase64()
         } catch (e: IllegalStateException) {
             Logger.wtf(e)
             return null
@@ -66,7 +66,7 @@ open class ComplexCrypt(key: String) : ICrypt<String>(key) {
     override fun decrypt(src: String): String? {
         try {
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec)
-            val bytes = cipher.doFinal(Base64Helper.decode(src))
+            val bytes = cipher.doFinal(src.fromBase64()?.toByteArray())
             return String(bytes, Charset.forName(CharsetHelper.UTF8))
         } catch (e: InvalidKeyException) {
             Logger.wtf(e)
