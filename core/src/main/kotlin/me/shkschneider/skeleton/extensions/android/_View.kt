@@ -27,6 +27,8 @@ object ViewHelper {
     const val NO_ID = View.NO_ID
     const val RESULT_VISIBILITY = "VISIBILITY"
 
+    fun randomId() = View.generateViewId()
+
 }
 
 // <https://github.com/nowfalsalahudeen/KdroidExt>
