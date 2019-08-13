@@ -12,13 +12,11 @@ open class Tasker(
 
     private var future: Future<*>? = null
 
-    fun done(): Boolean? {
-        return future?.isDone
-    }
+    val done: Boolean?
+        get() = future?.isDone
 
-    fun cancelled(): Boolean? {
-        return future?.isCancelled
-    }
+    val cancelled: Boolean?
+        get() = future?.isCancelled
 
     fun run(task: Task) {
         future = executorService.submit(task)

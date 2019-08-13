@@ -22,20 +22,19 @@ import me.shkschneider.skeleton.helperx.Metrics
 
 object KeyboardHelper {
 
-    fun has(): Boolean {
-        return ApplicationHelper.resources().configuration.keyboard != Configuration.KEYBOARD_NOKEYS
-    }
+    val has: Boolean
+        get() = ApplicationHelper.resources().configuration.keyboard != Configuration.KEYBOARD_NOKEYS
 
     fun show(window: Window) {
         Logger.verbose("SOFT_INPUT_STATE_ALWAYS_VISIBLE")
-        if (has()) {
+        if (has) {
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
         }
     }
 
     fun hide(window: Window) {
         Logger.verbose("SOFT_INPUT_STATE_ALWAYS_HIDDEN")
-        if (has()) {
+        if (has) {
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
         }
     }
@@ -48,7 +47,7 @@ object KeyboardHelper {
         @Suppress("UNUSED_ANONYMOUS_PARAMETER")
         editText.setOnEditorActionListener(TextView.OnEditorActionListener { textView, actionId, keyEvent ->
             if (all) {
-                skeletonReceiver.post(KeyboardHelper::class.java.simpleName, actionId)
+                skeletonReceiver?.post(KeyboardHelper::class.java.simpleName, actionId)
                 return@OnEditorActionListener false
             }
             when (actionId) {
@@ -58,7 +57,7 @@ object KeyboardHelper {
                 EditorInfo.IME_ACTION_SEARCH,
                 EditorInfo.IME_ACTION_SEND,
                 KeyEvent.KEYCODE_DPAD_CENTER,
-                KeyEvent.KEYCODE_ENTER -> skeletonReceiver.post((KeyboardHelper::class.java.simpleName), actionId)
+                KeyEvent.KEYCODE_ENTER -> skeletonReceiver?.post((KeyboardHelper::class.java.simpleName), actionId)
             }
             false
         })

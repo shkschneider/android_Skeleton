@@ -51,17 +51,14 @@ object DataHelper {
             return errors == 0
         }
 
-        fun isReadable(): Boolean {
-            return Environment.getExternalStorageState() in setOf(Environment.MEDIA_MOUNTED, Environment.MEDIA_MOUNTED_READ_ONLY)
-        }
+        val isReadable: Boolean
+            get() = Environment.getExternalStorageState() in setOf(Environment.MEDIA_MOUNTED, Environment.MEDIA_MOUNTED_READ_ONLY)
 
-        fun isWritable(): Boolean {
-            return Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
-        }
+        val isWritable: Boolean
+            get() =  Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
 
-        fun isRemovable(): Boolean {
-            return Environment.isExternalStorageRemovable()
-        }
+        val isRemovable: Boolean
+            get() =  Environment.isExternalStorageRemovable()
 
     }
 

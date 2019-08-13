@@ -12,9 +12,8 @@ object VibratorHelper {
     private const val DO_REPEAT = 0
     private const val DO_NOT_REPEAT = -1
 
-    fun has(): Boolean {
-        return SystemServices.vibrator()?.hasVibrator() ?: false
-    }
+    val has: Boolean
+        get() = SystemServices.vibrator()?.hasVibrator() ?: false
 
     @RequiresPermission(Manifest.permission.VIBRATE)
     fun vibrate(durations: LongArray = DEFAULT_DURATION, repeat: Boolean = false) {

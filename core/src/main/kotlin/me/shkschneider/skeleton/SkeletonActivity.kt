@@ -113,7 +113,8 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     // Lifecycle
 
-    private var alive = false
+    var alive = false
+        private set
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
@@ -149,10 +150,6 @@ abstract class SkeletonActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         // BundleHelper.pack()
-    }
-
-    fun alive(): Boolean {
-        return alive
     }
 
     @Deprecated("Never existed.", ReplaceWith("recreate()"))

@@ -9,6 +9,9 @@ import androidx.fragment.app.DialogFragment
 
 abstract class SkeletonDialog : DialogFragment() {
 
+    val alive: Boolean
+        get() = dialog.isShowing
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
         dialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
@@ -24,10 +27,6 @@ abstract class SkeletonDialog : DialogFragment() {
                 window.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
             }
         }
-    }
-
-    fun alive(): Boolean {
-        return dialog.isShowing
     }
 
 }

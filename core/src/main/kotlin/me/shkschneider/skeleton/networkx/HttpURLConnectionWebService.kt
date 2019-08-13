@@ -85,13 +85,12 @@ open class HttpURLConnectionWebService(
         TRACE,
         CONNECT;
 
-        fun allowsBody(): Boolean {
-            return when (this) {
+        val allowsBody: Boolean
+            get() = when (this) {
                 POST, PUT, DELETE // Although SHOULD be ignored
                 -> true
                 else -> false
             }
-        }
 
     }
 
@@ -110,7 +109,8 @@ open class HttpURLConnectionWebService(
                         setRequestProperty(entry.key, entry.value)
                     }
                     requestMethod = method.name
-                    doOutput = method.allowsBody().also {
+                    doOutput = method.allowsBody
+                    if (doOutput) {
                         body?.let { body ->
                             setRequestProperty("Content-Type", MimeTypeHelper.APPLICATION_FORMURLENCODED)
                             val dataOutputStream = DataOutputStream(outputStream)

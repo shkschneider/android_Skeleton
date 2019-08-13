@@ -27,7 +27,7 @@ abstract class SkeletonApplication : MultiDexApplication() {
 //                it.printStackTrace()
 //            }
 //        }
-        Logger.verbose("Hello, ${DeviceHelper.codename()} ($DeviceHelper)!")
+        Logger.verbose("Hello, ${DeviceHelper.codename} ($DeviceHelper)!")
     }
 
     companion object {

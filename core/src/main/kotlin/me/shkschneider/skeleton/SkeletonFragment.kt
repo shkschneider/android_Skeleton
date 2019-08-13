@@ -33,7 +33,8 @@ import kotlin.reflect.KClass
  */
 abstract class SkeletonFragment : Fragment() {
 
-    private var alive = false
+    var alive = false
+        private set
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,17 +54,17 @@ abstract class SkeletonFragment : Fragment() {
     // Loading
 
     fun loading(): Int {
-        if (!alive()) return 0
+        if (!alive) return 0
         return (activity as? SkeletonActivity)?.loading() ?: 0
     }
 
     fun loading(i: Int) {
-        if (!alive()) return
+        if (!alive) return
         (activity as? SkeletonActivity)?.loading(i)
     }
 
     fun loading(b: Boolean) {
-        if (!alive()) return
+        if (!alive) return
         (activity as? SkeletonActivity)?.loading(b)
     }
 
@@ -81,10 +82,6 @@ abstract class SkeletonFragment : Fragment() {
     override fun onStop() {
         alive = false
         super.onStop()
-    }
-
-    fun alive(): Boolean {
-        return alive
     }
 
     companion object {

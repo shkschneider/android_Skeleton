@@ -7,32 +7,31 @@ import android.os.Build
 import android.telephony.TelephonyManager
 import androidx.annotation.RequiresPermission
 import androidx.core.content.ContextCompat
+import me.shkschneider.skeleton.helper.DeviceHelper.brand
+import me.shkschneider.skeleton.helper.DeviceHelper.manufacturer
+import me.shkschneider.skeleton.helper.DeviceHelper.model
 import me.shkschneider.skeleton.helperx.SystemProperties
 import me.shkschneider.skeleton.helperx.SystemServices
 
 // <http://developer.android.com/reference/android/os/Build.html>
 object DeviceHelper {
 
-    fun isPhone(): Boolean { // TODO test
-        return SystemServices.telephonyManager()?.phoneType != TelephonyManager.PHONE_TYPE_NONE
-    }
+    // TODO test
+    val isPhone: Boolean
+        get() = SystemServices.telephonyManager()?.phoneType != TelephonyManager.PHONE_TYPE_NONE
 
-    fun architecture(): String? {
-        return SystemProperties.get(SystemProperties.OS_ARCH)
-    }
+    val architecture: String?
+        get() = SystemProperties.get(SystemProperties.OS_ARCH)
 
-    fun brand(): String {
-        return Build.BRAND
-    }
+    val brand: String
+        get() = Build.BRAND
 
-    fun codename(): String {
-        return Build.DEVICE
-    }
+    val codename: String
+        get() = Build.DEVICE
 
     // Hidden Build.IS_EMULATOR
-    fun emulator(): Boolean {
-        return (SystemProperties.get("ro.kernel.qemu") == "1")
-    }
+    val emulator: Boolean
+        get() = (SystemProperties.get("ro.kernel.qemu") == "1")
 
     fun is64bits(): Boolean {
         val is64bits: Boolean = AndroidHelper.api() >= AndroidHelper.ANDROID_5
@@ -42,13 +41,11 @@ object DeviceHelper {
         return is64bits
     }
 
-    fun manufacturer(): String {
-        return Build.MANUFACTURER
-    }
+    val manufacturer: String
+        get() = Build.MANUFACTURER
 
-    fun model(): String {
-        return Build.MODEL
-    }
+    val model: String
+        get() = Build.MODEL
 
     @Suppress("DEPRECATION")
     @SuppressLint( "HardwareIds")
@@ -62,15 +59,13 @@ object DeviceHelper {
         return Build.SERIAL
     }
 
-    fun tablet(): Boolean {
     // TODO read R.bool.sk_tablet?
-        val screenSize = ScreenHelper.inches().toDouble()
-        return screenSize >= 7.0
-    }
+    val tablet: Boolean
+        get() = ScreenHelper.inches().toDouble() >= 7.0
 
     @SuppressLint("MissingPermission")
     override fun toString(): String {
-        return "${brand()}/${manufacturer()}/${codename()}/${model()} '${serial()}'"
+        return "${brand}/${manufacturer}/${codename}/${model} '${serial()}'"
     }
 
 }

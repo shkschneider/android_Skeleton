@@ -9,6 +9,7 @@ import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Build
 import me.shkschneider.skeleton.SkeletonApplication
+import me.shkschneider.skeleton.helper.ApplicationHelper.packageManager
 import me.shkschneider.skeleton.helperx.Logger
 import me.shkschneider.skeleton.helperx.SystemServices
 
@@ -18,53 +19,48 @@ object ApplicationHelper {
     const val DEFAULT_ICON = android.R.drawable.sym_def_app_icon
     const val INSTALLER = "com.android.vending"
 
-    fun debuggable(): Boolean {
-        // <https://stackoverflow.com/a/25517680/603270>
-        return SkeletonApplication.DEBUGGABLE
-    }
+    // <https://stackoverflow.com/a/25517680/603270>
+    val debuggable: Boolean
+        get() = SkeletonApplication.DEBUGGABLE
 
-    fun resources(): Resources {
-        // Resources.getSystem()
-        return ContextHelper.applicationContext().resources
-    }
+    // Resources.getSystem()
+    val resources: Resources
+        get() = ContextHelper.applicationContext().resources
 
-    fun packageName(): String {
-        return ContextHelper.applicationContext().packageName
-    }
+    val packageName: String
+        get() = ContextHelper.applicationContext().packageName
 
-    fun packageManager(): PackageManager {
-        return ContextHelper.applicationContext().packageManager
-    }
+    val packageManager: PackageManager
+        get() = ContextHelper.applicationContext().packageManager
 
-    fun applicationInfo(packageName: String = ApplicationHelper.packageName()): ApplicationInfo? {
+    fun applicationInfo(packageName: String = ApplicationHelper.packageName): ApplicationInfo? {
         try {
-            return packageManager().getApplicationInfo(packageName, 0)
+            return packageManager.getApplicationInfo(packageName, 0)
         } catch (e: PackageManager.NameNotFoundException) {
             Logger.wtf(e)
             return null
         }
     }
 
-    fun name(packageName: String = ApplicationHelper.packageName()): String? {
-        applicationInfo(packageName)?.loadLabel(packageManager())?.let { label ->
+    fun name(packageName: String = ApplicationHelper.packageName): String? {
+        applicationInfo(packageName)?.loadLabel(packageManager)?.let { label ->
             return label.toString()
         }
         Logger.warning("Label was NULL")
         return null
     }
 
-    fun exists(packageName: String = ApplicationHelper.packageName()): Boolean {
+    fun exists(packageName: String = ApplicationHelper.packageName): Boolean {
         try {
-            return (packageManager().getApplicationInfo(packageName, 0) != null)
+            return (packageManager.getApplicationInfo(packageName, 0) != null)
         } catch (e: PackageManager.NameNotFoundException) {
             Logger.wtf(e)
             return false
         }
     }
 
-    fun packageInfo(packageName: String = ApplicationHelper.packageName(), flags: Int = 0): PackageInfo? {
+    fun packageInfo(packageName: String = ApplicationHelper.packageName, flags: Int = 0): PackageInfo? {
         try {
-            val packageManager = packageManager()
             return packageManager.getPackageInfo(packageName, flags)
         } catch (e: PackageManager.NameNotFoundException) {
             Logger.wtf(e)
@@ -72,7 +68,7 @@ object ApplicationHelper {
         }
     }
 
-    fun versionName(packageName: String = ApplicationHelper.packageName()): String? {
+    fun versionName(packageName: String = ApplicationHelper.packageName): String? {
         return packageInfo(packageName, PackageManager.GET_META_DATA)?.versionName ?: run {
             Logger.warning("VersionName was NULL")
             return null
@@ -80,7 +76,7 @@ object ApplicationHelper {
     }
 
     @SuppressLint("NewApi")
-    fun versionCode(packageName: String = ApplicationHelper.packageName()): Long? {
+    fun versionCode(packageName: String = ApplicationHelper.packageName): Long? {
         val packageInfo = packageInfo(packageName, PackageManager.GET_META_DATA)
         if (Build.VERSION.SDK_INT >= 28) {
             return packageInfo?.longVersionCode ?: run {
@@ -96,14 +92,14 @@ object ApplicationHelper {
         }
     }
 
-    fun buildTime(packageName: String = ApplicationHelper.packageName()): Long? {
+    fun buildTime(packageName: String = ApplicationHelper.packageName): Long? {
         return packageInfo(packageName, PackageManager.GET_META_DATA)?.lastUpdateTime ?: run {
             Logger.warning("LastUpdateTime was NULL")
             return null
         }
     }
 
-    fun permissions(packageName: String = ApplicationHelper.packageName()): List<String>? {
+    fun permissions(packageName: String = ApplicationHelper.packageName): List<String>? {
         return packageInfo(packageName, PackageManager.GET_PERMISSIONS)?.requestedPermissions?.toList()
                 ?: run {
                     Logger.warning("RequestedPermissions was NULL")
@@ -111,9 +107,8 @@ object ApplicationHelper {
                 }
     }
 
-    fun icon(packageName: String = ApplicationHelper.packageName()): Int? {
+    fun icon(packageName: String = ApplicationHelper.packageName): Int? {
         try {
-            val packageManager = packageManager()
             val applicationInfo = packageManager.getApplicationInfo(packageName, 0)
             return applicationInfo.icon
         } catch (e: PackageManager.NameNotFoundException) {
@@ -122,9 +117,8 @@ object ApplicationHelper {
         }
     }
 
-    fun drawable(packageName: String = ApplicationHelper.packageName()) : Drawable? {
+    fun drawable(packageName: String = ApplicationHelper.packageName) : Drawable? {
         try {
-            val packageManager = packageManager()
             val applicationInfo = packageManager.getApplicationInfo(packageName, 0)
             return applicationInfo.loadIcon(packageManager)
         } catch (e: PackageManager.NameNotFoundException) {

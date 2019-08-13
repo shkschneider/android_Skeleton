@@ -13,43 +13,49 @@ import java.net.SocketException
 
 object NetworkHelper {
 
-    fun userAgent(): String? {
-        if (Build.VERSION.SDK_INT >= 17) {
-            return WebSettings.getDefaultUserAgent(ContextHelper.applicationContext())
-        } else {
-            return SystemProperties.get("http.agent")
+    val userAgent: String?
+        get() {
+            if (Build.VERSION.SDK_INT >= 17) {
+                return WebSettings.getDefaultUserAgent(ContextHelper.applicationContext())
+            } else {
+                return SystemProperties.get("http.agent")
+            }
         }
-    }
 
     // Affects platform's components like DownloadManager or MediaPlayer...
-    fun isCleartextTrafficPermitted(): Boolean {
-        if (Build.VERSION.SDK_INT >= 23) {
-            return NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted
-        } else {
-            return true
-        }
-    }
-
-    fun ipAddresses(): List<String>? { // TODO test
-        try {
-            val ipAddresses = mutableListOf<String>()
-            NetworkInterface.getNetworkInterfaces().asSequence().forEach { networkInterface ->
-                networkInterface.inetAddresses.asSequence()
-                        .filterNot { it.isLoopbackAddress }
-                        .forEach { inetAddress ->
-                            ipAddresses.add(inetAddress.hostAddress)
-                        }
+    val isCleartextTrafficPermitted: Boolean
+        get() {
+            if (Build.VERSION.SDK_INT >= 23) {
+                return NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted
+            } else {
+                return true
             }
-            return ipAddresses
-        } catch (e: SocketException) {
-            Logger.wtf(e)
-            return null
         }
-    }
 
-    fun ip4Address(): String? = ipAddress<Inet4Address>()
+    // TODO test
+    val ipAddresses: List<String>?
+        get() {
+            try {
+                val ipAddresses = mutableListOf<String>()
+                NetworkInterface.getNetworkInterfaces().asSequence().forEach { networkInterface ->
+                    networkInterface.inetAddresses.asSequence()
+                            .filterNot { it.isLoopbackAddress }
+                            .forEach { inetAddress ->
+                                ipAddresses.add(inetAddress.hostAddress)
+                            }
+                }
+                return ipAddresses
+            } catch (e: SocketException) {
+                Logger.wtf(e)
+                return null
+            }
+        }
 
-    fun ip6Address(): String? = ipAddress<Inet6Address>()
+    val ip4Address: String?
+        get() = ipAddress<Inet4Address>()
+
+    val ip6Address: String?
+        get() = ipAddress<Inet6Address>()
 
     private inline fun <reified T : Any> ipAddress(): String? {
         try {

@@ -16,27 +16,28 @@ enum class Connectivity {
 
     companion object {
 
-        fun hasInternet(): Boolean {
-            return SystemServices.connectivityManager()?.let { connectivityManager ->
-                val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
-                return@let capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-                        && connectivityManager.activeNetworkInfo.isConnected
-            } ?: false
-        }
+        val hasInternet: Boolean
+            get() {
+                return SystemServices.connectivityManager()?.let { connectivityManager ->
+                    val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+                    return@let capabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+                            && connectivityManager.activeNetworkInfo.isConnected
+                } ?: false
+            }
 
-        fun cellular(): Boolean = (type() == CELLULAR)
+        val cellular: Boolean get() = (type() == CELLULAR)
 
-        fun wifi(): Boolean = (type() == WIFI)
+        val wifi: Boolean get() = (type() == WIFI)
 
-        fun bluetooth(): Boolean = (type() == BLUETOOTH)
+        val bluetooth: Boolean get() = (type() == BLUETOOTH)
 
-        fun ethernet(): Boolean = (type() == ETHERNET)
+        val ethernet: Boolean get() = (type() == ETHERNET)
 
-        fun vpn(): Boolean = (type() == VPN)
+        val vpn: Boolean get() = (type() == VPN)
 
-        fun wifiAware(): Boolean = (type() == WIFI_AWARE)
+        val wifiAware: Boolean get() = (type() == WIFI_AWARE)
 
-        fun lowPan(): Boolean = (type() == LOWPAN)
+        val lowPan: Boolean get() = (type() == LOWPAN)
 
         fun type(): Connectivity {
             SystemServices.connectivityManager()?.let { connectivityManager ->

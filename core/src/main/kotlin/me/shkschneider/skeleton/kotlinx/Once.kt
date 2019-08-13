@@ -1,7 +1,5 @@
 package me.shkschneider.skeleton.kotlinx
 
-import me.shkschneider.skeleton.helper.NotificationHelper.notify
-
 internal object UNINITIALIZED_VALUE
 
 class Once<T>(private val notifier: (() -> Unit)? = null) {
@@ -30,9 +28,10 @@ class Once<T>(private val notifier: (() -> Unit)? = null) {
         this._value = UNINITIALIZED_VALUE
     }
 
-    fun isInitialized(): Boolean = _value !== UNINITIALIZED_VALUE
+    val initialized: Boolean
+        get() = _value !== UNINITIALIZED_VALUE
 
-    override fun toString() = if (isInitialized()) _value.toString() else "Once value not initialized yet."
+    override fun toString() = if (initialized) _value.toString() else "Once value not initialized yet."
 
 }
 
