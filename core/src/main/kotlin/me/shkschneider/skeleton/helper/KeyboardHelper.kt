@@ -23,7 +23,7 @@ import me.shkschneider.skeleton.helperx.Metrics
 object KeyboardHelper {
 
     val has: Boolean
-        get() = ApplicationHelper.resources().configuration.keyboard != Configuration.KEYBOARD_NOKEYS
+        get() = ApplicationHelper.resources.configuration.keyboard != Configuration.KEYBOARD_NOKEYS
 
     fun show(window: Window) {
         Logger.verbose("SOFT_INPUT_STATE_ALWAYS_VISIBLE")

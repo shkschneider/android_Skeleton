@@ -54,7 +54,7 @@ fun View.revealOn() {
                 if (Build.VERSION.SDK_INT >= 21) {
                     ViewAnimationUtils.createCircularReveal(this@revealOn, width, height, 1.toFloat(), radius.toFloat()).run {
                         // setInterpolator(new AccelerateDecelerateInterpolator());
-                        duration = ApplicationHelper.resources().getInteger(R.integer.sk_animation_medium).toLong()
+                        duration = ApplicationHelper.resources.getInteger(R.integer.sk_animation_medium).toLong()
                         visibility = VISIBLE
                         start()
                     }
@@ -73,7 +73,7 @@ fun View.revealOff() {
         val radius = width / 2
         ViewAnimationUtils.createCircularReveal(this, width, height, radius.toFloat(), 1.toFloat()).run {
             // setInterpolator(new AccelerateDecelerateInterpolator());
-            duration = ApplicationHelper.resources().getInteger(R.integer.sk_animation_medium).toLong()
+            duration = ApplicationHelper.resources.getInteger(R.integer.sk_animation_medium).toLong()
             addListener {
                 visibility = GONE
             }

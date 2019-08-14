@@ -20,7 +20,7 @@ object Logger {
         // <https://developer.android.com/studio/debug/am-logcat>
         val tag = ContextHelper.applicationContext().packageName.ellipsize(23, reverse = true)
         var prefix = ""
-        if (ApplicationHelper.debuggable()) {
+        if (ApplicationHelper.debuggable) {
             Throwable().stackTrace.dropWhile { it.className == this.javaClass.name }.also { elements ->
                 elements[0]?.let { element ->
                     val parent = element.className.substringAfterLast(".").substringBefore("$")

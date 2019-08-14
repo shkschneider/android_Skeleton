@@ -174,7 +174,7 @@ object FeaturesHelper {
     const val FEATURE_WIFI_RTT = PackageManager.FEATURE_WIFI_RTT
 
     fun has(feature: String): Boolean {
-        return ApplicationHelper.packageManager().hasSystemFeature(feature)
+        return ApplicationHelper.packageManager.hasSystemFeature(feature)
     }
 
 }

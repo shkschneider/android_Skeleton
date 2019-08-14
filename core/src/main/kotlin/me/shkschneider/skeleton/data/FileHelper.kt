@@ -45,7 +45,7 @@ object FileHelper {
 
     fun openRaw(@RawRes id: Int): InputStream? {
         try {
-            return ApplicationHelper.resources().openRawResource(id)
+            return ApplicationHelper.resources.openRawResource(id)
         } catch (e: Resources.NotFoundException) {
             Logger.wtf(e)
             return null

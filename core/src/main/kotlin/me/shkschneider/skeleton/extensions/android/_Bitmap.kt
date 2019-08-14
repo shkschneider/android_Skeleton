@@ -2,12 +2,10 @@ package me.shkschneider.skeleton.extensions.android
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.BitmapShader
 import android.graphics.Canvas
 import android.graphics.LightingColorFilter
 import android.graphics.Matrix
 import android.graphics.Paint
-import android.graphics.Shader
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
@@ -20,6 +18,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.IntRange
 import androidx.annotation.RequiresApi
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import me.shkschneider.skeleton.helper.AndroidHelper
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.ContextHelper
@@ -34,7 +33,7 @@ import java.io.InputStream
 object BitmapHelper {
 
     fun fromResource(@DrawableRes id: Int): Bitmap? {
-        return BitmapFactory.decodeResource(ApplicationHelper.resources(), id)
+        return BitmapFactory.decodeResource(ApplicationHelper.resources, id)
     }
 
     fun fromDrawable(drawable: Drawable): Bitmap {
@@ -163,17 +162,8 @@ fun Bitmap.tint(@ColorInt from: Int, @ColorInt to: Int): Bitmap = // TODO test
             return this
         }
 
-@Deprecated("android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory")
-fun Bitmap.circular(): Bitmap = // TODO test
-        with(Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)) {
-            val paint = Paint().apply {
-                shader = BitmapShader(this@circular, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP)
-            }
-            Canvas(this).apply {
-                drawCircle((width / 2).toFloat(), (height / 2).toFloat(), (width / 2).toFloat(), paint)
-            }
-            return this
-        }
+fun Bitmap.circular(): Bitmap? =
+        RoundedBitmapDrawableFactory.create(ApplicationHelper.resources, this).bitmap
 
 fun Bitmap.rotate(degrees: Float = 90.0F): Bitmap =
         with(Matrix().apply {

@@ -90,19 +90,19 @@ object ScreenHelper {
     }
 
     fun statusBarHeight(): Int {
-        val resId = ApplicationHelper.resources().getIdentifier("status_bar_height", "dimen", "android")
+        val resId = ApplicationHelper.resources.getIdentifier("status_bar_height", "dimen", "android")
         if (resId > 0) {
-            return ApplicationHelper.resources().getDimensionPixelSize(resId)
+            return ApplicationHelper.resources.getDimensionPixelSize(resId)
         }
-        return ApplicationHelper.resources().getDimensionPixelSize(R.dimen.statusBar)
+        return ApplicationHelper.resources.getDimensionPixelSize(R.dimen.statusBar)
     }
 
     fun navigationBarHeight(): Int {
-        val resId = ApplicationHelper.resources().getIdentifier("navigation_bar_height", "dimen", "android")
+        val resId = ApplicationHelper.resources.getIdentifier("navigation_bar_height", "dimen", "android")
         if (resId > 0) {
-            return ApplicationHelper.resources().getDimensionPixelSize(resId)
+            return ApplicationHelper.resources.getDimensionPixelSize(resId)
         }
-        return ApplicationHelper.resources().getDimensionPixelSize(R.dimen.statusBar)
+        return ApplicationHelper.resources.getDimensionPixelSize(R.dimen.statusBar)
     }
 
     fun orientation(context: Context): Int {

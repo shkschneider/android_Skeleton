@@ -14,7 +14,7 @@ import kotlin.reflect.KClass
 abstract class BaseWebService(val gson: Gson) {
 
     init {
-        if (ApplicationHelper.debuggable()) {
+        if (ApplicationHelper.debuggable) {
             FuelManager.instance.addRequestInterceptor { next: (Request) -> Request ->
                 { request: Request ->
                     Logger.info(request.toString())

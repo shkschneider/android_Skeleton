@@ -11,7 +11,7 @@ object StrictModeHelper {
     }
 
     fun on(death: Boolean = false) {
-        if (! ApplicationHelper.debuggable()) {
+        if (! ApplicationHelper.debuggable) {
             return
         }
         val threadPolicyBuilder = StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog()
@@ -30,7 +30,7 @@ object StrictModeHelper {
     }
 
     fun off() {
-        if (! ApplicationHelper.debuggable()) {
+        if (! ApplicationHelper.debuggable) {
             return
         }
         StrictMode.setThreadPolicy(StrictMode.ThreadPolicy.LAX)

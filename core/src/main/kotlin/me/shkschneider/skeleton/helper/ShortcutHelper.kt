@@ -25,7 +25,7 @@ object ShortcutHelper {
 
         init {
             if (intent.action.isNullOrEmpty()) {
-                intent.action = ApplicationHelper.packageName() + "\\." + this.id
+                intent.action = ApplicationHelper.packageName + "\\." + this.id
             }
         }
 

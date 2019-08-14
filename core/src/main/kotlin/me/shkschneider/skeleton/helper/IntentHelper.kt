@@ -47,7 +47,7 @@ object IntentHelper {
     private const val REQUEST_CODE_PERMISSIONS = AndroidHelper.ANDROID_6
 
     fun main(): Intent? {
-        ApplicationHelper.packageManager().getLaunchIntentForPackage(ApplicationHelper.packageName())?.let { intent ->
+        ApplicationHelper.packageManager.getLaunchIntentForPackage(ApplicationHelper.packageName)?.let { intent ->
             return Intent.makeMainActivity(intent.component).addFlags(FLAGS_HOME)
         }
         Logger.warning("Intent was NULL")
@@ -55,7 +55,7 @@ object IntentHelper {
     }
 
     fun restart(): Intent? {
-        ApplicationHelper.packageManager().getLaunchIntentForPackage(ApplicationHelper.packageName())?.let { intent ->
+        ApplicationHelper.packageManager.getLaunchIntentForPackage(ApplicationHelper.packageName)?.let { intent ->
             return Intent.makeRestartActivityTask(intent.component).addFlags(FLAGS_CLEAR)
         }
         Logger.warning("Intent was NULL")
@@ -90,7 +90,7 @@ object IntentHelper {
 
     fun directions(fromLatitude: Long, fromLongitude: Long,
                    toLatitude: Long, toLongitude: Long): Intent {
-        return external(Intent(android.content.Intent.ACTION_VIEW,
+        return external(Intent(Intent.ACTION_VIEW,
                 Uri.parse(String.format(LocaleHelper.Device.locale(),
                         "http://maps.google.com/maps?saddr=%s,%s&daddr=%s,%s",
                         fromLatitude, fromLongitude,
@@ -105,8 +105,8 @@ object IntentHelper {
     }
 
     fun applicationSettings(): Intent {
-        return external(Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-            data = Uri.parse("package:" + ApplicationHelper.packageName())
+        return external(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+            data = Uri.parse("package:" + ApplicationHelper.packageName)
         })
     }
 
@@ -192,7 +192,7 @@ object IntentHelper {
 
     fun canHandle(intent: Intent): Boolean {
         // return (intent.resolveActivity(ApplicationHelper.packageManager()) != null)
-        val resolveInfos = ApplicationHelper.packageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
+        val resolveInfos = ApplicationHelper.packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY)
         return resolveInfos.size > 0
     }
 

@@ -28,8 +28,7 @@ object DataHelper {
         fun dir(): File {
             return File(
                     FileHelper.join(Environment.getExternalStorageDirectory().path, "/Android/data/")
-                            + ApplicationHelper.packageName()
-                            + "/files"
+                            + "${ApplicationHelper.packageName}/files"
             )
         }
 

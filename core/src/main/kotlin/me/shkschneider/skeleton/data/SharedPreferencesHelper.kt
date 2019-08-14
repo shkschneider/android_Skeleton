@@ -12,7 +12,7 @@ object SharedPreferencesHelper {
 
     private fun editor(name: String?): SharedPreferences {
         return ContextHelper.applicationContext().getSharedPreferences(
-                if (name.isNullOrBlank()) ApplicationHelper.packageName() else name,
+                if (name.isNullOrBlank()) ApplicationHelper.packageName else name,
                 Context.MODE_PRIVATE)
     }
 

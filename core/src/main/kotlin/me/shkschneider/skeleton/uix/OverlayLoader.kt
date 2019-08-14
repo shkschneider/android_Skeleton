@@ -17,7 +17,7 @@ class OverlayLoader : SkeletonDialog() {
 
         @UiThread
         fun show(activity: SkeletonActivity) : OverlayLoader? {
-            if (activity.alive()) {
+            if (activity.alive) {
                 val overlayLoader = OverlayLoader()
                 overlayLoader.showNow(activity.supportFragmentManager, TAG)
                 // IllegalStateException: FragmentManager is already executing transactions
@@ -43,7 +43,7 @@ class OverlayLoader : SkeletonDialog() {
 
     @UiThread
     fun hide(activity: SkeletonActivity): Boolean {
-        if (activity.alive() && alive()) {
+        if (activity.alive && alive) {
             dismiss()
             return true
         }

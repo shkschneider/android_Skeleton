@@ -43,7 +43,7 @@ class AboutActivity : SkeletonActivity() {
             // Application
             findPreference("app_package").run {
                 title = "PackageName"
-                summary = ApplicationHelper.packageName()
+                summary = ApplicationHelper.packageName
             }
             findPreference("app_versionName").run {
                 title = "VersionName"
@@ -59,7 +59,7 @@ class AboutActivity : SkeletonActivity() {
             }
             findPreference("app_variant").run {
                 title = "Variant"
-                summary = (if (ApplicationHelper.debuggable()) "debug" else "release").toUpperCase()
+                summary = (if (ApplicationHelper.debuggable) "debug" else "release").toUpperCase()
             }
             findPreference("app_flavor").run {
                 title = "Flavor"
