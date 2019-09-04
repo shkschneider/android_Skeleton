@@ -15,6 +15,7 @@ gen/
 out/
 dist/
 .externalNativeBuild/
+.cxx/
 
 # Gradle
 .gradle/
