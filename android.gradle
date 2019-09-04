@@ -2,10 +2,11 @@ subprojects {
 
     afterEvaluate { project ->
 
-        if (project.hasProperty('android')) {
+        def isAndroidApplication = project.plugins.findPlugin('com.android.application') != null
+        def isAndroidLibrary = project.plugins.findPlugin('com.android.library') != null
 
-            def isAndroidApplication = project.plugins.findPlugin('com.android.application') != null
-            def isAndroidLibrary = project.plugins.findPlugin('com.android.library') != null
+        if (isAndroidApplication || isAndroidLibrary) {
+
             def hasKotlinAndroid = project.plugins.findPlugin('kotlin-android') != null
 
             android {
