@@ -22,10 +22,12 @@ import kotlin.reflect.KClass
  * |       x |        x |       |            | onViewCreated()
  * |       x |        x |       |            | onActivityCreated()
  * |       x |        x |     x |            | onStart()
+ * |       x |        x |     x |            | onViewStateRestored()
  * |       x |        x |     x |          x | onResume()
  * +---------+----------+-------+------------+
  * |       x |        x |     x |          x | onPause()
  * |       x |        x |     x |            | onStop()
+ * |       x |        x |       |            | onSaveInstanceState()
  * |       x |        x |       |            | onDestroyView()
  * |       x |          |       |            | onDestroy()
  * |         |          |       |            | onDetach()
@@ -79,9 +81,19 @@ abstract class SkeletonFragment : Fragment() {
         alive = true
     }
 
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        // restore
+    }
+
     override fun onStop() {
         alive = false
         super.onStop()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        // save
     }
 
     companion object {
