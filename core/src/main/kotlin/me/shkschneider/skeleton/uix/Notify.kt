@@ -14,7 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import me.shkschneider.skeleton.R
 import me.shkschneider.skeleton.helper.AndroidHelper
 import me.shkschneider.skeleton.helper.ContextHelper
-import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.kotlinx.Listener
 
 object Notify {

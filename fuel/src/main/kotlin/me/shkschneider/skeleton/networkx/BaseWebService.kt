@@ -7,7 +7,7 @@ import com.github.kittinunf.fuel.core.ResponseDeserializable
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import me.shkschneider.skeleton.helper.ApplicationHelper
-import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.log.Logger
 import java.util.concurrent.TimeUnit
 import kotlin.reflect.KClass
 

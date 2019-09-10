@@ -5,7 +5,7 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonParseException
-import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.log.Logger
 
 object GsonParser : IParser<JsonObject, JsonArray> {
 

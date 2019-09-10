@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.ScrollView
 
-import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.log.Logger
 
 private const val PARALLAX = 0.1.toFloat()
 

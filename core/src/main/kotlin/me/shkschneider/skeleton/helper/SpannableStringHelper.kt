@@ -12,7 +12,7 @@ import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
 import androidx.annotation.ColorInt
 import androidx.annotation.IntRange
-import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.log.Logger
 
 // <https://gist.github.com/Trikke/90efd4432fc09aaadf3e>
 open class SpannableStringHelper {

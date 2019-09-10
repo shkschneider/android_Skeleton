@@ -7,7 +7,7 @@ import me.shkschneider.skeleton.demo.main.MainActivity
 import me.shkschneider.skeleton.extensions.android.Intent
 
 import me.shkschneider.skeleton.helper.IntentHelper
-import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.log.Logger
 
 private const val SECRET_CODE = "SECRET_CODE"
 private const val ACTION = "android.provider.Telephony.SECRET_CODE"

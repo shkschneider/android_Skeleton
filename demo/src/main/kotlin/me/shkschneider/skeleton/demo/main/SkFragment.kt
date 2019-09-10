@@ -23,8 +23,8 @@ import me.shkschneider.skeleton.extensions.android.revealOn
 import me.shkschneider.skeleton.extensions.toStringOrEmpty
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.BroadcastHelper
-import me.shkschneider.skeleton.helper.DateTimeHelper
 import me.shkschneider.skeleton.helper.NotificationHelper
+import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.javax.AlphanumComparator
 import me.shkschneider.skeleton.kotlinx.DateTime
 import me.shkschneider.skeleton.networkx.HttpURLConnectionWebService
@@ -61,7 +61,7 @@ class SkFragment : SkeletonFragment() {
         ))
         fill(view.findViewById<View>(R.id.helper) as LinearLayout, listOf(
                 me.shkschneider.skeleton.helperx.FinalCountdown::class.java,
-                me.shkschneider.skeleton.helperx.Logger::class.java,
+                Logger::class.java,
                 me.shkschneider.skeleton.helper.AccountHelper::class.java,
                 me.shkschneider.skeleton.helper.ActivityTransitionHelper::class.java,
                 me.shkschneider.skeleton.helper.AndroidHelper::class.java,

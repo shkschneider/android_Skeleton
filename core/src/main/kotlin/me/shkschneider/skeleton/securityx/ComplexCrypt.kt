@@ -2,7 +2,7 @@ package me.shkschneider.skeleton.securityx
 
 import android.util.Base64
 import me.shkschneider.skeleton.data.CharsetHelper
-import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.kotlinx.fromBase64
 import me.shkschneider.skeleton.kotlinx.toBase64
 import java.nio.charset.Charset

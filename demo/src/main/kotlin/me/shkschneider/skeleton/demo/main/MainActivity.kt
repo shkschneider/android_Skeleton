@@ -16,7 +16,7 @@ import me.shkschneider.skeleton.demo.R
 import me.shkschneider.skeleton.demo.about.AboutActivity
 import me.shkschneider.skeleton.demo.data.ShkMod
 import me.shkschneider.skeleton.extensions.android.Intent
-import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.uix.BottomSheet
 import me.shkschneider.skeleton.viewModel
 import org.koin.android.ext.android.inject

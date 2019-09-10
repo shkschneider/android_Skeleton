@@ -6,7 +6,7 @@ import androidx.annotation.RawRes
 import me.shkschneider.skeleton.extensions.android.BitmapHelper
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.AssetsHelper
-import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.log.Logger
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException

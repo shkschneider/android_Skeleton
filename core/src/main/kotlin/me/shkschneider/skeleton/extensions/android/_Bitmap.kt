@@ -22,7 +22,7 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import me.shkschneider.skeleton.helper.AndroidHelper
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.ContextHelper
-import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.helperx.Metrics
 import java.io.ByteArrayOutputStream
 import java.io.File

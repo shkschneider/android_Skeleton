@@ -11,13 +11,11 @@ import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
-import androidx.core.view.children
 
 import me.shkschneider.skeleton.SkeletonReceiver
-import me.shkschneider.skeleton.extensions.android.ViewHelper
 import me.shkschneider.skeleton.extensions.android.contentView
 import me.shkschneider.skeleton.extensions.android.views
-import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.helperx.Metrics
 
 object KeyboardHelper {

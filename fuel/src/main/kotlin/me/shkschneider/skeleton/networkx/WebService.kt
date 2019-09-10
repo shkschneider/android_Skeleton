@@ -6,7 +6,7 @@ import com.github.kittinunf.fuel.core.Request
 import com.github.kittinunf.fuel.core.Response
 import com.github.kittinunf.result.Result
 import com.google.gson.Gson
-import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.log.Logger
 
 public typealias WebServiceSuccess<T> = (Request, Response, T?) -> Unit
 public typealias WebServiceFailure = (Request, Response, Exception) -> Unit

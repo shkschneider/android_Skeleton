@@ -1,6 +1,6 @@
 package me.shkschneider.skeleton.security
 
-import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.java.StringHelper
 import java.security.InvalidKeyException
 import java.security.NoSuchAlgorithmException

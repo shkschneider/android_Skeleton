@@ -9,7 +9,7 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.annotation.FloatRange
 import me.shkschneider.skeleton.R
-import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.helperx.Metrics
 import me.shkschneider.skeleton.helperx.SystemServices
 

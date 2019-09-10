@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import androidx.annotation.ColorInt
 import androidx.annotation.IntRange
 import me.shkschneider.skeleton.extensions.android.accentColor
-import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.helperx.Metrics
 
 private const val DEFAULT = "#"

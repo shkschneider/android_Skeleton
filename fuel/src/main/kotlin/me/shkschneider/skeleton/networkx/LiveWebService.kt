@@ -7,7 +7,7 @@ import com.github.kittinunf.fuel.core.Request
 import com.github.kittinunf.fuel.core.Response
 import com.github.kittinunf.fuel.livedata.liveDataResponseObject
 import com.google.gson.Gson
-import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.kotlinx.Quad
 
 public typealias LiveWebServiceResponse<T> = Quad<Request, Response, T?, Exception?>

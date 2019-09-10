@@ -5,7 +5,7 @@ import androidx.multidex.MultiDexApplication
 import me.shkschneider.skeleton.extensions.has
 import me.shkschneider.skeleton.helper.ContextHelper
 import me.shkschneider.skeleton.helper.DeviceHelper
-import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.log.Logger
 
 /**
  * https://developer.android.com/reference/android/app/Application.html

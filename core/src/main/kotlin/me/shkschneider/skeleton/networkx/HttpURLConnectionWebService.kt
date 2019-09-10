@@ -6,7 +6,7 @@ import androidx.annotation.Size
 import me.shkschneider.skeleton.data.CharsetHelper
 import me.shkschneider.skeleton.data.MimeTypeHelper
 import me.shkschneider.skeleton.data.StreamHelper
-import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.network.UrlHelper
 import java.io.BufferedWriter
 import java.io.DataOutputStream

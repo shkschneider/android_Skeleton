@@ -7,7 +7,7 @@ import com.github.kittinunf.fuel.core.isSuccessful
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
 import me.shkschneider.skeleton.datax.MemoryCache
-import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.networkx.WebService
 import me.shkschneider.skeleton.networkx.WebServiceFailure
 import me.shkschneider.skeleton.networkx.WebServiceSuccess

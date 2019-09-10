@@ -1,6 +1,6 @@
 package me.shkschneider.skeleton.datax
 
-import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.log.Logger
 import java.io.BufferedReader
 import java.io.IOException
 

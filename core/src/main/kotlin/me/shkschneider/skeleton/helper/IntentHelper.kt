@@ -11,7 +11,7 @@ import android.provider.MediaStore
 import android.provider.Settings
 import me.shkschneider.skeleton.data.MimeTypeHelper
 import me.shkschneider.skeleton.extensions.android.BitmapHelper
-import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.network.UrlHelper
 import java.io.File
 

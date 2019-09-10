@@ -27,7 +27,7 @@ import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.IntentHelper
 import me.shkschneider.skeleton.helper.KeyboardHelper
 import me.shkschneider.skeleton.helper.ThreadHelper
-import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.uix.OverlayLoader
 
 const val RESULT_SEARCH_CHANGE = "onQueryTextChange"

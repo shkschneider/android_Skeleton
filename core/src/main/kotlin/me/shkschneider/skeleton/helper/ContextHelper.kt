@@ -3,7 +3,7 @@ package me.shkschneider.skeleton.helper
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
-import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.log.Logger
 
 /**
  * applicationContext()

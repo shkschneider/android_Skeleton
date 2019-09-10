@@ -1,11 +1,9 @@
 package me.shkschneider.skeleton.security
 
-import me.shkschneider.skeleton.helperx.Logger
-import me.shkschneider.skeleton.java.StringHelper
+import me.shkschneider.skeleton.helperx.log.Logger
 import java.math.BigInteger
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
-import kotlin.experimental.and
 
 object HashHelper {
 

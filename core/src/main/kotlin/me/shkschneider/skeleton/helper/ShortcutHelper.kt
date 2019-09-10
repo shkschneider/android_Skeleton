@@ -5,7 +5,7 @@ import android.content.pm.ShortcutInfo
 import android.graphics.drawable.Icon
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
-import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.helperx.SystemServices
 
 // <https://developer.android.com/reference/android/content/pm/ShortcutManager.html>

@@ -6,7 +6,7 @@ import androidx.core.content.edit
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import me.shkschneider.skeleton.helper.ContextHelper
-import me.shkschneider.skeleton.helperx.Logger
+import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.securityx.ICrypt
 import kotlin.reflect.KClass
 
