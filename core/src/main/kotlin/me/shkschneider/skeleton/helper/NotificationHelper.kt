@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import me.shkschneider.skeleton.extensions.android.Intent
 import me.shkschneider.skeleton.helperx.SystemServices
+import me.shkschneider.skeleton.kotlinx.DateTime
 import java.util.concurrent.TimeUnit
 
 /**
@@ -147,7 +148,7 @@ object NotificationHelper {
     }
 
     fun notify(@IntRange(from = 0) id: Int, notification: Notification, ms: Long? = null) {
-        notification.`when` = ms ?: DateTimeHelper.now()
+        notification.`when` = ms ?: DateTime.now.millis
         SystemServices.notificationManager()?.notify(id, notification)
     }
 

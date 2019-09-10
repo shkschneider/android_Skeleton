@@ -26,6 +26,7 @@ import me.shkschneider.skeleton.helper.BroadcastHelper
 import me.shkschneider.skeleton.helper.DateTimeHelper
 import me.shkschneider.skeleton.helper.NotificationHelper
 import me.shkschneider.skeleton.javax.AlphanumComparator
+import me.shkschneider.skeleton.kotlinx.DateTime
 import me.shkschneider.skeleton.networkx.HttpURLConnectionWebService
 import me.shkschneider.skeleton.uix.Inflater
 import me.shkschneider.skeleton.uix.Notify
@@ -185,7 +186,7 @@ class SkFragment : SkeletonFragment() {
         HttpURLConnectionWebService(HttpURLConnectionWebService.Method.GET, ShkMod.URL)
                 .onSuccess {
                     it?.let {
-                        notification(DateTimeHelper.timestamp(), ApplicationHelper.name().orEmpty(),
+                        notification(DateTime.timestamp, ApplicationHelper.name().orEmpty(),
                                 it.message.orEmpty())
                     } ?: run {
                         Notify.toast(it.toString())
