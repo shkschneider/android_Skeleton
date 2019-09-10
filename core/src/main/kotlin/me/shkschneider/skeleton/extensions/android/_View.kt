@@ -6,6 +6,7 @@ import android.graphics.Canvas
 import android.os.Build
 import android.view.View
 import android.view.View.GONE
+import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewAnimationUtils
 import android.view.Window
@@ -30,6 +31,18 @@ object ViewHelper {
     fun randomId() = View.generateViewId()
 
 }
+
+var View.isVisible
+    get() = visibility == VISIBLE
+    set(value) { visibility = if (value) VISIBLE else INVISIBLE }
+
+var View.isInvisible
+    get() = visibility == INVISIBLE
+    set(value) { visibility = if (value) INVISIBLE else VISIBLE }
+
+var View.isGone
+    get() = visibility == GONE
+    set(value) { visibility = if (value) GONE else VISIBLE }
 
 // <https://github.com/nowfalsalahudeen/KdroidExt>
 fun View.setSize(width: Int, height: Int) {
