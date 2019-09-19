@@ -5,7 +5,7 @@
     <item
         android:id="@+id/menu_about"
         android:title="About"
-        android:icon="@android:drawable/ic_menu_info_details"
+        android:icon="@drawable/ic_info"
         android:orderInCategory="1"
         app:showAsAction="always" />
 

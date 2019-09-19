@@ -7,7 +7,7 @@
     <include layout="@layout/toolbar" />
 
     <fragment
-        android:name="me.shkschneider.skeleton.demo.about.AboutActivity$AboutFragment"
+        android:name="me.shkschneider.skeleton.demo.about.AboutFragment"
         android:tag=".AboutActivity$AboutFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

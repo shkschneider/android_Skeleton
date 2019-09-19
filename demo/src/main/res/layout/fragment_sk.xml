@@ -31,16 +31,4 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/sk_spaceSmaller"
-        app:layout_anchor="@id/nestedScrollView"
-        app:layout_anchorGravity="bottom|right|end"
-        app:backgroundTint="@color/accentColor"
-        app:rippleColor="@color/primaryColor" />
-
 </RelativeLayout>

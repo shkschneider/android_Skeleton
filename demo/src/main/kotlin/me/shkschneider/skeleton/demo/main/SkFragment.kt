@@ -2,44 +2,20 @@
 
 package me.shkschneider.skeleton.demo.main
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import me.shkschneider.skeleton.SkeletonFragment
 import me.shkschneider.skeleton.demo.R
-import me.shkschneider.skeleton.demo.data.ShkMod
-import me.shkschneider.skeleton.extensions.android.Intent
-import me.shkschneider.skeleton.extensions.android.revealOn
-import me.shkschneider.skeleton.extensions.toStringOrEmpty
-import me.shkschneider.skeleton.helper.ApplicationHelper
-import me.shkschneider.skeleton.helper.BroadcastHelper
-import me.shkschneider.skeleton.helper.NotificationHelper
 import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.javax.AlphanumComparator
-import me.shkschneider.skeleton.kotlinx.DateTime
-import me.shkschneider.skeleton.networkx.HttpURLConnectionWebService
 import me.shkschneider.skeleton.uix.Inflater
-import me.shkschneider.skeleton.uix.Notify
 import java.lang.reflect.Modifier
 
 class SkFragment : SkeletonFragment() {
-
-    private val mBroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
-            // val code = intent.getIntExtra(BROADCAST_SECRET_CODE, 0)
-            network()
-        }
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return super.onCreateView(inflater, R.layout.fragment_sk, container)
@@ -113,14 +89,6 @@ class SkFragment : SkeletonFragment() {
                 me.shkschneider.skeleton.uix.OverlayLoader::class.java,
                 me.shkschneider.skeleton.uix.Tooltips::class.java
         ))
-
-        val floatingActionButton = view.findViewById<FloatingActionButton>(R.id.floatingActionButton)
-        floatingActionButton.setImageResource(android.R.drawable.ic_dialog_info)
-        floatingActionButton.setOnClickListener {
-            val intent = Intent(ShkMod.BROADCAST_SECRET).putExtra(ShkMod.BROADCAST_SECRET_CODE, 42)
-            LocalBroadcastManager.getInstance(floatingActionButton.context).sendBroadcast(intent)
-        }
-        floatingActionButton.revealOn()
     }
 
     private fun fill(linearLayout: LinearLayout?, cs: List<Class<out Any>>) {
@@ -170,52 +138,6 @@ class SkFragment : SkeletonFragment() {
                 linearLayout.addView(this)
             }
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        BroadcastHelper.register(mBroadcastReceiver, IntentFilter(ShkMod.BROADCAST_SECRET))
-    }
-
-    override fun onStop() {
-        super.onStop()
-        BroadcastHelper.unregister(mBroadcastReceiver)
-    }
-
-    private fun network() {
-        HttpURLConnectionWebService(HttpURLConnectionWebService.Method.GET, ShkMod.URL)
-                .onSuccess {
-                    it?.let {
-                        notification(DateTime.timestamp, ApplicationHelper.name().orEmpty(),
-                                it.message.orEmpty())
-                    } ?: run {
-                        Notify.toast(it.toString())
-                    }
-                }
-                .onError {
-                    Notify.toast(it.toStringOrEmpty())
-                }
-                .run()
-    }
-
-    private fun notification(id: Int, title: String, message: String) {
-        val context = context ?: return
-        val intent = Intent(context, MainActivity::class)
-                .setAction(ShkMod.BROADCAST_SECRET)
-                .putExtra("title", title)
-                .putExtra("message", message)
-        val channel = NotificationHelper.Channel(id.toString(), id.toString(), true, true, true)
-        // final NotificationChannel notificationChannel = channel.get();
-        val notificationBuilder = NotificationHelper.Builder(channel)
-                .setShowWhen(false)
-                .setContentTitle("Skeleton")
-                .setContentText("for Android")
-                .setContentIntent(activity?.let { NotificationHelper.pendingIntent(it, intent) })
-                .setTicker("Sk!")
-                .setColor(ContextCompat.getColor(context, R.color.accentColor))
-                .setSmallIcon(ApplicationHelper.DEFAULT_ICON)
-                .setNumber(42)
-        NotificationHelper.notify(0, notificationBuilder.build())
     }
 
 }

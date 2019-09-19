@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.demo.main
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -14,10 +13,8 @@ import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.SkeletonFragment
 import me.shkschneider.skeleton.demo.R
 import me.shkschneider.skeleton.demo.about.AboutActivity
-import me.shkschneider.skeleton.demo.data.ShkMod
 import me.shkschneider.skeleton.extensions.android.Intent
 import me.shkschneider.skeleton.helperx.log.Logger
-import me.shkschneider.skeleton.uix.BottomSheet
 import me.shkschneider.skeleton.viewModel
 import org.koin.android.ext.android.inject
 import java.util.UUID
@@ -79,17 +76,6 @@ class MainActivity : SkeletonActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        when (intent.action) {
-            ShkMod.BROADCAST_SECRET -> {
-                val title = intent.getStringExtra("title")
-                val message = intent.getStringExtra("message")
-                bottomSheet(title, message)
-            }
-        }
-    }
-
     // enregion
 
     // region viewmodel
@@ -106,16 +92,6 @@ class MainActivity : SkeletonActivity() {
     }
 
     // endregion
-
-    private fun bottomSheet(title: String, content: String) {
-        BottomSheet.Builder(this)
-                .setTitle(title)
-                .setContent(content)
-                .setPositive(resources.getString(android.R.string.ok), null)
-                .setNegative(resources.getString(android.R.string.cancel), null)
-                .build()
-                .show()
-    }
 
     // region fragments
 

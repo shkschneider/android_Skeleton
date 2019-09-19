@@ -17,6 +17,7 @@ class MainViewModel : ViewModel() {
 
     private val models by lazy {
         MutableLiveData<List<MyModel>>().apply {
+            // ...
         }
     }
 
