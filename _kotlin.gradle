@@ -1,0 +1,24 @@
+subprojects {
+
+    afterEvaluate { project ->
+
+        def hasKotlin = project.plugins.findPlugin('kotlin') != null
+        def hasKotlinAndroid = project.plugins.findPlugin('kotlin-android') != null
+
+        if (hasKotlin) {
+            dependencies {
+                implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk${versions.java}:${versions.kotlin}"
+            }
+        }
+
+        android {
+            if (hasKotlinAndroid) {
+                sourceSets {
+                    main.java.srcDirs += 'src/main/kotlin'
+                }
+            }
+        }
+
+    }
+
+}

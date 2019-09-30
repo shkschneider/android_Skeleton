@@ -7,8 +7,6 @@ subprojects {
 
         if (isAndroidApplication || isAndroidLibrary) {
 
-            def hasKotlinAndroid = project.plugins.findPlugin('kotlin-android') != null
-
             android {
                 def defaultConfigVersionCode = versionCode()
 
@@ -46,13 +44,6 @@ subprojects {
                     targetCompatibility JavaVersion.VERSION_1_8
                 }
 
-                // Kotlin
-                if (hasKotlinAndroid) {
-                    sourceSets {
-                        main.java.srcDirs += 'src/main/kotlin'
-                    }
-                }
-
                 // Applications and Libraries
                 if (isAndroidApplication) {
                     flavorDimensions 'default'
@@ -70,12 +61,6 @@ subprojects {
                 lintOptions {
                     checkReleaseBuilds true
                     abortOnError true
-                }
-            }
-
-            if (hasKotlinAndroid) {
-                dependencies {
-                    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk${versions.java}:${versions.kotlin}"
                 }
             }
 

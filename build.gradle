@@ -32,7 +32,8 @@ allprojects {
         def version
     }
 }
-apply from: "${rootProject.projectDir}/android.gradle"
+apply from: "${rootProject.projectDir}/_android.gradle"
+apply from: "${rootProject.projectDir}/_kotlin.gradle"
 
 def versionCode(increment) {
     Properties versionProperties = new Properties()
