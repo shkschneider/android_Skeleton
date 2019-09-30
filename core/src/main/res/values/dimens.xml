@@ -66,4 +66,7 @@
     <dimen name="sk_elevation16">16dp</dimen> <!-- nav drawer, right drawer, modal bottom sheet -->
     <dimen name="sk_elevation24">24dp</dimen> <!-- dialog, picker -->
 
+    <dimen name="sk_fingerprint_square">40dp</dimen>
+    <dimen name="sk_fingerprint_viewport" type="float">40.0</dimen>
+
 </resources>

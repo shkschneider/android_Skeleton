@@ -8,11 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import kotlinx.android.synthetic.main.fragment_sk.*
 import me.shkschneider.skeleton.SkeletonFragment
 import me.shkschneider.skeleton.demo.R
+import me.shkschneider.skeleton.extensions.TAG
+import me.shkschneider.skeleton.extensions.android.revealOn
+import me.shkschneider.skeleton.fragmentManager
 import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.javax.AlphanumComparator
+import me.shkschneider.skeleton.kotlinx.exhaustive
+import me.shkschneider.skeleton.securityx.fingerprint.Fingerprint
+import me.shkschneider.skeleton.securityx.fingerprint.FingerprintState
 import me.shkschneider.skeleton.uix.Inflater
+import me.shkschneider.skeleton.uix.Notify
 import java.lang.reflect.Modifier
 
 class SkFragment : SkeletonFragment() {
@@ -89,6 +97,16 @@ class SkFragment : SkeletonFragment() {
                 me.shkschneider.skeleton.uix.OverlayLoader::class.java,
                 me.shkschneider.skeleton.uix.Tooltips::class.java
         ))
+
+        if (Fingerprint.isAvailable(view.context)) {
+            Fingerprint.scan(view.context, requireNotNull(fragmentManager())) {}
+            floatingActionButton.revealOn()
+            floatingActionButton.setOnClickListener {
+                Fingerprint.scan(view.context, requireNotNull(fragmentManager())) { state ->
+                    // TODO state
+                }
+            }
+        }
     }
 
     private fun fill(linearLayout: LinearLayout?, cs: List<Class<out Any>>) {

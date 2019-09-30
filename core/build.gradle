@@ -9,6 +9,7 @@ group='com.github.shkschneider'
 
 android {
     defaultConfig {
+        vectorDrawables.useSupportLibrary = true
         buildConfigField 'String', 'REVISION', "\"${gitRevision()}\""
     }
 }

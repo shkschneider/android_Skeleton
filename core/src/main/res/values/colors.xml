@@ -27,6 +27,13 @@
     <color tools:ignore="ResourceName" name="preference_accent">@color/accentColor</color>
     <color tools:ignore="ResourceName,PrivateResource" name="preference_fallback_accent_color">@color/accentColor</color>
 
+    <!-- Fingerprint -->
+    <color name="sk_fingerprint_warning">#f4511e</color>
+    <color name="sk_fingerprint_hint">#42000000</color>
+    <color name="sk_fingerprint_success">@color/accentColor</color>
+    <color name="sk_fingerprint_error">#F4511E</color>
+    <color name="sk_fingerprint">#FFFFFF</color>
+
     <!-- Material colors <https://material.google.com/style/color.html#color-color-palette> -->
 
     <color name="sk_material_red">@color/sk_material_red500</color>

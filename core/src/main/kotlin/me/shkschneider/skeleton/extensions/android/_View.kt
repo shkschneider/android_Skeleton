@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.extensions.android
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.view.View
 import android.view.View.GONE
@@ -149,3 +150,5 @@ fun View.fadeOut(durationMillis: Long = androidConfigMediumAnimTime) {
         interpolator = AccelerateInterpolator()
     })
 }
+
+val View.backgroundColor: Int? get() = (background as? ColorDrawable)?.color

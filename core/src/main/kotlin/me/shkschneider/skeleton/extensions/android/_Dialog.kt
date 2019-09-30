@@ -11,7 +11,10 @@ fun Dialog.dimBehind(dim: Boolean) {
     }
 }
 
-fun Dialog.cancelable(cancelable: Boolean, canceledOnTouchOutside: Boolean) {
+fun Dialog.cancelable(cancelable: Boolean, canceledOnTouchOutside: Boolean, onDismissListener: (() -> Unit)? = null) {
     setCancelable(cancelable)
     setCanceledOnTouchOutside(canceledOnTouchOutside)
+    onDismissListener?.let { listener -> {
+        setOnDismissListener { listener() }
+    }}
 }
