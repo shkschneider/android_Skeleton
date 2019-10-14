@@ -7,6 +7,7 @@ import android.os.Build
 import android.provider.Settings
 import androidx.annotation.RequiresPermission
 import me.shkschneider.skeleton.helperx.log.Logger
+import me.shkschneider.skeleton.kotlinx.tryOrNull
 import java.util.UUID
 
 private const val GOOGLE_SERVICE_FRAMEWORK_URI = "content://com.google.android.gsf.gservices"
@@ -26,10 +27,11 @@ object IdHelper {
     @RequiresPermission("com.google.android.providers.gsf.permission.READ_GSERVICES")
     @Deprecated("Use InstanceID", ReplaceWith("FirebaseInstanceId.getInstance().id"))
     fun googleServiceFrameworkId(): String? {
-        val cursor = ContextHelper.applicationContext().contentResolver.query(Uri.parse(GOOGLE_SERVICE_FRAMEWORK_URI), null, null, arrayOf(ANDROID_ID), null) ?: return null
+        val cursor = ContextHelper.applicationContext().contentResolver.query(Uri.parse(GOOGLE_SERVICE_FRAMEWORK_URI), null, null, arrayOf(ANDROID_ID), null)
+                ?: return null
         var gsfId: String? = null
         try {
-            if (! cursor.moveToFirst() || cursor.columnCount < 2) {
+            if (!cursor.moveToFirst() || cursor.columnCount < 2) {
                 throw Exception()
             }
             gsfId = java.lang.Long.toHexString(java.lang.Long.parseLong(cursor.getString(1)))
@@ -54,12 +56,17 @@ object IdHelper {
     @SuppressLint("HardwareIds")
     @Deprecated("Using getString to get device identifiers is not recommended.")
     private fun androidId(): String? {
-        val androidId = Settings.Secure.getString(ContextHelper.applicationContext().contentResolver, Settings.Secure.ANDROID_ID)
-        if (androidId.isNullOrBlank()) {
-            Logger.warning("AndroidId was NULL")
+        try {
+            val androidId = Settings.Secure.getString(ContextHelper.applicationContext().contentResolver, Settings.Secure.ANDROID_ID)
+            if (androidId.isNullOrBlank()) {
+                Logger.warning("AndroidId was NULL")
+                return null
+            }
+            return androidId.toLowerCase()
+        } catch (e: SecurityException) {
+            Logger.wtf(e)
             return null
         }
-        return androidId.toLowerCase()
     }
 
     fun uuid(id: String): String {
