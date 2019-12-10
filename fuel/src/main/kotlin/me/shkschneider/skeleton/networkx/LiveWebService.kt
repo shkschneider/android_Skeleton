@@ -12,6 +12,7 @@ import me.shkschneider.skeleton.kotlinx.Quad
 
 public typealias LiveWebServiceResponse<T> = Quad<Request, Response, T?, Exception?>
 
+@Suppress("DEPRECATION")
 open class LiveWebService(gson: Gson = Gson()) : BaseWebService(gson) {
 
     inline fun <reified T : Any> get(url: String, owner: LifecycleOwner, observer: Observer<LiveWebServiceResponse<T>>) =

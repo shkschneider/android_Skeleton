@@ -2,10 +2,9 @@
 
 buildscript {
     ext.versions = [
-        android: 28,
         java: 8,
         kotlin: '1.3.61',
-        skeleton: '9.4.2'
+        skeleton: '10.0.0'
     ]
     repositories {
         google()
@@ -56,13 +55,4 @@ def gitRevision() {
         standardOutput = stdout
     }
     return stdout.toString().trim()
-}
-
-def travis(android) {
-    def travisFile = file("${rootProject.projectDir}/.travis.yml")
-    if (!travisFile.exists()) throw new GradleException(travisFile.path)
-    String content = travisFile.getText('UTF-8')
-    content = content.replaceFirst('build-tools-[0-9.]+', "build-tools-${android.buildToolsVersion}")
-    content = content.replaceFirst('android-[0-9]+', "android-${versions.android}")
-    new File('.travis.yml').write(content, 'UTF-8')
 }

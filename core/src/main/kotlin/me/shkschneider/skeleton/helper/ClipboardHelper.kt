@@ -7,7 +7,7 @@ object ClipboardHelper {
 
     fun copy(string: String) {
         val clipData = ClipData.newPlainText(ApplicationHelper.packageName, string)
-        SystemServices.clipboardManager()?.primaryClip = clipData
+        SystemServices.clipboardManager()?.setPrimaryClip(clipData)
     }
 
 }

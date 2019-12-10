@@ -1,3 +1,13 @@
+buildscript {
+    ext.versions.android = [
+        sdk: [
+            target: 29,
+            min   : 16 // Jelly Bean 4.1.x
+        ],
+        buildTools: '29.0.0'
+    ]
+}
+
 subprojects {
 
     afterEvaluate { project ->
@@ -11,12 +21,13 @@ subprojects {
                 def defaultConfigVersionCode = versionCode()
 
                 // Android
-                compileSdkVersion versions.android
-                buildToolsVersion "${versions.android}.0.3"
+                compileSdkVersion versions.android.sdk.target
+                // <https://developer.android.com/studio/releases/build-tools>
+                buildToolsVersion versions.android.buildTools
 
                 defaultConfig {
-                    minSdkVersion 16 // Jelly Bean 4.1.x
-                    targetSdkVersion versions.android
+                    minSdkVersion versions.android.sdk.min
+                    targetSdkVersion versions.android.sdk.target
                     versionCode defaultConfigVersionCode
                     versionName versions.skeleton
                 }

@@ -11,6 +11,7 @@ import me.shkschneider.skeleton.helperx.log.Logger
 public typealias WebServiceSuccess<T> = (Request, Response, T?) -> Unit
 public typealias WebServiceFailure = (Request, Response, Exception) -> Unit
 
+@Suppress("DEPRECATION")
 open class WebService(gson: Gson = Gson()) : BaseWebService(gson) {
 
     inline fun <reified T : Any> get(url: String,
