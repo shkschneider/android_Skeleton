@@ -44,12 +44,7 @@ object ScreenHelper {
 
     fun on(): Boolean? {
         val powerManager = SystemServices.powerManager()
-        if (Build.VERSION.SDK_INT >= 20) {
-            return powerManager?.isInteractive
-        } else {
-            @Suppress("DEPRECATION")
-            return powerManager?.isScreenOn
-        }
+        return powerManager?.isInteractive
     }
 
     fun brightness(window: Window): Float {
@@ -69,11 +64,7 @@ object ScreenHelper {
         val display = windowManager?.defaultDisplay
         display?.getMetrics(displayMetrics)
         val point = Point(1, 1)
-        if (Build.VERSION.SDK_INT >= 17) {
-            display?.getRealSize(point)
-        } else {
-            display?.getSize(point)
-        }
+        display?.getRealSize(point)
         val w = point.x / displayMetrics.xdpi
         val h = point.y / displayMetrics.ydpi
         val inches = Math.sqrt(Math.pow(w.toDouble(), 2.0) + Math.pow(h.toDouble(), 2.0)).toFloat()

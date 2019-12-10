@@ -18,9 +18,7 @@ object WebViewHelper {
 
     private fun get(): WebView =
             WebView(ContextHelper.applicationContext()).apply {
-                if (Build.VERSION.SDK_INT >= 21) {
-                    setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-                }
+                setLayerType(View.LAYER_TYPE_SOFTWARE, null)
             }
 
     fun fromUrl(url: String): WebView =
@@ -30,17 +28,17 @@ object WebViewHelper {
 
     fun fromAsset(asset: String): WebView =
             get().apply {
-                loadDataWithBaseURL(FileHelper.PREFIX_ASSETS, asset, WebViewHelper.MIME_TYPE, WebViewHelper.CHARSET, "")
+                loadDataWithBaseURL(FileHelper.PREFIX_ASSETS, asset, MIME_TYPE, CHARSET, "")
             }
 
     fun fromRaw(raw: String): WebView =
             get().apply {
-                loadDataWithBaseURL(FileHelper.join(FileHelper.PREFIX_RES, "raw"), raw, WebViewHelper.MIME_TYPE, WebViewHelper.CHARSET, "")
+                loadDataWithBaseURL(FileHelper.join(FileHelper.PREFIX_RES, "raw"), raw, MIME_TYPE, CHARSET, "")
             }
 
     fun fromHtml(source: String): WebView =
             get().apply {
-                loadData(source, WebViewHelper.MIME_TYPE, WebViewHelper.CHARSET)
+                loadData(source, MIME_TYPE, CHARSET)
             }
 
 }

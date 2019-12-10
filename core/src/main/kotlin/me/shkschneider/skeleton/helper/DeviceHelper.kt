@@ -35,10 +35,7 @@ object DeviceHelper {
 
     fun is64bits(): Boolean {
         val is64bits: Boolean = AndroidHelper.api() >= AndroidHelper.ANDROID_5
-        if (Build.VERSION.SDK_INT >= 21) {
-            return is64bits && Build.SUPPORTED_64_BIT_ABIS.isNotEmpty()
-        }
-        return is64bits
+        return is64bits && Build.SUPPORTED_64_BIT_ABIS.isNotEmpty()
     }
 
     val manufacturer: String

@@ -15,21 +15,13 @@ object NetworkHelper {
 
     val userAgent: String?
         get() {
-            if (Build.VERSION.SDK_INT >= 17) {
-                return WebSettings.getDefaultUserAgent(ContextHelper.applicationContext())
-            } else {
-                return SystemProperties.get("http.agent")
-            }
+            return WebSettings.getDefaultUserAgent(ContextHelper.applicationContext())
         }
 
     // Affects platform's components like DownloadManager or MediaPlayer...
     val isCleartextTrafficPermitted: Boolean
         get() {
-            if (Build.VERSION.SDK_INT >= 23) {
-                return NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted
-            } else {
-                return true
-            }
+            return NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted
         }
 
     // TODO test

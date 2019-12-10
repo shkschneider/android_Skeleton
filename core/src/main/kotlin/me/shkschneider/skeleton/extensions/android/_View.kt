@@ -56,45 +56,35 @@ fun View.setSize(width: Int, height: Int) {
 }
 
 fun View.revealOn() {
-    if (Build.VERSION.SDK_INT >= 21) {
-        addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
-            override fun onLayoutChange(v: View,
-                                        left: Int, top: Int, right: Int, bottom: Int,
-                                        oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int) {
-                removeOnLayoutChangeListener(this)
-                val width = measuredWidth / 2
-                val height = measuredHeight / 2
-                val radius = Math.max(width, height) / 2
-                if (Build.VERSION.SDK_INT >= 21) {
-                    ViewAnimationUtils.createCircularReveal(this@revealOn, width, height, 1.toFloat(), radius.toFloat()).run {
-                        // setInterpolator(new AccelerateDecelerateInterpolator());
-                        duration = ApplicationHelper.resources.getInteger(R.integer.sk_animation_medium).toLong()
-                        visibility = VISIBLE
-                        start()
-                    }
-                }
+    addOnLayoutChangeListener(object : View.OnLayoutChangeListener {
+        override fun onLayoutChange(v: View,
+                                    left: Int, top: Int, right: Int, bottom: Int,
+                                    oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int) {
+            removeOnLayoutChangeListener(this)
+            val width = measuredWidth / 2
+            val height = measuredHeight / 2
+            val radius = Math.max(width, height) / 2
+            ViewAnimationUtils.createCircularReveal(this@revealOn, width, height, 1.toFloat(), radius.toFloat()).run {
+                // setInterpolator(new AccelerateDecelerateInterpolator());
+                duration = ApplicationHelper.resources.getInteger(R.integer.sk_animation_medium).toLong()
+                visibility = VISIBLE
+                start()
             }
-        })
-    } else {
-        visibility = VISIBLE
-    }
+        }
+    })
 }
 
 fun View.revealOff() {
-    if (Build.VERSION.SDK_INT >= 21) {
-        val width = measuredWidth / 2
-        val height = measuredHeight / 2
-        val radius = width / 2
-        ViewAnimationUtils.createCircularReveal(this, width, height, radius.toFloat(), 1.toFloat()).run {
-            // setInterpolator(new AccelerateDecelerateInterpolator());
-            duration = ApplicationHelper.resources.getInteger(R.integer.sk_animation_medium).toLong()
-            addListener {
-                visibility = GONE
-            }
-            start()
+    val width = measuredWidth / 2
+    val height = measuredHeight / 2
+    val radius = width / 2
+    ViewAnimationUtils.createCircularReveal(this, width, height, radius.toFloat(), 1.toFloat()).run {
+        // setInterpolator(new AccelerateDecelerateInterpolator());
+        duration = ApplicationHelper.resources.getInteger(R.integer.sk_animation_medium).toLong()
+        addListener {
+            visibility = GONE
         }
-    } else {
-        visibility = GONE
+        start()
     }
 }
 

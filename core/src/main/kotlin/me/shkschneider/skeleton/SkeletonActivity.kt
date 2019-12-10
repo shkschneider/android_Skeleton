@@ -65,10 +65,8 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         if (enterAnim != null && exitAnim != null) {
-            if (Build.VERSION.SDK_INT >= 21) {
-                // <https://stackoverflow.com/a/28989946/603270>
-                window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
-            }
+            // <https://stackoverflow.com/a/28989946/603270>
+            window.requestFeature(Window.FEATURE_ACTIVITY_TRANSITIONS)
         }
         super.onCreate(savedInstanceState)
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
@@ -160,20 +158,12 @@ abstract class SkeletonActivity : AppCompatActivity() {
     // StatusBar
 
     fun statusBarColor(window: Window): Int {
-        if (Build.VERSION.SDK_INT >= 21) {
-            return window.statusBarColor
-        } else {
-            return Color.TRANSPARENT // Color.BLACK
-        }
+        return window.statusBarColor
     }
 
-    fun statusBarColor(window: Window, @ColorInt color: Int): Boolean {
-        if (Build.VERSION.SDK_INT >= 21) {
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = color
-            return true
-        }
-        return false
+    fun statusBarColor(window: Window, @ColorInt color: Int) {
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = color
     }
 
     // Toolbar

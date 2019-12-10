@@ -70,7 +70,6 @@ sealed class Features(val name: String) {
     object Nfc : Features(PackageManager.FEATURE_NFC)
     @RequiresApi(AndroidHelper.API_29)
     object NfcBeam : Features(PackageManager.FEATURE_NFC_BEAM)
-    @RequiresApi(AndroidHelper.API_19)
     object NfcHostCardEmulation : Features(PackageManager.FEATURE_NFC_HOST_CARD_EMULATION)
     @RequiresApi(AndroidHelper.API_24)
     object NfcHostCardEmulationNfcf : Features(PackageManager.FEATURE_NFC_HOST_CARD_EMULATION_NFCF)

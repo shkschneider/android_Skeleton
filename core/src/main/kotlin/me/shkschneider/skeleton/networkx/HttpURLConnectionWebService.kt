@@ -74,23 +74,16 @@ open class HttpURLConnectionWebService(
     }
 
     // <https://www.ietf.org/rfc/rfc2616.txt>
-    enum class Method {
+    sealed class Method(val name: String, val allowsBody: Boolean?) {
 
-        OPTIONS,
-        GET,
-        HEAD,
-        POST,
-        PUT,
-        DELETE,
-        TRACE,
-        CONNECT;
-
-        val allowsBody: Boolean
-            get() = when (this) {
-                POST, PUT, DELETE // Although SHOULD be ignored
-                -> true
-                else -> false
-            }
+        object Options : Method("OPTIONS", false)
+        object Get : Method("GET", false)
+        object Head : Method("HEAD", false)
+        object Post : Method("POST", true)
+        object Put : Method("PUT", true)
+        object Delete : Method("DELETE", null)
+        object Trace : Method("TRACE", false)
+        object Connect : Method("CONNECT", false)
 
     }
 
@@ -109,7 +102,7 @@ open class HttpURLConnectionWebService(
                         setRequestProperty(entry.key, entry.value)
                     }
                     requestMethod = method.name
-                    doOutput = method.allowsBody
+                    doOutput = method.allowsBody == true
                     if (doOutput) {
                         body?.let { body ->
                             setRequestProperty("Content-Type", MimeTypeHelper.APPLICATION_FORMURLENCODED)

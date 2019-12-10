@@ -36,7 +36,6 @@ class AutoGridLayout : FrameLayout {
         init(attrs)
     }
 
-    @RequiresApi(AndroidHelper.API_21)
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
         init(attrs)
     }

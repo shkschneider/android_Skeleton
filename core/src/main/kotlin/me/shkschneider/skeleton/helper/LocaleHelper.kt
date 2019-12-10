@@ -16,19 +16,8 @@ object LocaleHelper {
             context ?: return ContextWrapper(null)
             with(context.resources) {
                 val configuration = Configuration()
-                if (Build.VERSION.SDK_INT >= 17) {
-                    configuration.setLocale(locale)
-                } else {
-                    @Suppress("DEPRECATION")
-                    configuration.locale = locale
-                }
-                if (Build.VERSION.SDK_INT >= 17) {
-                    return ContextWrapper(context.createConfigurationContext(configuration))
-                } else {
-                    @Suppress("DEPRECATION")
-                    updateConfiguration(configuration, displayMetrics)
-                    return ContextWrapper(context)
-                }
+                configuration.setLocale(locale)
+                return ContextWrapper(context.createConfigurationContext(configuration))
             }
         }
 

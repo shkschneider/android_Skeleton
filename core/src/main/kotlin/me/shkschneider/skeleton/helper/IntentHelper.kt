@@ -231,11 +231,7 @@ object IntentHelper {
     @Suppress("DEPRECATION")
     private fun external(intent: Intent): Intent {
         return with(intent) {
-            if (Build.VERSION.SDK_INT >= 21) {
-                addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
-            } else {
-                addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET)
-            }
+            addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
         }
     }
 

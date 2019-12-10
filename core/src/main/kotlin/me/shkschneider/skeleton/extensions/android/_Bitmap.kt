@@ -114,7 +114,6 @@ object BitmapHelper {
 }
 
 // <https://stackoverflow.com/a/44525044>
-@RequiresApi(AndroidHelper.API_17)
 fun Bitmap.blur(): Bitmap { // TODO test RenderScript vs support.v8.RenderScript
     val input = Bitmap.createScaledBitmap(this, width / 2, height / 2, false)
     val output = Bitmap.createBitmap(input)
