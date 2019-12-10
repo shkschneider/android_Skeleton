@@ -145,7 +145,7 @@ object IntentHelper {
     }
 
     fun camera(file: File): Intent? {
-        if (!FeaturesHelper.has(FeaturesHelper.FEATURE_CAMERA)) {
+        if (!Features.Camera.isAvailable) {
             Logger.warning("Camera was unavailable")
             return null
         }
