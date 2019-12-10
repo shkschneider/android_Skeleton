@@ -2,7 +2,8 @@ buildscript {
     ext.versions.android = [
         sdk: [
             target: 29,
-            min   : 16 // Jelly Bean 4.1.x
+            // <https://twitter.com/minSdkVersion>
+            min   : 23
         ],
         buildTools: '29.0.0'
     ]
