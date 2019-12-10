@@ -8,6 +8,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.shkschneider'
 
 android {
+    testOptions.unitTests.returnDefaultValues = true
 }
 
 dependencies {
@@ -24,4 +25,8 @@ dependencies {
 
     version = '1.0.0' // https://developer.android.com/topic/libraries/architecture/adding-components#workmanager
     api "android.arch.work:work-runtime-ktx:${version}"
+
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+    testImplementation 'org.robolectric:robolectric:4.3'
+    testImplementation 'io.mockk:mockk:1.9'
 }
