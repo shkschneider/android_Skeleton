@@ -1,7 +1,6 @@
 package me.shkschneider.skeleton.demo
 
 import android.os.Build
-import com.squareup.leakcanary.LeakCanary
 import me.shkschneider.skeleton.SkeletonApplication
 import me.shkschneider.skeleton.demo.about.AboutActivity
 import me.shkschneider.skeleton.demo.data.DataManager
@@ -14,7 +13,7 @@ import me.shkschneider.skeleton.kotlinx.Coroutines
 import org.koin.dsl.module
 import java.util.UUID
 
-class MainApplication : SkeletonApplication() {
+open class MainApplication : SkeletonApplication() {
 
     override fun onCreate() {
         super.onCreate()
@@ -23,11 +22,6 @@ class MainApplication : SkeletonApplication() {
             factory<UUID> { UUID.randomUUID() }
         })
 
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return;
-        }
-        LeakCanary.install(this);
-
         shortcut("About")
 
         Coroutines.io {
@@ -35,7 +29,7 @@ class MainApplication : SkeletonApplication() {
         }
     }
 
-    private fun shortcut(shortcut: String) {
+    internal fun shortcut(shortcut: String) {
         if (Build.VERSION.SDK_INT >= 25) {
             ShortcutHelper.setDynamicShortcuts(ShortcutHelper.Shortcut(shortcut.toLowerCase(),
                     R.mipmap.ic_launcher,

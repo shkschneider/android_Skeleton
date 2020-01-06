@@ -104,16 +104,17 @@ class MainActivity : SkeletonActivity() {
             SkeletonFragment.newInstance(SkFragment::class)
         }
 
-        override fun getItem(position: Int): Fragment? {
+        @Throws(IndexOutOfBoundsException::class)
+        override fun getItem(position: Int): Fragment {
             return when (position) {
                 0 -> shkFragment
                 1 -> skFragment
-                else -> null
+                else -> throw IndexOutOfBoundsException()
             }
         }
 
         override fun getPageTitle(position: Int): CharSequence? {
-            return getItem(position)?.javaClass?.simpleName
+            return getItem(position).javaClass.simpleName.removeSuffix("Fragment")
         }
 
         override fun getCount(): Int {
