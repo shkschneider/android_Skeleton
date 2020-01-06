@@ -13,8 +13,10 @@ subprojects {
 
     afterEvaluate { project ->
 
+        // FIXME def isAndroid = canonicalName == 'com.android.build.gradle.api.AndroidBasePlugin'
         def isAndroidApplication = project.plugins.findPlugin('com.android.application') != null
         def isAndroidLibrary = project.plugins.findPlugin('com.android.library') != null
+        // TODO isAndroidApplicationNative // NDK
 
         if (isAndroidApplication || isAndroidLibrary) {
 
@@ -31,6 +33,7 @@ subprojects {
                     targetSdkVersion versions.android.sdk.target
                     versionCode defaultConfigVersionCode
                     versionName versions.skeleton
+                    vectorDrawables.useSupportLibrary = true
                 }
 
                 buildTypes {
@@ -74,6 +77,11 @@ subprojects {
                     checkReleaseBuilds true
                     abortOnError true
                 }
+            }
+
+            dependencies {
+                // https://developer.android.com/jetpack/androidx/versions
+                implementation 'androidx.core:core:1.1.0'
             }
 
         }

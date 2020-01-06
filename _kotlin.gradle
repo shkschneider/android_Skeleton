@@ -11,8 +11,16 @@ subprojects {
             }
         }
 
-        android {
-            if (hasKotlinAndroid) {
+        if (hasKotlinAndroid) {
+            dependencies {
+                // https://developer.android.com/kotlin/ktx
+                implementation 'androidx.core:core-ktx:1.1.0'
+                implementation 'androidx.collection:collection-ktx:1.1.0'
+            }
+        }
+
+        if (hasKotlinAndroid) {
+            android {
                 sourceSets {
                     main.java.srcDirs += 'src/main/kotlin'
                 }
