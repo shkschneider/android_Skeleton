@@ -41,7 +41,7 @@ class AboutFragment : PreferenceFragmentCompat() {
         }
         findPreference("app_revision").run {
             title = "Revision"
-            summary = BuildConfig.REVISION
+            summary = "?" // FIXME BuildConfig.REVISION
         }
         findPreference("app_variant").run {
             title = "Variant"
@@ -49,7 +49,7 @@ class AboutFragment : PreferenceFragmentCompat() {
         }
         findPreference("app_flavor").run {
             title = "Flavor"
-            summary = BuildConfig.FLAVOR.toUpperCase()
+            summary = "?" // FIXME BuildConfig.FLAVOR.toUpperCase()
         }
         // OS
         findPreference("os_version").run {

@@ -1,7 +1,7 @@
 package me.shkschneider.skeleton
 
+import android.app.Application
 import android.content.pm.ApplicationInfo
-import androidx.multidex.MultiDexApplication
 import me.shkschneider.skeleton.extensions.has
 import me.shkschneider.skeleton.helper.ContextHelper
 import me.shkschneider.skeleton.helper.DeviceHelper
@@ -16,7 +16,7 @@ import me.shkschneider.skeleton.helperx.log.Logger
  *
  * If minSdkVersion is 21+ you do not need MultiDex (nor multiDexEnabled true).
  */
-abstract class SkeletonApplication : MultiDexApplication() {
+abstract class SkeletonApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()

@@ -145,7 +145,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         // BundleHelper.pack()
     }
