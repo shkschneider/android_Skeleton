@@ -59,17 +59,6 @@ subprojects {
                     targetCompatibility JavaVersion.VERSION_1_8
                 }
 
-                // Applications and Libraries
-                if (isAndroidApplication) {
-                    flavorDimensions 'default'
-                    applicationVariants.all { variant ->
-                        variant.outputs.all { output ->
-                            outputFileName = "${applicationId}-${variant.productFlavors[0].name}" +
-                                    "_v${defaultConfig.versionName}r${defaultConfigVersionCode}" +
-                                    "-${variant.variantData.variantConfiguration.buildType.name}.apk"
-                        }
-                    }
-                }
                 if (isAndroidLibrary) resourcePrefix 'sk_'
 
                 // Lint

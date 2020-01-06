@@ -47,10 +47,6 @@ class AboutFragment : PreferenceFragmentCompat() {
             title = "Variant"
             summary = (if (ApplicationHelper.debuggable) "debug" else "release").toUpperCase()
         }
-        findPreference("app_flavor").run {
-            title = "Flavor"
-            summary = "?" // FIXME BuildConfig.FLAVOR.toUpperCase()
-        }
         // OS
         findPreference("os_version").run {
             title = "Version"

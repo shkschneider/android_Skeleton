@@ -30,27 +30,9 @@ android {
             // applicationIdSuffix '.debug'
             // versionNameSuffix '-DEBUG'
             signingConfig signingConfigs.debug
-            buildConfigField 'boolean', 'RELEASE', 'false'
         }
         release {
             signingConfig signingConfigs.release
-            buildConfigField 'boolean', 'RELEASE', 'true'
-        }
-    }
-    productFlavors {
-        alpha {
-            dimension 'default'
-            // versionNameSuffix '-ALPHA'
-            resValue 'string', 'url', 'http://android.com?alpha'
-        }
-        beta {
-            dimension 'default'
-            // versionNameSuffix '-BETA'
-            resValue 'string', 'url', 'http://android.com?beta'
-        }
-        prod {
-            dimension 'default'
-            resValue 'string', 'url', 'https://android.com'
         }
     }
     bundle {
