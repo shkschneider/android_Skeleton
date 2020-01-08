@@ -11,16 +11,12 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.fragment_sk.*
 import me.shkschneider.skeleton.SkeletonFragment
 import me.shkschneider.skeleton.demo.R
-import me.shkschneider.skeleton.extensions.TAG
 import me.shkschneider.skeleton.extensions.android.revealOn
 import me.shkschneider.skeleton.fragmentManager
 import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.javax.AlphanumComparator
-import me.shkschneider.skeleton.kotlinx.exhaustive
 import me.shkschneider.skeleton.securityx.fingerprint.Fingerprint
-import me.shkschneider.skeleton.securityx.fingerprint.FingerprintState
 import me.shkschneider.skeleton.uix.Inflater
-import me.shkschneider.skeleton.uix.Notify
 import java.lang.reflect.Modifier
 
 class SkFragment : SkeletonFragment() {
@@ -102,7 +98,7 @@ class SkFragment : SkeletonFragment() {
             Fingerprint.scan(view.context, requireNotNull(fragmentManager())) {}
             floatingActionButton.revealOn()
             floatingActionButton.setOnClickListener {
-                Fingerprint.scan(view.context, requireNotNull(fragmentManager())) { state ->
+                Fingerprint.scan(view.context, requireNotNull(fragmentManager())) { _ ->
                     // TODO state
                 }
             }

@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="UnusedResources">
 
-    <dimen name="statusBar">24dp</dimen>
+    <dimen name="sk_statusBar">24dp</dimen>
 
 </resources>

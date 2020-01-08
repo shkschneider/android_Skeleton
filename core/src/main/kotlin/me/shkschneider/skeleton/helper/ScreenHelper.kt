@@ -85,7 +85,7 @@ object ScreenHelper {
         if (resId > 0) {
             return ApplicationHelper.resources.getDimensionPixelSize(resId)
         }
-        return ApplicationHelper.resources.getDimensionPixelSize(R.dimen.statusBar)
+        return ApplicationHelper.resources.getDimensionPixelSize(R.dimen.sk_statusBar)
     }
 
     fun navigationBarHeight(): Int {
@@ -93,7 +93,7 @@ object ScreenHelper {
         if (resId > 0) {
             return ApplicationHelper.resources.getDimensionPixelSize(resId)
         }
-        return ApplicationHelper.resources.getDimensionPixelSize(R.dimen.statusBar)
+        return ApplicationHelper.resources.getDimensionPixelSize(R.dimen.sk_statusBar)
     }
 
     fun orientation(context: Context): Int {

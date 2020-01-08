@@ -1,10 +1,12 @@
 package me.shkschneider.skeleton.uix
 
+import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.annotation.IntDef
 import androidx.annotation.UiThread
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
@@ -30,6 +32,7 @@ object Notify {
     }
 
     @UiThread
+    @SuppressLint("WrongConstant")
     fun snackBar(view: View, msg: String, action: String? = null, listener: Listener? = null, duration: Int = Snackbar.LENGTH_SHORT) {
         if (msg.isBlank()) {
             Logger.warning("Message was NULL")
@@ -50,6 +53,7 @@ object Notify {
     }
 
     // TODO test
+    @SuppressLint("ResourceType")
     fun chip(@ColorRes color: Int, text: String, @DrawableRes drawable: Int? = null): Chip =
             Chip(ContextHelper.applicationContext()).apply {
                 setText(text)

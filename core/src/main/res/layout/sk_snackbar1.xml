@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/snackBar"
+    android:layout_height="@dimen/sk_snackBar"
     android:background="@color/snackBarBackgroundColor"
     android:paddingRight="@dimen/sk_spaceSmallish"
     android:paddingLeft="@dimen/sk_spaceSmallish"

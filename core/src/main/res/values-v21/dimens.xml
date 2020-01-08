@@ -1,10 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="UnusedResources">
 
-    <dimen name="actionBar">56dp</dimen>
-    <dimen name="actionBar2">112dp</dimen>
+    <dimen name="sk_actionBar">56dp</dimen>
+    <dimen name="sk_actionBar2">112dp</dimen>
 
     <!-- android.support.v4.PreferenceFragment -->
-    <dimen name="preference_fragment_padding_side">@dimen/sk_spaceTiny</dimen>
+    <dimen tools:ignore="ResourceName" name="preference_fragment_padding_side">@dimen/sk_spaceTiny</dimen>
 
 </resources>

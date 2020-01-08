@@ -87,7 +87,7 @@ class MainActivity : SkeletonActivity() {
 
         viewModel.models().observe(this, Observer {
             // update UI
-            val breakpoint: Nothing? = null
+            @Suppress("UNUSED_VARIABLE") val breakpoint: Nothing? = null
         })
     }
 

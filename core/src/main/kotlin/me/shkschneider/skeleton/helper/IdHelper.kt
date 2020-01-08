@@ -44,6 +44,7 @@ object IdHelper {
     }
 
     @RequiresPermission(Manifest.permission.READ_PHONE_STATE)
+    @SuppressLint("MissingPermission")
     fun serial(): String {
         if (Build.VERSION.SDK_INT >= 26) {
             return Build.getSerial()
