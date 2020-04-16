@@ -2,11 +2,12 @@ subprojects {
 
     afterEvaluate { project ->
 
-        def hasKotlin = project.plugins.findPlugin('kotlin') != null
         def hasKotlinAndroid = project.plugins.findPlugin('kotlin-android') != null
+        def hasKotlin = hasKotlinAndroid || project.plugins.findPlugin('kotlin') != null
 
         if (hasKotlin) {
             dependencies {
+                implementation 'com.github.shkschneider:kotlin_Skeleton:+'
                 implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk${versions.java}:${versions.kotlin}"
             }
         }
