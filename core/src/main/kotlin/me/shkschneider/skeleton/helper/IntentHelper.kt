@@ -5,12 +5,11 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.RingtoneManager
 import android.net.Uri
-import android.os.Build
 import android.provider.ContactsContract
 import android.provider.MediaStore
 import android.provider.Settings
 import me.shkschneider.skeleton.data.MimeTypeHelper
-import me.shkschneider.skeleton.extensions.android.BitmapHelper
+import me.shkschneider.skeleton.extensions.BitmapHelper
 import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.network.UrlHelper
 import java.io.File

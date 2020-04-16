@@ -11,7 +11,7 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.fragment_sk.*
 import me.shkschneider.skeleton.SkeletonFragment
 import me.shkschneider.skeleton.demo.R
-import me.shkschneider.skeleton.extensions.android.revealOn
+import me.shkschneider.skeleton.extensions.revealOn
 import me.shkschneider.skeleton.fragmentManager
 import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.javax.AlphanumComparator

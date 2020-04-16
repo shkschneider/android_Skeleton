@@ -13,7 +13,7 @@ import me.shkschneider.skeleton.SkeletonActivity
 import me.shkschneider.skeleton.SkeletonFragment
 import me.shkschneider.skeleton.demo.R
 import me.shkschneider.skeleton.demo.about.AboutActivity
-import me.shkschneider.skeleton.extensions.android.Intent
+import me.shkschneider.skeleton.extensions.Intent
 import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.viewModel
 import org.koin.android.ext.android.inject

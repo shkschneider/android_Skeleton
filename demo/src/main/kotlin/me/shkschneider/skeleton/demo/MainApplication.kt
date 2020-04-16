@@ -5,7 +5,7 @@ import me.shkschneider.skeleton.SkeletonApplication
 import me.shkschneider.skeleton.demo.about.AboutActivity
 import me.shkschneider.skeleton.demo.data.DataManager
 import me.shkschneider.skeleton.di.koin
-import me.shkschneider.skeleton.extensions.android.Intent
+import me.shkschneider.skeleton.extensions.Intent
 import me.shkschneider.skeleton.helper.ContextHelper
 import me.shkschneider.skeleton.helper.IntentHelper
 import me.shkschneider.skeleton.helper.ShortcutHelper

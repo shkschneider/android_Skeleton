@@ -10,7 +10,7 @@ import android.os.Build
 import androidx.annotation.IntRange
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import me.shkschneider.skeleton.extensions.android.Intent
+import me.shkschneider.skeleton.extensions.Intent
 import me.shkschneider.skeleton.helperx.SystemServices
 import me.shkschneider.skeleton.kotlinx.DateTime
 import java.util.concurrent.TimeUnit

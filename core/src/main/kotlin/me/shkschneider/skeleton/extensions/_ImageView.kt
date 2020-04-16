@@ -1,8 +1,7 @@
-package me.shkschneider.skeleton.extensions.android
+package me.shkschneider.skeleton.extensions
 
 import android.widget.ImageView
 import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
 
 fun ImageView.tint(@ColorInt color: Int) {
     setColorFilter(color)

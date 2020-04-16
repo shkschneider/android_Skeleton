@@ -1,6 +1,5 @@
-package me.shkschneider.skeleton.extensions.android
+package me.shkschneider.skeleton.extensions
 
-import android.os.Build
 import android.view.View
 import android.webkit.WebView
 import me.shkschneider.skeleton.data.CharsetHelper

@@ -11,9 +11,9 @@ import androidx.fragment.app.DialogFragment
 import kotlinx.android.synthetic.main.sk_fingerprint_dialog.*
 import me.shkschneider.skeleton.R
 import me.shkschneider.skeleton.extensions.TAG
-import me.shkschneider.skeleton.extensions.android.cancelable
-import me.shkschneider.skeleton.extensions.android.dimBehind
-import me.shkschneider.skeleton.extensions.android.tint
+import me.shkschneider.skeleton.extensions.cancelable
+import me.shkschneider.skeleton.extensions.dimBehind
+import me.shkschneider.skeleton.extensions.tint
 import me.shkschneider.skeleton.helperx.SystemServices
 import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.kotlinx.exhaustive

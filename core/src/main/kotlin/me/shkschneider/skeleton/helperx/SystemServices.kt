@@ -66,7 +66,7 @@ import android.view.textclassifier.TextClassificationManager
 import android.view.textservice.TextServicesManager
 import androidx.annotation.RequiresApi
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
-import me.shkschneider.skeleton.extensions.android.getSystemService
+import me.shkschneider.skeleton.extensions.getSystemService
 import me.shkschneider.skeleton.helper.AndroidHelper
 import me.shkschneider.skeleton.helper.ContextHelper
 import kotlin.reflect.KClass

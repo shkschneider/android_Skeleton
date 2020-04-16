@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.extensions.android
+package me.shkschneider.skeleton.extensions
 
 import android.content.res.Resources
 import android.graphics.Bitmap

@@ -6,12 +6,9 @@ import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.LinearLayout
-import androidx.annotation.RequiresApi
 import androidx.core.view.GravityCompat
-import androidx.recyclerview.widget.RecyclerView
-import me.shkschneider.skeleton.extensions.android.ViewHelper
+import me.shkschneider.skeleton.extensions.ViewHelper
 import me.shkschneider.skeleton.extensions.has
-import me.shkschneider.skeleton.helper.AndroidHelper
 
 private const val HORIZONTAL = LinearLayout.HORIZONTAL
 private const val VERTICAL = LinearLayout.VERTICAL

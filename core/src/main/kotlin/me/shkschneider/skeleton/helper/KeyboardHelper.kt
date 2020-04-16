@@ -13,8 +13,8 @@ import android.widget.EditText
 import android.widget.TextView
 
 import me.shkschneider.skeleton.SkeletonReceiver
-import me.shkschneider.skeleton.extensions.android.contentView
-import me.shkschneider.skeleton.extensions.android.views
+import me.shkschneider.skeleton.extensions.contentView
+import me.shkschneider.skeleton.extensions.views
 import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.helperx.Metrics
 

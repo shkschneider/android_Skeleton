@@ -1,10 +1,8 @@
 package me.shkschneider.skeleton.uix
 
 import android.app.Activity
-import android.app.Dialog
 import android.content.DialogInterface
 import android.graphics.drawable.Drawable
-import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.widget.Button
@@ -13,12 +11,9 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.UiThread
-import androidx.appcompat.app.AppCompatDialog
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import me.shkschneider.skeleton.R
-import me.shkschneider.skeleton.extensions.android.bottomSheetBehavior
-import me.shkschneider.skeleton.extensions.android.expand
+import me.shkschneider.skeleton.extensions.expand
 import me.shkschneider.skeleton.helperx.Metrics
 
 // <https://github.com/javiersantos/BottomDialogs>

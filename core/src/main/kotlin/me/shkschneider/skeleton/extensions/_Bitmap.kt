@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.extensions.android
+package me.shkschneider.skeleton.extensions
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -17,9 +17,7 @@ import android.util.Base64
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.IntRange
-import androidx.annotation.RequiresApi
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
-import me.shkschneider.skeleton.helper.AndroidHelper
 import me.shkschneider.skeleton.helper.ApplicationHelper
 import me.shkschneider.skeleton.helper.ContextHelper
 import me.shkschneider.skeleton.helperx.log.Logger
