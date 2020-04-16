@@ -80,9 +80,9 @@ dependencies {
     version = '2.71828' // https://github.com/square/picasso
     implementation "com.squareup.picasso:picasso:${version}"
 
-    version = '0.30.1' // https://github.com/facebook/flipper
+    version = '0.31.2' // https://github.com/facebook/flipper
     debugImplementation "com.facebook.flipper:flipper:${version}"
     debugImplementation "com.facebook.flipper:flipper-network-plugin:${version}"
-    debugImplementation "com.facebook.soloader:soloader:0.5.1"
+    debugImplementation "com.facebook.soloader:soloader:0.8.2"
     releaseImplementation "com.facebook.flipper:flipper-noop:${version}"
 }

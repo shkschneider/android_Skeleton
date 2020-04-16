@@ -13,7 +13,7 @@ android {
 dependencies {
     implementation project(':core')
 
-    version = '2.0.0' // https://developer.android.com/topic/libraries/architecture/adding-components#room
+    version = '2.2.5' // https://developer.android.com/topic/libraries/architecture/adding-components#room
     api "androidx.room:room-runtime:${version}"
     // kapt "androidx.room:room-compiler:${version}"
 }
