@@ -1,11 +1,9 @@
 package me.shkschneider.skeleton.securityx.fingerprint
 
 import android.content.Context
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import me.shkschneider.skeleton.extensions.TAG
 import me.shkschneider.skeleton.helperx.SystemServices
-import me.shkschneider.skeleton.securityx.FingerprintDialogFragment
 
 object Fingerprint {
 

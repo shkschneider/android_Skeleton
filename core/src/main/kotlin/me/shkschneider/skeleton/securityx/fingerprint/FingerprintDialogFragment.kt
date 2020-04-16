@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.securityx
+package me.shkschneider.skeleton.securityx.fingerprint
 
 import android.app.Dialog
 import android.os.Bundle
@@ -17,9 +17,6 @@ import me.shkschneider.skeleton.extensions.tint
 import me.shkschneider.skeleton.helperx.SystemServices
 import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.kotlinx.exhaustive
-import me.shkschneider.skeleton.securityx.fingerprint.FingerprintCallback
-import me.shkschneider.skeleton.securityx.fingerprint.FingerprintHandler
-import me.shkschneider.skeleton.securityx.fingerprint.FingerprintState
 import me.shkschneider.skeleton.uix.Notify
 import java.util.concurrent.TimeUnit
 
