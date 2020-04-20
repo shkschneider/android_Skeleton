@@ -3,9 +3,6 @@ package me.shkschneider.skeleton.networkx
 import android.os.AsyncTask
 import androidx.annotation.IntRange
 import androidx.annotation.Size
-import me.shkschneider.skeleton.data.CharsetHelper
-import me.shkschneider.skeleton.data.MimeTypeHelper
-import me.shkschneider.skeleton.data.StreamHelper
 import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.network.UrlHelper
 import java.io.BufferedWriter

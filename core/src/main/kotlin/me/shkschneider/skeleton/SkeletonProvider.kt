@@ -4,7 +4,6 @@ import android.content.ContentProvider
 import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
-import me.shkschneider.skeleton.data.MimeTypeHelper
 
 abstract class SkeletonProvider : ContentProvider() {
 

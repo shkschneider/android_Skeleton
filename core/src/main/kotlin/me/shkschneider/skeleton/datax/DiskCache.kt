@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.datax
 
-import me.shkschneider.skeleton.data.DataHelper
 import me.shkschneider.skeleton.data.FileHelper
 import java.io.File
 import java.io.Serializable

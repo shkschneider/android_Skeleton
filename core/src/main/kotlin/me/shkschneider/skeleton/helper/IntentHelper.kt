@@ -8,7 +8,6 @@ import android.net.Uri
 import android.provider.ContactsContract
 import android.provider.MediaStore
 import android.provider.Settings
-import me.shkschneider.skeleton.data.MimeTypeHelper
 import me.shkschneider.skeleton.extensions.BitmapHelper
 import me.shkschneider.skeleton.helperx.log.Logger
 import me.shkschneider.skeleton.network.UrlHelper
