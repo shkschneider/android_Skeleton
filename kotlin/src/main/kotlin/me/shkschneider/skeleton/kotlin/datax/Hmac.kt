@@ -8,6 +8,7 @@ import javax.crypto.spec.SecretKeySpec
 
 object Hmac {
 
+    @Suppress("MemberVisibilityCanBePrivate")
     const val ALGORITHM = "HmacSHA1"
 
     @Throws(NoSuchAlgorithmException::class, InvalidKeyException::class)

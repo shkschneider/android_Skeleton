@@ -104,7 +104,7 @@ enum class BytesUnit {
 
     companion object {
 
-        fun ordinalOf(ordinal: Int): BytesUnit? = BytesUnit.values().firstOrNull { it.ordinal == ordinal }
+        fun ordinalOf(ordinal: Int): BytesUnit? = values().firstOrNull { it.ordinal == ordinal }
 
     }
 

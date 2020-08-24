@@ -29,11 +29,11 @@ open class CsvReader(
     }
 
     fun readNext(): List<String>? {
-        try {
+        return try {
             val nextLine = getNextLine()
-            return parseLine(nextLine)
+            parseLine(nextLine)
         } catch (e: IOException) {
-            return null
+            null
         }
     }
 

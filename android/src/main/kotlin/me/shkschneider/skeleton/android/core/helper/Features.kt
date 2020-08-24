@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.android.core.helper
 
 import android.content.pm.PackageManager
+import android.os.Build
 import androidx.annotation.RequiresApi
 
 // <http://developer.android.com/reference/android/content/pm/PackageManager.html>
@@ -129,6 +130,7 @@ sealed class Features(val name: String) {
     object VerifiedBoot : Features(PackageManager.FEATURE_VERIFIED_BOOT)
     @RequiresApi(AndroidHelper.API_26)
     object VrHeadtracking : Features(PackageManager.FEATURE_VR_HEADTRACKING)
+    @RequiresApi(AndroidHelper.API_24)
     @Suppress("DEPRECATION")
     @Deprecated("Use FEATURE_VR_MODE_HIGH_PERFORMANCE instead.")
     object VrMode : Features(PackageManager.FEATURE_VR_MODE)

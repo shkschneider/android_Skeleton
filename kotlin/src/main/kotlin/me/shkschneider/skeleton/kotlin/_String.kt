@@ -1,22 +1,24 @@
 package me.shkschneider.skeleton.kotlin
 
+import java.util.Locale
+
 // Cases
 
 internal fun case(string: String): List<String> =
-    string.toLowerCase()
+    string.toLowerCase(Locale.getDefault())
             .split("[^a-zA-Z]".toRegex())
             .filter { it.isNotBlank() }
 
 fun String.camelCase(): String {
-    var camelCase = ""
-    case(this).forEach {
-        camelCase += if (camelCase.isEmpty()) it else it.capitalize()
-    }
-    return camelCase
+    return StringBuilder().apply {
+        case(this@camelCase).forEach {
+            append(if (isEmpty()) it else it.capitalize(Locale.getDefault()))
+        }
+    }.toString()
 }
 
 fun String.pascalCase(): String =
-    camelCase().capitalize()
+    camelCase().capitalize(Locale.getDefault())
 
 fun String.snakeCase(): String =
     case(this).joinToString(separator = "_")
@@ -33,10 +35,10 @@ fun String.oneline() =
 
 fun String.ellipsize(maxLength: Int, reverse: Boolean = false): String {
     if (length > maxLength) {
-        if (reverse) {
-            return Typography.ellipsis + substring((length - maxLength - 3), length)
+        return if (reverse) {
+            Typography.ellipsis + substring((length - maxLength - 3), length)
         } else {
-            return substring(0, maxLength - 3) + Typography.ellipsis
+            substring(0, maxLength - 3) + Typography.ellipsis
         }
     }
     return this

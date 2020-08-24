@@ -31,7 +31,7 @@ open class CsvWriter(
             if (quote != NULL) {
                 stringBuilder.append(quote)
             }
-            (0 until nextElement.length)
+            nextElement.indices
                     .map { nextElement[it] }
                     .forEach {
                         if (escape != NULL && it == quote) {
