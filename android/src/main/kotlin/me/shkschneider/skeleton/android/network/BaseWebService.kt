@@ -35,16 +35,15 @@ abstract class BaseWebService(val gson: Gson) {
     inline fun <reified T : Any> deserialize(content: String): T? =
             Deserializer(gson, T::class).deserialize(content)
 
-    inner class Deserializer<T : Any>(private val gson: Gson, private val klass: KClass<T>) : ResponseDeserializable<T> {
+    class Deserializer<T : Any>(private val gson: Gson, private val klass: KClass<T>) : ResponseDeserializable<T> {
 
-        override fun deserialize(content: String): T? {
+        override fun deserialize(content: String): T? =
             try {
-                return gson.fromJson(content, klass.java)
+                gson.fromJson(content, klass.java)
             } catch (e: JsonSyntaxException) {
                 Logger.wtf(e)
-                return null
+                null
             }
-        }
 
     }
 

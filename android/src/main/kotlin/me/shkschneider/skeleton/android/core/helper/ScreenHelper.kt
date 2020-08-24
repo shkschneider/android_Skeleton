@@ -11,6 +11,8 @@ import me.shkschneider.skeleton.android.R
 import me.shkschneider.skeleton.android.log.Logger
 import me.shkschneider.skeleton.android.core.helperx.Metrics
 import me.shkschneider.skeleton.android.core.helperx.SystemServices
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 object ScreenHelper {
 
@@ -66,7 +68,7 @@ object ScreenHelper {
         display?.getRealSize(point)
         val w = point.x / displayMetrics.xdpi
         val h = point.y / displayMetrics.ydpi
-        val inches = Math.sqrt(Math.pow(w.toDouble(), 2.0) + Math.pow(h.toDouble(), 2.0)).toFloat()
+        val inches = sqrt(w.toDouble().pow(2.0) + h.toDouble().pow(2.0)).toFloat()
         Logger.verbose("Inches: $inches\"")
         return inches
     }

@@ -9,18 +9,13 @@ import me.shkschneider.skeleton.android.core.helper.ContextHelper
 
 object Inflater {
 
-    fun inflate(layoutInflater: LayoutInflater, container: ViewGroup?, @LayoutRes layout: Int): View {
-        return layoutInflater.inflate(layout, container, false)
-    }
+    fun inflate(layoutInflater: LayoutInflater, container: ViewGroup?, @LayoutRes layout: Int): View =
+        layoutInflater.inflate(layout, container, false)
 
-    fun inflate(container: ViewGroup, @LayoutRes layout: Int): View {
-        val layoutInflater = LayoutInflater.from(container.context)
-        return inflate(layoutInflater, container, layout)
-    }
+    fun inflate(container: ViewGroup, @LayoutRes layout: Int): View =
+        inflate(LayoutInflater.from(container.context), container, layout)
 
-    fun inflate(@LayoutRes layout: Int): View {
-        val layoutInflater = LayoutInflater.from(ContextHelper.applicationContext())
-        return inflate(layoutInflater, null, layout)
-    }
+    fun inflate(@LayoutRes layout: Int): View =
+        inflate(LayoutInflater.from(ContextHelper.applicationContext()), null, layout)
 
 }

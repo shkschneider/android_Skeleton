@@ -1,0 +1,19 @@
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="UnusedResources">
+
+    <!-- Android colors <http://developer.android.com/reference/android/graphics/Color.html> -->
+
+    <color name="sk_android_black">@android:color/black</color>
+    <color name="sk_android_dkGrey">#ff444444</color>
+    <color name="sk_android_grey">#ff888888</color>
+    <color name="sk_android_ltGrey">#ffcccccc</color>
+    <color name="sk_android_white">@android:color/white</color>
+    <color name="sk_android_background">#fff3f3f3</color>
+    <color name="sk_android_transparent">@android:color/transparent</color>
+
+    <!-- Android color <http://developer.android.com/intl/ru/distribute/tools/promote/brand.html> -->
+
+    <color name="sk_android">#a4c639</color>
+
+</resources>

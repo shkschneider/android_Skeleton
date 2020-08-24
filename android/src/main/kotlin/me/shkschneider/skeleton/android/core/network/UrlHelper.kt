@@ -10,50 +10,41 @@ import java.net.URLEncoder
 
 object UrlHelper {
 
-    fun builder(): Uri.Builder {
-        return Uri.Builder()
-    }
+    fun builder(): Uri.Builder =
+        Uri.Builder()
 
-    fun builder(url: String): Uri.Builder {
-        return Uri.parse(url).buildUpon()
-    }
+    fun builder(url: String): Uri.Builder =
+        Uri.parse(url).buildUpon()
 
-    fun valid(url: String): Boolean {
-        return URLUtil.isValidUrl(url)
-    }
+    fun valid(url: String): Boolean =
+        URLUtil.isValidUrl(url)
 
-    fun http(url: String): Boolean {
-        return URLUtil.isHttpUrl(url)
-    }
+    fun http(url: String): Boolean =
+        URLUtil.isHttpUrl(url)
 
-    fun https(url: String): Boolean {
-        return URLUtil.isHttpsUrl(url)
-    }
+    fun https(url: String): Boolean =
+        URLUtil.isHttpsUrl(url)
 
-    fun encode(string: String): String? {
-         try {
-             return URLEncoder.encode(string, Charsets.UTF8)
-        } catch (e: UnsupportedEncodingException) {
-            Logger.wtf(e)
-             return null
-        }
-    }
-
-    fun decode(string: String): String? {
+    fun encode(string: String): String? =
         try {
-            return URLDecoder.decode(string, Charsets.UTF8)
+            URLEncoder.encode(string, Charsets.UTF8)
         } catch (e: UnsupportedEncodingException) {
             Logger.wtf(e)
-            return null
+            null
         }
-    }
 
-    fun uri(builder: Uri.Builder): Uri {
-        return builder.build()
-    }
+    fun decode(string: String): String? =
+        try {
+            URLDecoder.decode(string, Charsets.UTF8)
+        } catch (e: UnsupportedEncodingException) {
+            Logger.wtf(e)
+            null
+        }
 
-    fun url(uri: Uri): String {
-        return uri.toString()
-    }
+    fun uri(builder: Uri.Builder): Uri =
+        builder.build()
+
+    fun url(uri: Uri): String =
+        uri.toString()
 
 }

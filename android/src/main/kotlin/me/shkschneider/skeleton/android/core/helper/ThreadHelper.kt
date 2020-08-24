@@ -25,7 +25,7 @@ object ThreadHelper {
     }
 
     fun backgroundThread(runnable: Runnable): FutureTask<*> {
-        val futureTask = FutureTask<Void>(Runnable { Thread(runnable).start() }, null)
+        val futureTask = FutureTask<Void>({ Thread(runnable).start() }, null)
         futureTask.run()
         return futureTask
     }

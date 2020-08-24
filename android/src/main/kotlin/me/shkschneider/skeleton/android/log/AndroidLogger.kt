@@ -20,7 +20,7 @@ object AndroidLogger : ILogger {
         // <https://developer.android.com/reference/android/util/Log.html>
         // <https://developer.android.com/studio/debug/am-logcat>
         val tag = ContextHelper.applicationContext().packageName.ellipsize(23, reverse = true)
-        var fingerprint = if (ApplicationHelper.debuggable) Logger.fingerprint else ""
+        val fingerprint = if (ApplicationHelper.debuggable) Logger.fingerprint else ""
         msg.split("\n").forEach { line ->
             when (level) {
                 VERBOSE -> Log.v(tag, fingerprint + line, throwable)

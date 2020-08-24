@@ -10,7 +10,7 @@ import android.os.Build
 import androidx.annotation.IntRange
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import me.shkschneider.skeleton.android.core.extensions.Intent
+import me.shkschneider.skeleton.android.core.extensions.intent
 import me.shkschneider.skeleton.android.core.helperx.SystemServices
 import me.shkschneider.skeleton.android.core.kotlinx.DateTime
 import java.util.concurrent.TimeUnit
@@ -44,7 +44,7 @@ object NotificationHelper {
     }
 
     fun pendingIntent(activity: Activity): PendingIntent {
-        return pendingIntent(activity, Intent(activity, activity::class))
+        return pendingIntent(activity, intent(activity, activity::class))
     }
 
     class Builder : NotificationCompat.Builder {

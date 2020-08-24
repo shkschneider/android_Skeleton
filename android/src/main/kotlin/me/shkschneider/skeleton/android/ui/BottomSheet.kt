@@ -175,9 +175,8 @@ open class BottomSheet(val builder: Builder) {
         }
 
         @UiThread
-        fun build(): BottomSheet {
-            return BottomSheet(this)
-        }
+        fun build(): BottomSheet =
+            BottomSheet(this)
 
     }
 

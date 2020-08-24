@@ -8,7 +8,7 @@ import android.app.job.JobService
 import android.os.PersistableBundle
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
-import me.shkschneider.skeleton.android.core.extensions.ComponentName
+import me.shkschneider.skeleton.android.core.extensions.componentName
 import me.shkschneider.skeleton.android.core.helper.AndroidHelper
 import me.shkschneider.skeleton.android.core.helper.ContextHelper
 import me.shkschneider.skeleton.android.core.helperx.SystemServices
@@ -24,7 +24,7 @@ open class JobManager(
 ) {
 
     @SuppressLint("JobSchedulerService")
-    private val builder: JobInfo.Builder = JobInfo.Builder(this.id, ComponentName(ContextHelper.applicationContext(), cls::class))
+    private val builder: JobInfo.Builder = JobInfo.Builder(this.id, componentName(ContextHelper.applicationContext(), cls::class))
 
     fun setExtras(extras: PersistableBundle): JobManager {
         builder.setExtras(extras)

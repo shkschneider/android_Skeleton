@@ -49,14 +49,13 @@ object DiskCache {
         @Synchronized
         fun clear() {
             if (dir.exists()) {
-                dir.list().map { FileHelper.join(dir.absolutePath, it) }
-                        .forEach { FileHelper.get(it).delete() }
+                dir.list()?.map { FileHelper.join(dir.absolutePath, it) }?.forEach { FileHelper.get(it).delete() }
             }
         }
 
         fun size(): Int {
             val dir = DataHelper.External.cache()
-            return dir?.exists()?.let { dir.list().size } ?: 0
+            return dir?.exists()?.let { dir.list()?.size } ?: 0
         }
 
     }

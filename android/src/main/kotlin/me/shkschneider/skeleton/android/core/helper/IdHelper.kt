@@ -7,6 +7,7 @@ import android.os.Build
 import android.provider.Settings
 import androidx.annotation.RequiresPermission
 import me.shkschneider.skeleton.android.log.Logger
+import java.util.Locale
 import java.util.UUID
 
 private const val GOOGLE_SERVICE_FRAMEWORK_URI = "content://com.google.android.gsf.gservices"
@@ -23,11 +24,11 @@ private const val ANDROID_ID = "android_id"
 object IdHelper {
 
     // <http://stackoverflow.com/q/22743087>
+    @SuppressLint("Recycle")
     @RequiresPermission("com.google.android.providers.gsf.permission.READ_GSERVICES")
     @Deprecated("Use InstanceID", ReplaceWith("FirebaseInstanceId.getInstance().id"))
     fun googleServiceFrameworkId(): String? {
-        val cursor = ContextHelper.applicationContext().contentResolver.query(Uri.parse(GOOGLE_SERVICE_FRAMEWORK_URI), null, null, arrayOf(ANDROID_ID), null)
-                ?: return null
+        val cursor = ContextHelper.applicationContext().contentResolver.query(Uri.parse(GOOGLE_SERVICE_FRAMEWORK_URI), null, null, arrayOf(ANDROID_ID), null) ?: return null
         var gsfId: String? = null
         try {
             if (!cursor.moveToFirst() || cursor.columnCount < 2) {
@@ -62,19 +63,17 @@ object IdHelper {
                 Logger.warning("AndroidId was NULL")
                 return null
             }
-            return androidId.toLowerCase()
+            return androidId.toLowerCase(Locale.getDefault())
         } catch (e: SecurityException) {
             Logger.wtf(e)
             return null
         }
     }
 
-    fun uuid(id: String): String {
-        return UUID.nameUUIDFromBytes(id.toByteArray()).toString()
-    }
+    fun uuid(id: String): String =
+        UUID.nameUUIDFromBytes(id.toByteArray()).toString()
 
-    fun randomUuid(): String {
-        return UUID.randomUUID().toString()
-    }
+    fun randomUuid(): String =
+        UUID.randomUUID().toString()
 
 }

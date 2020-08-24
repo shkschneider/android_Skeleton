@@ -20,43 +20,38 @@ object FileHelper {
 
     fun join(dirname: String, basename: String): String {
         val file = File(dirname, basename)
-        try {
-            return file.canonicalPath
+        return try {
+            file.canonicalPath
         } catch (e: IOException) {
             Logger.wtf(e)
-            return file.path
+            file.path
         }
     }
 
-    fun get(path: String): File {
-        return File(path)
-    }
+    fun get(path: String): File =
+        File(path)
 
-    fun openRaw(@RawRes id: Int): InputStream? {
+    fun openRaw(@RawRes id: Int): InputStream? =
         try {
-            return ApplicationHelper.resources.openRawResource(id)
+            ApplicationHelper.resources.openRawResource(id)
         } catch (e: Resources.NotFoundException) {
             Logger.wtf(e)
-            return null
+            null
         }
-    }
 
-    fun openAsset(assetName: String): InputStream? {
-        return AssetsHelper.open(assetName)
-    }
+    fun openAsset(assetName: String): InputStream? =
+        AssetsHelper.open(assetName)
 
-    fun readBitmap(file: File): Bitmap? {
-        return BitmapHelper.fromFile(file)
-    }
+    fun readBitmap(file: File): Bitmap? =
+        BitmapHelper.fromFile(file)
 
-    fun writeBitmap(file: File, bitmap: Bitmap): Boolean {
+    fun writeBitmap(file: File, bitmap: Bitmap): Boolean =
         try {
             val fileOutputStream = FileOutputStream(file)
-            return bitmap.compress(Bitmap.CompressFormat.PNG, 90, fileOutputStream)
+            bitmap.compress(Bitmap.CompressFormat.PNG, 90, fileOutputStream)
         } catch (e: FileNotFoundException) {
             Logger.wtf(e)
-            return false
+            false
         }
-    }
 
 }

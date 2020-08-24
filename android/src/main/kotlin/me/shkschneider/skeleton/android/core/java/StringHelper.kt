@@ -6,6 +6,9 @@ import me.shkschneider.skeleton.android.core.helper.LocaleHelper
 import me.shkschneider.skeleton.android.log.Logger
 import java.text.Normalizer
 import java.text.NumberFormat
+import java.util.Locale
+import kotlin.math.ln
+import kotlin.math.pow
 
 object StringHelper {
 
@@ -15,42 +18,36 @@ object StringHelper {
     val NUMERIC = ('0' until '9').toString()
     val HEX = NUMERIC + ALPHA.substring(0, 6)
 
-    fun hexadecimal(string: String): Boolean {
-        return string.toLowerCase().all {
+    fun hexadecimal(string: String): Boolean =
+        string.toLowerCase(Locale.getDefault()).all {
             it in ('a' until 'f') || it.isDigit()
         }
-    }
 
-    fun url(string: String): Boolean {
-        return string.matches(Patterns.WEB_URL.toRegex())
-    }
+    fun url(string: String): Boolean =
+        string.matches(Patterns.WEB_URL.toRegex())
 
-    fun email(string: String): Boolean {
-        return string.matches(Patterns.PHONE.toRegex())
-    }
+    fun email(string: String): Boolean =
+        string.matches(Patterns.PHONE.toRegex())
 
-    fun phone(string: String): Boolean {
-        return string.matches(Patterns.PHONE.toRegex())
-    }
+    fun phone(string: String): Boolean =
+        string.matches(Patterns.PHONE.toRegex())
 
-    fun count(string: String, s: String): Int {
-        return string.count { s.contains(it) }
-    }
+    fun count(string: String, s: String): Int =
+        string.count { s.contains(it) }
 
-    fun ipAddress(string: String): Boolean {
-        return string.matches(Patterns.IP_ADDRESS.toRegex())
-    }
+    fun ipAddress(string: String): Boolean =
+        string.matches(Patterns.IP_ADDRESS.toRegex())
 
     // <http://stackoverflow.com/a/3758880>
     fun humanReadableSize(@IntRange(from = 0) bytes: Long, binary: Boolean = true): String {
         val unit = if (binary) 1024 else 1000
         if (bytes < unit) {
-            return bytes.toString() + " B"
+            return "$bytes B"
         }
-        val exp = (Math.log(bytes.toDouble()) / Math.log(unit.toDouble())).toInt()
+        val exp = (ln(bytes.toDouble()) / ln(unit.toDouble())).toInt()
         return String.format(LocaleHelper.Device.locale(),
                 "%.1.toFloat() %sB",
-                bytes / Math.pow(unit.toDouble(), exp.toDouble()),
+                bytes / unit.toDouble().pow(exp.toDouble()),
                 (if (binary) "KMGTPE" else "kMGTPE")[exp - 1] + (if (binary) "i" else ""))
     }
 
@@ -64,14 +61,13 @@ object StringHelper {
         return string
     }
 
-    fun number(number: Int): String? {
+    fun number(number: Int): String? =
         try {
-            return NumberFormat.getNumberInstance(LocaleHelper.Device.locale()).format(number)
+            NumberFormat.getNumberInstance(LocaleHelper.Device.locale()).format(number)
         } catch (e: IllegalArgumentException) {
             Logger.wtf(e)
-            return null
+            null
         }
-    }
 
     // <http://stackoverflow.com/a/9855338>
     fun hexadecimal(bytes: ByteArray): String {
@@ -86,12 +82,11 @@ object StringHelper {
         return result.toString()
     }
 
-    fun cData(string: String): String {
-        return string.takeIf {
+    fun cData(string: String): String =
+        string.takeIf {
             ! it.startsWith("<![CDATA[")
         }?.apply {
             return "<![CDATA[$this]]>"
         } ?: string
-    }
 
 }

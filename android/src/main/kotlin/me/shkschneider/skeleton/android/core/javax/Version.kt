@@ -18,7 +18,7 @@ open class Version(version: String) : Comparable<Version> {
 
     override fun compareTo(other: Version): Int {
         val version2 = other.toList()
-        val size = Math.max(version.size, version2.size)
+        val size = version.size.coerceAtLeast(version2.size)
         0.rangeTo(size).forEach { i ->
             try {
                 // Process as number

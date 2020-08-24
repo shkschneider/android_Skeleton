@@ -15,7 +15,7 @@ class SkeletonLiveData<T>(
     }
     private var old: T? = initialValue
 
-    override protected fun postValue(value: T?) = with(value ?: fallback) {
+    override fun postValue(value: T?) = with(value ?: fallback) {
         when {
             filter != null && !filter.invoke(this) -> return
             distinct && old == this -> return

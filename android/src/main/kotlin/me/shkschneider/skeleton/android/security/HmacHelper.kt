@@ -28,8 +28,7 @@ object HmacHelper {
         }
     }
 
-    fun algorithm(): String {
-        return ALGORITHM
-    }
+    fun algorithm(): String =
+        ALGORITHM
 
 }

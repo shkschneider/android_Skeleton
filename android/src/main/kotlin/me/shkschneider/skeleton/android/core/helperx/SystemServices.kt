@@ -97,6 +97,8 @@ object SystemServices {
     fun displayManager() = get(DisplayManager::class)
     fun downloadManager() = get(DownloadManager::class)
     fun dropBoxManager() = get(DropBoxManager::class)
+    @Suppress("DEPRECATION")
+    @Deprecated("Deprecated in Android.", ReplaceWith("BiometricManager"))
     fun fingerprintManager(context: Context) = FingerprintManagerCompat.from(context)
     @RequiresApi(AndroidHelper.API_24)
     fun hardwarePropertiesService() = get(HardwarePropertiesManager::class)

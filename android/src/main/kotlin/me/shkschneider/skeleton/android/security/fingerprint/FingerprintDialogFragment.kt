@@ -44,7 +44,7 @@ class FingerprintDialogFragment : DialogFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) =
-            inflater.inflate(R.layout.sk_fingerprint_dialog, container, false)
+            inflater.inflate(R.layout.sk_fingerprint_dialog, container, false) as View
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
             super.onCreateDialog(savedInstanceState).also { dialog ->
@@ -54,11 +54,6 @@ class FingerprintDialogFragment : DialogFragment() {
                     onFingerprintState(FingerprintState.Cancel)
                 }
             }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        // TODO if unavailable, callback
-    }
 
     override fun onResume() {
         super.onResume()
@@ -73,7 +68,7 @@ class FingerprintDialogFragment : DialogFragment() {
     // region State
 
     private val fingerprintHandler: FingerprintHandler by lazy {
-        FingerprintHandler(SystemServices.fingerprintManager(requireNotNull(context)), { onFingerprintState(it) })
+        FingerprintHandler(SystemServices.fingerprintManager(requireNotNull(context))) { onFingerprintState(it) }
     }
     lateinit var callback: FingerprintCallback
 

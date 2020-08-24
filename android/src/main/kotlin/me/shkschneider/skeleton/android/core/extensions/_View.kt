@@ -63,7 +63,7 @@ fun View.revealOn() {
             removeOnLayoutChangeListener(this)
             val width = measuredWidth / 2
             val height = measuredHeight / 2
-            val radius = Math.max(width, height) / 2
+            val radius = width.coerceAtLeast(height) / 2
             ViewAnimationUtils.createCircularReveal(this@revealOn, width, height, 1.toFloat(), radius.toFloat()).run {
                 // setInterpolator(new AccelerateDecelerateInterpolator());
                 duration = ApplicationHelper.resources.getInteger(R.integer.sk_animation_medium).toLong()

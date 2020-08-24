@@ -12,11 +12,10 @@ abstract class SkeletonDialog : DialogFragment() {
     val alive: Boolean
         get() = dialog?.isShowing ?: false
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = super.onCreateDialog(savedInstanceState)
-        dialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
-        return dialog
-    }
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog =
+        super.onCreateDialog(savedInstanceState).also { dialog ->
+            dialog.window?.requestFeature(Window.FEATURE_NO_TITLE)
+        }
 
     @UiThread
     fun dimBehind(dim: Boolean) {

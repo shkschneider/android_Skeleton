@@ -1,7 +1,6 @@
 package me.shkschneider.skeleton.android.core.helper
 
 import android.content.pm.PackageManager
-import android.os.Build
 import androidx.annotation.RequiresApi
 
 // <http://developer.android.com/reference/android/content/pm/PackageManager.html>

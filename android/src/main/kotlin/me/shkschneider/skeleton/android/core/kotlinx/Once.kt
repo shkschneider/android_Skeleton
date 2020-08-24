@@ -1,12 +1,12 @@
 package me.shkschneider.skeleton.android.core.kotlinx
 
-internal object UNINITIALIZED_VALUE
+internal object UninitializedObject
 
 class Once<T>(private val notifier: (() -> Unit)? = null) {
 
     private var _value: Any? = null
         private set(value) {
-            if (field == UNINITIALIZED_VALUE) {
+            if (field == UninitializedObject) {
                 field = value
                 notifier?.invoke()
             } else {
@@ -25,11 +25,11 @@ class Once<T>(private val notifier: (() -> Unit)? = null) {
     }
 
     fun reset() {
-        this._value = UNINITIALIZED_VALUE
+        this._value = UninitializedObject
     }
 
     val initialized: Boolean
-        get() = _value !== UNINITIALIZED_VALUE
+        get() = _value !== UninitializedObject
 
     override fun toString() = if (initialized) _value.toString() else "Once value not initialized yet."
 
@@ -41,7 +41,7 @@ fun <T> once(notifier: (() -> Unit)) = Once<T>(notifier)
 object Test {
 
     private val once1 = once<String>()
-    private val once2 = once<String>() { callback() }
+    private val once2 = once<String> { callback() }
     private val once3 = once<String> { callback() }
 
     fun test() {
@@ -60,7 +60,7 @@ object Test {
         once2.get()
     }
 
-    fun callback(): Unit {
+    fun callback() {
         "notified: ${once2.get()}"
     }
 

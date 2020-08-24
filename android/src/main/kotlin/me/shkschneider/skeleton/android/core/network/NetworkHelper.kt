@@ -12,33 +12,27 @@ import java.net.SocketException
 object NetworkHelper {
 
     val userAgent: String?
-        get() {
-            return WebSettings.getDefaultUserAgent(ContextHelper.applicationContext())
-        }
+        get() = WebSettings.getDefaultUserAgent(ContextHelper.applicationContext())
 
     // Affects platform's components like DownloadManager or MediaPlayer...
     val isCleartextTrafficPermitted: Boolean
-        get() {
-            return NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted
-        }
+        get() = NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted
 
     // TODO test
     val ipAddresses: List<String>?
-        get() {
-            try {
-                val ipAddresses = mutableListOf<String>()
-                NetworkInterface.getNetworkInterfaces().asSequence().forEach { networkInterface ->
-                    networkInterface.inetAddresses.asSequence()
-                            .filterNot { it.isLoopbackAddress }
-                            .forEach { inetAddress ->
-                                ipAddresses.add(inetAddress.hostAddress)
-                            }
-                }
-                return ipAddresses
-            } catch (e: SocketException) {
-                Logger.wtf(e)
-                return null
+        get() = try {
+            val ipAddresses = mutableListOf<String>()
+            NetworkInterface.getNetworkInterfaces().asSequence().forEach { networkInterface ->
+                networkInterface.inetAddresses.asSequence()
+                    .filterNot { it.isLoopbackAddress }
+                    .forEach { inetAddress ->
+                        ipAddresses.add(inetAddress.hostAddress)
+                    }
             }
+            ipAddresses
+        } catch (e: SocketException) {
+            Logger.wtf(e)
+            null
         }
 
     val ip4Address: String?
@@ -51,9 +45,9 @@ object NetworkHelper {
         try {
             NetworkInterface.getNetworkInterfaces().asSequence().forEach { networkInterface ->
                 return networkInterface.inetAddresses.asSequence()
-                        .filterNot { it.isLoopbackAddress }
-                        .filter { it is T }
-                        .firstOrNull()?.hostAddress
+                    .filterNot { it.isLoopbackAddress }
+                    .filter { it is T }
+                    .firstOrNull()?.hostAddress
             }
             return null
         } catch (e: SocketException) {

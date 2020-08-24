@@ -27,11 +27,11 @@ import java.util.concurrent.TimeUnit
  *
  * @see <https://developer.android.com/reference/androidx/work/WorkManager>
  */
+// TODO update v2
 object SkeletonWorker {
 
-    fun manager(): WorkManager {
-        return WorkManager.getInstance()
-    }
+    fun manager(): WorkManager =
+        WorkManager.getInstance()
 
     // Single-Shot
 
@@ -112,17 +112,14 @@ object SkeletonWorker {
      * WorkInfo.State.CANCELLED
      */
 
-    fun getWorkInfoById(id: UUID): LiveData<WorkInfo> {
-        return manager().getWorkInfoByIdLiveData(id)
-    }
+    fun getWorkInfoById(id: UUID): LiveData<WorkInfo> =
+        manager().getWorkInfoByIdLiveData(id)
 
-    fun getWorkInfosByTag(tag: String): LiveData<List<WorkInfo>> {
-        return manager().getWorkInfosByTagLiveData(tag)
-    }
+    fun getWorkInfosByTag(tag: String): LiveData<List<WorkInfo>> =
+        manager().getWorkInfosByTagLiveData(tag)
 
-    fun getWorkInfosForUniqueWork(tag: String): LiveData<List<WorkInfo>> {
-        return manager().getWorkInfosForUniqueWorkLiveData(tag)
-    }
+    fun getWorkInfosForUniqueWork(tag: String): LiveData<List<WorkInfo>> =
+        manager().getWorkInfosForUniqueWorkLiveData(tag)
 
     fun cancelAllWork() {
         manager().cancelAllWork()

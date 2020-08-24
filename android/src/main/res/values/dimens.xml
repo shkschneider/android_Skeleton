@@ -1,7 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="UnusedResources">
 
-    <dimen name="sk_statusBar">25dp</dimen>
+    <dimen name="sk_statusBar">24dp</dimen> <!-- used to be 25dp: 24dp since API_24 -->
+    <dimen name="sk_actionBar">56dp</dimen> <!-- deprecated -->
+    <dimen name="sk_actionBar2">112dp</dimen> <!-- deprecated -->
     <dimen name="sk_toolbar">56dp</dimen>
     <dimen name="sk_toolbar2">72dp</dimen>
     <dimen name="sk_navigationDrawer">240dp</dimen>
@@ -68,5 +70,8 @@
 
     <dimen name="sk_fingerprint_square">40dp</dimen>
     <dimen name="sk_fingerprint_viewport" type="float">40.0</dimen>
+
+    <!-- android.support.v4.PreferenceFragment -->
+    <dimen tools:ignore="ResourceName" name="preference_fragment_padding_side">@dimen/sk_spaceTiny</dimen>
 
 </resources>

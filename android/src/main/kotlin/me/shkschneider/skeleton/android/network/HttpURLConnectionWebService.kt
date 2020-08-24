@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.android.network
 
+import android.annotation.SuppressLint
 import android.os.AsyncTask
 import androidx.annotation.IntRange
 import androidx.annotation.Size
@@ -87,6 +88,7 @@ open class HttpURLConnectionWebService(
 
     }
 
+    @SuppressLint("StaticFieldLeak")
     private inner class Task : AsyncTask<Void, Void, Any?>() {
 
         override fun doInBackground(@Size(0) vararg voids: Void): Any? {

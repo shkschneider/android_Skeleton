@@ -11,12 +11,13 @@ import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
+import androidx.core.view.children
 
 import me.shkschneider.skeleton.android.core.SkeletonReceiver
 import me.shkschneider.skeleton.android.core.extensions.contentView
-import me.shkschneider.skeleton.android.core.extensions.views
 import me.shkschneider.skeleton.android.log.Logger
 import me.shkschneider.skeleton.android.core.helperx.Metrics
+import kotlin.math.roundToLong
 
 object KeyboardHelper {
 
@@ -45,7 +46,7 @@ object KeyboardHelper {
         @Suppress("UNUSED_ANONYMOUS_PARAMETER")
         editText.setOnEditorActionListener(TextView.OnEditorActionListener { textView, actionId, keyEvent ->
             if (all) {
-                skeletonReceiver?.post(KeyboardHelper::class.java.simpleName, actionId)
+                skeletonReceiver.post(KeyboardHelper::class.java.simpleName, actionId)
                 return@OnEditorActionListener false
             }
             when (actionId) {
@@ -55,7 +56,7 @@ object KeyboardHelper {
                 EditorInfo.IME_ACTION_SEARCH,
                 EditorInfo.IME_ACTION_SEND,
                 KeyEvent.KEYCODE_DPAD_CENTER,
-                KeyEvent.KEYCODE_ENTER -> skeletonReceiver?.post((KeyboardHelper::class.java.simpleName), actionId)
+                KeyEvent.KEYCODE_ENTER -> skeletonReceiver.post((KeyboardHelper::class.java.simpleName), actionId)
             }
             false
         })
@@ -64,11 +65,11 @@ object KeyboardHelper {
 
     // <https://github.com/yshrsmz/KeyboardVisibilityEvent>
     fun keyboardListener(activity: Activity, listener: Listener) {
-        (activity.contentView() as? ViewGroup)?.views?.get(0)?.let { rootView ->
+        (activity.contentView() as? ViewGroup)?.children?.firstOrNull()?.let { rootView ->
             rootView.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
 
                 private val rect = Rect()
-                private val visibleThreshold = Math.round(Metrics.pixelsFromDp(1.toFloat()).toFloat())
+                private val visibleThreshold = Metrics.pixelsFromDp(1.toFloat()).toFloat().roundToLong()
                 private var wasOpened = false
 
                 override fun onGlobalLayout() {

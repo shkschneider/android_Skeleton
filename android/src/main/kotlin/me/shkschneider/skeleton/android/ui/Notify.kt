@@ -39,9 +39,9 @@ object Notify {
         with(Snackbar.make(view, msg, duration)) {
             // view.findViewById<TextView>(com.google.android.material.R.id.snackbar_action).maxLines = 2
             listener?.let {
-                setAction(action, View.OnClickListener {
+                setAction(action) {
                     listener()
-                })
+                }
             }
             setDuration(duration)
             if (AndroidHelper.api() >= AndroidHelper.API_23) {

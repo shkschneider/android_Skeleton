@@ -14,11 +14,9 @@ object LocaleHelper {
         // attachBaseContext() -> super.attachBaseContext(switch())
         fun switch(context: Context?, locale: Locale): ContextWrapper {
             context ?: return ContextWrapper(null)
-            with(context.resources) {
-                val configuration = Configuration()
-                configuration.setLocale(locale)
-                return ContextWrapper(context.createConfigurationContext(configuration))
-            }
+            return ContextWrapper(context.createConfigurationContext(Configuration().apply {
+                setLocale(locale)
+            }))
         }
 
         fun locale(context: Context): Locale {

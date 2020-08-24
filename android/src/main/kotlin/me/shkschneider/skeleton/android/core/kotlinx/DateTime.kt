@@ -11,20 +11,18 @@ open class DateTime(
         timeInMillis: Long = System.currentTimeMillis()
 ) : Comparable<DateTime> {
 
-    open protected val calendar: Calendar = Calendar.getInstance()
-
-    init {
-        calendar.timeInMillis = timeInMillis
+    protected open val calendar: Calendar = Calendar.getInstance().also {
+        it.timeInMillis = timeInMillis
     }
 
     constructor(
-            year: Int,
-            month: Int,
-            day: Int,
-            hour: Int = 0,
-            minute: Int = 0,
-            second: Int = 0,
-            millis: Int = 0
+        year: Int,
+        month: Int,
+        day: Int,
+        hour: Int = 0,
+        minute: Int = 0,
+        second: Int = 0,
+        millis: Int = 0
     ) : this(Calendar.getInstance().apply {
         set(Calendar.YEAR, year)
         set(Calendar.MONTH, month)
@@ -62,15 +60,18 @@ open class DateTime(
     open val timeZone: TimeZone
         get() = calendar.timeZone
 
-    val timestamp: Int get() = (calendar.timeInMillis / 1000).toInt()
+    val timestamp: Int
+        get() = (calendar.timeInMillis / 1000).toInt()
 
     fun toUTC(): DateTime = DateTime(toCalendar().apply {
         timeZone = TimeZone.getTimeZone(TIME_ZONE)
     }.timeInMillis)
 
-    fun toCalendar(): Calendar = (calendar.clone() as Calendar)
+    fun toCalendar(): Calendar =
+        (calendar.clone() as Calendar)
 
-    fun toMutableDateTime(): MutableDateTime = MutableDateTime(calendar.timeInMillis)
+    fun toMutableDateTime(): MutableDateTime =
+        MutableDateTime(calendar.timeInMillis)
 
     override fun equals(other: Any?): Boolean = when (other) {
         is DateTime -> calendar == other.calendar
@@ -79,21 +80,29 @@ open class DateTime(
         else -> false
     }
 
-    infix fun on(other: DateTime): Boolean = (calendar.compareTo(other.calendar) == 0)
+    infix fun on(other: DateTime): Boolean =
+        (calendar.compareTo(other.calendar) == 0)
 
-    infix fun before(other: DateTime): Boolean = calendar < other.calendar
+    infix fun before(other: DateTime): Boolean =
+        calendar < other.calendar
 
-    infix fun onOrBefore(other: DateTime): Boolean = calendar <= other.calendar
+    infix fun onOrBefore(other: DateTime): Boolean =
+        calendar <= other.calendar
 
-    infix fun after(other: DateTime): Boolean = calendar > other.calendar
+    infix fun after(other: DateTime): Boolean =
+        calendar > other.calendar
 
-    infix fun onOrAfter(other: DateTime): Boolean = calendar >= other.calendar
+    infix fun onOrAfter(other: DateTime): Boolean =
+        calendar >= other.calendar
 
-    override fun compareTo(other: DateTime): Int = calendar.compareTo(other.calendar)
+    override fun compareTo(other: DateTime): Int =
+        calendar.compareTo(other.calendar)
 
-    override fun hashCode(): Int = calendar.hashCode()
+    override fun hashCode(): Int =
+        calendar.hashCode()
 
-    override fun toString(): String = ISO8601Utils.format(calendar.time)
+    override fun toString(): String =
+        ISO8601Utils.format(calendar.time)
 
     companion object {
 

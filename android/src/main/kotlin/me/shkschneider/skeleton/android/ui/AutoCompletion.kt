@@ -10,7 +10,7 @@ object AutoCompletion {
     }
 
     fun suggestions(autoCompleteTextView: AppCompatAutoCompleteTextView, layoutId: Int, suggestions: List<String>) {
-        val adapter = ArrayAdapter<String>(autoCompleteTextView.context, layoutId, suggestions)
+        val adapter = ArrayAdapter(autoCompleteTextView.context, layoutId, suggestions)
         autoCompleteTextView.setAdapter(adapter)
     }
 

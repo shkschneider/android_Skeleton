@@ -33,60 +33,54 @@ open class ComplexCrypt(key: String) : ICrypt<String>(key) {
     private var secretKeySpec = SecretKeySpec(pad(key.toByteArray()), ALGORITHM.split("/")[0])
     private var cipher = Cipher.getInstance(ALGORITHM)
 
-    override fun algorithm(): String {
-        return secretKeySpec.algorithm
-    }
+    override fun algorithm(): String =
+        secretKeySpec.algorithm
 
-    override fun key(): String {
-        return Base64.encodeToString(secretKeySpec.encoded, Base64.NO_WRAP)
-    }
+    override fun key(): String =
+        Base64.encodeToString(secretKeySpec.encoded, Base64.NO_WRAP)
 
-    override fun encrypt(src: String): String? {
+    override fun encrypt(src: String): String? =
         try {
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec)
             val bytes = cipher.doFinal(src.toByteArray())
-            return String(bytes).toBase64()
+            String(bytes).toBase64()
         } catch (e: IllegalStateException) {
             Logger.wtf(e)
-            return null
+            null
         } catch (e: InvalidKeyException) {
             Logger.wtf(e)
-            return null
+            null
         } catch (e: InvalidAlgorithmParameterException) {
             Logger.wtf(e)
-            return null
+            null
         } catch (e: IllegalBlockSizeException) {
             Logger.wtf(e)
-            return null
+            null
         } catch (e: BadPaddingException) {
             Logger.wtf(e)
-            return null
+            null
         }
-    }
 
-    override fun decrypt(src: String): String? {
+    override fun decrypt(src: String): String? =
         try {
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec)
             val bytes = cipher.doFinal(src.fromBase64()?.toByteArray())
-            return String(bytes, Charset.forName(Charsets.UTF8))
+            String(bytes, Charset.forName(Charsets.UTF8))
         } catch (e: InvalidKeyException) {
             Logger.wtf(e)
-            return null
+            null
         } catch (e: InvalidAlgorithmParameterException) {
             Logger.wtf(e)
-            return null
+            null
         } catch (e: IllegalBlockSizeException) {
             Logger.wtf(e)
-            return null
+            null
         } catch (e: BadPaddingException) {
             Logger.wtf(e)
-            return null
+            null
         }
-    }
 
-    private fun pad(bytes: ByteArray): ByteArray {
-        val padded = bytes.size + (ALGORITHM_KEY_PAD - bytes.size % ALGORITHM_KEY_PAD)
-        return bytes.copyOf(padded)
-    }
+    private fun pad(bytes: ByteArray): ByteArray =
+        bytes.copyOf(bytes.size + (ALGORITHM_KEY_PAD - bytes.size % ALGORITHM_KEY_PAD))
 
 }

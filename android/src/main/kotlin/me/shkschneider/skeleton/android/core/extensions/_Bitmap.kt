@@ -52,8 +52,7 @@ object BitmapHelper {
 
     fun fromUri(uri: Uri, options: BitmapFactory.Options? = BitmapFactory.Options()): Bitmap? {
         try {
-            val inputStream = ContextHelper.applicationContext().contentResolver.openInputStream(uri)
-                    ?: return null
+            val inputStream = ContextHelper.applicationContext().contentResolver.openInputStream(uri) ?: return null
             return fromInputStream(inputStream, options)
         } catch (e: FileNotFoundException) {
             Logger.wtf(e)
@@ -61,16 +60,15 @@ object BitmapHelper {
         }
     }
 
-    fun fromFile(file: File): Bitmap? {
+    fun fromFile(file: File): Bitmap? =
         try {
-            return fromInputStream(FileInputStream(file), BitmapFactory.Options().apply {
+            fromInputStream(FileInputStream(file), BitmapFactory.Options().apply {
                 inPreferredConfig = Bitmap.Config.ARGB_8888
             })
         } catch (e: FileNotFoundException) {
             Logger.wtf(e)
-            return null
+            null
         }
-    }
 
     fun decodeUri(uri: Uri): Bitmap? {
         val options = BitmapFactory.Options().apply {
@@ -162,12 +160,12 @@ fun Bitmap.tint(@ColorInt from: Int, @ColorInt to: Int): Bitmap = // TODO test
 fun Bitmap.circular(): Bitmap? =
         RoundedBitmapDrawableFactory.create(ApplicationHelper.resources, this).bitmap
 
-fun Bitmap.rotate(degrees: Float = 90.0F): Bitmap =
-        with(Matrix().apply {
-            postRotate(degrees)
-        }) {
-            return Bitmap.createBitmap(this@rotate, 0, 0, width, height, this@with, true)
-        }
+fun Bitmap.rotate(degrees: Float = 90.0F): Bitmap? {
+    val matrix = Matrix().apply {
+        postRotate(degrees)
+    }
+    return Bitmap.createBitmap(this, 0, 0, width, height, matrix, true)
+}
 
 fun Bitmap.toBase64(): String {
     val byteArrayOutputStream = ByteArrayOutputStream()

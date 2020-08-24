@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import me.shkschneider.skeleton.android.R
 import me.shkschneider.skeleton.android.core.helper.ContextHelper
+import kotlin.math.abs
 
 object FloatingActionButtonCompat {
 
@@ -73,7 +74,7 @@ object FloatingActionButtonCompat {
                         }
                         if (firstVisibleItem == previousFirstVisibleItem) {
                             val newScrollY = topItemScrollY
-                            val isSignificantDelta = Math.abs(lastScrollY - newScrollY) > THRESHOLD
+                            val isSignificantDelta = abs(lastScrollY - newScrollY) > THRESHOLD
                             if (isSignificantDelta) {
                                 if (lastScrollY > newScrollY) {
                                     FloatingActionButtonCompat.hide(this@with)
@@ -112,7 +113,7 @@ object FloatingActionButtonCompat {
                     }
 
                     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                        val isSignificantDelta = Math.abs(dy) > 5
+                        val isSignificantDelta = abs(dy) > 5
                         if (/*dy < 0 || */isSignificantDelta && dy > 0) {
                             FloatingActionButtonCompat.hide(this@with)
                         }

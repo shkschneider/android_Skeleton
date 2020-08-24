@@ -34,11 +34,11 @@ open class LiveWebService(gson: Gson = Gson()) : BaseWebService(gson) {
     inline fun <reified T : Any> request(request: Request,
                                          owner: LifecycleOwner,
                                          observer: Observer<LiveWebServiceResponse<T>>
-    ) = request.liveDataResponseObject(Deserializer(gson, T::class)).observe(owner, Observer {
-        val fuelError = it.second.component2()?.also {
-            Logger.error("${it.response.statusCode} ${it.response.url}", it.exception)
+    ) = request.liveDataResponseObject(Deserializer(gson, T::class)).observe(owner, { pair ->
+        val fuelError = pair.second.component2()?.also { error ->
+            Logger.error("${error.response.statusCode} ${error.response.url}", error.exception)
         }
-        observer.onChanged(LiveWebServiceResponse(request, it.first, it.second.get(), fuelError?.exception))
+        observer.onChanged(LiveWebServiceResponse(request, pair.first, pair.second.get(), fuelError?.exception))
     })
 
 }

@@ -8,14 +8,13 @@ import org.json.JSONObject
 @Deprecated("Use Gson library.")
 object JsonParser : IParser<JSONObject, JSONArray> {
 
-    override fun parse(string: String): JSONObject? {
+    override fun parse(string: String): JSONObject? =
         try {
-            return JSONObject(string)
+            JSONObject(string)
         } catch (e: JSONException) {
             Logger.wtf(e)
-            return null
+            null
         }
-    }
 
     override fun keys(jsonObject: JSONObject): List<String> {
         val keys = ArrayList<String>()
@@ -38,9 +37,8 @@ object JsonParser : IParser<JSONObject, JSONArray> {
         return values
     }
 
-    override fun has(jsonObject: JSONObject, key: String): Boolean {
-        return jsonObject.has(key)
-    }
+    override fun has(jsonObject: JSONObject, key: String): Boolean =
+        jsonObject.has(key)
 
     // from Object
 
@@ -81,44 +79,39 @@ object JsonParser : IParser<JSONObject, JSONArray> {
 
     // from Array
 
-    override fun get(jsonArray: JSONArray, index: Int, fallback: JSONObject?): JSONObject? {
+    override fun get(jsonArray: JSONArray, index: Int, fallback: JSONObject?): JSONObject? =
         try {
-            return jsonArray.getJSONObject(index) ?: fallback
+            jsonArray.getJSONObject(index) ?: fallback
         } catch (e: JSONException) {
-            return fallback
+            fallback
         }
-    }
 
-    override fun array(jsonArray: JSONArray, index: Int, fallback: JSONArray?): JSONArray? {
+    override fun array(jsonArray: JSONArray, index: Int, fallback: JSONArray?): JSONArray? =
         try {
-            return jsonArray.getJSONArray(index) ?: fallback
+            jsonArray.getJSONArray(index) ?: fallback
         } catch (e: JSONException) {
-            return fallback
+            fallback
         }
-    }
 
-    override fun string(jsonArray: JSONArray, index: Int, fallback: String?): String? {
+    override fun string(jsonArray: JSONArray, index: Int, fallback: String?): String? =
         try {
-            return jsonArray.getString(index) ?: fallback
+            jsonArray.getString(index) ?: fallback
         } catch (e: JSONException) {
-            return fallback
+            fallback
         }
-    }
 
-    override fun number(jsonArray: JSONArray, index: Int, fallback: Number?): Number? {
+    override fun number(jsonArray: JSONArray, index: Int, fallback: Number?): Number? =
         try {
-            return jsonArray.get(index) as? Number? ?: fallback
+            jsonArray.get(index) as? Number? ?: fallback
         } catch (e: JSONException) {
-            return fallback
+            fallback
         }
-    }
 
-    override fun bool(jsonArray: JSONArray, index: Int, fallback: Boolean?): Boolean? {
+    override fun bool(jsonArray: JSONArray, index: Int, fallback: Boolean?): Boolean? =
         try {
-            return jsonArray.getBoolean(index)
+            jsonArray.getBoolean(index)
         } catch (e: JSONException) {
-            return fallback
+            fallback
         }
-    }
 
 }

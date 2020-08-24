@@ -1,3 +1,3 @@
 package me.shkschneider.skeleton.android.core.kotlinx
 
-public typealias Listener = (() -> Unit)
+typealias Listener = (() -> Unit)

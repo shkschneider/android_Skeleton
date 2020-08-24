@@ -1,0 +1,18 @@
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="UnusedResources">
+
+    <!-- Holo colors <https://material.google.com/style/color.html> -->
+
+    <color name="sk_holo_blueLight">#33b5e5</color>
+    <color name="sk_holo_blueDark">#0099cc</color>
+    <color name="sk_holo_purpleLight">#aa66cc</color>
+    <color name="sk_holo_purpleDark">#9933cc</color>
+    <color name="sk_holo_greenLight">#99cc00</color>
+    <color name="sk_holo_greenDark">#669900</color>
+    <color name="sk_holo_orangeLight">#ffbb33</color>
+    <color name="sk_holo_orangeDark">#ff8800</color>
+    <color name="sk_holo_redLight">#ff4444</color>
+    <color name="sk_holo_redDark">#cc0000</color>
+
+</resources>

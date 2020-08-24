@@ -8,12 +8,12 @@ import android.view.WindowManager
 import androidx.annotation.UiThread
 
 inline fun <reified T : Activity> ContextWrapper.startActivity(block: Intent.() -> Unit = {}) =
-        startActivity(Intent(this, T::class).apply {
+        startActivity(intent(this, T::class).apply {
             block(this)
         })
 
 inline fun <reified T : Activity> Activity.startActivityForResult(requestCode: Int, block: Intent.() -> Unit = {}) =
-        startActivityForResult(Intent(this, T::class).apply {
+        startActivityForResult(intent(this, T::class).apply {
             block(this)
         }, requestCode)
 

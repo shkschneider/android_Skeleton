@@ -6,4 +6,5 @@
            android:layout_height="wrap_content"
            android:layout_margin="@dimen/sk_spaceLarge"
            android:src="@drawable/sk_fingerprint"
-           app:tint="@color/sk_material_grey"/>
+           app:tint="@color/sk_material_grey"
+           android:contentDescription="@string/sk_fingerprint"/>

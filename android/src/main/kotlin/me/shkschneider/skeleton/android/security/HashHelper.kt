@@ -25,21 +25,17 @@ object HashHelper {
     }
 
     @Deprecated("Unsafe.")
-    fun md5(string: String): String? {
-        return hash(MD5, string)
-    }
+    fun md5(string: String): String? =
+        hash(MD5, string)
 
     @Deprecated("Unsafe.")
-    fun sha1(string: String): String? {
-        return hash(SHA1, string)
-    }
+    fun sha1(string: String): String? =
+        hash(SHA1, string)
 
-    fun sha256(string: String): String? {
-        return hash(SHA256, string)
-    }
+    fun sha256(string: String): String? =
+        hash(SHA256, string)
 
-    fun sha512(string: String): String? {
-        return hash(SHA512, string)
-    }
+    fun sha512(string: String): String? =
+        hash(SHA512, string)
 
 }

@@ -2,7 +2,6 @@ package me.shkschneider.skeleton.android.core.helper
 
 import android.media.Ringtone
 import android.media.RingtoneManager
-import me.shkschneider.skeleton.android.core.helper.ContextHelper
 
 object SoundHelper {
 

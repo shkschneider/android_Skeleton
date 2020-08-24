@@ -8,29 +8,24 @@ import java.io.InputStream
 
 object AssetsHelper {
 
-    fun assetManager(): AssetManager {
-        return ContextHelper.applicationContext().assets
-    }
+    fun assetManager(): AssetManager =
+        ContextHelper.applicationContext().assets
 
-    fun list(): List<String>? {
-        val assetManager = assetManager()
+    fun list(): List<String>? =
         try {
-            return assetManager.list("")?.toList()
+            assetManager().list("")?.toList()
         } catch (e: IOException) {
             Logger.wtf(e)
-            return null
+            null
         }
-    }
 
-    fun open(name: String): InputStream? {
-        val assetManager = assetManager()
+    fun open(name: String): InputStream? =
         try {
-            return assetManager.open(name)
+            assetManager().open(name)
         } catch (e: IOException) {
             Logger.wtf(e)
-            return null
+            null
         }
-    }
 
     fun dump(): Boolean {
         var errors = 0

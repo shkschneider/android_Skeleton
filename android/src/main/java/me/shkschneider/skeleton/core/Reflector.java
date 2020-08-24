@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("rawtypes")
 public class Reflector {
 
     // Reflection allows programmatic access to information about the methods of loaded classes.
@@ -73,7 +74,7 @@ public class Reflector {
     @Deprecated
     public static class Method {
 
-        private static final Object EMPTY_SIGNATURE = (Object) new Class[]{};
+        private static final Object EMPTY_SIGNATURE = new Class[]{};
 
         @Nullable
         public static List<String> methods(@NonNull final Object object) {
