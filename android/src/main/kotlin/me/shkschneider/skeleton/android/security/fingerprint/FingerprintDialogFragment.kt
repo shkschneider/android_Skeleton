@@ -15,9 +15,9 @@ import me.shkschneider.skeleton.android.core.extensions.dimBehind
 import me.shkschneider.skeleton.android.core.extensions.tint
 import me.shkschneider.skeleton.android.core.helperx.SystemServices
 import me.shkschneider.skeleton.android.log.Logger
-import me.shkschneider.skeleton.android.core.kotlinx.exhaustive
 import me.shkschneider.skeleton.android.ui.Notify
 import me.shkschneider.skeleton.kotlin.TAG
+import me.shkschneider.skeleton.kotlin.exhaustive
 import java.util.concurrent.TimeUnit
 
 private const val TITLE = "TITLE"

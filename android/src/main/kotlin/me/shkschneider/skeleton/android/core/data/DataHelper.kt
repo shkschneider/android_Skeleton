@@ -10,6 +10,8 @@ import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 
+@Suppress("DEPRECATION")
+@Deprecated("Deprecated in Android.")
 object DataHelper {
 
     // Shared

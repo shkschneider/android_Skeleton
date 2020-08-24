@@ -23,6 +23,7 @@ open class FinalCountdown(
         }.start()
     }
 
+    // TODO SkeletonReceiver
     interface Callback {
 
         fun onCountdownTick(millisUntilFinished: Long)

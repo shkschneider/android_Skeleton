@@ -8,7 +8,7 @@ import com.github.kittinunf.fuel.core.Response
 import com.github.kittinunf.fuel.livedata.liveDataResponseObject
 import com.google.gson.Gson
 import me.shkschneider.skeleton.android.log.Logger
-import me.shkschneider.skeleton.android.core.kotlinx.Quad
+import me.shkschneider.skeleton.kotlin.kotlinx.Quad
 
 typealias LiveWebServiceResponse<T> = Quad<Request, Response, T?, Exception?>
 

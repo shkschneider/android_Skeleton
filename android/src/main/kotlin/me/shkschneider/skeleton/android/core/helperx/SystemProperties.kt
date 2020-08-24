@@ -34,13 +34,10 @@ object SystemProperties {
     // user.home
     // user.name
 
-    fun get(property: String): String? {
-        val systemProperty = System.getProperty(property)
-        if (property.isEmpty()) {
+    fun get(property: String): String? =
+        System.getProperty(property) ?: run {
             Logger.warning("SystemProperty was NULL")
-            return null
+            null
         }
-        return systemProperty
-    }
 
 }

@@ -8,21 +8,20 @@ import me.shkschneider.skeleton.android.core.helper.ApplicationHelper
 import me.shkschneider.skeleton.android.core.helper.ContextHelper
 import me.shkschneider.skeleton.android.log.Logger
 
+// TODO encryption
 object SharedPreferencesHelper {
 
-    private fun editor(name: String?): SharedPreferences {
-        return ContextHelper.applicationContext().getSharedPreferences(
-                if (name.isNullOrBlank()) ApplicationHelper.packageName else name,
-                Context.MODE_PRIVATE)
-    }
+    private fun editor(name: String? = null): SharedPreferences =
+        ContextHelper.applicationContext().getSharedPreferences(
+            if (name.isNullOrBlank()) ApplicationHelper.packageName else name,
+            Context.MODE_PRIVATE
+        )
 
-    fun contains(key: String): Boolean {
-        return editor(null).contains(key)
-    }
+    fun contains(key: String): Boolean =
+        editor(null).contains(key)
 
-    fun contains(key: String, name: String? = null): Boolean {
-        return editor(name).contains(key)
-    }
+    fun contains(key: String, name: String? = null): Boolean =
+        editor(name).contains(key)
 
     fun remove(key: String, name: String? = null) {
         editor(name).edit {
@@ -45,9 +44,8 @@ object SharedPreferencesHelper {
         }
     }
 
-    fun getString(key: String, defaultValue: String, name: String? = null): String? {
-        return editor(name).getString(key, defaultValue)
-    }
+    fun getString(key: String, defaultValue: String, name: String? = null): String? =
+        editor(name).getString(key, defaultValue)
 
     // Set<String>
 
@@ -58,9 +56,8 @@ object SharedPreferencesHelper {
         }
     }
 
-    fun getStringSet(key: String, defaultValue: Set<String>, name: String? = null): Set<String>? {
-        return editor(name).getStringSet(key, defaultValue)
-    }
+    fun getStringSet(key: String, defaultValue: Set<String>, name: String? = null): Set<String>? =
+        editor(name).getStringSet(key, defaultValue)
 
     // Integer
 
@@ -71,9 +68,8 @@ object SharedPreferencesHelper {
         }
     }
 
-    fun getInteger(key: String, defaultValue: Int, name: String? = null): Int? {
-        return editor(name).getInt(key, defaultValue)
-    }
+    fun getInteger(key: String, defaultValue: Int, name: String? = null): Int? =
+        editor(name).getInt(key, defaultValue)
 
     // Long
 
@@ -84,9 +80,8 @@ object SharedPreferencesHelper {
         }
     }
 
-    fun getLong(key: String, defaultValue: Long, name: String? = null): Long? {
-        return editor(name).getLong(key, defaultValue)
-    }
+    fun getLong(key: String, defaultValue: Long, name: String? = null): Long? =
+        editor(name).getLong(key, defaultValue)
 
     // Float
 
@@ -97,9 +92,8 @@ object SharedPreferencesHelper {
         }
     }
 
-    fun getFloat(key: String, defaultValue: Float, name: String? = null): Float? {
-        return editor(name).getFloat(key, defaultValue)
-    }
+    fun getFloat(key: String, defaultValue: Float, name: String? = null): Float? =
+        editor(name).getFloat(key, defaultValue)
 
     // Boolean
 
@@ -110,8 +104,7 @@ object SharedPreferencesHelper {
         }
     }
 
-    fun getBoolean(key: String, defaultValue: Boolean, name: String? = null): Boolean? {
-        return editor(name).getBoolean(key, defaultValue)
-    }
+    fun getBoolean(key: String, defaultValue: Boolean, name: String? = null): Boolean? =
+        editor(name).getBoolean(key, defaultValue)
 
 }

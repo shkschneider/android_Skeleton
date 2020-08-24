@@ -12,7 +12,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import me.shkschneider.skeleton.android.core.extensions.intent
 import me.shkschneider.skeleton.android.core.helperx.SystemServices
-import me.shkschneider.skeleton.android.core.kotlinx.DateTime
+import me.shkschneider.skeleton.kotlin.javax.DateTime
 import java.util.concurrent.TimeUnit
 
 /**

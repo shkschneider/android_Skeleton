@@ -1,11 +1,11 @@
-package me.shkschneider.skeleton.android.core.datax
+package me.shkschneider.skeleton.android.core.json
 
 import me.shkschneider.skeleton.android.log.Logger
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
-@Deprecated("Deprecated.", ReplaceWith("Gson"))
+@Deprecated("Deprecated.", ReplaceWith("GsonParser"))
 object JsonParser : IParser<JSONObject, JSONArray> {
 
     override fun parse(string: String): JSONObject? =

@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.android.core.javax
+package me.shkschneider.skeleton.android.core.jvm
 
 // <https://gist.github.com/MichaelRocks/1b94bb44c7804e999dbf31dac86955ec>
 open class AlphanumComparator : Comparator<String> {

@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.android.core.javax
+package me.shkschneider.skeleton.android.core.jvm
 
 private const val MAJOR = 0
 private const val MINOR = 1

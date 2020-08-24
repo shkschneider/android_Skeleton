@@ -150,6 +150,7 @@ object SystemServices {
     fun wifiManager() = get(WifiManager::class)
     fun windowManager() = get(WindowManager::class)
 
-    private fun <T : Any> get(klass: KClass<T>) = ContextHelper.applicationContext().getSystemService(klass)
+    private fun <T : Any> get(klass: KClass<T>) =
+        ContextHelper.applicationContext().getSystemService(klass)
 
 }

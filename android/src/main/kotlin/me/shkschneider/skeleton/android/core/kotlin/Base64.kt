@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.android.core.kotlinx
+package me.shkschneider.skeleton.android.core.kotlin
 
 import android.util.Base64
 

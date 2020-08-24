@@ -1,11 +1,14 @@
 package me.shkschneider.skeleton.android.core.datax
 
+import android.os.Parcelable
 import me.shkschneider.skeleton.android.core.data.DataHelper
 import me.shkschneider.skeleton.android.core.data.FileHelper
 import java.io.File
 import java.io.Serializable
 
 // <http://developer.android.com/reference/java/io/Serializable.html>
+@Suppress("DEPRECATION")
+@Deprecated("Deprecated in Android.")
 object DiskCache {
 
     // <http://developer.android.com/guide/topics/data/data-storage.html#filesInternal>
@@ -22,7 +25,7 @@ object DiskCache {
         }
 
         @Synchronized
-        fun put(key: String, value: Serializable): Boolean { // TODO @Parcelize once stable
+        fun put(key: String, value: Parcelable): Boolean {
             if (dir.exists()) {
                 val path = FileHelper.join(dir.absolutePath, key)
                 val file = FileHelper.get(path)
@@ -35,12 +38,12 @@ object DiskCache {
         }
 
         @Synchronized
-        fun get(key: String): Serializable? { // TODO @Parcelize once stable
+        fun get(key: String): Parcelable? {
             if (dir.exists()) {
                 val path = FileHelper.join(dir.absolutePath, key)
                 val file = FileHelper.get(path)
                 if (file.exists()) {
-                    return Serializer.read(file) as Serializable?
+                    return Serializer.read(file) as Parcelable?
                 }
             }
             return null

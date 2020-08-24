@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.android.core.javax
+package me.shkschneider.skeleton.android.core.jvm
 
 import me.shkschneider.skeleton.android.core.SkeletonReceiver
 import java.util.concurrent.ExecutorService

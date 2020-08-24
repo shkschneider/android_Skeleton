@@ -1,31 +1,18 @@
 package me.shkschneider.skeleton.android.core.helper
 
 import android.os.Bundle
-import me.shkschneider.skeleton.android.log.Logger
-
-import java.io.Serializable
+import android.os.Parcelable
+import androidx.core.os.bundleOf
 
 object BundleHelper {
 
-    // TODO @Parcelize once stable
-    fun pack(bundle: Bundle, key: String, serializable: Serializable?): Bundle {
-        bundle.putSerializable(key, serializable)
-        return bundle
-    }
+    fun pack(bundle: Bundle, key: String, parcelable: Parcelable?): Bundle =
+        bundle.apply { putParcelable(key, parcelable) }
 
-    // TODO @Parcelize once stable
-    fun pack(key: String, serializable: Serializable?): Bundle {
-        val bundle = Bundle()
-        return pack(bundle, key, serializable)
-    }
+    fun pack(key: String, parcelable: Parcelable?): Bundle =
+        bundleOf(key to parcelable)
 
-    // TODO @Parcelize once stable
-    fun unpack(bundle: Bundle, key: String): Serializable? {
-        bundle.getSerializable(key)?.let {
-            return true
-        }
-        Logger.warning("Bundle has no such key")
-        return null
-    }
+    fun unpack(bundle: Bundle, key: String): Parcelable? =
+        bundle.getParcelable(key)
 
 }

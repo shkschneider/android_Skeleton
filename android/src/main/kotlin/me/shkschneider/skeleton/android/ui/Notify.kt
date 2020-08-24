@@ -16,7 +16,7 @@ import me.shkschneider.skeleton.android.R
 import me.shkschneider.skeleton.android.core.helper.AndroidHelper
 import me.shkschneider.skeleton.android.core.helper.ContextHelper
 import me.shkschneider.skeleton.android.log.Logger
-import me.shkschneider.skeleton.android.core.kotlinx.Listener
+import me.shkschneider.skeleton.kotlin.kotlinx.Listener
 
 object Notify {
 

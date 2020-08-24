@@ -1,8 +1,7 @@
-package me.shkschneider.skeleton.android.core.java
+package me.shkschneider.skeleton.android.core.helper
 
 import android.util.Patterns
 import androidx.annotation.IntRange
-import me.shkschneider.skeleton.android.core.helper.LocaleHelper
 import me.shkschneider.skeleton.android.log.Logger
 import java.text.Normalizer
 import java.text.NumberFormat
@@ -46,9 +45,9 @@ object StringHelper {
         }
         val exp = (ln(bytes.toDouble()) / ln(unit.toDouble())).toInt()
         return String.format(LocaleHelper.Device.locale(),
-                "%.1.toFloat() %sB",
-                bytes / unit.toDouble().pow(exp.toDouble()),
-                (if (binary) "KMGTPE" else "kMGTPE")[exp - 1] + (if (binary) "i" else ""))
+            "%.1.toFloat() %sB",
+            bytes / unit.toDouble().pow(exp.toDouble()),
+            (if (binary) "KMGTPE" else "kMGTPE")[exp - 1] + (if (binary) "i" else ""))
     }
 
     // <https://stackoverflow.com/a/3322174/603270>
@@ -84,7 +83,7 @@ object StringHelper {
 
     fun cData(string: String): String =
         string.takeIf {
-            ! it.startsWith("<![CDATA[")
+            !it.startsWith("<![CDATA[")
         }?.apply {
             return "<![CDATA[$this]]>"
         } ?: string

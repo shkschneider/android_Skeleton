@@ -7,28 +7,22 @@ import me.shkschneider.skeleton.android.core.helper.ContextHelper
 
 object Metrics {
 
-    fun displayMetrics(): DisplayMetrics {
-        return ContextHelper.applicationContext().resources.displayMetrics
-    }
+    fun displayMetrics(): DisplayMetrics =
+        ContextHelper.applicationContext().resources.displayMetrics
 
-    fun density(): Float {
-        return displayMetrics().density
-    }
+    fun density(): Float =
+        displayMetrics().density
 
-    fun dpi(): Int {
-        return displayMetrics().densityDpi
-    }
+    fun dpi(): Int =
+        displayMetrics().densityDpi
 
-    fun dpFromPixels(@FloatRange(from = 0.0) px: Float): Int {
-        return (px / density()).toInt()
-    }
+    fun dpFromPixels(@FloatRange(from = 0.0) px: Float): Int =
+        (px / density()).toInt()
 
-    fun pixelsFromDp(@FloatRange(from = 0.0) dp: Float): Int {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, displayMetrics()).toInt()
-    }
+    fun pixelsFromDp(@FloatRange(from = 0.0) dp: Float): Int =
+        TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, displayMetrics()).toInt()
 
-    fun pixelsFromSp(@FloatRange(from = 0.0) sp: Float): Int {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, displayMetrics()).toInt()
-    }
+    fun pixelsFromSp(@FloatRange(from = 0.0) sp: Float): Int =
+        TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, displayMetrics()).toInt()
 
 }

@@ -29,13 +29,11 @@ object DatabaseHelper {
 
     }
 
-    fun empty(db: SQLiteDatabase, table: String): Boolean {
-        // DatabaseUtils.queryIsEmpty() is @hide
-        return rows(db, table) == 0
-    }
+    // DatabaseUtils.queryIsEmpty() is @hide
+    fun empty(db: SQLiteDatabase, table: String): Boolean =
+        rows(db, table) == 0
 
-    fun rows(db: SQLiteDatabase, table: String, selection: String? = null, selectionArgs: Array<String>? = null): Int {
-        return DatabaseUtils.queryNumEntries(db, table, selection, selectionArgs).toInt()
-    }
+    fun rows(db: SQLiteDatabase, table: String, selection: String? = null, selectionArgs: Array<String>? = null): Int =
+        DatabaseUtils.queryNumEntries(db, table, selection, selectionArgs).toInt()
 
 }

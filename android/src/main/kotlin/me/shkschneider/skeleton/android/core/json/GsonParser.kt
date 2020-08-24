@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.android.core.datax
+package me.shkschneider.skeleton.android.core.json
 
 import com.google.gson.Gson
 import com.google.gson.JsonArray

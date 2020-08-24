@@ -1,8 +1,8 @@
-package me.shkschneider.skeleton.android.core.javax
+package me.shkschneider.skeleton.android.core.jvm
 
 import androidx.annotation.IntRange
 import me.shkschneider.skeleton.android.log.Logger
-import me.shkschneider.skeleton.android.core.java.StringHelper
+import me.shkschneider.skeleton.android.core.helper.StringHelper
 import java.util.Random
 
 object Randomizer {

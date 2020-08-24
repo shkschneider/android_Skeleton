@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.android.core.java
+package me.shkschneider.skeleton.android.core.jvm
 
 import android.os.StrictMode
 
@@ -11,7 +11,7 @@ object StrictModeHelper {
     }
 
     fun on(death: Boolean = false) {
-        if (! ApplicationHelper.debuggable) {
+        if (!ApplicationHelper.debuggable) {
             return
         }
         val threadPolicyBuilder = StrictMode.ThreadPolicy.Builder().detectAll().penaltyLog()
@@ -20,9 +20,9 @@ object StrictModeHelper {
         }
         StrictMode.setThreadPolicy(threadPolicyBuilder.build())
         val vmPolicyBuilder = StrictMode.VmPolicy.Builder()
-                // .detectNonSdkApiUsage()
-                .detectAll()
-                .penaltyLog()
+            // .detectNonSdkApiUsage()
+            .detectAll()
+            .penaltyLog()
         if (death) {
             vmPolicyBuilder.penaltyDeath()
         }
@@ -30,7 +30,7 @@ object StrictModeHelper {
     }
 
     fun off() {
-        if (! ApplicationHelper.debuggable) {
+        if (!ApplicationHelper.debuggable) {
             return
         }
         StrictMode.setThreadPolicy(StrictMode.ThreadPolicy.LAX)
