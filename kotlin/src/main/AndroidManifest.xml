@@ -1,2 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="me.shkschneider.skeleton.room" />
+<manifest package="me.shkschneider.skeleton.kotlin" />
