@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.java
+package me.shkschneider.skeleton.android.core.java
 
 object ExceptionHelper {
 

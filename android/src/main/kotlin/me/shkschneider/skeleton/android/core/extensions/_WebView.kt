@@ -1,17 +1,18 @@
-package me.shkschneider.skeleton.extensions
+package me.shkschneider.skeleton.android.core.extensions
 
 import android.view.View
 import android.webkit.WebView
-import me.shkschneider.skeleton.data.FileHelper
-import me.shkschneider.skeleton.helper.ContextHelper
-import me.shkschneider.skeleton.helperx.log.Logger
+import me.shkschneider.skeleton.android.core.data.FileHelper
+import me.shkschneider.skeleton.kotlin.data.MimeTypes
+import me.shkschneider.skeleton.android.core.helper.ContextHelper
+import me.shkschneider.skeleton.android.log.Logger
 
 object WebViewHelper {
 
     const val META_VIEWPORT = "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=yes\">"
     const val META_THEME = "<meta name=\"theme-color\" content=\"#a4c639\">"
-    const val CHARSET = CharsetHelper.UTF8
-    const val MIME_TYPE = MimeTypeHelper.TEXT_HTML
+    const val MIME_TYPE = MimeTypes.TEXT_HTML
+    val CHARSET = Charsets.UTF_8.toString()
 
     private fun get(): WebView =
             WebView(ContextHelper.applicationContext()).apply {

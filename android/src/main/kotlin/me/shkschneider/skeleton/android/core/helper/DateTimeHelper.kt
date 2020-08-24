@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.helper
+package me.shkschneider.skeleton.android.core.helper
 
 import android.app.Activity
 import android.app.DatePickerDialog
@@ -10,11 +10,11 @@ import java.util.Calendar
 
 object DateTimeHelper {
 
-    val RFC_3339 = if (AndroidHelper.api() >= AndroidHelper.ANDROID_7) "yyyy-MM-dd'T'HH:mm:ssXXX" else "yyyy-MM-dd'T'HH:mm:ssZ"
     // <http://developer.android.com/intl/ru/reference/java/text/SimpleDateFormat.html>
-    val ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+    const val ISO_8601 = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
     // <https://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.3.1>
-    val HTTP_DATE = "EEE, dd MMM yyyy HH:mm:ss z"
+    const val HTTP_DATE = "EEE, dd MMM yyyy HH:mm:ss z"
+    val RFC_3339 = if (AndroidHelper.api() >= AndroidHelper.ANDROID_7) "yyyy-MM-dd'T'HH:mm:ssXXX" else "yyyy-MM-dd'T'HH:mm:ssZ"
 
     fun relative(@IntRange(from = 0) time: Long): String {
         return relative(time, time)

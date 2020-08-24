@@ -1,12 +1,12 @@
-package me.shkschneider.skeleton.helper
+package me.shkschneider.skeleton.android.core.helper
 
 import android.content.Intent
 import android.content.pm.ShortcutInfo
 import android.graphics.drawable.Icon
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
-import me.shkschneider.skeleton.helperx.log.Logger
-import me.shkschneider.skeleton.helperx.SystemServices
+import me.shkschneider.skeleton.android.log.Logger
+import me.shkschneider.skeleton.android.core.helperx.SystemServices
 
 // <https://developer.android.com/reference/android/content/pm/ShortcutManager.html>
 @RequiresApi(AndroidHelper.API_25)

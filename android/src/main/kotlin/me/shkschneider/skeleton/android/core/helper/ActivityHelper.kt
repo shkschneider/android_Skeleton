@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.helper
+package me.shkschneider.skeleton.android.core.helper
 
 import android.app.ActivityOptions
 

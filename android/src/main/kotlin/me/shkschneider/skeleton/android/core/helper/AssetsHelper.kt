@@ -1,7 +1,8 @@
-package me.shkschneider.skeleton.helper
+package me.shkschneider.skeleton.android.core.helper
 
 import android.content.res.AssetManager
-import me.shkschneider.skeleton.helperx.log.Logger
+import me.shkschneider.skeleton.android.core.data.DataHelper
+import me.shkschneider.skeleton.android.log.Logger
 import java.io.IOException
 import java.io.InputStream
 

@@ -1,7 +1,9 @@
-package me.shkschneider.skeleton
+package me.shkschneider.skeleton.android.core
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import me.shkschneider.skeleton.android.R
+import me.shkschneider.skeleton.android.core.SkeletonActivity
 
 /**
  * @see SkeletonActivity

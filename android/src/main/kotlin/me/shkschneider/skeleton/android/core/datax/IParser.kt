@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.datax
+package me.shkschneider.skeleton.android.core.datax
 
 interface IParser<Object, Array> {
 

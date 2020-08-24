@@ -29,9 +29,13 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility versions.android.java as JavaVersion
+        targetCompatibility versions.android.java as JavaVersion
     }
+    kotlinOptions {
+        jvmTarget = versions.android.java.toString()
+    }
+
     sourceSets {
         debug.java.srcDirs += 'src/debug/kotlin'
         main.java.srcDirs += 'src/main/kotlin'

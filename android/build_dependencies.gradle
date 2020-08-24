@@ -19,6 +19,8 @@ dependencies {
     version = '2.2.5' // https://developer.android.com/jetpack/androidx/releases/room
     implementation "androidx.room:room-runtime:${version}"
     // kapt "androidx.room:room-compiler:${version}"
+    version = '1.1.0' // https://developer.android.com/jetpack/androidx/releases/swiperefreshlayout
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:${version}"
     version = '2.4.0' // https://developer.android.com/jetpack/androidx/releases/work
     implementation "androidx.work:work-runtime:${version}"
     implementation "androidx.work:work-runtime-ktx:${version}"

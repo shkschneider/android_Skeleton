@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.kotlinx
+package me.shkschneider.skeleton.android.core.kotlinx
 
 import com.google.gson.internal.bind.util.ISO8601Utils
 import java.util.Calendar

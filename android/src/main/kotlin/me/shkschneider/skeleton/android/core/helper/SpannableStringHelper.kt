@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.helper
+package me.shkschneider.skeleton.android.core.helper
 
 import android.graphics.Typeface
 import android.text.Spannable
@@ -12,7 +12,7 @@ import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
 import androidx.annotation.ColorInt
 import androidx.annotation.IntRange
-import me.shkschneider.skeleton.helperx.log.Logger
+import me.shkschneider.skeleton.android.log.Logger
 
 // <https://gist.github.com/Trikke/90efd4432fc09aaadf3e>
 open class SpannableStringHelper {

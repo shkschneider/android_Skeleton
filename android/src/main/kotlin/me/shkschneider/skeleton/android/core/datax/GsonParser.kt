@@ -1,15 +1,15 @@
-package me.shkschneider.skeleton.datax
+package me.shkschneider.skeleton.android.core.datax
 
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonParseException
-import me.shkschneider.skeleton.helperx.log.Logger
+import me.shkschneider.skeleton.android.log.Logger
 
 object GsonParser : IParser<JsonObject, JsonArray> {
 
-    val RFC_3339 = "yyyy-MM-dd'T'HH:mm:ssXXX"
+    const val RFC_3339 = "yyyy-MM-dd'T'HH:mm:ssXXX"
 
     override fun parse(string: String): JsonObject? {
         return parse(string, Gson())

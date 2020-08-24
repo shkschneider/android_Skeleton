@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.javax
+package me.shkschneider.skeleton.android.core.javax
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -8,10 +8,10 @@ import android.app.job.JobService
 import android.os.PersistableBundle
 import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
-import me.shkschneider.skeleton.extensions.ComponentName
-import me.shkschneider.skeleton.helper.AndroidHelper
-import me.shkschneider.skeleton.helper.ContextHelper
-import me.shkschneider.skeleton.helperx.SystemServices
+import me.shkschneider.skeleton.android.core.extensions.ComponentName
+import me.shkschneider.skeleton.android.core.helper.AndroidHelper
+import me.shkschneider.skeleton.android.core.helper.ContextHelper
+import me.shkschneider.skeleton.android.core.helperx.SystemServices
 
 /**
  * <service android:name=".MyJobService" android:permission="android.permission.BIND_JOB_SERVICE"></service>

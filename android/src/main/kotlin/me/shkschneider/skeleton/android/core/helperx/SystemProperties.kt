@@ -1,6 +1,6 @@
-package me.shkschneider.skeleton.helperx
+package me.shkschneider.skeleton.android.core.helperx
 
-import me.shkschneider.skeleton.helperx.log.Logger
+import me.shkschneider.skeleton.android.log.Logger
 
 // <https://developer.android.com/reference/java/lang/System.html#getProperties()>
 object SystemProperties {

@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.helper
+package me.shkschneider.skeleton.android.core.helper
 
 import android.content.Context
 import android.content.ContextWrapper

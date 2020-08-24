@@ -1,12 +1,12 @@
-package me.shkschneider.skeleton.data
+package me.shkschneider.skeleton.android.core.data
 
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
 
-import me.shkschneider.skeleton.helper.ApplicationHelper
-import me.shkschneider.skeleton.helper.ContextHelper
-import me.shkschneider.skeleton.helperx.log.Logger
+import me.shkschneider.skeleton.android.core.helper.ApplicationHelper
+import me.shkschneider.skeleton.android.core.helper.ContextHelper
+import me.shkschneider.skeleton.android.log.Logger
 
 object SharedPreferencesHelper {
 

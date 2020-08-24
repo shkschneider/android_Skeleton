@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton
+package me.shkschneider.skeleton.android.core
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import me.shkschneider.skeleton.uix.Inflater
+import me.shkschneider.skeleton.android.R
+import me.shkschneider.skeleton.android.ui.Inflater
 import kotlin.reflect.KClass
 
 /**

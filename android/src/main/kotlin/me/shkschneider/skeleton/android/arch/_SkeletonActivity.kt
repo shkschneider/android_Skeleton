@@ -1,9 +1,9 @@
-package me.shkschneider.skeleton.arch
+package me.shkschneider.skeleton.android.arch
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import me.shkschneider.skeleton.SkeletonActivity
+import me.shkschneider.skeleton.android.core.SkeletonActivity
 
 fun SkeletonActivity.getViewModelProviders(): ViewModelProvider {
     return ViewModelProviders.of(this)

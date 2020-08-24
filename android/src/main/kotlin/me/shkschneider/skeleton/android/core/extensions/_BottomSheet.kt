@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.extensions
+package me.shkschneider.skeleton.android.core.extensions
 
 import android.view.View
 import androidx.appcompat.app.AppCompatDialog
@@ -7,7 +7,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 
 val BottomSheetDialog.bottomSheetBehavior: BottomSheetBehavior<View>
     get() {
-        val bottomSheet = (this as AppCompatDialog).findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+        val bottomSheet = (this as AppCompatDialog).findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as View
         return BottomSheetBehavior.from(bottomSheet)
     }
 

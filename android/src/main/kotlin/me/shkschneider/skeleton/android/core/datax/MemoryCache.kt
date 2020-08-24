@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.datax
+package me.shkschneider.skeleton.android.core.datax
 
 import androidx.annotation.IntRange
 import androidx.collection.LruCache

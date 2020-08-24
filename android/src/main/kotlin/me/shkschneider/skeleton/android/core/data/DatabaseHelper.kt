@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.data
+package me.shkschneider.skeleton.android.core.data
 
 import android.database.DatabaseUtils
 import android.database.sqlite.SQLiteDatabase

@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.helper
+package me.shkschneider.skeleton.android.core.helper
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -6,8 +6,7 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import androidx.annotation.RequiresPermission
-import me.shkschneider.skeleton.helperx.log.Logger
-import me.shkschneider.skeleton.kotlinx.tryOrNull
+import me.shkschneider.skeleton.android.log.Logger
 import java.util.UUID
 
 private const val GOOGLE_SERVICE_FRAMEWORK_URI = "content://com.google.android.gsf.gservices"

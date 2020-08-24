@@ -1,9 +1,9 @@
-package me.shkschneider.skeleton.helperx
+package me.shkschneider.skeleton.android.core.helperx
 
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import androidx.annotation.FloatRange
-import me.shkschneider.skeleton.helper.ContextHelper
+import me.shkschneider.skeleton.android.core.helper.ContextHelper
 
 object Metrics {
 

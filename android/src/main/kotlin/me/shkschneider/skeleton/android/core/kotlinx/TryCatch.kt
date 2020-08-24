@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.kotlinx
+package me.shkschneider.skeleton.android.core.kotlinx
 
 fun <T : Any> tryOr(block: (() -> T?), or: T?): T? = try {
     block()

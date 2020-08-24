@@ -1,9 +1,9 @@
-package me.shkschneider.skeleton.helper
+package me.shkschneider.skeleton.android.core.helper
 
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
-import me.shkschneider.skeleton.helperx.log.Logger
+import me.shkschneider.skeleton.android.log.Logger
 
 /**
  * applicationContext()
@@ -17,7 +17,7 @@ object ContextHelper {
         if (context !is Application) {
             Logger.warning("Context is supposed to be Application based!")
         }
-        this.context = context.applicationContext
+        ContextHelper.context = context.applicationContext
     }
 
     fun applicationContext(): Context {

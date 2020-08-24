@@ -1,11 +1,11 @@
-package me.shkschneider.skeleton
+package me.shkschneider.skeleton.android.core
 
 import android.app.Application
 import android.content.pm.ApplicationInfo
-import me.shkschneider.skeleton.extensions.has
-import me.shkschneider.skeleton.helper.ContextHelper
-import me.shkschneider.skeleton.helper.DeviceHelper
-import me.shkschneider.skeleton.helperx.log.Logger
+import me.shkschneider.skeleton.kotlin.has
+import me.shkschneider.skeleton.android.core.helper.ContextHelper
+import me.shkschneider.skeleton.android.core.helper.DeviceHelper
+import me.shkschneider.skeleton.android.log.Logger
 
 /**
  * https://developer.android.com/reference/android/app/Application.html

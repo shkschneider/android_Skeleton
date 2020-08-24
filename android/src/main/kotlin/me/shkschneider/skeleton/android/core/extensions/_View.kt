@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.extensions
+package me.shkschneider.skeleton.android.core.extensions
 
 import android.content.res.Resources
 import android.graphics.Bitmap
@@ -15,11 +15,11 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.AlphaAnimation
 import android.widget.RelativeLayout
 import androidx.core.animation.addListener
-import me.shkschneider.skeleton.R
-import me.shkschneider.skeleton.SkeletonReceiver
-import me.shkschneider.skeleton.helper.ApplicationHelper
-import me.shkschneider.skeleton.helperx.log.Logger
-import me.shkschneider.skeleton.helperx.Metrics
+import me.shkschneider.skeleton.android.R
+import me.shkschneider.skeleton.android.core.SkeletonReceiver
+import me.shkschneider.skeleton.android.core.helper.ApplicationHelper
+import me.shkschneider.skeleton.android.log.Logger
+import me.shkschneider.skeleton.android.core.helperx.Metrics
 
 object ViewHelper {
 

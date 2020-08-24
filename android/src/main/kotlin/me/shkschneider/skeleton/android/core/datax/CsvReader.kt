@@ -1,6 +1,6 @@
-package me.shkschneider.skeleton.datax
+package me.shkschneider.skeleton.android.core.datax
 
-import me.shkschneider.skeleton.helperx.log.Logger
+import me.shkschneider.skeleton.android.log.Logger
 import java.io.BufferedReader
 import java.io.IOException
 

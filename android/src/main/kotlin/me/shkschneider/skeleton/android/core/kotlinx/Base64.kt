@@ -1,6 +1,5 @@
-package me.shkschneider.skeleton.kotlinx
+package me.shkschneider.skeleton.android.core.kotlinx
 
-import android.annotation.SuppressLint
 import android.util.Base64
 
 fun String.fromBase64(): String? = try {

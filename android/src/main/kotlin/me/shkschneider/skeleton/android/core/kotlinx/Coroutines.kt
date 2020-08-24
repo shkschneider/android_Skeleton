@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.kotlinx
+package me.shkschneider.skeleton.android.core.kotlinx
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
@@ -6,7 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import me.shkschneider.skeleton.helperx.log.Logger
+import me.shkschneider.skeleton.android.log.Logger
 
 /**
  * +------------+----------+-------------+-------------+

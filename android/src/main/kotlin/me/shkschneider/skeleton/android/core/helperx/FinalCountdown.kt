@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.helperx
+package me.shkschneider.skeleton.android.core.helperx
 
 import android.os.CountDownTimer
 import java.util.concurrent.TimeUnit

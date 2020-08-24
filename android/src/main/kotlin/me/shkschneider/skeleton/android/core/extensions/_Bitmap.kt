@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.extensions
+package me.shkschneider.skeleton.android.core.extensions
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -18,10 +18,10 @@ import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.IntRange
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
-import me.shkschneider.skeleton.helper.ApplicationHelper
-import me.shkschneider.skeleton.helper.ContextHelper
-import me.shkschneider.skeleton.helperx.log.Logger
-import me.shkschneider.skeleton.helperx.Metrics
+import me.shkschneider.skeleton.android.core.helper.ApplicationHelper
+import me.shkschneider.skeleton.android.core.helper.ContextHelper
+import me.shkschneider.skeleton.android.log.Logger
+import me.shkschneider.skeleton.android.core.helperx.Metrics
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream

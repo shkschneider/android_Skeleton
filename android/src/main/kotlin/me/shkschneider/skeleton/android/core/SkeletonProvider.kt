@@ -1,9 +1,10 @@
-package me.shkschneider.skeleton
+package me.shkschneider.skeleton.android.core
 
 import android.content.ContentProvider
 import android.content.ContentValues
 import android.database.Cursor
 import android.net.Uri
+import me.shkschneider.skeleton.kotlin.data.MimeTypes
 
 abstract class SkeletonProvider : ContentProvider() {
 
@@ -28,6 +29,6 @@ abstract class SkeletonProvider : ContentProvider() {
                         selectionArgs: Array<String>?): Int = 0
 
     @Suppress("DEPRECATION")
-    override fun getType(uri: Uri): String? = MimeTypeHelper.UNKNOWN
+    override fun getType(uri: Uri): String? = MimeTypes.UNKNOWN
 
 }

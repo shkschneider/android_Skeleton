@@ -1,6 +1,6 @@
-package me.shkschneider.skeleton.di
+package me.shkschneider.skeleton.android.di
 
-import me.shkschneider.skeleton.SkeletonApplication
+import me.shkschneider.skeleton.android.core.SkeletonApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin

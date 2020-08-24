@@ -1,8 +1,8 @@
-package me.shkschneider.skeleton.extensions
+package me.shkschneider.skeleton.android.core.extensions
 
 import android.content.res.Resources
 import android.util.TypedValue
-import me.shkschneider.skeleton.R
+import me.shkschneider.skeleton.android.R
 
 fun Resources.Theme.accentColor(): Int =
         with(TypedValue()) {

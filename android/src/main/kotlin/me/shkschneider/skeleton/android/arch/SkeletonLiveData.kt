@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.arch
+package me.shkschneider.skeleton.android.arch
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

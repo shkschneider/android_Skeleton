@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.helper
+package me.shkschneider.skeleton.android.core.helper
 
 import android.app.Activity
 import android.content.res.Configuration
@@ -12,11 +12,11 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
 
-import me.shkschneider.skeleton.SkeletonReceiver
-import me.shkschneider.skeleton.extensions.contentView
-import me.shkschneider.skeleton.extensions.views
-import me.shkschneider.skeleton.helperx.log.Logger
-import me.shkschneider.skeleton.helperx.Metrics
+import me.shkschneider.skeleton.android.core.SkeletonReceiver
+import me.shkschneider.skeleton.android.core.extensions.contentView
+import me.shkschneider.skeleton.android.core.extensions.views
+import me.shkschneider.skeleton.android.log.Logger
+import me.shkschneider.skeleton.android.core.helperx.Metrics
 
 object KeyboardHelper {
 

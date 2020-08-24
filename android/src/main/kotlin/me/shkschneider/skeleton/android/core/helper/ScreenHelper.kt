@@ -1,17 +1,16 @@
-package me.shkschneider.skeleton.helper
+package me.shkschneider.skeleton.android.core.helper
 
 import android.content.Context
 import android.graphics.Point
-import android.os.Build
 import android.util.DisplayMetrics
 import android.view.Surface
 import android.view.Window
 import android.view.WindowManager
 import androidx.annotation.FloatRange
-import me.shkschneider.skeleton.R
-import me.shkschneider.skeleton.helperx.log.Logger
-import me.shkschneider.skeleton.helperx.Metrics
-import me.shkschneider.skeleton.helperx.SystemServices
+import me.shkschneider.skeleton.android.R
+import me.shkschneider.skeleton.android.log.Logger
+import me.shkschneider.skeleton.android.core.helperx.Metrics
+import me.shkschneider.skeleton.android.core.helperx.SystemServices
 
 object ScreenHelper {
 

@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.helper
+package me.shkschneider.skeleton.android.core.helper
 
 import android.app.Activity
 import android.content.Intent
@@ -8,9 +8,10 @@ import android.net.Uri
 import android.provider.ContactsContract
 import android.provider.MediaStore
 import android.provider.Settings
-import me.shkschneider.skeleton.extensions.BitmapHelper
-import me.shkschneider.skeleton.helperx.log.Logger
-import me.shkschneider.skeleton.network.UrlHelper
+import me.shkschneider.skeleton.android.core.extensions.BitmapHelper
+import me.shkschneider.skeleton.kotlin.data.MimeTypes
+import me.shkschneider.skeleton.android.log.Logger
+import me.shkschneider.skeleton.android.core.network.UrlHelper
 import java.io.File
 
 // <http://developer.android.com/reference/android/content/Intent.html>
@@ -74,7 +75,7 @@ object IntentHelper {
 
     fun share(subject: String?, text: String?): Intent {
         return Intent.createChooser(Intent(Intent.ACTION_SEND).apply {
-            type = MimeTypeHelper.TEXT_PLAIN
+            type = MimeTypes.TEXT_PLAIN
             // Email: data = Uri.parse("mailto:"))
             //        putExtra(Intent.EXTRA_EMAIL, new String[] { ... })
             if (!subject.isNullOrBlank()) {
@@ -114,31 +115,31 @@ object IntentHelper {
 
     fun text(uri: Uri): Intent {
         return external(Intent(Intent.ACTION_VIEW).apply {
-            setDataAndType(uri, MimeTypeHelper.TEXT_PLAIN)
+            setDataAndType(uri, MimeTypes.TEXT_PLAIN)
         })
     }
 
     fun audio(uri: Uri): Intent {
         return external(Intent(Intent.ACTION_VIEW).apply {
-            setDataAndType(uri, MimeTypeHelper.AUDIO)
+            setDataAndType(uri, MimeTypes.AUDIO)
         })
     }
 
     fun video(uri: Uri): Intent {
         return external(Intent(Intent.ACTION_VIEW).apply {
-            setDataAndType(uri, MimeTypeHelper.VIDEO)
+            setDataAndType(uri, MimeTypes.VIDEO)
         })
     }
 
     fun picture(uri: Uri): Intent {
         return external(Intent(Intent.ACTION_VIEW).apply {
-            setDataAndType(uri, MimeTypeHelper.IMAGE)
+            setDataAndType(uri, MimeTypes.IMAGE)
         })
     }
 
     fun gallery(): Intent {
         return external(Intent(Intent.ACTION_PICK).apply {
-            type = MimeTypeHelper.IMAGE
+            type = MimeTypes.IMAGE
         })
     }
 
@@ -159,7 +160,7 @@ object IntentHelper {
 
     fun file(): Intent {
         return external(Intent(Intent.ACTION_GET_CONTENT).apply {
-            type = MimeTypeHelper.FILE
+            type = MimeTypes.FILE
         })
     }
 

@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.helper
+package me.shkschneider.skeleton.android.core.helper
 
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
@@ -8,9 +8,9 @@ import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Build
-import me.shkschneider.skeleton.SkeletonApplication
-import me.shkschneider.skeleton.helperx.log.Logger
-import me.shkschneider.skeleton.helperx.SystemServices
+import me.shkschneider.skeleton.android.core.SkeletonApplication
+import me.shkschneider.skeleton.android.log.Logger
+import me.shkschneider.skeleton.android.core.helperx.SystemServices
 
 object ApplicationHelper {
 

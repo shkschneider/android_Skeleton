@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.extensions
+package me.shkschneider.skeleton.android.core.extensions
 
 import android.app.Dialog
 import android.view.WindowManager

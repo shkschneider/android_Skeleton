@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.extensions
+package me.shkschneider.skeleton.android.core.extensions
 
 import android.text.Editable
 import android.text.InputFilter
@@ -13,6 +13,7 @@ fun EditText.maxLength(maxLength: Int) {
 
 // <http://stackoverflow.com/a/20520755>
 fun EditText.scrollCompat(editTextId: Int) {
+    // FIXME onTouch lambda should call View#performClick when a click is detected
     setOnTouchListener { v, event ->
         if (v.id == editTextId) {
             v.parent.requestDisallowInterceptTouchEvent(true)

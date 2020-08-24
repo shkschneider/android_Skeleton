@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.javax
+package me.shkschneider.skeleton.android.core.javax
 
 open class Version(version: String) : Comparable<Version> {
 

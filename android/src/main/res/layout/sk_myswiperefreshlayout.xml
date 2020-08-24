@@ -1,4 +1,4 @@
-<me.shkschneider.skeleton.ui.widget.MySwipeRefreshLayout
+<me.shkschneider.skeleton.android.core.ui.widget.MySwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/mySwipeRefreshLayout"
     android:layout_width="match_parent"

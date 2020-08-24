@@ -1,12 +1,12 @@
-package me.shkschneider.skeleton.extensions
+package me.shkschneider.skeleton.android.core.extensions
 
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
-import me.shkschneider.skeleton.helper.ApplicationHelper
-import me.shkschneider.skeleton.helper.ContextHelper
+import me.shkschneider.skeleton.android.core.helper.ApplicationHelper
+import me.shkschneider.skeleton.android.core.helper.ContextHelper
 
 object DrawableHelper {
 

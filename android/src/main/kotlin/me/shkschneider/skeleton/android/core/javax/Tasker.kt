@@ -1,6 +1,6 @@
-package me.shkschneider.skeleton.javax
+package me.shkschneider.skeleton.android.core.javax
 
-import me.shkschneider.skeleton.SkeletonReceiver
+import me.shkschneider.skeleton.android.core.SkeletonReceiver
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.Future

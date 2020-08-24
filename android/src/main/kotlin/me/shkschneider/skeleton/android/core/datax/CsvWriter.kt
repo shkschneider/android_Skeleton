@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.datax
+package me.shkschneider.skeleton.android.core.datax
 
 import java.io.PrintWriter
 import java.io.Writer

@@ -1,11 +1,11 @@
-package me.shkschneider.skeleton.arch
+package me.shkschneider.skeleton.android.arch
 
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import me.shkschneider.skeleton.SkeletonFragment
+import me.shkschneider.skeleton.android.core.SkeletonFragment
 
 fun SkeletonFragment.getViewModelProviders(): ViewModelProvider {
     return activity?.let(ViewModelProviders::of) ?: ViewModelProviders.of(this)

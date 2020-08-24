@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.helper
+package me.shkschneider.skeleton.android.core.helper
 
 import android.app.Activity
 import android.app.Notification
@@ -10,9 +10,9 @@ import android.os.Build
 import androidx.annotation.IntRange
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import me.shkschneider.skeleton.extensions.Intent
-import me.shkschneider.skeleton.helperx.SystemServices
-import me.shkschneider.skeleton.kotlinx.DateTime
+import me.shkschneider.skeleton.android.core.extensions.Intent
+import me.shkschneider.skeleton.android.core.helperx.SystemServices
+import me.shkschneider.skeleton.android.core.kotlinx.DateTime
 import java.util.concurrent.TimeUnit
 
 /**

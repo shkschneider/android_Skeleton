@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton
+package me.shkschneider.skeleton.android.core
 
 import android.app.Dialog
 import android.os.Bundle
@@ -10,7 +10,7 @@ import androidx.fragment.app.DialogFragment
 abstract class SkeletonDialog : DialogFragment() {
 
     val alive: Boolean
-        get() = dialog.isShowing
+        get() = dialog?.isShowing ?: false
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
@@ -20,7 +20,7 @@ abstract class SkeletonDialog : DialogFragment() {
 
     @UiThread
     fun dimBehind(dim: Boolean) {
-        dialog.window?.let { window ->
+        dialog?.window?.let { window ->
             if (dim) {
                 window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
             } else {

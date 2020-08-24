@@ -1,7 +1,7 @@
-package me.shkschneider.skeleton
+package me.shkschneider.skeleton.android.core
 
-import me.shkschneider.skeleton.helper.HandlerHelper
-import me.shkschneider.skeleton.helper.RunnableHelper
+import me.shkschneider.skeleton.android.core.helper.HandlerHelper
+import me.shkschneider.skeleton.android.core.helper.RunnableHelper
 import java.io.Serializable
 
 // android.support.v4.os.ResultReceiver

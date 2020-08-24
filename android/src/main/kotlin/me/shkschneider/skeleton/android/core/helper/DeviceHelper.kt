@@ -1,9 +1,9 @@
-package me.shkschneider.skeleton.helper
+package me.shkschneider.skeleton.android.core.helper
 
 import android.os.Build
 import android.telephony.TelephonyManager
-import me.shkschneider.skeleton.helperx.SystemProperties
-import me.shkschneider.skeleton.helperx.SystemServices
+import me.shkschneider.skeleton.android.core.helperx.SystemProperties
+import me.shkschneider.skeleton.android.core.helperx.SystemServices
 
 // <http://developer.android.com/reference/android/os/Build.html>
 object DeviceHelper {
@@ -40,6 +40,6 @@ object DeviceHelper {
     val tablet: Boolean
         get() = ScreenHelper.inches().toDouble() >= 7.0
 
-    override fun toString(): String = "${brand}/${manufacturer}/${codename}/${model}"
+    override fun toString(): String = "$brand/$manufacturer/$codename/$model"
 
 }

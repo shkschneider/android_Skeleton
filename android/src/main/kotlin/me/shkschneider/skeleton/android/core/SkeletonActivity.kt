@@ -1,10 +1,8 @@
-package me.shkschneider.skeleton
+package me.shkschneider.skeleton.android.core
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Bundle
 import android.text.InputType
 import android.view.Menu
@@ -22,13 +20,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import me.shkschneider.skeleton.extensions.toStringOrEmpty
-import me.shkschneider.skeleton.helper.ApplicationHelper
-import me.shkschneider.skeleton.helper.IntentHelper
-import me.shkschneider.skeleton.helper.KeyboardHelper
-import me.shkschneider.skeleton.helper.ThreadHelper
-import me.shkschneider.skeleton.helperx.log.Logger
-import me.shkschneider.skeleton.uix.OverlayLoader
+import me.shkschneider.skeleton.android.R
+import me.shkschneider.skeleton.android.core.helper.ApplicationHelper
+import me.shkschneider.skeleton.android.core.helper.IntentHelper
+import me.shkschneider.skeleton.android.core.helper.KeyboardHelper
+import me.shkschneider.skeleton.android.core.helper.ThreadHelper
+import me.shkschneider.skeleton.android.log.Logger
+import me.shkschneider.skeleton.kotlin.toStringOrEmpty
+import me.shkschneider.skeleton.android.ui.OverlayLoader
 
 const val RESULT_SEARCH_CHANGE = "onQueryTextChange"
 const val RESULT_SEARCH_SUBMIT = "onQueryTextSubmit"

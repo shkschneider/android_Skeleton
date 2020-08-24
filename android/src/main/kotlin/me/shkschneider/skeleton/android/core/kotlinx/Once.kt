@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.kotlinx
+package me.shkschneider.skeleton.android.core.kotlinx
 
 internal object UNINITIALIZED_VALUE
 

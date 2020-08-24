@@ -1,9 +1,9 @@
-package me.shkschneider.skeleton.java
+package me.shkschneider.skeleton.android.core.java
 
 import android.util.Patterns
 import androidx.annotation.IntRange
-import me.shkschneider.skeleton.helper.LocaleHelper
-import me.shkschneider.skeleton.helperx.log.Logger
+import me.shkschneider.skeleton.android.core.helper.LocaleHelper
+import me.shkschneider.skeleton.android.log.Logger
 import java.text.Normalizer
 import java.text.NumberFormat
 

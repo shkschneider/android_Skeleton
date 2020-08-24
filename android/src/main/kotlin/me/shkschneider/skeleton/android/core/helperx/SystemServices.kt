@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.helperx
+package me.shkschneider.skeleton.android.core.helperx
 
 import android.accounts.AccountManager
 import android.app.ActivityManager
@@ -66,9 +66,9 @@ import android.view.textclassifier.TextClassificationManager
 import android.view.textservice.TextServicesManager
 import androidx.annotation.RequiresApi
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
-import me.shkschneider.skeleton.extensions.getSystemService
-import me.shkschneider.skeleton.helper.AndroidHelper
-import me.shkschneider.skeleton.helper.ContextHelper
+import me.shkschneider.skeleton.android.core.extensions.getSystemService
+import me.shkschneider.skeleton.android.core.helper.AndroidHelper
+import me.shkschneider.skeleton.android.core.helper.ContextHelper
 import kotlin.reflect.KClass
 
 // <http://developer.android.com/reference/android/content/Context.html>

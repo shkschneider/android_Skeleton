@@ -3,17 +3,18 @@ buildscript {
         java: 8,
         kotlin: '1.4.0', // https://github.com/JetBrains/kotlin
         koin: '2.1.6', // https://github.com/InsertKoinIO/koin
-        skeleton: '10.1.0',
+        skeleton: '10.1.3',
         gradle: [
             android: '4.0.1', // <https://developer.android.com/studio/releases/gradle-plugin.html>
             jitpack: '2.1'
         ],
         android: [
+            java: JavaVersion.VERSION_1_8,
             sdk: [
                 target: 29,
                 min: 23 // <https://twitter.com/minSdkVersion>
             ],
-            buildTools: '29.0.0' // <https://developer.android.com/studio/releases/build-tools>
+            buildTools: '29.0.2' // <https://developer.android.com/studio/releases/build-tools>
         ]
     ]
     repositories {

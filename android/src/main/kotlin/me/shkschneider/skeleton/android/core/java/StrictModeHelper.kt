@@ -1,8 +1,8 @@
-package me.shkschneider.skeleton.java
+package me.shkschneider.skeleton.android.core.java
 
 import android.os.StrictMode
 
-import me.shkschneider.skeleton.helper.ApplicationHelper
+import me.shkschneider.skeleton.android.core.helper.ApplicationHelper
 
 object StrictModeHelper {
 

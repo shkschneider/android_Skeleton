@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.arch
+package me.shkschneider.skeleton.android.arch
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

@@ -1,7 +1,7 @@
-package me.shkschneider.skeleton
+package me.shkschneider.skeleton.android.core
 
-import me.shkschneider.skeleton.helper.ContextHelper
-import me.shkschneider.skeleton.helperx.log.Logger
+import me.shkschneider.skeleton.android.core.helper.ContextHelper
+import me.shkschneider.skeleton.android.log.Logger
 
 class ContextProvider : SkeletonProvider() {
 
