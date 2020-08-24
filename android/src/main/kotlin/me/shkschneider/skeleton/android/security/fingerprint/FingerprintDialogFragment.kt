@@ -24,6 +24,7 @@ private const val TITLE = "TITLE"
 private val DELAY = TimeUnit.SECONDS.toMillis(1.toLong())
 
 // <https://github.com/android/security>
+@Suppress("DEPRECATION")
 class FingerprintDialogFragment : DialogFragment() {
 
     companion object {

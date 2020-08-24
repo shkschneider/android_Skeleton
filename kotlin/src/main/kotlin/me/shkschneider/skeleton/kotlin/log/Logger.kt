@@ -3,23 +3,17 @@ package me.shkschneider.skeleton.kotlin.log
 object Logger : ILogger {
 
     val fingerprint: String
-        get() =
-            Throwable().stackTrace.dropWhile { it.className == this.javaClass.name }.run {
-                this[0]?.let { element ->
-                    val parent = element.className.substringAfterLast(".").substringBefore("$")
-                    val child = element.methodName.substringBefore("$").takeIf { it != "invoke" } ?: "$"
-                    return@run "[$parent.$child():${element.lineNumber}] "
-                }.orEmpty()
-            }
-
-    private val loggers = mutableListOf<ILogger>()
-
-    init {
-        when {
-            // tryOr({ return@tryOr Class.forName("?") != null }, false) == true -> loggers += CustomLogger
-            else -> loggers += JvmLogger
+        get() = Throwable().stackTrace.dropWhile { it.className == this.javaClass.name }.run {
+            this[0]?.let { element ->
+                val parent = element.className.substringAfterLast(".").substringBefore("$")
+                val child = element.methodName.substringBefore("$").takeIf { it != "invoke" } ?: "$"
+                return@run "[$parent.$child():${element.lineNumber}] "
+            }.orEmpty()
         }
-    }
+
+    private val loggers = listOf<ILogger>(
+        JvmLogger
+    )
 
     // Debug logs are compiled in but stripped at runtime.
     override fun debug(msg: String, throwable: Throwable?) =

@@ -7,6 +7,8 @@ import me.shkschneider.skeleton.kotlin.TAG
 import me.shkschneider.skeleton.android.core.helper.PermissionsHelper
 import me.shkschneider.skeleton.android.core.helperx.SystemServices
 
+// TODO BioMetrics
+@Suppress("DEPRECATION")
 object Fingerprint {
 
     @RequiresPermission(PermissionsHelper.USE_FINGERPRINT)

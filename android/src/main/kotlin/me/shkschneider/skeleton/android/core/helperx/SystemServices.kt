@@ -65,7 +65,7 @@ import android.view.inputmethod.InputMethodManager
 import android.view.textclassifier.TextClassificationManager
 import android.view.textservice.TextServicesManager
 import androidx.annotation.RequiresApi
-import androidx.core.hardware.fingerprint.FingerprintManagerCompat
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat // TODO
 import me.shkschneider.skeleton.android.core.extensions.getSystemService
 import me.shkschneider.skeleton.android.core.helper.AndroidHelper
 import me.shkschneider.skeleton.android.core.helper.ContextHelper

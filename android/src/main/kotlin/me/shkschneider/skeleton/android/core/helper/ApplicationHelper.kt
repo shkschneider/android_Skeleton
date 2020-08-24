@@ -50,7 +50,8 @@ object ApplicationHelper {
 
     fun exists(packageName: String = ApplicationHelper.packageName): Boolean =
         try {
-            (packageManager.getApplicationInfo(packageName, 0) != null)
+            packageManager.getApplicationInfo(packageName, 0)
+            true
         } catch (e: PackageManager.NameNotFoundException) {
             Logger.wtf(e)
             false

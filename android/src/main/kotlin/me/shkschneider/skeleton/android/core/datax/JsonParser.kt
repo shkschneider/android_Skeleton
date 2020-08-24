@@ -5,7 +5,7 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
-@Deprecated("Use Gson library.")
+@Deprecated("Deprecated.", ReplaceWith("Gson"))
 object JsonParser : IParser<JSONObject, JSONArray> {
 
     override fun parse(string: String): JSONObject? =

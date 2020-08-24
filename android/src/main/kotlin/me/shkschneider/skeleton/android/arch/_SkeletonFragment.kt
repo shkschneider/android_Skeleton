@@ -4,7 +4,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import me.shkschneider.skeleton.android.core.SkeletonFragment
 
 fun SkeletonFragment.getViewModelProvider(): ViewModelProvider =

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package me.shkschneider.skeleton.android.security.fingerprint
 
 import androidx.annotation.RequiresPermission

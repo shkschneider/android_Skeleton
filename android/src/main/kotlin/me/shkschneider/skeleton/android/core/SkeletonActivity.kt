@@ -80,8 +80,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        Logger.verbose("onNewIntent ${intent.action.orEmpty().toUpperCase()}"
-                + if (intent.extras != null) " (has extras)" else "")
+        Logger.verbose("onNewIntent ${intent.action.orEmpty().toUpperCase()}" + if (intent.extras != null) " (has extras)" else "")
         // This part is necessary to ensure that getIntent returns the latest intent when
         // this activity is started. By default, getIntent() returns the initial intent
         // that was set from another activity that started this activity.
