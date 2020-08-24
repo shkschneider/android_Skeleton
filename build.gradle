@@ -1,10 +1,20 @@
-// <https://developer.android.com/studio/releases/gradle-plugin.html>
-
 buildscript {
     ext.versions = [
         java: 8,
-        kotlin: '1.3.72',
-        skeleton: '10.0.0'
+        kotlin: '1.3.72', // https://github.com/JetBrains/kotlin
+        koin: '2.1.6', // https://github.com/InsertKoinIO/koin
+        skeleton: '10.1.0',
+        gradle: [
+            android: '4.0.1', // <https://developer.android.com/studio/releases/gradle-plugin.html>
+            jitpack: '2.1'
+        ],
+        android: [
+            sdk: [
+                target: 29,
+                min: 23 // <https://twitter.com/minSdkVersion>
+            ],
+            buildTools: '29.0.0' // <https://developer.android.com/studio/releases/build-tools>
+        ]
     ]
     repositories {
         google()
@@ -12,9 +22,10 @@ buildscript {
         maven { url "https://jitpack.io" }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.1'
+        classpath "com.android.tools.build:gradle:${versions.gradle.android}"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1' // JitPack
+        classpath "com.github.dcendents:android-maven-gradle-plugin:${versions.gradle.jitpack}"
+        classpath "org.koin:koin-gradle-plugin:${versions.koin}"
     }
 }
 configurations.all {
@@ -32,9 +43,6 @@ allprojects {
         def version
     }
 }
-
-apply from: "${rootProject.projectDir}/_android.gradle"
-apply from: "${rootProject.projectDir}/_kotlin.gradle"
 
 def versionCode(increment) {
     Properties versionProperties = new Properties()

@@ -1,6 +1,2 @@
-include ':arch'
-include ':core'
-include ':demo'
-include ':fuel'
-include ':room'
-include ':koin'
+include ':kotlin'
+include ':android'

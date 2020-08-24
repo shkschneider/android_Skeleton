@@ -1,0 +1,9 @@
+// Kotlin
+apply plugin: 'org.jetbrains.kotlin.jvm'
+// JitPack
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.shkschneider'
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk${versions.java}:${versions.kotlin}"
+}

@@ -1,0 +1,14 @@
+// Android
+apply plugin: 'com.android.library'
+// Kotlin
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+// JitPack
+apply plugin: 'com.github.dcendents.android-maven'
+group='com.github.shkschneider'
+
+apply from: 'build_android.gradle'
+
+apply from: 'build_dependencies.gradle'
+
+apply from: 'build_tasks.gradle'

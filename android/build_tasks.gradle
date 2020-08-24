@@ -1,0 +1,34 @@
+task cleanCaches(type: Delete) {
+    print '> Caches... '
+    def caches = new File(getGradle().gradleUserHomeDir.path.toString(), 'caches')
+    print "$caches\n"
+    delete caches.listFiles()
+}
+
+task bump() {
+    print '> Bump...'
+    def versionCode = versionCode(true)
+    print " v${versions.skeleton}r${versionCode}\n"
+}
+
+task ci() {
+    print '> Travis...'
+    travis(android)
+    print " build-tools-${versions.android.buildTools} android-${versions.android.sdk.target}\n"
+}
+
+def travis(android) {
+    def travisFile = file("${rootProject.projectDir}/.travis.yml")
+    if (!travisFile.exists()) throw new GradleException(travisFile.path)
+    String content = travisFile.getText('UTF-8')
+    content = content.replaceFirst('build-tools-[0-9.]+', "build-tools-${versions.android.buildTools}")
+    content = content.replaceFirst('android-[0-9]+', "android-${versions.android.sdk.target}")
+    new File('.travis.yml').write(content, 'UTF-8')
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name == 'preDebugBuild' || task.name == 'preReleaseBuild') {
+        task.dependsOn bump
+        task.dependsOn ci
+    }
+}

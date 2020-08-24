@@ -1,0 +1,49 @@
+android {
+    compileSdkVersion versions.android.sdk.target
+    buildToolsVersion versions.android.buildTools
+
+    defaultConfig {
+        minSdkVersion versions.android.sdk.min
+        targetSdkVersion versions.android.sdk.target
+        versionCode versionCode()
+        versionName versions.skeleton
+        vectorDrawables.useSupportLibrary = true
+        buildConfigField 'String', 'REVISION', "\"${gitRevision()}\""
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            jniDebuggable true
+            zipAlignEnabled true
+            multiDexEnabled true
+            shrinkResources false
+        }
+        release {
+            debuggable false
+            jniDebuggable false
+            zipAlignEnabled true
+            multiDexEnabled true
+            shrinkResources false // TODO
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    sourceSets {
+        debug.java.srcDirs += 'src/debug/kotlin'
+        main.java.srcDirs += 'src/main/kotlin'
+        release.java.srcDirs += 'src/release/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+        androidTest.java.srcDirs += 'src/androidTest/kotlin'
+    }
+    testOptions.unitTests.returnDefaultValues = true
+
+    lintOptions {
+        checkReleaseBuilds true
+        abortOnError true
+    }
+    resourcePrefix 'sk_'
+}

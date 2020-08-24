@@ -1,77 +1,12 @@
-buildscript {
-    ext.versions.android = [
-        sdk: [
-            target: 29,
-            // <https://twitter.com/minSdkVersion>
-            min   : 23
-        ],
-        buildTools: '29.0.0'
-    ]
-}
-
 subprojects {
 
     afterEvaluate { project ->
 
-        // FIXME def isAndroid = canonicalName == 'com.android.build.gradle.api.AndroidBasePlugin'
-        def isAndroidApplication = project.plugins.findPlugin('com.android.application') != null
-        def isAndroidLibrary = project.plugins.findPlugin('com.android.library') != null
-        // TODO isAndroidApplicationNative // NDK
+        if (project.hasProperty('android')) {
 
-        if (isAndroidApplication || isAndroidLibrary) {
-
-            android {
-                def defaultConfigVersionCode = versionCode()
-
-                // Android
-                compileSdkVersion versions.android.sdk.target
-                // <https://developer.android.com/studio/releases/build-tools>
-                buildToolsVersion versions.android.buildTools
-
-                defaultConfig {
-                    minSdkVersion versions.android.sdk.min
-                    targetSdkVersion versions.android.sdk.target
-                    versionCode defaultConfigVersionCode
-                    versionName versions.skeleton
-                    vectorDrawables.useSupportLibrary = true
-                }
-
-                buildTypes {
-                    debug {
-                        debuggable true
-                        jniDebuggable true
-                        zipAlignEnabled true
-                        multiDexEnabled true
-                        shrinkResources false
-                    }
-                    release {
-                        debuggable false
-                        jniDebuggable false
-                        zipAlignEnabled true
-                        multiDexEnabled true
-                        shrinkResources false // TODO
-                    }
-                }
-
-                // Java 8
-                compileOptions {
-                    sourceCompatibility JavaVersion.VERSION_1_8
-                    targetCompatibility JavaVersion.VERSION_1_8
-                }
-
-                if (isAndroidLibrary) resourcePrefix 'sk_'
-
-                // Lint
-                lintOptions {
-                    checkReleaseBuilds true
-                    abortOnError true
-                }
-            }
-
-            dependencies {
-                // https://developer.android.com/jetpack/androidx/versions
-                implementation 'androidx.core:core:1.1.0'
-            }
+            def isAndroidApplication = project.plugins.findPlugin('com.android.application') != null
+            def isAndroidLibrary = project.plugins.findPlugin('com.android.library') != null
+            def hasKotlinAndroid = project.plugins.findPlugin('kotlin-android') != null
 
         }
 

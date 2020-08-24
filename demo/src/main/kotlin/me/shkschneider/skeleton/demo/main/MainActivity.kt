@@ -15,7 +15,7 @@ import me.shkschneider.skeleton.demo.R
 import me.shkschneider.skeleton.demo.about.AboutActivity
 import me.shkschneider.skeleton.extensions.Intent
 import me.shkschneider.skeleton.helperx.log.Logger
-import me.shkschneider.skeleton.viewModel
+import me.shkschneider.skeleton.arch.viewModel
 import org.koin.android.ext.android.inject
 import java.util.UUID
 

@@ -1,7 +1,7 @@
 Skeleton [![Travis-CI](https://travis-ci.org/shkschneider/android_Skeleton.svg?branch=master)](https://travis-ci.org/shkschneider/android_Skeleton)
 ========
 
-> Android library with useful classes to be used as a "Skeleton" for an application.
+> Koltin/Android library with useful classes to be used as a "Skeleton" for an application.
 
 [![Koltin](https://github.com/JetBrains/kotlin-workshop/raw/master/kotlinlogo.png)](https://kotlinlang.org)
 
@@ -12,16 +12,16 @@ Setup
 
 ```
 dependencies {
-    implementation 'com.github.shkschneider.android_Skeleton:core:master-SNAPSHOT'
-    ...
+    implementation 'com.github.shkschneider.android_Skeleton:android:master-SNAPSHOT'
+    implementation 'com.github.shkschneider.android_Skeleton:kotlin:master-SNAPSHOT'
 }
 ```
 
 Specifications
 --------------
 
-[![API-16+](https://img.shields.io/badge/API-16+-blue.svg?style=flat)](https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#JELLY_BEAN)
-[![API-28](https://img.shields.io/badge/API-28-green.svg?style=flat)](https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#P)
+[![API-23+](https://img.shields.io/badge/API-23+-blue.svg?style=flat)](https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#JELLY_BEAN)
+[![API-29](https://img.shields.io/badge/API-29-green.svg?style=flat)](https://developer.android.com/reference/android/os/Build.VERSION_CODES.html#P)
 
 [![Java 8](https://img.shields.io/badge/Java-8-red.svg?style=flat)](https://www.oracle.com/technetwork/java/javase/overview/java8-2100321.html)
 
@@ -30,8 +30,8 @@ Specifications
 **Libraries**
 
 - [androidx (core, appcompat, recyclerview, palette, preference)](https://developer.android.com/jetpack/androidx/)
-- [androidx.lifecycle](https://developer.android.com/topic/libraries/architecture/lifecycle)
-- [android.arch.work](https://developer.android.com/topic/libraries/architecture/workmanager/)
+- [androidx.lifecycle](https://developer.android.com/jetpack/androidx/releases/lifecycle)
+- [androidx.work](https://developer.android.com/jetpack/androidx/releases/work)
 - [com.google.code.gson:gson](https://github.com/google/gson)
 
 **Recommended**
@@ -42,7 +42,7 @@ Specifications
 **Uses**
 
 - [Gradle 4.10+](https://developer.android.com/studio/build/index.html)
-- [Android Studio 3+](https://developer.android.com/studio/index.html)
+- [Android Studio 4+](https://developer.android.com/studio/index.html)
 - [Android Jetpack](https://developer.android.com/jetpack/)
 - [Material Design](http://www.google.com/design/spec/material-design/introduction.html)
 - [OpenJDK 8](http://openjdk.java.net/projects/jdk8/)
