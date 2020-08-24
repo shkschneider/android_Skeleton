@@ -5,7 +5,7 @@ package me.shkschneider.skeleton.android.security.fingerprint
 import androidx.annotation.RequiresPermission
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import androidx.core.os.CancellationSignal
-import me.shkschneider.skeleton.android.core.helper.PermissionsHelper
+import me.shkschneider.skeleton.android.security.Permissions
 import me.shkschneider.skeleton.android.log.Logger
 
 class FingerprintHandler(
@@ -18,7 +18,7 @@ class FingerprintHandler(
 
     // region LifeCycle
 
-    @RequiresPermission(PermissionsHelper.USE_FINGERPRINT)
+    @RequiresPermission(Permissions.USE_FINGERPRINT)
     fun onResume() {
         cancellationSignal = CancellationSignal()
         selfCancelled = false

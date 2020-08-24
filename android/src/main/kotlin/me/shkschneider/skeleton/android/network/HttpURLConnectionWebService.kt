@@ -4,11 +4,10 @@ import android.annotation.SuppressLint
 import android.os.AsyncTask
 import androidx.annotation.IntRange
 import androidx.annotation.Size
-import me.shkschneider.skeleton.kotlin.data.Charsets
+import me.shkschneider.skeleton.kotlin.text.Charsets
 import me.shkschneider.skeleton.kotlin.data.MimeTypes
-import me.shkschneider.skeleton.kotlin.data.StreamHelper
+import me.shkschneider.skeleton.kotlin.io.StreamHelper
 import me.shkschneider.skeleton.android.log.Logger
-import me.shkschneider.skeleton.android.core.network.UrlHelper
 import java.io.BufferedWriter
 import java.io.DataOutputStream
 import java.io.IOException

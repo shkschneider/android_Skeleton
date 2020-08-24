@@ -1,6 +1,7 @@
 package me.shkschneider.skeleton.kotlin.data
 
-import me.shkschneider.skeleton.kotlin.datax.Serializer
+import me.shkschneider.skeleton.kotlin.io.FileHelper
+import me.shkschneider.skeleton.kotlin.io.Serializer
 import java.io.File
 import java.io.Serializable
 

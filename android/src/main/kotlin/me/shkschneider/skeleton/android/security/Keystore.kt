@@ -5,9 +5,9 @@ import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
-import me.shkschneider.skeleton.android.core.helper.ContextHelper
+import me.shkschneider.skeleton.android.provider.ContextProvider
 import me.shkschneider.skeleton.android.log.Logger
-import me.shkschneider.skeleton.kotlin.crypt.ICrypt
+import me.shkschneider.skeleton.kotlin.security.ICrypt
 import kotlin.reflect.KClass
 
 class Keystore(
@@ -20,7 +20,7 @@ class Keystore(
     }
 
     private fun editor(): SharedPreferences =
-        ContextHelper.applicationContext().getSharedPreferences(store, Context.MODE_PRIVATE)
+        ContextProvider.applicationContext().getSharedPreferences(store, Context.MODE_PRIVATE)
 
     fun contains(key: String): Boolean =
         editor().contains(key)

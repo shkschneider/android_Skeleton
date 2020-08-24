@@ -10,14 +10,14 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import kotlinx.android.synthetic.main.sk_fingerprint_dialog.*
 import me.shkschneider.skeleton.android.R
-import me.shkschneider.skeleton.android.core.extensions.cancelable
-import me.shkschneider.skeleton.android.core.extensions.dimBehind
-import me.shkschneider.skeleton.android.core.extensions.tint
-import me.shkschneider.skeleton.android.core.helperx.SystemServices
+import me.shkschneider.skeleton.android.app.cancelable
+import me.shkschneider.skeleton.android.app.dimBehind
+import me.shkschneider.skeleton.android.provider.SystemServices
 import me.shkschneider.skeleton.android.log.Logger
-import me.shkschneider.skeleton.android.ui.Notify
-import me.shkschneider.skeleton.kotlin.TAG
-import me.shkschneider.skeleton.kotlin.exhaustive
+import me.shkschneider.skeleton.android.widget.Notify
+import me.shkschneider.skeleton.android.widget.tint
+import me.shkschneider.skeleton.kotlin.jvm.TAG
+import me.shkschneider.skeleton.kotlin.jvm.exhaustive
 import java.util.concurrent.TimeUnit
 
 private const val TITLE = "TITLE"

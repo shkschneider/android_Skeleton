@@ -1,7 +1,7 @@
 package me.shkschneider.skeleton.android.security
 
 import me.shkschneider.skeleton.android.log.Logger
-import me.shkschneider.skeleton.android.core.helper.StringHelper
+import me.shkschneider.skeleton.android.text.StringHelper
 import java.security.InvalidKeyException
 import java.security.NoSuchAlgorithmException
 import javax.crypto.Mac

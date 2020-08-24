@@ -2,9 +2,9 @@ package me.shkschneider.skeleton.android.log
 
 import android.util.Log
 import androidx.annotation.IntRange
-import me.shkschneider.skeleton.android.core.helper.ApplicationHelper
-import me.shkschneider.skeleton.android.core.helper.ContextHelper
-import me.shkschneider.skeleton.kotlin.ellipsize
+import me.shkschneider.skeleton.android.app.ApplicationHelper
+import me.shkschneider.skeleton.android.provider.ContextProvider
+import me.shkschneider.skeleton.kotlin.text.ellipsize
 import me.shkschneider.skeleton.kotlin.log.ILogger
 
 object AndroidLogger : ILogger {
@@ -19,7 +19,7 @@ object AndroidLogger : ILogger {
     private fun log(@IntRange(from = VERBOSE.toLong(), to = WTF.toLong()) level: Int, msg: String, throwable: Throwable?) {
         // <https://developer.android.com/reference/android/util/Log.html>
         // <https://developer.android.com/studio/debug/am-logcat>
-        val tag = ContextHelper.applicationContext().packageName.ellipsize(23, reverse = true)
+        val tag = ContextProvider.applicationContext().packageName.ellipsize(23, reverse = true)
         val fingerprint = if (ApplicationHelper.debuggable) Logger.fingerprint else ""
         msg.split("\n").forEach { line ->
             when (level) {

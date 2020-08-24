@@ -2,10 +2,10 @@ package me.shkschneider.skeleton.android.security
 
 import android.util.Base64
 import me.shkschneider.skeleton.android.log.Logger
-import me.shkschneider.skeleton.android.core.kotlin.fromBase64
-import me.shkschneider.skeleton.android.core.kotlin.toBase64
-import me.shkschneider.skeleton.kotlin.crypt.ICrypt
-import me.shkschneider.skeleton.kotlin.data.Charsets
+import me.shkschneider.skeleton.android.util.fromBase64
+import me.shkschneider.skeleton.android.util.toBase64
+import me.shkschneider.skeleton.kotlin.security.ICrypt
+import me.shkschneider.skeleton.kotlin.text.Charsets
 import java.nio.charset.Charset
 import java.security.InvalidAlgorithmParameterException
 import java.security.InvalidKeyException
