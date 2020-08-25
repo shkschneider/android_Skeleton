@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.kotlin.text
 import me.shkschneider.skeleton.kotlin.jvm.tryOrNull
 import java.text.Normalizer
 import java.text.NumberFormat
+import java.util.Locale
 import kotlin.math.ln
 import kotlin.math.pow
 
@@ -12,6 +13,7 @@ object StringHelper {
     const val NULL = "null"
     val ALPHA = ('a'..'z').toString()
     val NUMERIC = ('0'..'9').toString()
+    val HEX = NUMERIC + ALPHA.substring(0, 6)
 
     fun count(string: String, s: String): Int =
         string.count { s.contains(it) }
@@ -42,6 +44,24 @@ object StringHelper {
     fun number(number: Int): String? =
         tryOrNull {
             NumberFormat.getNumberInstance().format(number)
+        }
+
+    // <http://stackoverflow.com/a/9855338>
+    fun hexadecimal(bytes: ByteArray): String {
+        val result = StringBuffer()
+        bytes.forEach {
+            val octet = it.toInt()
+            val firstIndex = (octet and 0xF0).ushr(4)
+            val secondIndex = octet and 0x0F
+            result.append(HEX[firstIndex])
+            result.append(HEX[secondIndex])
+        }
+        return result.toString()
+    }
+
+    fun isHexadecimal(string: String): Boolean =
+        string.toLowerCase(Locale.getDefault()).all {
+            it in ('a' until 'f') || it.isDigit()
         }
 
     fun cData(string: String): String =
