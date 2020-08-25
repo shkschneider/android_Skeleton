@@ -28,11 +28,11 @@ open class SimpleCrypt(key: String) : ICrypt<String>(key) {
         for (i in chars.indices) {
             encrypted[i] = (chars[i].toInt() xor key[i % key.size].toInt()).toChar()
         }
-        return String(encrypted) // TODO test
+        return String(encrypted)
     }
 
     override fun decrypt(src: String): String? =
-        src.fromBase64().let { encrypted -> // TODO test
+        src.fromBase64().let { encrypted ->
             val decrypted = CharArray(encrypted.size)
             for (i in encrypted.indices) {
                 decrypted[i] = (encrypted[i].toInt() xor key[i % key.size].toInt()).toChar()

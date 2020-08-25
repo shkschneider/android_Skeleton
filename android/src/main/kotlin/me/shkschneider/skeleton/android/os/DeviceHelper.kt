@@ -1,7 +1,9 @@
 package me.shkschneider.skeleton.android.os
 
+import android.Manifest
 import android.os.Build
 import android.telephony.TelephonyManager
+import androidx.annotation.RequiresPermission
 import me.shkschneider.skeleton.android.helper.ScreenHelper
 import me.shkschneider.skeleton.android.provider.AndroidSystemProperties
 import me.shkschneider.skeleton.android.provider.SystemServices
@@ -9,8 +11,10 @@ import me.shkschneider.skeleton.android.provider.SystemServices
 // <http://developer.android.com/reference/android/os/Build.html>
 object DeviceHelper {
 
-    // TODO test
+    @Suppress("DeprecatedCallableAddReplaceWith")
+    @Deprecated("Unreliable.")
     val isPhone: Boolean
+        @RequiresPermission(Manifest.permission.READ_PHONE_STATE)
         get() = SystemServices.telephonyManager()?.phoneType != TelephonyManager.PHONE_TYPE_NONE
 
     val architecture: String?
@@ -26,10 +30,8 @@ object DeviceHelper {
     val emulator: Boolean
         get() = (AndroidSystemProperties.get("ro.kernel.qemu") == "1")
 
-    fun is64bits(): Boolean {
-        val is64bits: Boolean = AndroidHelper.api() >= AndroidHelper.ANDROID_5
-        return is64bits && Build.SUPPORTED_64_BIT_ABIS.isNotEmpty()
-    }
+    val is64bits: Boolean
+        get() = Build.SUPPORTED_64_BIT_ABIS.isNotEmpty()
 
     val manufacturer: String
         get() = Build.MANUFACTURER

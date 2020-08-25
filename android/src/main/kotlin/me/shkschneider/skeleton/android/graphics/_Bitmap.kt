@@ -3,7 +3,6 @@ package me.shkschneider.skeleton.android.graphics
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
-import android.graphics.LightingColorFilter
 import android.graphics.Matrix
 import android.graphics.Paint
 import android.graphics.drawable.BitmapDrawable
@@ -17,7 +16,10 @@ import android.util.Base64
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.IntRange
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
+import androidx.core.graphics.drawable.toBitmap
+import androidx.core.graphics.drawable.toDrawable
 import me.shkschneider.skeleton.android.app.ApplicationHelper
 import me.shkschneider.skeleton.android.provider.ContextProvider
 import me.shkschneider.skeleton.android.util.Metrics
@@ -104,7 +106,7 @@ object BitmapHelper {
 }
 
 // <https://stackoverflow.com/a/44525044>
-fun Bitmap.blur(): Bitmap { // TODO test RenderScript vs support.v8.RenderScript
+fun Bitmap.blur(): Bitmap {
     val input = Bitmap.createScaledBitmap(this, width / 2, height / 2, false)
     val output = Bitmap.createBitmap(input)
     val renderScript = RenderScript.create(ContextProvider.applicationContext())
@@ -119,7 +121,7 @@ fun Bitmap.blur(): Bitmap { // TODO test RenderScript vs support.v8.RenderScript
     return output
 }
 
-fun Bitmap.alpha(@IntRange(from = 0, to = 255) alpha: Int): Bitmap { // TODO test
+fun Bitmap.alpha(@IntRange(from = 0, to = 255) alpha: Int): Bitmap {
     Canvas(this).apply {
         drawARGB(alpha, 0, 0, 0)
         drawBitmap(this@alpha, Matrix(), Paint())
@@ -127,29 +129,11 @@ fun Bitmap.alpha(@IntRange(from = 0, to = 255) alpha: Int): Bitmap { // TODO tes
     return this
 }
 
-fun Bitmap.tint(@ColorInt color: Int): Bitmap = // TODO test
-    with(copy(Bitmap.Config.ARGB_8888, true)) {
-        val paint = Paint().apply {
-            colorFilter = LightingColorFilter(color, 0)
-        }
-        Canvas(this@with).apply {
-            drawBitmap(this@with, 1.toFloat(), 1.toFloat(), paint)
-        }
-        return this
-    }
-
-fun Bitmap.tint(@ColorInt from: Int, @ColorInt to: Int): Bitmap = // TODO test
-    with(copy(Bitmap.Config.ARGB_8888, true)) {
-        for (x in 0 until this@tint.height) {
-            for (y in 0 until this@tint.width) {
-                val px = getPixel(x, y)
-                if (px == from) {
-                    setPixel(x, y, to)
-                }
-            }
-        }
-        return this
-    }
+@Deprecated("DrawableCompat.setTint() should be used on a copied Drawable", ReplaceWith("DrawableCompat.setTint()"))
+fun Bitmap.tint(@ColorInt color: Int): Bitmap =
+    toDrawable(ApplicationHelper.resources).also {
+        DrawableCompat.setTint(it, color)
+    }.toBitmap()
 
 fun Bitmap.circular(): Bitmap? =
     RoundedBitmapDrawableFactory.create(ApplicationHelper.resources, this).bitmap
@@ -162,8 +146,8 @@ fun Bitmap.rotate(degrees: Float = 90.0F): Bitmap? {
 }
 
 fun Bitmap.toBase64(): String {
-    val byteArrayOutputStream = ByteArrayOutputStream()
-    compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
-    val bytes = byteArrayOutputStream.toByteArray()
+    val bytes = ByteArrayOutputStream().also {
+        compress(Bitmap.CompressFormat.PNG, 100, it)
+    }.toByteArray()
     return Base64.encodeToString(bytes, Base64.DEFAULT)
 }

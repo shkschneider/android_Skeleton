@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.kotlin.os
 import me.shkschneider.skeleton.kotlin.log.Logger
 
 // <https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html>
+// TODO sealed class?
 object JvmSystemProperties {
 
     const val FILE_SEPARATOR = "file.separator"

@@ -3,6 +3,7 @@ package me.shkschneider.skeleton.android.provider
 import me.shkschneider.skeleton.kotlin.log.Logger
 
 // <https://developer.android.com/reference/java/lang/System.html#getProperties()>
+// TODO sealed class?
 object AndroidSystemProperties {
 
     const val FILE_SEPARATOR = "file.separator" // /

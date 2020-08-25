@@ -19,7 +19,7 @@ object NetworkHelper {
     val isCleartextTrafficPermitted: Boolean
         get() = NetworkSecurityPolicy.getInstance().isCleartextTrafficPermitted
 
-    // TODO test
+    @Deprecated("Unreliable.")
     val ipAddresses: List<String>?
         get() = tryOrNull {
             val ipAddresses = mutableListOf<String>()
@@ -33,9 +33,11 @@ object NetworkHelper {
             ipAddresses
         }
 
+    @Deprecated("Unreliable.")
     val ip4Address: String?
         get() = ipAddress<Inet4Address>()
 
+    @Deprecated("Unreliable.")
     val ip6Address: String?
         get() = ipAddress<Inet6Address>()
 

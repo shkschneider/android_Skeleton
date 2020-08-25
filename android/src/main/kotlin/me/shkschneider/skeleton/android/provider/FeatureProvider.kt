@@ -156,6 +156,4 @@ sealed class FeatureProvider(val name: String) {
 
     val isAvailable: Boolean get() = ApplicationHelper.packageManager.hasSystemFeature(name)
 
-    // TODO companion object { fun list() }
-
 }
