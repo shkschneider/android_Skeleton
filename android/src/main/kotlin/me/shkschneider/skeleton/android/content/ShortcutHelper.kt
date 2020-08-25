@@ -6,10 +6,10 @@ import android.graphics.drawable.Icon
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import me.shkschneider.skeleton.android.app.ApplicationHelper
-import me.shkschneider.skeleton.android.log.Logger
 import me.shkschneider.skeleton.android.os.AndroidHelper
 import me.shkschneider.skeleton.android.provider.ContextProvider
 import me.shkschneider.skeleton.android.provider.SystemServices
+import me.shkschneider.skeleton.kotlin.log.Logger
 
 // <https://developer.android.com/reference/android/content/pm/ShortcutManager.html>
 @RequiresApi(AndroidHelper.API_25)

@@ -6,7 +6,7 @@ import com.github.kittinunf.fuel.core.Request
 import com.github.kittinunf.fuel.core.Response
 import com.github.kittinunf.result.Result
 import com.google.gson.Gson
-import me.shkschneider.skeleton.android.log.Logger
+import me.shkschneider.skeleton.kotlin.log.Logger
 
 typealias WebServiceSuccess<T> = (Request, Response, T?) -> Unit
 typealias WebServiceFailure = (Request, Response, Exception) -> Unit

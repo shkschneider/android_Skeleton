@@ -6,7 +6,7 @@ import androidx.core.content.edit
 
 import me.shkschneider.skeleton.android.app.ApplicationHelper
 import me.shkschneider.skeleton.android.provider.ContextProvider
-import me.shkschneider.skeleton.android.log.Logger
+import me.shkschneider.skeleton.kotlin.log.Logger
 
 // TODO encryption
 object SharedPreferencesHelper {

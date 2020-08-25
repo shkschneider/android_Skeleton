@@ -19,10 +19,10 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.IntRange
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import me.shkschneider.skeleton.android.app.ApplicationHelper
-import me.shkschneider.skeleton.android.log.Logger
 import me.shkschneider.skeleton.android.provider.ContextProvider
 import me.shkschneider.skeleton.android.util.Metrics
 import me.shkschneider.skeleton.kotlin.jvm.tryOrNull
+import me.shkschneider.skeleton.kotlin.log.Logger
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream

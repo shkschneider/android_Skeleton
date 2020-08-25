@@ -25,8 +25,8 @@ import me.shkschneider.skeleton.android.content.SkeletonReceiver
 import me.shkschneider.skeleton.android.content.IntentHelper
 import me.shkschneider.skeleton.android.helper.KeyboardHelper
 import me.shkschneider.skeleton.android.os.ThreadHelper
-import me.shkschneider.skeleton.android.log.Logger
 import me.shkschneider.skeleton.android.widget.OverlayLoader
+import me.shkschneider.skeleton.kotlin.log.Logger
 
 /**
  * https://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle

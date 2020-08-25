@@ -6,8 +6,8 @@ import me.shkschneider.skeleton.android.io.PREFIX_ASSETS
 import me.shkschneider.skeleton.android.io.PREFIX_RES
 import me.shkschneider.skeleton.kotlin.data.MimeTypes
 import me.shkschneider.skeleton.android.provider.ContextProvider
-import me.shkschneider.skeleton.android.log.Logger
 import me.shkschneider.skeleton.kotlin.io.FileHelper
+import me.shkschneider.skeleton.kotlin.log.Logger
 
 object WebViewHelper {
 

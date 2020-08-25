@@ -8,12 +8,12 @@ import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Build
-import me.shkschneider.skeleton.android.log.Logger
 import me.shkschneider.skeleton.android.os.AndroidHelper
 import me.shkschneider.skeleton.android.provider.SystemServices
 import me.shkschneider.skeleton.android.provider.ContextProvider
 import me.shkschneider.skeleton.kotlin.jvm.tryOr
 import me.shkschneider.skeleton.kotlin.jvm.tryOrNull
+import me.shkschneider.skeleton.kotlin.log.Logger
 
 object ApplicationHelper {
 

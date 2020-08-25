@@ -11,7 +11,7 @@ object Logger : ILogger {
             }.orEmpty()
         }
 
-    private val loggers = listOf<ILogger>(
+    var loggers = listOf<ILogger>(
         JvmLogger
     )
 

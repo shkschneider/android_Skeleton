@@ -15,8 +15,8 @@ import com.google.android.material.snackbar.Snackbar
 import me.shkschneider.skeleton.android.R
 import me.shkschneider.skeleton.android.os.AndroidHelper
 import me.shkschneider.skeleton.android.provider.ContextProvider
-import me.shkschneider.skeleton.android.log.Logger
 import me.shkschneider.skeleton.kotlin.content.Listener
+import me.shkschneider.skeleton.kotlin.log.Logger
 
 object Notify {
 

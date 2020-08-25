@@ -12,11 +12,11 @@ import me.shkschneider.skeleton.android.app.ApplicationHelper
 import me.shkschneider.skeleton.android.graphics.BitmapHelper
 import me.shkschneider.skeleton.android.os.LocaleHelper
 import me.shkschneider.skeleton.kotlin.data.MimeTypes
-import me.shkschneider.skeleton.android.log.Logger
 import me.shkschneider.skeleton.android.network.UrlHelper
 import me.shkschneider.skeleton.android.os.AndroidHelper
 import me.shkschneider.skeleton.android.provider.ContextProvider
 import me.shkschneider.skeleton.android.provider.FeatureProvider
+import me.shkschneider.skeleton.kotlin.log.Logger
 import java.io.File
 
 // <http://developer.android.com/reference/android/content/Intent.html>

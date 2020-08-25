@@ -6,8 +6,8 @@ import com.github.kittinunf.fuel.core.Response
 import com.github.kittinunf.fuel.core.ResponseDeserializable
 import com.google.gson.Gson
 import me.shkschneider.skeleton.android.app.ApplicationHelper
-import me.shkschneider.skeleton.android.log.Logger
 import me.shkschneider.skeleton.kotlin.jvm.tryOrNull
+import me.shkschneider.skeleton.kotlin.log.Logger
 import java.util.concurrent.TimeUnit
 import kotlin.reflect.KClass
 

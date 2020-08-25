@@ -5,7 +5,7 @@ import android.content.pm.ApplicationInfo
 import me.shkschneider.skeleton.kotlin.jvm.has
 import me.shkschneider.skeleton.android.provider.ContextProvider
 import me.shkschneider.skeleton.android.os.DeviceHelper
-import me.shkschneider.skeleton.android.log.Logger
+import me.shkschneider.skeleton.kotlin.log.Logger
 
 /**
  * https://developer.android.com/reference/android/app/Application.html
@@ -22,7 +22,7 @@ abstract class SkeletonApplication : Application() {
         super.onCreate()
         ContextProvider.applicationContext(applicationContext)
         DEBUGGABLE = applicationInfo.flags.has(ApplicationInfo.FLAG_DEBUGGABLE)
-//        if (ApplicationHelper.debuggable()) {
+//        if (ApplicationHelper.debuggable()) { TODO
 //            ExceptionHelper.uncaughtException {
 //                it.printStackTrace()
 //            }

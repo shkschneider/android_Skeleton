@@ -13,11 +13,11 @@ import me.shkschneider.skeleton.android.R
 import me.shkschneider.skeleton.android.app.cancelable
 import me.shkschneider.skeleton.android.app.dimBehind
 import me.shkschneider.skeleton.android.provider.SystemServices
-import me.shkschneider.skeleton.android.log.Logger
 import me.shkschneider.skeleton.android.widget.Notify
 import me.shkschneider.skeleton.android.widget.tint
 import me.shkschneider.skeleton.kotlin.jvm.TAG
 import me.shkschneider.skeleton.kotlin.jvm.exhaustive
+import me.shkschneider.skeleton.kotlin.log.Logger
 import java.util.concurrent.TimeUnit
 
 private const val TITLE = "TITLE"

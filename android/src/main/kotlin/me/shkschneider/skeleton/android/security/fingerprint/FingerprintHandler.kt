@@ -6,7 +6,7 @@ import androidx.annotation.RequiresPermission
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat
 import androidx.core.os.CancellationSignal
 import me.shkschneider.skeleton.android.security.Permissions
-import me.shkschneider.skeleton.android.log.Logger
+import me.shkschneider.skeleton.kotlin.log.Logger
 
 class FingerprintHandler(
         private val fingerprintManager: FingerprintManagerCompat,

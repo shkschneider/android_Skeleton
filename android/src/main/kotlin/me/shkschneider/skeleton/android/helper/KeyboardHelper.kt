@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.res.Configuration
 import android.graphics.Rect
 import android.view.KeyEvent
-import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.view.Window
 import android.view.WindowManager
@@ -15,8 +14,8 @@ import androidx.core.view.children
 import me.shkschneider.skeleton.android.app.ApplicationHelper
 import me.shkschneider.skeleton.android.app.contentView
 import me.shkschneider.skeleton.android.content.SkeletonReceiver
-import me.shkschneider.skeleton.android.log.Logger
 import me.shkschneider.skeleton.android.util.Metrics
+import me.shkschneider.skeleton.kotlin.log.Logger
 import kotlin.math.roundToLong
 
 object KeyboardHelper {

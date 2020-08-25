@@ -10,7 +10,7 @@ import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import androidx.work.Worker
-import me.shkschneider.skeleton.android.log.Logger
+import me.shkschneider.skeleton.kotlin.log.Logger
 import java.util.UUID
 import java.util.concurrent.TimeUnit
 

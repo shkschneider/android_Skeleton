@@ -9,9 +9,9 @@ import android.view.WindowManager
 import androidx.annotation.FloatRange
 import me.shkschneider.skeleton.android.R
 import me.shkschneider.skeleton.android.app.ApplicationHelper
-import me.shkschneider.skeleton.android.log.Logger
 import me.shkschneider.skeleton.android.util.Metrics
 import me.shkschneider.skeleton.android.provider.SystemServices
+import me.shkschneider.skeleton.kotlin.log.Logger
 import kotlin.math.pow
 import kotlin.math.sqrt
 

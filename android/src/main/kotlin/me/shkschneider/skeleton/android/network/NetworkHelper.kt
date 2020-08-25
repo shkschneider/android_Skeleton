@@ -3,8 +3,8 @@ package me.shkschneider.skeleton.android.network
 import android.security.NetworkSecurityPolicy
 import android.webkit.WebSettings
 import me.shkschneider.skeleton.android.provider.ContextProvider
-import me.shkschneider.skeleton.android.log.Logger
 import me.shkschneider.skeleton.kotlin.jvm.tryOrNull
+import me.shkschneider.skeleton.kotlin.log.Logger
 import java.net.Inet4Address
 import java.net.Inet6Address
 import java.net.NetworkInterface

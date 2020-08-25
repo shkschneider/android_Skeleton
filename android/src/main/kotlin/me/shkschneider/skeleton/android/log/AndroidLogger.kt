@@ -6,6 +6,7 @@ import me.shkschneider.skeleton.android.app.ApplicationHelper
 import me.shkschneider.skeleton.android.provider.ContextProvider
 import me.shkschneider.skeleton.kotlin.text.ellipsize
 import me.shkschneider.skeleton.kotlin.log.ILogger
+import me.shkschneider.skeleton.kotlin.log.Logger
 
 object AndroidLogger : ILogger {
 
@@ -15,6 +16,10 @@ object AndroidLogger : ILogger {
     private const val WARN = Log.WARN
     private const val ERROR = Log.ERROR
     private const val WTF = Log.ASSERT
+
+    init {
+        Logger.loggers += this
+    }
 
     private fun log(@IntRange(from = VERBOSE.toLong(), to = WTF.toLong()) level: Int, msg: String, throwable: Throwable?) {
         // <https://developer.android.com/reference/android/util/Log.html>

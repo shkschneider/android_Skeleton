@@ -1,7 +1,7 @@
 package me.shkschneider.skeleton.android.util
 
 import androidx.annotation.IntRange
-import me.shkschneider.skeleton.android.log.Logger
+import me.shkschneider.skeleton.kotlin.log.Logger
 import me.shkschneider.skeleton.kotlin.text.StringHelper
 import java.util.Random
 
