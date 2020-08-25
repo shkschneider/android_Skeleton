@@ -1,19 +1,16 @@
 package me.shkschneider.skeleton.android.json
 
-import me.shkschneider.skeleton.android.log.Logger
+import me.shkschneider.skeleton.kotlin.jvm.tryOr
+import me.shkschneider.skeleton.kotlin.jvm.tryOrNull
 import org.json.JSONArray
-import org.json.JSONException
 import org.json.JSONObject
 
 @Deprecated("Deprecated.", ReplaceWith("GsonParser"))
 object JsonParser : IParser<JSONObject, JSONArray> {
 
     override fun parse(string: String): JSONObject? =
-        try {
+        tryOrNull {
             JSONObject(string)
-        } catch (e: JSONException) {
-            Logger.wtf(e)
-            null
         }
 
     override fun keys(jsonObject: JSONObject): List<String> {
@@ -25,17 +22,14 @@ object JsonParser : IParser<JSONObject, JSONArray> {
         return keys
     }
 
-    override fun values(jsonObject: JSONObject): List<Any> {
-        val values = ArrayList<Any>()
-        try {
-            keys(jsonObject).forEach { key ->
-                values.add(jsonObject.get(key))
+    override fun values(jsonObject: JSONObject): List<Any>? =
+        tryOrNull {
+            ArrayList<Any>().apply {
+                keys(jsonObject).forEach { key ->
+                    this += jsonObject.get(key)
+                }
             }
-        } catch (e: JSONException) {
-            Logger.wtf(e)
         }
-        return values
-    }
 
     override fun has(jsonObject: JSONObject, key: String): Boolean =
         jsonObject.has(key)
@@ -80,38 +74,28 @@ object JsonParser : IParser<JSONObject, JSONArray> {
     // from Array
 
     override fun get(jsonArray: JSONArray, index: Int, fallback: JSONObject?): JSONObject? =
-        try {
+        tryOr(fallback) {
             jsonArray.getJSONObject(index) ?: fallback
-        } catch (e: JSONException) {
-            fallback
         }
 
     override fun array(jsonArray: JSONArray, index: Int, fallback: JSONArray?): JSONArray? =
-        try {
+        tryOr(fallback) {
             jsonArray.getJSONArray(index) ?: fallback
-        } catch (e: JSONException) {
-            fallback
         }
 
     override fun string(jsonArray: JSONArray, index: Int, fallback: String?): String? =
-        try {
+        tryOr(fallback) {
             jsonArray.getString(index) ?: fallback
-        } catch (e: JSONException) {
-            fallback
         }
 
     override fun number(jsonArray: JSONArray, index: Int, fallback: Number?): Number? =
-        try {
+        tryOr(fallback) {
             jsonArray.get(index) as? Number? ?: fallback
-        } catch (e: JSONException) {
-            fallback
         }
 
     override fun bool(jsonArray: JSONArray, index: Int, fallback: Boolean?): Boolean? =
-        try {
+        tryOr(fallback) {
             jsonArray.getBoolean(index)
-        } catch (e: JSONException) {
-            fallback
         }
 
 }

@@ -16,10 +16,10 @@ import android.view.animation.AlphaAnimation
 import android.widget.RelativeLayout
 import androidx.core.animation.addListener
 import me.shkschneider.skeleton.android.R
-import me.shkschneider.skeleton.android.content.SkeletonReceiver
 import me.shkschneider.skeleton.android.app.ApplicationHelper
-import me.shkschneider.skeleton.android.log.Logger
+import me.shkschneider.skeleton.android.content.SkeletonReceiver
 import me.shkschneider.skeleton.android.util.Metrics
+import me.shkschneider.skeleton.kotlin.jvm.tryOr
 
 object ViewHelper {
 
@@ -118,12 +118,9 @@ fun View.screenshot(): Bitmap? {
     }
 }
 
-private val androidConfigMediumAnimTime = try {
-    Resources.getSystem().getInteger(android.R.integer.config_mediumAnimTime)
-} catch (e: Resources.NotFoundException) {
-    Logger.wtf(e)
-    400
-}.toLong()
+private val androidConfigMediumAnimTime: Long = tryOr(400L) {
+    Resources.getSystem().getInteger(android.R.integer.config_mediumAnimTime).toLong()
+} as Long
 
 fun View.fadeIn(durationMillis: Long = androidConfigMediumAnimTime) {
     clearAnimation()

@@ -16,6 +16,5 @@ inline fun <reified T : ViewModel> SkeletonFragment.viewModel() = lazy {
 }
 
 // <https://stackoverflow.com/a/37727576/603270>
-fun SkeletonFragment.fragmentManager(): FragmentManager? {
-    return if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) childFragmentManager else parentFragmentManager
-}
+fun SkeletonFragment.fragmentManager(): FragmentManager? =
+    if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) childFragmentManager else parentFragmentManager

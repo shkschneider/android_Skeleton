@@ -4,9 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import com.google.gson.Gson
-import com.google.gson.JsonSyntaxException
 import me.shkschneider.skeleton.android.provider.ContextProvider
-import me.shkschneider.skeleton.android.log.Logger
+import me.shkschneider.skeleton.kotlin.jvm.tryOrNull
 import me.shkschneider.skeleton.kotlin.security.ICrypt
 import kotlin.reflect.KClass
 
@@ -29,16 +28,9 @@ class Keystore(
         get(key, klass) ?: default
 
     fun <T : Any> get(key: String, klass: KClass<T>): T? =
-        editor().getString(key, null)?.run {
-            return crypt?.let { crypt ->
-                return try {
-                    gson.fromJson(crypt.decrypt(this), klass.java)
-                } catch (e: JsonSyntaxException) {
-                    Logger.wtf(e)
-                    null
-                }
-            } ?: run {
-                return gson.fromJson(this, klass.java)
+        editor().getString(key, null)?.let { value ->
+            tryOrNull {
+                gson.fromJson(crypt?.decrypt(value), klass.java)
             }
         }
 

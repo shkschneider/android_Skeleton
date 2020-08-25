@@ -8,11 +8,9 @@ open class MemoryBitmapCache(
         size: Int = (Runtime.getRuntime().maxMemory() / 1024).toInt() / 8
 ) : LruCache<String, Bitmap>(size) {
 
-    override fun sizeOf(key: String, bitmap: Bitmap): Int {
-        // The cache size will be measured in kilobytes rather than
-        // number of items.
-        return bitmap.byteCount / 1024
-    }
+    // The cache size will be measured in kilobytes rather than number of items.
+    override fun sizeOf(key: String, bitmap: Bitmap): Int =
+        bitmap.byteCount / 1024
 
     // put()
 

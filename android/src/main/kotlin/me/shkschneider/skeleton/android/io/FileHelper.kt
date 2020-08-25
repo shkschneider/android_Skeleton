@@ -1,11 +1,10 @@
 package me.shkschneider.skeleton.android.io
 
-import android.content.res.Resources
 import androidx.annotation.RawRes
-import kotlinx.io.IOException
 import me.shkschneider.skeleton.android.app.ApplicationHelper
-import me.shkschneider.skeleton.android.content.AssetsHelper
-import me.shkschneider.skeleton.android.log.Logger
+import me.shkschneider.skeleton.android.provider.ContextProvider
+import me.shkschneider.skeleton.kotlin.jvm.tryOr
+import me.shkschneider.skeleton.kotlin.jvm.tryOrNull
 import java.io.File
 import java.io.InputStream
 
@@ -16,26 +15,20 @@ object FileHelper {
 
     fun join(dirname: String, basename: String): String {
         val file = File(dirname, basename)
-        return try {
+        return tryOr(file.path) {
             file.canonicalPath
-        } catch (e: IOException) {
-            Logger.wtf(e)
-            file.path
-        }
+        } as String
     }
 
     fun get(path: String): File =
         File(path)
 
     fun openRaw(@RawRes id: Int): InputStream? =
-        try {
+        tryOrNull {
             ApplicationHelper.resources.openRawResource(id)
-        } catch (e: Resources.NotFoundException) {
-            Logger.wtf(e)
-            null
         }
 
     fun openAsset(assetName: String): InputStream? =
-        AssetsHelper.open(assetName)
+        ContextProvider.applicationContext().assets.open(assetName)
 
 }

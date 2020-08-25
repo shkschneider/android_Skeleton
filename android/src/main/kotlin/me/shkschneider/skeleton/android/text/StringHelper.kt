@@ -4,6 +4,7 @@ import android.util.Patterns
 import androidx.annotation.IntRange
 import me.shkschneider.skeleton.android.os.LocaleHelper
 import me.shkschneider.skeleton.android.log.Logger
+import me.shkschneider.skeleton.kotlin.jvm.tryOrNull
 import java.text.Normalizer
 import java.text.NumberFormat
 import java.util.Locale
@@ -62,11 +63,8 @@ object StringHelper {
     }
 
     fun number(number: Int): String? =
-        try {
+        tryOrNull {
             NumberFormat.getNumberInstance(LocaleHelper.Device.locale()).format(number)
-        } catch (e: IllegalArgumentException) {
-            Logger.wtf(e)
-            null
         }
 
     // <http://stackoverflow.com/a/9855338>

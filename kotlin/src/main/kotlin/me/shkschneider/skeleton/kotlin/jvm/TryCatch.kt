@@ -1,18 +1,21 @@
 package me.shkschneider.skeleton.kotlin.jvm
 
-fun <T : Any> tryOr(block: (() -> T?), or: T?): T? =
+import me.shkschneider.skeleton.kotlin.log.Logger
+
+private fun <T : Any> tryOrRun(block: (() -> T?), or: ((Exception) -> T?), finally: (() -> Unit)? = null): T? =
     try {
         block()
     } catch (e: Exception) {
-        or
+        Logger.wtf(e)
+        or(e)
+    } finally {
+        finally?.invoke()
     }
 
-fun <T : Any> tryOrRun(block: (() -> T?), or: (() -> T?)): T? =
-    try {
-        block()
-    } catch (e: Exception) {
-        or()
-    }
+fun <T : Any> tryOr(or: T?, block: (() -> T?), finally: (() -> Unit)): T? =
+    tryOrRun(block, or = { or }, finally = finally)
+fun <T : Any> tryOr(or: T?, block: (() -> T?)): T? =
+    tryOrRun(block, or = { or }, finally = null)
 
-fun <T : Any> tryOrNull(block: (() -> T?)): T? =
-    tryOr<T>(block, null)
+fun <T : Any> tryOrNull(block: (() -> T?), finally: (() -> Unit)? = null): T? =
+    tryOrRun(block, or = { null }, finally = null)

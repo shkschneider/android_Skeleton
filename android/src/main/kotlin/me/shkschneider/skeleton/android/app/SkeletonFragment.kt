@@ -56,9 +56,9 @@ abstract class SkeletonFragment : Fragment() {
 
     // Loading
 
-    fun loading(): Int {
-        if (!alive) return 0
-        return (activity as? SkeletonActivity)?.loading() ?: 0
+    fun loading(): Int = when {
+        !alive -> 0
+        else -> (activity as? SkeletonActivity)?.loading() ?: 0
     }
 
     fun loading(i: Int) {
@@ -73,9 +73,8 @@ abstract class SkeletonFragment : Fragment() {
 
     // Lifecycle
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return onCreateView(inflater, R.layout.sk_fragment, container)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
+        onCreateView(inflater, R.layout.sk_fragment, container)
 
     override fun onStart() {
         super.onStart()

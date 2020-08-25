@@ -19,9 +19,10 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.IntRange
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import me.shkschneider.skeleton.android.app.ApplicationHelper
-import me.shkschneider.skeleton.android.provider.ContextProvider
 import me.shkschneider.skeleton.android.log.Logger
+import me.shkschneider.skeleton.android.provider.ContextProvider
 import me.shkschneider.skeleton.android.util.Metrics
+import me.shkschneider.skeleton.kotlin.jvm.tryOrNull
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream
@@ -48,26 +49,20 @@ object BitmapHelper {
     }
 
     fun fromInputStream(inputStream: InputStream, options: BitmapFactory.Options? = BitmapFactory.Options()): Bitmap? =
-            BitmapFactory.decodeStream(inputStream, null, options)
+        BitmapFactory.decodeStream(inputStream, null, options)
 
-    fun fromUri(uri: Uri, options: BitmapFactory.Options? = BitmapFactory.Options()): Bitmap? {
-        try {
-            val inputStream = ContextProvider.applicationContext().contentResolver.openInputStream(uri) ?: return null
-            return fromInputStream(inputStream, options)
-        } catch (e: FileNotFoundException) {
-            Logger.wtf(e)
-            return null
+    fun fromUri(uri: Uri, options: BitmapFactory.Options? = BitmapFactory.Options()): Bitmap? =
+        tryOrNull {
+            ContextProvider.applicationContext().contentResolver.openInputStream(uri)?.run {
+                fromInputStream(this, options)
+            }
         }
-    }
 
     fun fromFile(file: File): Bitmap? =
-        try {
+        tryOrNull {
             fromInputStream(FileInputStream(file), BitmapFactory.Options().apply {
                 inPreferredConfig = Bitmap.Config.ARGB_8888
             })
-        } catch (e: FileNotFoundException) {
-            Logger.wtf(e)
-            null
         }
 
     fun decodeUri(uri: Uri): Bitmap? {
@@ -75,11 +70,10 @@ object BitmapHelper {
             inJustDecodeBounds = true
         }
         try {
-            val inputStream = ContextProvider.applicationContext().contentResolver.openInputStream(uri)
-                    ?: run {
-                        Logger.warning("InputStream was NULL")
-                        return null
-                    }
+            val inputStream = ContextProvider.applicationContext().contentResolver.openInputStream(uri) ?: run {
+                Logger.warning("InputStream was NULL")
+                return null
+            }
             // Tries to optimize the process
             var width = options.outWidth
             var height = options.outHeight
@@ -115,13 +109,13 @@ fun Bitmap.blur(): Bitmap { // TODO test RenderScript vs support.v8.RenderScript
     val output = Bitmap.createBitmap(input)
     val renderScript = RenderScript.create(ContextProvider.applicationContext())
     ScriptIntrinsicBlur.create(renderScript, Element.U8_4(renderScript))
-            .apply {
-                val allocation = Allocation.createFromBitmap(renderScript, output)
-                setRadius(9.1.toFloat())
-                setInput(Allocation.createFromBitmap(renderScript, input))
-                forEach(allocation)
-                allocation.copyTo(output)
-            }
+        .apply {
+            val allocation = Allocation.createFromBitmap(renderScript, output)
+            setRadius(9.1.toFloat())
+            setInput(Allocation.createFromBitmap(renderScript, input))
+            forEach(allocation)
+            allocation.copyTo(output)
+        }
     return output
 }
 
@@ -134,31 +128,31 @@ fun Bitmap.alpha(@IntRange(from = 0, to = 255) alpha: Int): Bitmap { // TODO tes
 }
 
 fun Bitmap.tint(@ColorInt color: Int): Bitmap = // TODO test
-        with(copy(Bitmap.Config.ARGB_8888, true)) {
-            val paint = Paint().apply {
-                colorFilter = LightingColorFilter(color, 0)
-            }
-            Canvas(this@with).apply {
-                drawBitmap(this@with, 1.toFloat(), 1.toFloat(), paint)
-            }
-            return this
+    with(copy(Bitmap.Config.ARGB_8888, true)) {
+        val paint = Paint().apply {
+            colorFilter = LightingColorFilter(color, 0)
         }
+        Canvas(this@with).apply {
+            drawBitmap(this@with, 1.toFloat(), 1.toFloat(), paint)
+        }
+        return this
+    }
 
 fun Bitmap.tint(@ColorInt from: Int, @ColorInt to: Int): Bitmap = // TODO test
-        with(copy(Bitmap.Config.ARGB_8888, true)) {
-            for (x in 0 until this@tint.height) {
-                for (y in 0 until this@tint.width) {
-                    val px = getPixel(x, y)
-                    if (px == from) {
-                        setPixel(x, y, to)
-                    }
+    with(copy(Bitmap.Config.ARGB_8888, true)) {
+        for (x in 0 until this@tint.height) {
+            for (y in 0 until this@tint.width) {
+                val px = getPixel(x, y)
+                if (px == from) {
+                    setPixel(x, y, to)
                 }
             }
-            return this
         }
+        return this
+    }
 
 fun Bitmap.circular(): Bitmap? =
-        RoundedBitmapDrawableFactory.create(ApplicationHelper.resources, this).bitmap
+    RoundedBitmapDrawableFactory.create(ApplicationHelper.resources, this).bitmap
 
 fun Bitmap.rotate(degrees: Float = 90.0F): Bitmap? {
     val matrix = Matrix().apply {

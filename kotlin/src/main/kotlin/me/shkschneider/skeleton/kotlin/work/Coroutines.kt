@@ -22,27 +22,25 @@ import me.shkschneider.skeleton.kotlin.log.Logger
  */
 object Coroutines {
 
-    fun io(work: suspend (() -> Unit)): Job {
-        return CoroutineScope(Dispatchers.IO).launch {
+    fun io(work: suspend (() -> Unit)): Job =
+        CoroutineScope(Dispatchers.IO).launch {
             work()
         }
-    }
 
-    fun <T : Any> ioThenMain(work: suspend (() -> T?), callback: ((T?) -> Unit)): Job {
-        return CoroutineScope(Dispatchers.Main).launch {
+    fun <T : Any> ioThenMain(work: suspend (() -> T?), callback: ((T?) -> Unit)): Job =
+        CoroutineScope(Dispatchers.Main).launch {
             callback(CoroutineScope(Dispatchers.IO).async {
                 return@async work() // TODO try/catch?
             }.await())
         }
-    }
 
 }
 
 // fire-and-forget
 fun <T : Any> io(block: suspend (() -> T)) =
-        CoroutineScope(Dispatchers.IO).safeLaunch({
-            block()
-        })
+    CoroutineScope(Dispatchers.IO).safeLaunch({
+        block()
+    })
 
 fun <T : Any> CoroutineScope.safeLaunch(block: suspend (() -> T), onError: ((Exception) -> Unit)? = null): Job = launch {
     try {

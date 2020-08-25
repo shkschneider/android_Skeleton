@@ -66,9 +66,8 @@ object IntentHelper {
         return null
     }
 
-    fun view(uri: Uri): Intent {
-        return external(Intent(Intent.ACTION_VIEW, uri))
-    }
+    fun view(uri: Uri): Intent =
+        external(Intent(Intent.ACTION_VIEW, uri))
 
     fun web(url: String): Intent? {
         if (!UrlHelper.valid(url)) {
@@ -78,8 +77,8 @@ object IntentHelper {
         return external(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
     }
 
-    fun share(subject: String?, text: String?): Intent {
-        return Intent.createChooser(Intent(Intent.ACTION_SEND).apply {
+    fun share(subject: String?, text: String?): Intent =
+        Intent.createChooser(Intent(Intent.ACTION_SEND).apply {
             type = MimeTypes.TEXT_PLAIN
             // Email: data = Uri.parse("mailto:"))
             //        putExtra(Intent.EXTRA_EMAIL, new String[] { ... })
@@ -90,63 +89,52 @@ object IntentHelper {
                 putExtra(Intent.EXTRA_TEXT, text)
             }
         }, null)
-    }
 
-    fun directions(fromLatitude: Long, fromLongitude: Long,
-                   toLatitude: Long, toLongitude: Long): Intent {
-        return external(Intent(Intent.ACTION_VIEW,
+    fun directions(fromLatitude: Long, fromLongitude: Long, toLatitude: Long, toLongitude: Long): Intent =
+        external(Intent(Intent.ACTION_VIEW,
                 Uri.parse(String.format(LocaleHelper.Device.locale(),
                         "http://maps.google.com/maps?saddr=%s,%s&daddr=%s,%s",
                         fromLatitude, fromLongitude,
                         toLatitude, toLongitude))))
-    }
 
-    fun ringtone(existingUri: String?): Intent {
-        return Intent(RingtoneManager.ACTION_RINGTONE_PICKER).apply {
+    fun ringtone(existingUri: String?): Intent =
+        Intent(RingtoneManager.ACTION_RINGTONE_PICKER).apply {
             putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_NOTIFICATION)
             putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, Uri.parse(existingUri.orEmpty()))
         }
-    }
 
-    fun applicationSettings(): Intent {
-        return external(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+    fun applicationSettings(): Intent =
+        external(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
             data = Uri.parse("package:" + ApplicationHelper.packageName)
         })
-    }
 
-    fun systemSettings(): Intent {
-        return external(Intent(Settings.ACTION_SETTINGS))
-    }
+    fun systemSettings(): Intent =
+        external(Intent(Settings.ACTION_SETTINGS))
 
-    fun text(uri: Uri): Intent {
-        return external(Intent(Intent.ACTION_VIEW).apply {
+    fun text(uri: Uri): Intent =
+        external(Intent(Intent.ACTION_VIEW).apply {
             setDataAndType(uri, MimeTypes.TEXT_PLAIN)
         })
-    }
 
-    fun audio(uri: Uri): Intent {
-        return external(Intent(Intent.ACTION_VIEW).apply {
+    fun audio(uri: Uri): Intent =
+        external(Intent(Intent.ACTION_VIEW).apply {
             setDataAndType(uri, MimeTypes.AUDIO)
         })
-    }
 
-    fun video(uri: Uri): Intent {
-        return external(Intent(Intent.ACTION_VIEW).apply {
+    fun video(uri: Uri): Intent =
+        external(Intent(Intent.ACTION_VIEW).apply {
             setDataAndType(uri, MimeTypes.VIDEO)
         })
-    }
 
-    fun picture(uri: Uri): Intent {
-        return external(Intent(Intent.ACTION_VIEW).apply {
+    fun picture(uri: Uri): Intent =
+        external(Intent(Intent.ACTION_VIEW).apply {
             setDataAndType(uri, MimeTypes.IMAGE)
         })
-    }
 
-    fun gallery(): Intent {
-        return external(Intent(Intent.ACTION_PICK).apply {
+    fun gallery(): Intent =
+        external(Intent(Intent.ACTION_PICK).apply {
             type = MimeTypes.IMAGE
         })
-    }
 
     fun camera(file: File): Intent? {
         if (!FeatureProvider.Camera.isAvailable) {
@@ -163,36 +151,31 @@ object IntentHelper {
         return external(intent)
     }
 
-    fun file(): Intent {
-        return external(Intent(Intent.ACTION_GET_CONTENT).apply {
+    fun file(): Intent =
+        external(Intent(Intent.ACTION_GET_CONTENT).apply {
             type = MimeTypes.FILE
         })
-    }
 
-    fun dial(phone: String): Intent {
-        return external(Intent(Intent.ACTION_DIAL).apply {
+    fun dial(phone: String): Intent =
+        external(Intent(Intent.ACTION_DIAL).apply {
             data = Uri.parse("tel:$phone")
         })
-    }
 
-    fun call(phone: String): Intent {
-        return external(Intent(Intent.ACTION_CALL).apply {
+    fun call(phone: String): Intent =
+        external(Intent(Intent.ACTION_CALL).apply {
             data = Uri.parse("tel:$phone")
         })
-    }
 
-    fun sms(phone: String, message: String): Intent {
-        return external(Intent(Intent.ACTION_SENDTO).apply {
+    fun sms(phone: String, message: String): Intent =
+        external(Intent(Intent.ACTION_SENDTO).apply {
             data = Uri.parse("smsto:$phone")
             putExtra("sms_body", message)
         })
-    }
 
-    fun contact(): Intent {
-        return external(Intent(Intent.ACTION_PICK, Uri.parse("content://com.android.contacts/contacts")).apply {
+    fun contact(): Intent =
+        external(Intent(Intent.ACTION_PICK, Uri.parse("content://com.android.contacts/contacts")).apply {
             type = ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE
         })
-    }
 
     fun canHandle(intent: Intent): Boolean {
         // return (intent.resolveActivity(ApplicationHelper.packageManager()) != null)
@@ -233,10 +216,9 @@ object IntentHelper {
 
     // <http://developer.android.com/training/implementing-navigation/descendant.html#external-activities>
     @Suppress("DEPRECATION")
-    private fun external(intent: Intent): Intent {
-        return with(intent) {
+    private fun external(intent: Intent): Intent =
+        with(intent) {
             addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT)
         }
-    }
 
 }

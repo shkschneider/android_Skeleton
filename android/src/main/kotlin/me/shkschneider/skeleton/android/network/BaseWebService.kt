@@ -5,9 +5,9 @@ import com.github.kittinunf.fuel.core.Request
 import com.github.kittinunf.fuel.core.Response
 import com.github.kittinunf.fuel.core.ResponseDeserializable
 import com.google.gson.Gson
-import com.google.gson.JsonSyntaxException
 import me.shkschneider.skeleton.android.app.ApplicationHelper
 import me.shkschneider.skeleton.android.log.Logger
+import me.shkschneider.skeleton.kotlin.jvm.tryOrNull
 import java.util.concurrent.TimeUnit
 import kotlin.reflect.KClass
 
@@ -38,11 +38,8 @@ abstract class BaseWebService(val gson: Gson) {
     class Deserializer<T : Any>(private val gson: Gson, private val klass: KClass<T>) : ResponseDeserializable<T> {
 
         override fun deserialize(content: String): T? =
-            try {
+            tryOrNull {
                 gson.fromJson(content, klass.java)
-            } catch (e: JsonSyntaxException) {
-                Logger.wtf(e)
-                null
             }
 
     }

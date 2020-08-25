@@ -1,5 +1,7 @@
 package me.shkschneider.skeleton.android.jvm
 
+import me.shkschneider.skeleton.kotlin.jvm.tryOr
+
 open class Version(version: String) : Comparable<Version> {
 
     private var version: List<String> = version.split(".")
@@ -20,27 +22,24 @@ open class Version(version: String) : Comparable<Version> {
         val version2 = other.toList()
         val size = version.size.coerceAtLeast(version2.size)
         0.rangeTo(size).forEach { i ->
-            try {
+            tryOr({
                 // Process as number
                 val i1: Int = if (i < version.size) Integer.valueOf(version[i]) else 0
                 val i2: Int = if (i < version2.size) Integer.valueOf(version2[i]) else 0
-                if (i1 < i2) return -1
-                if (i1 > i2) return 1
-            } catch (e: NumberFormatException) {
+                if (i1 < i2) -1 else if (i1 > i2) 1 else 0
+            }, {
                 // Process as string
-                return version[i].compareTo(version2[i])
-            }
+                version[i].compareTo(version2[i])
+            })
         }
         return 0
     }
 
-    private fun toList(): List<String> {
-        return version
-    }
+    private fun toList(): List<String> =
+        version
 
-    override fun toString(): String {
-        return version.joinToString(".")
-    }
+    override fun toString(): String =
+        version.joinToString(".")
 
     class Comparator : java.util.Comparator<Version> {
 

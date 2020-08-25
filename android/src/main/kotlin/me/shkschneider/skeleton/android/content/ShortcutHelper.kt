@@ -8,8 +8,8 @@ import androidx.annotation.RequiresApi
 import me.shkschneider.skeleton.android.app.ApplicationHelper
 import me.shkschneider.skeleton.android.log.Logger
 import me.shkschneider.skeleton.android.os.AndroidHelper
-import me.shkschneider.skeleton.android.provider.SystemServices
 import me.shkschneider.skeleton.android.provider.ContextProvider
+import me.shkschneider.skeleton.android.provider.SystemServices
 
 // <https://developer.android.com/reference/android/content/pm/ShortcutManager.html>
 @RequiresApi(AndroidHelper.API_25)
@@ -20,10 +20,10 @@ object ShortcutHelper {
     }
 
     open class Shortcut(
-            private var id: String,
-            @DrawableRes private var icon: Int,
-            private var label: String,
-            private var intent: Intent
+        private var id: String,
+        @DrawableRes private var icon: Int,
+        private var label: String,
+        private var intent: Intent
     ) {
 
         init {
@@ -32,13 +32,12 @@ object ShortcutHelper {
             }
         }
 
-        fun shortcutInfo(): ShortcutInfo {
-            return ShortcutInfo.Builder(ContextProvider.applicationContext(), id)
-                    .setIcon(Icon.createWithResource(ContextProvider.applicationContext(), icon))
-                    .setShortLabel(label)
-                    .setIntent(intent)
-                    .build()
-        }
+        fun shortcutInfo(): ShortcutInfo =
+            ShortcutInfo.Builder(ContextProvider.applicationContext(), id)
+                .setIcon(Icon.createWithResource(ContextProvider.applicationContext(), icon))
+                .setShortLabel(label)
+                .setIntent(intent)
+                .build()
 
     }
 

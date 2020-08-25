@@ -1,44 +1,29 @@
 package me.shkschneider.skeleton.kotlin.io
 
-import me.shkschneider.skeleton.kotlin.log.Logger
+import me.shkschneider.skeleton.kotlin.jvm.tryOr
+import me.shkschneider.skeleton.kotlin.jvm.tryOrNull
 import java.io.File
 import java.io.FileInputStream
-import java.io.FileNotFoundException
 import java.io.FileOutputStream
-import java.io.IOException
 import java.io.ObjectInputStream
 import java.io.ObjectOutputStream
 
 object Serializer {
 
-    fun write(obj: Any, file: File): Boolean {
-        try {
+    fun write(obj: Any, file: File): Boolean =
+        tryOr(false) {
             val objectOutputStream = ObjectOutputStream(FileOutputStream(file))
             objectOutputStream.writeObject(obj)
             objectOutputStream.close()
-            return true
-        } catch (e: FileNotFoundException) {
-            Logger.wtf(e)
-        } catch (e: IOException) {
-            Logger.wtf(e)
-        }
-        return false
-    }
+            true
+        } == true
 
-    fun read(file: File): Any? {
-        try {
+    fun read(file: File): Any? =
+        tryOrNull {
             val objectInputStream = ObjectInputStream(FileInputStream(file))
             val obj = objectInputStream.readObject()
             objectInputStream.close()
-            return obj
-        } catch (e: FileNotFoundException) {
-            Logger.wtf(e)
-        } catch (e: IOException) {
-            Logger.wtf(e)
-        } catch (e: ClassNotFoundException) {
-            Logger.wtf(e)
+            obj
         }
-        return null
-    }
 
 }

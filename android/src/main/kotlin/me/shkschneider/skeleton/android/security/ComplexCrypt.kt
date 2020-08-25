@@ -1,17 +1,13 @@
 package me.shkschneider.skeleton.android.security
 
 import android.util.Base64
-import me.shkschneider.skeleton.android.log.Logger
 import me.shkschneider.skeleton.android.util.fromBase64
 import me.shkschneider.skeleton.android.util.toBase64
+import me.shkschneider.skeleton.kotlin.jvm.tryOrNull
 import me.shkschneider.skeleton.kotlin.security.ICrypt
 import me.shkschneider.skeleton.kotlin.text.Charsets
 import java.nio.charset.Charset
-import java.security.InvalidAlgorithmParameterException
-import java.security.InvalidKeyException
-import javax.crypto.BadPaddingException
 import javax.crypto.Cipher
-import javax.crypto.IllegalBlockSizeException
 import javax.crypto.spec.IvParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
@@ -40,44 +36,17 @@ open class ComplexCrypt(key: String) : ICrypt<String>(key) {
         Base64.encodeToString(secretKeySpec.encoded, Base64.NO_WRAP)
 
     override fun encrypt(src: String): String? =
-        try {
+        tryOrNull {
             cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec, ivParameterSpec)
             val bytes = cipher.doFinal(src.toByteArray())
             String(bytes).toBase64()
-        } catch (e: IllegalStateException) {
-            Logger.wtf(e)
-            null
-        } catch (e: InvalidKeyException) {
-            Logger.wtf(e)
-            null
-        } catch (e: InvalidAlgorithmParameterException) {
-            Logger.wtf(e)
-            null
-        } catch (e: IllegalBlockSizeException) {
-            Logger.wtf(e)
-            null
-        } catch (e: BadPaddingException) {
-            Logger.wtf(e)
-            null
         }
 
     override fun decrypt(src: String): String? =
-        try {
+        tryOrNull {
             cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec)
             val bytes = cipher.doFinal(src.fromBase64()?.toByteArray())
             String(bytes, Charset.forName(Charsets.UTF8))
-        } catch (e: InvalidKeyException) {
-            Logger.wtf(e)
-            null
-        } catch (e: InvalidAlgorithmParameterException) {
-            Logger.wtf(e)
-            null
-        } catch (e: IllegalBlockSizeException) {
-            Logger.wtf(e)
-            null
-        } catch (e: BadPaddingException) {
-            Logger.wtf(e)
-            null
         }
 
     private fun pad(bytes: ByteArray): ByteArray =

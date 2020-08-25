@@ -2,6 +2,7 @@ package me.shkschneider.skeleton.android.app
 
 import android.app.Dialog
 import android.view.WindowManager
+import me.shkschneider.skeleton.kotlin.content.Listener
 
 fun Dialog.dimBehind(dim: Boolean) {
     if (dim) {
@@ -11,7 +12,7 @@ fun Dialog.dimBehind(dim: Boolean) {
     }
 }
 
-fun Dialog.cancelable(cancelable: Boolean, canceledOnTouchOutside: Boolean, onDismissListener: (() -> Unit)? = null) {
+fun Dialog.cancelable(cancelable: Boolean, canceledOnTouchOutside: Boolean, onDismissListener: Listener? = null) {
     setCancelable(cancelable)
     setCanceledOnTouchOutside(canceledOnTouchOutside)
     onDismissListener?.let { listener -> {

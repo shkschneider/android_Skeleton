@@ -4,11 +4,11 @@ import android.animation.Animator
 
 // <https://github.com/nowfalsalahudeen/KdroidExt>
 
-fun Animator.addListener(
-        onEnd: (Animator) -> Unit = {},
-        onStart: (Animator) -> Unit = {},
-        onCancel: (Animator) -> Unit = {},
-        onRepeat: (Animator) -> Unit = {}
+private fun Animator.addListener(
+        onEnd: ((Animator) -> Unit) = {},
+        onStart: ((Animator) -> Unit) = {},
+        onCancel: ((Animator) -> Unit) = {},
+        onRepeat: ((Animator) -> Unit) = {}
 ) {
     addListener(object : Animator.AnimatorListener {
 

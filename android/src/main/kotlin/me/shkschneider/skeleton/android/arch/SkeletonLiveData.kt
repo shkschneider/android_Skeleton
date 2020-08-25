@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
 class SkeletonLiveData<T>(
-        initialValue: T? = null,
-        private val fallback: T? = null,
-        private val distinct: Boolean = false,
-        private val filter: ((T?) -> Boolean)? = null
+    initialValue: T? = null,
+    private val fallback: T? = null,
+    private val distinct: Boolean = false,
+    private val filter: ((T?) -> Boolean)? = null
 ) : LiveData<T?>() {
 
     private val data = MutableLiveData<T?>().apply {

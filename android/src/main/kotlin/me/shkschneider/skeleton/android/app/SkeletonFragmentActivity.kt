@@ -26,9 +26,8 @@ abstract class SkeletonFragmentActivity : SkeletonActivity() {
         // fragmentManager.executePendingTransactions()
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        return super.onSupportNavigateUp()
-    }
+    override fun onSupportNavigateUp(): Boolean =
+        super.onSupportNavigateUp()
 
     override fun onBackPressed() {
         if (supportFragmentManager.backStackEntryCount != 0) {

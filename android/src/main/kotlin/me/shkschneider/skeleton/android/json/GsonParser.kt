@@ -4,8 +4,7 @@ import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
-import com.google.gson.JsonParseException
-import me.shkschneider.skeleton.android.log.Logger
+import me.shkschneider.skeleton.kotlin.jvm.tryOrNull
 
 object GsonParser : IParser<JsonObject, JsonArray> {
 
@@ -13,12 +12,7 @@ object GsonParser : IParser<JsonObject, JsonArray> {
         parse(string, Gson())
 
     fun parse(string: String, gson: Gson): JsonObject? =
-        try {
-            gson.fromJson(string, JsonObject::class.java)
-        } catch (e: JsonParseException) {
-            Logger.wtf(e)
-            null
-        }
+        tryOrNull { gson.fromJson(string, JsonObject::class.java) }
 
     override fun keys(jsonObject: JsonObject): List<String> {
         val keys = ArrayList<String>()

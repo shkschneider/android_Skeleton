@@ -6,7 +6,7 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import androidx.annotation.RequiresPermission
-import me.shkschneider.skeleton.android.log.Logger
+import me.shkschneider.skeleton.kotlin.jvm.tryOrNull
 import java.util.Locale
 import java.util.UUID
 
@@ -30,45 +30,28 @@ object IdHelper {
     fun googleServiceFrameworkId(): String? {
         val cursor = ContextProvider.applicationContext().contentResolver.query(Uri.parse(GOOGLE_SERVICE_FRAMEWORK_URI), null, null, arrayOf(ANDROID_ID), null) ?: return null
         var gsfId: String? = null
-        try {
+        tryOrNull({
             if (!cursor.moveToFirst() || cursor.columnCount < 2) {
                 throw Exception()
             }
             gsfId = java.lang.Long.toHexString(java.lang.Long.parseLong(cursor.getString(1)))
-        } catch (e: Exception) {
-            Logger.wtf(e)
-        } finally {
-            cursor.close()
-        }
+        }, finally = { cursor.close() })
         return gsfId
     }
 
+    @Suppress("DEPRECATION")
     @RequiresPermission(Manifest.permission.READ_PHONE_STATE)
     @SuppressLint("MissingPermission")
-    fun serial(): String {
-        if (Build.VERSION.SDK_INT >= 26) {
-            return Build.getSerial()
-        } else {
-            @Suppress("DEPRECATION")
-            return androidId() ?: Build.UNKNOWN
-        }
-    }
+    fun serial(): String =
+        if (Build.VERSION.SDK_INT >= 26) Build.getSerial() else androidId() ?: Build.UNKNOWN
 
+    @Suppress("DeprecatedCallableAddReplaceWith")
     @SuppressLint("HardwareIds")
     @Deprecated("Using getString to get device identifiers is not recommended.")
-    private fun androidId(): String? {
-        try {
-            val androidId = Settings.Secure.getString(ContextProvider.applicationContext().contentResolver, Settings.Secure.ANDROID_ID)
-            if (androidId.isNullOrBlank()) {
-                Logger.warning("AndroidId was NULL")
-                return null
-            }
-            return androidId.toLowerCase(Locale.getDefault())
-        } catch (e: SecurityException) {
-            Logger.wtf(e)
-            return null
+    private fun androidId(): String? =
+        tryOrNull {
+            Settings.Secure.getString(ContextProvider.applicationContext().contentResolver, Settings.Secure.ANDROID_ID).toLowerCase(Locale.getDefault())
         }
-    }
 
     fun uuid(id: String): String =
         UUID.nameUUIDFromBytes(id.toByteArray()).toString()

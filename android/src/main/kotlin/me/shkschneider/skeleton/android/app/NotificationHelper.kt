@@ -45,9 +45,8 @@ object NotificationHelper {
         return PendingIntent.getActivity(activity, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
-    fun pendingIntent(activity: Activity): PendingIntent {
-        return pendingIntent(activity, intent(activity, activity::class))
-    }
+    fun pendingIntent(activity: Activity): PendingIntent =
+        pendingIntent(activity, intent(activity, activity::class))
 
     class Builder : NotificationCompat.Builder {
 
@@ -77,17 +76,14 @@ object NotificationHelper {
             return super.setOngoing(ongoing)
         }
 
-        fun setWhenMilliseconds(ms: Long): NotificationCompat.Builder {
-            return super.setWhen(ms)
-        }
+        fun setWhenMilliseconds(ms: Long): NotificationCompat.Builder =
+            super.setWhen(ms)
 
-        fun setWhenSeconds(s: Long): NotificationCompat.Builder {
-            return super.setWhen(TimeUnit.SECONDS.toMillis(s))
-        }
+        fun setWhenSeconds(s: Long): NotificationCompat.Builder =
+            super.setWhen(TimeUnit.SECONDS.toMillis(s))
 
-        override fun setUsesChronometer(b: Boolean): NotificationCompat.Builder {
-            return super.setUsesChronometer(b)
-        }
+        override fun setUsesChronometer(b: Boolean): NotificationCompat.Builder =
+            super.setUsesChronometer(b)
 
         @Deprecated("Use a NotificationChannel.")
         constructor(id: String) : super(ContextProvider.applicationContext(), id) {
@@ -100,9 +96,8 @@ object NotificationHelper {
             // setAutoCancel(true);
         }
 
-        override fun build(): Notification {
-            return super.build()
-        }
+        override fun build(): Notification =
+            super.build()
 
     }
 
@@ -131,9 +126,8 @@ object NotificationHelper {
         companion object {
 
             @RequiresApi(AndroidHelper.API_26)
-            fun get(id: String): NotificationChannel? {
-                return SystemServices.notificationManager()?.getNotificationChannel(id)
-            }
+            fun get(id: String): NotificationChannel? =
+                SystemServices.notificationManager()?.getNotificationChannel(id)
 
             @RequiresApi(AndroidHelper.API_26)
             fun create(notificationChannel: NotificationChannel) {

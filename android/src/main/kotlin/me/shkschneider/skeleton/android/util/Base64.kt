@@ -1,12 +1,11 @@
 package me.shkschneider.skeleton.android.util
 
 import android.util.Base64
+import me.shkschneider.skeleton.kotlin.jvm.tryOrNull
 
 fun String.fromBase64(): String? =
-    try {
+    tryOrNull {
         String(Base64.decode(this, Base64.DEFAULT), Charsets.UTF_8)
-    } catch (e: IllegalArgumentException) {
-        null
     }
 
 fun String.toBase64(): String =

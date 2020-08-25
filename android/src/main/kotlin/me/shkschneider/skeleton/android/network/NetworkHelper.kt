@@ -4,6 +4,7 @@ import android.security.NetworkSecurityPolicy
 import android.webkit.WebSettings
 import me.shkschneider.skeleton.android.provider.ContextProvider
 import me.shkschneider.skeleton.android.log.Logger
+import me.shkschneider.skeleton.kotlin.jvm.tryOrNull
 import java.net.Inet4Address
 import java.net.Inet6Address
 import java.net.NetworkInterface
@@ -20,7 +21,7 @@ object NetworkHelper {
 
     // TODO test
     val ipAddresses: List<String>?
-        get() = try {
+        get() = tryOrNull {
             val ipAddresses = mutableListOf<String>()
             NetworkInterface.getNetworkInterfaces().asSequence().forEach { networkInterface ->
                 networkInterface.inetAddresses.asSequence()
@@ -30,9 +31,6 @@ object NetworkHelper {
                     }
             }
             ipAddresses
-        } catch (e: SocketException) {
-            Logger.wtf(e)
-            null
         }
 
     val ip4Address: String?

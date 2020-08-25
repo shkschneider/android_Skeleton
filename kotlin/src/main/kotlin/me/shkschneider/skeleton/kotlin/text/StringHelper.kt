@@ -1,6 +1,6 @@
 package me.shkschneider.skeleton.kotlin.text
 
-import me.shkschneider.skeleton.kotlin.log.Logger
+import me.shkschneider.skeleton.kotlin.jvm.tryOrNull
 import java.text.Normalizer
 import java.text.NumberFormat
 import kotlin.math.ln
@@ -40,11 +40,8 @@ object StringHelper {
     }
 
     fun number(number: Int): String? =
-        try {
+        tryOrNull {
             NumberFormat.getNumberInstance().format(number)
-        } catch (e: IllegalArgumentException) {
-            Logger.wtf(e)
-            null
         }
 
     fun cData(string: String): String =

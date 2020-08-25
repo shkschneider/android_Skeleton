@@ -12,6 +12,8 @@ import me.shkschneider.skeleton.android.log.Logger
 import me.shkschneider.skeleton.android.os.AndroidHelper
 import me.shkschneider.skeleton.android.provider.SystemServices
 import me.shkschneider.skeleton.android.provider.ContextProvider
+import me.shkschneider.skeleton.kotlin.jvm.tryOr
+import me.shkschneider.skeleton.kotlin.jvm.tryOrNull
 
 object ApplicationHelper {
 
@@ -34,11 +36,8 @@ object ApplicationHelper {
         get() = ContextProvider.applicationContext().packageManager
 
     fun applicationInfo(packageName: String = ApplicationHelper.packageName): ApplicationInfo? =
-        try {
+        tryOrNull {
             packageManager.getApplicationInfo(packageName, 0)
-        } catch (e: PackageManager.NameNotFoundException) {
-            Logger.wtf(e)
-            null
         }
 
     fun name(packageName: String = ApplicationHelper.packageName): String? =
@@ -48,20 +47,14 @@ object ApplicationHelper {
         }
 
     fun exists(packageName: String = ApplicationHelper.packageName): Boolean =
-        try {
+        tryOr({
             packageManager.getApplicationInfo(packageName, 0)
             true
-        } catch (e: PackageManager.NameNotFoundException) {
-            Logger.wtf(e)
-            false
-        }
+        }, false) == true
 
     fun packageInfo(packageName: String = ApplicationHelper.packageName, flags: Int = 0): PackageInfo? =
-        try {
+        tryOrNull {
             packageManager.getPackageInfo(packageName, flags)
-        } catch (e: PackageManager.NameNotFoundException) {
-            Logger.wtf(e)
-            null
         }
 
     fun versionName(packageName: String = ApplicationHelper.packageName): String? =
@@ -100,21 +93,15 @@ object ApplicationHelper {
         }
 
     fun icon(packageName: String = ApplicationHelper.packageName): Int? =
-        try {
+        tryOrNull {
             val applicationInfo = packageManager.getApplicationInfo(packageName, 0)
             applicationInfo.icon
-        } catch (e: PackageManager.NameNotFoundException) {
-            Logger.wtf(e)
-            null
         }
 
     fun drawable(packageName: String = ApplicationHelper.packageName) : Drawable? =
-        try {
+        tryOrNull {
             val applicationInfo = packageManager.getApplicationInfo(packageName, 0)
             applicationInfo.loadIcon(packageManager)
-        } catch (e: PackageManager.NameNotFoundException) {
-            Logger.wtf(e)
-            null
         }
 
     @TargetApi(AndroidHelper.API_19)

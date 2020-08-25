@@ -23,4 +23,4 @@ fun <T> LiveData<T>.observeUnless(owner: LifecycleOwner, predicate: Predicate<T>
 }
 
 fun <T> LiveData<T>.observeNonNull(owner: LifecycleOwner, observer: Observer<T>) =
-        observeIf(owner, { it != null }, observer)
+    observeIf(owner, { it != null }, observer)

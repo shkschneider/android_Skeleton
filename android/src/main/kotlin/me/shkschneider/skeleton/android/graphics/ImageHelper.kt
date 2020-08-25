@@ -1,10 +1,8 @@
 package me.shkschneider.skeleton.android.graphics
 
 import android.graphics.Bitmap
-import me.shkschneider.skeleton.android.graphics.BitmapHelper
-import me.shkschneider.skeleton.android.log.Logger
+import me.shkschneider.skeleton.kotlin.jvm.tryOr
 import java.io.File
-import java.io.FileNotFoundException
 import java.io.FileOutputStream
 
 object ImageHelper {
@@ -13,12 +11,10 @@ object ImageHelper {
         BitmapHelper.fromFile(file)
 
     fun writeBitmap(file: File, bitmap: Bitmap): Boolean =
-        try {
+        tryOr(false) {
             val fileOutputStream = FileOutputStream(file)
             bitmap.compress(Bitmap.CompressFormat.PNG, 90, fileOutputStream)
-        } catch (e: FileNotFoundException) {
-            Logger.wtf(e)
-            false
-        }
+            true
+        } == true
 
 }

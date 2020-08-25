@@ -6,7 +6,7 @@ import android.net.Uri
 import kotlin.reflect.KClass
 
 fun <T : Any> intent(context: Context, klass: KClass<T>): Intent =
-        Intent(context, klass.java)
+    Intent(context, klass.java)
 
 fun <T : Any> intent(action: String, uri: Uri, context: Context, klass: KClass<T>): Intent =
-        Intent(action, uri, context, klass.java)
+    Intent(action, uri, context, klass.java)

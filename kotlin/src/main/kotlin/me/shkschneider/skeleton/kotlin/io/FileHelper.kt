@@ -1,10 +1,10 @@
 package me.shkschneider.skeleton.kotlin.io
 
-import me.shkschneider.skeleton.kotlin.io.StreamHelper
+import me.shkschneider.skeleton.kotlin.jvm.tryOr
+import me.shkschneider.skeleton.kotlin.jvm.tryOrNull
 import me.shkschneider.skeleton.kotlin.log.Logger
 import java.io.File
 import java.io.FileInputStream
-import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
@@ -27,27 +27,18 @@ object FileHelper {
         File(path)
 
     fun openFile(file: File): InputStream? =
-        try {
+        tryOrNull {
             FileInputStream(file)
-        } catch (e: FileNotFoundException) {
-            Logger.wtf(e)
-            null
         }
 
     fun readString(file: File): String? =
-        try {
+        tryOrNull {
             StreamHelper.read(FileInputStream(file))
-        } catch (e: FileNotFoundException) {
-            Logger.wtf(e)
-            null
         }
 
     fun writeString(file: File, content: String): Boolean =
-        try {
+        tryOr(false) {
             StreamHelper.write(FileOutputStream(file), content)
-        } catch (e: FileNotFoundException) {
-            Logger.wtf(e)
-            false
-        }
+        } == true
 
 }

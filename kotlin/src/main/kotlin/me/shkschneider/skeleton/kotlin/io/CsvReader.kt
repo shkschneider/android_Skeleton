@@ -1,5 +1,6 @@
 package me.shkschneider.skeleton.kotlin.io
 
+import me.shkschneider.skeleton.kotlin.jvm.tryOrNull
 import me.shkschneider.skeleton.kotlin.log.Logger
 import java.io.BufferedReader
 import java.io.IOException
@@ -24,18 +25,13 @@ open class CsvReader(
         return nextLine
     }
 
-    fun hasNext(): Boolean {
-        return hasNext
-    }
+    fun hasNext(): Boolean =
+        hasNext
 
-    fun readNext(): List<String>? {
-        return try {
-            val nextLine = getNextLine()
-            parseLine(nextLine)
-        } catch (e: IOException) {
-            null
+    fun readNext(): List<String>? =
+        tryOrNull {
+            parseLine(getNextLine())
         }
-    }
 
     @Throws(IOException::class)
     private fun parseLine(nextLine: String): List<String>? {

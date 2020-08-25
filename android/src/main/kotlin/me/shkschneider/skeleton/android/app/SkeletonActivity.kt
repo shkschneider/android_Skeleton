@@ -26,11 +26,7 @@ import me.shkschneider.skeleton.android.content.IntentHelper
 import me.shkschneider.skeleton.android.helper.KeyboardHelper
 import me.shkschneider.skeleton.android.os.ThreadHelper
 import me.shkschneider.skeleton.android.log.Logger
-import me.shkschneider.skeleton.kotlin.jvm.toStringOrEmpty
 import me.shkschneider.skeleton.android.widget.OverlayLoader
-
-const val RESULT_SEARCH_CHANGE = "onQueryTextChange"
-const val RESULT_SEARCH_SUBMIT = "onQueryTextSubmit"
 
 /**
  * https://developer.android.com/reference/android/app/Activity.html#ActivityLifecycle
@@ -117,7 +113,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
         // BundleHelper.unpack()
     }
 
-    private fun onViewCreated() {
+    protected fun onViewCreated() {
         toolbar = findViewById(R.id.toolbar)
         toolbar?.let { toolbar ->
             setSupportActionBar(toolbar)
@@ -148,16 +144,14 @@ abstract class SkeletonActivity : AppCompatActivity() {
         // BundleHelper.pack()
     }
 
-    @Deprecated("Never existed.", ReplaceWith("recreate()"))
-    fun restart() {
-        recreate()
+    override fun recreate() {
+        super.recreate()
     }
 
     // StatusBar
 
-    fun statusBarColor(window: Window): Int {
-        return window.statusBarColor
-    }
+    fun statusBarColor(window: Window): Int =
+        window.statusBarColor
 
     fun statusBarColor(window: Window, @ColorInt color: Int) {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
@@ -190,9 +184,8 @@ abstract class SkeletonActivity : AppCompatActivity() {
         this.toolbar = toolbar
     }
 
-    fun toolbar(): Toolbar? {
-        return toolbar
-    }
+    fun toolbar(): Toolbar? =
+        toolbar
 
     fun toolbar(show: Boolean = true, home: Boolean = false, logo: Drawable? = null, title: String? = null, subtitle: String? = null) {
         toolbar(show)
@@ -236,15 +229,8 @@ abstract class SkeletonActivity : AppCompatActivity() {
         }
     }
 
-    fun title(): String? {
-        toolbar?.let { toolbar ->
-            return toolbar.title.toStringOrEmpty()
-        }
-        supportActionBar?.let { actionBar ->
-            return actionBar.title.toStringOrEmpty()
-        }
-        return null
-    }
+    fun title(): String? =
+        toolbar?.title?.toString() ?: supportActionBar?.title?.toString()
 
     fun subtitle(subtitle: String?) {
         toolbar?.let { toolbar ->
@@ -256,15 +242,8 @@ abstract class SkeletonActivity : AppCompatActivity() {
         }
     }
 
-    fun subtitle(): String? {
-        toolbar?.let { toolbar ->
-            return toolbar.subtitle.toStringOrEmpty()
-        }
-        supportActionBar?.let { actionBar ->
-            return actionBar.subtitle.toStringOrEmpty()
-        }
-        return null
-    }
+    fun subtitle(): String? =
+        toolbar?.subtitle?.toString() ?: supportActionBar?.subtitle?.toString()
 
     // Loading
     // <https://gist.github.com/antoniolg/9837398>
@@ -273,9 +252,8 @@ abstract class SkeletonActivity : AppCompatActivity() {
     private var overlayLoader: OverlayLoader? = null
 
     @UiThread
-    fun loading(): Int {
-        return loading
-    }
+    fun loading(): Int =
+        loading
 
     @UiThread
     fun loading(i: Int) {
@@ -286,7 +264,7 @@ abstract class SkeletonActivity : AppCompatActivity() {
     @UiThread
     fun loading(b: Boolean) {
         if (!ThreadHelper.mainThread()) {
-            Logger.debug("Not on Main UI Thread!")
+            Logger.debug("Not on MainThread!")
         }
         if (b) {
             runOnUiThread {
@@ -392,6 +370,13 @@ abstract class SkeletonActivity : AppCompatActivity() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    companion object {
+
+        const val RESULT_SEARCH_CHANGE = "onQueryTextChange"
+        const val RESULT_SEARCH_SUBMIT = "onQueryTextSubmit"
+
     }
 
 }
