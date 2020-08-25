@@ -10,9 +10,6 @@ import me.shkschneider.skeleton.kotlin.jvm.tryOrNull
 import java.util.Locale
 import java.util.UUID
 
-private const val GOOGLE_SERVICE_FRAMEWORK_URI = "content://com.google.android.gsf.gservices"
-private const val ANDROID_ID = "android_id"
-
 /**
  * > Hey, I lost the server password. What is it, again?
  * > It's... wait. How do I know it's really you?
@@ -22,7 +19,10 @@ private const val ANDROID_ID = "android_id"
  */
 // <https://developer.android.com/training/articles/user-data-ids>
 // <https://developers.google.com/instance-id/>
-object IdHelper {
+object IdProvider {
+
+    private const val GOOGLE_SERVICE_FRAMEWORK_URI = "content://com.google.android.gsf.gservices"
+    private const val ANDROID_ID = "android_id"
 
     // <http://stackoverflow.com/q/22743087>
     @SuppressLint("Recycle")

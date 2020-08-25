@@ -5,8 +5,8 @@ import android.os.Build
 import android.telephony.TelephonyManager
 import androidx.annotation.RequiresPermission
 import me.shkschneider.skeleton.android.helper.ScreenHelper
-import me.shkschneider.skeleton.android.provider.AndroidSystemProperties
 import me.shkschneider.skeleton.android.provider.SystemServices
+import me.shkschneider.skeleton.kotlin.os.JvmSystemProperty
 
 // <http://developer.android.com/reference/android/os/Build.html>
 object DeviceHelper {
@@ -18,7 +18,7 @@ object DeviceHelper {
         get() = SystemServices.telephonyManager()?.phoneType != TelephonyManager.PHONE_TYPE_NONE
 
     val architecture: String?
-        get() = AndroidSystemProperties.get(AndroidSystemProperties.OS_ARCH)
+        get() = JvmSystemProperty.OsArch.get()
 
     val brand: String
         get() = Build.BRAND
@@ -28,7 +28,7 @@ object DeviceHelper {
 
     // Hidden Build.IS_EMULATOR
     val emulator: Boolean
-        get() = (AndroidSystemProperties.get("ro.kernel.qemu") == "1")
+        get() = (JvmSystemProperty.get("ro.kernel.qemu") == "1")
 
     val is64bits: Boolean
         get() = Build.SUPPORTED_64_BIT_ABIS.isNotEmpty()

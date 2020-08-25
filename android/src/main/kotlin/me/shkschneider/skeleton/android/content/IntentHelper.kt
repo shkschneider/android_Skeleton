@@ -15,7 +15,7 @@ import me.shkschneider.skeleton.kotlin.data.MimeTypes
 import me.shkschneider.skeleton.android.network.UrlHelper
 import me.shkschneider.skeleton.android.os.AndroidHelper
 import me.shkschneider.skeleton.android.provider.ContextProvider
-import me.shkschneider.skeleton.android.provider.FeatureProvider
+import me.shkschneider.skeleton.android.provider.AndroidFeature
 import me.shkschneider.skeleton.kotlin.log.Logger
 import java.io.File
 
@@ -137,7 +137,7 @@ object IntentHelper {
         })
 
     fun camera(file: File): Intent? {
-        if (!FeatureProvider.Camera.isAvailable) {
+        if (!AndroidFeature.Camera.isAvailable) {
             Logger.warning("Camera was unavailable")
             return null
         }

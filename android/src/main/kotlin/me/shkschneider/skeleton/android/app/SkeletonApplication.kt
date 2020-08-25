@@ -5,6 +5,7 @@ import android.content.pm.ApplicationInfo
 import me.shkschneider.skeleton.kotlin.jvm.has
 import me.shkschneider.skeleton.android.provider.ContextProvider
 import me.shkschneider.skeleton.android.os.DeviceHelper
+import me.shkschneider.skeleton.android.os.SystemHelper
 import me.shkschneider.skeleton.kotlin.jvm.ExceptionHelper
 import me.shkschneider.skeleton.kotlin.log.Logger
 
@@ -28,7 +29,7 @@ abstract class SkeletonApplication : Application() {
                 it.printStackTrace()
             }
         }
-        Logger.verbose("Hello, ${DeviceHelper.codename} ($DeviceHelper)!")
+        Logger.verbose("Hello, $DeviceHelper (${SystemHelper.uname()})!")
     }
 
     companion object {
