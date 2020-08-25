@@ -29,11 +29,11 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility versions.android.java as JavaVersion
-        targetCompatibility versions.android.java as JavaVersion
+        sourceCompatibility versions.java
+        targetCompatibility versions.java
     }
     kotlinOptions {
-        jvmTarget = versions.android.java.toString()
+        jvmTarget = versions.java.toString()
     }
 
     sourceSets {

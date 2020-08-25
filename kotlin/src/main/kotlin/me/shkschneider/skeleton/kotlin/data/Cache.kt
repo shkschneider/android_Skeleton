@@ -37,14 +37,12 @@ class Cache(private val dir: File) {
 
     @Synchronized
     fun clear() {
-        dir.takeIf { it.exists() }
-            ?.list { file, _ ->
-                file.delete()
-            }
+        dir.takeIf { it.exists() }?.list { file, _ ->
+            file.delete()
+        }
     }
 
     fun size(): Int =
-        dir.takeIf { it.exists() }
-            ?.let { dir.list().size } ?: 0 // FIXME unsafe
+        dir.takeIf { it.exists() }?.let { dir.list()?.size } ?: 0
 
 }
