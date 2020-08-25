@@ -20,6 +20,7 @@ private const val ANDROID_ID = "android_id"
  * > Oh good; it's you. Here's the password...
  * <https://xkcd.com/1121/>
  */
+// <https://developer.android.com/training/articles/user-data-ids>
 // <https://developers.google.com/instance-id/>
 object IdHelper {
 

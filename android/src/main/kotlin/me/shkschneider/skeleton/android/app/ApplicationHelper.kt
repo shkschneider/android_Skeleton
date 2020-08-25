@@ -47,10 +47,10 @@ object ApplicationHelper {
         }
 
     fun exists(packageName: String = ApplicationHelper.packageName): Boolean =
-        tryOr({
+        tryOr(false) {
             packageManager.getApplicationInfo(packageName, 0)
             true
-        }, false) == true
+        } == true
 
     fun packageInfo(packageName: String = ApplicationHelper.packageName, flags: Int = 0): PackageInfo? =
         tryOrNull {

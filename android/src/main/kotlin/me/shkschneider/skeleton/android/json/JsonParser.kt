@@ -22,14 +22,14 @@ object JsonParser : IParser<JSONObject, JSONArray> {
         return keys
     }
 
-    override fun values(jsonObject: JSONObject): List<Any>? =
-        tryOrNull {
+    override fun values(jsonObject: JSONObject): List<Any> =
+        tryOr(emptyList()) {
             ArrayList<Any>().apply {
                 keys(jsonObject).forEach { key ->
                     this += jsonObject.get(key)
                 }
             }
-        }
+        } as List<Any>
 
     override fun has(jsonObject: JSONObject, key: String): Boolean =
         jsonObject.has(key)

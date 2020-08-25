@@ -5,6 +5,7 @@ import android.app.ActivityOptions
 import android.content.ContextWrapper
 import android.content.Intent
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.annotation.UiThread
 import me.shkschneider.skeleton.android.content.intent
@@ -32,5 +33,5 @@ fun Activity.freeze() =
 fun Activity.unfreeze() =
     window?.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
 
-val Activity.contentView: View
+val Activity.contentView: ViewGroup
     get() = findViewById(ViewHelper.CONTENT)

@@ -13,8 +13,8 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.core.view.children
 import me.shkschneider.skeleton.android.app.ApplicationHelper
-import me.shkschneider.skeleton.android.content.SkeletonReceiver
 import me.shkschneider.skeleton.android.app.contentView
+import me.shkschneider.skeleton.android.content.SkeletonReceiver
 import me.shkschneider.skeleton.android.log.Logger
 import me.shkschneider.skeleton.android.util.Metrics
 import kotlin.math.roundToLong
@@ -65,26 +65,25 @@ object KeyboardHelper {
 
     // <https://github.com/yshrsmz/KeyboardVisibilityEvent>
     fun keyboardListener(activity: Activity, listener: Listener) {
-        (activity.contentView() as? ViewGroup)?.children?.firstOrNull()?.let { rootView ->
-            rootView.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+        val rootView = activity.contentView.children.first()
+        rootView.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
 
-                private val rect = Rect()
-                private val visibleThreshold = Metrics.pixelsFromDp(1.toFloat()).toFloat().roundToLong()
-                private var wasOpened = false
+            private val rect = Rect()
+            private val visibleThreshold = Metrics.pixelsFromDp(1.toFloat()).toFloat().roundToLong()
+            private var wasOpened = false
 
-                override fun onGlobalLayout() {
-                    rootView.getWindowVisibleDisplayFrame(rect)
-                    val heightDiff = rootView.rootView.height - rect.height()
-                    val isOpen = heightDiff > visibleThreshold
-                    if (isOpen == wasOpened) {
-                        return
-                    }
-                    wasOpened = isOpen
-                    listener.onKeyboardVisibilityChanged(isOpen)
+            override fun onGlobalLayout() {
+                rootView.getWindowVisibleDisplayFrame(rect)
+                val heightDiff = rootView.rootView.height - rect.height()
+                val isOpen = heightDiff > visibleThreshold
+                if (isOpen == wasOpened) {
+                    return
                 }
+                wasOpened = isOpen
+                listener.onKeyboardVisibilityChanged(isOpen)
+            }
 
-            })
-        }
+        })
     }
 
     interface Listener {

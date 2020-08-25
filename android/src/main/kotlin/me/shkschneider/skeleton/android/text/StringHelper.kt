@@ -3,7 +3,6 @@ package me.shkschneider.skeleton.android.text
 import android.util.Patterns
 import androidx.annotation.IntRange
 import me.shkschneider.skeleton.android.os.LocaleHelper
-import me.shkschneider.skeleton.android.log.Logger
 import me.shkschneider.skeleton.kotlin.jvm.tryOrNull
 import java.text.Normalizer
 import java.text.NumberFormat

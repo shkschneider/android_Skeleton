@@ -9,6 +9,7 @@ import android.content.Context
 @SuppressLint("StaticFieldLeak")
 object ContextProvider {
 
+    @Suppress("ObjectPropertyName")
     private var _context: Context? = null
 
     fun applicationContext(context: Context? = null) =

@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.IntentFilter
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import me.shkschneider.skeleton.android.log.Logger
 import me.shkschneider.skeleton.android.provider.ContextProvider
 import me.shkschneider.skeleton.kotlin.jvm.tryOrNull
 

@@ -3,7 +3,6 @@ package me.shkschneider.skeleton.android.app
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import me.shkschneider.skeleton.android.R
-import me.shkschneider.skeleton.android.app.SkeletonActivity
 
 /**
  * @see SkeletonActivity
