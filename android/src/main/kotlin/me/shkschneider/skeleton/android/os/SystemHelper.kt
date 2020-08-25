@@ -1,7 +1,7 @@
 package me.shkschneider.skeleton.android.os
 
 import android.os.SystemClock
-import me.shkschneider.skeleton.android.provider.SystemProperties
+import me.shkschneider.skeleton.android.provider.AndroidSystemProperties
 
 // <http://developer.android.com/reference/android/content/Context.html>
 object SystemHelper {
@@ -9,9 +9,9 @@ object SystemHelper {
     fun uname(): String {
         return String.format(LocaleHelper.Device.locale(),
                 "%s %s %s",
-                System.getProperty(SystemProperties.OS_NAME),
-                System.getProperty(SystemProperties.OS_VERSION),
-                System.getProperty(SystemProperties.OS_ARCH))
+                System.getProperty(AndroidSystemProperties.OS_NAME),
+                System.getProperty(AndroidSystemProperties.OS_VERSION),
+                System.getProperty(AndroidSystemProperties.OS_ARCH))
     }
 
     fun sinceBoot(): Long {
