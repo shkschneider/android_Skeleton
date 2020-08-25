@@ -1,0 +1,74 @@
+android {
+    compileSdkVersion versions.android.sdk.target
+    buildToolsVersion versions.android.buildTools
+
+    defaultConfig {
+        minSdkVersion versions.android.sdk.min
+        targetSdkVersion versions.android.sdk.target
+        versionCode versionCode()
+        versionName versions.skeleton
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('../debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+        release {
+            // keytool -genkey -v -keystore release.jks -keyalg RSA -keysize 2048 -validity 10000 -alias androidkey
+            storeFile file('../release.keystore')
+            storePassword 'android'
+            keyAlias 'androidkey'
+            keyPassword 'android'
+        }
+    }
+    sourceSets {
+        debug.java.srcDirs += 'src/debug/kotlin'
+        main.java.srcDirs += 'src/main/kotlin'
+        release.java.srcDirs += 'src/release/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+        androidTest.java.srcDirs += 'src/androidTest/kotlin'
+    }
+    buildTypes {
+        debug {
+            // applicationIdSuffix '.debug'
+            // versionNameSuffix '-DEBUG'
+            signingConfig signingConfigs.debug
+        }
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+    compileOptions {
+        sourceCompatibility versions.java
+        targetCompatibility versions.java
+    }
+    kotlinOptions {
+        jvmTarget = versions.java.toString()
+    }
+    bundle {
+        /**
+         * If the user changes their device configuration at any time (such as adding another choice of language),
+         * then the play store will recognize this and attempt to download the new configuration splits
+         * for all applications that use split APKs on their device.
+         */
+        language.enableSplit = true
+        density.enableSplit = true
+        abi.enableSplit = true
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/notice.txt'
+    }
+
+}

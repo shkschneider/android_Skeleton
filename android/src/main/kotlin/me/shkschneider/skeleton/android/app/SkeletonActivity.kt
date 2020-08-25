@@ -25,7 +25,7 @@ import me.shkschneider.skeleton.android.content.SkeletonReceiver
 import me.shkschneider.skeleton.android.content.IntentHelper
 import me.shkschneider.skeleton.android.helper.KeyboardHelper
 import me.shkschneider.skeleton.android.os.ThreadHelper
-import me.shkschneider.skeleton.android.widget.OverlayLoader
+import me.shkschneider.skeleton.android.view.OverlayLoader
 import me.shkschneider.skeleton.kotlin.log.Logger
 
 /**

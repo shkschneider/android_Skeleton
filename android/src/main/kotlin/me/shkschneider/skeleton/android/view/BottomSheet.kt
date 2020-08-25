@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.android.widget
+package me.shkschneider.skeleton.android.view
 
 import android.app.Activity
 import android.content.DialogInterface
@@ -14,6 +14,7 @@ import androidx.annotation.UiThread
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import me.shkschneider.skeleton.android.R
 import me.shkschneider.skeleton.android.util.Metrics
+import me.shkschneider.skeleton.android.widget.expand
 
 // <https://github.com/javiersantos/BottomDialogs>
 // app:layout_behavior="android.support.design.widget.BottomSheetBehavior"

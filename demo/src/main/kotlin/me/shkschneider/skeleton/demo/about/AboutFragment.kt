@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import me.shkschneider.skeleton.android.BuildConfig
+import me.shkschneider.skeleton.android.app.ApplicationHelper
+import me.shkschneider.skeleton.android.os.AndroidHelper
+import me.shkschneider.skeleton.android.util.Metrics
 import me.shkschneider.skeleton.demo.R
-import me.shkschneider.skeleton.helper.AndroidHelper
-import me.shkschneider.skeleton.helper.ApplicationHelper
-import me.shkschneider.skeleton.helperx.Metrics
+import java.util.Locale
 
 class AboutFragment : PreferenceFragmentCompat() {
 
@@ -27,32 +30,32 @@ class AboutFragment : PreferenceFragmentCompat() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // Application
-        findPreference("app_package").run {
+        findPreference<Preference>("app_package")?.run {
             title = "PackageName"
             summary = ApplicationHelper.packageName
         }
-        findPreference("app_versionName").run {
+        findPreference<Preference>("app_versionName")?.run {
             title = "VersionName"
             summary = ApplicationHelper.versionName()
         }
-        findPreference("app_versionCode").run {
+        findPreference<Preference>("app_versionCode")?.run {
             title = "VersionCode"
             summary = ApplicationHelper.versionCode().toString()
         }
-        findPreference("app_revision").run {
+        findPreference<Preference>("app_revision")?.run {
             title = "Revision"
-            summary = "?" // FIXME BuildConfig.REVISION
+            summary =  BuildConfig.REVISION
         }
-        findPreference("app_variant").run {
+        findPreference<Preference>("app_variant")?.run {
             title = "Variant"
-            summary = (if (ApplicationHelper.debuggable) "debug" else "release").toUpperCase()
+            summary = (if (ApplicationHelper.debuggable) "debug" else "release").toUpperCase(Locale.getDefault())
         }
         // OS
-        findPreference("os_version").run {
+        findPreference<Preference>("os_version")?.run {
             title = "Version"
             summary = AndroidHelper.codename()
         }
-        findPreference("os_api").run {
+        findPreference<Preference>("os_api")?.run {
             title = "API"
             summary = AndroidHelper.api().toString()
         }

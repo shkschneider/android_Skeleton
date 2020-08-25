@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.android.widget
+package me.shkschneider.skeleton.android.view
 
 import android.widget.ArrayAdapter
 import androidx.appcompat.widget.AppCompatAutoCompleteTextView

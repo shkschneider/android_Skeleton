@@ -3,14 +3,15 @@ package me.shkschneider.skeleton.demo.net
 import com.github.kittinunf.fuel.core.FuelManager
 import com.github.kittinunf.fuel.core.Request
 import com.github.kittinunf.fuel.core.Response
+import com.github.kittinunf.fuel.core.extensions.authentication
 import com.github.kittinunf.fuel.core.isSuccessful
 import com.google.gson.GsonBuilder
 import com.google.gson.annotations.SerializedName
-import me.shkschneider.skeleton.datax.MemoryCache
-import me.shkschneider.skeleton.helperx.log.Logger
-import me.shkschneider.skeleton.networkx.WebService
-import me.shkschneider.skeleton.networkx.WebServiceFailure
-import me.shkschneider.skeleton.networkx.WebServiceSuccess
+import me.shkschneider.skeleton.android.cache.MemoryCache
+import me.shkschneider.skeleton.android.network.WebService
+import me.shkschneider.skeleton.android.network.WebServiceFailure
+import me.shkschneider.skeleton.android.network.WebServiceSuccess
+import me.shkschneider.skeleton.kotlin.log.Logger
 import java.io.Serializable
 import java.nio.charset.Charset
 
@@ -47,7 +48,7 @@ object NetworkManager {
 
     fun userAgent(success: WebServiceSuccess<HttpBinUserAgent>, failure: WebServiceFailure? = null): Request =
             proxy.get("https://httpbin.org/user-agent", success, failure).cache(success)
-                    .authenticate("john", "doe")
+                    .authentication().basic("john", "doe")
                     .body("42")
 
     // If coming from cache, response.isSuccessful will be false

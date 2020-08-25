@@ -13,10 +13,10 @@ import kotlinx.android.synthetic.main.content_shk_code.*
 import kotlinx.android.synthetic.main.content_shk_id.*
 import kotlinx.android.synthetic.main.content_shk_personal.*
 import kotlinx.android.synthetic.main.content_shk_skills.*
-import me.shkschneider.skeleton.SkeletonFragment
+import me.shkschneider.skeleton.android.app.SkeletonFragment
+import me.shkschneider.skeleton.android.content.IntentHelper
+import me.shkschneider.skeleton.android.text.SpannableStringHelper
 import me.shkschneider.skeleton.demo.R
-import me.shkschneider.skeleton.helper.IntentHelper
-import me.shkschneider.skeleton.helper.SpannableStringHelper
 
 private const val AVATAR = "https://raw.githubusercontent.com/shkschneider/shkschneider.github.io/master/shkschneider.png"
 private const val GITHUB = "https://github.com/shkschneider/android_Skeleton"

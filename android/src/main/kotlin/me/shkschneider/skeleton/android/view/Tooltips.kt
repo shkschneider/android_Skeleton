@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.android.widget
+package me.shkschneider.skeleton.android.view
 
 import android.view.View
 import androidx.annotation.UiThread

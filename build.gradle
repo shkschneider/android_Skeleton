@@ -3,7 +3,7 @@ buildscript {
         java: JavaVersion.VERSION_1_8,
         kotlin: '1.4.0', // https://github.com/JetBrains/kotlin
         koin: '2.1.6', // https://github.com/InsertKoinIO/koin
-        skeleton: '10.1.6',
+        skeleton: '10.1.7',
         gradle: [
             android: '4.0.1', // <https://developer.android.com/studio/releases/gradle-plugin.html>
             jitpack: '2.1'

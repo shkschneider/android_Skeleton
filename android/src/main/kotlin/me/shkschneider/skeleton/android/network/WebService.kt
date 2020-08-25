@@ -65,6 +65,9 @@ open class WebService(val gson: Gson = Gson()) {
             })
         }
 
+    inline fun <reified T: Any> deserialize(content: String): T? =
+            Deserializer(gson, T::class).deserialize(content)
+
     class Deserializer<T : Any>(private val gson: Gson, private val klass: KClass<T>) : ResponseDeserializable<T> {
 
         override fun deserialize(content: String): T? =

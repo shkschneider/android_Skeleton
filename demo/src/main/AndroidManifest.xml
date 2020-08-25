@@ -53,17 +53,6 @@
             android:name=".about.AboutActivity"
             android:label="@string/skeleton" />
 
-        <receiver
-            android:name=".MySecretCodeReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.provider.Telephony.SECRET_CODE" />
-                <data android:scheme="android_secret_code" android:host="42" />
-                <!-- "Answer to the Ultimate Question of Life, the Universe, and Everything" -->
-            </intent-filter>
-        </receiver>
-
     </application>
 
 </manifest>

@@ -6,30 +6,20 @@ import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.lifecycle.Observer
 import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.activity_main.*
-import me.shkschneider.skeleton.SkeletonActivity
-import me.shkschneider.skeleton.SkeletonFragment
+import me.shkschneider.skeleton.android.app.SkeletonActivity
+import me.shkschneider.skeleton.android.app.SkeletonFragment
+import me.shkschneider.skeleton.android.content.intent
 import me.shkschneider.skeleton.demo.R
 import me.shkschneider.skeleton.demo.about.AboutActivity
-import me.shkschneider.skeleton.extensions.Intent
-import me.shkschneider.skeleton.helperx.log.Logger
-import me.shkschneider.skeleton.arch.viewModel
+import me.shkschneider.skeleton.kotlin.log.Logger
 import org.koin.android.ext.android.inject
 import java.util.UUID
 
 class MainActivity : SkeletonActivity() {
 
     val uuid: UUID by inject()
-
-    val secretKey by lazy { secretKey() }
-
-    init {
-        System.loadLibrary("secrets")
-    }
-
-    external fun secretKey(): String
 
     // region lifecycle
 
@@ -69,26 +59,11 @@ class MainActivity : SkeletonActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.menu_about -> {
-                startActivity(Intent(this, AboutActivity::class))
+                startActivity(intent(this, AboutActivity::class))
                 return true
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    // enregion
-
-    // region viewmodel
-
-    private val viewModel by viewModel<MainViewModel>()
-
-    override fun onResume() {
-        super.onResume()
-
-        viewModel.models().observe(this, Observer {
-            // update UI
-            @Suppress("UNUSED_VARIABLE") val breakpoint: Nothing? = null
-        })
     }
 
     // endregion

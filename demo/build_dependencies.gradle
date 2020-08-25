@@ -1,5 +1,6 @@
 dependencies {
-    api project(':kotlin')
+    // implementation "com.github.shkschneider.android_Skeleton:android:${version}"
+    implementation project(':android')
 
     version = '1.2.0' // https://developer.android.com/jetpack/androidx/releases/appcompat
     implementation "androidx.appcompat:appcompat:${version}"
@@ -10,25 +11,25 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel:${version}"
     implementation "androidx.lifecycle:lifecycle-livedata:${version}"
     implementation "androidx.lifecycle:lifecycle-extensions:${version}"
-    version = '1.0.0' // https://developer.android.com/jetpack/androidx/releases/palette
-    implementation "androidx.palette:palette:${version}"
+//    version = '1.0.0' // https://developer.android.com/jetpack/androidx/releases/palette
+//    implementation "androidx.palette:palette:${version}"
     version = '1.1.1' // https://developer.android.com/jetpack/androidx/releases/preference
     implementation "androidx.preference:preference:${version}"
-    version = '1.1.0' // https://developer.android.com/jetpack/androidx/releases/recyclerview
-    implementation "androidx.recyclerview:recyclerview:${version}"
-    version = '2.2.5' // https://developer.android.com/jetpack/androidx/releases/room
-    implementation "androidx.room:room-runtime:${version}"
-    // kapt "androidx.room:room-compiler:${version}"
-    version = '1.1.0' // https://developer.android.com/jetpack/androidx/releases/swiperefreshlayout
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:${version}"
-    version = '2.4.0' // https://developer.android.com/jetpack/androidx/releases/work
-    implementation "androidx.work:work-runtime:${version}"
-    implementation "androidx.work:work-runtime-ktx:${version}"
+//    version = '1.1.0' // https://developer.android.com/jetpack/androidx/releases/recyclerview
+//    implementation "androidx.recyclerview:recyclerview:${version}"
+//    version = '1.1.0' // https://developer.android.com/jetpack/androidx/releases/swiperefreshlayout
+//    implementation "androidx.swiperefreshlayout:swiperefreshlayout:${version}"
 
     version = '1.2.0' // https://maven.google.com/web/index.html#com.google.android.material:material
     implementation "com.google.android.material:material:${version}"
     version = '2.8.6' // https://github.com/google/gson
     implementation "com.google.code.gson:gson:${version}"
+
+    version = '2.1.6' // https://github.com/InsertKoinIO/koin
+    implementation "org.koin:koin-core:${version}"
+    implementation "org.koin:koin-android:${version}"
+    implementation "org.koin:koin-androidx-scope:${version}"
+    implementation "org.koin:koin-androidx-viewmodel:${version}"
 
     version = '2.2.3' // https://github.com/kittinunf/Fuel
     implementation "com.github.kittinunf.fuel:fuel:${version}"
@@ -37,9 +38,12 @@ dependencies {
     implementation "com.github.kittinunf.fuel:fuel-livedata:${version}"
     implementation "com.github.kittinunf.fuel:fuel-kotlinx-serialization:${version}"
 
-    version = '2.1.6' // https://github.com/InsertKoinIO/koin
-    implementation "org.koin:koin-core:${version}"
-    implementation "org.koin:koin-android:${version}"
-    implementation "org.koin:koin-androidx-scope:${version}"
-    implementation "org.koin:koin-androidx-viewmodel:${version}"
+    version = '2.2.5' // https://developer.android.com/jetpack/androidx/releases/room
+    implementation "androidx.room:room-runtime:${version}"
+    kapt "androidx.room:room-compiler:${version}"
+
+    version = '2.71828' // https://github.com/square/picasso
+    implementation "com.squareup.picasso:picasso:${version}"
+
+    // TODO https://github.com/facebook/flipper
 }

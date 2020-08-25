@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import me.shkschneider.skeleton.android.R
-import me.shkschneider.skeleton.android.widget.Inflater
+import me.shkschneider.skeleton.android.view.Inflater
 import kotlin.reflect.KClass
 
 /**
