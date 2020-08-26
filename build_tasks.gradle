@@ -2,6 +2,15 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 
+task doc() {
+    print '> Doc...'
+    // TODO find a better to include submodules (automatically)
+    dependsOn ':kotlin:dokka'
+//    dependsOn ':kotlin:dokkaGfm'
+//    dependsOn ':android:dokkaGfm'
+    print " doc\n"
+}
+
 task bump() {
     print '> Bump...'
     def versionCode = versionCode(true)
@@ -24,4 +33,16 @@ tasks.whenTaskAdded { task ->
         task.dependsOn bump
         task.dependsOn ci
     }
+}
+
+def versionCode(increment) {
+    Properties versionProperties = new Properties()
+    def versionPropertiesFile = file("${rootProject.projectDir}/version.properties")
+    if (!versionPropertiesFile.exists()) throw new GradleException(versionPropertiesFile.path)
+    versionProperties.load(new FileInputStream(versionPropertiesFile))
+    if (increment ?: false) {
+        versionProperties['versionCode'] = ((versionProperties['versionCode'] ?: "0").toInteger() + 1).toString()
+        versionProperties.store(versionPropertiesFile.newWriter(), null)
+    }
+    return versionProperties['versionCode']
 }

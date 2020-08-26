@@ -1,0 +1,51 @@
+$dokka.format:gfm
+$dokka.linkExtension:md
+$dokka.location:me.shkschneider.skeleton.kotlin.jvm$TAG#kotlin.Anyme.shkschneider.skeleton.kotlin.jvm/kotlin.-any/-t-a-g.md
+$dokka.location:me.shkschneider.skeleton.kotlin.jvm$days#kotlin.Intme.shkschneider.skeleton.kotlin.jvm/kotlin.-int/days.md
+$dokka.location:me.shkschneider.skeleton.kotlin.jvm$has(kotlin.Int, kotlin.Int)me.shkschneider.skeleton.kotlin.jvm/kotlin.-int/has.md
+$dokka.location:me.shkschneider.skeleton.kotlin.jvm$has(kotlin.Long, kotlin.Long)me.shkschneider.skeleton.kotlin.jvm/kotlin.-long/has.md
+$dokka.location:me.shkschneider.skeleton.kotlin.jvm$hours#kotlin.Longme.shkschneider.skeleton.kotlin.jvm/kotlin.-long/hours.md
+$dokka.location:me.shkschneider.skeleton.kotlin.jvm$isHexadecimal#kotlin.Stringme.shkschneider.skeleton.kotlin.jvm/kotlin.-string/is-hexadecimal.md
+$dokka.location:me.shkschneider.skeleton.kotlin.jvm$micros#kotlin.Longme.shkschneider.skeleton.kotlin.jvm/kotlin.-long/micros.md
+$dokka.location:me.shkschneider.skeleton.kotlin.jvm$millis#kotlin.Longme.shkschneider.skeleton.kotlin.jvm/kotlin.-long/millis.md
+$dokka.location:me.shkschneider.skeleton.kotlin.jvm$minutes#kotlin.Longme.shkschneider.skeleton.kotlin.jvm/kotlin.-long/minutes.md
+$dokka.location:me.shkschneider.skeleton.kotlin.jvm$months#kotlin.Intme.shkschneider.skeleton.kotlin.jvm/kotlin.-int/months.md
+$dokka.location:me.shkschneider.skeleton.kotlin.jvm$nanos#kotlin.Longme.shkschneider.skeleton.kotlin.jvm/kotlin.-long/nanos.md
+$dokka.location:me.shkschneider.skeleton.kotlin.jvm$packageName(kotlin.reflect.KClass((me.shkschneider.skeleton.kotlin.jvm.packageName.T)))me.shkschneider.skeleton.kotlin.jvm/kotlin.reflect.-k-class/package-name.md
+$dokka.location:me.shkschneider.skeleton.kotlin.jvm$qualifiedName(kotlin.reflect.KClass((me.shkschneider.skeleton.kotlin.jvm.qualifiedName.T)))me.shkschneider.skeleton.kotlin.jvm/kotlin.reflect.-k-class/qualified-name.md
+$dokka.location:me.shkschneider.skeleton.kotlin.jvm$seconds#kotlin.Longme.shkschneider.skeleton.kotlin.jvm/kotlin.-long/seconds.md
+$dokka.location:me.shkschneider.skeleton.kotlin.jvm$simpleName(kotlin.reflect.KClass((me.shkschneider.skeleton.kotlin.jvm.simpleName.T)))me.shkschneider.skeleton.kotlin.jvm/kotlin.reflect.-k-class/simple-name.md
+$dokka.location:me.shkschneider.skeleton.kotlin.jvm$toHexadecimal(kotlin.ByteArray)me.shkschneider.skeleton.kotlin.jvm/kotlin.-byte-array/to-hexadecimal.md
+$dokka.location:me.shkschneider.skeleton.kotlin.jvm$toStringOrEmpty(kotlin.Any)me.shkschneider.skeleton.kotlin.jvm/kotlin.-any/to-string-or-empty.md
+$dokka.location:me.shkschneider.skeleton.kotlin.jvm$weeks#kotlin.Intme.shkschneider.skeleton.kotlin.jvm/kotlin.-int/weeks.md
+$dokka.location:me.shkschneider.skeleton.kotlin.jvm$years#kotlin.Intme.shkschneider.skeleton.kotlin.jvm/kotlin.-int/years.md
+$dokka.location:me.shkschneider.skeleton.kotlin.text$camelCase(kotlin.String)me.shkschneider.skeleton.kotlin.text/kotlin.-string/camel-case.md
+$dokka.location:me.shkschneider.skeleton.kotlin.text$ellipsize(kotlin.String, kotlin.Int, kotlin.Boolean)me.shkschneider.skeleton.kotlin.text/kotlin.-string/ellipsize.md
+$dokka.location:me.shkschneider.skeleton.kotlin.text$kebabCase(kotlin.String)me.shkschneider.skeleton.kotlin.text/kotlin.-string/kebab-case.md
+$dokka.location:me.shkschneider.skeleton.kotlin.text$oneline(kotlin.String)me.shkschneider.skeleton.kotlin.text/kotlin.-string/oneline.md
+$dokka.location:me.shkschneider.skeleton.kotlin.text$pascalCase(kotlin.String)me.shkschneider.skeleton.kotlin.text/kotlin.-string/pascal-case.md
+$dokka.location:me.shkschneider.skeleton.kotlin.text$snakeCase(kotlin.String)me.shkschneider.skeleton.kotlin.text/kotlin.-string/snake-case.md
+$dokka.location:me.shkschneider.skeleton.kotlin.util$binary(java.util.Random)me.shkschneider.skeleton.kotlin.util/java.util.-random/binary.md
+$dokka.location:me.shkschneider.skeleton.kotlin.util$exclusive(java.util.Random, kotlin.Int, kotlin.Int)me.shkschneider.skeleton.kotlin.util/java.util.-random/exclusive.md
+$dokka.location:me.shkschneider.skeleton.kotlin.util$fromBase58(kotlin.String)me.shkschneider.skeleton.kotlin.util/kotlin.-string/from-base58.md
+$dokka.location:me.shkschneider.skeleton.kotlin.util$fromBase64(kotlin.String)me.shkschneider.skeleton.kotlin.util/kotlin.-string/from-base64.md
+$dokka.location:me.shkschneider.skeleton.kotlin.util$id(java.util.Random)me.shkschneider.skeleton.kotlin.util/java.util.-random/id.md
+$dokka.location:me.shkschneider.skeleton.kotlin.util$inclusive(java.util.Random, kotlin.Int, kotlin.Int)me.shkschneider.skeleton.kotlin.util/java.util.-random/inclusive.md
+$dokka.location:me.shkschneider.skeleton.kotlin.util$string(java.util.Random, kotlin.Int, kotlin.String)me.shkschneider.skeleton.kotlin.util/java.util.-random/string.md
+$dokka.location:me.shkschneider.skeleton.kotlin.util$toBase58(kotlin.ByteArray)me.shkschneider.skeleton.kotlin.util/kotlin.-byte-array/to-base58.md
+$dokka.location:me.shkschneider.skeleton.kotlin.util$toBase64(kotlin.ByteArray)me.shkschneider.skeleton.kotlin.util/kotlin.-byte-array/to-base64.md
+$dokka.location:me.shkschneider.skeleton.kotlin.util$uuid(java.util.Random)me.shkschneider.skeleton.kotlin.util/java.util.-random/uuid.md
+$dokka.location:me.shkschneider.skeleton.kotlin.util$uuid(java.util.Random, kotlin.String)me.shkschneider.skeleton.kotlin.util/java.util.-random/uuid.md
+$dokka.location:me.shkschneider.skeleton.kotlin.work$safeAsync(kotlinx.coroutines.CoroutineScope, kotlin.coroutines.SuspendFunction0((me.shkschneider.skeleton.kotlin.work.safeAsync.T)), kotlin.Function1((java.lang.Exception, kotlin.Unit)))me.shkschneider.skeleton.kotlin.work/kotlinx.coroutines.-coroutine-scope/safe-async.md
+$dokka.location:me.shkschneider.skeleton.kotlin.work$safeLaunch(kotlinx.coroutines.CoroutineScope, kotlin.coroutines.SuspendFunction0((me.shkschneider.skeleton.kotlin.work.safeLaunch.T)), kotlin.Function1((java.lang.Exception, kotlin.Unit)))me.shkschneider.skeleton.kotlin.work/kotlinx.coroutines.-coroutine-scope/safe-launch.md
+me.shkschneider.skeleton.kotlin.app
+me.shkschneider.skeleton.kotlin.content
+me.shkschneider.skeleton.kotlin.data
+me.shkschneider.skeleton.kotlin.io
+me.shkschneider.skeleton.kotlin.jvm
+me.shkschneider.skeleton.kotlin.log
+me.shkschneider.skeleton.kotlin.os
+me.shkschneider.skeleton.kotlin.security
+me.shkschneider.skeleton.kotlin.text
+me.shkschneider.skeleton.kotlin.util
+me.shkschneider.skeleton.kotlin.work

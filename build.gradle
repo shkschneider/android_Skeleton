@@ -4,6 +4,7 @@ buildscript {
         kotlin: '1.4.0', // https://github.com/JetBrains/kotlin
         koin: '2.1.6', // https://github.com/InsertKoinIO/koin
         skeleton: '10.1.7',
+        dokka: '0.10.1', // https://github.com/Kotlin/dokka
         gradle: [
             android: '4.0.1', // <https://developer.android.com/studio/releases/gradle-plugin.html>
             jitpack: '2.1'
@@ -26,6 +27,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
         classpath "com.github.dcendents:android-maven-gradle-plugin:${versions.gradle.jitpack}"
         classpath "org.koin:koin-gradle-plugin:${versions.koin}"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:${versions.dokka}"
     }
 }
 configurations.all {
@@ -44,14 +46,4 @@ allprojects {
     }
 }
 
-def versionCode(increment) {
-    Properties versionProperties = new Properties()
-    def versionPropertiesFile = file("${rootProject.projectDir}/version.properties")
-    if (!versionPropertiesFile.exists()) throw new GradleException(versionPropertiesFile.path)
-    versionProperties.load(new FileInputStream(versionPropertiesFile))
-    if (increment ?: false) {
-        versionProperties['versionCode'] = ((versionProperties['versionCode'] ?: "0").toInteger() + 1).toString()
-        versionProperties.store(versionPropertiesFile.newWriter(), null)
-    }
-    return versionProperties['versionCode']
-}
+apply from: 'build_tasks.gradle'

@@ -1,13 +1,16 @@
-// Kotlin
-apply plugin: 'org.jetbrains.kotlin.jvm'
 // JitPack
 apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.shkschneider'
 
+// Kotlin
+apply plugin: 'org.jetbrains.kotlin.jvm'
 tasks.withType(JavaCompile) {
     sourceCompatibility = versions.java
     targetCompatibility = versions.java
 }
+
+// Dokka
+apply from: rootProject.file('build_dokka.gradle')
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin}"

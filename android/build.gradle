@@ -1,11 +1,13 @@
-// Android
-apply plugin: 'com.android.library'
-// Kotlin
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 // JitPack
 apply plugin: 'com.github.dcendents.android-maven'
 group='com.github.shkschneider'
 
+// Android
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply from: 'build_android.gradle'
 apply from: 'build_dependencies.gradle'
+
+// Dokka
+apply from: rootProject.file('build_dokka.gradle')

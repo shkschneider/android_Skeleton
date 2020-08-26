@@ -1,0 +1,12 @@
+[kotlin](../../index.md) / [me.shkschneider.skeleton.kotlin.util](../index.md) / [java.util.Random](./index.md)
+
+### Extensions for java.util.Random
+
+| Name | Summary |
+|---|---|
+| [binary](binary.md) | `fun `[`Random`](https://docs.oracle.com/javase/6/docs/api/java/util/Random.html)`.binary(): `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) |
+| [exclusive](exclusive.md) | `fun `[`Random`](https://docs.oracle.com/javase/6/docs/api/java/util/Random.html)`.exclusive(min: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`, max: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`): `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
+| [id](id.md) | Hey, I lost the server password. What is it, again?  It's... wait. How do I know it's really you?  Ooh, good question! I bet we can construct a cool proof-of-identity protocol. I'll start by picking two random...  Oh good; it's you. Here's the password... &lt;&gt;`fun `[`Random`](https://docs.oracle.com/javase/6/docs/api/java/util/Random.html)`.id(): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
+| [inclusive](inclusive.md) | `fun `[`Random`](https://docs.oracle.com/javase/6/docs/api/java/util/Random.html)`.inclusive(min: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`, max: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`): `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
+| [string](string.md) | `fun `[`Random`](https://docs.oracle.com/javase/6/docs/api/java/util/Random.html)`.string(length: `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)`, characters: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)` = ('a'..'z').toString()): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
+| [uuid](uuid.md) | `fun `[`Random`](https://docs.oracle.com/javase/6/docs/api/java/util/Random.html)`.uuid(): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)<br>`fun `[`Random`](https://docs.oracle.com/javase/6/docs/api/java/util/Random.html)`.uuid(id: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |

@@ -1,0 +1,17 @@
+apply plugin: 'org.jetbrains.dokka'
+
+dokka {
+    outputFormat = 'gfm'
+    outputDirectory = "$rootProject.projectDir/doc"
+    configuration {
+        // TODO includes = [ '**/README.md' ]
+        includeNonPublic = false
+        skipDeprecated = true
+        skipEmptyPackages = true
+        // TODO externalDocumentationLink
+        perPackageOption {
+            prefix.set("kotlin.internal")
+            suppress.set(true)
+        }
+    }
+}

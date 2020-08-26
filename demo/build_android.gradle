@@ -12,14 +12,14 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file('../debug.keystore')
+            storeFile rootProject.file('debug.keystore')
             storePassword 'android'
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
         release {
             // keytool -genkey -v -keystore release.jks -keyalg RSA -keysize 2048 -validity 10000 -alias androidkey
-            storeFile file('../release.keystore')
+            storeFile rootProject.file('release.keystore')
             storePassword 'android'
             keyAlias 'androidkey'
             keyPassword 'android'
