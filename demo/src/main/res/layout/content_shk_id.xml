@@ -1,78 +1,98 @@
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:layout_margin="@dimen/sk_spaceTiny"
-    app:cardPreventCornerOverlap="false"
-    app:cardCornerRadius="4dp"
-    app:elevation="@dimen/sk_elevation3">
+<merge>
 
-    <LinearLayout
-        android:orientation="vertical"
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/sk_spaceTiny"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="4dp"
+        app:cardPreventCornerOverlap="false"
+        app:elevation="@dimen/sk_elevation3">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/primaryColor"
-            android:padding="@dimen/sk_spaceTiny">
+            android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textColor="@color/sk_android_white"
-                android:text="ID" />
+                android:background="@color/primaryColor"
+                android:padding="@dimen/sk_spaceTiny">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ID"
+                    android:textColor="@color/sk_android_white"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/sk_spaceTiny" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="144dp"
+                android:layout_height="144dp"
+                android:layout_gravity="center"
+                android:padding="@dimen/sk_spaceTiny"
+                app:cardCornerRadius="72dp">
+
+                <ImageView
+                    android:id="@+id/id_avatar"
+                    android:layout_width="144dp"
+                    android:layout_height="144dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@null"
+                    android:src="@android:drawable/sym_def_app_icon" />
+
+            </androidx.cardview.widget.CardView>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/sk_spaceTiny" />
+
+            <include
+                android:id="@+id/id_id"
+                layout="@layout/ui" />
+
+            <include
+                android:id="@+id/id_name"
+                layout="@layout/ui" />
+
+            <include
+                android:id="@+id/id_age"
+                layout="@layout/ui" />
+
+            <include
+                android:id="@+id/id_nationality"
+                layout="@layout/ui" />
+
+            <include
+                android:id="@+id/id_city"
+                layout="@layout/ui" />
+
+            <include
+                android:id="@+id/id_education"
+                layout="@layout/ui" />
+
+            <include
+                android:id="@+id/id_position"
+                layout="@layout/ui" />
+
+            <include
+                android:id="@+id/id_personal"
+                layout="@layout/ui" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/sk_spaceTiny" />
 
         </LinearLayout>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/sk_spaceTiny" />
+    </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="144dp"
-            android:layout_height="144dp"
-            android:layout_gravity="center"
-            app:cardCornerRadius="72dp">
-
-            <ImageView
-                android:id="@+id/id_avatar"
-                android:layout_width="144dp"
-                android:layout_height="144dp"
-                android:src="@android:drawable/sym_def_app_icon"
-                android:contentDescription="@null"
-                android:layout_gravity="center" />
-
-        </androidx.cardview.widget.CardView>
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/sk_spaceTiny" />
-
-        <include layout="@layout/ui" android:id="@+id/id_id" />
-
-        <include layout="@layout/ui" android:id="@+id/id_name" />
-
-        <include layout="@layout/ui" android:id="@+id/id_age" />
-
-        <include layout="@layout/ui" android:id="@+id/id_nationality" />
-
-        <include layout="@layout/ui" android:id="@+id/id_city" />
-
-        <include layout="@layout/ui" android:id="@+id/id_education" />
-
-        <include layout="@layout/ui" android:id="@+id/id_position" />
-
-        <include layout="@layout/ui" android:id="@+id/id_personal" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/sk_spaceTiny" />
-
-    </LinearLayout>
-
-</androidx.cardview.widget.CardView>
+</merge>

@@ -19,7 +19,6 @@ import android.appwidget.AppWidgetManager
 import android.bluetooth.BluetoothManager
 import android.companion.CompanionDeviceManager
 import android.content.ClipboardManager
-import android.content.Context
 import android.content.RestrictionsManager
 import android.content.pm.LauncherApps
 import android.content.pm.ShortcutManager
@@ -98,7 +97,7 @@ object SystemServices {
     fun dropBoxManager() = get(DropBoxManager::class)
     @Suppress("DEPRECATION")
     @Deprecated("Deprecated in Android.", ReplaceWith("BiometricManager"))
-    fun fingerprintManager(context: Context) = FingerprintManagerCompat.from(context)
+    fun fingerprintManager() = FingerprintManagerCompat.from(ContextProvider.applicationContext())
     @RequiresApi(AndroidHelper.API_24)
     fun hardwarePropertiesService() = get(HardwarePropertiesManager::class)
     fun inputMethodManager() = get(InputMethodManager::class)

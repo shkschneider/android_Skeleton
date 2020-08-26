@@ -1,6 +1,5 @@
 package me.shkschneider.skeleton.android.security.fingerprint
 
-import android.content.Context
 import androidx.annotation.RequiresPermission
 import androidx.fragment.app.FragmentManager
 import me.shkschneider.skeleton.kotlin.jvm.TAG
@@ -13,9 +12,9 @@ object Fingerprint {
 
     @RequiresPermission(Permissions.USE_FINGERPRINT)
     @JvmStatic
-    fun isAvailable(context: Context): Boolean {
+    fun isAvailable(): Boolean {
         val keyguardManager = SystemServices.keyguardManager()
-        val fingerprintManager = SystemServices.fingerprintManager(context)
+        val fingerprintManager = SystemServices.fingerprintManager()
         return when {
             keyguardManager?.isKeyguardSecure == true &&
                     fingerprintManager.isHardwareDetected &&
@@ -25,8 +24,8 @@ object Fingerprint {
     }
 
     @RequiresPermission(Permissions.USE_FINGERPRINT)
-    fun scan(context: Context, fragmentManager: FragmentManager, callback: FingerprintCallback): FingerprintDialogFragment? =
-            if (isAvailable(context)) FingerprintDialogFragment.newInstance("")
+    fun scan(fragmentManager: FragmentManager, callback: FingerprintCallback): FingerprintDialogFragment? =
+            if (isAvailable()) FingerprintDialogFragment.newInstance("")
                     .apply { this.callback = callback }
                     .also { it.show(fragmentManager, it.TAG) }
             else null

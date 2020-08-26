@@ -69,7 +69,7 @@ class FingerprintDialogFragment : DialogFragment() {
     // region State
 
     private val fingerprintHandler: FingerprintHandler by lazy {
-        FingerprintHandler(SystemServices.fingerprintManager(requireNotNull(context))) { onFingerprintState(it) }
+        FingerprintHandler(SystemServices.fingerprintManager()) { onFingerprintState(it) }
     }
     lateinit var callback: FingerprintCallback
 

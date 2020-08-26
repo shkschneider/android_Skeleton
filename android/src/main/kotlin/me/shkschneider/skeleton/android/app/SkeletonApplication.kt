@@ -2,6 +2,7 @@ package me.shkschneider.skeleton.android.app
 
 import android.app.Application
 import android.content.pm.ApplicationInfo
+import me.shkschneider.skeleton.android.log.AndroidLogger
 import me.shkschneider.skeleton.kotlin.jvm.has
 import me.shkschneider.skeleton.android.provider.ContextProvider
 import me.shkschneider.skeleton.android.os.DeviceHelper
@@ -16,9 +17,11 @@ import me.shkschneider.skeleton.kotlin.log.Logger
  * DEBUGGABLE
  * onCreate()
  *
- * If minSdkVersion is 21+ you do not need MultiDex (nor multiDexEnabled true).
+ * Since API 21 you do not need MultiDex (nor multiDexEnabled true).
  */
 abstract class SkeletonApplication : Application() {
+
+    // TODO AndroidX StartUp for Context and AndroidLogger?
 
     override fun onCreate() {
         super.onCreate()
@@ -26,10 +29,11 @@ abstract class SkeletonApplication : Application() {
         DEBUGGABLE = applicationInfo.flags.has(ApplicationInfo.FLAG_DEBUGGABLE)
         if (ApplicationHelper.debuggable) {
             ExceptionHelper.uncaughtException {
-                it.printStackTrace()
+                Logger.wtf(it)
             }
         }
-        Logger.verbose("Hello, $DeviceHelper (${SystemHelper.uname()})!")
+        // This will initiate AndroidLogger which will set itself as Logger
+        AndroidLogger.verbose("Hello, $DeviceHelper (${SystemHelper.uname()})!")
     }
 
     companion object {

@@ -1,5 +1,4 @@
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,9 +6,9 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <include layout="@layout/content_shk_id" />
 
@@ -22,20 +21,20 @@
         <View
             style="@style/SkeletonTheme.DividerHorizontal"
             android:layout_width="match_parent"
-            android:layout_margin="@dimen/sk_spaceMicro"
-            android:layout_height="1dp" />
+            android:layout_height="1dp"
+            android:layout_margin="@dimen/sk_spaceMicro" />
 
+        <!-- FIXME drawableStart does not print icon on Nexus 5 API 28 -->
         <com.google.android.material.button.MaterialButton
-            style="@style/SkeletonTheme.ButtonStyle"
-            android:drawableLeft="@drawable/ic_github"
             android:id="@+id/github"
-            android:layout_marginLeft="@dimen/sk_spaceTiny"
-            android:layout_marginRight="@dimen/sk_spaceTiny"
+            style="@style/SkeletonTheme.ButtonStyle.Inverted.Borderless"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/sk_spaceTiny"
+            android:drawableLeft="@drawable/ic_github"
+            android:maxLines="2"
             android:minHeight="@dimen/sk_spaceMedium"
             android:text="@null"
-            android:maxLines="2"
             tools:ignore="RtlHardcoded" />
 
     </LinearLayout>

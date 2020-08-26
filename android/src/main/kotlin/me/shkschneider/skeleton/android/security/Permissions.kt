@@ -4,6 +4,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 
 // <http://developer.android.com/reference/android/Manifest.permission.html>
+// TODO sealed class (name, dangerous)
 object Permissions {
 
     // Useless: only used to keep track of new features

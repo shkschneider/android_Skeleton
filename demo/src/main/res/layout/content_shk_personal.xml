@@ -1,44 +1,57 @@
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:layout_margin="@dimen/sk_spaceTiny"
-    app:cardPreventCornerOverlap="false"
-    app:cardCornerRadius="4dp"
-    app:elevation="@dimen/sk_elevation3">
+<merge>
 
-    <LinearLayout
-        android:orientation="vertical"
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/sk_spaceTiny"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="4dp"
+        app:cardPreventCornerOverlap="false"
+        app:elevation="@dimen/sk_elevation3">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/primaryColor"
-            android:padding="@dimen/sk_spaceTiny">
+            android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textColor="@color/sk_android_white"
-                android:text="Personal" />
+                android:background="@color/primaryColor"
+                android:padding="@dimen/sk_spaceTiny">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Personal"
+                    android:textColor="@color/sk_android_white"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <include
+                android:id="@+id/personal_music"
+                layout="@layout/ui" />
+
+            <include
+                android:id="@+id/personal_movies"
+                layout="@layout/ui" />
+
+            <include
+                android:id="@+id/personal_games"
+                layout="@layout/ui" />
+
+            <include
+                android:id="@+id/personal_books"
+                layout="@layout/ui" />
+
+            <include
+                android:id="@+id/personal_other"
+                layout="@layout/ui" />
 
         </LinearLayout>
 
-        <include layout="@layout/ui" android:id="@+id/personal_music" />
+    </androidx.cardview.widget.CardView>
 
-        <include layout="@layout/ui" android:id="@+id/personal_movies" />
-
-        <include layout="@layout/ui" android:id="@+id/personal_games" />
-
-        <include layout="@layout/ui" android:id="@+id/personal_books" />
-
-        <include layout="@layout/ui" android:id="@+id/personal_other" />
-
-    </LinearLayout>
-
-</androidx.cardview.widget.CardView>
+</merge>

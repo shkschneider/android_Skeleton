@@ -19,7 +19,7 @@ import me.shkschneider.skeleton.android.text.SpannableStringHelper
 import me.shkschneider.skeleton.demo.R
 
 private const val AVATAR = "https://raw.githubusercontent.com/shkschneider/shkschneider.github.io/master/shkschneider.png"
-private const val GITHUB = "https://github.com/shkschneider/android_Skeleton"
+private const val GITHUB = "https://github.com/shkschneider?tab=repositories"
 
 class ShkFragment : SkeletonFragment() {
 
@@ -43,7 +43,7 @@ class ShkFragment : SkeletonFragment() {
         fill(id_position, "Position", SpannableString("Android developer\n" + "Open-Source believer"))
         fill(id_personal, "Personal", SpannableString("Blockchains, RaspberryPi, Android, Writing, Reading, Economics, History..."))
         // Professional
-        fill(code_projects, "Projects", SpannableString("BitNode\n" +
+        fill(code_projects, "Projects", SpannableString("Kotlin Blockchain\n" +
                 "Android 'ShkMod' ROM\n" +
                 "RuntimePermissionsCompat\n" +
                 "PreferenceFragmentCompat\n" +
@@ -73,15 +73,16 @@ class ShkFragment : SkeletonFragment() {
                 "Web-oriented: JavaScript (NodeJS)\n" +
                 "Databases: SQLite, MySQL, MongoDB")
                 .boldify(0, 15).boldify(38, 8).boldify(67, 5).boldify(108, 12).boldify(142, 9).apply())
-        fill(skills_softwares, "Softwares", SpannableStringHelper("Daemons: NginX, SSHd, uWSGI, Apache2\n" +
+        fill(skills_softwares, "Softwares", SpannableStringHelper("Daemons: bitcoind/cli, NginX, SSHd, uWSGI, Apache2\n" +
                 "Versioning: Git, Mercurial, Subversion\n" +
-                "IDEs: IntellijIDEA (Android Studio), Emacs, Atom")
+                "IDEs: Android Studio, IntelliJ IDEA, Emacs, Atom")
                 .boldify(0, 7).boldify(37, 10).boldify(76, 4).apply())
         fill(skills_languages, "Languages", SpannableString("French (native)\n" + "English (TOIEC 850+, CEFR B2)"))
         // Footer
-        val github = view.findViewById<Button>(R.id.github)
-        github.text = GITHUB.replaceFirst(Regex("^https?://github.com/"), "")
-        github.setOnClickListener { startActivity(IntentHelper.web(GITHUB)) }
+        with(view.findViewById<Button>(R.id.github)) {
+            text = GITHUB.replaceFirst(Regex("^https?://"), "").replaceFirst(Regex("\\?.+$"), "")
+            setOnClickListener { startActivity(IntentHelper.web(GITHUB)) }
+        }
     }
 
     private fun fill(view: View, string: String, spannable: Spannable) {

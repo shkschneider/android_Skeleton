@@ -9,8 +9,10 @@ import android.widget.TextView
 import me.shkschneider.skeleton.android.app.SkeletonFragment
 import me.shkschneider.skeleton.android.view.Inflater
 import me.shkschneider.skeleton.demo.R
+import me.shkschneider.skeleton.kotlin.jvm.trySilently
 import me.shkschneider.skeleton.kotlin.util.AlphanumComparator
 import java.lang.reflect.Modifier
+import kotlin.reflect.KClass
 
 class SkFragment : SkeletonFragment() {
 
@@ -21,77 +23,122 @@ class SkFragment : SkeletonFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO
-//        fill(view.findViewById<View>(R.id.data) as LinearLayout, listOf(
-//                me.shkschneider.skeleton.datax.DiskCache.Cache::class.java,
-//                me.shkschneider.skeleton.datax.GsonParser::class.java,
-//                me.shkschneider.skeleton.datax.Serializer::class.java,
-//                me.shkschneider.skeleton.data.CharsetHelper::class.java,
-//                me.shkschneider.skeleton.data.DatabaseHelper::class.java,
-//                me.shkschneider.skeleton.data.DataHelper::class.java,
-//                me.shkschneider.skeleton.data.FileHelper::class.java,
-//                me.shkschneider.skeleton.data.SharedPreferencesHelper::class.java,
-//                me.shkschneider.skeleton.data.StreamHelper::class.java
-//        ))
-//        fill(view.findViewById<View>(R.id.helper) as LinearLayout, listOf(
-//                me.shkschneider.skeleton.helperx.FinalCountdown::class.java,
-//                Logger::class.java,
-//                me.shkschneider.skeleton.helper.AccountHelper::class.java,
-//                me.shkschneider.skeleton.helper.ActivityTransitionHelper::class.java,
-//                me.shkschneider.skeleton.helper.AndroidHelper::class.java,
-//                me.shkschneider.skeleton.helper.ApplicationHelper::class.java,
-//                me.shkschneider.skeleton.helper.AssetsHelper::class.java,
-//                me.shkschneider.skeleton.helper.BroadcastHelper::class.java,
-//                me.shkschneider.skeleton.helper.BundleHelper::class.java,
-//                me.shkschneider.skeleton.helper.ClipboardHelper::class.java,
-//                me.shkschneider.skeleton.helper.ContextHelper::class.java,
-//                me.shkschneider.skeleton.helper.DateTimeHelper::class.java,
-//                me.shkschneider.skeleton.helper.DeviceHelper::class.java,
-//                me.shkschneider.skeleton.helper.HandlerHelper::class.java,
-//                me.shkschneider.skeleton.helper.IdHelper::class.java,
-//                me.shkschneider.skeleton.helper.IntentHelper::class.java,
-//                me.shkschneider.skeleton.helper.KeyboardHelper::class.java,
-//                me.shkschneider.skeleton.helper.LocaleHelper::class.java,
-//                me.shkschneider.skeleton.helper.NotificationHelper::class.java,
-//                me.shkschneider.skeleton.helper.RunnableHelper::class.java,
-//                me.shkschneider.skeleton.helper.ScreenHelper::class.java,
-//                me.shkschneider.skeleton.helper.ShortcutHelper::class.java,
-//                me.shkschneider.skeleton.helper.SoundHelper::class.java,
-//                me.shkschneider.skeleton.helper.SpannableStringHelper::class.java,
-//                me.shkschneider.skeleton.helper.SystemHelper::class.java,
-//                me.shkschneider.skeleton.helper.ThreadHelper::class.java,
-//                me.shkschneider.skeleton.helper.VibratorHelper::class.java
-//        ))
-//        fill(view.findViewById<View>(R.id.java) as LinearLayout, listOf(
-//                me.shkschneider.skeleton.javax.Randomizer::class.java,
-//                me.shkschneider.skeleton.javax.SemanticVersion::class.java,
-//                me.shkschneider.skeleton.javax.Tasker::class.java,
-//                me.shkschneider.skeleton.java.StringHelper::class.java
-//        ))
-//        fill(view.findViewById<View>(R.id.network) as LinearLayout, listOf(
-//                me.shkschneider.skeleton.networkx.WebService::class.java,
-//                me.shkschneider.skeleton.network.NetworkHelper::class.java,
-//                me.shkschneider.skeleton.network.UrlHelper::class.java
-//        ))
-//        fill(view.findViewById<View>(R.id.security) as LinearLayout, listOf(
-//                me.shkschneider.skeleton.securityx.ComplexCrypt::class.java,
-//                me.shkschneider.skeleton.securityx.SimpleCrypt::class.java,
-//                me.shkschneider.skeleton.security.HashHelper::class.java,
-//                me.shkschneider.skeleton.security.HmacHelper::class.java
-//        ))
-//        fill(view.findViewById<View>(R.id.ui) as LinearLayout, listOf(
-//                me.shkschneider.skeleton.uix.BottomSheet::class.java,
-//                me.shkschneider.skeleton.uix.FloatingActionButtonCompat::class.java,
-//                me.shkschneider.skeleton.uix.Inflater::class.java,
-//                me.shkschneider.skeleton.uix.Notify::class.java,
-//                me.shkschneider.skeleton.uix.OverlayLoader::class.java,
-//                me.shkschneider.skeleton.uix.Tooltips::class.java
-//        ))
+        val sections = listOf(
+                R.id.sk_app to ("app" to listOf(
+                        me.shkschneider.skeleton.android.app.SkeletonApplication::class,
+                        me.shkschneider.skeleton.android.app.SkeletonActivity::class,
+                        me.shkschneider.skeleton.android.app.SkeletonFragmentActivity::class,
+                        me.shkschneider.skeleton.android.app.SkeletonFragment::class,
+                        me.shkschneider.skeleton.android.app.SkeletonDialog::class
+                )),
+                R.id.sk_arch to ("arch" to listOf(
+                        me.shkschneider.skeleton.android.arch.SkeletonLiveData::class
+                )),
+                R.id.sk_cache to ("cache" to listOf(
+                        me.shkschneider.skeleton.android.cache.MemoryBitmapCache::class,
+                        me.shkschneider.skeleton.android.cache.MemoryCache::class
+                )),
+                R.id.sk_content to ("content" to listOf(
+                        me.shkschneider.skeleton.android.content.BroadcastHelper::class,
+                        me.shkschneider.skeleton.android.content.ClipboardHelper::class,
+                        me.shkschneider.skeleton.android.content.IntentHelper::class,
+                        me.shkschneider.skeleton.android.content.ShortcutHelper::class,
+                        me.shkschneider.skeleton.android.content.SkeletonProvider::class,
+                        me.shkschneider.skeleton.android.content.SkeletonReceiver::class
+                )),
+                R.id.sk_db to ("db" to listOf(
+                        me.shkschneider.skeleton.android.db.SkeletonDao::class,
+                        me.shkschneider.skeleton.android.db.SkeletonDatabaseBuilders::class,
+                        me.shkschneider.skeleton.android.db.SkeletonTypeConverters::class
+                )),
+                R.id.sk_graphics to ("graphics" to listOf(
+                        me.shkschneider.skeleton.android.graphics.BitmapHelper::class,
+                        me.shkschneider.skeleton.android.graphics.DrawableHelper::class,
+                        me.shkschneider.skeleton.android.graphics.ImageHelper::class
+                )),
+                R.id.sk_helper to ("helper" to listOf(
+                        me.shkschneider.skeleton.android.helper.AccountHelper::class,
+                        me.shkschneider.skeleton.android.helper.KeyboardHelper::class,
+                        me.shkschneider.skeleton.android.helper.ScreenHelper::class,
+                        me.shkschneider.skeleton.android.helper.SoundHelper::class,
+                        me.shkschneider.skeleton.android.helper.VibratorHelper::class
+                )),
+                R.id.sk_io to ("io" to listOf(
+                        me.shkschneider.skeleton.android.io.SharedPreferencesHelper::class
+                )),
+                R.id.sk_json to ("json" to listOf(
+                        me.shkschneider.skeleton.android.json.IParser::class,
+                        me.shkschneider.skeleton.android.json.GsonParser::class
+                )),
+                R.id.sk_json to ("jvm" to listOf(
+                        me.shkschneider.skeleton.android.jvm.StrictModeHelper::class
+                )),
+                R.id.sk_log to ("log" to listOf(
+                        me.shkschneider.skeleton.android.log.AndroidLogger::class
+                )),
+                R.id.sk_network to ("network" to listOf(
+                        me.shkschneider.skeleton.android.network.NetworkHelper::class,
+                        me.shkschneider.skeleton.android.network.UrlHelper::class,
+                        me.shkschneider.skeleton.android.network.WebService::class
+                )),
+                R.id.sk_os to ("os" to listOf(
+                        me.shkschneider.skeleton.android.os.AndroidHelper::class,
+                        me.shkschneider.skeleton.android.os.BundleHelper::class,
+                        me.shkschneider.skeleton.android.os.DeviceHelper::class,
+                        me.shkschneider.skeleton.android.os.HandlerHelper::class,
+                        me.shkschneider.skeleton.android.os.LocaleHelper::class,
+                        me.shkschneider.skeleton.android.os.RunnableHelper::class,
+                        me.shkschneider.skeleton.android.os.SystemHelper::class,
+                        me.shkschneider.skeleton.android.os.ThreadHelper::class
+                )),
+                R.id.sk_provider to ("provider" to listOf(
+                        me.shkschneider.skeleton.android.provider.AndroidFeature::class,
+                        me.shkschneider.skeleton.android.provider.AndroidSystemProperty::class,
+                        me.shkschneider.skeleton.android.provider.ConnectivityProvider::class,
+                        me.shkschneider.skeleton.android.provider.ContextProvider::class,
+                        me.shkschneider.skeleton.android.provider.IdProvider::class
+                        // FIXME if running lower API level, resolution fails
+                        // me.shkschneider.skeleton.android.provider.SystemServices::class
+                )),
+                R.id.sk_security to ("security" to listOf(
+                        me.shkschneider.skeleton.android.security.ComplexCrypt::class,
+                        me.shkschneider.skeleton.android.security.Keystore::class,
+                        me.shkschneider.skeleton.android.security.Permissions::class
+                )),
+                R.id.sk_text to ("text" to listOf(
+                        me.shkschneider.skeleton.android.text.SpannableStringHelper::class
+                )),
+                R.id.sk_util to ("util" to listOf(
+                        me.shkschneider.skeleton.android.util.FinalCountdown::class,
+                        me.shkschneider.skeleton.android.util.Metrics::class
+                )),
+                R.id.sk_view to ("view" to listOf(
+                        me.shkschneider.skeleton.android.view.AutoCompletion::class,
+                        me.shkschneider.skeleton.android.view.BottomSheet::class,
+                        me.shkschneider.skeleton.android.view.FloatingActionButtonCompat::class,
+                        me.shkschneider.skeleton.android.view.Inflater::class,
+                        me.shkschneider.skeleton.android.view.Notify::class,
+                        me.shkschneider.skeleton.android.view.OverlayLoader::class,
+                        me.shkschneider.skeleton.android.view.Tooltips::class
+                )),
+                R.id.sk_work to ("work" to listOf(
+                        me.shkschneider.skeleton.android.work.SkeletonWorker::class
+                ))
+        )
+
+        for ((layoutId, pair) in sections) {
+            view.findViewById<LinearLayout>(R.id.content).findViewById<ViewGroup>(layoutId).run {
+                val (name, classes) = pair
+                findViewById<TextView>(R.id.title).text = name
+                fill(findViewById(R.id.content), classes)
+            }
+        }
     }
 
-    private fun fill(linearLayout: LinearLayout?, cs: List<Class<out Any>>) {
+    private fun fill(linearLayout: LinearLayout?, cs: List<KClass<out Any>>) {
         linearLayout ?: return
-        for (c in cs.distinct()) {
+        for (_c in cs.distinct()) {
+            val c = _c.java
             with(Inflater.inflate(linearLayout, R.layout.ui)) {
                 (findViewById<View>(R.id.textView1) as TextView).text = c.name
                         .replaceFirst("^.+\\.".toRegex(), "")
@@ -100,38 +147,42 @@ class SkFragment : SkeletonFragment() {
                 val textView2 = findViewById<TextView>(R.id.textView2)
                 textView2.text = ""
                 // fields
-                val fields = ArrayList<String>()
-                for (field in c.declaredFields) {
-                    if (Modifier.isPrivate(field.modifiers)
-                            || field.isAnnotationPresent(Deprecated::class.java)) {
-                        continue
+                trySilently {
+                    val fields = ArrayList<String>()
+                    for (field in c.declaredFields) {
+                        if (Modifier.isPrivate(field.modifiers)
+                                || field.isAnnotationPresent(Deprecated::class.java)) {
+                            continue
+                        }
+                        if (field.type.simpleName != "Companion" && field.name != "INSTANCE" && !field.name.contains("$")) {
+                            fields.add(field.type.simpleName + " " + field.name)
+                        }
                     }
-                    if (field.type.simpleName != "Companion" && field.name != "INSTANCE" && !field.name.contains("$")) {
-                        fields.add(field.type.simpleName + " " + field.name)
+                    fields.sortWith(AlphanumComparator())
+                    for (field in fields) {
+                        textView2.append(if (!textView2.text.isNullOrEmpty()) "\n" else "")
+                        textView2.append(field)
                     }
-                }
-                fields.sortWith(AlphanumComparator())
-                for (field in fields) {
-                    textView2.append(if (!textView2.text.isNullOrEmpty()) "\n" else "")
-                    textView2.append(field)
                 }
                 // methods
-                val methods = ArrayList<String>()
-                for (method in c.declaredMethods) {
-                    if (Modifier.isPrivate(method.modifiers)
-                            || method.isAnnotationPresent(Deprecated::class.java)) {
-                        continue
+                trySilently {
+                    val methods = ArrayList<String>()
+                    for (method in c.declaredMethods) {
+                        if (Modifier.isPrivate(method.modifiers)
+                                || method.isAnnotationPresent(Deprecated::class.java)) {
+                            continue
+                        }
+                        val signature = method.returnType.simpleName + " " + method.name + "()"
+                        if (methods.contains(signature) || signature.contains("$")) {
+                            continue
+                        }
+                        methods.add(signature)
                     }
-                    val signature = method.returnType.simpleName + " " + method.name + "()"
-                    if (methods.contains(signature) || signature.contains("$")) {
-                        continue
+                    methods.sortWith(AlphanumComparator())
+                    methods.forEach {
+                        textView2.append(if (!textView2.text.isNullOrEmpty()) "\n" else "")
+                        textView2.append(it)
                     }
-                    methods.add(signature)
-                }
-                methods.sortWith(AlphanumComparator())
-                methods.forEach {
-                    textView2.append(if (!textView2.text.isNullOrEmpty()) "\n" else "")
-                    textView2.append(it)
                 }
                 linearLayout.addView(this)
             }

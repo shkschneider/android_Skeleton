@@ -1,48 +1,54 @@
-<RelativeLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
+    <LinearLayout
+        android:id="@+id/content"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <include layout="@layout/content_sk" android:id="@+id/sk_app" />
 
-            <include layout="@layout/content_sk_data" />
+        <include layout="@layout/content_sk" android:id="@+id/sk_arch" />
 
-            <include layout="@layout/content_sk_helper" />
+        <include layout="@layout/content_sk" android:id="@+id/sk_cache" />
 
-            <include layout="@layout/content_sk_java" />
+        <include layout="@layout/content_sk" android:id="@+id/sk_content" />
 
-            <include layout="@layout/content_sk_network" />
+        <include layout="@layout/content_sk" android:id="@+id/sk_db" />
 
-            <include layout="@layout/content_sk_security" />
+        <include layout="@layout/content_sk" android:id="@+id/sk_graphics" />
 
-            <include layout="@layout/content_sk_ui" />
+        <include layout="@layout/content_sk" android:id="@+id/sk_helper" />
 
-        </LinearLayout>
+        <include layout="@layout/content_sk" android:id="@+id/sk_io" />
 
-    </androidx.core.widget.NestedScrollView>
+        <include layout="@layout/content_sk" android:id="@+id/sk_json" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/sk_fingerprint"
-        android:tint="@color/sk_android_white"
-        android:visibility="invisible"
-        app:backgroundTint="@color/accentColor"
-        app:rippleColor="@color/primaryColor"
-        tools:visibility="visible" />
+        <include layout="@layout/content_sk" android:id="@+id/sk_jvm" />
 
-</RelativeLayout>
+        <include layout="@layout/content_sk" android:id="@+id/sk_log" />
+
+        <include layout="@layout/content_sk" android:id="@+id/sk_network" />
+
+        <include layout="@layout/content_sk" android:id="@+id/sk_os" />
+
+        <include layout="@layout/content_sk" android:id="@+id/sk_provider" />
+
+        <include layout="@layout/content_sk" android:id="@+id/sk_security" />
+
+        <include layout="@layout/content_sk" android:id="@+id/sk_text" />
+
+        <include layout="@layout/content_sk" android:id="@+id/sk_util" />
+
+        <include layout="@layout/content_sk" android:id="@+id/sk_view" />
+
+        <include layout="@layout/content_sk" android:id="@+id/sk_work" />
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

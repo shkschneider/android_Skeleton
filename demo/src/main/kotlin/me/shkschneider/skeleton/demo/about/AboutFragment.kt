@@ -36,11 +36,11 @@ class AboutFragment : PreferenceFragmentCompat() {
         }
         findPreference<Preference>("app_versionName")?.run {
             title = "VersionName"
-            summary = ApplicationHelper.versionName()
+            summary = ApplicationHelper.versionName() ?: BuildConfig.VERSION_NAME
         }
         findPreference<Preference>("app_versionCode")?.run {
             title = "VersionCode"
-            summary = ApplicationHelper.versionCode().toString()
+            summary = ApplicationHelper.versionCode()?.toString() ?: BuildConfig.VERSION_CODE.toString()
         }
         findPreference<Preference>("app_revision")?.run {
             title = "Revision"

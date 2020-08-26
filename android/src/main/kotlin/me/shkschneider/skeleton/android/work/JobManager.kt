@@ -1,4 +1,4 @@
-package me.shkschneider.skeleton.android.jvm
+package me.shkschneider.skeleton.android.work
 
 import android.Manifest
 import android.annotation.SuppressLint

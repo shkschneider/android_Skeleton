@@ -1,42 +1,53 @@
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:layout_margin="@dimen/sk_spaceTiny"
-    app:cardPreventCornerOverlap="false"
-    app:cardCornerRadius="4dp"
-    app:elevation="@dimen/sk_elevation3">
+<merge>
 
-    <LinearLayout
-        android:orientation="vertical"
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/sk_spaceTiny"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardCornerRadius="4dp"
+        app:cardPreventCornerOverlap="false"
+        app:elevation="@dimen/sk_elevation3">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/primaryColor"
-            android:padding="@dimen/sk_spaceTiny">
+            android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textColor="@color/sk_android_white"
-                android:text="Skills" />
+                android:background="@color/primaryColor"
+                android:padding="@dimen/sk_spaceTiny">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Skills"
+                    android:textColor="@color/sk_android_white"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <include
+                android:id="@+id/skills_systems"
+                layout="@layout/ui" />
+
+            <include
+                android:id="@+id/skills_coding"
+                layout="@layout/ui" />
+
+            <include
+                android:id="@+id/skills_softwares"
+                layout="@layout/ui" />
+
+            <include
+                android:id="@+id/skills_languages"
+                layout="@layout/ui" />
 
         </LinearLayout>
 
-        <include layout="@layout/ui" android:id="@+id/skills_systems" />
+    </androidx.cardview.widget.CardView>
 
-        <include layout="@layout/ui" android:id="@+id/skills_coding" />
-
-        <include layout="@layout/ui" android:id="@+id/skills_softwares" />
-
-        <include layout="@layout/ui" android:id="@+id/skills_languages" />
-
-    </LinearLayout>
-
-</androidx.cardview.widget.CardView>
+</merge>

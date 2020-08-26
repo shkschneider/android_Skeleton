@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.os.Build
+import android.os.Process
 import me.shkschneider.skeleton.android.os.AndroidHelper
 import me.shkschneider.skeleton.android.provider.SystemServices
 import me.shkschneider.skeleton.android.provider.ContextProvider
@@ -103,6 +104,10 @@ object ApplicationHelper {
             val applicationInfo = packageManager.getApplicationInfo(packageName, 0)
             applicationInfo.loadIcon(packageManager)
         }
+
+    fun kill() {
+        Process.killProcess(Process.myPid())
+    }
 
     @TargetApi(AndroidHelper.API_19)
     fun clear() {

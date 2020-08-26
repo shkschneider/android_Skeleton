@@ -12,7 +12,7 @@ fun <T : Any> tryOrRun(block: (() -> T?), or: ((Exception) -> T?), finally: (() 
         finally?.invoke()
     }
 fun <T : Any> tryOrRun(block: (() -> T?), or: ((Exception) -> T?)): T? =
-    tryOrRun(block, or)
+    tryOrRun(block, or, null)
 
 fun <T : Any> tryOr(or: T?, block: (() -> T?), finally: (() -> Unit)? = null): T? =
     tryOrRun(block, { or }, finally)
@@ -23,3 +23,6 @@ fun <T : Any> tryOrNull(block: (() -> T?), finally: (() -> Unit)? = null): T? =
     tryOr(null, block, finally)
 fun <T : Any> tryOrNull(block: (() -> T?)): T? =
     tryOr(null, block)
+
+fun <T : Any> trySilently(block: (() -> T?)) =
+        tryOrRun(block, {})

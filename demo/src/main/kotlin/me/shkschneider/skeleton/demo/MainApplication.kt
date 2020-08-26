@@ -18,7 +18,7 @@ open class MainApplication : SkeletonApplication() {
     override fun onCreate() {
         super.onCreate()
 
-        koin(Koin.mainComponent)
+        // FIXME koin(Koin.mainComponent)
 
         shortcut("About")
     }
