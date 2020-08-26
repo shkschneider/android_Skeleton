@@ -1,3 +1,7 @@
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
 task bump() {
     print '> Bump...'
     def versionCode = versionCode(true)
